@@ -130,8 +130,8 @@ const initialiseBecca = async () => {
   spinnies.update("discord", {
     text: "Setting activity",
   });
-  await Becca.user?.setActivity("for people who need my help~!", {
-    type: "WATCHING",
+  await Becca.user?.setActivity("becca!help | Watching for people who need my help", {
+    type: "PLAYING",
   });
   spinnies.succeed("discord", {
     text: "Discord ready!",
