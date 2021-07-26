@@ -1,5 +1,5 @@
 import { MessageEmbed } from "discord.js";
-import { SusColours, SusNames } from "../../config/commands/SusList";
+import { SusColours, SusNames } from "../../config/commands/susList";
 import { CommandInt } from "../../interfaces/commands/CommandInt";
 import { errorEmbedGenerator } from "../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
