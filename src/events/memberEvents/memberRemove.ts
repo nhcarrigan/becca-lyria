@@ -31,7 +31,7 @@ export const memberRemove = async (
     goodbyeEmbed.setColor(Becca.colours.default);
     goodbyeEmbed.setDescription(
       (serverConfig?.leave_message || defaultServer.leave_message)
-        .replace(/\{@username\}/g, `<@!${member.id}>`)
+        .replace(/\{@username\}/g, `<@!${member.user.tag}>`)
         .replace(/\{@servername\}/g, guild.name)
     );
     goodbyeEmbed.addField("Name", nickname || user.username);
