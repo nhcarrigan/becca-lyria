@@ -42,7 +42,7 @@ export const linksListener: ListenerInt = {
       }
 
       const linkRegex =
-        /(([a-z]+:\/\/)?(([a-z0-9-]+\.)+((?!txt|json|css|jsx)[a-z]{3,4}|io|me|gg|to|uk)))(:[0-9]{1,5})?(\s+|\/|$)/gi;
+        /(([a-z]+:\/\/)?(([a-z0-9-]+\.)+((?!txt|json|css|jsx)[a-z]{3,4}|io|me|gg|to|uk|be)))(:[0-9]{1,5})?(\s+|\/|$)/gi;
 
       blockedLinks += (message.content.match(linkRegex) || []).length;
 
