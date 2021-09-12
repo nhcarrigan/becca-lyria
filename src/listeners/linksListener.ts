@@ -2,6 +2,7 @@
 import { MessageEmbed } from "discord.js";
 
 import { defaultServer } from "../config/database/defaultServer";
+import { allowedTLDs, deniedTLDs } from "../config/listeners/linkRegex";
 import { ListenerInt } from "../interfaces/listeners/ListenerInt";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
@@ -50,8 +51,12 @@ export const linksListener: ListenerInt = {
         }
       }
 
-      const linkRegex =
-        /(^|\s+)(([a-z]+:\/\/)?(([a-z0-9-]+\.)+((?!txt|json|css|jsx|html|rss|csh|act|ash|rby|pyc|java|vue|php|ashx|xml|rss|cpp|scss|vue|cgi|ogg|wav|wpp|pkg|deb|rpm|zip|dmg|iso|csv|mdb|sql|tar|msg|emlx|vcf|bat|apk|exe|wsf|fnt|font|gif|bmp|icon|jpeg|tiff|asp|aspx|cer|htm|jsp|rss|key|pps|ppt|pptx|odp|xlsx|dll|bak|cab|cfg|ini|drv|icns|tmp|cur|avi|flv|mpg|mpeg|swf|mov|doc|docx|pdf|rtx|tex|wpd)[a-z]{3,4}|io|me|gg|to|uk|be|in|eu|ru|us|za)))(:[0-9]{1,5})?(.*\s+|\/|$)/gi;
+      const linkRegex = new RegExp(
+        `(^|\\s+)(([a-z]+:\\/\\/)?(([a-z0-9-]+\\.)+((?!${allowedTLDs.join(
+          "|"
+        )})[a-z]{3,4}|${deniedTLDs.join("|")})))(:[0-9]{1,5})?(.*\\s+|\\/|$)`,
+        "gi"
+      );
 
       blockedLinks += (message.content.match(linkRegex) || []).length;
 
