@@ -1,5 +1,5 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Modified link regex to use config objects.",
+  "- Dependency and engine updates",
 ];
 
-export const nextScheduledRelease = "<t:1632157200:F>";
+export const nextScheduledRelease = "<t:1632762000:F>";
