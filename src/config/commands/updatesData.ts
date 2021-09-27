@@ -1,5 +1,6 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Dependency and engine updates",
+  "- Tweaked link detection regex",
+  "- Added new art to art list.",
 ];
 
-export const nextScheduledRelease = "<t:1632762000:F>";
+export const nextScheduledRelease = "<t:1633366800:F>";
