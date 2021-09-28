@@ -18,28 +18,28 @@ export const thanksListener: ListenerInt = {
 
       const thanksRegex =
         /((?:^|\s)(?:(?:th(?:n[qx]|x)|t[xyq]|tn(?:[x]){0,2})|\w*\s*[.,]*\s*than[kx](?:[sxz]){0,2}|than[kx](?:[sxz]){0,2}(?:[uq]|y(?:ou)?)?)|grazie|arigato(?:[u]{0,1})|doumo|gracias?|spasibo|dhanyavaad(?:hamulu)?|o?brigad(?:o|a)|dziekuje|(?:re)?merci|multumesc|shukra?an|danke)\b/gi;
-      if (!thanksRegex.test(content) || !mentions.users.size) {
+      if (!thanksRegex.test(content) || !mentions.members.size) {
         return;
       }
 
       const replies = [];
-      const users = mentions.users.map((u) => u);
+      const members = mentions.members.map((u) => u);
 
-      for (const user of users) {
-        if (user.id === Becca.user?.id) {
+      for (const member of members) {
+        if (member.id === Becca.user?.id) {
           replies.push(
             "You are quite welcome. But do not expect my constant help."
           );
           continue;
         }
-        if (user.id === author.id) {
+        if (member.id === author.id) {
           replies.push(
             "I suppose you need a pat on the back badly enough to thank yourself."
           );
           continue;
         }
         replies.push(
-          `Well done, ${user.username}. It seems you have done something right.`
+          `Well done, ${member.displayName}. It seems you have done something right.`
         );
       }
       await channel.send(replies.join("\n"));
