@@ -32,7 +32,7 @@ export const handleMtg: CommandHandler = async (Becca, interaction) => {
     cardEmbed.setColor(Becca.colours.default);
     cardEmbed.setTitle(card.name);
     cardEmbed.setImage(
-      card.imageUrl || "https://cdn.nhcarrigan.com/content/mtg.jpg"
+      card.imageUrl || "https://cdn.nhcarrigan.com/content/projects/mtg.jpg"
     );
     cardEmbed.setDescription(card.flavor || "This card has no flavour text...");
     cardEmbed.addField("Types", card.types.join(", "));
