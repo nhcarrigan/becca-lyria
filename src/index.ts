@@ -76,7 +76,7 @@ const initialiseBecca = async () => {
   beccaLogHandler.log("debug", "Connecting to Discord...");
   await Becca.login(Becca.configs.token);
   beccaLogHandler.log("debug", "Setting activity...");
-  Becca.user?.setActivity("for people who need my `/help`~!", {
+  Becca.user?.setActivity("over your guild", {
     type: "WATCHING",
   });
 
