@@ -74,7 +74,7 @@ export const handleStar: CommandHandler = async (Becca, interaction) => {
     starEmbed.setFooter(`You're now carrying ${starTotal} of these. Enjoy.`);
     starEmbed.setColor(Becca.colours.default);
     starEmbed.setTimestamp();
-    starEmbed.setImage("https://cdn.nhcarrigan.com/content/star.png");
+    starEmbed.setImage("https://cdn.nhcarrigan.com/content/projects/star.png");
 
     await interaction.editReply({ embeds: [starEmbed] });
   } catch (err) {
