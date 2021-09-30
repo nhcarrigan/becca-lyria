@@ -75,7 +75,7 @@ export const levelListener: ListenerInt = {
         server.users.push(user);
       }
 
-      if (Date.now() - user.cooldown < 60000 || user.level >= 100) {
+      if (Date.now() - user.cooldown < 300000 || user.level >= 100) {
         return;
       }
 
