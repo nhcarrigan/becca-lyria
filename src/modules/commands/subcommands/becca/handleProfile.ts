@@ -3,22 +3,22 @@ import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
-import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
+import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 
 /**
  * Generates an embed with a link to Becca's profile site, where users
  * can read about her adventures.
  */
-export const handleBecca: CommandHandler = async (Becca, interaction) => {
+export const handleProfile: CommandHandler = async (Becca, interaction) => {
   try {
-    const beccaEmbed = new MessageEmbed();
-    beccaEmbed.setColor(Becca.colours.default);
-    beccaEmbed.setTitle("Becca Lyria");
-    beccaEmbed.setDescription(
+    const profileEmbed = new MessageEmbed();
+    profileEmbed.setColor(Becca.colours.default);
+    profileEmbed.setTitle("Becca Lyria");
+    profileEmbed.setDescription(
       "If you want to read about my adventures, check my [profile site](https://www.beccalyria.com). I would rather not have to recount them all here."
     );
-    beccaEmbed.setThumbnail(Becca.user?.avatarURL({ dynamic: true }) || "");
-    await interaction.editReply({ embeds: [beccaEmbed] });
+    profileEmbed.setThumbnail(Becca.user?.avatarURL({ dynamic: true }) || "");
+    await interaction.editReply({ embeds: [profileEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

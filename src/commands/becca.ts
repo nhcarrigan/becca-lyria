@@ -8,7 +8,7 @@ import { CommandInt } from "../interfaces/commands/CommandInt";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleAbout } from "../modules/commands/subcommands/becca/handleAbout";
 import { handleArt } from "../modules/commands/subcommands/becca/handleArt";
-import { handleBecca } from "../modules/commands/subcommands/becca/handleBecca";
+import { handleProfile } from "../modules/commands/subcommands/becca/handleProfile";
 import { handleDonate } from "../modules/commands/subcommands/becca/handleDonate";
 import { handleHelp } from "../modules/commands/subcommands/becca/handleHelp";
 import { handleInvite } from "../modules/commands/subcommands/becca/handleInvite";
@@ -60,7 +60,7 @@ export const becca: CommandInt = {
     )
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
-        .setName("becca")
+        .setName("profile")
         .setDescription("Tells the story of Becca's character.")
     )
     .addSubcommand(
@@ -97,8 +97,8 @@ export const becca: CommandInt = {
         case "uptime":
           await handleUptime(Becca, interaction, config);
           break;
-        case "becca":
-          await handleBecca(Becca, interaction, config);
+        case "profile":
+          await handleProfile(Becca, interaction, config);
           break;
         case "updates":
           await handleUpdates(Becca, interaction, config);
