@@ -47,7 +47,7 @@ export const messageUpdate = async (
     updateEmbed.setFooter(`Author: ${author.id} | Message: ${oldMessage.id}`);
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setTimestamp();
-    updateEmbed.channel(`<#${newMessage.channel.id}>`);
+    updateEmbed.addField("Channel", `<#${newMessage.channel.id}>`);
     updateEmbed.messageLink(newMessage.url)
 
     await sendLogEmbed(Becca, guild, updateEmbed);
