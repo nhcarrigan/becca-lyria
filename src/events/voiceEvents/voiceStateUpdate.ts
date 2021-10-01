@@ -22,11 +22,7 @@ export const voiceStateUpdate = async (
     voiceEmbed.setTimestamp();
     voiceEmbed.setFooter(`ID: ${oldState.id}`);
 
-    if (oldState.channelId === newState.channelId) {
-      return;
-    }
-
-    if (oldState.channelId && newState.channelId) {
+    if (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId) {
       voiceEmbed.setTitle("Member switched channels!");
       voiceEmbed.setDescription(
         `<@!${oldState.id}> has moved from <#${oldState.channelId}> to <#${newState.channelId}>.`
@@ -48,6 +44,38 @@ export const voiceStateUpdate = async (
         `<@!${oldState.id}> has joined the <#${newState.channelId}> channel.`
       );
       voiceEmbed.setColor(Becca.colours.success);
+    }
+
+    if (!oldState.mute && newState.mute) {
+      voiceEmbed.setTitle("Member voice muted!");
+      voiceEmbed.setDescription(
+        `<@!${newState.id}> has been voice ${newState.selfMute ? "self muted" : "server muted"}.`
+      );
+      voiceEmbed.setColor(Becca.colours.warning);
+    }
+
+    if (oldState.mute && !newState.mute) {
+      voiceEmbed.setTitle("Member voice unmuted!");
+      voiceEmbed.setDescription(
+        `<@!${newState.id}> has been voice ${oldState.selfMute ? "self unmuted" : "server unmuted"}.`
+      );
+      voiceEmbed.setColor(Becca.colours.warning);
+    }
+
+    if (!oldState.deaf && newState.deaf) {
+      voiceEmbed.setTitle("Member voice deafed!");
+      voiceEmbed.setDescription(
+        `<@!${newState.id}> has been voice ${newState.selfDeaf ? "self deafed" : "server deafed"}.`
+      );
+      voiceEmbed.setColor(Becca.colours.warning);
+    }
+
+    if (oldState.deaf && !newState.deaf) {
+      voiceEmbed.setTitle("Member voice undeafed!");
+      voiceEmbed.setDescription(
+        `<@!${newState.id}> has been voice ${oldState.selfDeaf ? "self undeafed" : "server undeafed"}.`
+      );
+      voiceEmbed.setColor(Becca.colours.warning);
     }
 
     await sendLogEmbed(Becca, oldState.guild, voiceEmbed);
