@@ -66,7 +66,11 @@ const initialiseBecca = async () => {
 
   if (process.env.NODE_ENV !== "production") {
     beccaLogHandler.log("debug", "Registering commands in development...");
-    await registerCommands(Becca);
+    const success = await registerCommands(Becca);
+    if (!success) {
+      beccaLogHandler.log("error", "failed to register commands.");
+      return;
+    }
   }
 
   beccaLogHandler.log("debug", "Initialising database...");
