@@ -48,7 +48,7 @@ export const messageUpdate = async (
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setTimestamp();
     updateEmbed.addField("Channel", `<#${newMessage.channel.id}>`);
-    updateEmbed.messageLink(newMessage.url)
+    updateEmbed.addField("Message Link", newMessage.url);
 
     await sendLogEmbed(Becca, guild, updateEmbed);
   } catch (err) {
