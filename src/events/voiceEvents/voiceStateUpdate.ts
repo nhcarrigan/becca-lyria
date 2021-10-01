@@ -51,7 +51,7 @@ export const voiceStateUpdate = async (
       voiceEmbed.setDescription(
         `<@!${newState.id}> has been voice ${newState.selfMute ? "self muted" : "server muted"}.`
       );
-      voiceEmbed.setColor(Becca.colours.warning);
+      voiceEmbed.setColor(Becca.colours.error);
     }
 
     if (oldState.mute && !newState.mute) {
@@ -59,23 +59,23 @@ export const voiceStateUpdate = async (
       voiceEmbed.setDescription(
         `<@!${newState.id}> has been voice ${oldState.selfMute ? "self unmuted" : "server unmuted"}.`
       );
-      voiceEmbed.setColor(Becca.colours.warning);
+      voiceEmbed.setColor(Becca.colours.success);
     }
 
     if (!oldState.deaf && newState.deaf) {
-      voiceEmbed.setTitle("Member voice deafed!");
+      voiceEmbed.setTitle("Member voice deafened!");
       voiceEmbed.setDescription(
-        `<@!${newState.id}> has been voice ${newState.selfDeaf ? "self deafed" : "server deafed"}.`
+        `<@!${newState.id}> has been voice ${newState.selfDeaf ? "self deafened" : "server deafened"}.`
       );
-      voiceEmbed.setColor(Becca.colours.warning);
+      voiceEmbed.setColor(Becca.colours.error);
     }
 
     if (oldState.deaf && !newState.deaf) {
-      voiceEmbed.setTitle("Member voice undeafed!");
+      voiceEmbed.setTitle("Member voice undeafened!");
       voiceEmbed.setDescription(
-        `<@!${newState.id}> has been voice ${oldState.selfDeaf ? "self undeafed" : "server undeafed"}.`
+        `<@!${newState.id}> has been voice ${oldState.selfDeaf ? "self undeafened" : "server undeafened"}.`
       );
-      voiceEmbed.setColor(Becca.colours.warning);
+      voiceEmbed.setColor(Becca.colours.success);
     }
 
     await sendLogEmbed(Becca, oldState.guild, voiceEmbed);
