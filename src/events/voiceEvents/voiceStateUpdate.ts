@@ -22,7 +22,11 @@ export const voiceStateUpdate = async (
     voiceEmbed.setTimestamp();
     voiceEmbed.setFooter(`ID: ${oldState.id}`);
 
-    if (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId) {
+    if (
+      oldState.channelId &&
+      newState.channelId &&
+      oldState.channelId !== newState.channelId
+    ) {
       voiceEmbed.setTitle("Member switched channels!");
       voiceEmbed.setDescription(
         `<@!${oldState.id}> has moved from <#${oldState.channelId}> to <#${newState.channelId}>.`
@@ -49,7 +53,9 @@ export const voiceStateUpdate = async (
     if (!oldState.mute && newState.mute) {
       voiceEmbed.setTitle("Member voice muted!");
       voiceEmbed.setDescription(
-        `<@!${newState.id}> has been ${newState.selfMute ? "self muted" : "server muted"}.`
+        `<@!${newState.id}> has been ${
+          newState.selfMute ? "self muted" : "server muted"
+        }.`
       );
       voiceEmbed.setColor(Becca.colours.error);
     }
@@ -57,7 +63,9 @@ export const voiceStateUpdate = async (
     if (oldState.mute && !newState.mute) {
       voiceEmbed.setTitle("Member voice unmuted!");
       voiceEmbed.setDescription(
-        `<@!${newState.id}> has been ${oldState.selfMute ? "self unmuted" : "server unmuted"}.`
+        `<@!${newState.id}> has been ${
+          oldState.selfMute ? "self unmuted" : "server unmuted"
+        }.`
       );
       voiceEmbed.setColor(Becca.colours.success);
     }
@@ -65,7 +73,9 @@ export const voiceStateUpdate = async (
     if (!oldState.deaf && newState.deaf) {
       voiceEmbed.setTitle("Member voice deafened!");
       voiceEmbed.setDescription(
-        `<@!${newState.id}> has been ${newState.selfDeaf ? "self deafened" : "server deafened"}.`
+        `<@!${newState.id}> has been ${
+          newState.selfDeaf ? "self deafened" : "server deafened"
+        }.`
       );
       voiceEmbed.setColor(Becca.colours.error);
     }
@@ -73,7 +83,9 @@ export const voiceStateUpdate = async (
     if (oldState.deaf && !newState.deaf) {
       voiceEmbed.setTitle("Member voice undeafened!");
       voiceEmbed.setDescription(
-        `<@!${newState.id}> has been ${oldState.selfDeaf ? "self undeafened" : "server undeafened"}.`
+        `<@!${newState.id}> has been ${
+          oldState.selfDeaf ? "self undeafened" : "server undeafened"
+        }.`
       );
       voiceEmbed.setColor(Becca.colours.success);
     }
