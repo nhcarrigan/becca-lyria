@@ -12,6 +12,8 @@ export interface ServerModelInt extends Document {
   log_channel: string;
   level_channel: string;
   suggestion_channel: string;
+  ticket_category: string;
+  ticket_role: string;
   muted_role: string;
   custom_welcome: string;
   hearts: string[];
@@ -41,6 +43,8 @@ export const Server = new Schema({
     type: String,
     default: "",
   },
+  ticket_category: string,
+  ticket_role: string,
   muted_role: String,
   custom_welcome: String,
   hearts: [String],
