@@ -22,15 +22,15 @@ export const handleDonate: CommandHandler = async (Becca, interaction) => {
     );
 
     const githubButton = new MessageButton()
-      .setLabel("GitHub Sponsors")
+      .setLabel("Donate on GitHub!")
       .setStyle("LINK")
       .setURL("https://github.com/sponsors/nhcarrigan");
     const patreonButton = new MessageButton()
-      .setLabel("Patreon")
+      .setLabel("Donate on Patreon!")
       .setStyle("LINK")
       .setURL("https://www.patreon.com/nhcarrigan");
     const paypalButton = new MessageButton()
-      .setLabel("Paypal")
+      .setLabel("Donate on Paypal!")
       .setStyle("LINK")
       .setURL("https://paypal.me/nhcarrigan");
 
