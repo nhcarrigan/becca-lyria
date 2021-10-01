@@ -29,7 +29,6 @@ export const messageDelete = async (
     deleteEmbed.setDescription("Here is my record of that message.");
     deleteEmbed.addField("Channel", `<#${channel.id}>`);
     deleteEmbed.setTimestamp();
-    deleteEmbed.channel(`<#${channel.id}>`);
     deleteEmbed.addField(
       "Content",
       customSubstring(
