@@ -3,6 +3,7 @@ import { GuildMember, MessageEmbed, PartialGuildMember } from "discord.js";
 import { defaultServer } from "../../config/database/defaultServer";
 import ServerModel from "../../database/models/ServerModel";
 import { BeccaInt } from "../../interfaces/BeccaInt";
+import { memberRemoveCleanup } from "../../modules/guild/memberRemoveCleanup";
 import { sendWelcomeEmbed } from "../../modules/guild/sendWelcomeEmbed";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
@@ -46,6 +47,7 @@ export const memberRemove = async (
     goodbyeEmbed.setTimestamp();
 
     await sendWelcomeEmbed(Becca, guild, goodbyeEmbed);
+    await memberRemoveCleanup(Becca, member.id, guild.id);  
   } catch (err) {
     beccaErrorHandler(Becca, "member remove event", err, member.guild.name);
   }
