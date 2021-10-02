@@ -3,9 +3,9 @@ import StarModel from "../../database/models/StarModel";
 import { BeccaInt } from "../../interfaces/BeccaInt";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
-/*
+/**
  * Module to clean up a user's level and star data when
- * they leave a guild. 
+ * they leave a guild.
  *
  * @param {BeccaInt} Becca Becca's Discord instance.
  * @param {string} userId Discord ID of the user that left the guild.
