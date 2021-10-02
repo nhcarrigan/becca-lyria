@@ -47,7 +47,7 @@ export const memberRemove = async (
     goodbyeEmbed.setTimestamp();
 
     await sendWelcomeEmbed(Becca, guild, goodbyeEmbed);
-    await memberRemoveCleanup(Becca, member.id, guild.id);  
+    await memberRemoveCleanup(Becca, member.id, guild.id);
   } catch (err) {
     beccaErrorHandler(Becca, "member remove event", err, member.guild.name);
   }
