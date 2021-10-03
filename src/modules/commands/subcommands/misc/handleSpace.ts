@@ -5,7 +5,6 @@ import { MessageEmbed } from "discord.js";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { SpaceInt } from "../../../../interfaces/commands/general/SpaceInt";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
-import { beccaLogHandler } from "../../../../utils/beccaLogHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
