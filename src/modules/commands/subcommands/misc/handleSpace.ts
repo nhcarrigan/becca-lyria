@@ -16,8 +16,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 export const handleSpace: CommandHandler = async (Becca, interaction) => {
   try {
     if (!Becca.configs.nasaKey) {
-      beccaLogHandler.log("warn", "space command called, but not configured");
-      return;
+      throw new Error("no nasaKey configured");
     }
     const date = interaction.options.getString("date");
     let url = `https://api.nasa.gov/planetary/apod?api_key=${Becca.configs.nasaKey}`;
