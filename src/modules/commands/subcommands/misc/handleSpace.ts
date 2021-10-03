@@ -5,6 +5,7 @@ import { MessageEmbed } from "discord.js";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { SpaceInt } from "../../../../interfaces/commands/general/SpaceInt";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { beccaLogHandler } from "../../../../utils/beccaLogHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
@@ -14,6 +15,10 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  */
 export const handleSpace: CommandHandler = async (Becca, interaction) => {
   try {
+    if (!Becca.configs.nasaKey) {
+      beccaLogHandler.log("warn", "space command called, but not configured");
+      return;
+    }
     const date = interaction.options.getString("date");
     let url = `https://api.nasa.gov/planetary/apod?api_key=${Becca.configs.nasaKey}`;
 
