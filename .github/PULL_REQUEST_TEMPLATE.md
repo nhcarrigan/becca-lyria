@@ -1,6 +1,6 @@
 # Pull Request
 
-<!-- Before contributing, please read our contributing guidelines https://github.com/BeccaLyria/discord-bot/blob/main/CONTRIBUTING.md -->
+<!-- Before contributing, please read our contributing guidelines https://docs.beccalyria.com/#/contribute.md -->
 
 ## Description
 
