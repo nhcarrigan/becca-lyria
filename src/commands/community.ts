@@ -18,6 +18,7 @@ import { handleServer } from "../modules/commands/subcommands/community/handleSe
 import { handleStar } from "../modules/commands/subcommands/community/handleStar";
 import { handleStarCount } from "../modules/commands/subcommands/community/handleStarCount";
 import { handleSuggest } from "../modules/commands/subcommands/community/handleSuggest";
+import { handleTicket } from "../modules/commands/subcommands/community/handleTicket";
 import { handleTopic } from "../modules/commands/subcommands/community/handleTopic";
 import { handleUserInfo } from "../modules/commands/subcommands/community/handleUserInfo";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
@@ -111,6 +112,11 @@ export const community: CommandInt = {
     )
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
+        .setName("ticket")
+        .setDescription("Create a community ticket!")
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
         .setName("topic")
         .setDescription("Provides a conversation starter!")
     )
@@ -187,6 +193,9 @@ export const community: CommandInt = {
           break;
         case "starcount":
           await handleStarCount(Becca, interaction, config);
+          break;
+        case "ticket":
+          await handleTicket(Becca, interaction, config);
           break;
         case "topic":
           await handleTopic(Becca, interaction, config);
