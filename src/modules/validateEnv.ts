@@ -1,4 +1,5 @@
 import { BeccaInt, ResponsesInt } from "../interfaces/BeccaInt";
+import { beccaLogHandler } from "../utils/beccaLogHandler";
 
 /**
  * Validates that all expected environment variables are set with *some* value.
@@ -30,7 +31,7 @@ export const validateEnv = (
     }
 
     if (!process.env.NASA_API) {
-      return { valid: false, message: "Missing NASA API key" };
+      beccaLogHandler.log("warn", "Missing NASA API key");
     }
 
     if (!process.env.OWNER_ID) {
@@ -45,12 +46,12 @@ export const validateEnv = (
       return { valid: false, message: "Missing Bot's Home Guild ID" };
     }
 
-    const configs = {
+    const configs: BeccaInt["configs"] = {
       token: process.env.DISCORD_TOKEN,
       dbToken: process.env.MONGODB,
       whUrl: process.env.WH_URL,
       currencyUrl: process.env.CURRENCY_WH,
-      nasaKey: process.env.NASA_API,
+      nasaKey: process.env.NASA_API || "",
       ownerId: process.env.OWNER_ID,
       love: process.env.BECCA_LOVE || "💜",
       yes: process.env.BECCA_YES || "✅",
