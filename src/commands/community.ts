@@ -114,6 +114,12 @@ export const community: CommandInt = {
       new SlashCommandSubcommandBuilder()
         .setName("ticket")
         .setDescription("Create a community ticket!")
+        .addStringOption((option) =>
+          option
+            .setName("reason")
+            .setDescription("The reason for creating a ticket.")
+            .setRequired(true)
+        )
     )
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
