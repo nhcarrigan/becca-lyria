@@ -1,7 +1,7 @@
 import { Document, model, Schema } from "mongoose";
 
 export interface CommandInt extends Document {
-  serviceId: string;
+  serverId: string;
   serverName: string;
   commandUses: number;
   // TODO: should keep track of the command used maybe?
