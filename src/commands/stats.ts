@@ -3,6 +3,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 
 import { CommandInt } from "../interfaces/commands/CommandInt";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { handleStats } from "../modules/commands/subcommands/stats/handleStats";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 export const stats: CommandInt = {
@@ -18,13 +19,13 @@ export const stats: CommandInt = {
           .setRequired(true)
       // TODO: not sure why I need to cast this?
     ) as SlashCommandBuilder,
-  run: async (Becca, interaction): Promise<void> => {
+  run: async (Becca, interaction, config): Promise<void> => {
     try {
       await interaction.deferReply();
       const subcommand = interaction.options.getSubcommand();
       switch (subcommand) {
         case "commands":
-          // TODO: call handleStats
+          await handleStats(Becca, interaction, config);
           break;
         default:
           await interaction.editReply({
