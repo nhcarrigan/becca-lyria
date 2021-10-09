@@ -4,6 +4,7 @@ import { BeccaInt } from "../../interfaces/BeccaInt";
 import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
 import { linksListener } from "../../listeners/linksListener";
+import { sassListener } from "../../listeners/sassListener";
 import { thanksListener } from "../../listeners/thanksListener";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
@@ -41,6 +42,7 @@ export const messageCreate = async (
     await thanksListener.run(Becca, message, serverConfig);
     await linksListener.run(Becca, message, serverConfig);
     await levelListener.run(Becca, message, serverConfig);
+    await sassListener.run(Becca, message, serverConfig);
 
     if (
       message.author.id === Becca.configs.ownerId &&

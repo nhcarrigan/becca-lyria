@@ -29,6 +29,7 @@ export const viewSettings = (
     settingsEmbed.setDescription("Here are your current configurations.");
     settingsEmbed.addField("Thanks Listener", config.thanks || "off", true);
     settingsEmbed.addField("Levels Listener", config.levels || "off", true);
+    settingsEmbed.addField("Sass Mode", config.sass_mode || "off", true);
     settingsEmbed.addField(
       "Welcome Channel",
       renderSetting(Becca, "welcome_channel", config.welcome_channel),

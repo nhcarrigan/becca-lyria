@@ -88,6 +88,7 @@ export const setSetting = async (
       case "thanks":
       case "link_message":
       case "leave_message":
+      case "sass_mode":
         server[key] = value;
         break;
       case "welcome_channel":

@@ -27,6 +27,7 @@ export interface ServerModelInt extends Document {
   leave_message: string;
   report_channel: string;
   level_ignore: string[];
+  sass_mode: string;
 }
 
 export const Server = new Schema({
@@ -56,6 +57,7 @@ export const Server = new Schema({
   leave_message: String,
   report_channel: String,
   level_ignore: [String],
+  sass_mode: String,
 });
 
 export default model<ServerModelInt>("server", Server);

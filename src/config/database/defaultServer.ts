@@ -30,4 +30,5 @@ export const defaultServer = {
     "{@username}, thank you for your time in {@servername}. Your contributions are appreciated.",
   report_channel: "",
   level_ignore: [] as string[],
+  sass_mode: "off",
 };
