@@ -1,4 +1,4 @@
-import { BeccaInt, ResponsesInt } from "../interfaces/BeccaInt";
+import { BeccaInt, ResponsesInt, SassyInt } from "../interfaces/BeccaInt";
 import { beccaLogHandler } from "../utils/beccaLogHandler";
 
 /**
@@ -88,8 +88,15 @@ export const validateEnv = (
       noModSelf: "Are... are you asking me to smite you?",
     };
 
-    Becca.responses = phrases;
+    const sass: SassyInt = {
+      greeting: "Well, I *was* having a good time. Unfortunate.",
+      amirite:
+        "I'm almost certain you're not, but to be fair, I wasn't listening.",
+      sorry: "Oh, did you just apologise? About time.",
+    };
 
+    Becca.responses = phrases;
+    Becca.sass = sass;
     return { valid: true, message: "Environment variables validated!" };
   } catch (err) {
     return {

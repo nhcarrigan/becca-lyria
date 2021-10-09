@@ -34,6 +34,7 @@ export interface BeccaInt extends Client {
   commands: CommandInt[];
   responses: ResponsesInt;
   contexts: ContextInt[];
+  sass: SassyInt;
 }
 
 export interface ResponsesInt {
@@ -45,4 +46,10 @@ export interface ResponsesInt {
   defaultModReason: string;
   noModSelf: string;
   noModBecca: string;
+}
+
+export interface SassyInt {
+  greeting: string;
+  amirite: string;
+  sorry: string;
 }

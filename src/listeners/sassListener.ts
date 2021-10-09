@@ -20,25 +20,25 @@ export const sassListener: ListenerInt = {
         content === "morning" ||
         content === "Morning"
       ) {
-        await channel.send("greeting");
+        await channel.send(Becca.sass.greeting);
       }
 
       const amiriteRegex =
         /(am|was)\s?i\sright\??|(i\sam|i'm|i\swas)\s?right|amirite/i;
 
       if (amiriteRegex.test(content)) {
-        await channel.send("amirite");
+        await channel.send(Becca.sass.amirite);
       }
 
       const sorryRegex =
-        /(i'm|i\s?am)\s?sorry|(my\s?)?apologies|(i\s?)?(apologize|apologise)/;
+        /(i'm|i\s?am)\s?sorry|(my\s?)?apologies|(i\s?)?(apologize|apologise)/i;
 
       if (
         sorryRegex.test(content) ||
         content === "sorry" ||
         content === "Sorry"
       ) {
-        await channel.send("sorry");
+        await channel.send(Becca.sass.sorry);
       }
     } catch (err) {
       beccaErrorHandler(
