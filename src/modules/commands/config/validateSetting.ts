@@ -29,6 +29,7 @@ export const validateSetting = async (
     switch (setting) {
       case "thanks":
       case "levels":
+      case "sass_mode":
         return value === "on" || value === "off";
       case "hearts":
       case "blocked":

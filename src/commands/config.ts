@@ -46,6 +46,7 @@ export const config: CommandInt = {
               ["Custom Leave Message", "leave_message"],
               ["Report Channel", "report_channel"],
               ["No Levelling Channels", "level_ignore"],
+              ["Sass Mode", "sass_mode"],
             ])
         )
         .addStringOption((option) =>
@@ -86,6 +87,7 @@ export const config: CommandInt = {
               ["Custom Leave Message", "leave_message"],
               ["Report Channel", "report_channel"],
               ["No Levelling Channels", "level_ignore"],
+              ["Sass Mode", "sass_mode"],
             ])
         )
     )

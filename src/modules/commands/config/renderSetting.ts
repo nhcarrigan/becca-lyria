@@ -28,6 +28,7 @@ export const renderSetting = (
       case "allowed_links":
       case "link_message":
       case "leave_message":
+      case "sass_mode":
         return value as string;
       case "welcome_channel":
       case "log_channel":

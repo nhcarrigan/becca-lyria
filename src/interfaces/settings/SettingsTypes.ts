@@ -23,4 +23,5 @@ export type SettingsTypes =
   | "join_role"
   | "leave_message"
   | "report_channel"
-  | "level_ignore";
+  | "level_ignore"
+  | "sass_mode";
