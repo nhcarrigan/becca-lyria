@@ -1,7 +1,7 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import { MessageEmbed } from "discord.js";
 
-// import CommandModel from "../../../../database/models/CommandModel";
+import CommandModel from "../../../../database/models/CommandModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../errorEmbedGenerator";
@@ -14,10 +14,26 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       await interaction.editReply({ content: Becca.responses.missingGuild });
       return;
     }
-    // TODO: query to get the top 10.
-    // const commandData = await CommandModel.findOne({
-    //   serverId: guild.id,
-    // });
+    const topServers = await CommandModel.find()
+      .sort({
+        // sort decending, so the top 10 will be the largest.
+        commandUses: -1,
+      })
+      // limit to only the top 10.
+      .limit(10)
+      // get only the raw data, as we don't need to use the document features.
+      .lean();
+
+    // TODO: Update using a formatted text table.
+    // see #883
+    const topServersEmbed = topServers
+      .map(
+        (server, index) =>
+          `#${index + 1}: ${server.serverName} with ${
+            server.commandUses
+          } command uses`
+      )
+      .join("\n");
 
     const commandEmbed = new MessageEmbed();
     commandEmbed.setTitle("Command Stats");
@@ -27,7 +43,8 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       `${author.username}#${author.discriminator}`,
       author.displayAvatarURL()
     );
-    // TODO: add actual top 10 command usage.
+    commandEmbed.addField("stats", topServersEmbed);
+
     await interaction.editReply({ embeds: [commandEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
