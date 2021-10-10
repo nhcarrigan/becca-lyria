@@ -10,7 +10,6 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
   try {
     const { guild, user: author } = interaction;
     if (!guild || !author) {
-      // is this correct if there is no author? taken from handleSuggest.
       await interaction.editReply({ content: Becca.responses.missingGuild });
       return;
     }
