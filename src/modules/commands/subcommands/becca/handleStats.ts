@@ -43,7 +43,7 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       `${author.username}#${author.discriminator}`,
       author.displayAvatarURL()
     );
-    commandEmbed.addField("stats", topServersEmbed);
+    commandEmbed.setDescription(topServersEmbed);
 
     await interaction.editReply({ embeds: [commandEmbed] });
   } catch (err) {
