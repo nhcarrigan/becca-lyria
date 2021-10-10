@@ -1,6 +1,7 @@
 import { Interaction, Message } from "discord.js";
 
 import { BeccaInt } from "../../interfaces/BeccaInt";
+import { commandListener } from "../../listeners/commandListener";
 import { currencyListener } from "../../listeners/currencyListener";
 import { usageListener } from "../../listeners/usageListener";
 import { logActivity } from "../../modules/commands/logActivity";
@@ -47,6 +48,7 @@ export const interactionCreate = async (
         });
         return;
       }
+      await commandListener.run(Becca, interaction);
       await target.run(Becca, interaction, config);
       await usageListener.run(Becca, interaction);
       await currencyListener.run(Becca, interaction);

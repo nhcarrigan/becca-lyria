@@ -13,6 +13,7 @@ import { handleHelp } from "../modules/commands/subcommands/becca/handleHelp";
 import { handleInvite } from "../modules/commands/subcommands/becca/handleInvite";
 import { handlePing } from "../modules/commands/subcommands/becca/handlePing";
 import { handleProfile } from "../modules/commands/subcommands/becca/handleProfile";
+import { handleStats } from "../modules/commands/subcommands/becca/handleStats";
 import { handleUpdates } from "../modules/commands/subcommands/becca/handleUpdates";
 import { handleUptime } from "../modules/commands/subcommands/becca/handleUptime";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
@@ -69,6 +70,11 @@ export const becca: CommandInt = {
         .setDescription(
           "Shows the latest updates to Becca, the next scheduled update, and additional details."
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("stats")
+        .setDescription("Shows bot statistics")
     ),
   run: async (Becca, interaction, config) => {
     try {
@@ -102,6 +108,9 @@ export const becca: CommandInt = {
           break;
         case "updates":
           await handleUpdates(Becca, interaction, config);
+          break;
+        case "stats":
+          await handleStats(Becca, interaction, config);
           break;
         default:
           await interaction.editReply({
