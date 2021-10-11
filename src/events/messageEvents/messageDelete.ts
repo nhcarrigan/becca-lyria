@@ -50,10 +50,12 @@ export const messageDelete = async (
       deleteEmbed.setImage(attached.proxyURL);
     }
 
-    await sendLogEmbed(Becca, guild, deleteEmbed);
+    await sendLogEmbed(Becca, guild, deleteEmbed, "message_events");
 
     if (embeds.length) {
-      embeds.forEach((embed) => sendLogEmbed(Becca, guild, embed));
+      embeds.forEach((embed) =>
+        sendLogEmbed(Becca, guild, embed, "message_events")
+      );
     }
   } catch (err) {
     beccaErrorHandler(Becca, "message delete event", err, message.guild?.name);

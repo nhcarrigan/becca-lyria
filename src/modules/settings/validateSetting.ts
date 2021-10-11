@@ -1,10 +1,10 @@
 /* eslint-disable no-case-declarations */
 import { Guild } from "discord.js";
 
-import { BeccaLyria } from "../../../interfaces/BeccaLyria";
-import { ServerConfig } from "../../../interfaces/database/ServerConfig";
-import { Settings } from "../../../interfaces/settings/Settings";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { ServerConfig } from "../../interfaces/database/ServerConfig";
+import { Settings } from "../../interfaces/settings/Settings";
+import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
  * Validates that a setting is in the correct format. Confirms that channels exist,
@@ -50,8 +50,12 @@ export const validateSetting = async (
           (!!(await guild.roles.fetch(`${parsedValue}`)) ||
             config[setting].includes(`${parsedValue}`))
         );
-      case "log_channel":
       case "welcome_channel":
+      case "message_events":
+      case "voice_events":
+      case "thread_events":
+      case "moderation_events":
+      case "member_events":
       case "suggestion_channel":
       case "level_channel":
       case "report_channel":

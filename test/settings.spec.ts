@@ -14,6 +14,16 @@ suite("Validate Settings", () => {
         assert(key in testServerConfig, `Missing ${key} from server schema.`);
       });
     }
+
+    for (const key in testServerConfig) {
+      test(`${key} should be present on default server`, () => {
+        if (key === "serverID" || key === "serverName") {
+          assert(true);
+          return;
+        }
+        assert(key in defaultServer, `Missing ${key} from default server.`);
+      });
+    }
   });
 
   suite("Config Choices", () => {

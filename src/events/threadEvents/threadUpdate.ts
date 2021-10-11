@@ -27,7 +27,7 @@ export const threadUpdate = async (
       threadEmbed.setDescription(
         `The ${oldThread.name} thread in ${oldThread.parent?.name} was archived.`
       );
-      await sendLogEmbed(Becca, newThread.guild, threadEmbed);
+      await sendLogEmbed(Becca, newThread.guild, threadEmbed, "thread_events");
       return;
     }
 
@@ -36,7 +36,7 @@ export const threadUpdate = async (
       threadEmbed.setDescription(
         `The ${oldThread.name} thread in ${oldThread.parent?.name} was unarchived.`
       );
-      await sendLogEmbed(Becca, newThread.guild, threadEmbed);
+      await sendLogEmbed(Becca, newThread.guild, threadEmbed, "thread_events");
       return;
     }
   } catch (err) {

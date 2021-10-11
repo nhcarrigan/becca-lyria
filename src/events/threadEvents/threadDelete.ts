@@ -24,7 +24,7 @@ export const threadDelete = async (
     threadEmbed.setFooter(`ID: ${thread.id}`);
     threadEmbed.setTimestamp();
 
-    await sendLogEmbed(Becca, thread.guild, threadEmbed);
+    await sendLogEmbed(Becca, thread.guild, threadEmbed, "thread_events");
   } catch (err) {
     beccaErrorHandler(Becca, "thread delete event", err);
   }

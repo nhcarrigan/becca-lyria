@@ -9,7 +9,6 @@ export const ServerConfigSchema = new Schema({
   thanks: String,
   levels: String,
   welcome_channel: String,
-  log_channel: String,
   level_channel: String,
   suggestion_channel: {
     type: String,
@@ -31,6 +30,11 @@ export const ServerConfigSchema = new Schema({
   report_channel: String,
   level_ignore: [String],
   sass_mode: String,
+  message_events: String,
+  voice_events: String,
+  thread_events: String,
+  moderation_events: String,
+  member_events: String,
 });
 
 export default model<ServerConfig>("server", ServerConfigSchema);

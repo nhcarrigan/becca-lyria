@@ -9,7 +9,6 @@ export const defaultServer = {
   thanks: "off",
   levels: "off",
   welcome_channel: "",
-  log_channel: "",
   level_channel: "",
   suggestion_channel: "",
   muted_role: "",
@@ -31,4 +30,9 @@ export const defaultServer = {
   report_channel: "",
   level_ignore: [] as string[],
   sass_mode: "off",
+  message_events: "",
+  voice_events: "",
+  thread_events: "",
+  moderation_events: "",
+  member_events: "",
 };

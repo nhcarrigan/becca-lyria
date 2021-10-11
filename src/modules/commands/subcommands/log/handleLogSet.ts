@@ -2,7 +2,7 @@
 import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { Settings } from "../../../../interfaces/settings/Settings";
+import { LogSettings } from "../../../../interfaces/settings/LogSettings";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
@@ -13,7 +13,11 @@ import { validateSetting } from "../../../settings/validateSetting";
 /**
  * Provided the `value` is valid, sets the given `setting` to that `value`.
  */
-export const handleSet: CommandHandler = async (Becca, interaction, config) => {
+export const handleLogSet: CommandHandler = async (
+  Becca,
+  interaction,
+  config
+) => {
   try {
     const { guild } = interaction;
 
@@ -22,8 +26,8 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
       return;
     }
 
-    const setting = interaction.options.getString("setting");
-    const value = interaction.options.getString("value");
+    const setting = interaction.options.getString("event");
+    const value = interaction.options.getChannel("channel");
     if (!value) {
       await interaction.editReply(
         "Not sure how, but you managed to forget the value!"
@@ -33,8 +37,8 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
 
     const isValid = await validateSetting(
       Becca,
-      setting as Settings,
-      value,
+      setting as LogSettings,
+      value.id,
       guild,
       config
     );
@@ -49,8 +53,8 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
       Becca,
       guild.id,
       guild.name,
-      setting as Settings,
-      value,
+      setting as LogSettings,
+      value.id,
       config
     );
 
@@ -60,12 +64,12 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
       );
       return;
     }
-    const newContent = isSet[setting as Settings];
-    const parsedContent = Array.isArray(newContent)
-      ? newContent
-          .map((el) => renderSetting(Becca, setting as Settings, el))
-          .join(", ")
-      : renderSetting(Becca, setting as Settings, newContent);
+    const newContent = isSet[setting as LogSettings];
+    const parsedContent = renderSetting(
+      Becca,
+      setting as LogSettings,
+      newContent
+    );
     const successEmbed = new MessageEmbed();
     successEmbed.setTitle(`${setting} Updated`);
     successEmbed.setDescription(customSubstring(parsedContent, 2000));
@@ -75,19 +79,19 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "set command",
+      "log set command",
       err,
       interaction.guild?.name
     );
     await interaction
       .reply({
-        embeds: [errorEmbedGenerator(Becca, "set", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "log set", errorId)],
         ephemeral: true,
       })
       .catch(
         async () =>
           await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "set", errorId)],
+            embeds: [errorEmbedGenerator(Becca, "log set", errorId)],
           })
       );
   }

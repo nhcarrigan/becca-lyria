@@ -28,7 +28,7 @@ export const threadCreate = async (
     threadEmbed.setTimestamp();
     threadEmbed.setFooter(`ID: ${thread.id}`);
 
-    await sendLogEmbed(Becca, thread.guild, threadEmbed);
+    await sendLogEmbed(Becca, thread.guild, threadEmbed, "thread_events");
   } catch (err) {
     beccaErrorHandler(Becca, "thread create event", err);
   }

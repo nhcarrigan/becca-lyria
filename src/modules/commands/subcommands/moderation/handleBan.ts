@@ -75,7 +75,7 @@ export const handleBan: CommandHandler = async (Becca, interaction) => {
     );
     kickLogEmbed.setFooter(`ID: ${targetMember.id}`);
 
-    await sendLogEmbed(Becca, guild, kickLogEmbed);
+    await sendLogEmbed(Becca, guild, kickLogEmbed, "moderation_events");
     await interaction.editReply({
       content: "They have been banished and shall never return.",
     });

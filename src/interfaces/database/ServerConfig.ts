@@ -9,7 +9,6 @@ export interface ServerConfig extends Document {
   thanks: string;
   levels: string;
   welcome_channel: string;
-  log_channel: string;
   level_channel: string;
   suggestion_channel: string;
   muted_role: string;
@@ -28,6 +27,11 @@ export interface ServerConfig extends Document {
   report_channel: string;
   level_ignore: string[];
   sass_mode: string;
+  message_events: string;
+  voice_events: string;
+  thread_events: string;
+  moderation_events: string;
+  member_events: string;
 }
 
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
@@ -36,7 +40,6 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   thanks: "",
   levels: "",
   welcome_channel: "",
-  log_channel: "",
   level_channel: "",
   suggestion_channel: "",
   muted_role: "",
@@ -55,4 +58,9 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   report_channel: "",
   level_ignore: [],
   sass_mode: "",
+  message_events: "",
+  voice_events: "",
+  thread_events: "",
+  moderation_events: "",
+  member_events: "",
 };

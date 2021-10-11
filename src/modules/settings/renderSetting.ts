@@ -1,7 +1,7 @@
-import { BeccaLyria } from "../../../interfaces/BeccaLyria";
-import { LevelRole } from "../../../interfaces/settings/LevelRole";
-import { Settings } from "../../../interfaces/settings/Settings";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { LevelRole } from "../../interfaces/settings/LevelRole";
+import { Settings } from "../../interfaces/settings/Settings";
+import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
  * Renders a server setting's value into a string in the format that Discord
@@ -31,8 +31,12 @@ export const renderSetting = (
       case "sass_mode":
         return value as string;
       case "welcome_channel":
-      case "log_channel":
       case "level_channel":
+      case "message_events":
+      case "voice_events":
+      case "moderation_events":
+      case "thread_events":
+      case "member_events":
       case "suggestion_channel":
       case "report_channel":
       case "level_ignore":
