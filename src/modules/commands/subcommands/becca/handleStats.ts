@@ -13,38 +13,49 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       await interaction.editReply({ content: Becca.responses.missingGuild });
       return;
     }
-    const topServers = await CommandModel.find()
-      .sort({
-        // sort decending, so the top 10 will be the largest.
-        commandUses: -1,
-      })
-      // limit to only the top 10.
-      .limit(10)
-      // get only the raw data, as we don't need to use the document features.
-      .lean();
 
-    // TODO: Update using a formatted text table.
-    // see #883
-    const topServersEmbed = topServers
-      .map(
-        (server, index) =>
-          `#${index + 1}: ${server.serverName} with ${
-            server.commandUses
-          } command uses`
-      )
-      .join("\n");
+    const view = interaction.options.getString("view");
 
-    const commandEmbed = new MessageEmbed();
-    commandEmbed.setTitle("Command Stats");
-    commandEmbed.setTimestamp();
-    commandEmbed.setColor(Becca.colours.default);
-    commandEmbed.setAuthor(
-      `${author.username}#${author.discriminator}`,
-      author.displayAvatarURL()
-    );
-    commandEmbed.setDescription(topServersEmbed);
+    if (view === "commands") {
+      const topServers = await CommandModel.find()
+        .sort({
+          // sort decending, so the top 10 will be the largest.
+          commandUses: -1,
+        })
+        // limit to only the top 10.
+        .limit(10)
+        // get only the raw data, as we don't need to use the document features.
+        .lean();
 
-    await interaction.editReply({ embeds: [commandEmbed] });
+      // TODO: Update using a formatted text table.
+      // see #883
+      const topServersEmbed = topServers
+        .map(
+          (server, index) =>
+            `#${index + 1}: ${server.serverName} with ${
+              server.commandUses
+            } command uses`
+        )
+        .join("\n");
+
+      const commandEmbed = new MessageEmbed();
+      commandEmbed.setTitle("Command Stats");
+      commandEmbed.setTimestamp();
+      commandEmbed.setColor(Becca.colours.default);
+      commandEmbed.setAuthor(
+        `${author.username}#${author.discriminator}`,
+        author.displayAvatarURL()
+      );
+      commandEmbed.setDescription(topServersEmbed);
+
+      await interaction.editReply({ embeds: [commandEmbed] });
+      return;
+    }
+
+    await interaction.editReply({
+      content:
+        "That appears to be an invalid stat. Not sure how that happened.",
+    });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

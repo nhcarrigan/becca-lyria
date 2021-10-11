@@ -75,6 +75,13 @@ export const becca: CommandInt = {
       new SlashCommandSubcommandBuilder()
         .setName("stats")
         .setDescription("Shows bot statistics")
+        .addStringOption((option) =>
+          option
+            .setName("view")
+            .setDescription("Which stat do you want to view?")
+            .addChoices([["Command Leaderboard", "commands"]])
+            .setRequired(true)
+        )
     ),
   run: async (Becca, interaction, config) => {
     try {
