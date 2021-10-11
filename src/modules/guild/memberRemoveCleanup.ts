@@ -1,18 +1,18 @@
 import LevelModel from "../../database/models/LevelModel";
 import StarModel from "../../database/models/StarModel";
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
  * Module to clean up a user's level and star data when
  * they leave a guild.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {string} userId Discord ID of the user that left the guild.
  * @param {string} guildId Discord ID of the guild the user left.
  */
 export const memberRemoveCleanup = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   userId: string,
   guildId: string
 ): Promise<void> => {

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { Document } from "mongoose";
 
-import { LevelRoleInt } from "../settings/LevelRoleInt";
+import { LevelRole } from "../settings/LevelRole";
 
 export interface ServerConfig extends Document {
   serverID: string;
@@ -22,7 +22,7 @@ export interface ServerConfig extends Document {
   link_roles: string[];
   allowed_links: string[];
   link_message: string;
-  level_roles: LevelRoleInt[];
+  level_roles: LevelRole[];
   join_role: string;
   leave_message: string;
   report_channel: string;

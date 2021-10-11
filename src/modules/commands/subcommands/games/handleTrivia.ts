@@ -9,7 +9,7 @@ import {
 } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { TriviaInt } from "../../../../interfaces/commands/games/TriviaInt";
+import { Trivia } from "../../../../interfaces/commands/games/Trivia";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
 import { replaceHtml } from "../../../../utils/replaceHtml";
@@ -24,7 +24,7 @@ export const handleTrivia: CommandHandler = async (Becca, interaction) => {
   try {
     const letters = ["A", "B", "C", "D"];
 
-    const data = await axios.get<TriviaInt>(
+    const data = await axios.get<Trivia>(
       "https://opentdb.com/api.php?amount=1&type=multiple"
     );
 

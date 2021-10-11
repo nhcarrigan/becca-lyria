@@ -3,7 +3,7 @@ import axios from "axios";
 import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { JokeInt } from "../../../../interfaces/commands/games/JokeInt";
+import { Joke } from "../../../../interfaces/commands/games/Joke";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
@@ -12,7 +12,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  */
 export const handleJoke: CommandHandler = async (Becca, interaction) => {
   try {
-    const joke = await axios.get<JokeInt>("https://icanhazdadjoke.com/", {
+    const joke = await axios.get<Joke>("https://icanhazdadjoke.com/", {
       headers: {
         Accept: "application/json",
         "User-Agent": "Becca Lyria (https://www.beccalyria.com)",

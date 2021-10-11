@@ -1,7 +1,7 @@
 import { REST } from "@discordjs/rest";
 import { APIApplicationCommandOption, Routes } from "discord-api-types/v9";
 
-import { BeccaInt } from "../interfaces/BeccaInt";
+import { BeccaLyria } from "../interfaces/BeccaLyria";
 
 import { beccaErrorHandler } from "./beccaErrorHandler";
 import { beccaLogHandler } from "./beccaLogHandler";
@@ -14,10 +14,10 @@ import { beccaLogHandler } from "./beccaLogHandler";
  * Will register commands globally if in a production environment, otherwise defaults to the
  * home guild only.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @returns {boolean} True if the commands were registered, false on error.
  */
-export const registerCommands = async (Becca: BeccaInt): Promise<boolean> => {
+export const registerCommands = async (Becca: BeccaLyria): Promise<boolean> => {
   try {
     const rest = new REST({ version: "9" }).setToken(Becca.configs.token);
 

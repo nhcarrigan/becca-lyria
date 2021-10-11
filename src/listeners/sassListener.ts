@@ -1,8 +1,8 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { ListenerInt } from "../interfaces/listeners/ListenerInt";
+import { Listener } from "../interfaces/listeners/Listener";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const sassListener: ListenerInt = {
+export const sassListener: Listener = {
   name: "sass",
   description: "Handles Becca's Sassy Mode!",
   run: async (Becca, message, config) => {

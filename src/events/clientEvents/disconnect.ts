@@ -1,13 +1,13 @@
 import { MessageEmbed } from "discord.js";
 
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 
 /**
  * Sends a message to the debug hook when Becca disconnects.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  */
-export const disconnect = async (Becca: BeccaInt): Promise<void> => {
+export const disconnect = async (Becca: BeccaLyria): Promise<void> => {
   const disconnectEmbed = new MessageEmbed();
   disconnectEmbed.setTitle("Becca has disconnected");
   disconnectEmbed.setDescription(

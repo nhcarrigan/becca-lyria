@@ -1,20 +1,20 @@
 import { Message } from "discord.js";
 
-import { BeccaInt } from "../BeccaInt";
+import { BeccaLyria } from "../BeccaLyria";
 import { ServerConfig } from "../database/ServerConfig";
 
-export interface ListenerInt {
+export interface Listener {
   name: string;
   description: string;
   /**
    * Handles the logic for a given listener.
    *
-   * @param {BeccaInt} Becca Becca's Discord instance.
+   * @param {BeccaLyria} Becca Becca's Discord instance.
    * @param {Message} message The message that triggered the listener.
    * @param {ServerConfig} config The server settings from the database.
    */
   run: (
-    Becca: BeccaInt,
+    Becca: BeccaLyria,
     message: Message,
     config: ServerConfig
   ) => Promise<void>;

@@ -1,9 +1,9 @@
 import { ContextMenuInteraction } from "discord.js";
 
-import { BeccaInt } from "../BeccaInt";
+import { BeccaLyria } from "../BeccaLyria";
 import { ServerConfig } from "../database/ServerConfig";
 
-export interface ContextInt {
+export interface Context {
   data: {
     name: string;
     type: 2 | 3;
@@ -11,12 +11,12 @@ export interface ContextInt {
   /**
    * Handles the logic for a given context menu interaction.
    *
-   * @param {BeccaInt} Becca Becca's Discord instance.
+   * @param {BeccaLyria} Becca Becca's Discord instance.
    * @param {ContextMenuInteraction} interaction The context menu interaction payload.
    * @param {ServerConfig} config The server's settings from the database.
    */
   run: (
-    Becca: BeccaInt,
+    Becca: BeccaLyria,
     interaction: ContextMenuInteraction,
     config: ServerConfig
   ) => Promise<void>;

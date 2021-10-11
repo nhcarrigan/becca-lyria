@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleLeave } from "../modules/commands/subcommands/nhcarrigan/handleLeave";
 import { handleList } from "../modules/commands/subcommands/nhcarrigan/handleList";
@@ -15,7 +15,7 @@ import { handleUnregister } from "../modules/commands/subcommands/nhcarrigan/han
 import { handleViewSlash } from "../modules/commands/subcommands/nhcarrigan/handleViewSlash";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const nhcarrigan: CommandInt = {
+export const nhcarrigan: Command = {
   data: new SlashCommandBuilder()
     .setName("nhcarrigan")
     .setDescription("Admin Commands locked to the owner.")

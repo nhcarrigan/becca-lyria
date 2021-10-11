@@ -1,16 +1,16 @@
 import { MessageEmbed } from "discord.js";
 
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 
 /**
  * Handles the shardReady event - sends a message to the debug hook when
  * a shard comes online.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {number} shard The number of the shard that has come online.
  */
 export const shardReady = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   shard: number
 ): Promise<void> => {
   const shardEmbed = new MessageEmbed();

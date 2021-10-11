@@ -6,7 +6,7 @@ import {
   SlashCommandUserOption,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleLeaderboard } from "../modules/commands/subcommands/community/handleLeaderboard";
 import { handleLevel } from "../modules/commands/subcommands/community/handleLevel";
@@ -22,7 +22,7 @@ import { handleTopic } from "../modules/commands/subcommands/community/handleTop
 import { handleUserInfo } from "../modules/commands/subcommands/community/handleUserInfo";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const community: CommandInt = {
+export const community: Command = {
   data: new SlashCommandBuilder()
     .setName("community")
     .setDescription("Handles community-related features")

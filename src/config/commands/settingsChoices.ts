@@ -1,7 +1,7 @@
-import { ArraySettingsType } from "../../interfaces/settings/ArraySettingsType";
-import { SettingsTypes } from "../../interfaces/settings/SettingsTypes";
+import { ArraySettings } from "../../interfaces/settings/ArraySettings";
+import { Settings } from "../../interfaces/settings/Settings";
 
-export const configChoices: [string, SettingsTypes][] = [
+export const configChoices: [string, Settings][] = [
   ["Thanks System", "thanks"],
   ["Level System", "levels"],
   ["Join/Leave Channel", "welcome_channel"],
@@ -26,7 +26,7 @@ export const configChoices: [string, SettingsTypes][] = [
   ["Sass Mode", "sass_mode"],
 ];
 
-export const configViewChoices: [string, ArraySettingsType | "global"][] = [
+export const configViewChoices: [string, ArraySettings | "global"][] = [
   ["Global Settings", "global"],
   // global must be on top for tests to pass
   ["Heart Users", "hearts"],

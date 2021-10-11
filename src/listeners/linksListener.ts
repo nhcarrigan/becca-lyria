@@ -3,7 +3,7 @@ import { MessageEmbed } from "discord.js";
 
 import { defaultServer } from "../config/database/defaultServer";
 import { allowedTLDs, deniedTLDs } from "../config/listeners/linkRegex";
-import { ListenerInt } from "../interfaces/listeners/ListenerInt";
+import { Listener } from "../interfaces/listeners/Listener";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 /**
@@ -13,7 +13,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
  * If the message fails these conditions, Becca deletes it. Requires that this listener
  * be enabled in the server AND channel.
  */
-export const linksListener: ListenerInt = {
+export const linksListener: Listener = {
   name: "links",
   description: "Listens for links in messages where they are not allowed.",
   run: async (Becca, message, config) => {

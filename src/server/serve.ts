@@ -8,7 +8,7 @@ import express from "express";
 import LevelModel from "../database/models/LevelModel";
 import StarModel from "../database/models/StarModel";
 import UsageModel from "../database/models/UsageModel";
-import { BeccaInt } from "../interfaces/BeccaInt";
+import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { getCounts } from "../modules/becca/getCounts";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { beccaLogHandler } from "../utils/beccaLogHandler";
@@ -16,10 +16,10 @@ import { beccaLogHandler } from "../utils/beccaLogHandler";
 /**
  * Spins up a basic web server for uptime monitoring.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @returns {boolean} True if the server was started, false if it crashed.
  */
-export const createServer = async (Becca: BeccaInt): Promise<boolean> => {
+export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
   try {
     const HTTPEndpoint = express();
 

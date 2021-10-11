@@ -3,7 +3,7 @@ import axios from "axios";
 import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { SpaceInt } from "../../../../interfaces/commands/general/SpaceInt";
+import { Space } from "../../../../interfaces/commands/general/Space";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
@@ -33,7 +33,7 @@ export const handleSpace: CommandHandler = async (Becca, interaction) => {
     const spaceEmbed = new MessageEmbed();
     spaceEmbed.setTimestamp();
 
-    const space = await axios.get<SpaceInt>(url, { validateStatus: null });
+    const space = await axios.get<Space>(url, { validateStatus: null });
     if (!space.data || space.status !== 200) {
       spaceEmbed.setTitle("SPAAAAAAACE");
       spaceEmbed.setDescription("I got lost in space. Please try agian later.");

@@ -1,13 +1,13 @@
 import { Client, ColorResolvable, WebhookClient } from "discord.js";
 
-import { CommandInt } from "./commands/CommandInt";
-import { ContextInt } from "./contexts/ContextInt";
+import { Command } from "./commands/Command";
+import { Context } from "./contexts/Context";
 
 /**
  * Model used to pass around Becca's Discord instance with additional
  * configurations attached.
  */
-export interface BeccaInt extends Client {
+export interface BeccaLyria extends Client {
   debugHook: WebhookClient;
   currencyHook: WebhookClient;
   configs: {
@@ -31,9 +31,9 @@ export interface BeccaInt extends Client {
     warning: ColorResolvable;
     error: ColorResolvable;
   };
-  commands: CommandInt[];
+  commands: Command[];
   responses: ResponsesInt;
-  contexts: ContextInt[];
+  contexts: Context[];
   sass: SassyInt;
 }
 

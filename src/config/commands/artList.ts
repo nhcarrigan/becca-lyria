@@ -1,4 +1,4 @@
-import { ArtInt } from "../../interfaces/commands/bot/ArtInt";
+import { Art } from "../../interfaces/commands/bot/Art";
 
 /**
  * This contains a list of objects to map into an art embed.
@@ -8,7 +8,7 @@ import { ArtInt } from "../../interfaces/commands/bot/ArtInt";
  * @property {string} artist The name of the artist.
  * @property {string} artistUrl The artist's url.
  */
-export const artList: ArtInt[] = [
+export const artList: Art[] = [
   {
     fileName: "Moonlight 1.png",
     artName: "Becca Lyria",

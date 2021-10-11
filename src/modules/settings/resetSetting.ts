@@ -1,24 +1,24 @@
 import { defaultServer } from "../../config/database/defaultServer";
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { ServerConfig } from "../../interfaces/database/ServerConfig";
-import { SettingsTypes } from "../../interfaces/settings/SettingsTypes";
+import { Settings } from "../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
  * This will reset the given setting to the default value.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {string} serverID Discord ID of the server to modify settings for.
  * @param {string} serverName Name of that server.
- * @param {SettingsTypes} key The name of the setting to modify.
+ * @param {Settings} key The name of the setting to modify.
  * @param {ServerConfig} server The server configuration entry from the database.
  * @returns {ServerConfig | null} The server setting object, or null on error.
  */
 export const resetSetting = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   serverID: string,
   serverName: string,
-  key: SettingsTypes,
+  key: Settings,
   server: ServerConfig
 ): Promise<ServerConfig | null> => {
   try {

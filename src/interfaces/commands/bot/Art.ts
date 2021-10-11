@@ -1,4 +1,4 @@
-export interface ArtInt {
+export interface Art {
   fileName: string;
   artName: string;
   artist: string;

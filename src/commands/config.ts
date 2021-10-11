@@ -8,14 +8,14 @@ import {
   configChoices,
   configViewChoices,
 } from "../config/commands/settingsChoices";
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleReset } from "../modules/commands/subcommands/config/handleReset";
 import { handleSet } from "../modules/commands/subcommands/config/handleSet";
 import { handleView } from "../modules/commands/subcommands/config/handleView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const config: CommandInt = {
+export const config: Command = {
   data: new SlashCommandBuilder()
     .setName("config")
     .setDescription("Modify your server settings.")

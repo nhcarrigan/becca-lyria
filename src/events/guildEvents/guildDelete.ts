@@ -5,17 +5,17 @@ import LevelModel from "../../database/models/LevelModel";
 import ServerModel from "../../database/models/ServerConfigModel";
 import StarModel from "../../database/models/StarModel";
 import WarningModel from "../../database/models/WarningModel";
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 
 /**
  * Sends a notification to the debug hook when Becca leaves a server. Also cleans up
  * the stored data for that server.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {Guild} guild The guild object representing the server Becca was removed from.
  */
 export const guildDelete = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   guild: Guild
 ): Promise<void> => {
   const owner = await guild.members.fetch(guild.ownerId).catch(() => null);

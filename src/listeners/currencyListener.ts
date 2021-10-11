@@ -3,7 +3,7 @@ import { CommandInteraction } from "discord.js";
 
 import { CurrencyOptOut } from "../config/optout/CurrencyOptOut";
 import CurrencyModel from "../database/models/CurrencyModel";
-import { BeccaInt } from "../interfaces/BeccaInt";
+import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 /**
@@ -14,7 +14,7 @@ export const currencyListener = {
   name: "currency",
   description: "Awards currency on command usage.",
   run: async (
-    Becca: BeccaInt,
+    Becca: BeccaLyria,
     interaction: CommandInteraction
   ): Promise<void> => {
     try {

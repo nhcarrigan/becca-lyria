@@ -2,7 +2,7 @@
  * Type definition for available guild setting names. This should be updated if
  * settings are added or removed.
  */
-export type SettingsTypes =
+export type Settings =
   | "thanks"
   | "levels"
   | "welcome_channel"

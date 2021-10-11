@@ -1,7 +1,7 @@
 import { CommandInteraction } from "discord.js";
 
 import CommandCountModel from "../database/models/CommandCountModel";
-import { BeccaInt } from "../interfaces/BeccaInt";
+import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 /**
@@ -15,7 +15,7 @@ export const commandListener = {
   name: "Command Listener",
   description: "Tracks command usage on a server basis",
   run: async (
-    Becca: BeccaInt,
+    Becca: BeccaLyria,
     interaction: CommandInteraction
   ): Promise<void> => {
     try {

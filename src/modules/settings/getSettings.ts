@@ -1,6 +1,6 @@
 import { defaultServer } from "../../config/database/defaultServer";
 import ServerModel from "../../database/models/ServerConfigModel";
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { ServerConfig } from "../../interfaces/database/ServerConfig";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
@@ -9,13 +9,13 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  * database. If the server does not have a record, it creates one with the
  * default values.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {string} serverID Discord ID of the server to get the settings for.
  * @param {string} serverName Name of the server.
  * @returns {ServerConfig | null} The server settings object, or null on error.
  */
 export const getSettings = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   serverID: string,
   serverName: string
 ): Promise<ServerConfig | null> => {

@@ -1,6 +1,6 @@
 import { Message } from "discord.js";
 
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
 import { linksListener } from "../../listeners/linksListener";
@@ -14,11 +14,11 @@ import { registerCommands } from "../../utils/registerCommands";
  * Handles the onMessage event. Validates that the message did not come from
  * another bot, then passes the message through to the listeners and command handler.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {Message} message The message object received in the gateway event.
  */
 export const messageCreate = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   message: Message
 ): Promise<void> => {
   try {
