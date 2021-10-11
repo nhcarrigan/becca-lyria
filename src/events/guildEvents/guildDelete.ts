@@ -1,10 +1,10 @@
 import { Guild, MessageEmbed } from "discord.js";
 
+import CommandModel from "../../database/models/CommandModel";
 import LevelModel from "../../database/models/LevelModel";
 import ServerModel from "../../database/models/ServerModel";
 import StarModel from "../../database/models/StarModel";
 import WarningModel from "../../database/models/WarningModel";
-import CommandModel from "../../database/models/CommandModel";
 import { BeccaInt } from "../../interfaces/BeccaInt";
 
 /**
