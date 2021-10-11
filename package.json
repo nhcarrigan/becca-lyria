@@ -25,7 +25,7 @@
     "build": "tsc",
     "lint": "eslint src --max-warnings 0",
     "start": "node -r dotenv/config ./prod/index.js",
-    "test": "echo 'No tests yet. Would you like to contribute some?'"
+    "test": "ts-mocha -u tdd test/**/*.spec.ts --recursive --exit"
   },
   "dependencies": {
     "@discordjs/builders": "^0.6.0",
