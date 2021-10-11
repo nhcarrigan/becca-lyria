@@ -5,6 +5,7 @@ import https from "https";
 import cors from "cors";
 import express from "express";
 
+import CommandCountModel from "../database/models/CommandCountModel";
 import LevelModel from "../database/models/LevelModel";
 import StarModel from "../database/models/StarModel";
 import UsageModel from "../database/models/UsageModel";
@@ -39,6 +40,20 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
         },
       })
     );
+
+    HTTPEndpoint.use("/stats/:stat", async (req, res) => {
+      switch (req.params.stat) {
+        case "commands":
+          // eslint-disable-next-line no-case-declarations
+          const data = await CommandCountModel.find({})
+            .sort({ commandUses: -1 })
+            .lean();
+          res.json(data);
+          break;
+        default:
+          res.status(404).send("Invalid stat view!");
+      }
+    });
 
     HTTPEndpoint.use("/leaderboard/:serverId", async (req, res) => {
       const data = await LevelModel.findOne(
