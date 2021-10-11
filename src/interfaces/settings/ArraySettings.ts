@@ -7,7 +7,7 @@ export type ArraySettings =
   | "self_roles"
   | "anti_links"
   | "permit_links"
-  | "link_roles"
+  | "automod_roles"
   | "allowed_links"
   | "level_roles"
   | "level_ignore";

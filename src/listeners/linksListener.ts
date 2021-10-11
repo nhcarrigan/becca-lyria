@@ -43,8 +43,8 @@ export const linksListener: Listener = {
         }
       }
 
-      if (config.link_roles.length) {
-        for (const role of config.link_roles) {
+      if (config.automod_roles.length) {
+        for (const role of config.automod_roles) {
           if (message.member?.roles.cache.find((r) => r.id === role)) {
             return;
           }

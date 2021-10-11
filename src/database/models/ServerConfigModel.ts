@@ -21,7 +21,7 @@ export const ServerConfigSchema = new Schema({
   self_roles: [String],
   anti_links: [String],
   permit_links: [String],
-  link_roles: [String],
+  automod_roles: [String],
   allowed_links: [String],
   link_message: String,
   level_roles: [Object],

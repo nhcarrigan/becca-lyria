@@ -15,7 +15,7 @@ export type Settings =
   | "self_roles"
   | "anti_links"
   | "permit_links"
-  | "link_roles"
+  | "automod_roles"
   | "allowed_links"
   | "link_message"
   | "level_roles"

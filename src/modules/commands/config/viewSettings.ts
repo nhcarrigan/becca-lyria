@@ -107,7 +107,7 @@ export const viewSettings = (
     );
     settingsEmbed.addField(
       "Anti-link Bypass Roles",
-      config.link_roles.length.toString(),
+      config.automod_roles.length.toString(),
       true
     );
     settingsEmbed.addField(
