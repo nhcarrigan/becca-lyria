@@ -6,7 +6,6 @@ export type Settings =
   | "thanks"
   | "levels"
   | "welcome_channel"
-  | "log_channel"
   | "level_channel"
   | "suggestion_channel"
   | "muted_role"
@@ -24,4 +23,9 @@ export type Settings =
   | "leave_message"
   | "report_channel"
   | "level_ignore"
-  | "sass_mode";
+  | "sass_mode"
+  | "message_events"
+  | "voice_events"
+  | "thread_events"
+  | "moderation_events"
+  | "member_events";

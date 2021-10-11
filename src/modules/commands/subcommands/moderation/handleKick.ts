@@ -74,7 +74,7 @@ export const handleKick: CommandHandler = async (Becca, interaction) => {
     );
     kickLogEmbed.setFooter(`ID: ${targetMember.id}`);
 
-    await sendLogEmbed(Becca, guild, kickLogEmbed);
+    await sendLogEmbed(Becca, guild, kickLogEmbed, "moderation_events");
     await interaction.editReply({ content: "They have been evicted." });
   } catch (err) {
     const errorId = await beccaErrorHandler(

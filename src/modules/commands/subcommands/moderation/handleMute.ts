@@ -85,7 +85,7 @@ export const handleMute: CommandHandler = async (
       targetUser.user.displayAvatarURL()
     );
 
-    await sendLogEmbed(Becca, guild, muteEmbed);
+    await sendLogEmbed(Becca, guild, muteEmbed, "moderation_events");
 
     await interaction.editReply({
       content: "That user has been cursed with silence.",

@@ -5,8 +5,7 @@ import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { ServerConfig } from "../../../interfaces/database/ServerConfig";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
-
-import { renderSetting } from "./renderSetting";
+import { renderSetting } from "../../settings/renderSetting";
 
 /**
  * Parses a server's settings into an embed describing the basic
@@ -33,11 +32,6 @@ export const viewSettings = (
     settingsEmbed.addField(
       "Welcome Channel",
       renderSetting(Becca, "welcome_channel", config.welcome_channel),
-      true
-    );
-    settingsEmbed.addField(
-      "Log Channel",
-      renderSetting(Becca, "log_channel", config.log_channel),
       true
     );
     settingsEmbed.addField(

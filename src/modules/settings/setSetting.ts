@@ -92,7 +92,11 @@ export const setSetting = async (
         server[key] = value;
         break;
       case "welcome_channel":
-      case "log_channel":
+      case "message_events":
+      case "voice_events":
+      case "thread_events":
+      case "moderation_events":
+      case "member_events":
       case "level_channel":
       case "suggestion_channel":
       case "muted_role":

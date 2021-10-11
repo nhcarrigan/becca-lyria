@@ -1,11 +1,11 @@
 import { ArraySettings } from "../../interfaces/settings/ArraySettings";
+import { LogSettings } from "../../interfaces/settings/LogSettings";
 import { Settings } from "../../interfaces/settings/Settings";
 
 export const configChoices: [string, Settings][] = [
   ["Thanks System", "thanks"],
   ["Level System", "levels"],
   ["Join/Leave Channel", "welcome_channel"],
-  ["Moderation Log Channel", "log_channel"],
   ["Level Log Channel", "level_channel"],
   ["Suggestion Channel", "suggestion_channel"],
   ["Muted Role", "muted_role"],
@@ -38,4 +38,12 @@ export const configViewChoices: [string, ArraySettings | "global"][] = [
   ["Allowed Link Regex", "allowed_links"],
   ["Level-assigned Roles", "level_roles"],
   ["No Levelling Channels", "level_ignore"],
+];
+
+export const logChoices: [string, LogSettings][] = [
+  ["Message Events (edit, delete)", "message_events"],
+  ["Voice Events (join, disconnect, mute, deafen)", "voice_events"],
+  ["Thread Events (create, archive, delete)", "thread_events"],
+  ["Moderation Activity (kick, ban, mute)", "moderation_events"],
+  ["Member Events (screening, updates)", "member_events"],
 ];

@@ -39,7 +39,7 @@ export const memberAdd = async (
         `${user.username}#${user.discriminator}`,
         user.displayAvatarURL()
       );
-      await sendLogEmbed(Becca, guild, partialJoinEmbed);
+      await sendLogEmbed(Becca, guild, partialJoinEmbed, "member_events");
       return;
     }
 

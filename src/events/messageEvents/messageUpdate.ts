@@ -50,7 +50,7 @@ export const messageUpdate = async (
     updateEmbed.addField("Channel", `<#${newMessage.channel.id}>`);
     updateEmbed.addField("Message Link", newMessage.url);
 
-    await sendLogEmbed(Becca, guild, updateEmbed);
+    await sendLogEmbed(Becca, guild, updateEmbed, "message_events");
   } catch (err) {
     beccaErrorHandler(
       Becca,
