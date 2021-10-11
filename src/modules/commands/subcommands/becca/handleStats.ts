@@ -1,7 +1,7 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import { MessageEmbed } from "discord.js";
 
-import CommandModel from "../../../../database/models/CommandModel";
+import CommandCountModel from "../../../../database/models/CommandCountModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../errorEmbedGenerator";
@@ -17,7 +17,7 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
     const view = interaction.options.getString("view");
 
     if (view === "commands") {
-      const topServers = await CommandModel.find()
+      const topServers = await CommandCountModel.find()
         .sort({
           // sort decending, so the top 10 will be the largest.
           commandUses: -1,

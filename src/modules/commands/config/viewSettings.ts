@@ -1,8 +1,8 @@
 import { Guild, MessageEmbed } from "discord.js";
 
 import { defaultServer } from "../../../config/database/defaultServer";
-import { ServerModelInt } from "../../../database/models/ServerModel";
 import { BeccaInt } from "../../../interfaces/BeccaInt";
+import { ServerConfig } from "../../../interfaces/database/ServerConfig";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
 
@@ -14,13 +14,13 @@ import { renderSetting } from "./renderSetting";
  *
  * @param {BeccaInt} Becca Becca's Discord instance.
  * @param {Guild} guild The server to parse the settings for.
- * @param {ServerModelInt} config The server's configuration object from the database.
+ * @param {ServerConfig} config The server's configuration object from the database.
  * @returns {MessageEmbed | null} A message embed or null on error.
  */
 export const viewSettings = (
   Becca: BeccaInt,
   guild: Guild,
-  config: ServerModelInt
+  config: ServerConfig
 ): MessageEmbed | null => {
   try {
     const settingsEmbed = new MessageEmbed();

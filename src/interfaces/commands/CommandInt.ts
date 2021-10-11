@@ -4,8 +4,8 @@ import {
 } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
 
-import { ServerModelInt } from "../../database/models/ServerModel";
 import { BeccaInt } from "../BeccaInt";
+import { ServerConfig } from "../database/ServerConfig";
 
 export interface CommandInt {
   data: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder;
@@ -14,11 +14,11 @@ export interface CommandInt {
    *
    * @param {BeccaInt} Becca Becca's Discord instance.
    * @param {CommandInteraction} interaction The interaction payload from Discord.
-   * @param {ServerModelInt} config The server configuration from the database.
+   * @param {ServerConfig} config The server configuration from the database.
    */
   run: (
     Becca: BeccaInt,
     interaction: CommandInteraction,
-    config: ServerModelInt
+    config: ServerConfig
   ) => Promise<void>;
 }

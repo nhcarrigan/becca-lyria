@@ -1,8 +1,8 @@
 import { Guild, MessageEmbed } from "discord.js";
 
-import CommandModel from "../../database/models/CommandModel";
+import CommandCountModel from "../../database/models/CommandCountModel";
 import LevelModel from "../../database/models/LevelModel";
-import ServerModel from "../../database/models/ServerModel";
+import ServerModel from "../../database/models/ServerConfigModel";
 import StarModel from "../../database/models/StarModel";
 import WarningModel from "../../database/models/WarningModel";
 import { BeccaInt } from "../../interfaces/BeccaInt";
@@ -47,5 +47,5 @@ export const guildDelete = async (
   await LevelModel.findOneAndDelete({ serverID: guild.id });
   await StarModel.findOneAndDelete({ serverID: guild.id });
   await WarningModel.findOneAndDelete({ serverID: guild.id });
-  await CommandModel.findOneAndDelete({ serverID: guild.id });
+  await CommandCountModel.findOneAndDelete({ serverID: guild.id });
 };

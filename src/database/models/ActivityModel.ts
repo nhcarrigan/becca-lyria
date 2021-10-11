@@ -1,14 +1,8 @@
-import { Document, model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 
-export interface ActivityInt extends Document {
-  userId: string;
-  buttons: number;
-  commands: number;
-  selects: number;
-  contexts: number;
-}
+import { Activity } from "../../interfaces/database/Activity";
 
-export const Activity = new Schema({
+export const ActivitySchema = new Schema<Activity>({
   userId: String,
   buttons: Number,
   commands: Number,
@@ -16,4 +10,4 @@ export const Activity = new Schema({
   contexts: Number,
 });
 
-export default model<ActivityInt>("activity", Activity);
+export default model<Activity>("activity", ActivitySchema);

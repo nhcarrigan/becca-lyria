@@ -1,7 +1,7 @@
 import { Message } from "discord.js";
 
-import { ServerModelInt } from "../../database/models/ServerModel";
 import { BeccaInt } from "../BeccaInt";
+import { ServerConfig } from "../database/ServerConfig";
 
 export interface ListenerInt {
   name: string;
@@ -11,11 +11,11 @@ export interface ListenerInt {
    *
    * @param {BeccaInt} Becca Becca's Discord instance.
    * @param {Message} message The message that triggered the listener.
-   * @param {ServerModelInt} config The server settings from the database.
+   * @param {ServerConfig} config The server settings from the database.
    */
   run: (
     Becca: BeccaInt,
     message: Message,
-    config: ServerModelInt
+    config: ServerConfig
   ) => Promise<void>;
 }

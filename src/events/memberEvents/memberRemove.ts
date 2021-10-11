@@ -1,7 +1,7 @@
 import { GuildMember, MessageEmbed, PartialGuildMember } from "discord.js";
 
 import { defaultServer } from "../../config/database/defaultServer";
-import ServerModel from "../../database/models/ServerModel";
+import ServerModel from "../../database/models/ServerConfigModel";
 import { BeccaInt } from "../../interfaces/BeccaInt";
 import { memberRemoveCleanup } from "../../modules/guild/memberRemoveCleanup";
 import { sendWelcomeEmbed } from "../../modules/guild/sendWelcomeEmbed";

@@ -1,8 +1,8 @@
 /* eslint-disable no-case-declarations */
 import { Guild } from "discord.js";
 
-import { ServerModelInt } from "../../../database/models/ServerModel";
 import { BeccaInt } from "../../../interfaces/BeccaInt";
+import { ServerConfig } from "../../../interfaces/database/ServerConfig";
 import { SettingsTypes } from "../../../interfaces/settings/SettingsTypes";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
@@ -14,7 +14,7 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  * @param {SettingsTypes} setting The name of the setting to validate.
  * @param {string} value The value to confirm is valid.
  * @param {Guild} guild The guild object to modify the settings for.
- * @param {ServerModelInt} config The server config object from the database.
+ * @param {ServerConfig} config The server config object from the database.
  * @returns {boolean} True if the setting is valid, false if not.
  */
 export const validateSetting = async (
@@ -22,7 +22,7 @@ export const validateSetting = async (
   setting: SettingsTypes,
   value: string,
   guild: Guild,
-  config: ServerModelInt
+  config: ServerConfig
 ): Promise<boolean> => {
   try {
     const parsedValue = BigInt(value.replace(/\D/g, ""));

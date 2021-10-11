@@ -1,6 +1,6 @@
 import { CommandInteraction } from "discord.js";
 
-import CommandModel from "../database/models/CommandModel";
+import CommandCountModel from "../database/models/CommandCountModel";
 import { BeccaInt } from "../interfaces/BeccaInt";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
@@ -24,7 +24,7 @@ export const commandListener = {
         return;
       }
 
-      await CommandModel.findOneAndUpdate(
+      await CommandCountModel.findOneAndUpdate(
         { serverId: guild.id },
         { $inc: { commandUses: 1 }, $set: { serverName: guild.name } },
         {
