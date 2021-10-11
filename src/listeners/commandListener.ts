@@ -26,7 +26,10 @@ export const commandListener = {
 
       await CommandCountModel.findOneAndUpdate(
         { serverId: guild.id },
-        { $inc: { commandUses: 1 }, $set: { serverName: guild.name } },
+        {
+          $inc: { commandUses: 1 },
+          $set: { serverName: guild.name, serverAvatar: guild.iconURL() },
+        },
         {
           upsert: true,
         }
