@@ -1,4 +1,4 @@
-export interface FactInt {
+export interface Fact {
   id: string;
   text: string;
   source: string;

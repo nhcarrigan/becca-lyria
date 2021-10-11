@@ -1,4 +1,4 @@
-import { BeccaInt, ResponsesInt, SassyInt } from "../interfaces/BeccaInt";
+import { BeccaLyria, ResponsesInt, SassyInt } from "../interfaces/BeccaLyria";
 import { beccaLogHandler } from "../utils/beccaLogHandler";
 
 /**
@@ -7,11 +7,11 @@ import { beccaLogHandler } from "../utils/beccaLogHandler";
  * attaches it to Becca's instance. Also constructs the colours and responses objects
  * and attaches them.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @returns {Object} Object containing a valid property as boolean, and a message as string.
  */
 export const validateEnv = (
-  Becca: BeccaInt
+  Becca: BeccaLyria
 ): { valid: boolean; message: string } => {
   try {
     if (!process.env.DISCORD_TOKEN) {
@@ -46,7 +46,7 @@ export const validateEnv = (
       return { valid: false, message: "Missing Bot's Home Guild ID" };
     }
 
-    const configs: BeccaInt["configs"] = {
+    const configs: BeccaLyria["configs"] = {
       token: process.env.DISCORD_TOKEN,
       dbToken: process.env.MONGODB,
       whUrl: process.env.WH_URL,

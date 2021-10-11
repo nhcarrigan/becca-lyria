@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { SettingsTypes } from "../../../../interfaces/settings/SettingsTypes";
+import { Settings } from "../../../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { resetSetting } from "../../../settings/resetSetting";
@@ -26,7 +26,7 @@ export const handleReset: CommandHandler = async (
       Becca,
       guild.id,
       guild.name,
-      setting as SettingsTypes,
+      setting as Settings,
       config
     );
     await interaction.editReply(

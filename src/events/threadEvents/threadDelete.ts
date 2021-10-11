@@ -1,17 +1,17 @@
 import { MessageEmbed, ThreadChannel } from "discord.js";
 
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
  * Logs the deletion of a thread.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {ThreadChannel} thread Channel object representing the deleted thread.
  */
 export const threadDelete = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   thread: ThreadChannel
 ): Promise<void> => {
   try {

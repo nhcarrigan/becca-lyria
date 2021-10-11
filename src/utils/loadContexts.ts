@@ -1,8 +1,8 @@
 import { readdir } from "fs/promises";
 import { join } from "path";
 
-import { BeccaInt } from "../interfaces/BeccaInt";
-import { ContextInt } from "../interfaces/contexts/ContextInt";
+import { BeccaLyria } from "../interfaces/BeccaLyria";
+import { Context } from "../interfaces/contexts/Context";
 
 import { beccaErrorHandler } from "./beccaErrorHandler";
 
@@ -10,12 +10,12 @@ import { beccaErrorHandler } from "./beccaErrorHandler";
  * Reads the `/contexts` directory and dynamically imports the files,
  * then pushes the imported data to an array.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
- * @returns {ContextInt[]} Array of ContextInt objects representing the imported commands.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
+ * @returns {Context[]} Array of Context objects representing the imported commands.
  */
-export const loadContexts = async (Becca: BeccaInt): Promise<ContextInt[]> => {
+export const loadContexts = async (Becca: BeccaLyria): Promise<Context[]> => {
   try {
-    const result: ContextInt[] = [];
+    const result: Context[] = [];
     const files = await readdir(
       join(process.cwd() + "/prod/contexts"),
       "utf-8"
@@ -23,7 +23,7 @@ export const loadContexts = async (Becca: BeccaInt): Promise<ContextInt[]> => {
     for (const file of files) {
       const name = file.split(".")[0];
       const mod = await import(join(process.cwd() + `/prod/contexts/${file}`));
-      result.push(mod[name] as ContextInt);
+      result.push(mod[name] as Context);
     }
     return result;
   } catch (err) {

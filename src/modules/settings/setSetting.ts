@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
-import { ServerModelInt } from "../../database/models/ServerModel";
-import { BeccaInt } from "../../interfaces/BeccaInt";
-import { SettingsTypes } from "../../interfaces/settings/SettingsTypes";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { ServerConfig } from "../../interfaces/database/ServerConfig";
+import { Settings } from "../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { beccaLogHandler } from "../../utils/beccaLogHandler";
 
@@ -10,22 +10,22 @@ import { beccaLogHandler } from "../../utils/beccaLogHandler";
  * the type of the data stored, it will handle the array or string logic
  * as necessary.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {string} serverID The ID of the server to modify settings for.
  * @param {string} serverName The current name of the server.
- * @param {SettingsTypes} key The name of the setting to modify.
+ * @param {Settings} key The name of the setting to modify.
  * @param {string} value The value to change the setting to.
- * @param {ServerModelInt} server The server config entry in the database.
- * @returns {ServerModelInt | null} ServerModel on success and null on error.
+ * @param {ServerConfig} server The server config entry in the database.
+ * @returns {ServerConfig | null} ServerModel on success and null on error.
  */
 export const setSetting = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   serverID: string,
   serverName: string,
-  key: SettingsTypes,
+  key: Settings,
   value: string,
-  server: ServerModelInt
-): Promise<ServerModelInt | null> => {
+  server: ServerConfig
+): Promise<ServerConfig | null> => {
   try {
     const parsedValue = value.replace(/\D/g, "");
 

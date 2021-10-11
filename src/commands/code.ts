@@ -4,14 +4,14 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleCanIUse } from "../modules/commands/subcommands/code/handleCanIUse";
 import { handleColour } from "../modules/commands/subcommands/code/handleColour";
 import { handleHttp } from "../modules/commands/subcommands/code/handleHttp";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const code: CommandInt = {
+export const code: Command = {
   data: new SlashCommandBuilder()
     .setName("code")
     .setDescription("Commands related to programming.")

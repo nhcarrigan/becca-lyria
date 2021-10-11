@@ -6,7 +6,7 @@ import {
 
 import { CurrencyOptOut } from "../config/optout/CurrencyOptOut";
 import CurrencyModel from "../database/models/CurrencyModel";
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleAbout } from "../modules/commands/subcommands/currency/handleAbout";
 import { handleClaim } from "../modules/commands/subcommands/currency/handleClaim";
@@ -18,7 +18,7 @@ import { handleView } from "../modules/commands/subcommands/currency/handleView"
 import { handleWeekly } from "../modules/commands/subcommands/currency/handleWeekly";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const currency: CommandInt = {
+export const currency: Command = {
   data: new SlashCommandBuilder()
     .setName("currency")
     .setDescription("Handles Becca's economy system.")

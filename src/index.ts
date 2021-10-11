@@ -6,7 +6,7 @@ import { Client, WebhookClient } from "discord.js";
 import { IntentOptions } from "./config/IntentOptions";
 import { connectDatabase } from "./database/connectDatabase";
 import { handleEvents } from "./events/handleEvents";
-import { BeccaInt } from "./interfaces/BeccaInt";
+import { BeccaLyria } from "./interfaces/BeccaLyria";
 import { validateEnv } from "./modules/validateEnv";
 import { createServer } from "./server/serve";
 import { beccaErrorHandler } from "./utils/beccaErrorHandler";
@@ -35,7 +35,7 @@ const initialiseBecca = async () => {
   const Becca = new Client({
     shards: "auto",
     intents: IntentOptions,
-  }) as BeccaInt;
+  }) as BeccaLyria;
 
   beccaLogHandler.log("debug", "Validating environment variables...");
   const validatedEnvironment = validateEnv(Becca);

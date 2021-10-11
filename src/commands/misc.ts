@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleLevelscale } from "../modules/commands/subcommands/misc/handleLevelscale";
 import { handlePermissions } from "../modules/commands/subcommands/misc/handlePermissions";
@@ -13,7 +13,7 @@ import { handleUsername } from "../modules/commands/subcommands/misc/handleUsern
 import { handleXkcd } from "../modules/commands/subcommands/misc/handleXkcd";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const misc: CommandInt = {
+export const misc: Command = {
   data: new SlashCommandBuilder()
     .setName("misc")
     .setDescription("Miscellaneous commands that do not fit other categories")

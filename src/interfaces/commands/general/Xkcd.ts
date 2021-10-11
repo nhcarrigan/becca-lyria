@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-export interface XkcdInt {
+export interface Xkcd {
   month: string;
   num: number;
   link: string;

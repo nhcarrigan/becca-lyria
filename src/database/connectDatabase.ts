@@ -1,16 +1,16 @@
 import { MessageEmbed } from "discord.js";
 import { connect } from "mongoose";
 
-import { BeccaInt } from "../interfaces/BeccaInt";
+import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 /**
  * Instantiates the database connection.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @returns {boolean} True if the connection was successful.
  */
-export const connectDatabase = async (Becca: BeccaInt): Promise<boolean> => {
+export const connectDatabase = async (Becca: BeccaLyria): Promise<boolean> => {
   try {
     await connect(Becca.configs.dbToken);
 

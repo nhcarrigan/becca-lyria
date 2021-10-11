@@ -1,4 +1,4 @@
-export interface LevelRoleInt {
+export interface LevelRole {
   level: number;
   role: string;
 }

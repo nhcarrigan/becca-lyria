@@ -1,18 +1,18 @@
 import { MessageEmbed, ThreadChannel } from "discord.js";
 
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
  * Logs when a thread is unarchived or archived.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {ThreadChannel} oldThread The thread state before the update.
  * @param {ThreadChannel} newThread The thread state after the update.
  */
 export const threadUpdate = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   oldThread: ThreadChannel,
   newThread: ThreadChannel
 ): Promise<void> => {

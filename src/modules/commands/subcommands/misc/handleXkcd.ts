@@ -3,7 +3,7 @@ import axios from "axios";
 import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { XkcdInt } from "../../../../interfaces/commands/general/XkcdInt";
+import { Xkcd } from "../../../../interfaces/commands/general/Xkcd";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
@@ -19,7 +19,7 @@ export const handleXkcd: CommandHandler = async (Becca, interaction) => {
     }
     url += "info.0.json";
 
-    const xkcd = await axios.get<XkcdInt>(url);
+    const xkcd = await axios.get<Xkcd>(url);
 
     const xkcdEmbed = new MessageEmbed();
     xkcdEmbed.setTitle(xkcd.data.title);

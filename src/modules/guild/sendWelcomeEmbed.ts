@@ -1,6 +1,6 @@
 import { Guild, MessageEmbed, TextChannel } from "discord.js";
 
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { getSettings } from "../settings/getSettings";
 
@@ -8,12 +8,12 @@ import { getSettings } from "../settings/getSettings";
  * Validates that a server has set the custom welcome channel, that channel still
  * exists, and if so sends the given embed to that channel.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {Guild} guild The guild object.
  * @param {MessageEmbed} content The MessageEmbed to send to the log channel.
  */
 export const sendWelcomeEmbed = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   guild: Guild,
   content: MessageEmbed
 ): Promise<void> => {

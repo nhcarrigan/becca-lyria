@@ -1,4 +1,4 @@
-import { BeccaInt } from "../interfaces/BeccaInt";
+import { BeccaLyria } from "../interfaces/BeccaLyria";
 
 import { disconnect } from "./clientEvents/disconnect";
 import { ready } from "./clientEvents/ready";
@@ -22,9 +22,9 @@ import { voiceStateUpdate } from "./voiceEvents/voiceStateUpdate";
  * Root level function for loading all of the event listeners. Attaches
  * all of the Discord.js event listeners to Becca's custom handlers.
  *
- * @param {BeccaInt} Becca Becca's Client instance.
+ * @param {BeccaLyria} Becca Becca's Client instance.
  */
-export const handleEvents = (Becca: BeccaInt): void => {
+export const handleEvents = (Becca: BeccaLyria): void => {
   Becca.on("shardReady", async (shard) => await shardReady(Becca, shard));
   Becca.on(
     "shardError",

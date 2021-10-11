@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-export interface SpaceInt {
+export interface Space {
   copyright: string;
   date: string;
   explanation: string;

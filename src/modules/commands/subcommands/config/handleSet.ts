@@ -2,7 +2,7 @@
 import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { SettingsTypes } from "../../../../interfaces/settings/SettingsTypes";
+import { Settings } from "../../../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
 import { renderSetting } from "../../../commands/config/renderSetting";
@@ -33,7 +33,7 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
 
     const isValid = await validateSetting(
       Becca,
-      setting as SettingsTypes,
+      setting as Settings,
       value,
       guild,
       config
@@ -49,7 +49,7 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
       Becca,
       guild.id,
       guild.name,
-      setting as SettingsTypes,
+      setting as Settings,
       value,
       config
     );
@@ -60,12 +60,12 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
       );
       return;
     }
-    const newContent = isSet[setting as SettingsTypes];
+    const newContent = isSet[setting as Settings];
     const parsedContent = Array.isArray(newContent)
       ? newContent
-          .map((el) => renderSetting(Becca, setting as SettingsTypes, el))
+          .map((el) => renderSetting(Becca, setting as Settings, el))
           .join(", ")
-      : renderSetting(Becca, setting as SettingsTypes, newContent);
+      : renderSetting(Becca, setting as Settings, newContent);
     const successEmbed = new MessageEmbed();
     successEmbed.setTitle(`${setting} Updated`);
     successEmbed.setDescription(customSubstring(parsedContent, 2000));

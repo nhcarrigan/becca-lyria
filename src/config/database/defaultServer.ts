@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { LevelRoleInt } from "../../interfaces/settings/LevelRoleInt";
+import { LevelRole } from "../../interfaces/settings/LevelRole";
 
 /**
  * This config maps the default values for the ServerModel document. Useful
@@ -24,7 +24,7 @@ export const defaultServer = {
   allowed_links: [] as string[],
   link_message:
     "{@username}, it seems you are not allowed to send links in this channel.",
-  level_roles: [] as LevelRoleInt[],
+  level_roles: [] as LevelRole[],
   join_role: "",
   leave_message:
     "{@username}, thank you for your time in {@servername}. Your contributions are appreciated.",

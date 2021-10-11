@@ -1,21 +1,21 @@
-import { BeccaInt } from "../../../interfaces/BeccaInt";
-import { LevelRoleInt } from "../../../interfaces/settings/LevelRoleInt";
-import { SettingsTypes } from "../../../interfaces/settings/SettingsTypes";
+import { BeccaLyria } from "../../../interfaces/BeccaLyria";
+import { LevelRole } from "../../../interfaces/settings/LevelRole";
+import { Settings } from "../../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Renders a server setting's value into a string in the format that Discord
  * expects - allows for clean formatting of roles and channels.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
- * @param {SettingsTypes} key The setting to render.
- * @param {string | LevelRoleInt} value That setting's value.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
+ * @param {Settings} key The setting to render.
+ * @param {string | LevelRole} value That setting's value.
  * @returns {string} The parsed value.
  */
 export const renderSetting = (
-  Becca: BeccaInt,
-  key: SettingsTypes,
-  value: string | LevelRoleInt
+  Becca: BeccaLyria,
+  key: Settings,
+  value: string | LevelRole
 ): string => {
   try {
     if (!value) {
@@ -49,8 +49,8 @@ export const renderSetting = (
       case "permit_links":
         return value === "all" ? value : `<#${value}>`;
       case "level_roles":
-        return `<@&${(value as LevelRoleInt).role}> at level ${
-          (value as LevelRoleInt).level
+        return `<@&${(value as LevelRole).role}> at level ${
+          (value as LevelRole).level
         }`;
       default:
         return "Something went wrong with rendering this setting.";

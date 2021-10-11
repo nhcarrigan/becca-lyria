@@ -1,7 +1,7 @@
 /**
  * Defines the config keys that are stored as arrays.
  */
-export type ArraySettingsType =
+export type ArraySettings =
   | "hearts"
   | "blocked"
   | "self_roles"

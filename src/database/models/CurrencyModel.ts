@@ -1,16 +1,8 @@
-import { Document, model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 
-export interface CurrencyInt extends Document {
-  userId: string;
-  currencyTotal: number;
-  dailyClaimed: number;
-  weeklyClaimed: number;
-  monthlyClaimed: number;
-  slotsPlayed: number;
-  twentyOnePlayed: number;
-}
+import { Currency } from "../../interfaces/database/Currency";
 
-export const Currency = new Schema({
+export const CurrencySchema = new Schema({
   userId: String,
   currencyTotal: Number,
   dailyClaimed: Number,
@@ -26,4 +18,4 @@ export const Currency = new Schema({
   },
 });
 
-export default model<CurrencyInt>("currency", Currency);
+export default model<Currency>("currency", CurrencySchema);

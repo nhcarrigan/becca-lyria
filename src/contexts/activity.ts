@@ -2,11 +2,11 @@
 import { MessageEmbed } from "discord.js";
 
 import ActivityModel from "../database/models/ActivityModel";
-import { ContextInt } from "../interfaces/contexts/ContextInt";
+import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const activity: ContextInt = {
+export const activity: Context = {
   data: {
     name: "activity",
     type: 2,

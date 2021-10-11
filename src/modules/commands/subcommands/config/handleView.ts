@@ -2,7 +2,7 @@
 import { Message, MessageActionRow, MessageButton } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { ArraySettingsType } from "../../../../interfaces/settings/ArraySettingsType";
+import { ArraySettings } from "../../../../interfaces/settings/ArraySettings";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { viewSettings } from "../../../commands/config/viewSettings";
 import { viewSettingsArray } from "../../../commands/config/viewSettingsArray";
@@ -45,7 +45,7 @@ export const handleView: CommandHandler = async (
     let embed = await viewSettingsArray(
       Becca,
       config,
-      setting as ArraySettingsType,
+      setting as ArraySettings,
       1
     );
 
@@ -106,7 +106,7 @@ export const handleView: CommandHandler = async (
       embed = await viewSettingsArray(
         Becca,
         config,
-        setting as ArraySettingsType,
+        setting as ArraySettings,
         page
       );
 

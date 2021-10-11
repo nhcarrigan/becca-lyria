@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleBan } from "../modules/commands/subcommands/moderation/handleBan";
 import { handleKick } from "../modules/commands/subcommands/moderation/handleKick";
@@ -14,7 +14,7 @@ import { handleWarn } from "../modules/commands/subcommands/moderation/handleWar
 import { handleWarnCount } from "../modules/commands/subcommands/moderation/handleWarnCount";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const mod: CommandInt = {
+export const mod: Command = {
   data: new SlashCommandBuilder()
     .setName("mod")
     .setDescription("Moderation actions")

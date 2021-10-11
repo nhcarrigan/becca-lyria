@@ -1,23 +1,11 @@
-import { Document, model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 
-export interface LevelInt extends Document {
-  serverID: string;
-  serverName: string;
-  users: {
-    userID: string;
-    userTag: string;
-    avatar: string;
-    points: number;
-    level: number;
-    lastSeen: Date;
-    cooldown: number;
-  }[];
-}
+import { Level } from "../../interfaces/database/Level";
 
-export const Level = new Schema({
+export const LevelSchema = new Schema({
   serverID: String,
   serverName: String,
   users: [],
 });
 
-export default model<LevelInt>("level", Level);
+export default model<Level>("level", LevelSchema);

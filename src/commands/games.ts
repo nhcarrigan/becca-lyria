@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleFact } from "../modules/commands/subcommands/games/handleFact";
 import { handleJoke } from "../modules/commands/subcommands/games/handleJoke";
@@ -14,7 +14,7 @@ import { handleSus } from "../modules/commands/subcommands/games/handleSus";
 import { handleTrivia } from "../modules/commands/subcommands/games/handleTrivia";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const games: CommandInt = {
+export const games: Command = {
   data: new SlashCommandBuilder()
     .setName("games")
     .setDescription("Fun and silly commands!")

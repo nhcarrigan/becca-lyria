@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-interface ResultInt {
+interface TriviaQuestion {
   category: string;
   type: string;
   difficulty: string;
@@ -8,7 +8,7 @@ interface ResultInt {
   incorrect_answers: string[];
 }
 
-export interface TriviaInt {
+export interface Trivia {
   response_code: number;
-  results: ResultInt[];
+  results: TriviaQuestion[];
 }

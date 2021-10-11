@@ -4,14 +4,18 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import {
+  configChoices,
+  configViewChoices,
+} from "../config/commands/settingsChoices";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleReset } from "../modules/commands/subcommands/config/handleReset";
 import { handleSet } from "../modules/commands/subcommands/config/handleSet";
 import { handleView } from "../modules/commands/subcommands/config/handleView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const config: CommandInt = {
+export const config: Command = {
   data: new SlashCommandBuilder()
     .setName("config")
     .setDescription("Modify your server settings.")
@@ -24,30 +28,7 @@ export const config: CommandInt = {
             .setName("setting")
             .setDescription("The setting to update")
             .setRequired(true)
-            .addChoices([
-              ["Thanks System", "thanks"],
-              ["Level System", "levels"],
-              ["Join/Leave Channel", "welcome_channel"],
-              ["Moderation Log Channel", "log_channel"],
-              ["Level Log Channel", "level_channel"],
-              ["Suggestion Channel", "suggestion_channel"],
-              ["Muted Role", "muted_role"],
-              ["Custom Welcome Message", "custom_welcome"],
-              ["Heart Users", "hearts"],
-              ["Blocked Users", "blocked"],
-              ["Self-assignable Roles", "self_roles"],
-              ["Anti-link Channels", "anti_links"],
-              ["Allowed Link Channels", "permit_links"],
-              ["Allowed Link Roles", "link_roles"],
-              ["Allowed Link Regex", "allowed_links"],
-              ["Link Delete Message", "link_message"],
-              ["Level-assigned Roles", "level_roles"],
-              ["Role on Join", "join_role"],
-              ["Custom Leave Message", "leave_message"],
-              ["Report Channel", "report_channel"],
-              ["No Levelling Channels", "level_ignore"],
-              ["Sass Mode", "sass_mode"],
-            ])
+            .addChoices(configChoices)
         )
         .addStringOption((option) =>
           option
@@ -65,30 +46,7 @@ export const config: CommandInt = {
             .setName("setting")
             .setDescription("The setting to reset")
             .setRequired(true)
-            .addChoices([
-              ["Thanks System", "thanks"],
-              ["Level System", "levels"],
-              ["Join/Leave Channel", "welcome_channel"],
-              ["Moderation Log Channel", "log_channel"],
-              ["Level Log Channel", "level_channel"],
-              ["Suggestion Channel", "suggestion_channel"],
-              ["Muted Role", "muted_role"],
-              ["Custom Welcome Message", "custom_welcome"],
-              ["Heart Users", "hearts"],
-              ["Blocked Users", "blocked"],
-              ["Self-assignable Roles", "self_roles"],
-              ["Anti-link Channels", "anti_links"],
-              ["Allowed Link Channels", "permit_links"],
-              ["Allowed Link Roles", "link_roles"],
-              ["Allowed Link Regex", "allowed_links"],
-              ["Link Delete Message", "link_message"],
-              ["Level-assigned Roles", "level_roles"],
-              ["Role on Join", "join_role"],
-              ["Custom Leave Message", "leave_message"],
-              ["Report Channel", "report_channel"],
-              ["No Levelling Channels", "level_ignore"],
-              ["Sass Mode", "sass_mode"],
-            ])
+            .addChoices(configChoices)
         )
     )
     .addSubcommand(
@@ -100,18 +58,7 @@ export const config: CommandInt = {
             .setName("setting")
             .setDescription("The setting list to view.")
             .setRequired(true)
-            .addChoices([
-              ["Heart Users", "hearts"],
-              ["Self-Assignable Roles", "self_roles"],
-              ["Blocked Users", "blocked"],
-              ["Anti-link Channels", "anti_links"],
-              ["Allowed Link Channels", "permit_links"],
-              ["Allowed Link Roles", "link_roles"],
-              ["Allowed Link Regex", "allowed_links"],
-              ["Level-assigned Roles", "level_roles"],
-              ["No Levelling Channels", "level_ignore"],
-              ["Global Settings", "global"],
-            ])
+            .addChoices(configViewChoices)
         )
     ),
   run: async (Becca, interaction, config) => {

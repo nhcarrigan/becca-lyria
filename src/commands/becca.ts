@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleAbout } from "../modules/commands/subcommands/becca/handleAbout";
 import { handleArt } from "../modules/commands/subcommands/becca/handleArt";
@@ -18,7 +18,7 @@ import { handleUpdates } from "../modules/commands/subcommands/becca/handleUpdat
 import { handleUptime } from "../modules/commands/subcommands/becca/handleUptime";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const becca: CommandInt = {
+export const becca: Command = {
   data: new SlashCommandBuilder()
     .setName("becca")
     .setDescription("Returns the uptime of the bot.")

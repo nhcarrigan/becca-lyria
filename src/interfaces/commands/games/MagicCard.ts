@@ -1,4 +1,4 @@
-export interface MtgInt {
+export interface MagicCard {
   cards: {
     name: string;
     manaCost: string;

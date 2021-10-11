@@ -8,12 +8,12 @@ import {
   TextChannel,
 } from "discord.js";
 
-import { ContextInt } from "../interfaces/contexts/ContextInt";
+import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { customSubstring } from "../utils/customSubstring";
 
-export const report: ContextInt = {
+export const report: Context = {
   data: {
     name: "report",
     type: 3,

@@ -3,7 +3,7 @@ import * as Sentry from "@sentry/node";
 import { Message, MessageEmbed } from "discord.js";
 import { Types } from "mongoose";
 
-import { BeccaInt } from "../interfaces/BeccaInt";
+import { BeccaLyria } from "../interfaces/BeccaLyria";
 
 import { beccaLogHandler } from "./beccaLogHandler";
 import { customSubstring } from "./customSubstring";
@@ -13,7 +13,7 @@ import { customSubstring } from "./customSubstring";
  * information in the console. Then, generates an error ID, builds an error embed, and sends
  * that to the debug hook. Finally, returns the error ID to be passed to the user if applicable.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {string} context The string explaining where this error was thrown.
  * @param {unknown} err The standard error object (generated in a catch statement).
  * @param {string | undefined} guild The name of the guild that triggered the issue.
@@ -21,7 +21,7 @@ import { customSubstring } from "./customSubstring";
  * @returns {Types.ObjectId} A unique ID for the error.
  */
 export const beccaErrorHandler = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   context: string,
   err: unknown,
   guild?: string,

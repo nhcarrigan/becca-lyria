@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-export interface CommandDataInt {
+export interface CommandData {
   id: string;
   application_id: string;
   name: string;
