@@ -1,5 +1,6 @@
 import { Guild, MessageEmbed } from "discord.js";
 
+import CommandModel from "../../database/models/CommandModel";
 import LevelModel from "../../database/models/LevelModel";
 import ServerModel from "../../database/models/ServerModel";
 import StarModel from "../../database/models/StarModel";
@@ -46,4 +47,5 @@ export const guildDelete = async (
   await LevelModel.findOneAndDelete({ serverID: guild.id });
   await StarModel.findOneAndDelete({ serverID: guild.id });
   await WarningModel.findOneAndDelete({ serverID: guild.id });
+  await CommandModel.findOneAndDelete({ serverID: guild.id });
 };
