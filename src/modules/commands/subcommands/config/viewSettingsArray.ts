@@ -1,10 +1,10 @@
 import { MessageEmbed } from "discord.js";
 
-import { BeccaLyria } from "../../../interfaces/BeccaLyria";
-import { ServerConfig } from "../../../interfaces/database/ServerConfig";
-import { ArraySettings } from "../../../interfaces/settings/ArraySettings";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { renderSetting } from "../../settings/renderSetting";
+import { BeccaLyria } from "../../../../interfaces/BeccaLyria";
+import { ServerConfig } from "../../../../interfaces/database/ServerConfig";
+import { ArraySettings } from "../../../../interfaces/settings/ArraySettings";
+import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { renderSetting } from "../../../settings/renderSetting";
 
 /**
  * Parses a settings array into a paginated embed, with array values

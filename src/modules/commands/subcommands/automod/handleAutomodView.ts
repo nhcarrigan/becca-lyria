@@ -4,16 +4,15 @@ import { Message, MessageActionRow, MessageButton } from "discord.js";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { ArraySettings } from "../../../../interfaces/settings/ArraySettings";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
-import { viewSettings } from "../../../commands/config/viewSettings";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
-
-import { viewSettingsArray } from "./viewSettingsArray";
+import { viewAutomodSettings } from "../../automod/viewAutomodSettings";
+import { viewSettingsArray } from "../config/viewSettingsArray";
 
 /**
  * Generates an embed showing the current server `setting` values. If `setting` is global,
  * shows the top-level overview.
  */
-export const handleView: CommandHandler = async (
+export const handleAutomodView: CommandHandler = async (
   Becca,
   interaction,
   config
@@ -29,7 +28,7 @@ export const handleView: CommandHandler = async (
     const setting = interaction.options.getString("setting");
 
     if (setting === "global") {
-      const result = viewSettings(Becca, guild, config);
+      const result = viewAutomodSettings(Becca, guild, config);
       if (!result) {
         await interaction.editReply({
           content: "I am unable to locate your settings.",
@@ -138,19 +137,19 @@ export const handleView: CommandHandler = async (
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "view command",
+      "automod view command",
       err,
       interaction.guild?.name
     );
     await interaction
       .reply({
-        embeds: [errorEmbedGenerator(Becca, "view", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
         ephemeral: true,
       })
       .catch(
         async () =>
           await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "view", errorId)],
+            embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
           })
       );
   }
