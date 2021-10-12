@@ -30,8 +30,8 @@ export const setSetting = async (
     const parsedValue = value.replace(/\D/g, "");
 
     switch (key) {
-      case "anti_links":
-      case "permit_links":
+      case "automod_channels":
+      case "no_automod_channels":
         if (value === "all") {
           server[key] = ["all"];
           break;

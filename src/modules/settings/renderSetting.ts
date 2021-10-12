@@ -49,8 +49,8 @@ export const renderSetting = (
       case "muted_role":
       case "join_role":
         return `<@&${value}>`;
-      case "anti_links":
-      case "permit_links":
+      case "automod_channels":
+      case "no_automod_channels":
         return value === "all" ? value : `<#${value}>`;
       case "level_roles":
         return `<@&${(value as LevelRole).role}> at level ${

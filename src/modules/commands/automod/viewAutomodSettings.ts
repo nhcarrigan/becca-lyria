@@ -28,17 +28,17 @@ export const viewAutomodSettings = (
       "Here are your current automod configurations."
     );
     settingsEmbed.addField(
-      "No links channels",
-      config.anti_links.length.toString(),
+      "Automodded Channels",
+      config.automod_channels.length.toString(),
       true
     );
     settingsEmbed.addField(
-      "Allowed link channels",
-      config.permit_links.length.toString(),
+      "Non-Automodded Channels",
+      config.no_automod_channels.length.toString(),
       true
     );
     settingsEmbed.addField(
-      "Automod Bypass Roles",
+      "Automod Exempt Roles",
       config.automod_roles.length.toString(),
       true
     );
