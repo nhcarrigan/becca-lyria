@@ -17,9 +17,9 @@ export const defaultServer = {
   hearts: [] as string[],
   blocked: [] as string[],
   self_roles: [] as string[],
-  anti_links: [] as string[],
-  permit_links: [] as string[],
-  link_roles: [] as string[],
+  automod_channels: [] as string[],
+  no_automod_channels: [] as string[],
+  automod_roles: [] as string[],
   allowed_links: [] as string[],
   link_message:
     "{@username}, it seems you are not allowed to send links in this channel.",

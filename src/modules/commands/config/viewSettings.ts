@@ -95,30 +95,6 @@ export const viewSettings = (
       config.self_roles.length.toString(),
       true
     );
-    settingsEmbed.addField(
-      "No links channels",
-      config.anti_links.length.toString(),
-      true
-    );
-    settingsEmbed.addField(
-      "Allowed link channels",
-      config.permit_links.length.toString(),
-      true
-    );
-    settingsEmbed.addField(
-      "Anti-link Bypass Roles",
-      config.link_roles.length.toString(),
-      true
-    );
-    settingsEmbed.addField(
-      "Allowed Links",
-      config.allowed_links.length.toString(),
-      true
-    );
-    settingsEmbed.addField(
-      "Link removal message",
-      customSubstring(config.link_message || defaultServer.link_message, 1000)
-    );
     return settingsEmbed;
   } catch (err) {
     beccaErrorHandler(Becca, "view settings module", err, guild.name);

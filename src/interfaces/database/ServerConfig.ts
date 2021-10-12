@@ -16,9 +16,9 @@ export interface ServerConfig extends Document {
   hearts: string[];
   blocked: string[];
   self_roles: string[];
-  anti_links: string[];
-  permit_links: string[];
-  link_roles: string[];
+  automod_channels: string[];
+  no_automod_channels: string[];
+  automod_roles: string[];
   allowed_links: string[];
   link_message: string;
   level_roles: LevelRole[];
@@ -47,9 +47,9 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   hearts: [],
   blocked: [],
   self_roles: [],
-  anti_links: [],
-  permit_links: [],
-  link_roles: [],
+  automod_channels: [],
+  no_automod_channels: [],
+  automod_roles: [],
   allowed_links: [],
   link_message: "",
   level_roles: [],

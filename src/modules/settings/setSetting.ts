@@ -30,8 +30,8 @@ export const setSetting = async (
     const parsedValue = value.replace(/\D/g, "");
 
     switch (key) {
-      case "anti_links":
-      case "permit_links":
+      case "automod_channels":
+      case "no_automod_channels":
         if (value === "all") {
           server[key] = ["all"];
           break;
@@ -47,7 +47,7 @@ export const setSetting = async (
       case "hearts":
       case "blocked":
       case "self_roles":
-      case "link_roles":
+      case "automod_roles":
       case "level_ignore":
         if (server[key].includes(parsedValue)) {
           const index = server[key].indexOf(parsedValue);

@@ -1,9 +1,9 @@
 import { Message } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { automodListener } from "../../listeners/automodListener";
 import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
-import { linksListener } from "../../listeners/linksListener";
 import { sassListener } from "../../listeners/sassListener";
 import { thanksListener } from "../../listeners/thanksListener";
 import { getSettings } from "../../modules/settings/getSettings";
@@ -40,7 +40,7 @@ export const messageCreate = async (
 
     await heartsListener.run(Becca, message, serverConfig);
     await thanksListener.run(Becca, message, serverConfig);
-    await linksListener.run(Becca, message, serverConfig);
+    await automodListener.run(Becca, message, serverConfig);
     await levelListener.run(Becca, message, serverConfig);
     await sassListener.run(Becca, message, serverConfig);
 
