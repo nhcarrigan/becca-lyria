@@ -1,4 +1,6 @@
 /* eslint-disable jsdoc/require-param */
+import * as child from "child_process";
+
 import { MessageEmbed } from "discord.js";
 
 import {
@@ -15,6 +17,8 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  */
 export const handleUpdates: CommandHandler = async (Becca, interaction) => {
   try {
+    const hash = child.execSync("git rev-parse HEAD").toString().trim();
+
     const updateEmbed = new MessageEmbed();
     updateEmbed.setTitle("Update Information");
     updateEmbed.setDescription(
@@ -29,6 +33,13 @@ export const handleUpdates: CommandHandler = async (Becca, interaction) => {
     updateEmbed.addField(
       "Changelog",
       "View Becca's entire change log [in her documentation](https://docs.beccalyria.com/#/changelog)."
+    );
+    updateEmbed.addField(
+      "Commit Hash",
+      `[${hash.slice(
+        0,
+        7
+      )}](https://github.com/beccalyria/discord-bot/commit/${hash})`
     );
     updateEmbed.setColor(Becca.colours.default);
     await interaction.editReply({ embeds: [updateEmbed] });
