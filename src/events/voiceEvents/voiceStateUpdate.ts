@@ -92,6 +92,6 @@ export const voiceStateUpdate = async (
 
     await sendLogEmbed(Becca, oldState.guild, voiceEmbed, "voice_events");
   } catch (err) {
-    beccaErrorHandler(Becca, "voice state update listener", err);
+    await beccaErrorHandler(Becca, "voice state update listener", err);
   }
 };

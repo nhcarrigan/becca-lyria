@@ -58,7 +58,7 @@ export const automodLinks: Automodder = async (Becca, message, config) => {
       await message.channel.send({ embeds: [linkEmbed] });
     }
   } catch (err) {
-    beccaErrorHandler(
+    await beccaErrorHandler(
       Becca,
       "links automodder",
       err,

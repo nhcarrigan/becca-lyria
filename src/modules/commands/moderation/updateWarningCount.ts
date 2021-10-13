@@ -48,6 +48,11 @@ export const updateWarningCount = async (
     serverWarns.markModified("users");
     await serverWarns.save();
   } catch (err) {
-    beccaErrorHandler(Becca, "update warning count module", err, guild.name);
+    await beccaErrorHandler(
+      Becca,
+      "update warning count module",
+      err,
+      guild.name
+    );
   }
 };

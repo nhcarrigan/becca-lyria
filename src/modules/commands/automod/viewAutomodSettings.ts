@@ -15,11 +15,11 @@ import { customSubstring } from "../../../utils/customSubstring";
  * @param {ServerConfig} config The server's configuration object from the database.
  * @returns {MessageEmbed | null} A message embed or null on error.
  */
-export const viewAutomodSettings = (
+export const viewAutomodSettings = async (
   Becca: BeccaLyria,
   guild: Guild,
   config: ServerConfig
-): MessageEmbed | null => {
+): Promise<MessageEmbed | null> => {
   try {
     const settingsEmbed = new MessageEmbed();
     settingsEmbed.setTitle(`${guild.name} Automod Settings`);
@@ -54,7 +54,12 @@ export const viewAutomodSettings = (
     );
     return settingsEmbed;
   } catch (err) {
-    beccaErrorHandler(Becca, "view automod settings module", err, guild.name);
+    await beccaErrorHandler(
+      Becca,
+      "view automod settings module",
+      err,
+      guild.name
+    );
     return null;
   }
 };

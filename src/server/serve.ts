@@ -131,7 +131,7 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
     }
     return true;
   } catch (err) {
-    beccaErrorHandler(Becca, "create server", err);
+    await beccaErrorHandler(Becca, "create server", err);
     return false;
   }
 };

@@ -44,7 +44,7 @@ export const thanksListener: Listener = {
       }
       await channel.send(replies.join("\n"));
     } catch (err) {
-      beccaErrorHandler(
+      await beccaErrorHandler(
         Becca,
         "thanks listener",
         err,

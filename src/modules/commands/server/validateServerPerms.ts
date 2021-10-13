@@ -77,7 +77,7 @@ export const validateServerPerms = async (
       addReactions
     );
   } catch (err) {
-    beccaErrorHandler(Becca, "validate server perms module", err);
+    await beccaErrorHandler(Becca, "validate server perms module", err);
     return false;
   }
 };

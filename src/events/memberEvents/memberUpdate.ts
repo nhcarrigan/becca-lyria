@@ -52,6 +52,11 @@ export const memberUpdate = async (
       }
     }
   } catch (err) {
-    beccaErrorHandler(Becca, "member remove event", err, newMember.guild.name);
+    await beccaErrorHandler(
+      Becca,
+      "member remove event",
+      err,
+      newMember.guild.name
+    );
   }
 };

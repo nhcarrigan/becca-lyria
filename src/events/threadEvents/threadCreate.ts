@@ -30,6 +30,6 @@ export const threadCreate = async (
 
     await sendLogEmbed(Becca, thread.guild, threadEmbed, "thread_events");
   } catch (err) {
-    beccaErrorHandler(Becca, "thread create event", err);
+    await beccaErrorHandler(Becca, "thread create event", err);
   }
 };

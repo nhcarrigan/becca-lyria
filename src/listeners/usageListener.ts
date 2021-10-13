@@ -27,7 +27,12 @@ export const usageListener = {
       data.uses++;
       await data.save();
     } catch (err) {
-      beccaErrorHandler(Becca, "thanks listener", err, interaction.guild?.name);
+      await beccaErrorHandler(
+        Becca,
+        "thanks listener",
+        err,
+        interaction.guild?.name
+      );
     }
   },
 };

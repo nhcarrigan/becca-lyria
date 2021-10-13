@@ -52,7 +52,7 @@ export const messageUpdate = async (
 
     await sendLogEmbed(Becca, guild, updateEmbed, "message_events");
   } catch (err) {
-    beccaErrorHandler(
+    await beccaErrorHandler(
       Becca,
       "message update event",
       err,

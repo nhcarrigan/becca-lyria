@@ -50,6 +50,6 @@ export const logActivity = async (
 
     await userActivity.save();
   } catch (err) {
-    beccaErrorHandler(Becca, "activity logger", err);
+    await beccaErrorHandler(Becca, "activity logger", err);
   }
 };

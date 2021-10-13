@@ -27,7 +27,7 @@ export const resetSetting = async (
     await server.save();
     return server;
   } catch (err) {
-    beccaErrorHandler(Becca, "reset setting module", err, serverName);
+    await beccaErrorHandler(Becca, "reset setting module", err, serverName);
     return null;
   }
 };

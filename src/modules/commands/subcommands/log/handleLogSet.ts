@@ -65,7 +65,7 @@ export const handleLogSet: CommandHandler = async (
       return;
     }
     const newContent = isSet[setting as LogSettings];
-    const parsedContent = renderSetting(
+    const parsedContent = await renderSetting(
       Becca,
       setting as LogSettings,
       newContent

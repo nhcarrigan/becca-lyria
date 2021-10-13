@@ -16,11 +16,11 @@ import { renderSetting } from "../../settings/renderSetting";
  * @param {ServerConfig} config The server's configuration object from the database.
  * @returns {MessageEmbed | null} A message embed or null on error.
  */
-export const viewSettings = (
+export const viewSettings = async (
   Becca: BeccaLyria,
   guild: Guild,
   config: ServerConfig
-): MessageEmbed | null => {
+): Promise<MessageEmbed | null> => {
   try {
     const settingsEmbed = new MessageEmbed();
     settingsEmbed.setTitle(`${guild.name} Settings`);
@@ -31,32 +31,36 @@ export const viewSettings = (
     settingsEmbed.addField("Sass Mode", config.sass_mode || "off", true);
     settingsEmbed.addField(
       "Welcome Channel",
-      renderSetting(Becca, "welcome_channel", config.welcome_channel),
+      await renderSetting(Becca, "welcome_channel", config.welcome_channel),
       true
     );
     settingsEmbed.addField(
       "Level Logging Channel",
-      renderSetting(Becca, "level_channel", config.level_channel),
+      await renderSetting(Becca, "level_channel", config.level_channel),
       true
     );
     settingsEmbed.addField(
       "Suggestion Channel",
-      renderSetting(Becca, "suggestion_channel", config.suggestion_channel),
+      await renderSetting(
+        Becca,
+        "suggestion_channel",
+        config.suggestion_channel
+      ),
       true
     );
     settingsEmbed.addField(
       "Report Channel",
-      renderSetting(Becca, "report_channel", config.report_channel),
+      await renderSetting(Becca, "report_channel", config.report_channel),
       true
     );
     settingsEmbed.addField(
       "Muted Role",
-      renderSetting(Becca, "muted_role", config.muted_role),
+      await renderSetting(Becca, "muted_role", config.muted_role),
       true
     );
     settingsEmbed.addField(
       "Join Role",
-      renderSetting(Becca, "join_role", config.join_role),
+      await renderSetting(Becca, "join_role", config.join_role),
       true
     );
     settingsEmbed.addField(
@@ -97,7 +101,7 @@ export const viewSettings = (
     );
     return settingsEmbed;
   } catch (err) {
-    beccaErrorHandler(Becca, "view settings module", err, guild.name);
+    await beccaErrorHandler(Becca, "view settings module", err, guild.name);
     return null;
   }
 };

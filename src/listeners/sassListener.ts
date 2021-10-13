@@ -41,7 +41,7 @@ export const sassListener: Listener = {
         await channel.send(Becca.sass.sorry);
       }
     } catch (err) {
-      beccaErrorHandler(
+      await beccaErrorHandler(
         Becca,
         "links listener",
         err,

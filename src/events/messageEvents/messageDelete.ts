@@ -58,6 +58,11 @@ export const messageDelete = async (
       );
     }
   } catch (err) {
-    beccaErrorHandler(Becca, "message delete event", err, message.guild?.name);
+    await beccaErrorHandler(
+      Becca,
+      "message delete event",
+      err,
+      message.guild?.name
+    );
   }
 };
