@@ -221,12 +221,11 @@ export const community: Command = {
           embeds: [errorEmbedGenerator(Becca, "community group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "community group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "community group", errorId)],
+          });
+        });
     }
   },
 };

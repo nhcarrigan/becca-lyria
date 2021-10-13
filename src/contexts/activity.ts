@@ -59,12 +59,11 @@ export const activity: Context = {
           embeds: [errorEmbedGenerator(Becca, "activity context", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "activity context", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "activity context", errorId)],
+          });
+        });
     }
   },
 };
