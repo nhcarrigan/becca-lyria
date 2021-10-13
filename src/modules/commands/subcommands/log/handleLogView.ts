@@ -27,23 +27,23 @@ export const handleLogView: CommandHandler = async (
     settingEmbed.setTitle(`Log Settings for ${guild.name}`);
     settingEmbed.addField(
       "Message Events",
-      renderSetting(Becca, "message_events", config.message_events)
+      await renderSetting(Becca, "message_events", config.message_events)
     );
     settingEmbed.addField(
       "Voice Events",
-      renderSetting(Becca, "voice_events", config.voice_events)
+      await renderSetting(Becca, "voice_events", config.voice_events)
     );
     settingEmbed.addField(
       "Thread Events",
-      renderSetting(Becca, "thread_events", config.thread_events)
+      await renderSetting(Becca, "thread_events", config.thread_events)
     );
     settingEmbed.addField(
       "Moderation Events",
-      renderSetting(Becca, "moderation_events", config.moderation_events)
+      await renderSetting(Becca, "moderation_events", config.moderation_events)
     );
     settingEmbed.addField(
       "Member Events",
-      renderSetting(Becca, "member_events", config.member_events)
+      await renderSetting(Becca, "member_events", config.member_events)
     );
 
     await interaction.editReply({ embeds: [settingEmbed] });
@@ -59,11 +59,10 @@ export const handleLogView: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "log view", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "log view", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "log view", errorId)],
+        });
+      });
   }
 };

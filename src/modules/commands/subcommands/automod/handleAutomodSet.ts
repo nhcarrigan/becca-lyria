@@ -69,7 +69,7 @@ export const handleAutomodSet: CommandHandler = async (
       ? newContent
           .map((el) => renderSetting(Becca, setting as Settings, el))
           .join(", ")
-      : renderSetting(Becca, setting as Settings, newContent);
+      : await renderSetting(Becca, setting as Settings, newContent);
     const successEmbed = new MessageEmbed();
     successEmbed.setTitle(`${setting} Updated`);
     successEmbed.setDescription(customSubstring(parsedContent, 2000));
@@ -88,11 +88,10 @@ export const handleAutomodSet: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "set", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "set", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "set", errorId)],
+        });
+      });
   }
 };

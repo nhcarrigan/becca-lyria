@@ -21,7 +21,7 @@ export const handleSpace: CommandHandler = async (Becca, interaction) => {
     let url = `https://api.nasa.gov/planetary/apod?api_key=${Becca.configs.nasaKey}`;
 
     if (date) {
-      if (!/[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(date)) {
+      if (!/[\d]{4}-[\d]{2}-[\d]{2}/.test(date)) {
         interaction.editReply({
           content: `${date} is not a valid date format.`,
         });
@@ -63,11 +63,10 @@ export const handleSpace: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "space", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "space", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "space", errorId)],
+        });
+      });
   }
 };

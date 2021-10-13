@@ -74,11 +74,10 @@ export const handleWeekly: CurrencyHandler = async (
         embeds: [errorEmbedGenerator(Becca, "weekly", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "weekly", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "weekly", errorId)],
+        });
+      });
   }
 };

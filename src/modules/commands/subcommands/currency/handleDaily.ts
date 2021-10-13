@@ -59,11 +59,10 @@ export const handleDaily: CurrencyHandler = async (
         embeds: [errorEmbedGenerator(Becca, "daily", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "daily", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "daily", errorId)],
+        });
+      });
   }
 };

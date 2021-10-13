@@ -135,11 +135,10 @@ export const handleTrivia: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "trivia", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "trivia", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "trivia", errorId)],
+        });
+      });
   }
 };

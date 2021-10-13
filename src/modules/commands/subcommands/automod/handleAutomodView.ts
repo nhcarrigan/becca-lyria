@@ -28,7 +28,7 @@ export const handleAutomodView: CommandHandler = async (
     const setting = interaction.options.getString("setting");
 
     if (setting === "global") {
-      const result = viewAutomodSettings(Becca, guild, config);
+      const result = await viewAutomodSettings(Becca, guild, config);
       if (!result) {
         await interaction.editReply({
           content: "I am unable to locate your settings.",
@@ -146,11 +146,10 @@ export const handleAutomodView: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
+        });
+      });
   }
 };

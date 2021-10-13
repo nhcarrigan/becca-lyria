@@ -47,11 +47,10 @@ export const handleLogReset: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "log reset", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "log reset", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "log reset", errorId)],
+        });
+      });
   }
 };

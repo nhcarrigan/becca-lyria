@@ -137,12 +137,11 @@ export const automod: Command = {
           embeds: [errorEmbedGenerator(Becca, "log group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "log group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "log group", errorId)],
+          });
+        });
     }
   },
 };

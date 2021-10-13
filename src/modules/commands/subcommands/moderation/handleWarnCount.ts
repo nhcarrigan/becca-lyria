@@ -87,11 +87,10 @@ export const handleWarnCount: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "warnCount", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "warnCount", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "warnCount", errorId)],
+        });
+      });
   }
 };

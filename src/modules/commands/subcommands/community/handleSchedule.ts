@@ -58,15 +58,13 @@ export const handleSchedule: CommandHandler = async (Becca, interaction) => {
       return;
     }
 
-    setTimeout(
-      async () =>
-        await (targetChannel as TextChannel | NewsChannel).send(
-          `<@!${
-            (member as GuildMember).id
-          }>, here is your scheduled post:\n${message}`
-        ),
-      time * 60000
-    );
+    setTimeout(async () => {
+      await (targetChannel as TextChannel | NewsChannel).send(
+        `<@!${
+          (member as GuildMember).id
+        }>, here is your scheduled post:\n${message}`
+      );
+    }, time * 60000);
 
     const successEmbed = new MessageEmbed();
     successEmbed.setTitle("Message Scheduled");
@@ -90,11 +88,10 @@ export const handleSchedule: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "schedule", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "schedule", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "schedule", errorId)],
+        });
+      });
   }
 };

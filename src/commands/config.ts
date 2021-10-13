@@ -113,12 +113,11 @@ export const config: Command = {
           embeds: [errorEmbedGenerator(Becca, "config group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "config group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "config group", errorId)],
+          });
+        });
     }
   },
 };

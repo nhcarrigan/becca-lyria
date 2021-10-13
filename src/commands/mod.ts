@@ -154,12 +154,11 @@ export const mod: Command = {
           embeds: [errorEmbedGenerator(Becca, "mod group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "mod group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "mod group", errorId)],
+          });
+        });
     }
   },
 };

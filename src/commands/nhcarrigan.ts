@@ -160,12 +160,11 @@ export const nhcarrigan: Command = {
           embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
+          });
+        });
     }
   },
 };

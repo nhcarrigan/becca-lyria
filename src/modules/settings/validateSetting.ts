@@ -100,7 +100,7 @@ export const validateSetting = async (
         return false;
     }
   } catch (err) {
-    beccaErrorHandler(Becca, "validate setting module", err, guild.name);
+    await beccaErrorHandler(Becca, "validate setting module", err, guild.name);
     return false;
   }
 };

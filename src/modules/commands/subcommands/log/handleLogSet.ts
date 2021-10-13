@@ -65,7 +65,7 @@ export const handleLogSet: CommandHandler = async (
       return;
     }
     const newContent = isSet[setting as LogSettings];
-    const parsedContent = renderSetting(
+    const parsedContent = await renderSetting(
       Becca,
       setting as LogSettings,
       newContent
@@ -88,11 +88,10 @@ export const handleLogSet: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "log set", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "log set", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "log set", errorId)],
+        });
+      });
   }
 };

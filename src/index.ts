@@ -81,7 +81,7 @@ const initialiseBecca = async () => {
   }
 
   beccaLogHandler.log("debug", "Attaching event listeners...");
-  await handleEvents(Becca);
+  handleEvents(Becca);
 
   beccaLogHandler.log("debug", "Connecting to Discord...");
   await Becca.login(Becca.configs.token);

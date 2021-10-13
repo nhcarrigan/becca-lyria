@@ -41,11 +41,10 @@ export const handleLeave: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "leave", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "leaves", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "leaves", errorId)],
+        });
+      });
   }
 };

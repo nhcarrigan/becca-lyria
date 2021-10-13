@@ -32,11 +32,10 @@ export const handleSus: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "sus", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "sus", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "sus", errorId)],
+        });
+      });
   }
 };

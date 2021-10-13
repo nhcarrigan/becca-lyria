@@ -69,6 +69,6 @@ export const memberAdd = async (
       }
     }
   } catch (err) {
-    beccaErrorHandler(Becca, "member add event", err, member.guild.name);
+    await beccaErrorHandler(Becca, "member add event", err, member.guild.name);
   }
 };

@@ -79,12 +79,11 @@ export const bookmark: Context = {
           embeds: [errorEmbedGenerator(Becca, "bookmark context", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "bookmark context", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "bookmark context", errorId)],
+          });
+        });
     }
   },
 };

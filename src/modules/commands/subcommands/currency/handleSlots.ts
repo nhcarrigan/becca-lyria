@@ -51,7 +51,9 @@ export const handleSlots: CurrencyHandler = async (
 
     const didWin = first === second && second === third;
 
-    didWin ? (data.currencyTotal += wager) : (data.currencyTotal -= wager);
+    data.currencyTotal = didWin
+      ? data.currencyTotal + wager
+      : data.currencyTotal - wager;
     data.slotsPlayed = now;
     await data.save();
 
@@ -83,11 +85,10 @@ export const handleSlots: CurrencyHandler = async (
         embeds: [errorEmbedGenerator(Becca, "slots", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "slots", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "slots", errorId)],
+        });
+      });
   }
 };

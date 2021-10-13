@@ -21,7 +21,7 @@ export const beccaMentionListener: Listener = {
         "What can I do for you? Cast `/becca help` to see my spells!"
       );
     } catch (err) {
-      beccaErrorHandler(
+      await beccaErrorHandler(
         Becca,
         "mention listener",
         err,

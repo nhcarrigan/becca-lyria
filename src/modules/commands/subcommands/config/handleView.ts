@@ -29,7 +29,7 @@ export const handleView: CommandHandler = async (
     const setting = interaction.options.getString("setting");
 
     if (setting === "global") {
-      const result = viewSettings(Becca, guild, config);
+      const result = await viewSettings(Becca, guild, config);
       if (!result) {
         await interaction.editReply({
           content: "I am unable to locate your settings.",
@@ -147,11 +147,10 @@ export const handleView: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "view", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "view", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "view", errorId)],
+        });
+      });
   }
 };

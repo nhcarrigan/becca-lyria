@@ -102,11 +102,10 @@ export const handleMute: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "mute", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "mute", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "mute", errorId)],
+        });
+      });
   }
 };

@@ -47,11 +47,10 @@ export const handleAutomodReset: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "automod reset", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "automod reset", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "automod reset", errorId)],
+        });
+      });
   }
 };

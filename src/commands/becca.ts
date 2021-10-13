@@ -137,12 +137,11 @@ export const becca: Command = {
           embeds: [errorEmbedGenerator(Becca, "becca group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "becca group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "becca group", errorId)],
+          });
+        });
     }
   },
 };

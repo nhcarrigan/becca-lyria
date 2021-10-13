@@ -130,7 +130,12 @@ export const levelListener: Listener = {
         }
       }
     } catch (err) {
-      beccaErrorHandler(Becca, "level listener", err, message.guild?.name);
+      await beccaErrorHandler(
+        Becca,
+        "level listener",
+        err,
+        message.guild?.name
+      );
     }
   },
 };

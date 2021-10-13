@@ -73,11 +73,10 @@ export const handleLeaderboard: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "leaderboard", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "leaderboard", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "leaderboard", errorId)],
+        });
+      });
   }
 };

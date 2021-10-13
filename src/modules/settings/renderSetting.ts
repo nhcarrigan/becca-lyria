@@ -12,11 +12,11 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  * @param {string | LevelRole} value That setting's value.
  * @returns {string} The parsed value.
  */
-export const renderSetting = (
+export const renderSetting = async (
   Becca: BeccaLyria,
   key: Settings,
   value: string | LevelRole
-): string => {
+): Promise<string> => {
   try {
     if (!value) {
       return "No value set.";
@@ -61,7 +61,7 @@ export const renderSetting = (
         return "Something went wrong with rendering this setting.";
     }
   } catch (err) {
-    beccaErrorHandler(Becca, "render setting module", err);
+    await beccaErrorHandler(Becca, "render setting module", err);
     return "Something went wrong with rendering this setting.";
   }
 };

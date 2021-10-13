@@ -16,12 +16,12 @@ import { renderSetting } from "../../../settings/renderSetting";
  * @param {number} page The page number for the current embed.
  * @returns {MessageEmbed | null} The parsed embed, or null on error.
  */
-export const viewSettingsArray = (
+export const viewSettingsArray = async (
   Becca: BeccaLyria,
   config: ServerConfig,
   setting: ArraySettings,
   page: number
-): MessageEmbed | null => {
+): Promise<MessageEmbed | null> => {
   try {
     const data = config[setting];
 
@@ -45,7 +45,7 @@ export const viewSettingsArray = (
     settingEmbed.setFooter(`Page ${page} of ${pages}`);
     return settingEmbed;
   } catch (err) {
-    beccaErrorHandler(Becca, "view settings array module", err);
+    await beccaErrorHandler(Becca, "view settings array module", err);
     return null;
   }
 };

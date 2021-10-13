@@ -43,7 +43,12 @@ export const currencyListener = {
       data.currencyTotal += earned;
       await data.save();
     } catch (err) {
-      beccaErrorHandler(Becca, "thanks listener", err, interaction.guild?.name);
+      await beccaErrorHandler(
+        Becca,
+        "thanks listener",
+        err,
+        interaction.guild?.name
+      );
     }
   },
 };

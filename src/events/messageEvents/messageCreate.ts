@@ -52,7 +52,7 @@ export const messageCreate = async (
       await message.reply("Reloaded all commands.");
     }
   } catch (err) {
-    beccaErrorHandler(
+    await beccaErrorHandler(
       Becca,
       "message send event",
       err,

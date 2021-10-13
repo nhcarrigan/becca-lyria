@@ -76,12 +76,11 @@ export const report: Context = {
           embeds: [errorEmbedGenerator(Becca, "report context", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "report context", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "report context", errorId)],
+          });
+        });
     }
   },
 };

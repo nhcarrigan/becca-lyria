@@ -103,12 +103,11 @@ export const misc: Command = {
           embeds: [errorEmbedGenerator(Becca, "misc group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "misc group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "misc group", errorId)],
+          });
+        });
     }
   },
 };

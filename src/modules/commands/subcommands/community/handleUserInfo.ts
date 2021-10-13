@@ -81,11 +81,10 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "user info", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "user info", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "user info", errorId)],
+        });
+      });
   }
 };

@@ -23,6 +23,7 @@ import { beccaLogHandler } from "../utils/beccaLogHandler";
 export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
   try {
     const HTTPEndpoint = express();
+    HTTPEndpoint.disable("x-powered-by");
 
     const allowedOrigins = [
       "https://dash.beccalyria.com",
@@ -130,7 +131,7 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
     }
     return true;
   } catch (err) {
-    beccaErrorHandler(Becca, "create server", err);
+    await beccaErrorHandler(Becca, "create server", err);
     return false;
   }
 };

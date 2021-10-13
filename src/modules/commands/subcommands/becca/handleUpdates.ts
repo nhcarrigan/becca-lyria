@@ -52,11 +52,10 @@ export const handleUpdates: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
+        });
+      });
   }
 };

@@ -91,11 +91,10 @@ export const handleBan: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "ban", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "ban", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "ban", errorId)],
+        });
+      });
   }
 };
