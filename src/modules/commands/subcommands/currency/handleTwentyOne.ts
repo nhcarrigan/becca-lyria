@@ -111,20 +111,20 @@ export const handleTwentyOne: CurrencyHandler = async (
         gameState.over = true;
         gameState.won = true;
       }
-      const hitButton = new MessageButton()
+      const newHitButton = new MessageButton()
         .setCustomId("hit")
         .setEmoji("<:BeccaThumbsup:875129902997860393>")
         .setLabel("Hit")
         .setStyle("SUCCESS");
-      const standButton = new MessageButton()
+      const newStandButton = new MessageButton()
         .setCustomId("stand")
         .setEmoji("<:BeccaYikes:877278299066347632>")
         .setLabel("Stand")
         .setStyle("PRIMARY");
 
       if (gameState.over) {
-        hitButton.setDisabled(true);
-        standButton.setDisabled(true);
+        newHitButton.setDisabled(true);
+        newStandButton.setDisabled(true);
         gameEmbed.setTitle(gameState.won ? "You win!" : "You lose!");
         data.currencyTotal = gameState.won
           ? data.currencyTotal + wager
@@ -139,9 +139,9 @@ export const handleTwentyOne: CurrencyHandler = async (
         );
       }
 
-      const row = new MessageActionRow().addComponents([
-        hitButton,
-        standButton,
+      const newRow = new MessageActionRow().addComponents([
+        newHitButton,
+        newStandButton,
       ]);
 
       gameEmbed.setFields(
@@ -157,7 +157,10 @@ export const handleTwentyOne: CurrencyHandler = async (
         }
       );
 
-      await interaction.editReply({ embeds: [gameEmbed], components: [row] });
+      await interaction.editReply({
+        embeds: [gameEmbed],
+        components: [newRow],
+      });
     });
 
     collector.on("end", async () => {
