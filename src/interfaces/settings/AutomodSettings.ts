@@ -4,3 +4,5 @@ export type AutomodSettings =
   | "automod_roles"
   | "allowed_links"
   | "link_message";
+
+export type AutomodToggleSettings = "links";

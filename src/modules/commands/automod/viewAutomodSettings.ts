@@ -27,6 +27,7 @@ export const viewAutomodSettings = (
     settingsEmbed.setDescription(
       "Here are your current automod configurations."
     );
+    settingsEmbed.addField("Link Detection", config.links || "off", true);
     settingsEmbed.addField(
       "Automodded Channels",
       config.automod_channels.length.toString(),

@@ -28,4 +28,5 @@ export type Settings =
   | "voice_events"
   | "thread_events"
   | "moderation_events"
-  | "member_events";
+  | "member_events"
+  | "links";

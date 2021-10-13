@@ -35,4 +35,5 @@ export const defaultServer = {
   thread_events: "",
   moderation_events: "",
   member_events: "",
+  links: "off",
 };

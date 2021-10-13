@@ -38,7 +38,9 @@ export const automodListener: Listener = {
         return;
       }
 
-      await automodLinks(Becca, message, config);
+      if (config.links === "on") {
+        await automodLinks(Becca, message, config);
+      }
     } catch (error) {
       await beccaErrorHandler(
         Becca,

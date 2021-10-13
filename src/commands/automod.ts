@@ -6,6 +6,7 @@ import {
 
 import {
   automodChoices,
+  automodToggleChoices,
   automodViewChoices,
 } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
@@ -60,6 +61,28 @@ export const automod: Command = {
             .setRequired(true)
             .addChoices(automodViewChoices)
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("toggle")
+        .setDescription("Toggle an automod feature on or off.")
+        .addStringOption((option) =>
+          option
+            .setName("setting")
+            .setDescription("The setting to toggle.")
+            .setRequired(true)
+            .addChoices(automodToggleChoices)
+        )
+        .addStringOption((option) =>
+          option
+            .setName("value")
+            .setDescription("Enable/Disable the setting.")
+            .setRequired(true)
+            .addChoices([
+              ["Enabled", "on"],
+              ["Disabled", "off"],
+            ])
+        )
     ),
   run: async (Becca, interaction, config) => {
     try {
@@ -87,6 +110,7 @@ export const automod: Command = {
       const action = interaction.options.getSubcommand();
       switch (action) {
         case "set":
+        case "toggle":
           await handleAutomodSet(Becca, interaction, config);
           break;
         case "reset":

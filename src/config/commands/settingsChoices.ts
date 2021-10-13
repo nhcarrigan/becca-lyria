@@ -1,5 +1,8 @@
 import { ArraySettings } from "../../interfaces/settings/ArraySettings";
-import { AutomodSettings } from "../../interfaces/settings/AutomodSettings";
+import {
+  AutomodSettings,
+  AutomodToggleSettings,
+} from "../../interfaces/settings/AutomodSettings";
 import { LogSettings } from "../../interfaces/settings/LogSettings";
 import { Settings } from "../../interfaces/settings/Settings";
 
@@ -55,4 +58,8 @@ export const automodViewChoices: [string, ArraySettings | "global"][] = [
   ["Allowed Link Channels", "no_automod_channels"],
   ["Allowed Link Roles", "automod_roles"],
   ["Allowed Link Regex", "allowed_links"],
+];
+
+export const automodToggleChoices: [string, AutomodToggleSettings][] = [
+  ["Link Detection", "links"],
 ];

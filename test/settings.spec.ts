@@ -2,6 +2,7 @@ import { assert } from "chai";
 
 import {
   automodChoices,
+  automodToggleChoices,
   automodViewChoices,
   configChoices,
   configViewChoices,
@@ -104,6 +105,16 @@ suite("Validate Settings", () => {
       assert.strictEqual(automodViewChoicesSet.size, automodViewChoices.length);
     });
 
+    test("Automod Toggle choices should be unique", () => {
+      const automodToggleChoicesSet = new Set(
+        automodToggleChoices.map((el) => el[1])
+      );
+      assert.strictEqual(
+        automodToggleChoicesSet.size,
+        automodToggleChoices.length
+      );
+    });
+
     for (const [, choice] of automodChoices) {
       test(`${choice} should be a valid automod option`, () => {
         assert(
@@ -132,6 +143,15 @@ suite("Validate Settings", () => {
         assert(
           Array.isArray(testServerConfig[choice]),
           `${choice} is not an array.`
+        );
+      });
+    }
+
+    for (const [, choice] of automodToggleChoices) {
+      test(`${choice} should be a valid automod toggle option`, () => {
+        assert(
+          choice in testServerConfig,
+          `${choice} is not a valid automod toggle option.`
         );
       });
     }

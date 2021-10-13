@@ -30,6 +30,7 @@ export const validateSetting = async (
       case "thanks":
       case "levels":
       case "sass_mode":
+      case "links":
         return value === "on" || value === "off";
       case "hearts":
       case "blocked":
