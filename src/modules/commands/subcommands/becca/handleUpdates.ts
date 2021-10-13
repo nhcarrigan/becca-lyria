@@ -1,6 +1,4 @@
 /* eslint-disable jsdoc/require-param */
-import * as child from "child_process";
-
 import { MessageEmbed } from "discord.js";
 
 import {
