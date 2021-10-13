@@ -126,9 +126,9 @@ export const handleTwentyOne: CurrencyHandler = async (
         hitButton.setDisabled(true);
         standButton.setDisabled(true);
         gameEmbed.setTitle(gameState.won ? "You win!" : "You lose!");
-        gameState.won
-          ? (data.currencyTotal += wager)
-          : (data.currencyTotal -= wager);
+        data.currencyTotal = gameState.won
+          ? data.currencyTotal + wager
+          : data.currencyTotal - wager;
         data.twentyOnePlayed = now;
         await data.save();
         gameEmbed.setDescription(`Your BeccaCoin: ${data.currencyTotal}`);

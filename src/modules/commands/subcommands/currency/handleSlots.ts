@@ -51,7 +51,9 @@ export const handleSlots: CurrencyHandler = async (
 
     const didWin = first === second && second === third;
 
-    didWin ? (data.currencyTotal += wager) : (data.currencyTotal -= wager);
+    data.currencyTotal = didWin
+      ? data.currencyTotal + wager
+      : data.currencyTotal - wager;
     data.slotsPlayed = now;
     await data.save();
 

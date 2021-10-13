@@ -39,7 +39,9 @@ export const automodLinks: Automodder = async (Becca, message, config) => {
     blockedLinks += (message.content.match(linkRegex) || []).length;
 
     if (blockedLinks > 0 && blockedLinks !== allowedLinks) {
-      message.deletable && (await message.delete());
+      if (message.deletable) {
+        await message.delete();
+      }
       const linkEmbed = new MessageEmbed();
       linkEmbed.setTitle("Invalid Link Detected!");
       linkEmbed.setDescription(
