@@ -1,6 +1,4 @@
 /* eslint-disable jsdoc/require-param */
-import * as child from "child_process";
-
 import { MessageEmbed } from "discord.js";
 
 import {
@@ -17,8 +15,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  */
 export const handleUpdates: CommandHandler = async (Becca, interaction) => {
   try {
-    const hash = child.execSync("git rev-parse HEAD").toString().trim();
-
+    const { commitHash: hash } = Becca;
     const updateEmbed = new MessageEmbed();
     updateEmbed.setTitle("Update Information");
     updateEmbed.setDescription(

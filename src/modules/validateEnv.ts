@@ -1,3 +1,5 @@
+import * as child from "child_process";
+
 import { BeccaLyria, ResponsesInt, SassyInt } from "../interfaces/BeccaLyria";
 import { beccaLogHandler } from "../utils/beccaLogHandler";
 
@@ -45,6 +47,8 @@ export const validateEnv = (
     if (!process.env.HOME_GUILD_ID) {
       return { valid: false, message: "Missing Bot's Home Guild ID" };
     }
+
+    Becca.commitHash = child.execSync("git rev-parse HEAD").toString().trim();
 
     const configs: BeccaLyria["configs"] = {
       token: process.env.DISCORD_TOKEN,
