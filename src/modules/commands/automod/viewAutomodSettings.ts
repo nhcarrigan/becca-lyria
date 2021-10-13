@@ -27,6 +27,11 @@ export const viewAutomodSettings = (
     settingsEmbed.setDescription(
       "Here are your current automod configurations."
     );
+    settingsEmbed.addField("Link Detection", config.links || "off", true);
+    settingsEmbed.addField(
+      "Link removal message",
+      customSubstring(config.link_message || defaultServer.link_message, 1000)
+    );
     settingsEmbed.addField(
       "Automodded Channels",
       config.automod_channels.length.toString(),
@@ -46,10 +51,6 @@ export const viewAutomodSettings = (
       "Allowed Links",
       config.allowed_links.length.toString(),
       true
-    );
-    settingsEmbed.addField(
-      "Link removal message",
-      customSubstring(config.link_message || defaultServer.link_message, 1000)
     );
     return settingsEmbed;
   } catch (err) {
