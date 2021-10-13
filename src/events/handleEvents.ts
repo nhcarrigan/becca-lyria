@@ -61,11 +61,11 @@ export const handleEvents = (Becca: BeccaLyria): void => {
     }
   });
 
-  Becca.on("ready", () => {
-    ready(Becca);
+  Becca.on("ready", async () => {
+    await ready(Becca);
   });
-  Becca.on("disconnect", () => {
-    disconnect(Becca);
+  Becca.on("disconnect", async () => {
+    await disconnect(Becca);
   });
 
   Becca.on("voiceStateUpdate", async (oldState, newState) => {
