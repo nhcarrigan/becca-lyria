@@ -83,11 +83,10 @@ export const handleSlots: CurrencyHandler = async (
         embeds: [errorEmbedGenerator(Becca, "slots", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "slots", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "slots", errorId)],
+        });
+      });
   }
 };

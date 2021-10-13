@@ -63,11 +63,10 @@ export const handleSpace: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "space", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "space", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "space", errorId)],
+        });
+      });
   }
 };

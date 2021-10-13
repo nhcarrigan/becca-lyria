@@ -50,11 +50,10 @@ export const handleResetStars: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "reset stars", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "reset stars", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "reset stars", errorId)],
+        });
+      });
   }
 };

@@ -90,11 +90,10 @@ export const handleSchedule: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "schedule", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "schedule", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "schedule", errorId)],
+        });
+      });
   }
 };

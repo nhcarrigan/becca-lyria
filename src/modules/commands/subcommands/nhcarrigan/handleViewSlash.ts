@@ -49,11 +49,10 @@ export const handleViewSlash: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "list", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "list", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "list", errorId)],
+        });
+      });
   }
 };

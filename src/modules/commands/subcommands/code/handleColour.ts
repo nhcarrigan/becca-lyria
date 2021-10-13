@@ -47,11 +47,10 @@ export const handleColour: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "colour", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "colour", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "colour", errorId)],
+        });
+      });
   }
 };

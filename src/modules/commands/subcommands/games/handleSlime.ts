@@ -43,11 +43,10 @@ export const handleSlime: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "slime", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "slime", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "slime", errorId)],
+        });
+      });
   }
 };

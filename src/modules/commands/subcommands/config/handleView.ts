@@ -147,11 +147,10 @@ export const handleView: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "view", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "view", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "view", errorId)],
+        });
+      });
   }
 };

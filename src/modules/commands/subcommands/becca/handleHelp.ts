@@ -49,11 +49,10 @@ export const handleHelp: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "help", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "help", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "help", errorId)],
+        });
+      });
   }
 };

@@ -146,11 +146,10 @@ export const handleAutomodView: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
+        });
+      });
   }
 };

@@ -47,11 +47,10 @@ export const handleUsername: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "username", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "username", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "username", errorId)],
+        });
+      });
   }
 };

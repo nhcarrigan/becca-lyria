@@ -88,11 +88,10 @@ export const handleAutomodSet: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "set", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "set", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "set", errorId)],
+        });
+      });
   }
 };

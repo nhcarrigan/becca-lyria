@@ -47,11 +47,10 @@ export const handleReset: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "reset", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "reset", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "reset", errorId)],
+        });
+      });
   }
 };
