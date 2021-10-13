@@ -24,13 +24,14 @@ export const handleSlime: CommandHandler = async (Becca, interaction) => {
 
     await member
       .setNickname(`${noun}slime`)
-      .then(async () => await interaction.editReply("You've been slimed!"))
-      .catch(
-        async () =>
-          await interaction.editReply(
-            "I lack the permission to bequeath you a new name."
-          )
-      );
+      .then(async () => {
+        await interaction.editReply("You've been slimed!");
+      })
+      .catch(async () => {
+        await interaction.editReply(
+          "I lack the permission to bequeath you a new name."
+        );
+      });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

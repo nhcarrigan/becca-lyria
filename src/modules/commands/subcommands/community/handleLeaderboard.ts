@@ -45,9 +45,9 @@ export const handleLeaderboard: CommandHandler = async (Becca, interaction) => {
     const topTen = sortedLevels
       .slice(0, 10)
       .map(
-        (user, index) =>
-          `#${index + 1}: ${user.userTag} at level ${user.level} with ${
-            user.points
+        (u, index) =>
+          `#${index + 1}: ${u.userTag} at level ${u.level} with ${
+            u.points
           } experience points.`
       );
 
