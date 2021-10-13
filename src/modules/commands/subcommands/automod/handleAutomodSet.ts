@@ -67,9 +67,7 @@ export const handleAutomodSet: CommandHandler = async (
     const newContent = isSet[setting as Settings];
     const parsedContent = Array.isArray(newContent)
       ? newContent
-          .map(
-            async (el) => await renderSetting(Becca, setting as Settings, el)
-          )
+          .map((el) => renderSetting(Becca, setting as Settings, el))
           .join(", ")
       : await renderSetting(Becca, setting as Settings, newContent);
     const successEmbed = new MessageEmbed();
