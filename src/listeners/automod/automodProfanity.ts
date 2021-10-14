@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { MessageEmbed } from "discord.js";
+import * as filter from "leo-profanity";
 
 import { defaultServer } from "../../config/database/defaultServer";
 import { Automodder } from "../../interfaces/listeners/Automodder";
@@ -11,7 +12,7 @@ import { customSubstring } from "../../utils/customSubstring";
  */
 export const automodProfanity: Automodder = async (Becca, message, config) => {
   try {
-    if (!message.content.includes("fuck")) {
+    if (!filter.check(message.content)) {
       return;
     }
 
