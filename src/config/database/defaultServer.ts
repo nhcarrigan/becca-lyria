@@ -36,4 +36,7 @@ export const defaultServer = {
   moderation_events: "",
   member_events: "",
   links: "off",
+  profanity: "off",
+  profanity_message:
+    "{@username}, your message appears to have been inappropriate. I removed it.",
 };

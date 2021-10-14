@@ -29,4 +29,6 @@ export type Settings =
   | "thread_events"
   | "moderation_events"
   | "member_events"
-  | "links";
+  | "links"
+  | "profanity"
+  | "profanity_message";
