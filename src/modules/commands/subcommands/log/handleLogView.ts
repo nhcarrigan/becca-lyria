@@ -27,23 +27,23 @@ export const handleLogView: CommandHandler = async (
     settingEmbed.setTitle(`Log Settings for ${guild.name}`);
     settingEmbed.addField(
       "Message Events",
-      await renderSetting(Becca, "message_events", config.message_events)
+      renderSetting(Becca, "message_events", config.message_events)
     );
     settingEmbed.addField(
       "Voice Events",
-      await renderSetting(Becca, "voice_events", config.voice_events)
+      renderSetting(Becca, "voice_events", config.voice_events)
     );
     settingEmbed.addField(
       "Thread Events",
-      await renderSetting(Becca, "thread_events", config.thread_events)
+      renderSetting(Becca, "thread_events", config.thread_events)
     );
     settingEmbed.addField(
       "Moderation Events",
-      await renderSetting(Becca, "moderation_events", config.moderation_events)
+      renderSetting(Becca, "moderation_events", config.moderation_events)
     );
     settingEmbed.addField(
       "Member Events",
-      await renderSetting(Becca, "member_events", config.member_events)
+      renderSetting(Becca, "member_events", config.member_events)
     );
 
     await interaction.editReply({ embeds: [settingEmbed] });

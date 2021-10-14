@@ -31,36 +31,32 @@ export const viewSettings = async (
     settingsEmbed.addField("Sass Mode", config.sass_mode || "off", true);
     settingsEmbed.addField(
       "Welcome Channel",
-      await renderSetting(Becca, "welcome_channel", config.welcome_channel),
+      renderSetting(Becca, "welcome_channel", config.welcome_channel),
       true
     );
     settingsEmbed.addField(
       "Level Logging Channel",
-      await renderSetting(Becca, "level_channel", config.level_channel),
+      renderSetting(Becca, "level_channel", config.level_channel),
       true
     );
     settingsEmbed.addField(
       "Suggestion Channel",
-      await renderSetting(
-        Becca,
-        "suggestion_channel",
-        config.suggestion_channel
-      ),
+      renderSetting(Becca, "suggestion_channel", config.suggestion_channel),
       true
     );
     settingsEmbed.addField(
       "Report Channel",
-      await renderSetting(Becca, "report_channel", config.report_channel),
+      renderSetting(Becca, "report_channel", config.report_channel),
       true
     );
     settingsEmbed.addField(
       "Muted Role",
-      await renderSetting(Becca, "muted_role", config.muted_role),
+      renderSetting(Becca, "muted_role", config.muted_role),
       true
     );
     settingsEmbed.addField(
       "Join Role",
-      await renderSetting(Becca, "join_role", config.join_role),
+      renderSetting(Becca, "join_role", config.join_role),
       true
     );
     settingsEmbed.addField(

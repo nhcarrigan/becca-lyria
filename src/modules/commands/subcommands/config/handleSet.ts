@@ -65,7 +65,7 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
       ? newContent
           .map((el) => renderSetting(Becca, setting as Settings, el))
           .join(", ")
-      : await renderSetting(Becca, setting as Settings, newContent);
+      : renderSetting(Becca, setting as Settings, newContent);
     const successEmbed = new MessageEmbed();
     successEmbed.setTitle(`${setting} Updated`);
     successEmbed.setDescription(customSubstring(parsedContent, 2000));
