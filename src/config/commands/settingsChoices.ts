@@ -55,9 +55,9 @@ export const automodChoices: [string, AutomodSettings][] = [
 export const automodViewChoices: [string, ArraySettings | "global"][] = [
   ["Global Automod Settings", "global"],
   // global must be on top for tests to pass
-  ["Anti-link Channels", "automod_channels"],
-  ["Allowed Link Channels", "no_automod_channels"],
-  ["Allowed Link Roles", "automod_roles"],
+  ["Automodded Channels", "automod_channels"],
+  ["Automod Ignored Channels", "no_automod_channels"],
+  ["Automod Exempt Roles", "automod_roles"],
   ["Allowed Link Regex", "allowed_links"],
 ];
 
