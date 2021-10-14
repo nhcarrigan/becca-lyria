@@ -30,6 +30,8 @@ export const renderSetting = async (
       case "leave_message":
       case "sass_mode":
       case "links":
+      case "profanity":
+      case "profanity_message":
         return value as string;
       case "welcome_channel":
       case "level_channel":

@@ -90,6 +90,8 @@ export const setSetting = async (
       case "leave_message":
       case "sass_mode":
       case "links":
+      case "profanity":
+      case "profanity_message":
         server[key] = value;
         break;
       case "welcome_channel":

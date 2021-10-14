@@ -49,6 +49,7 @@ export const automodChoices: [string, AutomodSettings][] = [
   ["Automod Exempt Roles", "automod_roles"],
   ["Allowed Link Regex", "allowed_links"],
   ["Link Delete Message", "link_message"],
+  ["Profanity Delete Message", "profanity_message"],
 ];
 
 export const automodViewChoices: [string, ArraySettings | "global"][] = [
@@ -62,4 +63,5 @@ export const automodViewChoices: [string, ArraySettings | "global"][] = [
 
 export const automodToggleChoices: [string, AutomodToggleSettings][] = [
   ["Link Detection", "links"],
+  ["Profanity Detection", "profanity"],
 ];

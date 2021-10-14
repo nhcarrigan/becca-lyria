@@ -33,6 +33,8 @@ export interface ServerConfig extends Document {
   moderation_events: string;
   member_events: string;
   links: string;
+  profanity: string;
+  profanity_message: string;
 }
 
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
@@ -65,4 +67,6 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   moderation_events: "",
   member_events: "",
   links: "",
+  profanity: "",
+  profanity_message: "",
 };

@@ -31,7 +31,9 @@ export const ServerConfigSchema = new Schema({
   automod_roles: [String],
   allowed_links: [String],
   link_message: String,
+  profanity_message: String,
   links: String,
+  profanity: String,
   // logging
   message_events: String,
   voice_events: String,

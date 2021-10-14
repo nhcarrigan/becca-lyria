@@ -29,8 +29,20 @@ export const viewAutomodSettings = async (
     );
     settingsEmbed.addField("Link Detection", config.links || "off", true);
     settingsEmbed.addField(
+      "Profanity Detection",
+      config.profanity || "off",
+      true
+    );
+    settingsEmbed.addField(
       "Link removal message",
       customSubstring(config.link_message || defaultServer.link_message, 1000)
+    );
+    settingsEmbed.addField(
+      "Profanity removal message",
+      customSubstring(
+        config.profanity_message || defaultServer.profanity_message,
+        1000
+      )
     );
     settingsEmbed.addField(
       "Automodded Channels",
