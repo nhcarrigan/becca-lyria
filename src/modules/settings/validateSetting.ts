@@ -29,6 +29,8 @@ export const validateSetting = async (
     switch (setting) {
       case "levels":
       case "sass_mode":
+      case "links":
+      case "profanity":
         return value === "on" || value === "off";
       case "hearts":
       case "blocked":
@@ -93,12 +95,13 @@ export const validateSetting = async (
       case "custom_welcome":
       case "link_message":
       case "leave_message":
+      case "profanity_message":
         return true;
       default:
         return false;
     }
   } catch (err) {
-    beccaErrorHandler(Becca, "validate setting module", err, guild.name);
+    await beccaErrorHandler(Becca, "validate setting module", err, guild.name);
     return false;
   }
 };

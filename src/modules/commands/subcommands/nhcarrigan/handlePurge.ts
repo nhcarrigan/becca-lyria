@@ -73,11 +73,10 @@ export const handlePurge: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "purge", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "purge", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "purge", errorId)],
+        });
+      });
   }
 };

@@ -31,11 +31,10 @@ export const handleProfile: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "becca", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "becca", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "becca", errorId)],
+        });
+      });
   }
 };

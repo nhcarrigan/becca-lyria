@@ -72,11 +72,10 @@ export const handlePermissions: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "permissions", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "permissions", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "permissions", errorId)],
+        });
+      });
   }
 };

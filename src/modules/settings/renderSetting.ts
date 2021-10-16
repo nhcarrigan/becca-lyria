@@ -28,6 +28,9 @@ export const renderSetting = (
       case "link_message":
       case "leave_message":
       case "sass_mode":
+      case "links":
+      case "profanity":
+      case "profanity_message":
         return value as string;
       case "welcome_channel":
       case "level_channel":
@@ -59,7 +62,7 @@ export const renderSetting = (
         return "Something went wrong with rendering this setting.";
     }
   } catch (err) {
-    beccaErrorHandler(Becca, "render setting module", err);
+    void beccaErrorHandler(Becca, "render setting module", err);
     return "Something went wrong with rendering this setting.";
   }
 };

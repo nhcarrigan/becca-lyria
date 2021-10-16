@@ -42,7 +42,7 @@ export const sassListener: Listener = {
       }
 
       const thanksRegex =
-        /((?:^|\s)(?:(?:th(?:n[qx]|x)|t[xyq]|tn(?:[x]){0,2})|\w*\s*[.,]*\s*than[kx](?:[sxz]){0,2}|than[kx](?:[sxz]){0,2}(?:[uq]|y(?:ou)?)?)|grazie|arigato(?:[u]{0,1})|doumo|gracias?|spasibo|dhanyavaad(?:hamulu)?|o?brigad(?:o|a)|dziekuje|(?:re)?merci|multumesc|shukra?an|danke)\b/gi;
+        /((?:^|\s)(?:(?:th(?:n[qx]|x)|t[xyq]|tn(?:[x]){0,2})|\w*\s*[.,]*\s*than[kx](?:[sxz]){0,2}|than[kx](?:[sxz]){0,2}(?:[uq]|y(?:ou)?)?)|grazie|arigato(?:[u]?)|doumo|gracias?|spasibo|dhanyavaad(?:hamulu)?|o?brigad(?:[oa])|dziekuje|(?:re)?merci|multumesc|shukra?an|danke)\b/gi;
 
       if (thanksRegex.test(content) && mentions.members?.size) {
         const replies = [];
@@ -64,7 +64,7 @@ export const sassListener: Listener = {
         await channel.send(replies.join("\n"));
       }
     } catch (err) {
-      beccaErrorHandler(
+      await beccaErrorHandler(
         Becca,
         "links listener",
         err,

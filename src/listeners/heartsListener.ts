@@ -20,7 +20,7 @@ export const heartsListener: Listener = {
         await message.react(Becca.configs.love);
       }
     } catch (err) {
-      beccaErrorHandler(
+      await beccaErrorHandler(
         Becca,
         "hearts listener",
         err,

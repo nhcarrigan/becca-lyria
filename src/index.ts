@@ -29,7 +29,7 @@ Sentry.init({
  * This is the entry point for Becca's process. This will log the boot process,
  * call the necessary helpers to prepare Becca, and then log in to Discord.
  */
-const initialiseBecca = async () => {
+(async () => {
   beccaLogHandler.log("debug", "Starting process...");
 
   const Becca = new Client({
@@ -81,7 +81,7 @@ const initialiseBecca = async () => {
   }
 
   beccaLogHandler.log("debug", "Attaching event listeners...");
-  await handleEvents(Becca);
+  handleEvents(Becca);
 
   beccaLogHandler.log("debug", "Connecting to Discord...");
   await Becca.login(Becca.configs.token);
@@ -101,6 +101,4 @@ const initialiseBecca = async () => {
   process.on("uncaughtException", async (error) => {
     await beccaErrorHandler(Becca, "Uncaught Exception Error", error);
   });
-};
-
-initialiseBecca();
+})();

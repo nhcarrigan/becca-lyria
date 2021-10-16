@@ -1,5 +1,8 @@
 import { ArraySettings } from "../../interfaces/settings/ArraySettings";
-import { AutomodSettings } from "../../interfaces/settings/AutomodSettings";
+import {
+  AutomodSettings,
+  AutomodToggleSettings,
+} from "../../interfaces/settings/AutomodSettings";
 import { LogSettings } from "../../interfaces/settings/LogSettings";
 import { Settings } from "../../interfaces/settings/Settings";
 
@@ -45,13 +48,19 @@ export const automodChoices: [string, AutomodSettings][] = [
   ["Automod Exempt Roles", "automod_roles"],
   ["Allowed Link Regex", "allowed_links"],
   ["Link Delete Message", "link_message"],
+  ["Profanity Delete Message", "profanity_message"],
 ];
 
 export const automodViewChoices: [string, ArraySettings | "global"][] = [
   ["Global Automod Settings", "global"],
   // global must be on top for tests to pass
-  ["Anti-link Channels", "automod_channels"],
-  ["Allowed Link Channels", "no_automod_channels"],
-  ["Allowed Link Roles", "automod_roles"],
+  ["Automodded Channels", "automod_channels"],
+  ["Automod Ignored Channels", "no_automod_channels"],
+  ["Automod Exempt Roles", "automod_roles"],
   ["Allowed Link Regex", "allowed_links"],
+];
+
+export const automodToggleChoices: [string, AutomodToggleSettings][] = [
+  ["Link Detection", "links"],
+  ["Profanity Detection", "profanity"],
 ];

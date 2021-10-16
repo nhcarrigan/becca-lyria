@@ -60,11 +60,10 @@ export const handleGuess: CurrencyHandler = async (
         embeds: [errorEmbedGenerator(Becca, "guess", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "guess", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "guess", errorId)],
+        });
+      });
   }
 };

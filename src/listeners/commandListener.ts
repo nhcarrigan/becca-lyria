@@ -35,7 +35,7 @@ export const commandListener = {
         }
       ).exec();
     } catch (err) {
-      beccaErrorHandler(
+      await beccaErrorHandler(
         Becca,
         "command listener",
         err,

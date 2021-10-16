@@ -15,17 +15,34 @@ import { customSubstring } from "../../../utils/customSubstring";
  * @param {ServerConfig} config The server's configuration object from the database.
  * @returns {MessageEmbed | null} A message embed or null on error.
  */
-export const viewAutomodSettings = (
+export const viewAutomodSettings = async (
   Becca: BeccaLyria,
   guild: Guild,
   config: ServerConfig
-): MessageEmbed | null => {
+): Promise<MessageEmbed | null> => {
   try {
     const settingsEmbed = new MessageEmbed();
     settingsEmbed.setTitle(`${guild.name} Automod Settings`);
     settingsEmbed.setColor(Becca.colours.default);
     settingsEmbed.setDescription(
       "Here are your current automod configurations."
+    );
+    settingsEmbed.addField("Link Detection", config.links || "off", true);
+    settingsEmbed.addField(
+      "Profanity Detection",
+      config.profanity || "off",
+      true
+    );
+    settingsEmbed.addField(
+      "Link removal message",
+      customSubstring(config.link_message || defaultServer.link_message, 1000)
+    );
+    settingsEmbed.addField(
+      "Profanity removal message",
+      customSubstring(
+        config.profanity_message || defaultServer.profanity_message,
+        1000
+      )
     );
     settingsEmbed.addField(
       "Automodded Channels",
@@ -47,13 +64,14 @@ export const viewAutomodSettings = (
       config.allowed_links.length.toString(),
       true
     );
-    settingsEmbed.addField(
-      "Link removal message",
-      customSubstring(config.link_message || defaultServer.link_message, 1000)
-    );
     return settingsEmbed;
   } catch (err) {
-    beccaErrorHandler(Becca, "view automod settings module", err, guild.name);
+    await beccaErrorHandler(
+      Becca,
+      "view automod settings module",
+      err,
+      guild.name
+    );
     return null;
   }
 };

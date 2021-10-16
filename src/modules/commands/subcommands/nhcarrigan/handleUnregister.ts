@@ -73,11 +73,10 @@ export const handleUnregister: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "unregister", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "unregister", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "unregister", errorId)],
+        });
+      });
   }
 };

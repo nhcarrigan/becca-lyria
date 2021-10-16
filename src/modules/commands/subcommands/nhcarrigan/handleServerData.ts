@@ -138,11 +138,10 @@ export const handleServerData: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "server data", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "server data", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "server data", errorId)],
+        });
+      });
   }
 };

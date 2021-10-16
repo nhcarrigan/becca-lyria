@@ -53,11 +53,10 @@ export const handleDonate: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "donate", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "donate", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "donate", errorId)],
+        });
+      });
   }
 };

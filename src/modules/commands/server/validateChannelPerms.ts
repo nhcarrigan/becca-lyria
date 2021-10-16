@@ -102,7 +102,7 @@ export const validateChannelPerms = async (
       addReactions
     );
   } catch (err) {
-    beccaErrorHandler(Becca, "validate channel perms module", err);
+    await beccaErrorHandler(Becca, "validate channel perms module", err);
     return false;
   }
 };

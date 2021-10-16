@@ -55,18 +55,16 @@ export const bookmark: Context = {
 
       await interaction.user
         .send({ embeds: [bookmarkEmbed], components: [row] })
-        .then(
-          async () =>
-            await interaction.editReply(
-              "I have bookmarked that message for you."
-            )
-        )
-        .catch(
-          async () =>
-            await interaction.editReply(
-              "I could not bookmark that for you. Please ensure your private messages are open."
-            )
-        );
+        .then(async () => {
+          await interaction.editReply(
+            "I have bookmarked that message for you."
+          );
+        })
+        .catch(async () => {
+          await interaction.editReply(
+            "I could not bookmark that for you. Please ensure your private messages are open."
+          );
+        });
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,
@@ -79,12 +77,11 @@ export const bookmark: Context = {
           embeds: [errorEmbedGenerator(Becca, "bookmark context", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "bookmark context", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "bookmark context", errorId)],
+          });
+        });
     }
   },
 };

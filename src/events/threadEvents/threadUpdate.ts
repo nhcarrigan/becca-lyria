@@ -40,6 +40,6 @@ export const threadUpdate = async (
       return;
     }
   } catch (err) {
-    beccaErrorHandler(Becca, "thread update event", err);
+    await beccaErrorHandler(Becca, "thread update event", err);
   }
 };

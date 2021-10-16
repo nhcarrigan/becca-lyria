@@ -61,7 +61,7 @@ export const config: Command = {
             .addChoices(configViewChoices)
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, serverConfig) => {
     try {
       await interaction.deferReply();
       const { guild, member } = interaction;
@@ -87,13 +87,13 @@ export const config: Command = {
       const action = interaction.options.getSubcommand();
       switch (action) {
         case "set":
-          await handleSet(Becca, interaction, config);
+          await handleSet(Becca, interaction, serverConfig);
           break;
         case "reset":
-          await handleReset(Becca, interaction, config);
+          await handleReset(Becca, interaction, serverConfig);
           break;
         case "view":
-          await handleView(Becca, interaction, config);
+          await handleView(Becca, interaction, serverConfig);
           break;
         default:
           await interaction.editReply({
@@ -113,12 +113,11 @@ export const config: Command = {
           embeds: [errorEmbedGenerator(Becca, "config group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "config group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "config group", errorId)],
+          });
+        });
     }
   },
 };

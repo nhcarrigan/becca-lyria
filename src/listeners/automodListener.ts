@@ -3,6 +3,7 @@ import { Listener } from "../interfaces/listeners/Listener";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 import { automodLinks } from "./automod/automodLinks";
+import { automodProfanity } from "./automod/automodProfanity";
 
 /**
  * Checks if the message content includes a link, and confirms that link
@@ -38,7 +39,13 @@ export const automodListener: Listener = {
         return;
       }
 
-      await automodLinks(Becca, message, config);
+      if (config.links === "on") {
+        await automodLinks(Becca, message, config);
+      }
+
+      if (config.profanity === "on") {
+        await automodProfanity(Becca, message, config);
+      }
     } catch (error) {
       await beccaErrorHandler(
         Becca,

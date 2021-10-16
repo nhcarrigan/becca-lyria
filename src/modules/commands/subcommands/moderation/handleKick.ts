@@ -88,11 +88,10 @@ export const handleKick: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "kick", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "kick", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "kick", errorId)],
+        });
+      });
   }
 };

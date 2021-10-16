@@ -16,11 +16,11 @@ import { renderSetting } from "../../settings/renderSetting";
  * @param {ServerConfig} config The server's configuration object from the database.
  * @returns {MessageEmbed | null} A message embed or null on error.
  */
-export const viewSettings = (
+export const viewSettings = async (
   Becca: BeccaLyria,
   guild: Guild,
   config: ServerConfig
-): MessageEmbed | null => {
+): Promise<MessageEmbed | null> => {
   try {
     const settingsEmbed = new MessageEmbed();
     settingsEmbed.setTitle(`${guild.name} Settings`);
@@ -96,7 +96,7 @@ export const viewSettings = (
     );
     return settingsEmbed;
   } catch (err) {
-    beccaErrorHandler(Becca, "view settings module", err, guild.name);
+    await beccaErrorHandler(Becca, "view settings module", err, guild.name);
     return null;
   }
 };

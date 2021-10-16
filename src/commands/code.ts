@@ -85,12 +85,11 @@ export const code: Command = {
           embeds: [errorEmbedGenerator(Becca, "code group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "code group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "code group", errorId)],
+          });
+        });
     }
   },
 };

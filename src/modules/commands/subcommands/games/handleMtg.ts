@@ -55,11 +55,10 @@ export const handleMtg: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "mtg", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "mtg", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "mtg", errorId)],
+        });
+      });
   }
 };

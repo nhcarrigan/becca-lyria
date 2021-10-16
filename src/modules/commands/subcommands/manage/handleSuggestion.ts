@@ -108,11 +108,10 @@ export const handleSuggestion: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "suggestion", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "suggestion", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "suggestion", errorId)],
+        });
+      });
   }
 };

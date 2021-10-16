@@ -20,15 +20,14 @@ export const getSettings = async (
   serverName: string
 ): Promise<ServerConfig | null> => {
   try {
-    const server =
+    return (
       (await ServerModel.findOne({ serverID })) ||
       (await ServerModel.create({
         serverID,
         serverName,
         ...defaultServer,
-      }));
-
-    return server;
+      }))
+    );
   } catch (err) {
     await beccaErrorHandler(Becca, "get settings module", err, serverName);
     return null;

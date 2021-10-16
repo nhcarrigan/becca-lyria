@@ -96,6 +96,6 @@ export const interactionCreate = async (
       await logActivity(Becca, interaction.user.id, "select");
     }
   } catch (err) {
-    beccaErrorHandler(Becca, "interaction create event", err);
+    await beccaErrorHandler(Becca, "interaction create event", err);
   }
 };

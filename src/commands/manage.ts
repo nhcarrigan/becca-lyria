@@ -84,12 +84,11 @@ export const manage: Command = {
           embeds: [errorEmbedGenerator(Becca, "manage group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "manage group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "manage group", errorId)],
+          });
+        });
     }
   },
 };

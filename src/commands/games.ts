@@ -98,12 +98,11 @@ export const games: Command = {
           embeds: [errorEmbedGenerator(Becca, "games group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "games group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "games group", errorId)],
+          });
+        });
     }
   },
 };

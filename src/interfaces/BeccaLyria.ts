@@ -8,6 +8,7 @@ import { Context } from "./contexts/Context";
  * configurations attached.
  */
 export interface BeccaLyria extends Client {
+  commitHash: string;
   debugHook: WebhookClient;
   currencyHook: WebhookClient;
   configs: {
