@@ -5,7 +5,6 @@ import { automodListener } from "../../listeners/automodListener";
 import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
 import { sassListener } from "../../listeners/sassListener";
-import { thanksListener } from "../../listeners/thanksListener";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { registerCommands } from "../../utils/registerCommands";
@@ -39,7 +38,6 @@ export const messageCreate = async (
     }
 
     await heartsListener.run(Becca, message, serverConfig);
-    await thanksListener.run(Becca, message, serverConfig);
     await automodListener.run(Becca, message, serverConfig);
     await levelListener.run(Becca, message, serverConfig);
     await sassListener.run(Becca, message, serverConfig);

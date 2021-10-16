@@ -93,6 +93,9 @@ export const validateEnv = (
       amirite:
         "I'm almost certain you're not, but to be fair, I wasn't listening.",
       sorry: "Oh, did you just apologise? About time.",
+      selfthanks:
+        "I suppose you need a pat on the back badly enough to thanks yourself.",
+      beccathanks: "You are quite welcome. But do not expect my constant help.",
     };
 
     Becca.responses = phrases;

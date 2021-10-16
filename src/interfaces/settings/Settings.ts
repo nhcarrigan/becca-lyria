@@ -3,7 +3,6 @@
  * settings are added or removed.
  */
 export type Settings =
-  | "thanks"
   | "levels"
   | "welcome_channel"
   | "level_channel"

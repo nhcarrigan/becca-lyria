@@ -4,7 +4,6 @@ import { LogSettings } from "../../interfaces/settings/LogSettings";
 import { Settings } from "../../interfaces/settings/Settings";
 
 export const configChoices: [string, Settings][] = [
-  ["Thanks System", "thanks"],
   ["Level System", "levels"],
   ["Join/Leave Channel", "welcome_channel"],
   ["Level Log Channel", "level_channel"],

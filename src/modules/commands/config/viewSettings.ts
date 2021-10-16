@@ -26,7 +26,6 @@ export const viewSettings = (
     settingsEmbed.setTitle(`${guild.name} Settings`);
     settingsEmbed.setColor(Becca.colours.default);
     settingsEmbed.setDescription("Here are your current configurations.");
-    settingsEmbed.addField("Thanks Listener", config.thanks || "off", true);
     settingsEmbed.addField("Levels Listener", config.levels || "off", true);
     settingsEmbed.addField("Sass Mode", config.sass_mode || "off", true);
     settingsEmbed.addField(

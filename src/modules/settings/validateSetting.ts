@@ -27,7 +27,6 @@ export const validateSetting = async (
   try {
     const parsedValue = BigInt(value.replace(/\D/g, ""));
     switch (setting) {
-      case "thanks":
       case "levels":
       case "sass_mode":
         return value === "on" || value === "off";
