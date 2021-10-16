@@ -9,6 +9,7 @@ import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleAbout } from "../modules/commands/subcommands/becca/handleAbout";
 import { handleArt } from "../modules/commands/subcommands/becca/handleArt";
 import { handleDonate } from "../modules/commands/subcommands/becca/handleDonate";
+import { handleEmote } from "../modules/commands/subcommands/becca/handleEmote";
 import { handleHelp } from "../modules/commands/subcommands/becca/handleHelp";
 import { handleInvite } from "../modules/commands/subcommands/becca/handleInvite";
 import { handlePing } from "../modules/commands/subcommands/becca/handlePing";
@@ -82,7 +83,13 @@ export const becca: Command = {
             .addChoices([["Command Leaderboard", "commands"]])
             .setRequired(true)
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("emote")
+        .setDescription("Returns a Becca Emote!")
     ),
+
   run: async (Becca, interaction, config) => {
     try {
       await interaction.deferReply();
@@ -118,6 +125,9 @@ export const becca: Command = {
           break;
         case "stats":
           await handleStats(Becca, interaction, config);
+          break;
+        case "emote":
+          await handleEmote(Becca, interaction, config);
           break;
         default:
           await interaction.editReply({
