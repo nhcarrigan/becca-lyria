@@ -90,7 +90,7 @@ export const voiceStateUpdate = async (
       voiceEmbed.setColor(Becca.colours.success);
     }
 
-    if(voiceEmbed.description) {
+    if (voiceEmbed.description) {
       await sendLogEmbed(Becca, oldState.guild, voiceEmbed, "voice_events");
     }
   } catch (err) {
