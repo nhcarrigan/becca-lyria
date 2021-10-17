@@ -15,7 +15,6 @@ export const automodProfanity: ListenerHandler = async (
   message,
   config
 ) => {
-export const automodProfanity: ListenerHandler = async (Becca, message, config) => {
   try {
     if (!filter.check(message.content)) {
       return;
