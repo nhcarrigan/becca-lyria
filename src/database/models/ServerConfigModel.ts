@@ -6,7 +6,6 @@ import { ServerConfig } from "../../interfaces/database/ServerConfig";
 export const ServerConfigSchema = new Schema({
   serverID: String,
   serverName: String,
-  thanks: String,
   levels: String,
   welcome_channel: String,
   level_channel: String,

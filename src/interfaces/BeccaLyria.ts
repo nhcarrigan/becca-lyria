@@ -53,4 +53,6 @@ export interface SassyInt {
   greeting: string;
   amirite: string;
   sorry: string;
+  selfthanks: string;
+  beccathanks: string;
 }

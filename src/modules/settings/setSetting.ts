@@ -85,7 +85,6 @@ export const setSetting = async (
         break;
       case "custom_welcome":
       case "levels":
-      case "thanks":
       case "link_message":
       case "leave_message":
       case "sass_mode":

@@ -6,7 +6,6 @@ import { LevelRole } from "../settings/LevelRole";
 export interface ServerConfig extends Document {
   serverID: string;
   serverName: string;
-  thanks: string;
   levels: string;
   welcome_channel: string;
   level_channel: string;
@@ -40,7 +39,6 @@ export interface ServerConfig extends Document {
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   serverID: "",
   serverName: "",
-  thanks: "",
   levels: "",
   welcome_channel: "",
   level_channel: "",
