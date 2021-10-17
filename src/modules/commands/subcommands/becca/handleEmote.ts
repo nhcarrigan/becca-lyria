@@ -13,13 +13,13 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 export const handleEmote: CommandHandler = async (Becca, interaction) => {
   try {
     const random = Math.floor(Math.random() * emoteList.length);
-    const { name, description, url } = emoteList[random];
+    const { emoteName, description, fileName } = emoteList[random];
 
     const emoteEmbed = new MessageEmbed();
-    emoteEmbed.setTitle(`Becca is ${name}`);
+    emoteEmbed.setTitle(`Becca is ${emoteName}`);
     emoteEmbed.setColor(Becca.colours.default);
     emoteEmbed.setDescription(description);
-    emoteEmbed.setImage(url);
+    emoteEmbed.setImage(`https://www.beccalyria.com/assets/emotes/${fileName}`);
     emoteEmbed.setFooter("Art by Starfazers: https://starfazers.art");
 
     await interaction.editReply({ embeds: [emoteEmbed] });
