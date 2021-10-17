@@ -90,7 +90,9 @@ export const voiceStateUpdate = async (
       voiceEmbed.setColor(Becca.colours.success);
     }
 
-    await sendLogEmbed(Becca, oldState.guild, voiceEmbed, "voice_events");
+    if(voiceEmbed.description) {
+      await sendLogEmbed(Becca, oldState.guild, voiceEmbed, "voice_events");
+    }
   } catch (err) {
     await beccaErrorHandler(Becca, "voice state update listener", err);
   }
