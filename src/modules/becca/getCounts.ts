@@ -19,6 +19,9 @@ export const getCounts = (Becca: BeccaLyria): BeccaCounts => {
 
   Becca.commands.forEach((command) => {
     const parsed = command.data.toJSON().options;
+    if (!parsed) {
+      return;
+    }
     parsed.forEach((option) => {
       // subcommands are type 1
       if (option.type === 1) {
