@@ -52,6 +52,7 @@ export const validateSetting = async (
             config[setting].includes(`${parsedValue}`))
         );
       case "welcome_channel":
+      case "depart_channel":
       case "message_events":
       case "voice_events":
       case "thread_events":

@@ -46,7 +46,7 @@ export const memberRemove = async (
     goodbyeEmbed.setFooter(`ID: ${user.id}`);
     goodbyeEmbed.setTimestamp();
 
-    await sendWelcomeEmbed(Becca, guild, goodbyeEmbed);
+    await sendWelcomeEmbed(Becca, guild, "leave", goodbyeEmbed);
     await memberRemoveCleanup(Becca, member.id, guild.id);
   } catch (err) {
     await beccaErrorHandler(

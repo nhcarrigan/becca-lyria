@@ -94,6 +94,7 @@ export const setSetting = async (
         server[key] = value;
         break;
       case "welcome_channel":
+      case "depart_channel":
       case "message_events":
       case "voice_events":
       case "thread_events":

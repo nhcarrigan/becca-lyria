@@ -8,6 +8,7 @@ export interface ServerConfig extends Document {
   serverName: string;
   levels: string;
   welcome_channel: string;
+  depart_channel: string;
   level_channel: string;
   suggestion_channel: string;
   muted_role: string;
@@ -41,6 +42,7 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   serverName: "",
   levels: "",
   welcome_channel: "",
+  depart_channel: "",
   level_channel: "",
   suggestion_channel: "",
   muted_role: "",
