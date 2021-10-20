@@ -3,13 +3,13 @@ import { MessageEmbed } from "discord.js";
 
 import { defaultServer } from "../../config/database/defaultServer";
 import { allowedTLDs, deniedTLDs } from "../../config/listeners/linkRegex";
-import { Automodder } from "../../interfaces/listeners/Automodder";
+import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
  * Detects links in a message and responds accordingly.
  */
-export const automodLinks: Automodder = async (Becca, message, config) => {
+export const automodLinks: ListenerHandler = async (Becca, message, config) => {
   try {
     let blockedLinks = 0;
     let allowedLinks = 0;

@@ -3,14 +3,18 @@ import { MessageEmbed } from "discord.js";
 import * as filter from "leo-profanity";
 
 import { defaultServer } from "../../config/database/defaultServer";
-import { Automodder } from "../../interfaces/listeners/Automodder";
+import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { customSubstring } from "../../utils/customSubstring";
 
 /**
  * Description coming soon.
  */
-export const automodProfanity: Automodder = async (Becca, message, config) => {
+export const automodProfanity: ListenerHandler = async (
+  Becca,
+  message,
+  config
+) => {
   try {
     if (!filter.check(message.content)) {
       return;
