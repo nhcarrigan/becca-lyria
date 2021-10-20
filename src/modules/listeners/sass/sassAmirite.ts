@@ -6,7 +6,7 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 /**
  * Submodule for amirite comebacks.
  */
-export const sassAmirite: ListenerHandler = async (Becca, message, config) => {
+export const sassAmirite: ListenerHandler = async (Becca, message) => {
   try {
     const { channel, content } = message;
 

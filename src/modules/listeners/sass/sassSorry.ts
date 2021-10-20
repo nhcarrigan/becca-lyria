@@ -6,7 +6,7 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 /**
  * Submodule for sorry comebacks.
  */
-export const sassSorry: ListenerHandler = async (Becca, message, config) => {
+export const sassSorry: ListenerHandler = async (Becca, message) => {
   try {
     const { channel, content } = message;
     const sorryRegex =
