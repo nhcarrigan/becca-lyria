@@ -8,6 +8,8 @@ export const updatesSinceLastRelease: string[] = [
   "- Updated the hash generation for this command to run once on load",
   "- Added a `/becca emote` command to return a random emote",
   "- Merged the thanks listener into sass mode, removing the `thanks` config",
+  "--OFF-SCHEDULE RELEASE--",
+  "- Separated leave messages from join messages",
 ];
 
 export const nextScheduledRelease = "<t:1635174000:F>";
