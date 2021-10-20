@@ -8,7 +8,8 @@ import { Settings } from "../../interfaces/settings/Settings";
 
 export const configChoices: [string, Settings][] = [
   ["Level System", "levels"],
-  ["Join/Leave Channel", "welcome_channel"],
+  ["Welcome Message Channel", "welcome_channel"],
+  ["Departure Message Channel", "depart_channel"],
   ["Level Log Channel", "level_channel"],
   ["Suggestion Channel", "suggestion_channel"],
   ["Muted Role", "muted_role"],

@@ -33,6 +33,7 @@ export const renderSetting = (
       case "profanity_message":
         return value as string;
       case "welcome_channel":
+      case "depart_channel":
       case "level_channel":
       case "message_events":
       case "voice_events":

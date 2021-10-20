@@ -42,7 +42,7 @@ export const memberUpdate = async (
       welcomeEmbed.setFooter(`ID: ${user.id}`);
       welcomeEmbed.setTimestamp();
 
-      await sendWelcomeEmbed(Becca, guild, welcomeEmbed);
+      await sendWelcomeEmbed(Becca, guild, "join", welcomeEmbed);
 
       if (serverSettings?.join_role) {
         const joinRole = await guild.roles.fetch(serverSettings.join_role);

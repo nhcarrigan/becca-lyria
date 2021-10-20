@@ -8,6 +8,7 @@ export const ServerConfigSchema = new Schema({
   serverName: String,
   levels: String,
   welcome_channel: String,
+  depart_channel: String,
   level_channel: String,
   suggestion_channel: {
     type: String,

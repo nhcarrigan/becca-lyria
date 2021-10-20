@@ -8,6 +8,7 @@ import { LevelRole } from "../../interfaces/settings/LevelRole";
 export const defaultServer = {
   levels: "off",
   welcome_channel: "",
+  depart_channel: "",
   level_channel: "",
   suggestion_channel: "",
   muted_role: "",

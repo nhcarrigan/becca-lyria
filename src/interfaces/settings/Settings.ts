@@ -5,6 +5,7 @@
 export type Settings =
   | "levels"
   | "welcome_channel"
+  | "depart_channel"
   | "level_channel"
   | "suggestion_channel"
   | "muted_role"

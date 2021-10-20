@@ -34,6 +34,11 @@ export const viewSettings = async (
       true
     );
     settingsEmbed.addField(
+      "Departure Channel",
+      renderSetting(Becca, "depart_channel", config.depart_channel),
+      true
+    );
+    settingsEmbed.addField(
       "Level Logging Channel",
       renderSetting(Becca, "level_channel", config.level_channel),
       true
