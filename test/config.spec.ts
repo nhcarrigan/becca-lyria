@@ -9,6 +9,15 @@ suite("Config Validation", () => {
       test(`${key} has at least three values`, () => {
         assert(value.length >= 3, `${key} only has ${key.length} values`);
       });
+
+      for (const response of value) {
+        test(`Values should end with an emote`, () => {
+          assert(
+            response.match(/\<\:Becca[A-Z]{1}[a-z]+\:[\d]{18}\>$/i),
+            `${response} does not end with an emote.`
+          );
+        });
+      }
     }
   });
 
@@ -18,6 +27,15 @@ suite("Config Validation", () => {
       test(`${key} has at least three values`, () => {
         assert(value.length >= 3, `${key} only has ${key.length} values`);
       });
+
+      for (const response of value) {
+        test(`Values should end with an emote`, () => {
+          assert(
+            response.match(/\<\:Becca[A-Z]{1}[a-z]+\:[\d]{18}\>$/i),
+            `${response} does not end with an emote.`
+          );
+        });
+      }
     }
   });
 });
