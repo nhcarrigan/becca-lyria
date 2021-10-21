@@ -13,7 +13,7 @@ suite("Config Validation", () => {
       for (const response of value) {
         test(`Values should end with an emote`, () => {
           assert(
-            response.match(/\<\:Becca[A-Z]{1}[a-z]+\:[\d]{18}\>$/i),
+            /<:Becca[A-Z]{1}[a-z]+:[\d]{18}>$/i.test(response),
             `${response} does not end with an emote.`
           );
         });
@@ -31,7 +31,7 @@ suite("Config Validation", () => {
       for (const response of value) {
         test(`Values should end with an emote`, () => {
           assert(
-            response.match(/\<\:Becca[A-Z]{1}[a-z]+\:[\d]{18}\>$/i),
+            /<:Becca[A-Z]{1}[a-z]+:[\d]{18}>$/i.test(response),
             `${response} does not end with an emote.`
           );
         });
