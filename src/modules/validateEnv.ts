@@ -1,6 +1,11 @@
 import * as child from "child_process";
 
-import { BeccaLyria, ResponsesInt, SassyInt } from "../interfaces/BeccaLyria";
+import {
+  BeccaColours,
+  BeccaPhrases,
+  BeccaSass,
+} from "../config/BeccaResponses";
+import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { beccaLogHandler } from "../utils/beccaLogHandler";
 
 /**
@@ -67,43 +72,9 @@ export const validateEnv = (
     };
 
     Becca.configs = configs;
-
-    const colours = {
-      default: 0x8b4283,
-      success: 0x1f8b4c,
-      warning: 0xc27c0e,
-      error: 0x992d22,
-    };
-
-    Becca.colours = colours;
-
-    const phrases: ResponsesInt = {
-      missingGuild: "It seems I cannot locate your guild record.",
-      invalidCommand:
-        "I am not sure how this happened, but that spell does not appear to be valid.",
-      noPermission: "You do not have the correct skills to use this spell.",
-      ownerOnly: "Only my owner can ask me to do this.",
-      missingParam:
-        "This is impressive. You have managed to forget a required component for this spell.",
-      defaultModReason:
-        "Unfortunately, they could not be bothered to tell me why.",
-      noModBecca:
-        "Brave of you to try to make me your target. Foolish, but brave.",
-      noModSelf: "Are... are you asking me to smite you?",
-    };
-
-    const sass: SassyInt = {
-      greeting: "Well, I *was* having a good time. Unfortunate.",
-      amirite:
-        "I'm almost certain you're not, but to be fair, I wasn't listening.",
-      sorry: "Oh, did you just apologise? About time.",
-      selfthanks:
-        "I suppose you need a pat on the back badly enough to thanks yourself.",
-      beccathanks: "You are quite welcome. But do not expect my constant help.",
-    };
-
-    Becca.responses = phrases;
-    Becca.sass = sass;
+    Becca.colours = BeccaColours;
+    Becca.responses = BeccaPhrases;
+    Becca.sass = BeccaSass;
     return { valid: true, message: "Environment variables validated!" };
   } catch (err) {
     return {

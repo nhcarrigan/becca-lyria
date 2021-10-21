@@ -4,6 +4,7 @@ import { GuildMember } from "discord.js";
 import { slimeList } from "../../../../config/commands/slimeList";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 
 /**
@@ -15,7 +16,9 @@ export const handleSlime: CommandHandler = async (Becca, interaction) => {
     const member = interaction.member as GuildMember;
 
     if (!member) {
-      await interaction.editReply(Becca.responses.missingGuild);
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 

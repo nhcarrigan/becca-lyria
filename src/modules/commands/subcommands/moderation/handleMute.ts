@@ -4,6 +4,7 @@ import { MessageEmbed } from "discord.js";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { sendLogEmbed } from "../../../guild/sendLogEmbed";
 
@@ -18,11 +19,13 @@ export const handleMute: CommandHandler = async (
 ) => {
   try {
     const { guild, member } = interaction;
-    const target = interaction.options.getUser("target");
-    const reason = interaction.options.getString("reason");
+    const target = interaction.options.getUser("target", true);
+    const reason = interaction.options.getString("reason", true);
 
     if (!guild) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 
@@ -31,20 +34,22 @@ export const handleMute: CommandHandler = async (
       typeof member.permissions === "string" ||
       !member.permissions.has("KICK_MEMBERS")
     ) {
-      await interaction.editReply({ content: Becca.responses.noPermission });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noPermission),
+      });
       return;
     }
 
-    if (!target) {
-      await interaction.editReply({ content: Becca.responses.missingParam });
-      return;
-    }
     if (target.id === member.user.id) {
-      await interaction.editReply({ content: Becca.responses.noModSelf });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noModSelf),
+      });
       return;
     }
     if (target.id === Becca.user?.id) {
-      await interaction.editReply({ content: Becca.responses.noModBecca });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noModBecca),
+      });
       return;
     }
 
@@ -74,10 +79,7 @@ export const handleMute: CommandHandler = async (
     muteEmbed.setTitle("A user has been silenced!");
     muteEmbed.setDescription(`They were silenced by ${member.user.username}`);
     muteEmbed.setColor(Becca.colours.warning);
-    muteEmbed.addField(
-      "Reason",
-      customSubstring(reason || Becca.responses.defaultModReason, 1000)
-    );
+    muteEmbed.addField("Reason", customSubstring(reason, 1000));
     muteEmbed.setFooter(`ID: ${targetUser.id}`);
     muteEmbed.setTimestamp();
     muteEmbed.setAuthor(

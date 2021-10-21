@@ -10,6 +10,7 @@ import { handleCanIUse } from "../modules/commands/subcommands/code/handleCanIUs
 import { handleColour } from "../modules/commands/subcommands/code/handleColour";
 import { handleHttp } from "../modules/commands/subcommands/code/handleHttp";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const code: Command = {
   data: new SlashCommandBuilder()
@@ -69,7 +70,7 @@ export const code: Command = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }

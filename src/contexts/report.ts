@@ -12,6 +12,7 @@ import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { customSubstring } from "../utils/customSubstring";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const report: Context = {
   data: {
@@ -25,7 +26,9 @@ export const report: Context = {
       const message = interaction.options.getMessage("message") as Message;
 
       if (!guild || !message) {
-        await interaction.editReply(Becca.responses.missingGuild);
+        await interaction.editReply({
+          content: getRandomValue(Becca.responses.missingGuild),
+        });
         return;
       }
 

@@ -9,6 +9,7 @@ import {
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { sleep } from "../../../../utils/sleep";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
@@ -28,7 +29,7 @@ export const handleRole: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: Becca.responses.missingGuild,
+        content: getRandomValue(Becca.responses.missingGuild),
       });
       return;
     }

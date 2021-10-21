@@ -4,6 +4,7 @@ import { MessageEmbed } from "discord.js";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { sendLogEmbed } from "../../../guild/sendLogEmbed";
 
@@ -14,11 +15,13 @@ import { sendLogEmbed } from "../../../guild/sendLogEmbed";
 export const handleBan: CommandHandler = async (Becca, interaction) => {
   try {
     const { guild, member } = interaction;
-    const target = interaction.options.getUser("target");
-    const reason = interaction.options.getString("reason");
+    const target = interaction.options.getUser("target", true);
+    const reason = interaction.options.getString("reason", true);
 
     if (!guild) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 
@@ -27,20 +30,22 @@ export const handleBan: CommandHandler = async (Becca, interaction) => {
       typeof member.permissions === "string" ||
       !member.permissions.has("BAN_MEMBERS")
     ) {
-      await interaction.editReply({ content: Becca.responses.noPermission });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noPermission),
+      });
       return;
     }
 
-    if (!target) {
-      await interaction.editReply({ content: Becca.responses.missingParam });
-      return;
-    }
     if (target.id === member.user.id) {
-      await interaction.editReply({ content: Becca.responses.noModSelf });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noModSelf),
+      });
       return;
     }
     if (target.id === Becca.user?.id) {
-      await interaction.editReply({ content: Becca.responses.noModBecca });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noModBecca),
+      });
       return;
     }
 
@@ -54,7 +59,7 @@ export const handleBan: CommandHandler = async (Becca, interaction) => {
     }
 
     await targetMember.ban({
-      reason: customSubstring(reason || Becca.responses.defaultModReason, 1000),
+      reason: customSubstring(reason, 1000),
       days: 1,
     });
 
@@ -64,10 +69,7 @@ export const handleBan: CommandHandler = async (Becca, interaction) => {
     kickLogEmbed.setDescription(
       `Member ban was requested by ${member.user.username}`
     );
-    kickLogEmbed.addField(
-      "Reason",
-      customSubstring(reason || Becca.responses.defaultModReason, 1000)
-    );
+    kickLogEmbed.addField("Reason", customSubstring(reason, 1000));
     kickLogEmbed.setTimestamp();
     kickLogEmbed.setAuthor(
       `${targetMember.user.username}#${targetMember.user.discriminator}`,

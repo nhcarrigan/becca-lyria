@@ -14,6 +14,7 @@ import { handleServerData } from "../modules/commands/subcommands/nhcarrigan/han
 import { handleUnregister } from "../modules/commands/subcommands/nhcarrigan/handleUnregister";
 import { handleViewSlash } from "../modules/commands/subcommands/nhcarrigan/handleViewSlash";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const nhcarrigan: Command = {
   data: new SlashCommandBuilder()
@@ -144,7 +145,7 @@ export const nhcarrigan: Command = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }

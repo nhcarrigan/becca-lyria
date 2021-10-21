@@ -4,13 +4,16 @@ import { MessageEmbed } from "discord.js";
 import CommandCountModel from "../../../../database/models/CommandCountModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 
 export const handleStats: CommandHandler = async (Becca, interaction) => {
   try {
     const { guild, user: author } = interaction;
     if (!guild || !author) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 

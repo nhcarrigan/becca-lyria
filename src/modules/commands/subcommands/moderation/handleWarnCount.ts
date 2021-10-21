@@ -5,6 +5,7 @@ import WarningModel from "../../../../database/models/WarningModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
 /**
@@ -15,7 +16,9 @@ export const handleWarnCount: CommandHandler = async (Becca, interaction) => {
   try {
     const { guild, member } = interaction;
     if (!guild) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 
@@ -24,16 +27,13 @@ export const handleWarnCount: CommandHandler = async (Becca, interaction) => {
       typeof member.permissions === "string" ||
       !member.permissions.has("KICK_MEMBERS")
     ) {
-      await interaction.editReply({ content: Becca.responses.noPermission });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noPermission),
+      });
       return;
     }
 
-    const target = interaction.options.getUser("target");
-
-    if (!target) {
-      await interaction.editReply({ content: Becca.responses.missingParam });
-      return;
-    }
+    const target = interaction.options.getUser("target", true);
 
     const serverWarns = await WarningModel.findOne({ serverID: guild.id });
 

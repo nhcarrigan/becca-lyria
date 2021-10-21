@@ -15,6 +15,7 @@ import { handleAutomodReset } from "../modules/commands/subcommands/automod/hand
 import { handleAutomodSet } from "../modules/commands/subcommands/automod/handleAutomodSet";
 import { handleAutomodView } from "../modules/commands/subcommands/automod/handleAutomodView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const automod: Command = {
   data: new SlashCommandBuilder()
@@ -91,7 +92,7 @@ export const automod: Command = {
 
       if (!guild || !member) {
         await interaction.editReply({
-          content: Becca.responses.missingGuild,
+          content: getRandomValue(Becca.responses.missingGuild),
         });
         return;
       }
@@ -102,7 +103,7 @@ export const automod: Command = {
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({
-          content: Becca.responses.noPermission,
+          content: getRandomValue(Becca.responses.noPermission),
         });
         return;
       }
@@ -121,7 +122,7 @@ export const automod: Command = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }

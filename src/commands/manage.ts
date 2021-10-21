@@ -10,6 +10,7 @@ import { handleResetLevels } from "../modules/commands/subcommands/manage/handle
 import { handleResetStars } from "../modules/commands/subcommands/manage/handleResetStars";
 import { handleSuggestion } from "../modules/commands/subcommands/manage/handleSuggestion";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const manage: Command = {
   data: new SlashCommandBuilder()
@@ -68,7 +69,7 @@ export const manage: Command = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }

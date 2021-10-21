@@ -17,6 +17,7 @@ import { handleTwentyOne } from "../modules/commands/subcommands/currency/handle
 import { handleView } from "../modules/commands/subcommands/currency/handleView";
 import { handleWeekly } from "../modules/commands/subcommands/currency/handleWeekly";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const currency: Command = {
   data: new SlashCommandBuilder()
@@ -162,7 +163,7 @@ export const currency: Command = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }

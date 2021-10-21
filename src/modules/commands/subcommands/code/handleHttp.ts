@@ -11,11 +11,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  */
 export const handleHttp: CommandHandler = async (Becca, interaction) => {
   try {
-    const status = interaction.options.getInteger("status");
-    if (!status) {
-      await interaction.editReply({ content: Becca.responses.missingParam });
-      return;
-    }
+    const status = interaction.options.getInteger("status", true);
 
     if (!httpStatus.includes(status)) {
       await interaction.editReply({

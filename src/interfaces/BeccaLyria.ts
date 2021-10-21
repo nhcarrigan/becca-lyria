@@ -33,26 +33,20 @@ export interface BeccaLyria extends Client {
     error: ColorResolvable;
   };
   commands: Command[];
-  responses: ResponsesInt;
+  responses: {
+    missingGuild: string[];
+    invalidCommand: string[];
+    noPermission: string[];
+    ownerOnly: string[];
+    noModSelf: string[];
+    noModBecca: string[];
+  };
   contexts: Context[];
-  sass: SassyInt;
-}
-
-export interface ResponsesInt {
-  missingGuild: string;
-  invalidCommand: string;
-  noPermission: string;
-  ownerOnly: string;
-  missingParam: string;
-  defaultModReason: string;
-  noModSelf: string;
-  noModBecca: string;
-}
-
-export interface SassyInt {
-  greeting: string;
-  amirite: string;
-  sorry: string;
-  selfthanks: string;
-  beccathanks: string;
+  sass: {
+    greeting: string[];
+    amirite: string[];
+    sorry: string[];
+    selfthanks: string[];
+    beccathanks: string[];
+  };
 }

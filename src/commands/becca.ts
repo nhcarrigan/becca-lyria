@@ -18,6 +18,7 @@ import { handleStats } from "../modules/commands/subcommands/becca/handleStats";
 import { handleUpdates } from "../modules/commands/subcommands/becca/handleUpdates";
 import { handleUptime } from "../modules/commands/subcommands/becca/handleUptime";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const becca: Command = {
   data: new SlashCommandBuilder()
@@ -131,7 +132,7 @@ export const becca: Command = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }

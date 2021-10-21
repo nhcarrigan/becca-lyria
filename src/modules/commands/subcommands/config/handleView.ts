@@ -4,6 +4,7 @@ import { Message, MessageActionRow, MessageButton } from "discord.js";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { ArraySettings } from "../../../../interfaces/settings/ArraySettings";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { viewSettings } from "../../../commands/config/viewSettings";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
@@ -22,7 +23,9 @@ export const handleView: CommandHandler = async (
     const { guild } = interaction;
 
     if (!guild) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 

@@ -4,6 +4,7 @@ import { Message, MessageActionRow, MessageButton } from "discord.js";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { ArraySettings } from "../../../../interfaces/settings/ArraySettings";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { viewAutomodSettings } from "../../automod/viewAutomodSettings";
 import { viewSettingsArray } from "../config/viewSettingsArray";
@@ -21,7 +22,9 @@ export const handleAutomodView: CommandHandler = async (
     const { guild } = interaction;
 
     if (!guild) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 

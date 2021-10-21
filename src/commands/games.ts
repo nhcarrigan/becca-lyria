@@ -13,6 +13,7 @@ import { handleSlime } from "../modules/commands/subcommands/games/handleSlime";
 import { handleSus } from "../modules/commands/subcommands/games/handleSus";
 import { handleTrivia } from "../modules/commands/subcommands/games/handleTrivia";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const games: Command = {
   data: new SlashCommandBuilder()
@@ -82,7 +83,7 @@ export const games: Command = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }
