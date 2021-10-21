@@ -11,6 +11,7 @@ import { handleLogReset } from "../modules/commands/subcommands/log/handleLogRes
 import { handleLogSet } from "../modules/commands/subcommands/log/handleLogSet";
 import { handleLogView } from "../modules/commands/subcommands/log/handleLogView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const log: Command = {
   data: new SlashCommandBuilder()
@@ -58,7 +59,7 @@ export const log: Command = {
 
       if (!guild || !member) {
         await interaction.editReply({
-          content: Becca.responses.missingGuild,
+          content: getRandomValue(Becca.responses.missingGuild),
         });
         return;
       }
@@ -69,7 +70,7 @@ export const log: Command = {
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({
-          content: Becca.responses.noPermission,
+          content: getRandomValue(Becca.responses.noPermission),
         });
         return;
       }
@@ -87,7 +88,7 @@ export const log: Command = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }

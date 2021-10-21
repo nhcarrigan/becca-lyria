@@ -2,6 +2,7 @@
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { Settings } from "../../../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { resetSetting } from "../../../settings/resetSetting";
 
@@ -17,7 +18,9 @@ export const handleReset: CommandHandler = async (
     const { guild } = interaction;
 
     if (!guild) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 

@@ -20,14 +20,9 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 export const handleSchedule: CommandHandler = async (Becca, interaction) => {
   try {
     const { member } = interaction;
-    const time = interaction.options.getInteger("time");
-    const targetChannel = interaction.options.getChannel("channel");
-    const message = interaction.options.getString("message");
-
-    if (!time || !targetChannel || !message) {
-      await interaction.editReply(Becca.responses.missingParam);
-      return;
-    }
+    const time = interaction.options.getInteger("time", true);
+    const targetChannel = interaction.options.getChannel("channel", true);
+    const message = interaction.options.getString("message", true);
 
     if (
       !member ||

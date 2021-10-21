@@ -21,6 +21,7 @@ import { handleSuggest } from "../modules/commands/subcommands/community/handleS
 import { handleTopic } from "../modules/commands/subcommands/community/handleTopic";
 import { handleUserInfo } from "../modules/commands/subcommands/community/handleUserInfo";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const community: Command = {
   data: new SlashCommandBuilder()
@@ -205,7 +206,7 @@ export const community: Command = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }

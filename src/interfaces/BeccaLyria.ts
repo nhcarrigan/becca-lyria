@@ -38,8 +38,6 @@ export interface BeccaLyria extends Client {
     invalidCommand: string[];
     noPermission: string[];
     ownerOnly: string[];
-    missingParam: string[];
-    defaultModReason: string[];
     noModSelf: string[];
     noModBecca: string[];
   };

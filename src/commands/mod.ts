@@ -13,6 +13,7 @@ import { handleUnmute } from "../modules/commands/subcommands/moderation/handleU
 import { handleWarn } from "../modules/commands/subcommands/moderation/handleWarn";
 import { handleWarnCount } from "../modules/commands/subcommands/moderation/handleWarnCount";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const mod: Command = {
   data: new SlashCommandBuilder()
@@ -139,7 +140,9 @@ export const mod: Command = {
           await handleBan(Becca, interaction, config);
           break;
         default:
-          await interaction.editReply(Becca.responses.invalidCommand);
+          await interaction.editReply({
+            content: getRandomValue(Becca.responses.invalidCommand),
+          });
           break;
       }
     } catch (err) {

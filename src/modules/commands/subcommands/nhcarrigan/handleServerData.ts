@@ -16,13 +16,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  */
 export const handleServerData: CommandHandler = async (Becca, interaction) => {
   try {
-    const serverId = interaction.options.getString("server");
-
-    if (!serverId) {
-      await interaction.editReply({ content: Becca.responses.missingParam });
-      return;
-    }
-
+    const serverId = interaction.options.getString("server", true);
     const guild = await Becca.guilds.fetch(serverId);
 
     if (!guild) {

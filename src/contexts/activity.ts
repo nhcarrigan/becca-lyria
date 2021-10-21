@@ -14,12 +14,7 @@ export const activity: Context = {
   run: async (Becca, interaction) => {
     try {
       await interaction.deferReply();
-      const target = interaction.options.getUser("user");
-
-      if (!target) {
-        await interaction.editReply(Becca.responses.missingParam);
-        return;
-      }
+      const target = interaction.options.getUser("user", true);
 
       const data = await ActivityModel.findOne({ userId: target.id });
       if (!data) {

@@ -28,16 +28,6 @@ export const BeccaPhrases: BeccaLyria["responses"] = {
     "There is only one person special enough to use this spell. It's not you.",
     "Yeah, I don't think so. This spell isn't meant for you.",
   ],
-  missingParam: [
-    "This is impressive. You have managed to forget a required component for this spell.",
-    "It does not seem like you have the necessary reagents to cast this.",
-    "Oh dear, you've misplaced the scrolls we need for this spell.",
-  ],
-  defaultModReason: [
-    "Unfortunately, they could not be bothered to tell me why.",
-    "It seems they were far too busy to bother with a reason.",
-    "Since they did not provide a reason, I am tempted to make one up.",
-  ],
   noModBecca: [
     "Brave of you to try to make me your target. Foolish, but brave.",
     "How dare you try to turn on me? You shall regret this.",

@@ -14,12 +14,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  */
 export const handleUnregister: CommandHandler = async (Becca, interaction) => {
   try {
-    const target = interaction.options.getString("command");
-
-    if (!target) {
-      await interaction.editReply(Becca.responses.missingParam);
-      return;
-    }
+    const target = interaction.options.getString("command", true);
 
     const targetCommand = Becca.commands.find((el) => el.data.name === target);
 
