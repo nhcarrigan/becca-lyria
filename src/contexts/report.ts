@@ -8,12 +8,13 @@ import {
   TextChannel,
 } from "discord.js";
 
-import { ContextInt } from "../interfaces/contexts/ContextInt";
+import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { customSubstring } from "../utils/customSubstring";
+import { getRandomValue } from "../utils/getRandomValue";
 
-export const report: ContextInt = {
+export const report: Context = {
   data: {
     name: "report",
     type: 3,
@@ -25,7 +26,9 @@ export const report: ContextInt = {
       const message = interaction.options.getMessage("message") as Message;
 
       if (!guild || !message) {
-        await interaction.editReply(Becca.responses.missingGuild);
+        await interaction.editReply({
+          content: getRandomValue(Becca.responses.missingGuild),
+        });
         return;
       }
 
@@ -76,12 +79,11 @@ export const report: ContextInt = {
           embeds: [errorEmbedGenerator(Becca, "report context", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "report context", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "report context", errorId)],
+          });
+        });
     }
   },
 };

@@ -103,4 +103,5 @@ export const deniedTLDs = [
   "us",
   "za",
   "ee",
+  "tk",
 ];

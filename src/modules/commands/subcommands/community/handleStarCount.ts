@@ -4,6 +4,7 @@ import { MessageEmbed } from "discord.js";
 import StarModel from "../../../../database/models/StarModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
 /**
@@ -15,7 +16,9 @@ export const handleStarCount: CommandHandler = async (Becca, interaction) => {
     const { member, guild, guildId } = interaction;
 
     if (!guild || !member) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 
@@ -67,11 +70,10 @@ export const handleStarCount: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "star count", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "star count", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "star count", errorId)],
+        });
+      });
   }
 };

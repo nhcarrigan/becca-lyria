@@ -1,6 +1,6 @@
 import { ActivityOptOut } from "../../config/optout/ActivityOptOut";
 import ActivityModel from "../../database/models/ActivityModel";
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
@@ -8,12 +8,12 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  * creates the user's activity record from the database. Then it increments the counter
  * for the type of activity passed in, and saves the record.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {string} user The Discord ID for the user to update.
  * @param {string} activity The type of activity to increase the count for.
  */
 export const logActivity = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   user: string,
   activity: "button" | "command" | "select" | "context"
 ): Promise<void> => {
@@ -50,6 +50,6 @@ export const logActivity = async (
 
     await userActivity.save();
   } catch (err) {
-    beccaErrorHandler(Becca, "activity logger", err);
+    await beccaErrorHandler(Becca, "activity logger", err);
   }
 };

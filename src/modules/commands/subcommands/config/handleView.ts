@@ -2,11 +2,13 @@
 import { Message, MessageActionRow, MessageButton } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { ArraySettingsType } from "../../../../interfaces/settings/ArraySettingsType";
+import { ArraySettings } from "../../../../interfaces/settings/ArraySettings";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { viewSettings } from "../../../commands/config/viewSettings";
-import { viewSettingsArray } from "../../../commands/config/viewSettingsArray";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
+
+import { viewSettingsArray } from "./viewSettingsArray";
 
 /**
  * Generates an embed showing the current server `setting` values. If `setting` is global,
@@ -21,7 +23,9 @@ export const handleView: CommandHandler = async (
     const { guild } = interaction;
 
     if (!guild) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 
@@ -45,7 +49,7 @@ export const handleView: CommandHandler = async (
     let embed = await viewSettingsArray(
       Becca,
       config,
-      setting as ArraySettingsType,
+      setting as ArraySettings,
       1
     );
 
@@ -106,7 +110,7 @@ export const handleView: CommandHandler = async (
       embed = await viewSettingsArray(
         Becca,
         config,
-        setting as ArraySettingsType,
+        setting as ArraySettings,
         page
       );
 
@@ -146,11 +150,10 @@ export const handleView: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "view", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "view", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "view", errorId)],
+        });
+      });
   }
 };

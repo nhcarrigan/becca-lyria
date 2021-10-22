@@ -2,11 +2,11 @@
 import { MessageEmbed } from "discord.js";
 
 import ActivityModel from "../database/models/ActivityModel";
-import { ContextInt } from "../interfaces/contexts/ContextInt";
+import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
-export const activity: ContextInt = {
+export const activity: Context = {
   data: {
     name: "activity",
     type: 2,
@@ -14,12 +14,7 @@ export const activity: ContextInt = {
   run: async (Becca, interaction) => {
     try {
       await interaction.deferReply();
-      const target = interaction.options.getUser("user");
-
-      if (!target) {
-        await interaction.editReply(Becca.responses.missingParam);
-        return;
-      }
+      const target = interaction.options.getUser("user", true);
 
       const data = await ActivityModel.findOne({ userId: target.id });
       if (!data) {
@@ -59,12 +54,11 @@ export const activity: ContextInt = {
           embeds: [errorEmbedGenerator(Becca, "activity context", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "activity context", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "activity context", errorId)],
+          });
+        });
     }
   },
 };

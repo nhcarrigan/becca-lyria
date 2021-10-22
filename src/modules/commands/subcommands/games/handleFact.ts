@@ -3,7 +3,7 @@ import axios from "axios";
 import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { FactInt } from "../../../../interfaces/commands/games/FactInt";
+import { Fact } from "../../../../interfaces/commands/games/Fact";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
@@ -13,7 +13,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  */
 export const handleFact: CommandHandler = async (Becca, interaction) => {
   try {
-    const fact = await axios.get<FactInt>(
+    const fact = await axios.get<Fact>(
       "https://uselessfacts.jsph.pl/random.json?language=en"
     );
 
@@ -37,11 +37,10 @@ export const handleFact: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "fact", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "fact", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "fact", errorId)],
+        });
+      });
   }
 };

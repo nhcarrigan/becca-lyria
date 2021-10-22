@@ -1,15 +1,15 @@
 import { MessageEmbed } from "discord.js";
 
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaLogHandler } from "../../utils/beccaLogHandler";
 
 /**
  * Sends a notification to the debug hook when Becca has connected to
  * Discord and is ready to receive events.
  *
- * @param {BeccaInt} Becca Becca's Client instance.
+ * @param {BeccaLyria} Becca Becca's Client instance.
  */
-export const ready = async (Becca: BeccaInt): Promise<void> => {
+export const ready = async (Becca: BeccaLyria): Promise<void> => {
   const readyEmbed = new MessageEmbed();
   readyEmbed.setTitle("Becca is online");
   readyEmbed.setDescription(

@@ -1,12 +1,12 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { ListenerInt } from "../interfaces/listeners/ListenerInt";
+import { Listener } from "../interfaces/listeners/Listener";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 /**
  * Listens for messages that mention Becca. Responds to those
  * messages with instructions for using the new commands.
  */
-export const beccaMentionListener: ListenerInt = {
+export const beccaMentionListener: Listener = {
   name: "Becca Mention Listener",
   description: "Listens for Becca being mentioned.",
   run: async (Becca, message) => {
@@ -21,7 +21,7 @@ export const beccaMentionListener: ListenerInt = {
         "What can I do for you? Cast `/becca help` to see my spells!"
       );
     } catch (err) {
-      beccaErrorHandler(
+      await beccaErrorHandler(
         Becca,
         "mention listener",
         err,

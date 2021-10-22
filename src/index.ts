@@ -6,7 +6,7 @@ import { Client, WebhookClient } from "discord.js";
 import { IntentOptions } from "./config/IntentOptions";
 import { connectDatabase } from "./database/connectDatabase";
 import { handleEvents } from "./events/handleEvents";
-import { BeccaInt } from "./interfaces/BeccaInt";
+import { BeccaLyria } from "./interfaces/BeccaLyria";
 import { validateEnv } from "./modules/validateEnv";
 import { createServer } from "./server/serve";
 import { beccaErrorHandler } from "./utils/beccaErrorHandler";
@@ -29,13 +29,13 @@ Sentry.init({
  * This is the entry point for Becca's process. This will log the boot process,
  * call the necessary helpers to prepare Becca, and then log in to Discord.
  */
-const initialiseBecca = async () => {
+(async () => {
   beccaLogHandler.log("debug", "Starting process...");
 
   const Becca = new Client({
     shards: "auto",
     intents: IntentOptions,
-  }) as BeccaInt;
+  }) as BeccaLyria;
 
   beccaLogHandler.log("debug", "Validating environment variables...");
   const validatedEnvironment = validateEnv(Becca);
@@ -81,7 +81,7 @@ const initialiseBecca = async () => {
   }
 
   beccaLogHandler.log("debug", "Attaching event listeners...");
-  await handleEvents(Becca);
+  handleEvents(Becca);
 
   beccaLogHandler.log("debug", "Connecting to Discord...");
   await Becca.login(Becca.configs.token);
@@ -101,6 +101,4 @@ const initialiseBecca = async () => {
   process.on("uncaughtException", async (error) => {
     await beccaErrorHandler(Becca, "Uncaught Exception Error", error);
   });
-};
-
-initialiseBecca();
+})();

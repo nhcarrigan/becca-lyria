@@ -3,7 +3,7 @@ import axios from "axios";
 import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { MtgInt } from "../../../../interfaces/commands/games/MtgInt";
+import { MagicCard } from "../../../../interfaces/commands/games/MagicCard";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
@@ -15,7 +15,7 @@ export const handleMtg: CommandHandler = async (Becca, interaction) => {
   try {
     const query = interaction.options.getString("card");
 
-    const cards = await axios.get<MtgInt>(
+    const cards = await axios.get<MagicCard>(
       `https://api.magicthegathering.io/v1/cards?name=${query}&pageSize=1`
     );
 
@@ -55,11 +55,10 @@ export const handleMtg: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "mtg", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "mtg", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "mtg", errorId)],
+        });
+      });
   }
 };

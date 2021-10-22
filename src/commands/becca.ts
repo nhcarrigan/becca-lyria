@@ -4,20 +4,23 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleAbout } from "../modules/commands/subcommands/becca/handleAbout";
 import { handleArt } from "../modules/commands/subcommands/becca/handleArt";
 import { handleDonate } from "../modules/commands/subcommands/becca/handleDonate";
+import { handleEmote } from "../modules/commands/subcommands/becca/handleEmote";
 import { handleHelp } from "../modules/commands/subcommands/becca/handleHelp";
 import { handleInvite } from "../modules/commands/subcommands/becca/handleInvite";
 import { handlePing } from "../modules/commands/subcommands/becca/handlePing";
 import { handleProfile } from "../modules/commands/subcommands/becca/handleProfile";
+import { handleStats } from "../modules/commands/subcommands/becca/handleStats";
 import { handleUpdates } from "../modules/commands/subcommands/becca/handleUpdates";
 import { handleUptime } from "../modules/commands/subcommands/becca/handleUptime";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
-export const becca: CommandInt = {
+export const becca: Command = {
   data: new SlashCommandBuilder()
     .setName("becca")
     .setDescription("Returns the uptime of the bot.")
@@ -69,7 +72,25 @@ export const becca: CommandInt = {
         .setDescription(
           "Shows the latest updates to Becca, the next scheduled update, and additional details."
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("stats")
+        .setDescription("Shows bot statistics")
+        .addStringOption((option) =>
+          option
+            .setName("view")
+            .setDescription("Which stat do you want to view?")
+            .addChoices([["Command Leaderboard", "commands"]])
+            .setRequired(true)
+        )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("emote")
+        .setDescription("Returns a Becca Emote!")
     ),
+
   run: async (Becca, interaction, config) => {
     try {
       await interaction.deferReply();
@@ -103,9 +124,15 @@ export const becca: CommandInt = {
         case "updates":
           await handleUpdates(Becca, interaction, config);
           break;
+        case "stats":
+          await handleStats(Becca, interaction, config);
+          break;
+        case "emote":
+          await handleEmote(Becca, interaction, config);
+          break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }
@@ -121,12 +148,11 @@ export const becca: CommandInt = {
           embeds: [errorEmbedGenerator(Becca, "becca group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "becca group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "becca group", errorId)],
+          });
+        });
     }
   },
 };

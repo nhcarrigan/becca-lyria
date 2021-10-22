@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleLevelscale } from "../modules/commands/subcommands/misc/handleLevelscale";
 import { handlePermissions } from "../modules/commands/subcommands/misc/handlePermissions";
@@ -12,8 +12,9 @@ import { handleSpace } from "../modules/commands/subcommands/misc/handleSpace";
 import { handleUsername } from "../modules/commands/subcommands/misc/handleUsername";
 import { handleXkcd } from "../modules/commands/subcommands/misc/handleXkcd";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
-export const misc: CommandInt = {
+export const misc: Command = {
   data: new SlashCommandBuilder()
     .setName("misc")
     .setDescription("Miscellaneous commands that do not fit other categories")
@@ -87,7 +88,7 @@ export const misc: CommandInt = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }
@@ -103,12 +104,11 @@ export const misc: CommandInt = {
           embeds: [errorEmbedGenerator(Becca, "misc group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "misc group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "misc group", errorId)],
+          });
+        });
     }
   },
 };

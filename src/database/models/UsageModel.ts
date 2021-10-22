@@ -1,15 +1,11 @@
-import { Document, model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 
-export interface UsageInt extends Document {
-  command: string;
-  subcommand: string;
-  uses: number;
-}
+import { Usage } from "../../interfaces/database/Usage";
 
-export const Usage = new Schema({
+export const UsageSchema = new Schema({
   command: String,
   subcommand: String,
   uses: Number,
 });
 
-export default model<UsageInt>("usage", Usage);
+export default model<Usage>("usage", UsageSchema);

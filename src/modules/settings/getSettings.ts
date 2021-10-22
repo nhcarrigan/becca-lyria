@@ -1,6 +1,7 @@
 import { defaultServer } from "../../config/database/defaultServer";
-import ServerModel, { ServerModelInt } from "../../database/models/ServerModel";
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import ServerModel from "../../database/models/ServerConfigModel";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { ServerConfig } from "../../interfaces/database/ServerConfig";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
@@ -8,26 +9,25 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  * database. If the server does not have a record, it creates one with the
  * default values.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {string} serverID Discord ID of the server to get the settings for.
  * @param {string} serverName Name of the server.
- * @returns {ServerModelInt | null} The server settings object, or null on error.
+ * @returns {ServerConfig | null} The server settings object, or null on error.
  */
 export const getSettings = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   serverID: string,
   serverName: string
-): Promise<ServerModelInt | null> => {
+): Promise<ServerConfig | null> => {
   try {
-    const server =
+    return (
       (await ServerModel.findOne({ serverID })) ||
       (await ServerModel.create({
         serverID,
         serverName,
         ...defaultServer,
-      }));
-
-    return server;
+      }))
+    );
   } catch (err) {
     await beccaErrorHandler(Becca, "get settings module", err, serverName);
     return null;

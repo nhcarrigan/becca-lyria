@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleLeave } from "../modules/commands/subcommands/nhcarrigan/handleLeave";
 import { handleList } from "../modules/commands/subcommands/nhcarrigan/handleList";
@@ -14,8 +14,9 @@ import { handleServerData } from "../modules/commands/subcommands/nhcarrigan/han
 import { handleUnregister } from "../modules/commands/subcommands/nhcarrigan/handleUnregister";
 import { handleViewSlash } from "../modules/commands/subcommands/nhcarrigan/handleViewSlash";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
-export const nhcarrigan: CommandInt = {
+export const nhcarrigan: Command = {
   data: new SlashCommandBuilder()
     .setName("nhcarrigan")
     .setDescription("Admin Commands locked to the owner.")
@@ -144,7 +145,7 @@ export const nhcarrigan: CommandInt = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }
@@ -160,12 +161,11 @@ export const nhcarrigan: CommandInt = {
           embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
+          });
+        });
     }
   },
 };

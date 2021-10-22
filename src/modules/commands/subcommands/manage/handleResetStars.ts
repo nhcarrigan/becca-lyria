@@ -4,6 +4,7 @@ import { GuildMember } from "discord.js";
 import StarModel from "../../../../database/models/StarModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
 /**
@@ -14,12 +15,16 @@ export const handleResetStars: CommandHandler = async (Becca, interaction) => {
     const { member, guild } = interaction;
 
     if (!guild || !member) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 
     if (!(member as GuildMember).permissions.has("MANAGE_GUILD")) {
-      await interaction.editReply({ content: Becca.responses.noPermission });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noPermission),
+      });
       return;
     }
 
@@ -50,11 +55,10 @@ export const handleResetStars: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "reset stars", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "reset stars", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "reset stars", errorId)],
+        });
+      });
   }
 };

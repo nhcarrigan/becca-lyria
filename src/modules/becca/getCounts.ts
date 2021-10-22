@@ -1,14 +1,14 @@
-import { CountInt } from "../../interfaces/becca/CountInt";
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaCounts } from "../../interfaces/becca/BeccaCounts";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 
 /**
  * Aggregates Becca's guild count, member counts, and
  * command counts.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
- * @returns {CountInt} An object representing the aggregated counts.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
+ * @returns {BeccaCounts} An object representing the aggregated counts.
  */
-export const getCounts = (Becca: BeccaInt): CountInt => {
+export const getCounts = (Becca: BeccaLyria): BeccaCounts => {
   const guildCount = Becca.guilds.cache.size;
   let memberCount = 0;
   let commandCount = 0;
@@ -19,6 +19,9 @@ export const getCounts = (Becca: BeccaInt): CountInt => {
 
   Becca.commands.forEach((command) => {
     const parsed = command.data.toJSON().options;
+    if (!parsed) {
+      return;
+    }
     parsed.forEach((option) => {
       // subcommands are type 1
       if (option.type === 1) {

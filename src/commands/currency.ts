@@ -6,7 +6,7 @@ import {
 
 import { CurrencyOptOut } from "../config/optout/CurrencyOptOut";
 import CurrencyModel from "../database/models/CurrencyModel";
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleAbout } from "../modules/commands/subcommands/currency/handleAbout";
 import { handleClaim } from "../modules/commands/subcommands/currency/handleClaim";
@@ -17,8 +17,9 @@ import { handleTwentyOne } from "../modules/commands/subcommands/currency/handle
 import { handleView } from "../modules/commands/subcommands/currency/handleView";
 import { handleWeekly } from "../modules/commands/subcommands/currency/handleWeekly";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
-export const currency: CommandInt = {
+export const currency: Command = {
   data: new SlashCommandBuilder()
     .setName("currency")
     .setDescription("Handles Becca's economy system.")
@@ -162,7 +163,7 @@ export const currency: CommandInt = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }
@@ -178,12 +179,11 @@ export const currency: CommandInt = {
           embeds: [errorEmbedGenerator(Becca, "currency group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "currency group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "currency group", errorId)],
+          });
+        });
     }
   },
 };

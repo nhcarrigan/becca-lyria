@@ -34,11 +34,10 @@ export const handleInvite: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "invite", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "invite", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "invite", errorId)],
+        });
+      });
   }
 };

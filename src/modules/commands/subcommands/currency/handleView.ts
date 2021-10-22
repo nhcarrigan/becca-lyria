@@ -55,11 +55,10 @@ export const handleView: CurrencyHandler = async (Becca, interaction, data) => {
         embeds: [errorEmbedGenerator(Becca, "view", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "view", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "view", errorId)],
+        });
+      });
   }
 };

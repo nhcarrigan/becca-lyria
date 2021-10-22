@@ -4,6 +4,7 @@ import { GuildMember } from "discord.js";
 import LevelModel from "../../../../database/models/LevelModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
 /**
@@ -14,7 +15,9 @@ export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
     const { guild, member } = interaction;
 
     if (!guild || !member) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 
@@ -22,7 +25,9 @@ export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
       !(member as GuildMember).permissions.has("MANAGE_GUILD") &&
       member.user.id !== Becca.configs.ownerId
     ) {
-      await interaction.editReply({ content: Becca.responses.noPermission });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noPermission),
+      });
       return;
     }
 
@@ -52,11 +57,10 @@ export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "reset level", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "reset level", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "reset level", errorId)],
+        });
+      });
   }
 };

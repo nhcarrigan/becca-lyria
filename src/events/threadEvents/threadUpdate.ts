@@ -1,18 +1,18 @@
 import { MessageEmbed, ThreadChannel } from "discord.js";
 
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
  * Logs when a thread is unarchived or archived.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {ThreadChannel} oldThread The thread state before the update.
  * @param {ThreadChannel} newThread The thread state after the update.
  */
 export const threadUpdate = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   oldThread: ThreadChannel,
   newThread: ThreadChannel
 ): Promise<void> => {
@@ -27,7 +27,7 @@ export const threadUpdate = async (
       threadEmbed.setDescription(
         `The ${oldThread.name} thread in ${oldThread.parent?.name} was archived.`
       );
-      await sendLogEmbed(Becca, newThread.guild, threadEmbed);
+      await sendLogEmbed(Becca, newThread.guild, threadEmbed, "thread_events");
       return;
     }
 
@@ -36,10 +36,10 @@ export const threadUpdate = async (
       threadEmbed.setDescription(
         `The ${oldThread.name} thread in ${oldThread.parent?.name} was unarchived.`
       );
-      await sendLogEmbed(Becca, newThread.guild, threadEmbed);
+      await sendLogEmbed(Becca, newThread.guild, threadEmbed, "thread_events");
       return;
     }
   } catch (err) {
-    beccaErrorHandler(Becca, "thread update event", err);
+    await beccaErrorHandler(Becca, "thread update event", err);
   }
 };

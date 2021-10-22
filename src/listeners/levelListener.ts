@@ -4,7 +4,7 @@ import { MessageEmbed, TextChannel } from "discord.js";
 import levelScale from "../config/listeners/levelScale";
 import { LevelOptOut } from "../config/optout/LevelOptOut";
 import LevelModel from "../database/models/LevelModel";
-import { ListenerInt } from "../interfaces/listeners/ListenerInt";
+import { Listener } from "../interfaces/listeners/Listener";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 /**
@@ -15,7 +15,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
  *
  * Also assigns configured level-specific roles.
  */
-export const levelListener: ListenerInt = {
+export const levelListener: Listener = {
   name: "Level Up!",
   description: "Grants experience based on message activity in the server.",
   run: async (Becca, message, serverSettings) => {
@@ -130,7 +130,12 @@ export const levelListener: ListenerInt = {
         }
       }
     } catch (err) {
-      beccaErrorHandler(Becca, "level listener", err, message.guild?.name);
+      await beccaErrorHandler(
+        Becca,
+        "level listener",
+        err,
+        message.guild?.name
+      );
     }
   },
 };

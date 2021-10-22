@@ -10,10 +10,8 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  */
 export const handleCanIUse: CommandHandler = async (Becca, interaction) => {
   try {
-    const feature = interaction.options.getString("feature");
-    if (!feature) {
-      await interaction.editReply({ content: Becca.responses.missingParam });
-    }
+    const feature = interaction.options.getString("feature", true);
+
     const caniuseEmbed = new MessageEmbed();
     caniuseEmbed.setTitle(`Can I Use ${feature}`);
     caniuseEmbed.setImage(`https://caniuse.bitsofco.de/image/${feature}.webp`);
@@ -33,11 +31,10 @@ export const handleCanIUse: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "caniuse", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "caniuse", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "caniuse", errorId)],
+        });
+      });
   }
 };

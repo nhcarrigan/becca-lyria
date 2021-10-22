@@ -4,6 +4,7 @@ import { MessageEmbed } from "discord.js";
 import LevelModel from "../../../../database/models/LevelModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
 /**
@@ -17,7 +18,7 @@ export const handleLeaderboard: CommandHandler = async (Becca, interaction) => {
 
     if (!guildId || !guild) {
       await interaction.editReply({
-        content: Becca.responses.missingGuild,
+        content: getRandomValue(Becca.responses.missingGuild),
       });
       return;
     }
@@ -45,9 +46,9 @@ export const handleLeaderboard: CommandHandler = async (Becca, interaction) => {
     const topTen = sortedLevels
       .slice(0, 10)
       .map(
-        (user, index) =>
-          `#${index + 1}: ${user.userTag} at level ${user.level} with ${
-            user.points
+        (u, index) =>
+          `#${index + 1}: ${u.userTag} at level ${u.level} with ${
+            u.points
           } experience points.`
       );
 
@@ -73,11 +74,10 @@ export const handleLeaderboard: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "leaderboard", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "leaderboard", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "leaderboard", errorId)],
+        });
+      });
   }
 };

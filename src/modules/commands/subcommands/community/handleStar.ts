@@ -6,6 +6,7 @@ import StarModel from "../../../../database/models/StarModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
 /**
@@ -17,17 +18,14 @@ export const handleStar: CommandHandler = async (Becca, interaction) => {
     const { member, guild } = interaction;
 
     if (!guild || !member) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 
-    const targetUser = interaction.options.getUser("user");
-    const reason = interaction.options.getString("reason");
-
-    if (!targetUser || !reason) {
-      await interaction.editReply({ content: Becca.responses.missingParam });
-      return;
-    }
+    const targetUser = interaction.options.getUser("user", true);
+    const reason = interaction.options.getString("reason", true);
 
     if (StarOptOut.includes(targetUser.id)) {
       await interaction.editReply(
@@ -89,11 +87,10 @@ export const handleStar: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "star", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "star", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "star", errorId)],
+        });
+      });
   }
 };

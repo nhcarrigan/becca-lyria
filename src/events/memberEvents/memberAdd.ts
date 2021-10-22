@@ -1,7 +1,7 @@
 import { GuildMember, MessageEmbed, PartialGuildMember } from "discord.js";
 
 import { defaultServer } from "../../config/database/defaultServer";
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { sendWelcomeEmbed } from "../../modules/guild/sendWelcomeEmbed";
 import { getSettings } from "../../modules/settings/getSettings";
@@ -11,11 +11,11 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  * Handles the guildMemberAdd event. Checks if the member has passed screening,
  * handles the role onjoin logic, and sends the welcome message or pending notice.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {GuildMember | PartialGuildMember} member Member object that represents user who joined.
  */
 export const memberAdd = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   member: GuildMember | PartialGuildMember
 ): Promise<void> => {
   try {
@@ -39,7 +39,7 @@ export const memberAdd = async (
         `${user.username}#${user.discriminator}`,
         user.displayAvatarURL()
       );
-      await sendLogEmbed(Becca, guild, partialJoinEmbed);
+      await sendLogEmbed(Becca, guild, partialJoinEmbed, "member_events");
       return;
     }
 
@@ -60,7 +60,7 @@ export const memberAdd = async (
     welcomeEmbed.setFooter(`ID: ${user.id}`);
     welcomeEmbed.setTimestamp();
 
-    await sendWelcomeEmbed(Becca, guild, welcomeEmbed);
+    await sendWelcomeEmbed(Becca, guild, "join", welcomeEmbed);
 
     if (serverSettings?.join_role) {
       const joinRole = await guild.roles.fetch(serverSettings.join_role);
@@ -69,6 +69,6 @@ export const memberAdd = async (
       }
     }
   } catch (err) {
-    beccaErrorHandler(Becca, "member add event", err, member.guild.name);
+    await beccaErrorHandler(Becca, "member add event", err, member.guild.name);
   }
 };

@@ -1,4 +1,12 @@
-import { BeccaInt, ResponsesInt } from "../interfaces/BeccaInt";
+import * as child from "child_process";
+
+import {
+  BeccaColours,
+  BeccaPhrases,
+  BeccaSass,
+} from "../config/BeccaResponses";
+import { BeccaLyria } from "../interfaces/BeccaLyria";
+import { beccaLogHandler } from "../utils/beccaLogHandler";
 
 /**
  * Validates that all expected environment variables are set with *some* value.
@@ -6,11 +14,11 @@ import { BeccaInt, ResponsesInt } from "../interfaces/BeccaInt";
  * attaches it to Becca's instance. Also constructs the colours and responses objects
  * and attaches them.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @returns {Object} Object containing a valid property as boolean, and a message as string.
  */
 export const validateEnv = (
-  Becca: BeccaInt
+  Becca: BeccaLyria
 ): { valid: boolean; message: string } => {
   try {
     if (!process.env.DISCORD_TOKEN) {
@@ -30,7 +38,7 @@ export const validateEnv = (
     }
 
     if (!process.env.NASA_API) {
-      return { valid: false, message: "Missing NASA API key" };
+      beccaLogHandler.log("warn", "Missing NASA API key");
     }
 
     if (!process.env.OWNER_ID) {
@@ -45,12 +53,14 @@ export const validateEnv = (
       return { valid: false, message: "Missing Bot's Home Guild ID" };
     }
 
-    const configs = {
+    Becca.commitHash = child.execSync("git rev-parse HEAD").toString().trim();
+
+    const configs: BeccaLyria["configs"] = {
       token: process.env.DISCORD_TOKEN,
       dbToken: process.env.MONGODB,
       whUrl: process.env.WH_URL,
       currencyUrl: process.env.CURRENCY_WH,
-      nasaKey: process.env.NASA_API,
+      nasaKey: process.env.NASA_API || "",
       ownerId: process.env.OWNER_ID,
       love: process.env.BECCA_LOVE || "💜",
       yes: process.env.BECCA_YES || "✅",
@@ -62,33 +72,9 @@ export const validateEnv = (
     };
 
     Becca.configs = configs;
-
-    const colours = {
-      default: 0x8b4283,
-      success: 0x1f8b4c,
-      warning: 0xc27c0e,
-      error: 0x992d22,
-    };
-
-    Becca.colours = colours;
-
-    const phrases: ResponsesInt = {
-      missingGuild: "It seems I cannot locate your guild record.",
-      invalidCommand:
-        "I am not sure how this happened, but that spell does not appear to be valid.",
-      noPermission: "You do not have the correct skills to use this spell.",
-      ownerOnly: "Only my owner can ask me to do this.",
-      missingParam:
-        "This is impressive. You have managed to forget a required component for this spell.",
-      defaultModReason:
-        "Unfortunately, they could not be bothered to tell me why.",
-      noModBecca:
-        "Brave of you to try to make me your target. Foolish, but brave.",
-      noModSelf: "Are... are you asking me to smite you?",
-    };
-
-    Becca.responses = phrases;
-
+    Becca.colours = BeccaColours;
+    Becca.responses = BeccaPhrases;
+    Becca.sass = BeccaSass;
     return { valid: true, message: "Environment variables validated!" };
   } catch (err) {
     return {

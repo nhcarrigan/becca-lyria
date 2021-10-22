@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleBan } from "../modules/commands/subcommands/moderation/handleBan";
 import { handleKick } from "../modules/commands/subcommands/moderation/handleKick";
@@ -13,8 +13,9 @@ import { handleUnmute } from "../modules/commands/subcommands/moderation/handleU
 import { handleWarn } from "../modules/commands/subcommands/moderation/handleWarn";
 import { handleWarnCount } from "../modules/commands/subcommands/moderation/handleWarnCount";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
-export const mod: CommandInt = {
+export const mod: Command = {
   data: new SlashCommandBuilder()
     .setName("mod")
     .setDescription("Moderation actions")
@@ -139,7 +140,9 @@ export const mod: CommandInt = {
           await handleBan(Becca, interaction, config);
           break;
         default:
-          await interaction.editReply(Becca.responses.invalidCommand);
+          await interaction.editReply({
+            content: getRandomValue(Becca.responses.invalidCommand),
+          });
           break;
       }
     } catch (err) {
@@ -154,12 +157,11 @@ export const mod: CommandInt = {
           embeds: [errorEmbedGenerator(Becca, "mod group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "mod group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "mod group", errorId)],
+          });
+        });
     }
   },
 };

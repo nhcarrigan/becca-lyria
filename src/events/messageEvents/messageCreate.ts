@@ -1,10 +1,10 @@
 import { Message } from "discord.js";
 
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { automodListener } from "../../listeners/automodListener";
 import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
-import { linksListener } from "../../listeners/linksListener";
-import { thanksListener } from "../../listeners/thanksListener";
+import { sassListener } from "../../listeners/sassListener";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { registerCommands } from "../../utils/registerCommands";
@@ -13,11 +13,11 @@ import { registerCommands } from "../../utils/registerCommands";
  * Handles the onMessage event. Validates that the message did not come from
  * another bot, then passes the message through to the listeners and command handler.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {Message} message The message object received in the gateway event.
  */
 export const messageCreate = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   message: Message
 ): Promise<void> => {
   try {
@@ -38,9 +38,9 @@ export const messageCreate = async (
     }
 
     await heartsListener.run(Becca, message, serverConfig);
-    await thanksListener.run(Becca, message, serverConfig);
-    await linksListener.run(Becca, message, serverConfig);
+    await automodListener.run(Becca, message, serverConfig);
     await levelListener.run(Becca, message, serverConfig);
+    await sassListener.run(Becca, message, serverConfig);
 
     if (
       message.author.id === Becca.configs.ownerId &&
@@ -50,7 +50,7 @@ export const messageCreate = async (
       await message.reply("Reloaded all commands.");
     }
   } catch (err) {
-    beccaErrorHandler(
+    await beccaErrorHandler(
       Becca,
       "message send event",
       err,

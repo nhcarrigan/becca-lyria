@@ -5,10 +5,11 @@ import https from "https";
 import cors from "cors";
 import express from "express";
 
+import CommandCountModel from "../database/models/CommandCountModel";
 import LevelModel from "../database/models/LevelModel";
 import StarModel from "../database/models/StarModel";
 import UsageModel from "../database/models/UsageModel";
-import { BeccaInt } from "../interfaces/BeccaInt";
+import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { getCounts } from "../modules/becca/getCounts";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { beccaLogHandler } from "../utils/beccaLogHandler";
@@ -16,12 +17,13 @@ import { beccaLogHandler } from "../utils/beccaLogHandler";
 /**
  * Spins up a basic web server for uptime monitoring.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @returns {boolean} True if the server was started, false if it crashed.
  */
-export const createServer = async (Becca: BeccaInt): Promise<boolean> => {
+export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
   try {
     const HTTPEndpoint = express();
+    HTTPEndpoint.disable("x-powered-by");
 
     const allowedOrigins = [
       "https://dash.beccalyria.com",
@@ -39,6 +41,20 @@ export const createServer = async (Becca: BeccaInt): Promise<boolean> => {
         },
       })
     );
+
+    HTTPEndpoint.use("/stats/:stat", async (req, res) => {
+      switch (req.params.stat) {
+        case "commands":
+          // eslint-disable-next-line no-case-declarations
+          const data = await CommandCountModel.find({})
+            .sort({ commandUses: -1 })
+            .lean();
+          res.json(data);
+          break;
+        default:
+          res.status(404).send("Invalid stat view!");
+      }
+    });
 
     HTTPEndpoint.use("/leaderboard/:serverId", async (req, res) => {
       const data = await LevelModel.findOne(
@@ -115,7 +131,7 @@ export const createServer = async (Becca: BeccaInt): Promise<boolean> => {
     }
     return true;
   } catch (err) {
-    beccaErrorHandler(Becca, "create server", err);
+    await beccaErrorHandler(Becca, "create server", err);
     return false;
   }
 };

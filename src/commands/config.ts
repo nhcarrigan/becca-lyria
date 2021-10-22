@@ -4,14 +4,19 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import {
+  configChoices,
+  configViewChoices,
+} from "../config/commands/settingsChoices";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleReset } from "../modules/commands/subcommands/config/handleReset";
 import { handleSet } from "../modules/commands/subcommands/config/handleSet";
 import { handleView } from "../modules/commands/subcommands/config/handleView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
-export const config: CommandInt = {
+export const config: Command = {
   data: new SlashCommandBuilder()
     .setName("config")
     .setDescription("Modify your server settings.")
@@ -24,29 +29,7 @@ export const config: CommandInt = {
             .setName("setting")
             .setDescription("The setting to update")
             .setRequired(true)
-            .addChoices([
-              ["Thanks System", "thanks"],
-              ["Level System", "levels"],
-              ["Join/Leave Channel", "welcome_channel"],
-              ["Moderation Log Channel", "log_channel"],
-              ["Level Log Channel", "level_channel"],
-              ["Suggestion Channel", "suggestion_channel"],
-              ["Muted Role", "muted_role"],
-              ["Custom Welcome Message", "custom_welcome"],
-              ["Heart Users", "hearts"],
-              ["Blocked Users", "blocked"],
-              ["Self-assignable Roles", "self_roles"],
-              ["Anti-link Channels", "anti_links"],
-              ["Allowed Link Channels", "permit_links"],
-              ["Allowed Link Roles", "link_roles"],
-              ["Allowed Link Regex", "allowed_links"],
-              ["Link Delete Message", "link_message"],
-              ["Level-assigned Roles", "level_roles"],
-              ["Role on Join", "join_role"],
-              ["Custom Leave Message", "leave_message"],
-              ["Report Channel", "report_channel"],
-              ["No Levelling Channels", "level_ignore"],
-            ])
+            .addChoices(configChoices)
         )
         .addStringOption((option) =>
           option
@@ -64,29 +47,7 @@ export const config: CommandInt = {
             .setName("setting")
             .setDescription("The setting to reset")
             .setRequired(true)
-            .addChoices([
-              ["Thanks System", "thanks"],
-              ["Level System", "levels"],
-              ["Join/Leave Channel", "welcome_channel"],
-              ["Moderation Log Channel", "log_channel"],
-              ["Level Log Channel", "level_channel"],
-              ["Suggestion Channel", "suggestion_channel"],
-              ["Muted Role", "muted_role"],
-              ["Custom Welcome Message", "custom_welcome"],
-              ["Heart Users", "hearts"],
-              ["Blocked Users", "blocked"],
-              ["Self-assignable Roles", "self_roles"],
-              ["Anti-link Channels", "anti_links"],
-              ["Allowed Link Channels", "permit_links"],
-              ["Allowed Link Roles", "link_roles"],
-              ["Allowed Link Regex", "allowed_links"],
-              ["Link Delete Message", "link_message"],
-              ["Level-assigned Roles", "level_roles"],
-              ["Role on Join", "join_role"],
-              ["Custom Leave Message", "leave_message"],
-              ["Report Channel", "report_channel"],
-              ["No Levelling Channels", "level_ignore"],
-            ])
+            .addChoices(configChoices)
         )
     )
     .addSubcommand(
@@ -98,28 +59,17 @@ export const config: CommandInt = {
             .setName("setting")
             .setDescription("The setting list to view.")
             .setRequired(true)
-            .addChoices([
-              ["Heart Users", "hearts"],
-              ["Self-Assignable Roles", "self_roles"],
-              ["Blocked Users", "blocked"],
-              ["Anti-link Channels", "anti_links"],
-              ["Allowed Link Channels", "permit_links"],
-              ["Allowed Link Roles", "link_roles"],
-              ["Allowed Link Regex", "allowed_links"],
-              ["Level-assigned Roles", "level_roles"],
-              ["No Levelling Channels", "level_ignore"],
-              ["Global Settings", "global"],
-            ])
+            .addChoices(configViewChoices)
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, serverConfig) => {
     try {
       await interaction.deferReply();
       const { guild, member } = interaction;
 
       if (!guild || !member) {
         await interaction.editReply({
-          content: Becca.responses.missingGuild,
+          content: getRandomValue(Becca.responses.missingGuild),
         });
         return;
       }
@@ -130,7 +80,7 @@ export const config: CommandInt = {
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({
-          content: Becca.responses.noPermission,
+          content: getRandomValue(Becca.responses.noPermission),
         });
         return;
       }
@@ -138,17 +88,17 @@ export const config: CommandInt = {
       const action = interaction.options.getSubcommand();
       switch (action) {
         case "set":
-          await handleSet(Becca, interaction, config);
+          await handleSet(Becca, interaction, serverConfig);
           break;
         case "reset":
-          await handleReset(Becca, interaction, config);
+          await handleReset(Becca, interaction, serverConfig);
           break;
         case "view":
-          await handleView(Becca, interaction, config);
+          await handleView(Becca, interaction, serverConfig);
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }
@@ -164,12 +114,11 @@ export const config: CommandInt = {
           embeds: [errorEmbedGenerator(Becca, "config group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "config group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "config group", errorId)],
+          });
+        });
     }
   },
 };

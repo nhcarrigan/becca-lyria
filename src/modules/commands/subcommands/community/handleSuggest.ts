@@ -4,6 +4,7 @@ import { MessageEmbed, TextChannel } from "discord.js";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
 /**
@@ -18,14 +19,11 @@ export const handleSuggest: CommandHandler = async (
 ) => {
   try {
     const { guild, user: author } = interaction;
-    const suggestion = interaction.options.getString("suggestion");
+    const suggestion = interaction.options.getString("suggestion", true);
     if (!guild || !author) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
-      return;
-    }
-
-    if (!suggestion) {
-      await interaction.editReply({ content: Becca.responses.missingParam });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 
@@ -80,11 +78,10 @@ export const handleSuggest: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "suggest", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "suggest", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "suggest", errorId)],
+        });
+      });
   }
 };

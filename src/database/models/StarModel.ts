@@ -1,20 +1,11 @@
-import { Document, model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 
-export interface StarCountInt extends Document {
-  serverID: string;
-  serverName: string;
-  users: {
-    userID: string;
-    userTag: string;
-    avatar: string;
-    stars: number;
-  }[];
-}
+import { Star } from "../../interfaces/database/Star";
 
-export const StarCount = new Schema({
+export const StarSchema = new Schema({
   serverID: String,
   serverName: String,
   users: [],
 });
 
-export default model<StarCountInt>("StarCount", StarCount);
+export default model<Star>("StarCount", StarSchema);

@@ -1,15 +1,14 @@
 /* eslint-disable camelcase */
-import { LevelRoleInt } from "../../interfaces/settings/LevelRoleInt";
+import { LevelRole } from "../../interfaces/settings/LevelRole";
 
 /**
  * This config maps the default values for the ServerModel document. Useful
  * for the reset command as well as instantiating new server settings.
  */
 export const defaultServer = {
-  thanks: "off",
   levels: "off",
   welcome_channel: "",
-  log_channel: "",
+  depart_channel: "",
   level_channel: "",
   suggestion_channel: "",
   muted_role: "",
@@ -18,16 +17,26 @@ export const defaultServer = {
   hearts: [] as string[],
   blocked: [] as string[],
   self_roles: [] as string[],
-  anti_links: [] as string[],
-  permit_links: [] as string[],
-  link_roles: [] as string[],
+  automod_channels: [] as string[],
+  no_automod_channels: [] as string[],
+  automod_roles: [] as string[],
   allowed_links: [] as string[],
   link_message:
     "{@username}, it seems you are not allowed to send links in this channel.",
-  level_roles: [] as LevelRoleInt[],
+  level_roles: [] as LevelRole[],
   join_role: "",
   leave_message:
     "{@username}, thank you for your time in {@servername}. Your contributions are appreciated.",
   report_channel: "",
   level_ignore: [] as string[],
+  sass_mode: "off",
+  message_events: "",
+  voice_events: "",
+  thread_events: "",
+  moderation_events: "",
+  member_events: "",
+  links: "off",
+  profanity: "off",
+  profanity_message:
+    "{@username}, your message appears to have been inappropriate. I removed it.",
 };

@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import { defaultHearts } from "../config/listeners/defaultHearts";
-import { ListenerInt } from "../interfaces/listeners/ListenerInt";
+import { Listener } from "../interfaces/listeners/Listener";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 /**
@@ -9,7 +9,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
  *
  * Also validates against the defaultHearts config.
  */
-export const heartsListener: ListenerInt = {
+export const heartsListener: Listener = {
   name: "Hearts Listener",
   description: "Adds heart reactions to specified users.",
   run: async (Becca, message, config) => {
@@ -20,7 +20,7 @@ export const heartsListener: ListenerInt = {
         await message.react(Becca.configs.love);
       }
     } catch (err) {
-      beccaErrorHandler(
+      await beccaErrorHandler(
         Becca,
         "hearts listener",
         err,

@@ -7,6 +7,7 @@ import {
 } from "../../../../config/commands/serverInfo";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
 /**
@@ -17,7 +18,9 @@ export const handleServer: CommandHandler = async (Becca, interaction) => {
     const { guild } = interaction;
 
     if (!guild) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 
@@ -127,11 +130,10 @@ export const handleServer: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "server", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "server", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "server", errorId)],
+        });
+      });
   }
 };

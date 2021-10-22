@@ -11,11 +11,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  */
 export const handleColour: CommandHandler = async (Becca, interaction) => {
   try {
-    const targetColour = interaction.options.getString("hex");
-    if (!targetColour) {
-      await interaction.editReply({ content: Becca.responses.missingParam });
-      return;
-    }
+    const targetColour = interaction.options.getString("hex", true);
 
     const parsedColour = targetColour.startsWith("#")
       ? targetColour.slice(1)
@@ -47,11 +43,10 @@ export const handleColour: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "colour", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "colour", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "colour", errorId)],
+        });
+      });
   }
 };

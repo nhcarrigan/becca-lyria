@@ -3,7 +3,7 @@ import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 import { MessageEmbed } from "discord.js";
 
-import { CommandDataInt } from "../../../../interfaces/commands/CommandDataInt";
+import { CommandData } from "../../../../interfaces/commands/CommandData";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../errorEmbedGenerator";
@@ -14,12 +14,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  */
 export const handleUnregister: CommandHandler = async (Becca, interaction) => {
   try {
-    const target = interaction.options.getString("command");
-
-    if (!target) {
-      await interaction.editReply(Becca.responses.missingParam);
-      return;
-    }
+    const target = interaction.options.getString("command", true);
 
     const targetCommand = Becca.commands.find((el) => el.data.name === target);
 
@@ -30,9 +25,9 @@ export const handleUnregister: CommandHandler = async (Becca, interaction) => {
 
     const rest = new REST({ version: "9" }).setToken(Becca.configs.token);
 
-    const commands: CommandDataInt[] = (await rest.get(
+    const commands: CommandData[] = (await rest.get(
       Routes.applicationCommands(Becca.configs.id)
-    )) as CommandDataInt[];
+    )) as CommandData[];
 
     const command = commands.find((el) => el.name === targetCommand.data.name);
 
@@ -73,11 +68,10 @@ export const handleUnregister: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "unregister", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "unregister", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "unregister", errorId)],
+        });
+      });
   }
 };

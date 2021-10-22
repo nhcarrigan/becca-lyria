@@ -4,14 +4,15 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleCanIUse } from "../modules/commands/subcommands/code/handleCanIUse";
 import { handleColour } from "../modules/commands/subcommands/code/handleColour";
 import { handleHttp } from "../modules/commands/subcommands/code/handleHttp";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
-export const code: CommandInt = {
+export const code: Command = {
   data: new SlashCommandBuilder()
     .setName("code")
     .setDescription("Commands related to programming.")
@@ -69,7 +70,7 @@ export const code: CommandInt = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }
@@ -85,12 +86,11 @@ export const code: CommandInt = {
           embeds: [errorEmbedGenerator(Becca, "code group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "code group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "code group", errorId)],
+          });
+        });
     }
   },
 };

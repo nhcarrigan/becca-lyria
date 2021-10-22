@@ -15,10 +15,11 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  */
 export const handleUpdates: CommandHandler = async (Becca, interaction) => {
   try {
+    const { commitHash: hash } = Becca;
     const updateEmbed = new MessageEmbed();
     updateEmbed.setTitle("Update Information");
     updateEmbed.setDescription(
-      "Becca's updates are deployed every Monday at 10AM Pacific Time. This is important information to know, as these deployments clear the cache. This results in any outstanding cache-reliant features, such as polls, trivia games, or scheduled posts, to be lost. Please plan your interactions around this schedule."
+      "Becca's updates are deployed every Monday around 8AM Pacific Time. This is important information to know, as these deployments clear the cache. This results in any outstanding cache-reliant features, such as polls, trivia games, or scheduled posts, to be lost. Please plan your interactions around this schedule."
     );
     updateEmbed.addField("Latest Updates", updatesSinceLastRelease.join("\n"));
     updateEmbed.addField(
@@ -29,6 +30,13 @@ export const handleUpdates: CommandHandler = async (Becca, interaction) => {
     updateEmbed.addField(
       "Changelog",
       "View Becca's entire change log [in her documentation](https://docs.beccalyria.com/#/changelog)."
+    );
+    updateEmbed.addField(
+      "Commit Hash",
+      `[${hash.slice(
+        0,
+        7
+      )}](https://github.com/beccalyria/discord-bot/commit/${hash})`
     );
     updateEmbed.setColor(Becca.colours.default);
     await interaction.editReply({ embeds: [updateEmbed] });
@@ -44,11 +52,10 @@ export const handleUpdates: CommandHandler = async (Becca, interaction) => {
         embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
+        });
+      });
   }
 };

@@ -6,7 +6,7 @@ import {
   SlashCommandUserOption,
 } from "@discordjs/builders";
 
-import { CommandInt } from "../interfaces/commands/CommandInt";
+import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleLeaderboard } from "../modules/commands/subcommands/community/handleLeaderboard";
 import { handleLevel } from "../modules/commands/subcommands/community/handleLevel";
@@ -21,8 +21,9 @@ import { handleSuggest } from "../modules/commands/subcommands/community/handleS
 import { handleTopic } from "../modules/commands/subcommands/community/handleTopic";
 import { handleUserInfo } from "../modules/commands/subcommands/community/handleUserInfo";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
-export const community: CommandInt = {
+export const community: Command = {
   data: new SlashCommandBuilder()
     .setName("community")
     .setDescription("Handles community-related features")
@@ -205,7 +206,7 @@ export const community: CommandInt = {
           break;
         default:
           await interaction.editReply({
-            content: Becca.responses.invalidCommand,
+            content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }
@@ -221,12 +222,11 @@ export const community: CommandInt = {
           embeds: [errorEmbedGenerator(Becca, "community group", errorId)],
           ephemeral: true,
         })
-        .catch(
-          async () =>
-            await interaction.editReply({
-              embeds: [errorEmbedGenerator(Becca, "community group", errorId)],
-            })
-        );
+        .catch(async () => {
+          await interaction.editReply({
+            embeds: [errorEmbedGenerator(Becca, "community group", errorId)],
+          });
+        });
     }
   },
 };

@@ -1,7 +1,8 @@
 /* eslint-disable jsdoc/require-param */
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
-import { SettingsTypes } from "../../../../interfaces/settings/SettingsTypes";
+import { Settings } from "../../../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { resetSetting } from "../../../settings/resetSetting";
 
@@ -17,7 +18,9 @@ export const handleReset: CommandHandler = async (
     const { guild } = interaction;
 
     if (!guild) {
-      await interaction.editReply({ content: Becca.responses.missingGuild });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
       return;
     }
 
@@ -26,7 +29,7 @@ export const handleReset: CommandHandler = async (
       Becca,
       guild.id,
       guild.name,
-      setting as SettingsTypes,
+      setting as Settings,
       config
     );
     await interaction.editReply(
@@ -47,11 +50,10 @@ export const handleReset: CommandHandler = async (
         embeds: [errorEmbedGenerator(Becca, "reset", errorId)],
         ephemeral: true,
       })
-      .catch(
-        async () =>
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "reset", errorId)],
-          })
-      );
+      .catch(async () => {
+        await interaction.editReply({
+          embeds: [errorEmbedGenerator(Becca, "reset", errorId)],
+        });
+      });
   }
 };

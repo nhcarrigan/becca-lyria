@@ -1,6 +1,7 @@
 import { Guild, MessageEmbed, TextChannel } from "discord.js";
 
-import { BeccaInt } from "../../interfaces/BeccaInt";
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { LogSettings } from "../../interfaces/settings/LogSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { getSettings } from "../settings/getSettings";
 
@@ -8,18 +9,21 @@ import { getSettings } from "../settings/getSettings";
  * Validates that the server has set a log channel, confirms the channel still exists,
  * and sends the provided content embed to that channel.
  *
- * @param {BeccaInt} Becca Becca's Discord instance.
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {Guild} guild The guild object.
  * @param {MessageEmbed} content The MessageEmbed to send to the log channel.
+ * @param {LogSettings} channel The log channel option to look for.
  */
 export const sendLogEmbed = async (
-  Becca: BeccaInt,
+  Becca: BeccaLyria,
   guild: Guild,
-  content: MessageEmbed
+  content: MessageEmbed,
+  channel: LogSettings
 ): Promise<void> => {
   try {
-    const guildChannelSetting = (await getSettings(Becca, guild.id, guild.name))
-      ?.log_channel;
+    const guildChannelSetting = (
+      await getSettings(Becca, guild.id, guild.name)
+    )?.[channel];
 
     if (!guildChannelSetting) {
       return;
@@ -35,6 +39,6 @@ export const sendLogEmbed = async (
 
     await logsChannel.send({ embeds: [content] });
   } catch (err) {
-    beccaErrorHandler(Becca, "send log embed module", err, guild.name);
+    await beccaErrorHandler(Becca, "send log embed module", err, guild.name);
   }
 };
