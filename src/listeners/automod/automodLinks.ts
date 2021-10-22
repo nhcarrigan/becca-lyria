@@ -69,7 +69,7 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
       dmEmbed.addField("Channel", message.channel.toString());
       dmEmbed.addField("Reason", "Blocked Link detected");
 
-      await message.author.send({ embeds: [dmEmbed] }).catch(() => {});
+      await message.author.send({ embeds: [dmEmbed] }).catch(() => null);
     }
   } catch (err) {
     await beccaErrorHandler(

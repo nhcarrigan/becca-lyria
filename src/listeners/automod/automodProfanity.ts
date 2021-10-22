@@ -48,7 +48,7 @@ export const automodProfanity: ListenerHandler = async (
     dmEmbed.addField("Channel", message.channel.toString());
     dmEmbed.addField("Reason", "Profanity detected");
 
-    await message.author.send({ embeds: [dmEmbed] }).catch(() => {});
+    await message.author.send({ embeds: [dmEmbed] }).catch(() => null);
   } catch (error) {
     await beccaErrorHandler(
       Becca,
