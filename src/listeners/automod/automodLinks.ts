@@ -37,7 +37,6 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
     );
 
     blockedLinks += (message.content.match(linkRegex) || []).length;
-
     if (blockedLinks > 0 && blockedLinks !== allowedLinks) {
       if (message.deletable) {
         await message.delete();
@@ -55,7 +54,22 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
         `${message.author.username}#${message.author.discriminator}`,
         message.author.displayAvatarURL()
       );
-      await message.channel.send({ embeds: [linkEmbed] });
+      const warning = await message.channel.send({ embeds: [linkEmbed] });
+
+      const dmEmbed = new MessageEmbed();
+      dmEmbed.setTitle("Your message has been deleted...");
+      dmEmbed.setURL(warning.url);
+      dmEmbed.setDescription(
+        "Here's the contents of the deleted message: \n```\n" +
+          message.content +
+          "```"
+      );
+      dmEmbed.setColor(Becca.colours.error);
+      dmEmbed.addField("Server", message.guild?.name || "unknown");
+      dmEmbed.addField("Channel", message.channel.toString());
+      dmEmbed.addField("Reason", "Blocked Link detected");
+
+      await message.author.send({ embeds: [dmEmbed] }).catch(() => null);
     }
   } catch (err) {
     await beccaErrorHandler(

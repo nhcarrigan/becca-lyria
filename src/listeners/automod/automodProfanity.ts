@@ -33,7 +33,22 @@ export const automodProfanity: ListenerHandler = async (
     embed.setTimestamp();
 
     await message.delete();
-    await message.channel.send({ embeds: [embed] });
+    const warning = await message.channel.send({ embeds: [embed] });
+
+    const dmEmbed = new MessageEmbed();
+    dmEmbed.setTitle("Your message has been deleted...");
+    dmEmbed.setURL(warning.url);
+    dmEmbed.setDescription(
+      "Here's the contents of the deleted message: \n```\n" +
+        filter.clean(message.content, "*", 2) +
+        "```"
+    );
+    dmEmbed.setColor(Becca.colours.error);
+    dmEmbed.addField("Server", message.guild?.name || "unknown");
+    dmEmbed.addField("Channel", message.channel.toString());
+    dmEmbed.addField("Reason", "Profanity detected");
+
+    await message.author.send({ embeds: [dmEmbed] }).catch(() => null);
   } catch (error) {
     await beccaErrorHandler(
       Becca,
