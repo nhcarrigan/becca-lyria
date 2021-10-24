@@ -25,6 +25,7 @@ export const ServerConfigSchema = new Schema({
   report_channel: String,
   level_ignore: [String],
   sass_mode: String,
+  triggers: Array,
   // automod
   automod_channels: [String],
   no_automod_channels: [String],

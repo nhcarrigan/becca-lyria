@@ -17,6 +17,7 @@ export const defaultServer = {
   hearts: [] as string[],
   blocked: [] as string[],
   self_roles: [] as string[],
+  triggers: [] as [string, string][],
   automod_channels: [] as string[],
   no_automod_channels: [] as string[],
   automod_roles: [] as string[],

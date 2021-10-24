@@ -5,6 +5,7 @@ import { automodListener } from "../../listeners/automodListener";
 import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
 import { sassListener } from "../../listeners/sassListener";
+import { triggerListener } from "../../listeners/triggerListener";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { registerCommands } from "../../utils/registerCommands";
@@ -41,6 +42,7 @@ export const messageCreate = async (
     await automodListener.run(Becca, message, serverConfig);
     await levelListener.run(Becca, message, serverConfig);
     await sassListener.run(Becca, message, serverConfig);
+    await triggerListener.run(Becca, message, serverConfig);
 
     if (
       message.author.id === Becca.configs.ownerId &&
