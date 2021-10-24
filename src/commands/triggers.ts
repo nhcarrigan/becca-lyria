@@ -3,6 +3,7 @@ import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
+import { GuildMember } from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
@@ -54,6 +55,15 @@ export const triggers: Command = {
       await interaction.deferReply();
 
       const subcommand = interaction.options.getSubcommand();
+
+      if (
+        !(interaction.member as GuildMember).permissions.has("MANAGE_GUILD")
+      ) {
+        await interaction.editReply({
+          content: getRandomValue(Becca.responses.noPermission),
+        });
+        return;
+      }
 
       switch (subcommand) {
         case "add":
