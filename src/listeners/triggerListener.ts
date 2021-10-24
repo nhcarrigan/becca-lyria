@@ -14,6 +14,7 @@ export const triggerListener: Listener = {
       for (const [trigger, response] of config.triggers) {
         if (message.content === trigger) {
           await message.channel.send(response);
+          break;
         }
       }
     } catch (err) {
