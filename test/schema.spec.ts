@@ -7,6 +7,7 @@ import LevelModel from "../src/database/models/LevelModel";
 import ServerConfigModel from "../src/database/models/ServerConfigModel";
 import StarModel from "../src/database/models/StarModel";
 import UsageModel from "../src/database/models/UsageModel";
+import VoterModel from "../src/database/models/VoterModel";
 import WarningModel from "../src/database/models/WarningModel";
 import { testActivity } from "../src/interfaces/database/Activity";
 import { testCommandCount } from "../src/interfaces/database/CommandCount";
@@ -15,6 +16,7 @@ import { testLevel } from "../src/interfaces/database/Level";
 import { testServerConfig } from "../src/interfaces/database/ServerConfig";
 import { testStar } from "../src/interfaces/database/Star";
 import { testUsage } from "../src/interfaces/database/Usage";
+import { testVoter } from "../src/interfaces/database/Voter";
 import { testWarning } from "../src/interfaces/database/Warning";
 
 suite("Schema Validation", () => {
@@ -83,6 +85,15 @@ suite("Schema Validation", () => {
     for (const key in testUsage) {
       test(`${key} should be in the Usage schema`, () => {
         assert(key in testModel, `Missing ${key} from the Usage schema.`);
+      });
+    }
+  });
+
+  suite("Voter Model", () => {
+    const testModel = new VoterModel();
+    for (const key in testVoter) {
+      test(`${key} should be in the Voter schema`, () => {
+        assert(key in testModel, `Missing ${key} from the Voter schema.`);
       });
     }
   });
