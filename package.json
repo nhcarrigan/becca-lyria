@@ -2,7 +2,7 @@
   "name": "becca_lyria",
   "author": "Nicholas Carrigan",
   "main": "./prod/src/main.js",
-  "version": "17.0.0-hotfix",
+  "version": "17.1.0",
   "license": "AGPL-3.0-or-later",
   "private": false,
   "engines": {
