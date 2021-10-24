@@ -25,6 +25,8 @@ export interface BeccaLyria extends Client {
     version: string;
     id: string;
     homeGuild: string;
+    topGG: string;
+    voteChannel: string;
   };
   colours: {
     default: ColorResolvable;

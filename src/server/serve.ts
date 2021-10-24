@@ -2,6 +2,7 @@ import { readFile } from "fs/promises";
 import http from "http";
 import https from "https";
 
+import * as Topgg from "@top-gg/sdk";
 import cors from "cors";
 import express from "express";
 
@@ -9,8 +10,10 @@ import CommandCountModel from "../database/models/CommandCountModel";
 import LevelModel from "../database/models/LevelModel";
 import StarModel from "../database/models/StarModel";
 import UsageModel from "../database/models/UsageModel";
+import VoterModel from "../database/models/VoterModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { getCounts } from "../modules/becca/getCounts";
+import { sendVoteMessage } from "../modules/server/sendVoteMessage";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { beccaLogHandler } from "../utils/beccaLogHandler";
 
@@ -23,6 +26,7 @@ import { beccaLogHandler } from "../utils/beccaLogHandler";
 export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
   try {
     const HTTPEndpoint = express();
+    const topgg = new Topgg.Webhook(Becca.configs.topGG, {});
     HTTPEndpoint.disable("x-powered-by");
 
     const allowedOrigins = [
@@ -39,6 +43,37 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
             callback(new Error("Not allowed by CORS"));
           }
         },
+      })
+    );
+
+    HTTPEndpoint.post(
+      "/votes",
+      topgg.listener(async (payload) => {
+        let voteType: "bot" | "server" | "unknown" = "unknown";
+        const voteRecord =
+          (await VoterModel.findOne({ userId: payload.user })) ||
+          (await VoterModel.create({
+            userId: payload.user,
+            serverVotes: 0,
+            botVotes: 0,
+          }));
+
+        if (payload.bot === Becca.configs.id) {
+          voteRecord.botVotes = voteRecord.botVotes + 1;
+          voteType = "bot";
+        }
+        if (payload.bot === Becca.configs.id && payload.isWeekend) {
+          voteRecord.botVotes = voteRecord.botVotes + 1;
+          voteType = "bot";
+        }
+        if (payload.guild === Becca.configs.homeGuild) {
+          voteRecord.serverVotes = voteRecord.serverVotes + 1;
+          voteType = "server";
+        }
+
+        await voteRecord.save();
+
+        await sendVoteMessage(Becca, payload, voteRecord, voteType);
       })
     );
 
