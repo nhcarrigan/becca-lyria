@@ -37,6 +37,6 @@ export const sendVoteMessage = async (
 
     await channel.send({ content: message });
   } catch (err) {
-    beccaErrorHandler(Becca, "send vote message", err);
+    await beccaErrorHandler(Becca, "send vote message", err);
   }
 };
