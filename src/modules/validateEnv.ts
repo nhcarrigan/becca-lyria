@@ -61,6 +61,10 @@ export const validateEnv = (
       return { valid: false, message: "Missing Bot's Vote Channel ID" };
     }
 
+    if (!process.env.HABITICA_KEY) {
+      return { valid: false, message: "Missing Habitica API key" };
+    }
+
     Becca.commitHash = child.execSync("git rev-parse HEAD").toString().trim();
 
     const configs: BeccaLyria["configs"] = {
@@ -79,6 +83,7 @@ export const validateEnv = (
       homeGuild: process.env.HOME_GUILD_ID,
       topGG: process.env.TOPGG_PASSWORD,
       voteChannel: process.env.VOTE_CHANNEL_ID,
+      habiticaKey: process.env.HABITICA_KEY,
     };
 
     Becca.configs = configs;
