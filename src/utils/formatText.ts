@@ -42,7 +42,7 @@ export const formatTextToTable = (
   // alias for simplicity
   const rows = data;
   const toStr = (val: unknown) => "" + val;
-  const headers = options?.headers || data[0].map(toStr) || [];
+  const headers = options?.headers || (data[0] || []).map(toStr) || [];
   const hasInferredHeaders = !options?.headers;
   const columnDelimiter = options?.columnDelimiter || "|";
   const rowDelimiter = options?.rowDelimiter || "-";
