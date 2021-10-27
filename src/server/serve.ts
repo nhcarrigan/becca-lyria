@@ -6,6 +6,7 @@ import * as Topgg from "@top-gg/sdk";
 import cors from "cors";
 import express from "express";
 
+import { VoteOptOut } from "../config/optout/VoteOptOut";
 import CommandCountModel from "../database/models/CommandCountModel";
 import LevelModel from "../database/models/LevelModel";
 import StarModel from "../database/models/StarModel";
@@ -50,6 +51,9 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
     HTTPEndpoint.post(
       "/votes",
       topgg.listener(async (payload) => {
+        if (VoteOptOut.includes(payload.user)) {
+          return;
+        }
         let voteType: "bot" | "server" | "unknown" = "unknown";
         const voteRecord =
           (await VoterModel.findOne({ userId: payload.user })) ||
