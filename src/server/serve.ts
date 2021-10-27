@@ -14,6 +14,7 @@ import VoterModel from "../database/models/VoterModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { getCounts } from "../modules/becca/getCounts";
 import { sendVoteMessage } from "../modules/server/sendVoteMessage";
+import { sendVoteReminder } from "../modules/server/sendVoteReminder";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { beccaLogHandler } from "../utils/beccaLogHandler";
 
@@ -74,6 +75,11 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
         await voteRecord.save();
 
         await sendVoteMessage(Becca, payload, voteRecord, voteType);
+        setTimeout(
+          async () =>
+            await sendVoteReminder(Becca, payload, voteRecord, voteType),
+          1000 * 60 * 60 * 12
+        );
       })
     );
 
