@@ -54,11 +54,14 @@ export const handleSchedule: CommandHandler = async (Becca, interaction) => {
     }
 
     setTimeout(async () => {
-      await (targetChannel as TextChannel | NewsChannel).send(
-        `<@!${
+      await (targetChannel as TextChannel | NewsChannel).send({
+        content: `<@!${
           (member as GuildMember).id
-        }>, here is your scheduled post:\n${message}`
-      );
+        }>, here is your scheduled post:\n${message}`,
+        allowedMentions: {
+          users: [interaction.user.id],
+        },
+      });
     }, time * 60000);
 
     const successEmbed = new MessageEmbed();
