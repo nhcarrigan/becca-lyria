@@ -85,8 +85,8 @@ export const nhcarrigan: Command = {
         .setDescription("Purges data from the database.")
         .addStringOption((option) =>
           option
-            .setName("user")
-            .setDescription("ID of the user to purge.")
+            .setName("target")
+            .setDescription("ID of the user or server to purge.")
             .setRequired(true)
         )
         .addStringOption((option) =>
@@ -99,6 +99,8 @@ export const nhcarrigan: Command = {
               ["Activity Tracking", "activity"],
               ["Currency data", "currency"],
               ["Star data", "stars"],
+              ["Vote data", "votes"],
+              ["Server Command Data", "commands"],
             ])
         )
     ),
