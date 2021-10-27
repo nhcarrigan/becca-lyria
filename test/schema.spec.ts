@@ -3,6 +3,7 @@ import { assert } from "chai";
 import ActivityModel from "../src/database/models/ActivityModel";
 import CommandCountModel from "../src/database/models/CommandCountModel";
 import CurrencyModel from "../src/database/models/CurrencyModel";
+import EmoteCountModel from "../src/database/models/EmoteCountModel";
 import LevelModel from "../src/database/models/LevelModel";
 import ServerConfigModel from "../src/database/models/ServerConfigModel";
 import StarModel from "../src/database/models/StarModel";
@@ -12,6 +13,7 @@ import WarningModel from "../src/database/models/WarningModel";
 import { testActivity } from "../src/interfaces/database/Activity";
 import { testCommandCount } from "../src/interfaces/database/CommandCount";
 import { testCurrency } from "../src/interfaces/database/Currency";
+import { testEmoteCount } from "../src/interfaces/database/EmoteCount";
 import { testLevel } from "../src/interfaces/database/Level";
 import { testServerConfig } from "../src/interfaces/database/ServerConfig";
 import { testStar } from "../src/interfaces/database/Star";
@@ -46,6 +48,15 @@ suite("Schema Validation", () => {
     for (const key in testCurrency) {
       test(`${key} should be in the Currency schema`, () => {
         assert(key in testModel, `Missing ${key} from the Currency schema.`);
+      });
+    }
+  });
+
+  suite("Emote Count Model", () => {
+    const testModel = new EmoteCountModel();
+    for (const key in testEmoteCount) {
+      test(`${key} should be in the Emote Count schema`, () => {
+        assert(key in testModel, `Missing ${key} from the Emote Count schema.`);
       });
     }
   });
