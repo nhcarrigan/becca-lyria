@@ -27,6 +27,7 @@ export interface BeccaLyria extends Client {
     homeGuild: string;
     topGG: string;
     voteChannel: string;
+    habiticaKey: string;
   };
   colours: {
     default: ColorResolvable;
@@ -42,6 +43,8 @@ export interface BeccaLyria extends Client {
     ownerOnly: string[];
     noModSelf: string[];
     noModBecca: string[];
+    noEmoteSelf: string[];
+    noEmoteBecca: string[];
   };
   contexts: Context[];
   sass: {
