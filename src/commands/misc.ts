@@ -7,6 +7,7 @@ import {
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleLevelscale } from "../modules/commands/subcommands/misc/handleLevelscale";
+import { handleOrbit } from "../modules/commands/subcommands/misc/handleOrbit";
 import { handlePermissions } from "../modules/commands/subcommands/misc/handlePermissions";
 import { handleSpace } from "../modules/commands/subcommands/misc/handleSpace";
 import { handleUsername } from "../modules/commands/subcommands/misc/handleUsername";
@@ -63,6 +64,13 @@ export const misc: Command = {
         .setDescription(
           "Returns a map of the level scale used by Becca's levelling system"
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("orbit")
+        .setDescription(
+          "Provides a leaderboard for global activity within nhcommunity."
+        )
     ),
   run: async (Becca, interaction, config) => {
     try {
@@ -85,6 +93,9 @@ export const misc: Command = {
           break;
         case "levelscale":
           await handleLevelscale(Becca, interaction, config);
+          break;
+        case "orbit":
+          await handleOrbit(Becca, interaction, config);
           break;
         default:
           await interaction.editReply({
