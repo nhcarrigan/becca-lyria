@@ -19,12 +19,16 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction) => {
     const target = interaction.options.getUser("target", true);
 
     if (target.id === interaction.user.id) {
-      await interaction.editReply({ content: "No." });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noEmoteSelf),
+      });
       return;
     }
 
     if (target.id === Becca.configs.id) {
-      await interaction.editReply({ content: "No." });
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noEmoteBecca),
+      });
       return;
     }
 

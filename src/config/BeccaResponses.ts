@@ -38,6 +38,16 @@ export const BeccaPhrases: BeccaLyria["responses"] = {
     "I try not to judge people's requests, but yours is especially strange. <:BeccaYikes:877278299066347632>",
     "I punish you on my terms, not yours. And I don't feel like doing so today. <:BeccaYawn:867102883823353937>",
   ],
+  noEmoteSelf: [
+    "Are you so desperate for attention that you feel the need to do that to yourself? <:BeccaYikes:877278299066347632>",
+    "Wow, you have got quite the ego - maybe give someone else some love instead? <:BeccaShrug:872577688441880627>",
+    "Okay then. I'm just going to ignore that. <:BeccaYawn:867102883823353937>",
+  ],
+  noEmoteBecca: [
+    "It's cute that you think you are important enough to warrant my attention. <:BeccaLaugh:877278301830414396>",
+    "You do realise that is not going to make me notice you, right? <:BeccaThink:872577687410081853>",
+    "While that is very kind of you, I still find myself not caring. <:BeccaSmug:872577688022421566>",
+  ],
 };
 
 export const BeccaSass: BeccaLyria["sass"] = {
