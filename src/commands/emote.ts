@@ -8,6 +8,7 @@ import { emoteChoices } from "../config/commands/emoteData";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleEmoteUse } from "../modules/commands/subcommands/emote/handleEmoteUse";
+import { handleEmoteView } from "../modules/commands/subcommands/emote/handleEmoteView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
@@ -51,6 +52,7 @@ export const emote: Command = {
           await handleEmoteUse(Becca, interaction, config);
           break;
         case "view":
+          await handleEmoteView(Becca, interaction, config);
           break;
         default:
           await interaction.reply({
