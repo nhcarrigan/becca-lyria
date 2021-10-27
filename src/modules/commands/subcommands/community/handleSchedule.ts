@@ -60,9 +60,8 @@ export const handleSchedule: CommandHandler = async (Becca, interaction) => {
         }>, here is your scheduled post:\n${message}`,
         allowedMentions: {
           users: [interaction.user.id],
-        }        
-      }
-      );
+        },
+      });
     }, time * 60000);
 
     const successEmbed = new MessageEmbed();
