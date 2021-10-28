@@ -97,17 +97,12 @@ export const handleClaim: CurrencyHandler = async (
       Becca,
       "claim command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "claim", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "claim", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "claim", errorId)],
+    });
   }
 };

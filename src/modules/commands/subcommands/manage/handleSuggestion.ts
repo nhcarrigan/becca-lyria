@@ -96,17 +96,12 @@ export const handleSuggestion: CommandHandler = async (
       Becca,
       "suggestion command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "suggestion", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "suggestion", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "suggestion", errorId)],
+    });
   }
 };

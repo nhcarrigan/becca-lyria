@@ -45,7 +45,9 @@ export const handleTriggerRemove: CommandHandler = async (
       Becca,
       "trigger remove command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "trigger remove", errorId)],

@@ -43,19 +43,14 @@ export const handleUpdates: CommandHandler = async (Becca, interaction) => {
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "ping command",
+      "updates command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "updates", errorId)],
+    });
   }
 };

@@ -142,17 +142,12 @@ export const handleAutomodView: CommandHandler = async (
       Becca,
       "automod view command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
+    });
   }
 };

@@ -34,19 +34,14 @@ export const handleUptime: CommandHandler = async (Becca, interaction) => {
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "donate command",
+      "uptime command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "donate", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "donate", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "uptime", errorId)],
+    });
   }
 };

@@ -78,18 +78,13 @@ export const manage: Command = {
         Becca,
         "manage group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "manage group", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "manage group", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "manage group", errorId)],
+      });
     }
   },
 };

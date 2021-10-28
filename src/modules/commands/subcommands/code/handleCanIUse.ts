@@ -24,17 +24,12 @@ export const handleCanIUse: CommandHandler = async (Becca, interaction) => {
       Becca,
       "caniuse command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "caniuse", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "caniuse", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "caniuse", errorId)],
+    });
   }
 };

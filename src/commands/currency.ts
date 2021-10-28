@@ -172,18 +172,13 @@ export const currency: Command = {
         Becca,
         "currency group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "currency group", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "currency group", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "currency group", errorId)],
+      });
     }
   },
 };
