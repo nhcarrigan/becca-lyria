@@ -57,15 +57,8 @@ export const handleLogView: CommandHandler = async (
       err,
       interaction.guild?.name
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "log view", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "log view", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "log view", errorId)],
+    });
   }
 };

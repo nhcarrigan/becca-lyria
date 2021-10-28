@@ -45,15 +45,8 @@ export const handleLogReset: CommandHandler = async (
       err,
       interaction.guild?.name
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "log reset", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "log reset", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "log reset", errorId)],
+    });
   }
 };

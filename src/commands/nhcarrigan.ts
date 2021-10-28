@@ -158,16 +158,9 @@ export const nhcarrigan: Command = {
         err,
         interaction.guild?.name
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
+      });
     }
   },
 };

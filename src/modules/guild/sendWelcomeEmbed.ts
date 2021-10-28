@@ -41,6 +41,11 @@ export const sendWelcomeEmbed = async (
 
     await targetChannel.send({ embeds: [content] });
   } catch (err) {
-    await beccaErrorHandler(Becca, "send log embed module", err, guild.name);
+    await beccaErrorHandler(
+      Becca,
+      "send welcome embed module",
+      err,
+      guild.name
+    );
   }
 };

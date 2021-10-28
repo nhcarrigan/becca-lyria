@@ -109,16 +109,9 @@ export const games: Command = {
         err,
         interaction.guild?.name
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "games group", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "games group", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "games group", errorId)],
+      });
     }
   },
 };

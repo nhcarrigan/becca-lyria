@@ -88,16 +88,9 @@ export const triggers: Command = {
         err,
         interaction.guild?.name
       );
-      await interaction
-        .editReply({
-          embeds: [errorEmbedGenerator(Becca, "triggers group", errorId)],
-        })
-        .catch(
-          async () =>
-            await interaction.reply({
-              embeds: [errorEmbedGenerator(Becca, "triggers group", errorId)],
-            })
-        );
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "triggers group", errorId)],
+      });
     }
   },
 };

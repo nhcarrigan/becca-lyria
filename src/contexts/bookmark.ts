@@ -72,16 +72,9 @@ export const bookmark: Context = {
         err,
         interaction.guild?.name
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "bookmark context", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "bookmark context", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "bookmark context", errorId)],
+      });
     }
   },
 };

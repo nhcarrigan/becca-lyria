@@ -99,16 +99,9 @@ export const log: Command = {
         err,
         interaction.guild?.name
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "log group", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "log group", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "log group", errorId)],
+      });
     }
   },
 };

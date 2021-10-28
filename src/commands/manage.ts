@@ -80,16 +80,9 @@ export const manage: Command = {
         err,
         interaction.guild?.name
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "manage group", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "manage group", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "manage group", errorId)],
+      });
     }
   },
 };

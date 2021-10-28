@@ -182,19 +182,12 @@ export const handleTwentyOne: CurrencyHandler = async (
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "slots command",
+      "twenty one command",
       err,
       interaction.guild?.name
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "slots", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "slots", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "twenty one", errorId)],
+    });
   }
 };

@@ -22,19 +22,12 @@ export const handleProfile: CommandHandler = async (Becca, interaction) => {
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "becca command",
+      "profile command",
       err,
       interaction.guild?.name
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "becca", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "becca", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "profile", errorId)],
+    });
   }
 };

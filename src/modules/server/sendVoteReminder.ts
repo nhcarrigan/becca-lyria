@@ -39,6 +39,6 @@ export const sendVoteReminder = async (
 
     await channel.send({ content: message });
   } catch (err) {
-    await beccaErrorHandler(Becca, "send vote message", err);
+    await beccaErrorHandler(Becca, "send vote reminder", err);
   }
 };
