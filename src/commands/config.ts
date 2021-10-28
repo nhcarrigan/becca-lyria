@@ -107,7 +107,9 @@ export const config: Command = {
         Becca,
         "config group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
       await interaction.editReply({
         embeds: [errorEmbedGenerator(Becca, "config group", errorId)],

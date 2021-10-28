@@ -97,7 +97,9 @@ export const handleUnmute: CommandHandler = async (
       Becca,
       "unmute command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "unmute", errorId)],

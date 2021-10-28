@@ -56,7 +56,9 @@ export const handleSpace: CommandHandler = async (Becca, interaction) => {
       Becca,
       "space command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "space", errorId)],

@@ -1,6 +1,11 @@
 /* eslint-disable jsdoc/no-undefined-types */
 import * as Sentry from "@sentry/node";
-import { Message, MessageEmbed } from "discord.js";
+import {
+  CommandInteraction,
+  ContextMenuInteraction,
+  Message,
+  MessageEmbed,
+} from "discord.js";
 import { Types } from "mongoose";
 
 import { BeccaLyria } from "../interfaces/BeccaLyria";
@@ -18,6 +23,7 @@ import { customSubstring } from "./customSubstring";
  * @param {unknown} err The standard error object (generated in a catch statement).
  * @param {string | undefined} guild The name of the guild that triggered the issue.
  * @param {Message | undefined} message Optional message that triggered the issue.
+ * @param { CommandInteraction | ContextMenuInteraction | undefined } interaction Optional interaction that triggered the issue.
  * @returns {Types.ObjectId} A unique ID for the error.
  */
 export const beccaErrorHandler = async (
@@ -25,7 +31,8 @@ export const beccaErrorHandler = async (
   context: string,
   err: unknown,
   guild?: string,
-  message?: Message
+  message?: Message,
+  interaction?: CommandInteraction | ContextMenuInteraction
 ): Promise<Types.ObjectId> => {
   const error = err as Error;
   beccaLogHandler.log("error", `There was an error in the ${context}:`);
@@ -53,6 +60,27 @@ export const beccaErrorHandler = async (
     errorEmbed.addField(
       "Message Content:",
       customSubstring(message.content, 1000)
+    );
+  }
+
+  if (interaction) {
+    errorEmbed.addField(
+      "Interaction Details",
+      customSubstring(
+        `${interaction.commandName} ${
+          interaction.options.getSubcommand() || ""
+        }`,
+        1000
+      )
+    );
+    errorEmbed.addField(
+      "Interaction Options",
+      customSubstring(
+        interaction.options.data[0].options
+          ?.map((o) => `\`${o.name}\`: ${o.value}`)
+          .join(", ") || "no options",
+        1000
+      )
     );
   }
   await Becca.debugHook.send({ embeds: [errorEmbed] });

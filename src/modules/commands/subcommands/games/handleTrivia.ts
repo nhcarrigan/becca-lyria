@@ -128,7 +128,9 @@ export const handleTrivia: CommandHandler = async (Becca, interaction) => {
       Becca,
       "trivia command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "trivia", errorId)],

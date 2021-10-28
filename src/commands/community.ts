@@ -215,7 +215,9 @@ export const community: Command = {
         Becca,
         "community group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
       await interaction.editReply({
         embeds: [errorEmbedGenerator(Becca, "community group", errorId)],

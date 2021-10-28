@@ -40,7 +40,9 @@ export const handleSlime: CommandHandler = async (Becca, interaction) => {
       Becca,
       "slime command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "slime", errorId)],

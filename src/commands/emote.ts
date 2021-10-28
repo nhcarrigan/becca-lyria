@@ -64,7 +64,9 @@ export const emote: Command = {
         Becca,
         "emote group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
       await interaction.editReply({
         embeds: [errorEmbedGenerator(Becca, "emote group", errorId)],

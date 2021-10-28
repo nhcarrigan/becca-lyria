@@ -158,7 +158,9 @@ export const handleRole: CommandHandler = async (
       Becca,
       "role command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "role", errorId)],

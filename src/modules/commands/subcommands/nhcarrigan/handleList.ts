@@ -112,7 +112,9 @@ export const handleList: CommandHandler = async (Becca, interaction) => {
       Becca,
       "list command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "list", errorId)],

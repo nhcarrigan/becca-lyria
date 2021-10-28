@@ -78,7 +78,9 @@ export const handleSlots: CurrencyHandler = async (
       Becca,
       "slots command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "slots", errorId)],

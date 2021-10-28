@@ -110,7 +110,9 @@ export const handlePoll: CommandHandler = async (Becca, interaction) => {
       Becca,
       "poll command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "poll", errorId)],

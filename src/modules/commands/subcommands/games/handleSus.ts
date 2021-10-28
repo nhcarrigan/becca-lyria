@@ -25,7 +25,9 @@ export const handleSus: CommandHandler = async (Becca, interaction) => {
       Becca,
       "sus command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "sus", errorId)],

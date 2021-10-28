@@ -107,7 +107,9 @@ export const handleTriggerView: CommandHandler = async (
       Becca,
       "trigger view command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "trigger view", errorId)],

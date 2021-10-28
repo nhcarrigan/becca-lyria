@@ -143,7 +143,9 @@ export const handleView: CommandHandler = async (
       Becca,
       "view command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "view", errorId)],

@@ -131,7 +131,9 @@ export const automod: Command = {
         Becca,
         "automod group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
       await interaction.editReply({
         embeds: [errorEmbedGenerator(Becca, "automod group", errorId)],

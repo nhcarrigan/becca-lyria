@@ -79,7 +79,9 @@ export const code: Command = {
         Becca,
         "code group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
       await interaction.editReply({
         embeds: [errorEmbedGenerator(Becca, "code group", errorId)],

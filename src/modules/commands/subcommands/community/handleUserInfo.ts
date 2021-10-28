@@ -77,7 +77,9 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction) => {
       Becca,
       "user info command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "user info", errorId)],

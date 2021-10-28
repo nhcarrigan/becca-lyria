@@ -145,7 +145,9 @@ export const becca: Command = {
         Becca,
         "becca group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
       await interaction.editReply({
         embeds: [errorEmbedGenerator(Becca, "becca group", errorId)],

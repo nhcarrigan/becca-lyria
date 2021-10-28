@@ -108,7 +108,9 @@ export const misc: Command = {
         Becca,
         "misc group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
       await interaction.editReply({
         embeds: [errorEmbedGenerator(Becca, "misc group", errorId)],

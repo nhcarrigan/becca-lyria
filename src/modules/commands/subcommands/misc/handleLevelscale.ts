@@ -110,7 +110,9 @@ export const handleLevelscale: CommandHandler = async (Becca, interaction) => {
       Becca,
       "levelscale command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "levelscale", errorId)],

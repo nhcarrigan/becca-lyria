@@ -26,7 +26,9 @@ export const handleMotivation: CommandHandler = async (Becca, interaction) => {
       Becca,
       "motivation command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "motivation", errorId)],

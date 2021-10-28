@@ -67,7 +67,9 @@ export const handleOrbit: CommandHandler = async (Becca, interaction) => {
       Becca,
       "orbit command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "orbit", errorId)],

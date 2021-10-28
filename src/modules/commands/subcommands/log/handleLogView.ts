@@ -55,7 +55,9 @@ export const handleLogView: CommandHandler = async (
       Becca,
       "log view command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "log view", errorId)],

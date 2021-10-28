@@ -32,7 +32,9 @@ export const handleArt: CommandHandler = async (Becca, interaction) => {
       Becca,
       "art command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "art", errorId)],

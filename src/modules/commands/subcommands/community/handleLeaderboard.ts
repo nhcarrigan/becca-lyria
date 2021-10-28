@@ -67,7 +67,9 @@ export const handleLeaderboard: CommandHandler = async (Becca, interaction) => {
       Becca,
       "leaderboard command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
     await interaction.editReply({
       embeds: [errorEmbedGenerator(Becca, "leaderboard", errorId)],
