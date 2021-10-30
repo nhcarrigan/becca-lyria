@@ -125,4 +125,10 @@ export const artList: Art[] = [
     artist: "Lena",
     artistUrl: "https://twitter.com/lena_smith11",
   },
+  {
+    fileName: "coffee.png",
+    artName: "White Mocha With Extra Becca",
+    artist: "HalleyWoofs",
+    artistUrl: "https://halleywoofs.art",
+  },
 ];
