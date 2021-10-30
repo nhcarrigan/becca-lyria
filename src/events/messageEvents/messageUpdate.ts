@@ -1,7 +1,11 @@
 import { Message, MessageEmbed, PartialMessage } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { automodListener } from "../../listeners/automodListener";
+import { sassListener } from "../../listeners/sassListener";
+import { triggerListener } from "../../listeners/triggerListener";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
+import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { customSubstring } from "../../utils/customSubstring";
 
@@ -21,6 +25,16 @@ export const messageUpdate = async (
   try {
     const { author, guild, content: newContent } = newMessage;
     const { content: oldContent } = oldMessage;
+
+    if (!guild || newMessage.channel.type === "DM") {
+      return;
+    }
+
+    const serverConfig = await getSettings(Becca, guild.id, guild.name);
+
+    if (!serverConfig) {
+      throw new Error("Could not get server configuration.");
+    }
 
     if (oldContent && newContent && oldContent === newContent) {
       return;
@@ -51,6 +65,12 @@ export const messageUpdate = async (
     updateEmbed.addField("Message Link", newMessage.url);
 
     await sendLogEmbed(Becca, guild, updateEmbed, "message_events");
+
+    const message = await newMessage.fetch();
+
+    await sassListener.run(Becca, message, serverConfig);
+    await automodListener.run(Becca, message, serverConfig);
+    await triggerListener.run(Becca, message, serverConfig);
   } catch (err) {
     await beccaErrorHandler(
       Becca,
