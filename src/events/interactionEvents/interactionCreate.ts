@@ -1,4 +1,4 @@
-import { Interaction, Message } from "discord.js";
+import { Interaction, Message, TextChannel } from "discord.js";
 
 import { BeccaInt } from "../../interfaces/BeccaInt";
 import { currencyListener } from "../../listeners/currencyListener";
@@ -87,6 +87,10 @@ export const interactionCreate = async (
       await logActivity(Becca, interaction.user.id, "button");
       if (interaction.customId === "delete-bookmark") {
         await (interaction.message as Message).delete();
+      }
+
+      if (interaction.customId === "ticket-close-button") {
+        await (interaction.channel as TextChannel).delete();
       }
     }
 
