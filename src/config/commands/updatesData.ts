@@ -1,11 +1,13 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Standard responses + sass mode phrases are now randomised",
-  "- These responses also use emotes",
-  "- Added three new emotes to the slots list",
-  "- Automod now DMs the user with their deleted message, if possible",
-  "- Added feature to track votes for support server on top.gg",
-  "- Modified update schedule for sunday instead of monday",
-  "- Added new trigger system",
+  "- Modified triggers commands to require manage server permission",
+  "- Restored the previously deprecated habitica command",
+  "- Added emote commands",
+  "- Restored the previously deprecated orbit command",
+  "- Modified schedule command to disallow pings",
+  "- Added system for vote reminders for support server and eventually bot",
+  "- Updated optout system to include recently added data tracking",
+  "- Sass mode, automod, and trigger system all work on message edits",
+  "- Added new art!",
 ];
 
-export const nextScheduledRelease = "<t:1635692400:F>";
+export const nextScheduledRelease = "<t:1636300800:F>";
