@@ -40,7 +40,7 @@ export const handleTicket: CommandHandler = async (Becca, interaction, config) =
       },
       {
         type: "role",
-        id: database.ticket_role as DJS.Snowflake,
+        id: config.ticket_role as DJS.Snowflake,
         allow: [DJS.Permissions.FLAGS.VIEW_CHANNEL, DJS.Permissions.FLAGS.SEND_MESSAGES],
       },
     ];
@@ -73,7 +73,7 @@ export const handleTicket: CommandHandler = async (Becca, interaction, config) =
       .setStyle("DANGER")
       ]);
 
-    channel?.send({ embeds: [ticketEmbed], content: `<@&${database.ticket_role}>` }, components: [buttonRow]);
+    channel?.send({ embeds: [ticketEmbed], content: `<@&${config.ticket_role}>` }, components: [buttonRow]);
 
     await interaction.editReply({
       content: `Your ticket has been created here ${channel?.toString()}`
