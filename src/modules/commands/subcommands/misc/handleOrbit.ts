@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { IndividualOrbitData } from "../../../../interfaces/commands/misc/Orbit";
@@ -25,7 +25,7 @@ export const handleOrbit: CommandHandler = async (Becca, interaction) => {
 
     const parsed = Becca.dataCache.orbitData
       .sort((a, b) => b.attributes.love - a.attributes.love)
-      .slice(0, 25);
+      .slice(0, 20);
 
     const orbitEmbed = new MessageEmbed();
     orbitEmbed.setTitle("nhcommunity Engagement Leaderboard");
@@ -59,9 +59,35 @@ export const handleOrbit: CommandHandler = async (Becca, interaction) => {
       : `${author.username} has no Orbit record.`;
 
     orbitEmbed.addField("Your rank:", authorString);
-    orbitEmbed.setFooter(`Data from cache: ${cached}`);
+    orbitEmbed.addField("Cached Data?", String(cached));
+    orbitEmbed.setFooter("Want to join the community? Click below!");
 
-    await interaction.editReply({ embeds: [orbitEmbed] });
+    const discordBtn = new MessageButton()
+      .setStyle("LINK")
+      .setEmoji("<:discord:904209263738642482>")
+      .setURL("https://chat.nhcarrigan.com")
+      .setLabel("Join Our Server!");
+    const githubBtn = new MessageButton()
+      .setStyle("LINK")
+      .setEmoji("<:github:904209263717658624>")
+      .setURL("https://github.com/nhcarrigan")
+      .setLabel("Contribute on GitHub!");
+    const twitterBtn = new MessageButton()
+      .setStyle("LINK")
+      .setEmoji("<:twitter:904209263642177556>")
+      .setURL("https://twitter.com/nhcarrigan")
+      .setLabel("Follow us on Twitter!");
+
+    const buttons = new MessageActionRow().addComponents([
+      discordBtn,
+      githubBtn,
+      twitterBtn,
+    ]);
+
+    await interaction.editReply({
+      embeds: [orbitEmbed],
+      components: [buttons],
+    });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
