@@ -18,7 +18,6 @@ export const getOrbitData = async (
 ): Promise<OrbitMember[]> => {
   try {
     const parsed: OrbitMember[] = [];
-    console.log("getting page 1");
     let data = await axios.get<OrbitData>(
       "https://app.orbit.love/api/v1/nhcarrigan/members?sort=love&items=100",
       {
@@ -31,7 +30,6 @@ export const getOrbitData = async (
     parsed.push(...data.data.data);
 
     while (data.data.links.next) {
-      console.log("getting next page");
       data = await axios.get<OrbitData>(data.data.links.next, {
         headers: {
           Accept: "application/json",
