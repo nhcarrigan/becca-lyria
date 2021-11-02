@@ -210,6 +210,7 @@ export const community: Command = {
           });
           break;
       }
+      Becca.grafana.metrics.commands.inc({ command: "community" });
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

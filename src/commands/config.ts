@@ -102,6 +102,7 @@ export const config: Command = {
           });
           break;
       }
+      Becca.grafana.metrics.commands.inc({ command: "config" });
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

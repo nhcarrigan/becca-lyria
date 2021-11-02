@@ -23,12 +23,11 @@ export const loadGrafana = (Becca: BeccaLyria): boolean => {
         commands: new prom.Counter({
           name: "bot_commands",
           help: "Bot commands executed by users.",
-          labelNames: ["command", "subcommand"],
+          labelNames: ["command"],
         }),
         errors: new prom.Counter({
           name: "process_errors",
           help: "Errors that occurred in the process.",
-          labelNames: ["error"],
         }),
         guilds: new prom.Gauge({
           name: "discord_guilds",

@@ -20,6 +20,7 @@ export const interactionCreate = async (
   interaction: Interaction
 ): Promise<void> => {
   try {
+    Becca.grafana.metrics.events.inc({ eventType: "interaction" });
     if (interaction.isCommand()) {
       await logActivity(Becca, interaction.user.id, "command");
       const target = Becca.commands.find(
@@ -95,8 +96,6 @@ export const interactionCreate = async (
     if (interaction.isSelectMenu()) {
       await logActivity(Becca, interaction.user.id, "select");
     }
-
-    Becca.grafana.metrics.events.inc({ eventType: "interaction" });
   } catch (err) {
     await beccaErrorHandler(Becca, "interaction create event", err);
   }
