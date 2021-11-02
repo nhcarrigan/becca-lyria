@@ -5,6 +5,7 @@ import https from "https";
 import * as Topgg from "@top-gg/sdk";
 import cors from "cors";
 import express from "express";
+import prom from "prom-client";
 
 import { VoteOptOut } from "../config/optout/VoteOptOut";
 import CommandCountModel from "../database/models/CommandCountModel";
@@ -31,6 +32,14 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
     const topgg = new Topgg.Webhook(Becca.configs.topGG, {});
     HTTPEndpoint.disable("x-powered-by");
 
+    const register = new prom.Registry();
+
+    register.setDefaultLabels({
+      app: "becca-lyria",
+    });
+
+    prom.collectDefaultMetrics({ register });
+
     const allowedOrigins = [
       "https://dash.beccalyria.com",
       "http://localhost:4200",
@@ -47,6 +56,11 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
         },
       })
     );
+
+    HTTPEndpoint.get("/metrics", async (req, res) => {
+      res.set("Content-Type", register.contentType);
+      res.end(await register.metrics());
+    });
 
     HTTPEndpoint.post(
       "/votes",
