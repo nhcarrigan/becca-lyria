@@ -99,8 +99,10 @@ export const validateEnv = (
     Becca.dataCache = {
       orbitData: [],
     };
+
     return { valid: true, message: "Environment variables validated!" };
   } catch (err) {
+    beccaLogHandler.log("error", err);
     return {
       valid: false,
       message: "Unknown error when validating environment",

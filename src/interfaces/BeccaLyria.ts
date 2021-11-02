@@ -1,4 +1,5 @@
 import { Client, ColorResolvable, WebhookClient } from "discord.js";
+import prom from "prom-client";
 
 import { Command } from "./commands/Command";
 import { OrbitMember } from "./commands/misc/Orbit";
@@ -58,5 +59,16 @@ export interface BeccaLyria extends Client {
   };
   dataCache: {
     orbitData: OrbitMember[];
+  };
+  grafana: {
+    client: typeof prom;
+    register: prom.Registry;
+    metrics: {
+      events: prom.Counter<string>;
+      commands: prom.Counter<string>;
+      errors: prom.Counter<string>;
+      guilds: prom.Gauge<string>;
+      users: prom.Gauge<string>;
+    };
   };
 }
