@@ -1,6 +1,7 @@
 import { MessageEmbed } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { getCounts } from "../../modules/becca/getCounts";
 import { beccaLogHandler } from "../../utils/beccaLogHandler";
 
 /**
@@ -21,4 +22,10 @@ export const ready = async (Becca: BeccaLyria): Promise<void> => {
 
   await Becca.debugHook.send({ embeds: [readyEmbed] });
   beccaLogHandler.log("debug", "Discord ready!");
+
+  const counts = getCounts(Becca);
+  Becca.grafana.metrics.guilds.set(counts.guilds);
+  Becca.grafana.metrics.users.set(counts.members);
+
+  beccaLogHandler.log("debug", "Loaded Grafana counts!");
 };
