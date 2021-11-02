@@ -95,6 +95,8 @@ export const interactionCreate = async (
     if (interaction.isSelectMenu()) {
       await logActivity(Becca, interaction.user.id, "select");
     }
+
+    Becca.grafana.metrics.events.inc({ eventType: "interaction" });
   } catch (err) {
     await beccaErrorHandler(Becca, "interaction create event", err);
   }

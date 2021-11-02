@@ -28,4 +28,5 @@ export const ready = async (Becca: BeccaLyria): Promise<void> => {
   Becca.grafana.metrics.users.set(counts.members);
 
   beccaLogHandler.log("debug", "Loaded Grafana counts!");
+  Becca.grafana.metrics.events.inc({ eventType: "client" });
 };

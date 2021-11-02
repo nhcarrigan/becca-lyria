@@ -39,6 +39,7 @@ export const threadUpdate = async (
       await sendLogEmbed(Becca, newThread.guild, threadEmbed, "thread_events");
       return;
     }
+    Becca.grafana.metrics.events.inc({ eventType: "thread" });
   } catch (err) {
     await beccaErrorHandler(Becca, "thread update event", err);
   }
