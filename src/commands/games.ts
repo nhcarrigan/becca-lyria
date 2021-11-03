@@ -102,6 +102,7 @@ export const games: Command = {
           });
           break;
       }
+      Becca.grafana.metrics.commands.inc({ command: "games" });
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

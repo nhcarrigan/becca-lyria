@@ -71,6 +71,7 @@ export const messageUpdate = async (
     await sassListener.run(Becca, message, serverConfig);
     await automodListener.run(Becca, message, serverConfig);
     await triggerListener.run(Becca, message, serverConfig);
+    Becca.grafana.metrics.events.inc({ eventType: "message" });
   } catch (err) {
     await beccaErrorHandler(
       Becca,

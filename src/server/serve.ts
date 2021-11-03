@@ -48,6 +48,11 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
       })
     );
 
+    HTTPEndpoint.get("/metrics", async (req, res) => {
+      res.set("Content-Type", Becca.grafana.register.contentType);
+      res.end(await Becca.grafana.register.metrics());
+    });
+
     HTTPEndpoint.post(
       "/votes",
       topgg.listener(async (payload) => {

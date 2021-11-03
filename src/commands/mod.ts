@@ -145,6 +145,7 @@ export const mod: Command = {
           });
           break;
       }
+      Becca.grafana.metrics.commands.inc({ command: "mod" });
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

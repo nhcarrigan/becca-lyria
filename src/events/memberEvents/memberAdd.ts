@@ -68,6 +68,9 @@ export const memberAdd = async (
         await member.roles.add(joinRole);
       }
     }
+
+    Becca.grafana.metrics.users.inc();
+    Becca.grafana.metrics.events.inc({ eventType: "member" });
   } catch (err) {
     await beccaErrorHandler(Becca, "member add event", err, member.guild.name);
   }

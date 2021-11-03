@@ -151,6 +151,7 @@ export const nhcarrigan: Command = {
           });
           break;
       }
+      Becca.grafana.metrics.commands.inc({ command: "nhcarrigan" });
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

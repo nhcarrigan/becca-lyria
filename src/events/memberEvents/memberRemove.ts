@@ -48,6 +48,9 @@ export const memberRemove = async (
 
     await sendWelcomeEmbed(Becca, guild, "leave", goodbyeEmbed);
     await memberRemoveCleanup(Becca, member.id, guild.id);
+
+    Becca.grafana.metrics.users.dec();
+    Becca.grafana.metrics.events.inc({ eventType: "member" });
   } catch (err) {
     await beccaErrorHandler(
       Becca,

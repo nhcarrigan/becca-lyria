@@ -21,4 +21,5 @@ export const shardReady = async (
   shardEmbed.setColor(Becca.colours.success);
 
   await Becca.debugHook.send({ embeds: [shardEmbed] });
+  Becca.grafana.metrics.events.inc({ eventType: "shard" });
 };

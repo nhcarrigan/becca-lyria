@@ -7,6 +7,7 @@ import { IntentOptions } from "./config/IntentOptions";
 import { connectDatabase } from "./database/connectDatabase";
 import { handleEvents } from "./events/handleEvents";
 import { BeccaLyria } from "./interfaces/BeccaLyria";
+import { loadGrafana } from "./modules/loadGrafana";
 import { validateEnv } from "./modules/validateEnv";
 import { createServer } from "./server/serve";
 import { beccaErrorHandler } from "./utils/beccaErrorHandler";
@@ -41,6 +42,11 @@ Sentry.init({
   const validatedEnvironment = validateEnv(Becca);
   if (!validatedEnvironment.valid) {
     beccaLogHandler.log("error", validatedEnvironment.message);
+    return;
+  }
+  const loadedGraphana = loadGrafana(Becca);
+  if (!loadedGraphana) {
+    beccaLogHandler.log("error", "Unable to load Grafana metrics");
     return;
   }
 
