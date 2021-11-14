@@ -1,3 +1,3 @@
-export const updatesSinceLastRelease: string[] = ["- Set up grafana logging"];
+export const updatesSinceLastRelease: string[] = ["- Migrated Level system"];
 
-export const nextScheduledRelease = "<t:1636905600:F>";
+export const nextScheduledRelease = "<t:1637510400:F>";
