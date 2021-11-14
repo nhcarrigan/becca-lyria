@@ -52,28 +52,19 @@ export const levelListener: Listener = {
 
       const bonus = Math.floor(content.length / 10);
       const pointsEarned = Math.floor(Math.random() * (20 + bonus)) + 5;
-      const server =
-        (await LevelModel.findOne({ serverID: guild.id })) ||
+      const user =
+        (await LevelModel.findOne({ serverID: guild.id, userId: author.id })) ||
         (await LevelModel.create({
           serverID: guild.id,
           serverName: guild.name,
-          users: [],
-        }));
-
-      let user = server.users.find((u) => u.userID === author.id);
-
-      if (!user) {
-        user = {
           userID: author.id,
           userTag: author.tag,
           avatar: author.displayAvatarURL(),
-          level: 0,
           points: 0,
+          level: 0,
           lastSeen: new Date(Date.now()),
           cooldown: 0,
-        };
-        server.users.push(user);
-      }
+        }));
 
       if (Date.now() - user.cooldown < 300000 || user.level >= 100) {
         return;
@@ -91,8 +82,7 @@ export const levelListener: Listener = {
         levelUp = true;
       }
 
-      server.markModified("users");
-      await server.save();
+      await user.save();
 
       if (levelUp) {
         const levelEmbed = new MessageEmbed();

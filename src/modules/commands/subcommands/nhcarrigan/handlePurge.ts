@@ -20,15 +20,9 @@ export const handlePurge: CommandHandler = async (Becca, interaction) => {
     let name = "`no data found!`";
 
     if (data === "levels") {
-      const levels = await LevelModel.find({});
+      const levels = await LevelModel.find({ userID: target });
       for (const datum of levels) {
-        const index = datum.users.findIndex((u) => u.userID === target);
-        if (index !== -1) {
-          name = datum.users[index].userTag;
-          datum.users.splice(index, 1);
-          datum.markModified("users");
-          await datum.save();
-        }
+        await datum.delete();
       }
       await interaction.editReply(`I have cleared the level data for ${name}.`);
       return;
