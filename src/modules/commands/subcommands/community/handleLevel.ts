@@ -21,20 +21,12 @@ export const handleLevel: CommandHandler = async (Becca, interaction) => {
       });
       return;
     }
-    const serverLevels = await LevelModel.findOne({
-      serverID: guildId,
-    });
-
-    if (!serverLevels) {
-      await interaction.editReply({
-        content: "It would appear that rankings are not enabled here.",
-      });
-      return;
-    }
 
     const target = interaction.options.getUser("user-level") || user;
 
-    const targetLevel = serverLevels.users.find((u) => u.userID === target.id);
+    const targetLevel = await LevelModel.findOne({
+      serverID: guildId,
+    });
 
     if (!targetLevel) {
       await interaction.editReply({

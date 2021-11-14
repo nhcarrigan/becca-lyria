@@ -17,15 +17,13 @@ export const memberRemoveCleanup = async (
   guildId: string
 ): Promise<void> => {
   try {
-    const levelData = await LevelModel.findOne({ serverID: guildId });
+    const levelData = await LevelModel.findOne({
+      serverID: guildId,
+      userID: userId,
+    });
 
     if (levelData) {
-      const index = levelData.users.findIndex((user) => user.userID === userId);
-      if (index !== -1) {
-        levelData.users.splice(index, 1);
-        levelData.markModified("users");
-        await levelData.save();
-      }
+      await levelData.delete();
     }
 
     const starData = await StarModel.findOne({ serverID: guildId });

@@ -14,7 +14,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  */
 export const handleLeaderboard: CommandHandler = async (Becca, interaction) => {
   try {
-    const { guildId, guild, user } = interaction;
+    const { guildId, guild } = interaction;
 
     if (!guildId || !guild) {
       await interaction.editReply({
@@ -22,41 +22,32 @@ export const handleLeaderboard: CommandHandler = async (Becca, interaction) => {
       });
       return;
     }
-    const serverLevels = await LevelModel.findOne({
+    const serverLevels = await LevelModel.find({
       serverID: guildId,
-    });
+    })
+      .sort({ points: -1 })
+      .limit(10)
+      .lean()
+      .exec();
 
-    if (!serverLevels) {
+    if (!serverLevels || !serverLevels.length) {
       await interaction.editReply({
         content: "It would appear that rankings are not enabled here.",
       });
       return;
     }
 
-    const authorLevel = serverLevels.users.find((u) => u.userID === user.id);
-
-    const sortedLevels = serverLevels.users.sort((a, b) => b.points - a.points);
-
-    const authorRank = authorLevel
-      ? `${user.tag} is rank ${
-          sortedLevels.findIndex((u) => u.userID === user.id) + 1
-        }`
-      : `${user.tag} is not ranked yet...`;
-
-    const topTen = sortedLevels
-      .slice(0, 10)
-      .map(
-        (u, index) =>
-          `#${index + 1}: ${u.userTag} at level ${u.level} with ${
-            u.points
-          } experience points.`
-      );
+    const topTen = serverLevels.map(
+      (u, index) =>
+        `#${index + 1}: ${u.userTag} at level ${u.level} with ${
+          u.points
+        } experience points.`
+    );
 
     const levelEmbed = new MessageEmbed();
     levelEmbed.setTitle(`${guild.name} leaderboard`);
     levelEmbed.setColor(Becca.colours.default);
-    levelEmbed.addField("Top ten members", topTen.join("\n"));
-    levelEmbed.addField("Your rank", authorRank);
+    levelEmbed.setDescription(topTen.join("\n"));
     levelEmbed.setTimestamp();
     levelEmbed.setURL(`https://dash.beccalyria.com/leaderboard/${guildId}`);
     await interaction.editReply({

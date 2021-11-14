@@ -14,4 +14,4 @@ export const LevelSchema = new Schema({
   cooldown: Number,
 });
 
-export default model<Level>("level", LevelSchema);
+export default model<Level>("newLevel", LevelSchema);
