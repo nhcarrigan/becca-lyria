@@ -107,7 +107,7 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
     });
 
     HTTPEndpoint.use("/leaderboard/:serverId", async (req, res) => {
-      const data = await LevelModel.findOne(
+      const data = await LevelModel.find(
         { serverID: req.params.serverId },
         { _id: 0, __v: 0 }
       );
