@@ -53,7 +53,7 @@ export const levelListener: Listener = {
       const bonus = Math.floor(content.length / 10);
       const pointsEarned = Math.floor(Math.random() * (20 + bonus)) + 5;
       const user =
-        (await LevelModel.findOne({ serverID: guild.id, userId: author.id })) ||
+        (await LevelModel.findOne({ serverID: guild.id, userID: author.id })) ||
         (await LevelModel.create({
           serverID: guild.id,
           serverName: guild.name,
