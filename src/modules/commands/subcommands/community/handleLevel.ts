@@ -26,6 +26,7 @@ export const handleLevel: CommandHandler = async (Becca, interaction) => {
 
     const targetLevel = await LevelModel.findOne({
       serverID: guildId,
+      userID: target.id,
     });
 
     if (!targetLevel) {
