@@ -115,7 +115,9 @@ export const handleServer: CommandHandler = async (Becca, interaction) => {
       }\`\n**Public Channel:** \`${guild.publicUpdatesChannel?.name || "no"}\``,
       true
     );
-    serverEmbed.setFooter(`ID: ${guild.id}`);
+    serverEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
 
     await interaction.editReply({ embeds: [serverEmbed] });
   } catch (err) {

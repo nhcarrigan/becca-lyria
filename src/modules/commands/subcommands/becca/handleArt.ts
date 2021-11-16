@@ -24,7 +24,7 @@ export const handleArt: CommandHandler = async (Becca, interaction) => {
     artEmbed.setImage(
       `https://www.beccalyria.com/assets/art/${fileName.replace(/\s/g, "%20")}`
     );
-    artEmbed.setFooter("Would you like to paint my portrait too?");
+    artEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [artEmbed] });
   } catch (err) {

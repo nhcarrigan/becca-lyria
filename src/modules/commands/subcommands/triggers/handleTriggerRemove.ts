@@ -38,6 +38,7 @@ export const handleTriggerRemove: CommandHandler = async (
       interaction.user.displayAvatarURL()
     );
     success.setTimestamp();
+    success.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [success] });
   } catch (err) {

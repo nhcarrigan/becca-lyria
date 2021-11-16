@@ -77,6 +77,9 @@ export const generateHabiticaAchievements = async (
       "Special achievements",
       getAchievementList(Object.values(special.achievements))
     );
+    achievementsEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
 
     return achievementsEmbed;
   } catch (err) {

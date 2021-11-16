@@ -45,6 +45,9 @@ export const bookmark: Context = {
       bookmarkEmbed.addField("Guild", guild, true);
       bookmarkEmbed.addField("Channel", channel.name, true);
       bookmarkEmbed.addField("Link", message.url);
+      bookmarkEmbed.setFooter(
+        "Like the bot? Donate: https://donate.nhcarrigan.com"
+      );
 
       const deleteButton = new MessageButton()
         .setCustomId("delete-bookmark")

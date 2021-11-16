@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { MessageEmbed } from "discord.js";
+import e from "express";
 import * as filter from "leo-profanity";
 
 import { defaultServer } from "../../config/database/defaultServer";
@@ -31,6 +32,7 @@ export const automodProfanity: ListenerHandler = async (
     embed.setColor(Becca.colours.error);
     embed.setAuthor(message.author.tag, message.author.displayAvatarURL());
     embed.setTimestamp();
+    embed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await message.delete();
     const warning = await message.channel.send({ embeds: [embed] });

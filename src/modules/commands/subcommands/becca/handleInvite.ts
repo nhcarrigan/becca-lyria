@@ -18,7 +18,9 @@ export const handleInvite: CommandHandler = async (Becca, interaction) => {
       "I suppose I could provide my services to your guild. Click this [invite link](http://invite.beccalyria.com) and I will come serve you. You should also join our [support server](https://chat.nhcarrigan.com)."
     );
     inviteEmbed.setColor(Becca.colours.default);
-    inviteEmbed.setFooter("I look forward to working with you.");
+    inviteEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
     inviteEmbed.setTimestamp();
 
     await interaction.editReply({ embeds: [inviteEmbed] });

@@ -18,6 +18,7 @@ export const handleSus: CommandHandler = async (Becca, interaction) => {
     susEmbed.setDescription(SusNames[random] + " is the new SUS!");
     susEmbed.setColor(SusColours[random]);
     susEmbed.setTimestamp();
+    susEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [susEmbed] });
   } catch (err) {

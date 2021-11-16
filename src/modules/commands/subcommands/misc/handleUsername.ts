@@ -33,6 +33,9 @@ export const handleUsername: CommandHandler = async (Becca, interaction) => {
       true
     );
     usernameEmbed.addField("Maximum length", length.toString(), true);
+    usernameEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
 
     await interaction.editReply({ embeds: [usernameEmbed] });
   } catch (err) {

@@ -68,6 +68,7 @@ export const generateHabiticaUser = async (
       new Date(auth.timestamps.loggedin).toLocaleDateString(),
       true
     );
+    userEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     return userEmbed;
   } catch (err) {

@@ -28,9 +28,7 @@ export const handleAbout: CommandHandler = async (Becca, interaction) => {
     aboutEmbed.addField("Members", members.toString(), true);
     aboutEmbed.addField("Available spells", commands.toString(), true);
     aboutEmbed.addField("Favourite Colour", "Purple", true);
-    aboutEmbed.setFooter(
-      "Now that we have introduced ourselves, it is time for an adventure."
-    );
+    aboutEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [aboutEmbed] });
   } catch (err) {
