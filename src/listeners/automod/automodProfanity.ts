@@ -1,6 +1,5 @@
 /* eslint-disable jsdoc/require-param */
 import { MessageEmbed } from "discord.js";
-import e from "express";
 import * as filter from "leo-profanity";
 
 import { defaultServer } from "../../config/database/defaultServer";
