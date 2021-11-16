@@ -41,6 +41,7 @@ export const handleMtg: CommandHandler = async (Becca, interaction) => {
       "Abilities",
       card.text || "This card has no ability text..."
     );
+    cardEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [cardEmbed] });
   } catch (err) {

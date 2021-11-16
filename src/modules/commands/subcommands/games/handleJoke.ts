@@ -31,6 +31,7 @@ export const handleJoke: CommandHandler = async (Becca, interaction) => {
     jokeEmbed.setTitle("Perhaps this will entertain you...");
     jokeEmbed.setDescription(joke.data.joke);
     jokeEmbed.setTimestamp();
+    jokeEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
     await interaction.editReply({ embeds: [jokeEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(

@@ -64,6 +64,9 @@ export const viewAutomodSettings = async (
       config.allowed_links.length.toString(),
       true
     );
+    settingsEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
     return settingsEmbed;
   } catch (err) {
     await beccaErrorHandler(

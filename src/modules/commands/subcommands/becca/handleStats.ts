@@ -46,6 +46,9 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
         author.displayAvatarURL()
       );
       commandEmbed.setDescription(topServersEmbed);
+      commandEmbed.setFooter(
+        "Like the bot? Donate: https://donate.nhcarrigan.com"
+      );
 
       await interaction.editReply({ embeds: [commandEmbed] });
       return;
@@ -72,6 +75,9 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
         author.displayAvatarURL()
       );
       serverEmbed.setDescription(serverVoteEmbed);
+      serverEmbed.setFooter(
+        "Like the bot? Donate: https://donate.nhcarrigan.com"
+      );
 
       await interaction.editReply({ embeds: [serverEmbed] });
       return;
@@ -107,6 +113,7 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       botEmbed.setDescription(
         "We are waiting to list Becca on top.gg until after we complete the Discord verification process. Stay tuned!"
       );
+      botEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
       await interaction.editReply({ embeds: [botEmbed] });
       return;

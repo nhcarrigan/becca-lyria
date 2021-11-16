@@ -29,6 +29,9 @@ export const handleColour: CommandHandler = async (Becca, interaction) => {
     colourEmbed.setColor(parseInt(parsedColour, 16));
     colourEmbed.setImage(`https://www.colorhexa.com/${parsedColour}.png`);
     colourEmbed.setTimestamp();
+    colourEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
 
     await interaction.editReply({ embeds: [colourEmbed] });
   } catch (err) {

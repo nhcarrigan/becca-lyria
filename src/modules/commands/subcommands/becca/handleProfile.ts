@@ -18,6 +18,9 @@ export const handleProfile: CommandHandler = async (Becca, interaction) => {
       "If you want to read about my adventures, check my [profile site](https://www.beccalyria.com). I would rather not have to recount them all here."
     );
     profileEmbed.setThumbnail(Becca.user?.avatarURL({ dynamic: true }) || "");
+    profileEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
     await interaction.editReply({ embeds: [profileEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(

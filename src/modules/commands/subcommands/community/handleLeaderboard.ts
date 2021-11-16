@@ -50,6 +50,7 @@ export const handleLeaderboard: CommandHandler = async (Becca, interaction) => {
     levelEmbed.setDescription(topTen.join("\n"));
     levelEmbed.setTimestamp();
     levelEmbed.setURL(`https://dash.beccalyria.com/leaderboard/${guildId}`);
+    levelEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
     await interaction.editReply({
       embeds: [levelEmbed],
     });

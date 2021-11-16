@@ -19,6 +19,7 @@ export const handleMotivation: CommandHandler = async (Becca, interaction) => {
     quoteEmbed.setFooter(quote.author);
     quoteEmbed.setTimestamp();
     quoteEmbed.setColor(Becca.colours.default);
+    quoteEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [quoteEmbed] });
   } catch (err) {

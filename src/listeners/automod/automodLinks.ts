@@ -54,6 +54,9 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
         `${message.author.username}#${message.author.discriminator}`,
         message.author.displayAvatarURL()
       );
+      linkEmbed.setFooter(
+        "Like the bot? Donate: https://donate.nhcarrigan.com"
+      );
       const warning = await message.channel.send({ embeds: [linkEmbed] });
 
       const dmEmbed = new MessageEmbed();

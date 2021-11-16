@@ -39,6 +39,9 @@ export const handleUpdates: CommandHandler = async (Becca, interaction) => {
       )}](https://github.com/beccalyria/discord-bot/commit/${hash})`
     );
     updateEmbed.setColor(Becca.colours.default);
+    updateEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
     await interaction.editReply({ embeds: [updateEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(

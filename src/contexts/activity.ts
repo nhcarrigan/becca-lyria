@@ -40,6 +40,9 @@ export const activity: Context = {
       );
       activityEmbed.setColor(Becca.colours.default);
       activityEmbed.setAuthor(target.tag, target.displayAvatarURL());
+      activityEmbed.setFooter(
+        "Like the bot? Donate: https://donate.nhcarrigan.com"
+      );
 
       await interaction.editReply({ embeds: [activityEmbed] });
     } catch (err) {

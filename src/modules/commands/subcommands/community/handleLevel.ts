@@ -51,6 +51,7 @@ export const handleLevel: CommandHandler = async (Becca, interaction) => {
       `${new Date(targetLevel.lastSeen).toLocaleDateString()}`
     );
     levelEmbed.setTimestamp();
+    levelEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
     await interaction.editReply({ embeds: [levelEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(

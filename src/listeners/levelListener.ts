@@ -95,6 +95,9 @@ export const levelListener: Listener = {
           `${author.username}#${author.discriminator}`,
           author.displayAvatarURL()
         );
+        levelEmbed.setFooter(
+          "Like the bot? Donate: https://donate.nhcarrigan.com"
+        );
         await targetChannel.send({ embeds: [levelEmbed] });
       }
 
@@ -113,6 +116,9 @@ export const levelListener: Listener = {
               roleEmbed.setAuthor(
                 `${author.username}#${author.discriminator}`,
                 author.displayAvatarURL()
+              );
+              roleEmbed.setFooter(
+                "Like the bot? Donate: https://donate.nhcarrigan.com"
               );
               await targetChannel.send({ embeds: [roleEmbed] });
             }

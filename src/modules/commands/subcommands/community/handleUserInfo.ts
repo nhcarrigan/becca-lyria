@@ -70,6 +70,7 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction) => {
       "Badges",
       flags.map((el) => UserFlagMap[el]).join(", ") || "None"
     );
+    userEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [userEmbed] });
   } catch (err) {

@@ -29,6 +29,9 @@ export const handleUptime: CommandHandler = async (Becca, interaction) => {
     uptimeEmbed.addField("Minutes", minutes.toString(), true);
     uptimeEmbed.addField("Seconds", secondsRemain.toString(), true);
     uptimeEmbed.setTimestamp();
+    uptimeEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
 
     await interaction.editReply({ embeds: [uptimeEmbed] });
   } catch (err) {

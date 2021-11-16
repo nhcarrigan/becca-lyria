@@ -41,6 +41,7 @@ export const handleView: CurrencyHandler = async (Becca, interaction, data) => {
       weeklyCooldown < 0 ? "now!" : parseSeconds(weeklyCooldown),
       true
     );
+    viewEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [viewEmbed] });
   } catch (err) {
