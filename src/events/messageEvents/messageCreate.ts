@@ -51,7 +51,7 @@ export const messageCreate = async (
       await registerCommands(Becca);
       await message.reply("Reloaded all commands.");
     }
-    Becca.grafana.metrics.events.inc({ eventType: "message" });
+    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
       Becca,
