@@ -21,6 +21,7 @@ export const loadPM2 = (Becca: BeccaLyria): boolean => {
         users: io.gauge({ name: "User Count", id: "users" }),
       },
     };
+    io.init();
     return true;
   } catch (err) {
     beccaLogHandler.log("error", err);
