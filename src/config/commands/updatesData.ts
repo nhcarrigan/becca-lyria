@@ -1,7 +1,6 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Migrated Level system",
-  "- Patched issue in new level system query",
-  "- Added CTA to donate in embed footers.",
+  "- Moved from Grafana to PM2 for monitoring.",
+  "- Patched bug in `/currency weekly` command.",
 ];
 
 export const nextScheduledRelease = "<t:1637510400:F>";
