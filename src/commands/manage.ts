@@ -9,6 +9,7 @@ import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleResetLevels } from "../modules/commands/subcommands/manage/handleResetLevels";
 import { handleResetStars } from "../modules/commands/subcommands/manage/handleResetStars";
 import { handleSuggestion } from "../modules/commands/subcommands/manage/handleSuggestion";
+import { handleXpModify } from "../modules/commands/subcommands/manage/handleXpModify";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
@@ -50,6 +51,31 @@ export const manage: Command = {
             .setDescription("The reason for approving/denying the suggestion.")
             .setRequired(true)
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("xpmodify")
+        .setDescription("Award or Remove experience.")
+        .addStringOption((option) =>
+          option
+            .setName("action")
+            .setDescription("The action you want to take with the xp.")
+            .addChoice("add", "add")
+            .addChoice("remove", "remove")
+            .setRequired(true)
+        )
+        .addUserOption((option) =>
+          option
+            .setName("user")
+            .setDescription("The user to modify.")
+            .setRequired(true)
+        )
+        .addNumberOption((option) =>
+          option
+            .setName("adjustment")
+            .setDescription("Amount to adjust the XP by.")
+            .setRequired(true)
+        )
     ),
   run: async (Becca, interaction, config) => {
     try {
@@ -66,6 +92,9 @@ export const manage: Command = {
           break;
         case "suggestion":
           await handleSuggestion(Becca, interaction, config);
+          break;
+        case "xpmodify":
+          await handleXpModify(Becca, interaction, config);
           break;
         default:
           await interaction.editReply({
