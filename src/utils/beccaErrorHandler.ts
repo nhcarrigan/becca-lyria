@@ -71,7 +71,9 @@ export const beccaErrorHandler = async (
       "Interaction Details",
       customSubstring(
         `${interaction.commandName} ${
-          interaction.options.getSubcommand() || ""
+          interaction.isCommand()
+            ? interaction.options.getSubcommand() || ""
+            : ""
         }`,
         1000
       )
