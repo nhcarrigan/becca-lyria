@@ -1,5 +1,5 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Updated denied TLDs in link detection regex.",
+  "- Added buttons to various embed responses to increase ease of interaction.",
 ];
 
-export const nextScheduledRelease = "<t:1638720000:F>";
+export const nextScheduledRelease = "<t:1639324800:f>";
