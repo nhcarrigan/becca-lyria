@@ -91,6 +91,7 @@ export const allowedTLDs = [
  * (so anything not 3-4 letters).
  */
 export const deniedTLDs = [
+  "co",
   "io",
   "me",
   "gg",
