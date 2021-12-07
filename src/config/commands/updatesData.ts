@@ -1,5 +1,5 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Added buttons to various embed responses to increase ease of interaction.",
+  "- Added an emote-only channels setting to the config",
 ];
 
 export const nextScheduledRelease = "<t:1639324800:f>";
