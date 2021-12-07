@@ -22,10 +22,14 @@ export const emoteListener: Listener = {
       }
 
       const newContent = message.content
+        // Discord emote syntax
         ?.replace(/:[^:\s]+:|<:[^:\s]+:[0-9]+>|<a:[^:\s]+:[0-9]+>/g, "")
+        // standard emotes
+        .replace(
+          /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g,
+          ""
+        )
         .replace(/\s/g, "");
-
-      console.table({ newContent });
 
       if (newContent?.length) {
         await message.delete();
