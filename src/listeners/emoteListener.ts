@@ -16,6 +16,11 @@ export const emoteListener: Listener = {
         return;
       }
 
+      if (message.attachments.size > 0) {
+        await message.delete();
+        return;
+      }
+
       const newContent = message.content
         ?.replace(/:[^:\s]+:|<:[^:\s]+:[0-9]+>|<a:[^:\s]+:[0-9]+>/g, "")
         .replace(/\s/g, "");
