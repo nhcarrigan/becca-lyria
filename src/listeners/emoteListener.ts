@@ -26,10 +26,12 @@ export const emoteListener: Listener = {
         ?.replace(/:[^:\s]+:|<:[^:\s]+:[0-9]+>|<a:[^:\s]+:[0-9]+>/g, "")
         // standard emotes
         .replace(
-          /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g,
+          /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|\ufe0f)/g,
           ""
         )
         .replace(/\s/g, "");
+
+      console.log(newContent);
 
       if (newContent?.length) {
         await message.delete();
