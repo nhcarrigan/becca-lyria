@@ -1,5 +1,5 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Added an emote-only channels setting to the config",
+  "- Patched the emote-only regex to account for additional unicode character",
 ];
 
-export const nextScheduledRelease = "<t:1639324800:f>";
+export const nextScheduledRelease = "<t:1639929600:f>";
