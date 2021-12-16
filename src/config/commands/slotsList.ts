@@ -3,7 +3,10 @@
  */
 export const slotsList = [
   "<:BeccaAngry:877278332843085824>",
+  "<:BeccaArt:897545793655930910>",
+  "<:BeccaBan:897545793886634085>",
   "<:BeccaBlush:883854701165174824>",
+  "<:BeccaCheer:897545794176045096>",
   "<:BeccaCry:877278301419348032>",
   "<:BeccaDrunk:877278301402583110>",
   "<:BeccaFacepalm:872577686541840514>",

@@ -7,6 +7,7 @@ import {
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleFact } from "../modules/commands/subcommands/games/handleFact";
+import { handleHabitica } from "../modules/commands/subcommands/games/handleHabitica";
 import { handleJoke } from "../modules/commands/subcommands/games/handleJoke";
 import { handleMtg } from "../modules/commands/subcommands/games/handleMtg";
 import { handleSlime } from "../modules/commands/subcommands/games/handleSlime";
@@ -56,6 +57,17 @@ export const games: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("slime")
         .setDescription("Gives you a slime name!")
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("habitica")
+        .setDescription("Returns information on a Habitica user.")
+        .addStringOption((option) =>
+          option
+            .setName("id")
+            .setDescription("Example: 285a3335-33b9-473f-8d80-085c04f207bc")
+            .setRequired(true)
+        )
     ),
   run: async (Becca, interaction, config) => {
     try {
@@ -81,29 +93,28 @@ export const games: Command = {
         case "slime":
           await handleSlime(Becca, interaction, config);
           break;
+        case "habitica":
+          await handleHabitica(Becca, interaction, config);
+          break;
         default:
           await interaction.editReply({
             content: getRandomValue(Becca.responses.invalidCommand),
           });
           break;
       }
+      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,
         "games group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "games group", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "games group", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "games group", errorId)],
+      });
     }
   },
 };

@@ -53,6 +53,22 @@ export const validateEnv = (
       return { valid: false, message: "Missing Bot's Home Guild ID" };
     }
 
+    if (!process.env.TOPGG_PASSWORD) {
+      return { valid: false, message: "Missing Top.gg password" };
+    }
+
+    if (!process.env.VOTE_CHANNEL_ID) {
+      return { valid: false, message: "Missing Bot's Vote Channel ID" };
+    }
+
+    if (!process.env.HABITICA_KEY) {
+      return { valid: false, message: "Missing Habitica API key" };
+    }
+
+    if (!process.env.ORBIT_KEY) {
+      return { valid: false, message: "Missing Orbit API key" };
+    }
+
     Becca.commitHash = child.execSync("git rev-parse HEAD").toString().trim();
 
     const configs: BeccaLyria["configs"] = {
@@ -69,14 +85,24 @@ export const validateEnv = (
       version: process.env.npm_package_version || "null",
       id: process.env.CLIENT_ID,
       homeGuild: process.env.HOME_GUILD_ID,
+      topGG: process.env.TOPGG_PASSWORD,
+      voteChannel: process.env.VOTE_CHANNEL_ID,
+      habiticaKey: process.env.HABITICA_KEY,
+      orbitKey: process.env.ORBIT_KEY,
     };
 
     Becca.configs = configs;
     Becca.colours = BeccaColours;
     Becca.responses = BeccaPhrases;
     Becca.sass = BeccaSass;
+
+    Becca.dataCache = {
+      orbitData: [],
+    };
+
     return { valid: true, message: "Environment variables validated!" };
   } catch (err) {
+    beccaLogHandler.log("error", err);
     return {
       valid: false,
       message: "Unknown error when validating environment",

@@ -19,6 +19,7 @@ export const handleMotivation: CommandHandler = async (Becca, interaction) => {
     quoteEmbed.setFooter(quote.author);
     quoteEmbed.setTimestamp();
     quoteEmbed.setColor(Becca.colours.default);
+    quoteEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [quoteEmbed] });
   } catch (err) {
@@ -26,17 +27,12 @@ export const handleMotivation: CommandHandler = async (Becca, interaction) => {
       Becca,
       "motivation command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "motivation", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "motivation", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "motivation", errorId)],
+    });
   }
 };

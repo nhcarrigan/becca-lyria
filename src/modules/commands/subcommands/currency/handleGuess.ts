@@ -40,6 +40,7 @@ export const handleGuess: CurrencyHandler = async (
     embed.setDescription(`Your BeccaCoin: ${data.currencyTotal}`);
     embed.addField("Your Guess", guess.toString(), true);
     embed.addField("Becca's Number", becca.toString(), true);
+    embed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [embed] });
 
@@ -53,17 +54,12 @@ export const handleGuess: CurrencyHandler = async (
       Becca,
       "guess command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "guess", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "guess", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "guess", errorId)],
+    });
   }
 };

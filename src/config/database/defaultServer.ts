@@ -17,6 +17,7 @@ export const defaultServer = {
   hearts: [] as string[],
   blocked: [] as string[],
   self_roles: [] as string[],
+  triggers: [] as [string, string][],
   automod_channels: [] as string[],
   no_automod_channels: [] as string[],
   automod_roles: [] as string[],
@@ -39,4 +40,5 @@ export const defaultServer = {
   profanity: "off",
   profanity_message:
     "{@username}, your message appears to have been inappropriate. I removed it.",
+  emote_channels: [] as string[],
 };

@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { artList } from "../../../../config/commands/artList";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
@@ -24,25 +24,28 @@ export const handleArt: CommandHandler = async (Becca, interaction) => {
     artEmbed.setImage(
       `https://www.beccalyria.com/assets/art/${fileName.replace(/\s/g, "%20")}`
     );
-    artEmbed.setFooter("Would you like to paint my portrait too?");
+    artEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
-    await interaction.editReply({ embeds: [artEmbed] });
+    const artButton = new MessageButton()
+      .setLabel("View More Art!")
+      .setEmoji("<:BeccaArt:897545793655930910")
+      .setStyle("LINK")
+      .setURL("https://www.beccalyria.com/gallery");
+
+    const row = new MessageActionRow().addComponents([artButton]);
+
+    await interaction.editReply({ embeds: [artEmbed], components: [row] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
       "art command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "art", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "art", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "art", errorId)],
+    });
   }
 };

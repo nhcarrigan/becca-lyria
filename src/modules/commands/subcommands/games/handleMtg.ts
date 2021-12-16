@@ -41,6 +41,7 @@ export const handleMtg: CommandHandler = async (Becca, interaction) => {
       "Abilities",
       card.text || "This card has no ability text..."
     );
+    cardEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [cardEmbed] });
   } catch (err) {
@@ -48,17 +49,12 @@ export const handleMtg: CommandHandler = async (Becca, interaction) => {
       Becca,
       "mtg command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "mtg", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "mtg", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "mtg", errorId)],
+    });
   }
 };

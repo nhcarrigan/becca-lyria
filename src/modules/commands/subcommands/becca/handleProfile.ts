@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
@@ -18,23 +18,30 @@ export const handleProfile: CommandHandler = async (Becca, interaction) => {
       "If you want to read about my adventures, check my [profile site](https://www.beccalyria.com). I would rather not have to recount them all here."
     );
     profileEmbed.setThumbnail(Becca.user?.avatarURL({ dynamic: true }) || "");
-    await interaction.editReply({ embeds: [profileEmbed] });
+    profileEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
+
+    const profileButton = new MessageButton()
+      .setLabel("View Becca's Profile")
+      .setEmoji("<:BeccaHello:867102882791424073>")
+      .setStyle("LINK")
+      .setURL("https://www.beccalyria.com");
+
+    const row = new MessageActionRow().addComponents([profileButton]);
+
+    await interaction.editReply({ embeds: [profileEmbed], components: [row] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "becca command",
+      "profile command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "becca", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "becca", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "profile", errorId)],
+    });
   }
 };

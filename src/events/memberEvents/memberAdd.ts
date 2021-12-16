@@ -68,6 +68,9 @@ export const memberAdd = async (
         await member.roles.add(joinRole);
       }
     }
+
+    Becca.pm2.metrics.users.set(Becca.pm2.metrics.users.val() + 1);
+    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(Becca, "member add event", err, member.guild.name);
   }

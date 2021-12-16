@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: "becca-lyria"
+    static_configs:
+      - targets: ["localhost:1080"]
+# start with
+# sudo prometheus --config.file=prometheus.yml

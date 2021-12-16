@@ -29,6 +29,9 @@ export const handleColour: CommandHandler = async (Becca, interaction) => {
     colourEmbed.setColor(parseInt(parsedColour, 16));
     colourEmbed.setImage(`https://www.colorhexa.com/${parsedColour}.png`);
     colourEmbed.setTimestamp();
+    colourEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
 
     await interaction.editReply({ embeds: [colourEmbed] });
   } catch (err) {
@@ -36,17 +39,12 @@ export const handleColour: CommandHandler = async (Becca, interaction) => {
       Becca,
       "colour command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "colour", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "colour", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "colour", errorId)],
+    });
   }
 };

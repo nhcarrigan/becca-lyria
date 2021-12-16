@@ -56,6 +56,9 @@ export const handleSuggest: CommandHandler = async (
       author.displayAvatarURL()
     );
     suggestionEmbed.setDescription(customSubstring(suggestion, 2000));
+    suggestionEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
 
     const sentMessage = await suggestionChannel.send({
       embeds: [suggestionEmbed],
@@ -71,17 +74,12 @@ export const handleSuggest: CommandHandler = async (
       Becca,
       "suggest command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "suggest", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "suggest", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "suggest", errorId)],
+    });
   }
 };

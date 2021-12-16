@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import {
   nextScheduledRelease,
@@ -19,7 +19,7 @@ export const handleUpdates: CommandHandler = async (Becca, interaction) => {
     const updateEmbed = new MessageEmbed();
     updateEmbed.setTitle("Update Information");
     updateEmbed.setDescription(
-      "Becca's updates are deployed every Monday around 8AM Pacific Time. This is important information to know, as these deployments clear the cache. This results in any outstanding cache-reliant features, such as polls, trivia games, or scheduled posts, to be lost. Please plan your interactions around this schedule."
+      "Becca's updates are deployed every Sunday around 8AM Pacific Time. This is important information to know, as these deployments clear the cache. This results in any outstanding cache-reliant features, such as polls, trivia games, or scheduled posts, to be lost. Please plan your interactions around this schedule."
     );
     updateEmbed.addField("Latest Updates", updatesSinceLastRelease.join("\n"));
     updateEmbed.addField(
@@ -39,23 +39,29 @@ export const handleUpdates: CommandHandler = async (Becca, interaction) => {
       )}](https://github.com/beccalyria/discord-bot/commit/${hash})`
     );
     updateEmbed.setColor(Becca.colours.default);
-    await interaction.editReply({ embeds: [updateEmbed] });
+    updateEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
+
+    const button = new MessageButton()
+      .setLabel("View Changelog")
+      .setEmoji("<:BeccaNotes:883854700762505287>")
+      .setStyle("LINK")
+      .setURL("https://docs.beccalyria.com/#/changelog");
+
+    const row = new MessageActionRow().addComponents([button]);
+    await interaction.editReply({ embeds: [updateEmbed], components: [row] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "ping command",
+      "updates command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "updates", errorId)],
+    });
   }
 };

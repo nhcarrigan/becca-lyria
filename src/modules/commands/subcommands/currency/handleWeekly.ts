@@ -22,7 +22,9 @@ export const handleWeekly: CurrencyHandler = async (
     const homeServer = await interaction.client.guilds.fetch(
       Becca.configs.homeGuild
     );
-    const userIsMember = await homeServer.members.fetch(interaction.user.id);
+    const userIsMember = await homeServer.members
+      .fetch(interaction.user.id)
+      .catch(() => null);
 
     if (!userIsMember) {
       const nopeEmbed = new MessageEmbed();
@@ -67,17 +69,12 @@ export const handleWeekly: CurrencyHandler = async (
       Becca,
       "weekly command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "weekly", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "weekly", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "weekly", errorId)],
+    });
   }
 };

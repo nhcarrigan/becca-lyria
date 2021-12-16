@@ -24,6 +24,7 @@ export const handleHttp: CommandHandler = async (Becca, interaction) => {
     httpEmbed.setImage(`https://http.cat/${status}.jpg`);
     httpEmbed.setColor(Becca.colours.default);
     httpEmbed.setTimestamp();
+    httpEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [httpEmbed] });
   } catch (err) {
@@ -31,17 +32,12 @@ export const handleHttp: CommandHandler = async (Becca, interaction) => {
       Becca,
       "http command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "http", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "http", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "http", errorId)],
+    });
   }
 };

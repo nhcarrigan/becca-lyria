@@ -99,6 +99,14 @@ export const viewSettings = async (
       config.self_roles.length.toString(),
       true
     );
+    settingsEmbed.addField(
+      "Emote Only Channels",
+      config.emote_channels.length.toString(),
+      true
+    );
+    settingsEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
     return settingsEmbed;
   } catch (err) {
     await beccaErrorHandler(Becca, "view settings module", err, guild.name);

@@ -115,7 +115,9 @@ export const handleServer: CommandHandler = async (Becca, interaction) => {
       }\`\n**Public Channel:** \`${guild.publicUpdatesChannel?.name || "no"}\``,
       true
     );
-    serverEmbed.setFooter(`ID: ${guild.id}`);
+    serverEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
 
     await interaction.editReply({ embeds: [serverEmbed] });
   } catch (err) {
@@ -123,17 +125,12 @@ export const handleServer: CommandHandler = async (Becca, interaction) => {
       Becca,
       "server command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "server", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "server", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "server", errorId)],
+    });
   }
 };

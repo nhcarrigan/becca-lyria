@@ -20,6 +20,7 @@ export const interactionCreate = async (
   interaction: Interaction
 ): Promise<void> => {
   try {
+    Becca.pm2.metrics.events.mark();
     if (interaction.isCommand()) {
       await logActivity(Becca, interaction.user.id, "command");
       const target = Becca.commands.find(

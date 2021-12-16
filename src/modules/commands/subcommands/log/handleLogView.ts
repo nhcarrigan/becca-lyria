@@ -48,6 +48,9 @@ export const handleLogView: CommandHandler = async (
       "Member Events",
       renderSetting(Becca, "member_events", config.member_events)
     );
+    settingEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
 
     await interaction.editReply({ embeds: [settingEmbed] });
   } catch (err) {
@@ -55,17 +58,12 @@ export const handleLogView: CommandHandler = async (
       Becca,
       "log view command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "log view", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "log view", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "log view", errorId)],
+    });
   }
 };

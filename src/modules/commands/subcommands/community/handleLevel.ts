@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import LevelModel from "../../../../database/models/LevelModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
@@ -21,20 +21,13 @@ export const handleLevel: CommandHandler = async (Becca, interaction) => {
       });
       return;
     }
-    const serverLevels = await LevelModel.findOne({
-      serverID: guildId,
-    });
-
-    if (!serverLevels) {
-      await interaction.editReply({
-        content: "It would appear that rankings are not enabled here.",
-      });
-      return;
-    }
 
     const target = interaction.options.getUser("user-level") || user;
 
-    const targetLevel = serverLevels.users.find((u) => u.userID === target.id);
+    const targetLevel = await LevelModel.findOne({
+      serverID: guildId,
+      userID: target.id,
+    });
 
     if (!targetLevel) {
       await interaction.editReply({
@@ -58,23 +51,27 @@ export const handleLevel: CommandHandler = async (Becca, interaction) => {
       `${new Date(targetLevel.lastSeen).toLocaleDateString()}`
     );
     levelEmbed.setTimestamp();
-    await interaction.editReply({ embeds: [levelEmbed] });
+    levelEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+
+    const button = new MessageButton()
+      .setLabel("View leaderboard")
+      .setEmoji("<:BeccaCheer:897545794176045096>")
+      .setStyle("LINK")
+      .setURL(`https://dash.beccalyria.com/leaderboard/${guildId}`);
+    const row = new MessageActionRow().addComponents([button]);
+
+    await interaction.editReply({ embeds: [levelEmbed], components: [row] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
       "level command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "level", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "level", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "level", errorId)],
+    });
   }
 };

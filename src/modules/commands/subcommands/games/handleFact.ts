@@ -23,6 +23,7 @@ export const handleFact: CommandHandler = async (Becca, interaction) => {
     factEmbed.setDescription(customSubstring(fact.data.text, 4000));
     factEmbed.setURL(fact.data.source_url);
     factEmbed.setTimestamp();
+    factEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [factEmbed] });
   } catch (err) {
@@ -30,17 +31,12 @@ export const handleFact: CommandHandler = async (Becca, interaction) => {
       Becca,
       "fact command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "fact", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "fact", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "fact", errorId)],
+    });
   }
 };

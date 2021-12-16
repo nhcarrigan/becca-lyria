@@ -85,8 +85,8 @@ export const nhcarrigan: Command = {
         .setDescription("Purges data from the database.")
         .addStringOption((option) =>
           option
-            .setName("user")
-            .setDescription("ID of the user to purge.")
+            .setName("target")
+            .setDescription("ID of the user or server to purge.")
             .setRequired(true)
         )
         .addStringOption((option) =>
@@ -99,6 +99,8 @@ export const nhcarrigan: Command = {
               ["Activity Tracking", "activity"],
               ["Currency data", "currency"],
               ["Star data", "stars"],
+              ["Vote data", "votes"],
+              ["Server Command Data", "commands"],
             ])
         )
     ),
@@ -149,23 +151,19 @@ export const nhcarrigan: Command = {
           });
           break;
       }
+      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,
         "nhcarrigan group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
+      });
     }
   },
 };

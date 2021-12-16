@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { CurrencyHandler } from "../../../../interfaces/commands/CurrencyHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
@@ -22,6 +22,7 @@ export const handleClaim: CurrencyHandler = async (
     claimEmbed.setDescription(
       "Congratulations on claiming a reward! Please note that you will need to join our [support server](https://chat.nhcarrigan.com) and ping `nhcarrigan` so we can work with you to get your prize."
     );
+    claimEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     switch (reward) {
       case "monarch":
@@ -87,7 +88,14 @@ export const handleClaim: CurrencyHandler = async (
         return;
     }
 
-    await interaction.editReply({ embeds: [claimEmbed] });
+    const supportServerButton = new MessageButton()
+      .setLabel("Join Our Server to Redeem your Rewards!")
+      .setEmoji("<:BeccaHuh:877278300739887134>")
+      .setStyle("LINK")
+      .setURL("https://chat.nhcarrigan.com");
+    const row = new MessageActionRow().addComponents([supportServerButton]);
+
+    await interaction.editReply({ embeds: [claimEmbed], components: [row] });
 
     await Becca.currencyHook.send(
       `Hey <@!${Becca.configs.ownerId}>! A reward has been claimed!\n**Reward**: ${reward}\n**Username**: ${interaction.user.username}\n**UserID**: ${interaction.user.id}\nUser in Server? <@!${interaction.user.id}>`
@@ -97,17 +105,12 @@ export const handleClaim: CurrencyHandler = async (
       Becca,
       "claim command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "claim", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "claim", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "claim", errorId)],
+    });
   }
 };

@@ -29,24 +29,22 @@ export const handleUptime: CommandHandler = async (Becca, interaction) => {
     uptimeEmbed.addField("Minutes", minutes.toString(), true);
     uptimeEmbed.addField("Seconds", secondsRemain.toString(), true);
     uptimeEmbed.setTimestamp();
+    uptimeEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com"
+    );
 
     await interaction.editReply({ embeds: [uptimeEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "donate command",
+      "uptime command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "donate", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "donate", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "uptime", errorId)],
+    });
   }
 };

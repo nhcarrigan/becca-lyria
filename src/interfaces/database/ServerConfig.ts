@@ -16,6 +16,7 @@ export interface ServerConfig extends Document {
   hearts: string[];
   blocked: string[];
   self_roles: string[];
+  triggers: [string, string][];
   automod_channels: string[];
   no_automod_channels: string[];
   automod_roles: string[];
@@ -35,6 +36,7 @@ export interface ServerConfig extends Document {
   links: string;
   profanity: string;
   profanity_message: string;
+  emote_channels: string[];
 }
 
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
@@ -50,6 +52,7 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   hearts: [],
   blocked: [],
   self_roles: [],
+  triggers: [],
   automod_channels: [],
   no_automod_channels: [],
   automod_roles: [],
@@ -69,4 +72,5 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   links: "",
   profanity: "",
   profanity_message: "",
+  emote_channels: [],
 };

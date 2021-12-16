@@ -81,7 +81,11 @@ export const becca: Command = {
           option
             .setName("view")
             .setDescription("Which stat do you want to view?")
-            .addChoices([["Command Leaderboard", "commands"]])
+            .addChoices([
+              ["Bot Votes", "bvotes"],
+              ["Command Leaderboard", "commands"],
+              ["Server Votes", "svotes"],
+            ])
             .setRequired(true)
         )
     )
@@ -136,23 +140,19 @@ export const becca: Command = {
           });
           break;
       }
+      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,
         "becca group command",
         err,
-        interaction.guild?.name
+        interaction.guild?.name,
+        undefined,
+        interaction
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "becca group", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "becca group", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "becca group", errorId)],
+      });
     }
   },
 };

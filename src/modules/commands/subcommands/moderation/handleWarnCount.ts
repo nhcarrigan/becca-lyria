@@ -80,17 +80,12 @@ export const handleWarnCount: CommandHandler = async (Becca, interaction) => {
       Becca,
       "warnCount command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "warnCount", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "warnCount", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "warnCount", errorId)],
+    });
   }
 };

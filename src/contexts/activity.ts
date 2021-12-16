@@ -40,6 +40,9 @@ export const activity: Context = {
       );
       activityEmbed.setColor(Becca.colours.default);
       activityEmbed.setAuthor(target.tag, target.displayAvatarURL());
+      activityEmbed.setFooter(
+        "Like the bot? Donate: https://donate.nhcarrigan.com"
+      );
 
       await interaction.editReply({ embeds: [activityEmbed] });
     } catch (err) {
@@ -49,16 +52,9 @@ export const activity: Context = {
         err,
         interaction.guild?.name
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "activity context", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "activity context", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "activity context", errorId)],
+      });
     }
   },
 };

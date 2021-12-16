@@ -31,6 +31,7 @@ export const handleAbout: CurrencyHandler = async (Becca, interaction) => {
       "Right to Refuse",
       "The development team reserves the right to refuse any claimed reward without compensation to the user."
     );
+    aboutEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [aboutEmbed] });
   } catch (err) {
@@ -38,17 +39,12 @@ export const handleAbout: CurrencyHandler = async (Becca, interaction) => {
       Becca,
       "about command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "about", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "about", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "about", errorId)],
+    });
   }
 };

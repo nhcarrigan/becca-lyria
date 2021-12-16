@@ -58,6 +58,9 @@ export const report: Context = {
         true
       );
       reportEmbed.addField("Link", message.url, true);
+      reportEmbed.setFooter(
+        "Like the bot? Donate: https://donate.nhcarrigan.com"
+      );
 
       await reportChannel.send({
         content: `<@!${interaction.user.id}> has reported this message:`,
@@ -74,16 +77,9 @@ export const report: Context = {
         err,
         interaction.guild?.name
       );
-      await interaction
-        .reply({
-          embeds: [errorEmbedGenerator(Becca, "report context", errorId)],
-          ephemeral: true,
-        })
-        .catch(async () => {
-          await interaction.editReply({
-            embeds: [errorEmbedGenerator(Becca, "report context", errorId)],
-          });
-        });
+      await interaction.editReply({
+        embeds: [errorEmbedGenerator(Becca, "report context", errorId)],
+      });
     }
   },
 };

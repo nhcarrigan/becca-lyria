@@ -63,6 +63,7 @@ export const handlePermissions: CommandHandler = async (Becca, interaction) => {
     validEmbed.setTitle(areValid ? "All good!" : "Uh oh...");
     validEmbed.setDescription(descriptionString);
     validEmbed.setColor(areValid ? Becca.colours.success : Becca.colours.error);
+    validEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     await interaction.editReply({ embeds: [validEmbed] });
   } catch (err) {
@@ -70,17 +71,12 @@ export const handlePermissions: CommandHandler = async (Becca, interaction) => {
       Becca,
       "permissions command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "permissions", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "permissions", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "permissions", errorId)],
+    });
   }
 };

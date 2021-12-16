@@ -35,5 +35,6 @@ export const errorEmbedGenerator = (
   );
   errorEmbed.addField("Error ID:", errorId.toHexString());
   errorEmbed.setTimestamp();
+  errorEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
   return errorEmbed;
 };

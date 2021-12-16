@@ -1,6 +1,10 @@
+import io from "@pm2/io";
+import Gauge from "@pm2/io/build/main/utils/metrics/gauge";
+import Meter from "@pm2/io/build/main/utils/metrics/meter";
 import { Client, ColorResolvable, WebhookClient } from "discord.js";
 
 import { Command } from "./commands/Command";
+import { OrbitMember } from "./commands/misc/Orbit";
 import { Context } from "./contexts/Context";
 
 /**
@@ -25,6 +29,10 @@ export interface BeccaLyria extends Client {
     version: string;
     id: string;
     homeGuild: string;
+    topGG: string;
+    voteChannel: string;
+    habiticaKey: string;
+    orbitKey: string;
   };
   colours: {
     default: ColorResolvable;
@@ -42,6 +50,8 @@ export interface BeccaLyria extends Client {
     noModBecca: string[];
     noSelfXP: string[];
     noBotXP: string[];
+    noEmoteSelf: string[];
+    noEmoteBecca: string[];
   };
   contexts: Context[];
   sass: {
@@ -50,5 +60,18 @@ export interface BeccaLyria extends Client {
     sorry: string[];
     selfthanks: string[];
     beccathanks: string[];
+  };
+  dataCache: {
+    orbitData: OrbitMember[];
+  };
+  pm2: {
+    client: typeof io;
+    metrics: {
+      events: Meter;
+      commands: Meter;
+      errors: Meter;
+      guilds: Gauge;
+      users: Gauge;
+    };
   };
 }

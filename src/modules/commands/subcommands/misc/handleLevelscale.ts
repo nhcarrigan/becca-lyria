@@ -36,6 +36,7 @@ export const handleLevelscale: CommandHandler = async (Becca, interaction) => {
     );
     embed.setColor(Becca.colours.default);
     embed.setTimestamp();
+    embed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
 
     let page = 1;
     const lastPage = Math.ceil((Object.keys(levelScale).length - 1) / 10);
@@ -110,17 +111,12 @@ export const handleLevelscale: CommandHandler = async (Becca, interaction) => {
       Becca,
       "levelscale command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "levelscale", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "levelscale", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "levelscale", errorId)],
+    });
   }
 };

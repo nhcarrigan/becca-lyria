@@ -31,16 +31,17 @@ export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
       return;
     }
 
-    const currentLevels = await LevelModel.findOne({ serverID: guild.id });
+    const currentLevels = await LevelModel.find({ serverID: guild.id });
 
-    if (!currentLevels) {
+    if (!currentLevels || !currentLevels.length) {
       await interaction.editReply({
         content: "I cannot find any level data for this server.",
       });
       return;
     }
-
-    await currentLevels.delete();
+    for (const level of currentLevels) {
+      await level.delete();
+    }
     await interaction.editReply({
       content: "I have burned all records of your guild's activities.",
     });
@@ -50,17 +51,12 @@ export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
       Becca,
       "reset level command",
       err,
-      interaction.guild?.name
+      interaction.guild?.name,
+      undefined,
+      interaction
     );
-    await interaction
-      .reply({
-        embeds: [errorEmbedGenerator(Becca, "reset level", errorId)],
-        ephemeral: true,
-      })
-      .catch(async () => {
-        await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "reset level", errorId)],
-        });
-      });
+    await interaction.editReply({
+      embeds: [errorEmbedGenerator(Becca, "reset level", errorId)],
+    });
   }
 };

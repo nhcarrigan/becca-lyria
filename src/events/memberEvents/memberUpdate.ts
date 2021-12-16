@@ -51,6 +51,7 @@ export const memberUpdate = async (
         }
       }
     }
+    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
       Becca,
