@@ -71,27 +71,25 @@ export const handleXpModify: CommandHandler = async (
       return;
     }
 
-    const server =
-      (await LevelModel.findOne({ serverID: guild.id })) ||
+    const user =
+      (await LevelModel.findOne({ serverID: guild.id, userID: target?.id })) ||
       (await LevelModel.create({
         serverID: guild.id,
         serverName: guild.name,
-        users: [],
-      }));
-
-    let user = server.users.find((u) => u.userID === target?.id);
-
-    if (!user) {
-      user = {
         userID: target?.id,
-        userTag: target?.tag,
+        userTaf: target?.tag,
         avatar: target?.displayAvatarURL(),
-        level: 0,
         points: 0,
+        level: 0,
         lastSeen: new Date(Date.now()),
         cooldown: 0,
-      };
-      server.users.push(user);
+      }));
+
+    if (user.level >= 100) {
+      await interaction.editReply({
+        content: "That user has maxed out... over 9000!!!",
+      });
+      return;
     }
 
     if (action === "add") {
@@ -114,15 +112,7 @@ export const handleXpModify: CommandHandler = async (
     user.userTag = target?.tag;
     user.avatar = target?.displayAvatarURL();
 
-    let levelUp = false;
-
-    while (user.points > levelScale[user.level + 1]) {
-      user.level++;
-      levelUp = true;
-    }
-
-    server.markModified("users");
-    await server.save();
+    await user.save();
 
     const xpmodifyEmbed = new MessageEmbed();
     xpmodifyEmbed.setTitle("XP Modified");

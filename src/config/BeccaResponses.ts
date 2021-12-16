@@ -45,6 +45,7 @@ export const BeccaPhrases: BeccaLyria["responses"] = {
   noBotXP: [
     "Bots don't level up. They're already too poweful for you to handle <:BeccaWink:867102883635789844>",
     "Thanks, but we bots don't need any XP coming from you... <:BeccaYikes:877278299066347632>",
+  ],
   noEmoteSelf: [
     "Are you so desperate for attention that you feel the need to do that to yourself? <:BeccaYikes:877278299066347632>",
     "Wow, you have got quite the ego - maybe give someone else some love instead? <:BeccaShrug:872577688441880627>",
