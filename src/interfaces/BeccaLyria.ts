@@ -48,6 +48,8 @@ export interface BeccaLyria extends Client {
     ownerOnly: string[];
     noModSelf: string[];
     noModBecca: string[];
+    noSelfXP: string[];
+    noBotXP: string[];
     noEmoteSelf: string[];
     noEmoteBecca: string[];
   };

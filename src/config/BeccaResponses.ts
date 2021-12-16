@@ -38,6 +38,16 @@ export const BeccaPhrases: BeccaLyria["responses"] = {
     "I try not to judge people's requests, but yours is especially strange. <:BeccaYikes:877278299066347632>",
     "I punish you on my terms, not yours. And I don't feel like doing so today. <:BeccaYawn:867102883823353937>",
   ],
+  noSelfXP: [
+    "I try not to judge people's requests, but giving XP to yourself seems like a loser move. <:BeccaPeek:867102878588862514>",
+    "I can not let you do that. <:BeccaSmug:872577688022421566>",
+    "Are you so desperate to move on levels leaderboard, that you try to modify your own XP? <:BeccaYikes:877278299066347632>",
+  ],
+  noBotXP: [
+    "Bots don't level up. They're already too powerful for you to handle. <:BeccaWink:867102883635789844>",
+    "Thanks, but we bots don't need any XP coming from you... <:BeccaYikes:877278299066347632>",
+    "Bots have no need for fake digital points or levels that represent how active someone is, we're listening in 24/7. <:BeccaShrug:872577688441880627>",
+  ],
   noEmoteSelf: [
     "Are you so desperate for attention that you feel the need to do that to yourself? <:BeccaYikes:877278299066347632>",
     "Wow, you have got quite the ego - maybe give someone else some love instead? <:BeccaShrug:872577688441880627>",
