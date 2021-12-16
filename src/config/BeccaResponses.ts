@@ -38,6 +38,14 @@ export const BeccaPhrases: BeccaLyria["responses"] = {
     "I try not to judge people's requests, but yours is especially strange. <:BeccaYikes:877278299066347632>",
     "I punish you on my terms, not yours. And I don't feel like doing so today. <:BeccaYawn:867102883823353937>",
   ],
+  noSelfXP: [
+    "I try not to judge people's requests, but giving XP to yourself seems like a loser move <:BeccaPeek:867102878588862514>",
+    "I can not let you do that <:BeccaSmug:872577688022421566>",
+  ],
+  noBotXP: [
+    "Bots don't level up. They're already too poweful for you to handle <:BeccaWink:867102883635789844>",
+    "Thanks, but we bots don't need any XP coming from you... <:BeccaYikes:877278299066347632>",
+  ],
 };
 
 export const BeccaSass: BeccaLyria["sass"] = {
