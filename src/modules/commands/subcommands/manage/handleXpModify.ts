@@ -9,10 +9,9 @@ import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
-/**i
- * Allows the suggestion embed with the given `id` to be marked as approved or
- * denied (determined by the `action`). Appends the `action` and the `reason` to the
- * suggestion embed.
+/**
+ * Modifies the xp of a `user` depending on the `action` taken
+ * and the `amount` specified.
  */
 export const handleXpModify: CommandHandler = async (
   Becca,
