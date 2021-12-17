@@ -117,8 +117,8 @@ export const handleXpModify: CommandHandler = async (
       }
     }
 
-    user.userTag = target?.tag;
-    user.avatar = target?.displayAvatarURL();
+    user.userTag = target.tag;
+    user.avatar = target.displayAvatarURL();
 
     await user.save();
 
