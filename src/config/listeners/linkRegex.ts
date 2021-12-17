@@ -93,6 +93,7 @@ export const allowedTLDs = [
 export const deniedTLDs = [
   "co",
   "io",
+  "ly",
   "me",
   "gg",
   "to",
