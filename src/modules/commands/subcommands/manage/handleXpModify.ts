@@ -49,14 +49,14 @@ export const handleXpModify: CommandHandler = async (
       return;
     }
 
-    if (target?.id === member.user.id) {
+    if (target.id === member.user.id) {
       await interaction.editReply({
         content: getRandomValue(Becca.responses.noSelfXP),
       });
       return;
     }
 
-    if (target?.bot) {
+    if (target.bot) {
       await interaction.editReply({
         content: getRandomValue(Becca.responses.noBotXP),
       });
@@ -71,7 +71,7 @@ export const handleXpModify: CommandHandler = async (
     }
 
     const user =
-      (await LevelModel.findOne({ serverID: guild.id, userID: target?.id })) ||
+      (await LevelModel.findOne({ serverID: guild.id, userID: target.id })) ||
       (await LevelModel.create({
         serverID: guild.id,
         serverName: guild.name,
@@ -117,11 +117,11 @@ export const handleXpModify: CommandHandler = async (
     xpmodifyEmbed.setTitle("XP Modified");
     if (action === "add") {
       xpmodifyEmbed.setDescription(
-        `<@!${member?.user?.id}> has granted ${amount} XP to <@!${target?.id}>!`
+        `<@!${member.user.id}> has granted ${amount} XP to <@!${target.id}>!`
       );
     } else {
       xpmodifyEmbed.setDescription(
-        `<@!${member?.user?.id}> has taken away ${amount} XP from <@!${target.id}>!`
+        `<@!${member.user.id}> has taken away ${amount} XP from <@!${target.id}>!`
       );
     }
     xpmodifyEmbed.setColor(Becca.colours.default);
