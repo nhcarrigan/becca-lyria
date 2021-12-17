@@ -84,6 +84,15 @@ export const handleXpModify: CommandHandler = async (
         cooldown: 0,
       }));
 
+    const targetMember = await guild.members.fetch(target.id);
+
+    if (!targetMember || targetMember.id !== target.id) {
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
+      return;
+    }
+
     if (action === "add") {
       if (user.level >= 100) {
         await interaction.editReply({
@@ -112,6 +121,23 @@ export const handleXpModify: CommandHandler = async (
     user.avatar = target?.displayAvatarURL();
 
     await user.save();
+
+    if (config.level_roles.length) {
+      for (const setting of config.level_roles) {
+        if (action === "add" && user.level >= setting.level) {
+          const role = guild.roles.cache.find((r) => r.id === setting.role);
+          if (role && !targetMember.roles.cache.find((r) => r.id === role.id)) {
+            await targetMember.roles.add(role);
+          }
+        }
+        if (action === "remove" && user.level <= setting.level) {
+          const role = guild.roles.cache.find((r) => r.id === setting.role);
+          if (role && targetMember.roles.cache.find((r) => r.id === role.id)) {
+            await targetMember.roles.remove(role);
+          }
+        }
+      }
+    }
 
     const xpmodifyEmbed = new MessageEmbed();
     xpmodifyEmbed.setTitle("XP Modified");
