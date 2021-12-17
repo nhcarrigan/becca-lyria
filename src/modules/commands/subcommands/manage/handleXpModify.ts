@@ -49,14 +49,14 @@ export const handleXpModify: CommandHandler = async (
       return;
     }
 
-    if (target?.id === member.user.id) {
+    if (target.id === member.user.id) {
       await interaction.editReply({
         content: getRandomValue(Becca.responses.noSelfXP),
       });
       return;
     }
 
-    if (target?.bot) {
+    if (target.bot) {
       await interaction.editReply({
         content: getRandomValue(Becca.responses.noBotXP),
       });
@@ -71,7 +71,7 @@ export const handleXpModify: CommandHandler = async (
     }
 
     const user =
-      (await LevelModel.findOne({ serverID: guild.id, userID: target?.id })) ||
+      (await LevelModel.findOne({ serverID: guild.id, userID: target.id })) ||
       (await LevelModel.create({
         serverID: guild.id,
         serverName: guild.name,
@@ -84,21 +84,26 @@ export const handleXpModify: CommandHandler = async (
         cooldown: 0,
       }));
 
-    if (user.level >= 100) {
+    const targetMember = await guild.members.fetch(target.id);
+
+    if (!targetMember || targetMember.id !== target.id) {
       await interaction.editReply({
-        content: "That user has maxed out... over 9000!!!",
+        content: getRandomValue(Becca.responses.missingGuild),
       });
       return;
     }
 
     if (action === "add") {
-      if (user.points + amount >= levelScale[user.level + 1]) {
+      if (user.level >= 100) {
         await interaction.editReply({
-          content: "Can't increase XP beyond level cap.",
+          content: "That user has maxed out... over 9000!!!",
         });
         return;
       }
       user.points += amount;
+      while (user.points > levelScale[user.level + 1]) {
+        user.level++;
+      }
     } else {
       if (user.points - amount <= 0) {
         await interaction.editReply({
@@ -107,21 +112,42 @@ export const handleXpModify: CommandHandler = async (
         return;
       }
       user.points -= amount;
+      while (user.points <= levelScale[user.level]) {
+        user.level--;
+      }
     }
-    user.userTag = target?.tag;
-    user.avatar = target?.displayAvatarURL();
+
+    user.userTag = target.tag;
+    user.avatar = target.displayAvatarURL();
 
     await user.save();
+
+    if (config.level_roles.length) {
+      for (const setting of config.level_roles) {
+        if (action === "add" && user.level >= setting.level) {
+          const role = guild.roles.cache.find((r) => r.id === setting.role);
+          if (role && !targetMember.roles.cache.find((r) => r.id === role.id)) {
+            await targetMember.roles.add(role);
+          }
+        }
+        if (action === "remove" && user.level <= setting.level) {
+          const role = guild.roles.cache.find((r) => r.id === setting.role);
+          if (role && targetMember.roles.cache.find((r) => r.id === role.id)) {
+            await targetMember.roles.remove(role);
+          }
+        }
+      }
+    }
 
     const xpmodifyEmbed = new MessageEmbed();
     xpmodifyEmbed.setTitle("XP Modified");
     if (action === "add") {
       xpmodifyEmbed.setDescription(
-        `<@!${member?.user?.id}> has granted ${amount} XP to <@!${target?.id}>!`
+        `<@!${member.user.id}> has granted ${amount} XP to <@!${target.id}>!`
       );
     } else {
       xpmodifyEmbed.setDescription(
-        `<@!${member?.user?.id}> has taken away ${amount} XP from <@!${target.id}>!`
+        `<@!${member.user.id}> has taken away ${amount} XP from <@!${target.id}>!`
       );
     }
     xpmodifyEmbed.setColor(Becca.colours.default);
