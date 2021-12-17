@@ -9,7 +9,7 @@ suite("Config Validation", () => {
     for (const key in BeccaPhrases) {
       const value = BeccaPhrases[key];
       test(`${key} has at least three values`, () => {
-        assert(value.length >= 3, `${key} only has ${key.length} values`);
+        assert(value.length >= 3, `${key} only has ${value.length} values`);
       });
 
       for (const response of value) {
@@ -27,7 +27,7 @@ suite("Config Validation", () => {
     for (const key in BeccaSass) {
       const value = BeccaSass[key];
       test(`${key} has at least three values`, () => {
-        assert(value.length >= 3, `${key} only has ${key.length} values`);
+        assert(value.length >= 3, `${key} only has ${value.length} values`);
       });
 
       for (const response of value) {
