@@ -105,7 +105,11 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
       const data = await LevelModel.find(
         { serverID: req.params.serverId },
         { _id: 0, __v: 0 }
-      );
+      )
+        .sort({ points: -1 })
+        .limit(100)
+        .lean()
+        .exec();
 
       if (!data) {
         res.status(404).send("IDK what to put here yet.");
