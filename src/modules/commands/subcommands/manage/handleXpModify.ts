@@ -84,21 +84,17 @@ export const handleXpModify: CommandHandler = async (
         cooldown: 0,
       }));
 
-    if (user.level >= 100) {
-      await interaction.editReply({
-        content: "That user has maxed out... over 9000!!!",
-      });
-      return;
-    }
-
     if (action === "add") {
-      if (user.points + amount >= levelScale[user.level + 1]) {
+      if (user.level >= 100) {
         await interaction.editReply({
-          content: "Can't increase XP beyond level cap.",
+          content: "That user has maxed out... over 9000!!!",
         });
         return;
       }
       user.points += amount;
+      while (user.points > levelScale[user.level + 1]) {
+        user.level++;
+      }
     } else {
       if (user.points - amount <= 0) {
         await interaction.editReply({
@@ -107,7 +103,11 @@ export const handleXpModify: CommandHandler = async (
         return;
       }
       user.points -= amount;
+      while (user.points <= levelScale[user.level]) {
+        user.level--;
+      }
     }
+
     user.userTag = target?.tag;
     user.avatar = target?.displayAvatarURL();
 
