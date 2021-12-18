@@ -5,6 +5,8 @@ import https from "https";
 import * as Topgg from "@top-gg/sdk";
 import cors from "cors";
 import express from "express";
+import rateLimit from "express-rate-limit";
+import preciseMemory from "precise-memory-rate-limit";
 
 import { VoteOptOut } from "../config/optout/VoteOptOut";
 import CommandCountModel from "../database/models/CommandCountModel";
@@ -47,6 +49,14 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
         },
       })
     );
+
+    const limiter = rateLimit({
+      store: new preciseMemory(15 * 60 * 1000, 10),
+      windowMs: 15 * 60 * 1000,
+      max: 10,
+    });
+
+    HTTPEndpoint.use(limiter);
 
     HTTPEndpoint.post(
       "/votes",
