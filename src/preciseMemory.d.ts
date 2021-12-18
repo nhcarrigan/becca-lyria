@@ -1,17 +1,20 @@
-declare module "precise-memory-rate-limit" {
-  class DefaultDict {
-    constructor(defaultVal: function): ProxyConstructor;
-  }
+// TODO: Write proper typedef...
+declare module "precise-memory-rate-limit";
 
-  class User {
-    constructor(
-      rate: number,
-      maxCalls: number
-    ): {
-      tokens: number;
-      ts: number;
-    };
-  }
+// declare module "precise-memory-rate-limit" {
+//     class DefaultDict {
+//       constructor(defaultVal: function): ProxyConstructor;
+//     }
 
-  memoryStore;
-}
+//     class User {
+//       constructor(
+//         rate: number,
+//         maxCalls: number
+//       ): {
+//         tokens: number;
+//         ts: number;
+//       };
+//     }
+
+//     memoryStore;
+//   }

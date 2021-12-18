@@ -51,7 +51,6 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
     );
 
     const limiter = rateLimit({
-      // @ts-expect-error How to typedef this?
       store: new preciseMemory(15 * 60 * 1000, 10),
       windowMs: 15 * 60 * 1000,
       max: 10,
