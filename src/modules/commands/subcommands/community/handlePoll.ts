@@ -36,7 +36,10 @@ export const handlePoll: CommandHandler = async (Becca, interaction) => {
     pollEmbed.addField("D", optionD, true);
     pollEmbed.addField("\u200b", "\u200b", true);
     pollEmbed.setColor(Becca.colours.default);
-    pollEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    pollEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     const buttonA = new MessageButton()
       .setEmoji("🇦")

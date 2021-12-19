@@ -24,7 +24,10 @@ export const handleArt: CommandHandler = async (Becca, interaction) => {
     artEmbed.setImage(
       `https://www.beccalyria.com/assets/art/${fileName.replace(/\s/g, "%20")}`
     );
-    artEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    artEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     const artButton = new MessageButton()
       .setLabel("View More Art!")

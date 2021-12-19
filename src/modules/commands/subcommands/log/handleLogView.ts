@@ -49,7 +49,8 @@ export const handleLogView: CommandHandler = async (
       renderSetting(Becca, "member_events", config.member_events)
     );
     settingEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com"
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
     );
 
     await interaction.editReply({ embeds: [settingEmbed] });

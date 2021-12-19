@@ -59,7 +59,8 @@ export const report: Context = {
       );
       reportEmbed.addField("Link", message.url, true);
       reportEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com"
+        "Like the bot? Donate: https://donate.nhcarrigan.com",
+        "https://cdn.nhcarrigan.com/profile-transparent.png"
       );
 
       await reportChannel.send({

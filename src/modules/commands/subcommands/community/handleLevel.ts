@@ -51,7 +51,10 @@ export const handleLevel: CommandHandler = async (Becca, interaction) => {
       `${new Date(targetLevel.lastSeen).toLocaleDateString()}`
     );
     levelEmbed.setTimestamp();
-    levelEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    levelEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     const button = new MessageButton()
       .setLabel("View leaderboard")

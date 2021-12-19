@@ -57,7 +57,8 @@ export const handleSuggest: CommandHandler = async (
     );
     suggestionEmbed.setDescription(customSubstring(suggestion, 2000));
     suggestionEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com"
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
     );
 
     const sentMessage = await suggestionChannel.send({

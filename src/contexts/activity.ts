@@ -41,7 +41,8 @@ export const activity: Context = {
       activityEmbed.setColor(Becca.colours.default);
       activityEmbed.setAuthor(target.tag, target.displayAvatarURL());
       activityEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com"
+        "Like the bot? Donate: https://donate.nhcarrigan.com",
+        "https://cdn.nhcarrigan.com/profile-transparent.png"
       );
 
       await interaction.editReply({ embeds: [activityEmbed] });

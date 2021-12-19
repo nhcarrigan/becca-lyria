@@ -96,7 +96,8 @@ export const levelListener: Listener = {
           author.displayAvatarURL()
         );
         levelEmbed.setFooter(
-          "Like the bot? Donate: https://donate.nhcarrigan.com"
+          "Like the bot? Donate: https://donate.nhcarrigan.com",
+          "https://cdn.nhcarrigan.com/profile-transparent.png"
         );
         await targetChannel.send({ embeds: [levelEmbed] });
       }
@@ -118,7 +119,8 @@ export const levelListener: Listener = {
                 author.displayAvatarURL()
               );
               roleEmbed.setFooter(
-                "Like the bot? Donate: https://donate.nhcarrigan.com"
+                "Like the bot? Donate: https://donate.nhcarrigan.com",
+                "https://cdn.nhcarrigan.com/profile-transparent.png"
               );
               await targetChannel.send({ embeds: [roleEmbed] });
             }

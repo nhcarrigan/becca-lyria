@@ -78,7 +78,8 @@ export const generateHabiticaAchievements = async (
       getAchievementList(Object.values(special.achievements))
     );
     achievementsEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com"
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
     );
 
     return achievementsEmbed;

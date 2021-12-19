@@ -34,7 +34,10 @@ export const handleOrbit: CommandHandler = async (Becca, interaction) => {
     );
     orbitEmbed.setColor(Becca.colours.default);
     orbitEmbed.setTimestamp();
-    orbitEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    orbitEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     parsed.forEach((user) => {
       orbitEmbed.addField(
