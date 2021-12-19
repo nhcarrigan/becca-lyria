@@ -65,7 +65,8 @@ export const viewAutomodSettings = async (
       true
     );
     settingsEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com"
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
     );
     return settingsEmbed;
   } catch (err) {

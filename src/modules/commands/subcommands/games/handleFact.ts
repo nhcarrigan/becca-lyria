@@ -23,7 +23,10 @@ export const handleFact: CommandHandler = async (Becca, interaction) => {
     factEmbed.setDescription(customSubstring(fact.data.text, 4000));
     factEmbed.setURL(fact.data.source_url);
     factEmbed.setTimestamp();
-    factEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    factEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     await interaction.editReply({ embeds: [factEmbed] });
   } catch (err) {

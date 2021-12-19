@@ -28,7 +28,10 @@ export const handleAbout: CommandHandler = async (Becca, interaction) => {
     aboutEmbed.addField("Members", members.toString(), true);
     aboutEmbed.addField("Available spells", commands.toString(), true);
     aboutEmbed.addField("Favourite Colour", "Purple", true);
-    aboutEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    aboutEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     const supportServerButton = new MessageButton()
       .setLabel("Join the Support Server")

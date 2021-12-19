@@ -30,7 +30,8 @@ export const handleColour: CommandHandler = async (Becca, interaction) => {
     colourEmbed.setImage(`https://www.colorhexa.com/${parsedColour}.png`);
     colourEmbed.setTimestamp();
     colourEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com"
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
     );
 
     await interaction.editReply({ embeds: [colourEmbed] });

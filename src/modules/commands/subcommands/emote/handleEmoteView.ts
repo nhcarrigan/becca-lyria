@@ -44,7 +44,10 @@ export const handleEmoteView: CommandHandler = async (Becca, interaction) => {
     emoteEmbed.addField("Throws", data.throw.toString(), true);
     emoteEmbed.addField("Smacks", data.smack.toString(), true);
     emoteEmbed.addField("UwU faces", data.uwu.toString(), true);
-    emoteEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    emoteEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     await interaction.editReply({ embeds: [emoteEmbed] });
   } catch (err) {

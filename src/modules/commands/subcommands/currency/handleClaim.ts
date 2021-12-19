@@ -22,7 +22,10 @@ export const handleClaim: CurrencyHandler = async (
     claimEmbed.setDescription(
       "Congratulations on claiming a reward! Please note that you will need to join our [support server](https://chat.nhcarrigan.com) and ping `nhcarrigan` so we can work with you to get your prize."
     );
-    claimEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    claimEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     switch (reward) {
       case "monarch":

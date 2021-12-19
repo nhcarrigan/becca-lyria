@@ -56,7 +56,10 @@ export const handleStarCount: CommandHandler = async (Becca, interaction) => {
     });
     starEmbed.setTimestamp();
     starEmbed.setURL(`https://dash.beccalyria.com/stars/${guildId}`);
-    starEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    starEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     await interaction.editReply({ embeds: [starEmbed] });
   } catch (err) {

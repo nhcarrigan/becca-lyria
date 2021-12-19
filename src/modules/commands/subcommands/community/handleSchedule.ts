@@ -74,7 +74,8 @@ export const handleSchedule: CommandHandler = async (Becca, interaction) => {
     successEmbed.addField("Target Channel", `<#${targetChannel.id}>`, true);
     successEmbed.addField("Message", message);
     successEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com"
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
     );
     await interaction.editReply({ embeds: [successEmbed] });
   } catch (err) {

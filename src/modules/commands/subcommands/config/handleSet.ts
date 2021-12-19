@@ -75,7 +75,8 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
     successEmbed.setTimestamp();
     successEmbed.setColor(Becca.colours.default);
     successEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com"
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
     );
     await interaction.editReply({ embeds: [successEmbed] });
   } catch (err) {

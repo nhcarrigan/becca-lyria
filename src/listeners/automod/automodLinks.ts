@@ -55,7 +55,8 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
         message.author.displayAvatarURL()
       );
       linkEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com"
+        "Like the bot? Donate: https://donate.nhcarrigan.com",
+        "https://cdn.nhcarrigan.com/profile-transparent.png"
       );
       const warning = await message.channel.send({ embeds: [linkEmbed] });
 

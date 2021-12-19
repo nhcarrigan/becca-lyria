@@ -116,7 +116,8 @@ export const handleServer: CommandHandler = async (Becca, interaction) => {
       true
     );
     serverEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com"
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
     );
 
     await interaction.editReply({ embeds: [serverEmbed] });

@@ -24,7 +24,10 @@ export const handleHttp: CommandHandler = async (Becca, interaction) => {
     httpEmbed.setImage(`https://http.cat/${status}.jpg`);
     httpEmbed.setColor(Becca.colours.default);
     httpEmbed.setTimestamp();
-    httpEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    httpEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     await interaction.editReply({ embeds: [httpEmbed] });
   } catch (err) {

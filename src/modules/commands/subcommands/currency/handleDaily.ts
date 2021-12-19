@@ -41,7 +41,10 @@ export const handleDaily: CurrencyHandler = async (
       `You've earned ${earnedCurrency} BeccaCoin! You now have ${data.currencyTotal} BeccaCoin.`
     );
     embed.setColor(Becca.colours.default);
-    embed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    embed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     await interaction.editReply({ embeds: [embed] });
 

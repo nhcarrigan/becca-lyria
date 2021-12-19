@@ -36,7 +36,10 @@ export const handleLevelscale: CommandHandler = async (Becca, interaction) => {
     );
     embed.setColor(Becca.colours.default);
     embed.setTimestamp();
-    embed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    embed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     let page = 1;
     const lastPage = Math.ceil((Object.keys(levelScale).length - 1) / 10);

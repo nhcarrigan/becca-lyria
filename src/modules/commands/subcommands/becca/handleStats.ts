@@ -47,7 +47,8 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       );
       commandEmbed.setDescription(topServersEmbed);
       commandEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com"
+        "Like the bot? Donate: https://donate.nhcarrigan.com",
+        "https://cdn.nhcarrigan.com/profile-transparent.png"
       );
 
       await interaction.editReply({
@@ -78,7 +79,8 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       );
       serverEmbed.setDescription(serverVoteEmbed);
       serverEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com"
+        "Like the bot? Donate: https://donate.nhcarrigan.com",
+        "https://cdn.nhcarrigan.com/profile-transparent.png"
       );
 
       const supportServerButton = new MessageButton()
@@ -131,7 +133,10 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       botEmbed.setDescription(
         "We are waiting to list Becca on top.gg until after we complete the Discord verification process. Stay tuned!"
       );
-      botEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+      botEmbed.setFooter(
+        "Like the bot? Donate: https://donate.nhcarrigan.com",
+        "https://cdn.nhcarrigan.com/profile-transparent.png"
+      );
 
       await interaction.editReply({ embeds: [botEmbed] });
       return;

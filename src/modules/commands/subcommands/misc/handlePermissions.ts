@@ -63,7 +63,10 @@ export const handlePermissions: CommandHandler = async (Becca, interaction) => {
     validEmbed.setTitle(areValid ? "All good!" : "Uh oh...");
     validEmbed.setDescription(descriptionString);
     validEmbed.setColor(areValid ? Becca.colours.success : Becca.colours.error);
-    validEmbed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    validEmbed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     await interaction.editReply({ embeds: [validEmbed] });
   } catch (err) {

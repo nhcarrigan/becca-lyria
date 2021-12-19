@@ -40,7 +40,8 @@ export const handleUpdates: CommandHandler = async (Becca, interaction) => {
     );
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com"
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
     );
 
     const button = new MessageButton()

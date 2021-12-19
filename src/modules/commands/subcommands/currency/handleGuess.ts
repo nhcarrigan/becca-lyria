@@ -40,7 +40,10 @@ export const handleGuess: CurrencyHandler = async (
     embed.setDescription(`Your BeccaCoin: ${data.currencyTotal}`);
     embed.addField("Your Guess", guess.toString(), true);
     embed.addField("Becca's Number", becca.toString(), true);
-    embed.setFooter("Like the bot? Donate: https://donate.nhcarrigan.com");
+    embed.setFooter(
+      "Like the bot? Donate: https://donate.nhcarrigan.com",
+      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    );
 
     await interaction.editReply({ embeds: [embed] });
 
