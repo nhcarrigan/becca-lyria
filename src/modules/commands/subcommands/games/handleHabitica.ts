@@ -17,15 +17,17 @@ export const handleHabitica: CommandHandler = async (Becca, interaction) => {
       "x-api-user": "285a3335-33b9-473f-8d80-085c04f207bc",
       "x-api-key": Becca.configs.habiticaKey,
     };
+    const habiticaEmbeds = [];
+    habiticaEmbeds[0] = await generateHabiticaUser(Becca, id, headers);
+    if (habiticaEmbeds[0].title !== "User not found!") {
+      habiticaEmbeds[1] = await generateHabiticaAchievements(
+        Becca,
+        id,
+        headers
+      );
+    }
 
-    const userEmbed = await generateHabiticaUser(Becca, id, headers);
-    const achievementEmbed = await generateHabiticaAchievements(
-      Becca,
-      id,
-      headers
-    );
-
-    await interaction.editReply({ embeds: [userEmbed, achievementEmbed] });
+    await interaction.editReply({ embeds: habiticaEmbeds });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
