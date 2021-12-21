@@ -8,7 +8,6 @@ export type Settings =
   | "depart_channel"
   | "level_channel"
   | "suggestion_channel"
-  | "muted_role"
   | "custom_welcome"
   | "hearts"
   | "blocked"

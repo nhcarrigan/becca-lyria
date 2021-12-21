@@ -14,7 +14,6 @@ export const ServerConfigSchema = new Schema({
     type: String,
     default: "",
   },
-  muted_role: String,
   custom_welcome: String,
   hearts: [String],
   blocked: [String],
