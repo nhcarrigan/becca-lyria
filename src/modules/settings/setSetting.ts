@@ -103,7 +103,6 @@ export const setSetting = async (
       case "member_events":
       case "level_channel":
       case "suggestion_channel":
-      case "muted_role":
       case "join_role":
       case "report_channel":
         server[key] = value.replace(/\D/g, "");

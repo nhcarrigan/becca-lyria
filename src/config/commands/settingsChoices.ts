@@ -12,7 +12,6 @@ export const configChoices: [string, Settings][] = [
   ["Departure Message Channel", "depart_channel"],
   ["Level Log Channel", "level_channel"],
   ["Suggestion Channel", "suggestion_channel"],
-  ["Muted Role", "muted_role"],
   ["Custom Welcome Message", "custom_welcome"],
   ["Heart Users", "hearts"],
   ["Blocked Users", "blocked"],

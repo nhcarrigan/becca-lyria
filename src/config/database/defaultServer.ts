@@ -11,7 +11,6 @@ export const defaultServer = {
   depart_channel: "",
   level_channel: "",
   suggestion_channel: "",
-  muted_role: "",
   custom_welcome:
     "Hello {@username}! Welcome to {@servername}! My name is Becca. Feel free to let me know if you need anything.",
   hearts: [] as string[],

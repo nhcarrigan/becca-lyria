@@ -41,7 +41,6 @@ export const validateSetting = async (
             config[setting].includes(`${parsedValue}`)
           )
         );
-      case "muted_role":
       case "join_role":
         return !!parsedValue && !!(await guild.roles.fetch(`${parsedValue}`));
       case "self_roles":

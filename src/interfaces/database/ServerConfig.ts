@@ -11,7 +11,6 @@ export interface ServerConfig extends Document {
   depart_channel: string;
   level_channel: string;
   suggestion_channel: string;
-  muted_role: string;
   custom_welcome: string;
   hearts: string[];
   blocked: string[];
@@ -47,7 +46,6 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   depart_channel: "",
   level_channel: "",
   suggestion_channel: "",
-  muted_role: "",
   custom_welcome: "",
   hearts: [],
   blocked: [],

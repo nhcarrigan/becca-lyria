@@ -54,11 +54,6 @@ export const viewSettings = async (
       true
     );
     settingsEmbed.addField(
-      "Muted Role",
-      renderSetting(Becca, "muted_role", config.muted_role),
-      true
-    );
-    settingsEmbed.addField(
       "Join Role",
       renderSetting(Becca, "join_role", config.join_role),
       true
