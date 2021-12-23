@@ -22,7 +22,7 @@ export const sassListener: Listener = {
     } catch (err) {
       await beccaErrorHandler(
         Becca,
-        "links listener",
+        "SassMode listener",
         err,
         message.guild?.name,
         message
