@@ -6,11 +6,8 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleLeave } from "../modules/commands/subcommands/nhcarrigan/handleLeave";
-import { handleList } from "../modules/commands/subcommands/nhcarrigan/handleList";
 import { handlePurge } from "../modules/commands/subcommands/nhcarrigan/handlePurge";
 import { handleRegister } from "../modules/commands/subcommands/nhcarrigan/handleRegister";
-import { handleServerData } from "../modules/commands/subcommands/nhcarrigan/handleServerData";
 import { handleUnregister } from "../modules/commands/subcommands/nhcarrigan/handleUnregister";
 import { handleViewSlash } from "../modules/commands/subcommands/nhcarrigan/handleViewSlash";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
@@ -20,33 +17,6 @@ export const nhcarrigan: Command = {
   data: new SlashCommandBuilder()
     .setName("nhcarrigan")
     .setDescription("Admin Commands locked to the owner.")
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("list")
-        .setDescription("Lists the servers Becca is currently in.")
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("leave")
-        .setDescription("Leaves a specific server.")
-        .addStringOption((option) =>
-          option
-            .setName("server-id")
-            .setDescription("Discord ID of the server to leave.")
-            .setRequired(true)
-        )
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("serverdata")
-        .setDescription("Returns information on a specific server.")
-        .addStringOption((option) =>
-          option
-            .setName("server")
-            .setDescription("Discord ID of the server to look up.")
-            .setRequired(true)
-        )
-    )
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("register")
@@ -124,15 +94,6 @@ export const nhcarrigan: Command = {
       );
 
       switch (subcommand) {
-        case "list":
-          await handleList(Becca, interaction, config);
-          break;
-        case "leave":
-          await handleLeave(Becca, interaction, config);
-          break;
-        case "serverdata":
-          await handleServerData(Becca, interaction, config);
-          break;
         case "register":
           await handleRegister(Becca, interaction, config);
           break;
