@@ -2,6 +2,7 @@
 import ActivityModel from "../../../../database/models/ActivityModel";
 import CommandCountModel from "../../../../database/models/CommandCountModel";
 import CurrencyModel from "../../../../database/models/CurrencyModel";
+import EmoteCountModel from "../../../../database/models/EmoteCountModel";
 import LevelModel from "../../../../database/models/LevelModel";
 import StarModel from "../../../../database/models/StarModel";
 import VoterModel from "../../../../database/models/VoterModel";
@@ -88,6 +89,18 @@ export const handlePurge: CommandHandler = async (Becca, interaction) => {
       );
       return;
     }
+
+    if (data === "emotes") {
+      const emotes = await EmoteCountModel.findOne({ userId: target });
+      if (emotes) {
+        name = emotes.userName;
+        await emotes.delete();
+      }
+      await interaction.editReply(`I have cleared the emote data for ${name}.`);
+      return;
+    }
+
+    await interaction.editReply(`${data} is not a valid option.`);
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
