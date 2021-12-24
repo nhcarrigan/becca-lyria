@@ -16,7 +16,7 @@ export const heartsListener: Listener = {
     try {
       const { author } = message;
       const usersToHeart = defaultHearts.concat(config.hearts);
-      if (usersToHeart.includes(author.id) && !message.deleted) {
+      if (usersToHeart.includes(author.id)) {
         await message.react(Becca.configs.love);
       }
     } catch (err) {
