@@ -4,7 +4,6 @@ import CommandCountModel from "../../database/models/CommandCountModel";
 import LevelModel from "../../database/models/LevelModel";
 import ServerModel from "../../database/models/ServerConfigModel";
 import StarModel from "../../database/models/StarModel";
-import WarningModel from "../../database/models/WarningModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 
 /**
@@ -46,7 +45,6 @@ export const guildDelete = async (
   await ServerModel.findOneAndDelete({ serverID: guild.id });
   await LevelModel.findOneAndDelete({ serverID: guild.id });
   await StarModel.findOneAndDelete({ serverID: guild.id });
-  await WarningModel.findOneAndDelete({ serverID: guild.id });
   await CommandCountModel.findOneAndDelete({ serverID: guild.id });
 
   Becca.pm2.metrics.guilds.set(Becca.pm2.metrics.guilds.val() - 1);

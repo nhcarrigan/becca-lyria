@@ -11,7 +11,6 @@ import { handleKick } from "../modules/commands/subcommands/moderation/handleKic
 import { handleMute } from "../modules/commands/subcommands/moderation/handleMute";
 import { handleUnmute } from "../modules/commands/subcommands/moderation/handleUnmute";
 import { handleWarn } from "../modules/commands/subcommands/moderation/handleWarn";
-import { handleWarnCount } from "../modules/commands/subcommands/moderation/handleWarnCount";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
@@ -33,17 +32,6 @@ export const mod: Command = {
           option
             .setName("reason")
             .setDescription("The reason for issuing this warning.")
-            .setRequired(true)
-        )
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("warncount")
-        .setDescription("See the number of warnings a user has received.")
-        .addUserOption((option) =>
-          option
-            .setName("target")
-            .setDescription("The user whose warnings you want to see.")
             .setRequired(true)
         )
     )
@@ -141,9 +129,6 @@ export const mod: Command = {
       switch (subcommand) {
         case "warn":
           await handleWarn(Becca, interaction, config);
-          break;
-        case "warncount":
-          await handleWarnCount(Becca, interaction, config);
           break;
         case "mute":
           await handleMute(Becca, interaction, config);
