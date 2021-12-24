@@ -7,11 +7,11 @@ import {
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleBan } from "../modules/commands/subcommands/moderation/handleBan";
+import { handleHistory } from "../modules/commands/subcommands/moderation/handleHistory";
 import { handleKick } from "../modules/commands/subcommands/moderation/handleKick";
 import { handleMute } from "../modules/commands/subcommands/moderation/handleMute";
 import { handleUnmute } from "../modules/commands/subcommands/moderation/handleUnmute";
 import { handleWarn } from "../modules/commands/subcommands/moderation/handleWarn";
-import { handleWarnCount } from "../modules/commands/subcommands/moderation/handleWarnCount";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
@@ -33,17 +33,6 @@ export const mod: Command = {
           option
             .setName("reason")
             .setDescription("The reason for issuing this warning.")
-            .setRequired(true)
-        )
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("warncount")
-        .setDescription("See the number of warnings a user has received.")
-        .addUserOption((option) =>
-          option
-            .setName("target")
-            .setDescription("The user whose warnings you want to see.")
             .setRequired(true)
         )
     )
@@ -132,6 +121,17 @@ export const mod: Command = {
             .setDescription("The reason for kicking the user.")
             .setRequired(true)
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("history")
+        .setDescription("Views the moderation history of a user.")
+        .addUserOption((option) =>
+          option
+            .setName("target")
+            .setDescription("The user to view the moderation history of.")
+            .setRequired(true)
+        )
     ),
   run: async (Becca, interaction, config) => {
     try {
@@ -141,9 +141,6 @@ export const mod: Command = {
       switch (subcommand) {
         case "warn":
           await handleWarn(Becca, interaction, config);
-          break;
-        case "warncount":
-          await handleWarnCount(Becca, interaction, config);
           break;
         case "mute":
           await handleMute(Becca, interaction, config);
@@ -156,6 +153,9 @@ export const mod: Command = {
           break;
         case "ban":
           await handleBan(Becca, interaction, config);
+          break;
+        case "history":
+          await handleHistory(Becca, interaction, config);
           break;
         default:
           await interaction.editReply({

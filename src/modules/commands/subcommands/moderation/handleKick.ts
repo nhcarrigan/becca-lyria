@@ -8,6 +8,7 @@ import { getRandomValue } from "../../../../utils/getRandomValue";
 import { sendModerationDm } from "../../../../utils/sendModerationDm";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { sendLogEmbed } from "../../../guild/sendLogEmbed";
+import { updateHistory } from "../../moderation/updateHistory";
 
 /**
  * Provided the caller has permission, kicks the `target` user from the guild
@@ -68,6 +69,8 @@ export const handleKick: CommandHandler = async (Becca, interaction) => {
     );
 
     await targetMember.kick(customSubstring(reason, 1000));
+
+    await updateHistory(Becca, "kick", target.id, guild.id);
 
     const kickLogEmbed = new MessageEmbed();
     kickLogEmbed.setColor(Becca.colours.error);

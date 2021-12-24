@@ -1,10 +1,10 @@
 import { Guild, MessageEmbed } from "discord.js";
 
 import CommandCountModel from "../../database/models/CommandCountModel";
+import HistoryModel from "../../database/models/HistoryModel";
 import LevelModel from "../../database/models/LevelModel";
 import ServerModel from "../../database/models/ServerConfigModel";
 import StarModel from "../../database/models/StarModel";
-import WarningModel from "../../database/models/WarningModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 
 /**
@@ -46,8 +46,8 @@ export const guildDelete = async (
   await ServerModel.findOneAndDelete({ serverID: guild.id });
   await LevelModel.findOneAndDelete({ serverID: guild.id });
   await StarModel.findOneAndDelete({ serverID: guild.id });
-  await WarningModel.findOneAndDelete({ serverID: guild.id });
-  await CommandCountModel.findOneAndDelete({ serverID: guild.id });
+  await CommandCountModel.findOneAndDelete({ serverId: guild.id });
+  await HistoryModel.deleteMany({ serverId: guild.id });
 
   Becca.pm2.metrics.guilds.set(Becca.pm2.metrics.guilds.val() - 1);
   Becca.pm2.metrics.events.mark();

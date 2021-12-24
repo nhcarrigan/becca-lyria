@@ -9,6 +9,7 @@ import { getRandomValue } from "../../../../utils/getRandomValue";
 import { sendModerationDm } from "../../../../utils/sendModerationDm";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { sendLogEmbed } from "../../../guild/sendLogEmbed";
+import { updateHistory } from "../../moderation/updateHistory";
 
 /**
  * If the server has configured a muted role, removes it from the `target` for the
@@ -58,6 +59,8 @@ export const handleUnmute: CommandHandler = async (
     const targetUser = await guild.members.fetch(target.id);
 
     await targetUser.timeout(null, reason);
+
+    await updateHistory(Becca, "unmute", target.id, guild.id);
 
     const sentNotice = await sendModerationDm(
       Becca,

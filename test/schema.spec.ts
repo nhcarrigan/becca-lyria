@@ -4,22 +4,22 @@ import ActivityModel from "../src/database/models/ActivityModel";
 import CommandCountModel from "../src/database/models/CommandCountModel";
 import CurrencyModel from "../src/database/models/CurrencyModel";
 import EmoteCountModel from "../src/database/models/EmoteCountModel";
+import HistoryModel from "../src/database/models/HistoryModel";
 import LevelModel from "../src/database/models/LevelModel";
 import ServerConfigModel from "../src/database/models/ServerConfigModel";
 import StarModel from "../src/database/models/StarModel";
 import UsageModel from "../src/database/models/UsageModel";
 import VoterModel from "../src/database/models/VoterModel";
-import WarningModel from "../src/database/models/WarningModel";
 import { testActivity } from "../src/interfaces/database/Activity";
 import { testCommandCount } from "../src/interfaces/database/CommandCount";
 import { testCurrency } from "../src/interfaces/database/Currency";
 import { testEmoteCount } from "../src/interfaces/database/EmoteCount";
+import { testHistory } from "../src/interfaces/database/History";
 import { testLevel } from "../src/interfaces/database/Level";
 import { testServerConfig } from "../src/interfaces/database/ServerConfig";
 import { testStar } from "../src/interfaces/database/Star";
 import { testUsage } from "../src/interfaces/database/Usage";
 import { testVoter } from "../src/interfaces/database/Voter";
-import { testWarning } from "../src/interfaces/database/Warning";
 
 suite("Schema Validation", () => {
   suite("Activity Schema", () => {
@@ -57,6 +57,15 @@ suite("Schema Validation", () => {
     for (const key in testEmoteCount) {
       test(`${key} should be in the Emote Count schema`, () => {
         assert(key in testModel, `Missing ${key} from the Emote Count schema.`);
+      });
+    }
+  });
+
+  suite("History Model", () => {
+    const testModel = new HistoryModel();
+    for (const key in testHistory) {
+      test(`${key} should be in the History schema`, () => {
+        assert(key in testModel, `Missing ${key} from the History schema.`);
       });
     }
   });
@@ -105,15 +114,6 @@ suite("Schema Validation", () => {
     for (const key in testVoter) {
       test(`${key} should be in the Voter schema`, () => {
         assert(key in testModel, `Missing ${key} from the Voter schema.`);
-      });
-    }
-  });
-
-  suite("Warning Model", () => {
-    const testModel = new WarningModel();
-    for (const key in testWarning) {
-      test(`${key} should be in the Warning schema`, () => {
-        assert(key in testModel, `Missing ${key} from the Warning schema.`);
       });
     }
   });

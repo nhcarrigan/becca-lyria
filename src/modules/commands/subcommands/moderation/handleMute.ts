@@ -10,6 +10,7 @@ import { getRandomValue } from "../../../../utils/getRandomValue";
 import { sendModerationDm } from "../../../../utils/sendModerationDm";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { sendLogEmbed } from "../../../guild/sendLogEmbed";
+import { updateHistory } from "../../moderation/updateHistory";
 
 /**
  * If the server has configured a muted role, applies that role to the `target`
@@ -85,6 +86,8 @@ export const handleMute: CommandHandler = async (
     );
 
     await targetUser.timeout(durationMilliseconds, reason);
+
+    await updateHistory(Becca, "mute", target.id, guild.id);
 
     const muteEmbed = new MessageEmbed();
     muteEmbed.setTitle("A user has been silenced!");
