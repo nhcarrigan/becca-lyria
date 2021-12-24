@@ -34,7 +34,7 @@ export const handleHelp: CommandHandler = async (Becca, interaction) => {
     );
     helpEmbed.addField(
       "Privacy Policy",
-      "As part of my services, I collect and use some specific Discord related information. This information includes, but may not be limited to, your user name, nickname, this server's name, and your Discord ID. [View my full policy](https://github.com/BeccaLyria/discord-bot/blob/main/PRIVACY.md)"
+      "As part of my services, I collect and use some specific Discord related information. This information includes, but may not be limited to, your user name, nickname, this server's name, and your Discord ID. [View my full policy](https://docs.beccalyria.com/#/privacy-policy)"
     );
     helpEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",
