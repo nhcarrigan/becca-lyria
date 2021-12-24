@@ -7,6 +7,7 @@ import {
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleBan } from "../modules/commands/subcommands/moderation/handleBan";
+import { handleHistory } from "../modules/commands/subcommands/moderation/handleHistory";
 import { handleKick } from "../modules/commands/subcommands/moderation/handleKick";
 import { handleMute } from "../modules/commands/subcommands/moderation/handleMute";
 import { handleUnmute } from "../modules/commands/subcommands/moderation/handleUnmute";
@@ -120,6 +121,17 @@ export const mod: Command = {
             .setDescription("The reason for kicking the user.")
             .setRequired(true)
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("history")
+        .setDescription("Views the moderation history of a user.")
+        .addUserOption((option) =>
+          option
+            .setName("target")
+            .setDescription("The user to view the moderation history of.")
+            .setRequired(true)
+        )
     ),
   run: async (Becca, interaction, config) => {
     try {
@@ -141,6 +153,9 @@ export const mod: Command = {
           break;
         case "ban":
           await handleBan(Becca, interaction, config);
+          break;
+        case "history":
+          await handleHistory(Becca, interaction, config);
           break;
         default:
           await interaction.editReply({
