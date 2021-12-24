@@ -5,6 +5,7 @@ import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
 import { getRandomValue } from "../../../../utils/getRandomValue";
+import { sendModerationDm } from "../../../../utils/sendModerationDm";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { updateWarningCount } from "../../../commands/moderation/updateWarningCount";
 
@@ -50,11 +51,20 @@ export const handleWarn: CommandHandler = async (Becca, interaction) => {
       return;
     }
 
+    const sentNotice = await sendModerationDm(
+      Becca,
+      "warn",
+      target,
+      guild.name,
+      reason
+    );
+
     const warnEmbed = new MessageEmbed();
     warnEmbed.setTitle("A user has messed up.");
     warnEmbed.setDescription(`Warning issued by ${member.user.username}`);
     warnEmbed.setColor(Becca.colours.warning);
     warnEmbed.addField("Reason", customSubstring(reason, 1000));
+    warnEmbed.addField("User Notified?", String(sentNotice));
     warnEmbed.setTimestamp();
     warnEmbed.setAuthor(
       `${target.username}#${target.discriminator}`,

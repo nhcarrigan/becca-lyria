@@ -7,6 +7,7 @@ import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { calculateMilliseconds } from "../../../../utils/calculateMilliseconds";
 import { customSubstring } from "../../../../utils/customSubstring";
 import { getRandomValue } from "../../../../utils/getRandomValue";
+import { sendModerationDm } from "../../../../utils/sendModerationDm";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { sendLogEmbed } from "../../../guild/sendLogEmbed";
 
@@ -75,6 +76,14 @@ export const handleMute: CommandHandler = async (
 
     const targetUser = await guild.members.fetch(target.id);
 
+    const sentNotice = await sendModerationDm(
+      Becca,
+      "mute",
+      target,
+      guild.name,
+      reason
+    );
+
     await targetUser.timeout(durationMilliseconds, reason);
 
     const muteEmbed = new MessageEmbed();
@@ -82,6 +91,8 @@ export const handleMute: CommandHandler = async (
     muteEmbed.setDescription(`They were silenced by ${member.user.username}`);
     muteEmbed.setColor(Becca.colours.warning);
     muteEmbed.addField("Reason", customSubstring(reason, 1000));
+    muteEmbed.addField("Duration", `${duration} ${durationUnit}`);
+    muteEmbed.addField("User Notified?", String(sentNotice));
     muteEmbed.setFooter(`ID: ${targetUser.id}`);
     muteEmbed.setTimestamp();
     muteEmbed.setAuthor(
