@@ -5,6 +5,7 @@ import CommandCountModel from "../../../../database/models/CommandCountModel";
 import VoterModel from "../../../../database/models/VoterModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { formatTextToTable } from "../../../../utils/formatText";
 import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 
@@ -26,16 +27,11 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
         .limit(10)
         .lean();
 
-      // TODO: Update using a formatted text table.
-      // see #883
-      const topServersEmbed = topServers
-        .map(
-          (server, index) =>
-            `#${index + 1}: ${server.serverName} with ${
-              server.commandUses
-            } command uses`
-        )
-        .join("\n");
+      const topServersEmbed = topServers.map((server, index) => [
+        index + 1,
+        server.serverName,
+        server.commandUses,
+      ]);
 
       const commandEmbed = new MessageEmbed();
       commandEmbed.setTitle("Command Stats");
@@ -45,7 +41,11 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
         name: author.tag,
         iconURL: author.displayAvatarURL(),
       });
-      commandEmbed.setDescription(topServersEmbed);
+      commandEmbed.setDescription(
+        `\`\`\`\n${formatTextToTable(topServersEmbed, {
+          headers: ["Rank", "Server Name", "Command Uses"],
+        })}\`\`\``
+      );
       commandEmbed.setFooter(
         "Like the bot? Donate: https://donate.nhcarrigan.com",
         "https://cdn.nhcarrigan.com/profile-transparent.png"
