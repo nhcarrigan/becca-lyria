@@ -44,7 +44,7 @@ export const guildDelete = async (
   await Becca.debugHook.send({ embeds: [guildDeleteEmbed] });
 
   await ServerModel.findOneAndDelete({ serverID: guild.id });
-  await LevelModel.findOneAndDelete({ serverID: guild.id });
+  await LevelModel.deleteMany({ serverID: guild.id });
   await StarModel.findOneAndDelete({ serverID: guild.id });
   await CommandCountModel.findOneAndDelete({ serverId: guild.id });
   await HistoryModel.deleteMany({ serverId: guild.id });
