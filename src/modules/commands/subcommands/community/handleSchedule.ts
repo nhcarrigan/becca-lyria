@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import {
-  GuildChannel,
+  GuildBasedChannel,
   GuildMember,
   MessageEmbed,
   NewsChannel,
@@ -27,7 +27,7 @@ export const handleSchedule: CommandHandler = async (Becca, interaction) => {
     if (
       !member ||
       !(member as GuildMember)
-        ?.permissionsIn(targetChannel as GuildChannel)
+        ?.permissionsIn(targetChannel as GuildBasedChannel)
         .has("SEND_MESSAGES")
     ) {
       await interaction.editReply({
