@@ -68,10 +68,10 @@ export const handleWarn: CommandHandler = async (Becca, interaction) => {
     warnEmbed.addField("Reason", customSubstring(reason, 1000));
     warnEmbed.addField("User Notified?", String(sentNotice));
     warnEmbed.setTimestamp();
-    warnEmbed.setAuthor(
-      `${target.username}#${target.discriminator}`,
-      target.displayAvatarURL()
-    );
+    warnEmbed.setAuthor({
+      name: target.tag,
+      iconURL: target.displayAvatarURL(),
+    });
 
     await interaction.editReply({
       content: `<@!${target.id}>, you have been warned.`,

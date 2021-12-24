@@ -78,10 +78,10 @@ export const handleUnmute: CommandHandler = async (
     muteEmbed.addField("User Notified?", String(sentNotice));
     muteEmbed.setFooter(`ID: ${targetUser.id}`);
     muteEmbed.setTimestamp();
-    muteEmbed.setAuthor(
-      `${targetUser.user.username}#${targetUser.user.discriminator}`,
-      targetUser.user.displayAvatarURL()
-    );
+    muteEmbed.setAuthor({
+      name: target.tag,
+      iconURL: target.displayAvatarURL(),
+    });
 
     await sendLogEmbed(Becca, guild, muteEmbed, "moderation_events");
 

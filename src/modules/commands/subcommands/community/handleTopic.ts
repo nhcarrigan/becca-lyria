@@ -23,10 +23,7 @@ export const handleTopic: CommandHandler = async (Becca, interaction) => {
     topicEmbed.setTitle("Start a Conversation!");
     topicEmbed.setDescription(randomTopic);
     topicEmbed.setColor(Becca.colours.default);
-    topicEmbed.setAuthor(
-      `${user.username}#${user.discriminator}`,
-      user.displayAvatarURL()
-    );
+    topicEmbed.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() });
     topicEmbed.setFooter("Topics pulled from conversationstartersworld.com");
 
     await interaction.editReply({ embeds: [topicEmbed] });

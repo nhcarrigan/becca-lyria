@@ -29,7 +29,10 @@ export const automodProfanity: ListenerHandler = async (
     embed.setTitle("Profanity detected!");
     embed.setDescription(string);
     embed.setColor(Becca.colours.error);
-    embed.setAuthor(message.author.tag, message.author.displayAvatarURL());
+    embed.setAuthor({
+      name: message.author.tag,
+      iconURL: message.author.displayAvatarURL(),
+    });
     embed.setTimestamp();
     embed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",

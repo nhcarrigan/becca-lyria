@@ -51,10 +51,10 @@ export const handleSuggest: CommandHandler = async (
     suggestionEmbed.setTitle("Someone had an idea:");
     suggestionEmbed.setTimestamp();
     suggestionEmbed.setColor(Becca.colours.default);
-    suggestionEmbed.setAuthor(
-      `${author.username}#${author.discriminator}`,
-      author.displayAvatarURL()
-    );
+    suggestionEmbed.setAuthor({
+      name: author.tag,
+      iconURL: author.displayAvatarURL(),
+    });
     suggestionEmbed.setDescription(customSubstring(suggestion, 2000));
     suggestionEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",

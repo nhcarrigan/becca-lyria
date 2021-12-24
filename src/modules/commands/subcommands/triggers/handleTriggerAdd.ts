@@ -43,10 +43,10 @@ export const handleTriggerAdd: CommandHandler = async (
     success.setColor(Becca.colours.default);
     success.addField("Trigger", trigger);
     success.addField("Response", response);
-    success.setAuthor(
-      interaction.user.tag,
-      interaction.user.displayAvatarURL()
-    );
+    success.setAuthor({
+      name: interaction.user.tag,
+      iconURL: interaction.user.displayAvatarURL(),
+    });
     success.setTimestamp();
     success.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",

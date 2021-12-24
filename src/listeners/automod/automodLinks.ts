@@ -50,10 +50,10 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
         )
       );
       linkEmbed.setColor(Becca.colours.error);
-      linkEmbed.setAuthor(
-        `${message.author.username}#${message.author.discriminator}`,
-        message.author.displayAvatarURL()
-      );
+      linkEmbed.setAuthor({
+        name: message.author.tag,
+        iconURL: message.author.displayAvatarURL(),
+      });
       linkEmbed.setFooter(
         "Like the bot? Donate: https://donate.nhcarrigan.com",
         "https://cdn.nhcarrigan.com/profile-transparent.png"

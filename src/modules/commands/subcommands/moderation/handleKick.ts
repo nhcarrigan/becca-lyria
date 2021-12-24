@@ -81,10 +81,10 @@ export const handleKick: CommandHandler = async (Becca, interaction) => {
     kickLogEmbed.addField("Reason", customSubstring(reason, 1000));
     kickLogEmbed.addField("User Notified?", String(sentNotice));
     kickLogEmbed.setTimestamp();
-    kickLogEmbed.setAuthor(
-      `${targetMember.user.username}#${targetMember.user.discriminator}`,
-      targetMember.user.displayAvatarURL()
-    );
+    kickLogEmbed.setAuthor({
+      name: target.tag,
+      iconURL: target.displayAvatarURL(),
+    });
     kickLogEmbed.setFooter(`ID: ${targetMember.id}`);
 
     await sendLogEmbed(Becca, guild, kickLogEmbed, "moderation_events");

@@ -35,10 +35,10 @@ export const memberAdd = async (
       partialJoinEmbed.setDescription(
         "Because we have a magical barrier, they must complete verification before they can participate in our activities. When they have done so, I will officially welcome them."
       );
-      partialJoinEmbed.setAuthor(
-        `${user.username}#${user.discriminator}`,
-        user.displayAvatarURL()
-      );
+      partialJoinEmbed.setAuthor({
+        name: user.tag,
+        iconURL: user.displayAvatarURL(),
+      });
       await sendLogEmbed(Becca, guild, partialJoinEmbed, "member_events");
       return;
     }
@@ -53,10 +53,10 @@ export const memberAdd = async (
     welcomeEmbed.setColor(Becca.colours.default);
     welcomeEmbed.setTitle("A new adventurer has joined our guild.");
     welcomeEmbed.setDescription(welcomeText);
-    welcomeEmbed.setAuthor(
-      `${user.username}#${user.discriminator}`,
-      user.displayAvatarURL()
-    );
+    welcomeEmbed.setAuthor({
+      name: user.tag,
+      iconURL: user.displayAvatarURL(),
+    });
     welcomeEmbed.setFooter(`ID: ${user.id}`);
     welcomeEmbed.setTimestamp();
 

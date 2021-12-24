@@ -39,7 +39,10 @@ export const activity: Context = {
         true
       );
       activityEmbed.setColor(Becca.colours.default);
-      activityEmbed.setAuthor(target.tag, target.displayAvatarURL());
+      activityEmbed.setAuthor({
+        name: target.tag,
+        iconURL: target.displayAvatarURL(),
+      });
       activityEmbed.setFooter(
         "Like the bot? Donate: https://donate.nhcarrigan.com",
         "https://cdn.nhcarrigan.com/profile-transparent.png"

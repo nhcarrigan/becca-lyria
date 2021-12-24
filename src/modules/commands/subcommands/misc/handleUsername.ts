@@ -19,10 +19,10 @@ export const handleUsername: CommandHandler = async (Becca, interaction) => {
 
     const usernameEmbed = new MessageEmbed();
     usernameEmbed.setColor(Becca.colours.default);
-    usernameEmbed.setAuthor(
-      `${user.username}#${user.discriminator}`,
-      user.displayAvatarURL()
-    );
+    usernameEmbed.setAuthor({
+      name: user.tag,
+      iconURL: user.displayAvatarURL(),
+    });
     usernameEmbed.setDescription(
       "This feature brought to you by [MattIPv4](https://github.com/mattipv4)."
     );

@@ -39,10 +39,10 @@ export const messageDelete = async (
 
     if (author) {
       deleteEmbed.setFooter(`Author: ${author.id} | Message: ${message.id}`);
-      deleteEmbed.setAuthor(
-        `${author.username}#${author.discriminator}`,
-        author.displayAvatarURL()
-      );
+      deleteEmbed.setAuthor({
+        name: author.tag,
+        iconURL: author.displayAvatarURL(),
+      });
     }
 
     const attached = attachments.first();
