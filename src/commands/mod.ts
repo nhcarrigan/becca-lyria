@@ -57,6 +57,24 @@ export const mod: Command = {
             .setDescription("The user to mute.")
             .setRequired(true)
         )
+        .addIntegerOption((option) =>
+          option
+            .setName("duration")
+            .setDescription("The length of time to mute the user.")
+            .setRequired(true)
+        )
+        .addStringOption((option) =>
+          option
+            .setName("unit")
+            .setDescription("The unit of time for the duration.")
+            .setRequired(true)
+            .addChoices([
+              ["Minutes", "minutes"],
+              ["Hours", "hours"],
+              ["Days", "days"],
+              ["Weeks", "weeks"],
+            ])
+        )
         .addStringOption((option) =>
           option
             .setName("reason")

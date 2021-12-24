@@ -19,64 +19,62 @@ export const handleUnmute: CommandHandler = async (
   config
 ) => {
   try {
+    const { guild, member } = interaction;
+    const target = interaction.options.getUser("target", true);
+    const reason = interaction.options.getString("reason", true);
+
+    if (!guild) {
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.missingGuild),
+      });
+      return;
+    }
+
+    if (
+      !member ||
+      typeof member.permissions === "string" ||
+      !member.permissions.has("MODERATE_MEMBERS")
+    ) {
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noPermission),
+      });
+      return;
+    }
+
+    if (target.id === member.user.id) {
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noModSelf),
+      });
+      return;
+    }
+    if (target.id === Becca.user?.id) {
+      await interaction.editReply({
+        content: getRandomValue(Becca.responses.noModBecca),
+      });
+      return;
+    }
+
+    const targetUser = await guild.members.fetch(target.id);
+
+    await targetUser.timeout(null, reason);
+
+    const muteEmbed = new MessageEmbed();
+    muteEmbed.setTitle("A user is no longer silenced!");
+    muteEmbed.setDescription(`The curse was lifted by ${member.user.username}`);
+    muteEmbed.setColor(Becca.colours.success);
+    muteEmbed.addField("Reason", customSubstring(reason, 1000));
+    muteEmbed.setFooter(`ID: ${targetUser.id}`);
+    muteEmbed.setTimestamp();
+    muteEmbed.setAuthor(
+      `${targetUser.user.username}#${targetUser.user.discriminator}`,
+      targetUser.user.displayAvatarURL()
+    );
+
+    await sendLogEmbed(Becca, guild, muteEmbed, "moderation_events");
+
     await interaction.editReply({
-      content:
-        "The mute/unmute functionality is temporarily removed, pending library support for Discord's new timeout feature.",
+      content: "That user may speak once more.",
     });
-    // const { guild, member } = interaction;
-    // const target = interaction.options.getUser("target", true);
-    // const reason = interaction.options.getString("reason", true);
-
-    // if (!guild) {
-    //   await interaction.editReply({
-    //     content: getRandomValue(Becca.responses.missingGuild),
-    //   });
-    //   return;
-    // }
-
-    // if (
-    //   !member ||
-    //   typeof member.permissions === "string" ||
-    //   !member.permissions.has("KICK_MEMBERS")
-    // ) {
-    //   await interaction.editReply({
-    //     content: getRandomValue(Becca.responses.noPermission),
-    //   });
-    //   return;
-    // }
-
-    // if (target.id === member.user.id) {
-    //   await interaction.editReply({
-    //     content: getRandomValue(Becca.responses.noModSelf),
-    //   });
-    //   return;
-    // }
-    // if (target.id === Becca.user?.id) {
-    //   await interaction.editReply({
-    //     content: getRandomValue(Becca.responses.noModBecca),
-    //   });
-    //   return;
-    // }
-
-    // const targetUser = await guild.members.fetch(target.id);
-
-    // const muteEmbed = new MessageEmbed();
-    // muteEmbed.setTitle("A user is no longer silenced!");
-    // muteEmbed.setDescription(`The curse was lifted by ${member.user.username}`);
-    // muteEmbed.setColor(Becca.colours.success);
-    // muteEmbed.addField("Reason", customSubstring(reason, 1000));
-    // muteEmbed.setFooter(`ID: ${targetUser.id}`);
-    // muteEmbed.setTimestamp();
-    // muteEmbed.setAuthor(
-    //   `${targetUser.user.username}#${targetUser.user.discriminator}`,
-    //   targetUser.user.displayAvatarURL()
-    // );
-
-    // await sendLogEmbed(Becca, guild, muteEmbed, "moderation_events");
-
-    // await interaction.editReply({
-    //   content: "That user may speak once more.",
-    // });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
