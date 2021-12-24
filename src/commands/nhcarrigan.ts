@@ -71,6 +71,7 @@ export const nhcarrigan: Command = {
               ["Star data", "stars"],
               ["Vote data", "votes"],
               ["Server Command Data", "commands"],
+              ["Emote Data", "emotes"],
             ])
         )
     ),
