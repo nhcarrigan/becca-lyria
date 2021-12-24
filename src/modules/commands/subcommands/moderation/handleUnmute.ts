@@ -6,6 +6,7 @@ import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../../utils/customSubstring";
 import { getRandomValue } from "../../../../utils/getRandomValue";
+import { sendModerationDm } from "../../../../utils/sendModerationDm";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 import { sendLogEmbed } from "../../../guild/sendLogEmbed";
 
@@ -58,11 +59,20 @@ export const handleUnmute: CommandHandler = async (
 
     await targetUser.timeout(null, reason);
 
+    const sentNotice = await sendModerationDm(
+      Becca,
+      "unmute",
+      target,
+      guild.name,
+      reason
+    );
+
     const muteEmbed = new MessageEmbed();
     muteEmbed.setTitle("A user is no longer silenced!");
     muteEmbed.setDescription(`The curse was lifted by ${member.user.username}`);
     muteEmbed.setColor(Becca.colours.success);
     muteEmbed.addField("Reason", customSubstring(reason, 1000));
+    muteEmbed.addField("User Notified?", String(sentNotice));
     muteEmbed.setFooter(`ID: ${targetUser.id}`);
     muteEmbed.setTimestamp();
     muteEmbed.setAuthor(
