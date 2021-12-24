@@ -57,6 +57,15 @@ export const validateChannelPerms = async (
     const manageNicknames = BeccaMember.permissionsIn(channel.id).has(
       "MANAGE_NICKNAMES"
     );
+    const moderateMembers = BeccaMember.permissionsIn(channel.id).has(
+      "MODERATE_MEMBERS"
+    );
+    const viewChannel = BeccaMember.permissionsIn(channel.id).has(
+      "VIEW_CHANNEL"
+    );
+    const readMessages = BeccaMember.permissionsIn(channel.id).has(
+      "READ_MESSAGE_HISTORY"
+    );
 
     const permissionEmbed = new MessageEmbed();
     permissionEmbed.setTitle("Channel Permissions");
@@ -81,6 +90,9 @@ export const validateChannelPerms = async (
       { name: "Add Reactions", value: `${addReactions}`, inline: true },
       { name: "Use External Emotes", value: `${useEmotes}`, inline: true },
       { name: "Manage Nicknames", value: `${manageNicknames}`, inline: true },
+      { name: "Moderate Members", value: `${moderateMembers}`, inline: true },
+      { name: "View Channel", value: `${viewChannel}`, inline: true },
+      { name: "Read Messages", value: `${readMessages}`, inline: true },
     ]);
     permissionEmbed.setColor(Becca.colours.default);
     permissionEmbed.setTimestamp();
@@ -99,7 +111,12 @@ export const validateChannelPerms = async (
       embedLinks &&
       attachFiles &&
       readMessageHistory &&
-      addReactions
+      addReactions &&
+      useEmotes &&
+      manageNicknames &&
+      moderateMembers &&
+      viewChannel &&
+      readMessages
     );
   } catch (err) {
     await beccaErrorHandler(Becca, "validate channel perms module", err);
