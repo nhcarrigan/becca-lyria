@@ -4,6 +4,7 @@ import {
   smackList,
   throwList,
 } from "../../../../config/commands/emoteData";
+import { EmoteOptOut } from "../../../../config/optout/EmoteOptOut";
 import EmoteCountModel from "../../../../database/models/EmoteCountModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
@@ -17,6 +18,13 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction) => {
   try {
     const action = interaction.options.getString("emote", true) as EmoteAction;
     const target = interaction.options.getUser("target", true);
+
+    if (EmoteOptOut.includes(target.id)) {
+      await interaction.editReply(
+        "This member has opted out of the emote system."
+      );
+      return;
+    }
 
     if (target.id === interaction.user.id) {
       await interaction.editReply({
