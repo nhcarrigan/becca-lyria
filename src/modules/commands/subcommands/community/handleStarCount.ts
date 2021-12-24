@@ -4,6 +4,7 @@ import { MessageEmbed } from "discord.js";
 import StarModel from "../../../../database/models/StarModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { formatTextToTable } from "../../../../utils/formatText";
 import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
@@ -47,13 +48,21 @@ export const handleStarCount: CommandHandler = async (Becca, interaction) => {
         } stars.`
       : `${member.user.username} does not have any stars yet...`;
 
+    const topTenArray = topTen.map((u, index) => [
+      index + 1,
+      u.userTag,
+      u.stars,
+    ]);
+
     const starEmbed = new MessageEmbed();
     starEmbed.setTitle(`Helpful people in ${guild.name}`);
     starEmbed.setColor(Becca.colours.default);
-    starEmbed.setDescription(userRankString);
-    topTen.forEach((u, i) => {
-      starEmbed.addField(`#${i + 1}. ${u.userTag}`, `${u.stars} stars.`);
-    });
+    starEmbed.setDescription(
+      `\`\`\`\n${formatTextToTable(topTenArray, {
+        headers: ["Rank", "User", "Stars"],
+      })}\n\`\`\``
+    );
+    starEmbed.addField("Your stars", userRankString);
     starEmbed.setTimestamp();
     starEmbed.setURL(`https://dash.beccalyria.com/stars/${guildId}`);
     starEmbed.setFooter(
