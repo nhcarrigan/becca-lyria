@@ -1,7 +1,7 @@
 import {
   GuildMember,
   MessageEmbed,
-  TextBasedChannels,
+  TextBasedChannel,
   TextChannel,
 } from "discord.js";
 
@@ -13,13 +13,13 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {GuildMember} BeccaMember Becca's guild member object for that server.
- * @param {TextBasedChannels} channel The channel to check permissions on.
+ * @param {TextBasedChannel} channel The channel to check permissions on.
  * @returns {boolean} True if Becca has ALL required permissions, false otherwise.
  */
 export const validateChannelPerms = async (
   Becca: BeccaLyria,
   BeccaMember: GuildMember,
-  channel: TextBasedChannels
+  channel: TextBasedChannel
 ): Promise<boolean> => {
   try {
     const manageServer = BeccaMember.permissionsIn(channel.id).has(
