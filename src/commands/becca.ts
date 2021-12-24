@@ -7,6 +7,7 @@ import {
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleAbout } from "../modules/commands/subcommands/becca/handleAbout";
+import { handleAdventure } from "../modules/commands/subcommands/becca/handleAdventure";
 import { handleArt } from "../modules/commands/subcommands/becca/handleArt";
 import { handleDonate } from "../modules/commands/subcommands/becca/handleDonate";
 import { handleEmote } from "../modules/commands/subcommands/becca/handleEmote";
@@ -93,8 +94,12 @@ export const becca: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("emote")
         .setDescription("Returns a Becca Emote!")
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("adventure")
+        .setDescription("Returns an image from one of Becca's adventures!")
     ),
-
   run: async (Becca, interaction, config) => {
     try {
       await interaction.deferReply();
@@ -133,6 +138,9 @@ export const becca: Command = {
           break;
         case "emote":
           await handleEmote(Becca, interaction, config);
+          break;
+        case "adventure":
+          await handleAdventure(Becca, interaction, config);
           break;
         default:
           await interaction.editReply({

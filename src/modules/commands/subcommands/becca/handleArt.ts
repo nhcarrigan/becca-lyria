@@ -31,7 +31,7 @@ export const handleArt: CommandHandler = async (Becca, interaction) => {
 
     const artButton = new MessageButton()
       .setLabel("View More Art!")
-      .setEmoji("<:BeccaArt:897545793655930910")
+      .setEmoji("<:BeccaArt:897545793655930910>")
       .setStyle("LINK")
       .setURL("https://www.beccalyria.com/gallery");
 
