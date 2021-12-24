@@ -5,6 +5,7 @@ import {
 } from "@discordjs/builders";
 
 import { emoteChoices } from "../config/commands/emoteData";
+import { EmoteOptOut } from "../config/optout/EmoteOptOut";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleEmoteUse } from "../modules/commands/subcommands/emote/handleEmoteUse";
@@ -44,6 +45,13 @@ export const emote: Command = {
   run: async (Becca, interaction, config) => {
     try {
       await interaction.deferReply();
+
+      if (EmoteOptOut.includes(interaction.user.id)) {
+        await interaction.editReply(
+          "You have opted out of the emote system and cannot use these commands."
+        );
+        return;
+      }
 
       const subcommand = interaction.options.getSubcommand();
 
