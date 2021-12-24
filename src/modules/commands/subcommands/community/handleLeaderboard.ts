@@ -4,6 +4,7 @@ import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 import LevelModel from "../../../../database/models/LevelModel";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { formatTextToTable } from "../../../../utils/formatText";
 import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
@@ -37,17 +38,21 @@ export const handleLeaderboard: CommandHandler = async (Becca, interaction) => {
       return;
     }
 
-    const topTen = serverLevels.map(
-      (u, index) =>
-        `#${index + 1}: ${u.userTag} at level ${u.level} with ${
-          u.points
-        } experience points.`
-    );
+    const topTen = serverLevels.map((u, index) => [
+      index + 1,
+      u.userTag,
+      u.level,
+      u.points,
+    ]);
 
     const levelEmbed = new MessageEmbed();
     levelEmbed.setTitle(`${guild.name} leaderboard`);
     levelEmbed.setColor(Becca.colours.default);
-    levelEmbed.setDescription(topTen.join("\n"));
+    levelEmbed.setDescription(
+      `\`\`\`\n${formatTextToTable(topTen, {
+        headers: ["Rank", "User", "Level", "XP"],
+      })}\n\`\`\``
+    );
     levelEmbed.setTimestamp();
     levelEmbed.setURL(`https://dash.beccalyria.com/leaderboard/${guildId}`);
     levelEmbed.setFooter(
