@@ -40,7 +40,10 @@ export const bookmark: Context = {
       bookmarkEmbed.setDescription(
         `${customSubstring(message.content || "no content found!", 4000)}`
       );
-      bookmarkEmbed.setAuthor(author.tag, author.displayAvatarURL());
+      bookmarkEmbed.setAuthor({
+        name: author.tag,
+        iconURL: author.displayAvatarURL(),
+      });
       bookmarkEmbed.setColor(Becca.colours.default);
       bookmarkEmbed.addField("Guild", guild, true);
       bookmarkEmbed.addField("Channel", channel.name, true);

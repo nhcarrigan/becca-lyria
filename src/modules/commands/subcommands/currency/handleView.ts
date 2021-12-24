@@ -23,10 +23,7 @@ export const handleView: CurrencyHandler = async (Becca, interaction, data) => {
 
     const viewEmbed = new MessageEmbed();
     viewEmbed.setTitle("Currency Report");
-    viewEmbed.setAuthor(
-      `${user.username}#${user.discriminator}`,
-      user.displayAvatarURL()
-    );
+    viewEmbed.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() });
     viewEmbed.setColor(Becca.colours.default);
     viewEmbed.setDescription(
       `You currently have ${data.currencyTotal} BeccaCoin!`

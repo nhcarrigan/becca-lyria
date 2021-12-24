@@ -31,10 +31,10 @@ export const handleEmoteView: CommandHandler = async (Becca, interaction) => {
 
     const emoteEmbed = new MessageEmbed();
     emoteEmbed.setTitle("Your emote counts!");
-    emoteEmbed.setAuthor(
-      interaction.user.tag,
-      interaction.user.displayAvatarURL()
-    );
+    emoteEmbed.setAuthor({
+      name: interaction.user.tag,
+      iconURL: interaction.user.displayAvatarURL(),
+    });
     emoteEmbed.setColor(Becca.colours.default);
     emoteEmbed.setDescription(`You have received a total of ${total} emotes!`);
     emoteEmbed.addField("Hugs", data.hug.toString(), true);

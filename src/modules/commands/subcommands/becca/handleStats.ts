@@ -41,10 +41,10 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       commandEmbed.setTitle("Command Stats");
       commandEmbed.setTimestamp();
       commandEmbed.setColor(Becca.colours.default);
-      commandEmbed.setAuthor(
-        `${author.username}#${author.discriminator}`,
-        author.displayAvatarURL()
-      );
+      commandEmbed.setAuthor({
+        name: author.tag,
+        iconURL: author.displayAvatarURL(),
+      });
       commandEmbed.setDescription(topServersEmbed);
       commandEmbed.setFooter(
         "Like the bot? Donate: https://donate.nhcarrigan.com",
@@ -73,10 +73,10 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       serverEmbed.setTitle("Server Vote Stats");
       serverEmbed.setTimestamp();
       serverEmbed.setColor(Becca.colours.default);
-      serverEmbed.setAuthor(
-        `${author.username}#${author.discriminator}`,
-        author.displayAvatarURL()
-      );
+      serverEmbed.setAuthor({
+        name: author.tag,
+        iconURL: author.displayAvatarURL(),
+      });
       serverEmbed.setDescription(serverVoteEmbed);
       serverEmbed.setFooter(
         "Like the bot? Donate: https://donate.nhcarrigan.com",
@@ -121,10 +121,10 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       botEmbed.setTitle("Bot Vote Stats");
       botEmbed.setTimestamp();
       botEmbed.setColor(Becca.colours.default);
-      botEmbed.setAuthor(
-        `${author.username}#${author.discriminator}`,
-        author.displayAvatarURL()
-      );
+      botEmbed.setAuthor({
+          name: author.tag,
+          iconURL: author.displayAvatarURL(),
+      });
       botEmbed.setDescription(botVoteEmbed);
       */
 

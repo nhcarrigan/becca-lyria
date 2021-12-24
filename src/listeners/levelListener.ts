@@ -91,10 +91,10 @@ export const levelListener: Listener = {
           `<@!${author.id}> has grown stronger. They are now level ${user.level}.`
         );
         levelEmbed.setColor(Becca.colours.default);
-        levelEmbed.setAuthor(
-          `${author.username}#${author.discriminator}`,
-          author.displayAvatarURL()
-        );
+        levelEmbed.setAuthor({
+          name: author.tag,
+          iconURL: author.displayAvatarURL(),
+        });
         levelEmbed.setFooter(
           "Like the bot? Donate: https://donate.nhcarrigan.com",
           "https://cdn.nhcarrigan.com/profile-transparent.png"
@@ -114,10 +114,10 @@ export const levelListener: Listener = {
                 `<@!${author.id}> has earned the <@&${role.id}> title!`
               );
               roleEmbed.setColor(Becca.colours.default);
-              roleEmbed.setAuthor(
-                `${author.username}#${author.discriminator}`,
-                author.displayAvatarURL()
-              );
+              roleEmbed.setAuthor({
+                name: author.tag,
+                iconURL: author.displayAvatarURL(),
+              });
               roleEmbed.setFooter(
                 "Like the bot? Donate: https://donate.nhcarrigan.com",
                 "https://cdn.nhcarrigan.com/profile-transparent.png"

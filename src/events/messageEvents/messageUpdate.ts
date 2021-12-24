@@ -46,10 +46,10 @@ export const messageUpdate = async (
 
     const updateEmbed = new MessageEmbed();
     updateEmbed.setTitle("Message Updated");
-    updateEmbed.setAuthor(
-      `${author.username}#${author.discriminator}`,
-      author.displayAvatarURL()
-    );
+    updateEmbed.setAuthor({
+      name: author.tag,
+      iconURL: author.displayAvatarURL(),
+    });
     updateEmbed.addField(
       "Old Content",
       customSubstring(oldContent || "`No content here.`", 1000)

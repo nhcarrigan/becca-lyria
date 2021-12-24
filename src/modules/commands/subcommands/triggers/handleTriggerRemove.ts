@@ -33,10 +33,10 @@ export const handleTriggerRemove: CommandHandler = async (
     success.setTitle("Trigger Removed");
     success.setDescription(`Successfully removed the trigger \`${trigger}\``);
     success.setColor(Becca.colours.default);
-    success.setAuthor(
-      interaction.user.tag,
-      interaction.user.displayAvatarURL()
-    );
+    success.setAuthor({
+      name: interaction.user.tag,
+      iconURL: interaction.user.displayAvatarURL(),
+    });
     success.setTimestamp();
     success.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",

@@ -84,10 +84,10 @@ export const handleBan: CommandHandler = async (Becca, interaction) => {
     banLogEmbed.addField("Reason", customSubstring(reason, 1000));
     banLogEmbed.addField("User notified?", String(sentNotice));
     banLogEmbed.setTimestamp();
-    banLogEmbed.setAuthor(
-      `${targetMember.user.username}#${targetMember.user.discriminator}`,
-      targetMember.user.displayAvatarURL()
-    );
+    banLogEmbed.setAuthor({
+      name: target.tag,
+      iconURL: target.displayAvatarURL(),
+    });
     banLogEmbed.setFooter(`ID: ${targetMember.id}`);
 
     await sendLogEmbed(Becca, guild, banLogEmbed, "moderation_events");

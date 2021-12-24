@@ -50,7 +50,10 @@ export const report: Context = {
       reportEmbed.setDescription(
         `${customSubstring(message.content || "no content found!", 4000)}`
       );
-      reportEmbed.setAuthor(author.tag, author.displayAvatarURL());
+      reportEmbed.setAuthor({
+        name: author.tag,
+        iconURL: author.displayAvatarURL(),
+      });
       reportEmbed.setColor(Becca.colours.default);
       reportEmbed.addField(
         "Channel",

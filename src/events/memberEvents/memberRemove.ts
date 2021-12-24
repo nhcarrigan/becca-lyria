@@ -39,10 +39,10 @@ export const memberRemove = async (
     );
     goodbyeEmbed.addField("Name", nickname || user.username);
     goodbyeEmbed.addField("Roles", roleList.join("\n"));
-    goodbyeEmbed.setAuthor(
-      `${user.username}#${user.discriminator}`,
-      user.displayAvatarURL()
-    );
+    goodbyeEmbed.setAuthor({
+      name: user.tag,
+      iconURL: user.displayAvatarURL(),
+    });
     goodbyeEmbed.setFooter(`ID: ${user.id}`);
     goodbyeEmbed.setTimestamp();
 
