@@ -7,6 +7,7 @@ import { customSubstring } from "../../../../utils/customSubstring";
 import { getRandomValue } from "../../../../utils/getRandomValue";
 import { sendModerationDm } from "../../../../utils/sendModerationDm";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
+import { updateHistory } from "../../moderation/updateHistory";
 
 /**
  * Issues a warning to the `target` user, and adds it to the server's warning count.
@@ -57,6 +58,8 @@ export const handleWarn: CommandHandler = async (Becca, interaction) => {
       guild.name,
       reason
     );
+
+    await updateHistory(Becca, "warn", target.id, guild.id);
 
     const warnEmbed = new MessageEmbed();
     warnEmbed.setTitle("A user has messed up.");
