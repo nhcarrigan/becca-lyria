@@ -11,7 +11,6 @@ import {
 import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { customSubstring } from "../utils/customSubstring";
 
 export const bookmark: Context = {
   data: {
