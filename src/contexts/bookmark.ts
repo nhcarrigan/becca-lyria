@@ -11,7 +11,6 @@ import {
 import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { customSubstring } from "../utils/customSubstring";
 
 export const bookmark: Context = {
   data: {
@@ -37,9 +36,7 @@ export const bookmark: Context = {
 
       const bookmarkEmbed = new MessageEmbed();
       bookmarkEmbed.setTitle(`Your saved message!`);
-      bookmarkEmbed.setDescription(
-        `${customSubstring(message.content || "no content found!", 4000)}`
-      );
+      bookmarkEmbed.setDescription(message.url);
       bookmarkEmbed.setAuthor({
         name: author.tag,
         iconURL: author.displayAvatarURL(),
@@ -47,7 +44,6 @@ export const bookmark: Context = {
       bookmarkEmbed.setColor(Becca.colours.default);
       bookmarkEmbed.addField("Guild", guild, true);
       bookmarkEmbed.addField("Channel", channel.name, true);
-      bookmarkEmbed.addField("Link", message.url);
       bookmarkEmbed.setFooter(
         "Like the bot? Donate: https://donate.nhcarrigan.com",
         "https://cdn.nhcarrigan.com/profile-transparent.png"
