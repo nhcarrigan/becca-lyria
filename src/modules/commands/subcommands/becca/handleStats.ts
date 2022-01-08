@@ -104,8 +104,6 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
     }
 
     if (view === "bvotes") {
-      /*
-      TODO: When Becca is on top.gg, enable this.
       const topVotes = await VoterModel.find()
         .sort({ botVotes: -1 })
         .limit(10)
@@ -122,23 +120,31 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       botEmbed.setTimestamp();
       botEmbed.setColor(Becca.colours.default);
       botEmbed.setAuthor({
-          name: author.tag,
-          iconURL: author.displayAvatarURL(),
+        name: author.tag,
+        iconURL: author.displayAvatarURL(),
       });
       botEmbed.setDescription(botVoteEmbed);
-      */
-
-      const botEmbed = new MessageEmbed();
-      botEmbed.setTitle("Coming Soon!");
-      botEmbed.setDescription(
-        "We are waiting to list Becca on top.gg until after we complete the Discord verification process. Stay tuned!"
-      );
       botEmbed.setFooter(
         "Like the bot? Donate: https://donate.nhcarrigan.com",
         "https://cdn.nhcarrigan.com/profile-transparent.png"
       );
 
-      await interaction.editReply({ embeds: [botEmbed] });
+      const supportServerButton = new MessageButton()
+        .setLabel("Join the Support Server")
+        .setEmoji("<:BeccaHello:867102882791424073>")
+        .setStyle("LINK")
+        .setURL("https://chat.nhcarrigan.com");
+      const voteBotButton = new MessageButton()
+        .setLabel("Vote for the Bot")
+        .setEmoji("<:BeccaWoah:877278300949585980>")
+        .setStyle("LINK")
+        .setURL("https://top.gg/bot/716707753090875473/vote");
+      const row = new MessageActionRow().addComponents([
+        supportServerButton,
+        voteBotButton,
+      ]);
+
+      await interaction.editReply({ embeds: [botEmbed], components: [row] });
       return;
     }
 
