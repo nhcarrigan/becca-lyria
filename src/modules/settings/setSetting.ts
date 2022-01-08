@@ -107,6 +107,9 @@ export const setSetting = async (
       case "report_channel":
         server[key] = value.replace(/\D/g, "");
         break;
+      case "appeal_link":
+        server[key] = value;
+        break;
       default:
         beccaLogHandler.log("error", "the setSettings logic broke horribly.");
     }

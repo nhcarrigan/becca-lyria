@@ -53,6 +53,8 @@ export const renderSetting = (
         return `<@&${value}>`;
       case "automod_channels":
       case "no_automod_channels":
+      case "appeal_link":
+        return value as string;
       case "emote_channels":
         return value === "all" ? value : `<#${value}>`;
       case "level_roles":
