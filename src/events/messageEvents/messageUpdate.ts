@@ -1,3 +1,4 @@
+import { diffSentences } from "diff";
 import { Message, MessageEmbed, PartialMessage } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
@@ -7,7 +8,6 @@ import { triggerListener } from "../../listeners/triggerListener";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
-import { customSubstring } from "../../utils/customSubstring";
 
 /**
  * Handles the messageUpdate event. Validates that the content in the message
@@ -44,20 +44,23 @@ export const messageUpdate = async (
       return;
     }
 
+    const diffContent =
+      oldContent && newContent
+        ? diffSentences(oldContent, newContent)
+            .map((el) =>
+              el.added ? `+ ${el.value}` : el.removed ? `- ${el.value}` : ""
+            )
+            .filter((el) => el)
+            .join("\n")
+        : "*** Message did not have content...";
+
     const updateEmbed = new MessageEmbed();
     updateEmbed.setTitle("Message Updated");
     updateEmbed.setAuthor({
       name: author.tag,
       iconURL: author.displayAvatarURL(),
     });
-    updateEmbed.addField(
-      "Old Content",
-      customSubstring(oldContent || "`No content here.`", 1000)
-    );
-    updateEmbed.addField(
-      "New Content",
-      customSubstring(newContent || "`No content here.`", 1000)
-    );
+    updateEmbed.setDescription(`\`\`\`diff\n${diffContent}\`\`\``);
     updateEmbed.setFooter(`Author: ${author.id} | Message: ${oldMessage.id}`);
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setTimestamp();
