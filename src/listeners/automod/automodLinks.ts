@@ -13,11 +13,15 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
   try {
     let blockedLinks = 0;
     let allowedLinks = 0;
+    const contentWithoutCode = message.content.replace(
+      /`{3}\w*\n[^`]*`{3}/g,
+      ""
+    );
 
     if (config.allowed_links.length) {
       for (const str of config.allowed_links) {
         const regex = new RegExp(str, "ig");
-        allowedLinks += (message.content.match(regex) || []).length;
+        allowedLinks += (contentWithoutCode.match(regex) || []).length;
       }
     }
 
@@ -30,13 +34,13 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
     }
 
     const linkRegex = new RegExp(
-      `(^|\\s+)(([a-z]+:\\/\\/)?(([a-z0-9-]+\\.)+((?!${allowedTLDs.join(
+      `(([a-z]+:\\/\\/)?(([a-z0-9-]+\\.)+((?!${allowedTLDs.join(
         "|"
-      )})[a-z]{3,4}|${deniedTLDs.join("|")})))(:[0-9]{1,5})?(.*\\s+|\\/|$)`,
-      "gi"
+      )})[a-z]{3,4}|${deniedTLDs.join("|")})))(:[0-9]{1,5})?[^\\s\\n]*`,
+      "ig"
     );
 
-    blockedLinks += (message.content.match(linkRegex) || []).length;
+    blockedLinks += (contentWithoutCode.match(linkRegex) || []).length;
     if (blockedLinks > 0 && blockedLinks !== allowedLinks) {
       if (message.deletable) {
         await message.delete();
