@@ -36,8 +36,7 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
     const linkRegex = new RegExp(
       `(([a-z]+:\\/\\/)?(([a-z0-9-]+\\.)+((?!${allowedTLDs.join(
         "|"
-        // eslint-disable-next-line no-useless-escape
-      )})[a-z]{3,4}|${deniedTLDs.join("|")})))(:[0-9]{1,5})?[^\s\n]*`,
+      )})[a-z]{3,4}|${deniedTLDs.join("|")})))(:[0-9]{1,5})?[^\\s\\n]*`,
       "ig"
     );
 
