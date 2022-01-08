@@ -34,10 +34,11 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
     }
 
     const linkRegex = new RegExp(
-      `(^|\\s+)(([a-z]+:\\/\\/)?(([a-z0-9-]+\\.)+((?!${allowedTLDs.join(
+      `(([a-z]+:\\/\\/)?(([a-z0-9-]+\\.)+((?!${allowedTLDs.join(
         "|"
-      )})[a-z]{3,4}|${deniedTLDs.join("|")})))(:[0-9]{1,5})?(.*\\s+|\\/|$)`,
-      "gi"
+        // eslint-disable-next-line no-useless-escape
+      )})[a-z]{3,4}|${deniedTLDs.join("|")})))(:[0-9]{1,5})?[^\s\n]*`,
+      "ig"
     );
 
     blockedLinks += (contentWithoutCode.match(linkRegex) || []).length;
