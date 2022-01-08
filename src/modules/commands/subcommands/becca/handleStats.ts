@@ -129,7 +129,6 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
         "https://cdn.nhcarrigan.com/profile-transparent.png"
       );
 
-
       const supportServerButton = new MessageButton()
         .setLabel("Join the Support Server")
         .setEmoji("<:BeccaHello:867102882791424073>")
