@@ -37,13 +37,11 @@ export const sendModerationDm = async (
       const serverID = guild.id;
       const server = (await ServerModel.findOne({ serverID })) || null;
 
-      if (server) {
-        if (server.appeal_link.length > 0) {
-          embed.addField(
-            "You can appeal your ban using this link: ",
-            server.appeal_link
-          );
-        }
+      if (server && server.appeal_link.length) {
+        embed.addField(
+          "You can appeal your ban using this link: ",
+          server.appeal_link
+        );
       }
     }
 
