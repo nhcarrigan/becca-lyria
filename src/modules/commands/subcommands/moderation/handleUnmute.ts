@@ -66,7 +66,7 @@ export const handleUnmute: CommandHandler = async (
       Becca,
       "unmute",
       target,
-      guild.name,
+      guild,
       reason
     );
 

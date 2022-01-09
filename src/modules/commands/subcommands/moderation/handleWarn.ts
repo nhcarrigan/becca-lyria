@@ -55,7 +55,7 @@ export const handleWarn: CommandHandler = async (Becca, interaction) => {
       Becca,
       "warn",
       target,
-      guild.name,
+      guild,
       reason
     );
 

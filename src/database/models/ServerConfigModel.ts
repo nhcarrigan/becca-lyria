@@ -26,6 +26,7 @@ export const ServerConfigSchema = new Schema({
   sass_mode: String,
   triggers: Array,
   emote_channels: Array,
+  appeal_link: String,
   // automod
   automod_channels: [String],
   no_automod_channels: [String],

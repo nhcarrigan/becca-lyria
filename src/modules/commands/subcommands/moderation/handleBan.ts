@@ -64,7 +64,7 @@ export const handleBan: CommandHandler = async (Becca, interaction) => {
       Becca,
       "ban",
       target,
-      guild.name,
+      guild,
       reason
     );
 

@@ -64,7 +64,7 @@ export const handleKick: CommandHandler = async (Becca, interaction) => {
       Becca,
       "kick",
       target,
-      guild.name,
+      guild,
       reason
     );
 
