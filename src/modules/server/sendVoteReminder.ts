@@ -31,11 +31,11 @@ export const sendVoteReminder = async (
 
     const message = `Hey <@!${
       payload.user
-    }>! It's time to vote for the ${type} on top.gg again!\n\nYou can vote here: ${
+    }>! It's time to vote for the ${type} on top.gg again!\n\nYou can vote here: <${
       type === "server"
         ? "https://top.gg/servers/778130114772598785/vote"
-        : "Bot vote coming soon!"
-    }`;
+        : "https://top.gg/bot/716707753090875473/vote"
+    }>`;
 
     await channel.send({ content: message });
   } catch (err) {
