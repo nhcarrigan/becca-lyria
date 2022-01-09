@@ -46,7 +46,12 @@ export const sendModerationDm = async (
       .catch(() => false);
     return sent;
   } catch (err) {
-    await beccaErrorHandler(Becca, "send moderation dm", err, config.serverName);
+    await beccaErrorHandler(
+      Becca,
+      "send moderation dm",
+      err,
+      config.serverName
+    );
     return false;
   }
 };
