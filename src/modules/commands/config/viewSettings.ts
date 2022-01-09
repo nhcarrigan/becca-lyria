@@ -99,6 +99,7 @@ export const viewSettings = async (
       config.emote_channels.length.toString(),
       true
     );
+    settingsEmbed.addField("Ban Appeal Link", config.appeal_link, true);
     settingsEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",
       "https://cdn.nhcarrigan.com/profile-transparent.png"
