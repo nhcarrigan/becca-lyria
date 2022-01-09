@@ -92,6 +92,7 @@ export const setSetting = async (
       case "links":
       case "profanity":
       case "profanity_message":
+      case "appeal_link":
         server[key] = value;
         break;
       case "welcome_channel":
@@ -106,9 +107,6 @@ export const setSetting = async (
       case "join_role":
       case "report_channel":
         server[key] = value.replace(/\D/g, "");
-        break;
-      case "appeal_link":
-        server[key] = value;
         break;
       default:
         beccaLogHandler.log("error", "the setSettings logic broke horribly.");
