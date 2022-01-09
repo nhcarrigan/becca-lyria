@@ -14,7 +14,7 @@ import { updateHistory } from "../../moderation/updateHistory";
  * Provided the caller has permission, kicks the `target` user from the guild
  * for the given `reason`.
  */
-export const handleKick: CommandHandler = async (Becca, interaction) => {
+export const handleKick: CommandHandler = async (Becca, interaction, config) => {
   try {
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
@@ -62,9 +62,9 @@ export const handleKick: CommandHandler = async (Becca, interaction) => {
 
     const sentNotice = await sendModerationDm(
       Becca,
+      config,
       "kick",
       target,
-      guild,
       reason
     );
 

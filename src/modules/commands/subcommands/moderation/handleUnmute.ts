@@ -64,9 +64,9 @@ export const handleUnmute: CommandHandler = async (
 
     const sentNotice = await sendModerationDm(
       Becca,
+      config,
       "unmute",
       target,
-      guild,
       reason
     );
 

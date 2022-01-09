@@ -13,7 +13,7 @@ import { updateHistory } from "../../moderation/updateHistory";
  * Issues a warning to the `target` user, and adds it to the server's warning count.
  * Logs the `reason`.
  */
-export const handleWarn: CommandHandler = async (Becca, interaction) => {
+export const handleWarn: CommandHandler = async (Becca, interaction, config) => {
   try {
     const { guild, member } = interaction;
     if (!guild) {
@@ -53,9 +53,9 @@ export const handleWarn: CommandHandler = async (Becca, interaction) => {
 
     const sentNotice = await sendModerationDm(
       Becca,
+      config,
       "warn",
       target,
-      guild,
       reason
     );
 
