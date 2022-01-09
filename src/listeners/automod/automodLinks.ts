@@ -5,23 +5,28 @@ import { defaultServer } from "../../config/database/defaultServer";
 import { allowedTLDs, deniedTLDs } from "../../config/listeners/linkRegex";
 import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { customSubstring } from "../../utils/customSubstring";
 
 /**
  * Detects links in a message and responds accordingly.
  */
 export const automodLinks: ListenerHandler = async (Becca, message, config) => {
   try {
-    let blockedLinks = 0;
-    let allowedLinks = 0;
     const contentWithoutCode = message.content.replace(
       /`{3}\w*\n[^`]*`{3}/g,
       ""
     );
 
+    const allowedLinkList: RegExpMatchArray = [];
+    const blockedLinkList: RegExpMatchArray = [];
+
     if (config.allowed_links.length) {
       for (const str of config.allowed_links) {
         const regex = new RegExp(str, "ig");
-        allowedLinks += (contentWithoutCode.match(regex) || []).length;
+        const matches = contentWithoutCode.match(regex);
+        if (matches) {
+          allowedLinkList.push(...matches);
+        }
       }
     }
 
@@ -40,7 +45,14 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
       "ig"
     );
 
-    blockedLinks += (contentWithoutCode.match(linkRegex) || []).length;
+    const blockedMatches = contentWithoutCode.match(linkRegex);
+    if (blockedMatches) {
+      blockedLinkList.push(...blockedMatches);
+    }
+
+    const blockedLinks = blockedLinkList.length;
+    const allowedLinks = allowedLinkList.length;
+
     if (blockedLinks > 0 && blockedLinks !== allowedLinks) {
       if (message.deletable) {
         await message.delete();
@@ -69,13 +81,22 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
       dmEmbed.setURL(warning.url);
       dmEmbed.setDescription(
         "Here's the contents of the deleted message: \n```\n" +
-          message.content +
+          customSubstring(message.content, 2000) +
           "```"
       );
       dmEmbed.setColor(Becca.colours.error);
       dmEmbed.addField("Server", message.guild?.name || "unknown");
       dmEmbed.addField("Channel", message.channel.toString());
       dmEmbed.addField("Reason", "Blocked Link detected");
+      dmEmbed.addField(
+        "Links:",
+        blockedLinkList.join(" ") ||
+          `No links detected. Please contact the developer.`
+      );
+      dmEmbed.addField(
+        "Allowed Links:",
+        allowedLinkList.join(" ") || `No links were permitted.`
+      );
 
       await message.author.send({ embeds: [dmEmbed] }).catch(() => null);
     }
