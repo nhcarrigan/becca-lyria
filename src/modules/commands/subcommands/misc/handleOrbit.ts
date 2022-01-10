@@ -79,7 +79,7 @@ export const handleOrbit: CommandHandler = async (Becca, interaction) => {
     const twitterBtn = new MessageButton()
       .setStyle("LINK")
       .setEmoji("<:twitter:904209263642177556>")
-      .setURL("https://twitter.com/nhcarrigan")
+      .setURL("https://twitter.com/becca_lyria")
       .setLabel("Follow us on Twitter!");
 
     const buttons = new MessageActionRow().addComponents([

@@ -9,6 +9,7 @@ import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleAbout } from "../modules/commands/subcommands/becca/handleAbout";
 import { handleAdventure } from "../modules/commands/subcommands/becca/handleAdventure";
 import { handleArt } from "../modules/commands/subcommands/becca/handleArt";
+import { handleContact } from "../modules/commands/subcommands/becca/handleContact";
 import { handleDonate } from "../modules/commands/subcommands/becca/handleDonate";
 import { handleEmote } from "../modules/commands/subcommands/becca/handleEmote";
 import { handleHelp } from "../modules/commands/subcommands/becca/handleHelp";
@@ -105,6 +106,11 @@ export const becca: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("privacy")
         .setDescription("Returns a link to Becca's privacy policy.")
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("contact")
+        .setDescription("Offers links to contact the development team.")
     ),
   run: async (Becca, interaction, config) => {
     try {
@@ -150,6 +156,9 @@ export const becca: Command = {
           break;
         case "privacy":
           await handlePrivacy(Becca, interaction, config);
+          break;
+        case "contact":
+          await handleContact(Becca, interaction, config);
           break;
         default:
           await interaction.editReply({
