@@ -36,7 +36,7 @@ export const handleAdventure: CommandHandler = async (Becca, interaction) => {
       .setLabel("View More Adventures!")
       .setEmoji("<:BeccaWork:883854701416833024>")
       .setStyle("LINK")
-      .setURL("https://www.beccalyria.com/games");
+      .setURL("https://beccalyria.com/adventures");
 
     const row = new MessageActionRow().addComponents([artButton]);
 
