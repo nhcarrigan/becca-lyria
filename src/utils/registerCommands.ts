@@ -30,11 +30,13 @@ export const registerCommands = async (Becca: BeccaLyria): Promise<boolean> => {
       | RESTPostAPIChatInputApplicationCommandsJSONBody
     )[] = [];
 
-    Becca.commands.forEach((command) =>
-      commandData.push(
-        command.data.toJSON() as RESTPostAPIApplicationCommandsJSONBody
-      )
-    );
+    Becca.commands.forEach((command) => {
+      const data =
+        command.data.toJSON() as RESTPostAPIApplicationCommandsJSONBody;
+      data.options?.sort((a, b) => a.name.localeCompare(b.name));
+
+      commandData.push(data);
+    });
     Becca.contexts.forEach((context) => commandData.push(context.data));
     if (process.env.NODE_ENV === "production") {
       beccaLogHandler.log("debug", "registering commands globally!");
