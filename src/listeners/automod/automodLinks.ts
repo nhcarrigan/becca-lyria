@@ -76,9 +76,10 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
       );
       const warning = await message.channel.send({ embeds: [linkEmbed] });
 
+      setTimeout(async () => await warning.delete(), 300000);
+
       const dmEmbed = new MessageEmbed();
       dmEmbed.setTitle("Your message has been deleted...");
-      dmEmbed.setURL(warning.url);
       dmEmbed.setDescription(
         "Here's the contents of the deleted message: \n```\n" +
           customSubstring(message.content, 2000) +
