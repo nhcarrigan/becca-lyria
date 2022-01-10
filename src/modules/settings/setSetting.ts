@@ -92,6 +92,7 @@ export const setSetting = async (
       case "links":
       case "profanity":
       case "profanity_message":
+      case "appeal_link":
         server[key] = value;
         break;
       case "welcome_channel":

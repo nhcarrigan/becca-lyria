@@ -14,7 +14,7 @@ import { updateHistory } from "../../moderation/updateHistory";
  * Bans the `target` user for the provided `reason`, assuming the caller has permissions.
  * Also deletes the `target`'s messages from the last 24 hours.
  */
-export const handleBan: CommandHandler = async (Becca, interaction) => {
+export const handleBan: CommandHandler = async (Becca, interaction, config) => {
   try {
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
@@ -62,9 +62,9 @@ export const handleBan: CommandHandler = async (Becca, interaction) => {
 
     const sentNotice = await sendModerationDm(
       Becca,
+      config,
       "ban",
       target,
-      guild.name,
       reason
     );
 

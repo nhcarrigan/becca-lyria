@@ -21,6 +21,7 @@ export const configChoices: [string, Settings][] = [
   ["Custom Leave Message", "leave_message"],
   ["Report Channel", "report_channel"],
   ["No Levelling Channels", "level_ignore"],
+  ["Ban Appeal Link", "appeal_link"],
   ["Sass Mode", "sass_mode"],
   ["Emote-Only Channels", "emote_channels"],
 ];
