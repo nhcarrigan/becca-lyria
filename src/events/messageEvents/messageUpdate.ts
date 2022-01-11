@@ -3,6 +3,7 @@ import { Message, MessageEmbed, PartialMessage } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { automodListener } from "../../listeners/automodListener";
+import { emoteListener } from "../../listeners/emoteListener";
 import { sassListener } from "../../listeners/sassListener";
 import { triggerListener } from "../../listeners/triggerListener";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
@@ -74,6 +75,7 @@ export const messageUpdate = async (
     await sassListener.run(Becca, message, serverConfig);
     await automodListener.run(Becca, message, serverConfig);
     await triggerListener.run(Becca, message, serverConfig);
+    await emoteListener.run(Becca, message, serverConfig);
     Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
