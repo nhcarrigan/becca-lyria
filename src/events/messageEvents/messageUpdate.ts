@@ -8,6 +8,7 @@ import { triggerListener } from "../../listeners/triggerListener";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { emoteListener } from "../../listeners/emoteListener";
 
 /**
  * Handles the messageUpdate event. Validates that the content in the message
@@ -74,6 +75,7 @@ export const messageUpdate = async (
     await sassListener.run(Becca, message, serverConfig);
     await automodListener.run(Becca, message, serverConfig);
     await triggerListener.run(Becca, message, serverConfig);
+    await emoteListener.run(Becca, message, serverConfig);
     Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
