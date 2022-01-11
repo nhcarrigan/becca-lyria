@@ -3,12 +3,12 @@ import { Message, MessageEmbed, PartialMessage } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { automodListener } from "../../listeners/automodListener";
+import { emoteListener } from "../../listeners/emoteListener";
 import { sassListener } from "../../listeners/sassListener";
 import { triggerListener } from "../../listeners/triggerListener";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
-import { emoteListener } from "../../listeners/emoteListener";
 
 /**
  * Handles the messageUpdate event. Validates that the content in the message
