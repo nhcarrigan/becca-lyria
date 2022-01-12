@@ -6,6 +6,7 @@ import CurrencyModel from "../src/database/models/CurrencyModel";
 import EmoteCountModel from "../src/database/models/EmoteCountModel";
 import HistoryModel from "../src/database/models/HistoryModel";
 import LevelModel from "../src/database/models/LevelModel";
+import ReactionRoleModel from "../src/database/models/ReactionRoleModel";
 import ServerConfigModel from "../src/database/models/ServerConfigModel";
 import StarModel from "../src/database/models/StarModel";
 import UsageModel from "../src/database/models/UsageModel";
@@ -16,6 +17,7 @@ import { testCurrency } from "../src/interfaces/database/Currency";
 import { testEmoteCount } from "../src/interfaces/database/EmoteCount";
 import { testHistory } from "../src/interfaces/database/History";
 import { testLevel } from "../src/interfaces/database/Level";
+import { testReactionRole } from "../src/interfaces/database/ReactionRole";
 import { testServerConfig } from "../src/interfaces/database/ServerConfig";
 import { testStar } from "../src/interfaces/database/Star";
 import { testUsage } from "../src/interfaces/database/Usage";
@@ -75,6 +77,18 @@ suite("Schema Validation", () => {
     for (const key in testLevel) {
       test(`${key} should be in the Level schema`, () => {
         assert(key in testModel, `Missing ${key} from the Level schema.`);
+      });
+    }
+  });
+
+  suite("Reaction Role Model", () => {
+    const testModel = new ReactionRoleModel();
+    for (const key in testReactionRole) {
+      test(`${key} should be in the Reaction Role schema`, () => {
+        assert(
+          key in testModel,
+          `Missing ${key} from the Reaction Role schema.`
+        );
       });
     }
   });
