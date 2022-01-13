@@ -4,6 +4,7 @@ import ReactionRoleModel from "../database/models/ReactionRoleModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 
 import { beccaErrorHandler } from "./beccaErrorHandler";
+import { beccaLogHandler } from "./beccaLogHandler";
 
 /**
  * Iterates through the reaction role data, fetching anything that isn't already cached.
@@ -34,7 +35,8 @@ export const cacheReactionRoles = async (Becca: BeccaLyria): Promise<void> => {
       if (!message) {
         continue;
       }
-      console.log(
+      beccaLogHandler.log(
+        "info",
         `Cached message ${message.id} in ${channel.name} of ${guild.name}`
       );
     }

@@ -12,7 +12,7 @@ import { cacheReactionRoles } from "../../utils/cacheReactionRoles";
  * @param {BeccaLyria} Becca Becca's Client instance.
  */
 export const ready = async (Becca: BeccaLyria): Promise<void> => {
-  console.log("Fetching reaction role data...");
+  beccaLogHandler.log("debug", "Fetching reaction role data...");
   await cacheReactionRoles(Becca);
   const readyEmbed = new MessageEmbed();
   readyEmbed.setTitle("Becca is online");
