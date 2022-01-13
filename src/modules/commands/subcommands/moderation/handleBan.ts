@@ -18,6 +18,7 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
   try {
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
+    const prune = interaction.options.getNumber("prune", true);
     const reason = interaction.options.getString("reason", true);
 
     if (!guild) {
@@ -51,6 +52,13 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
       return;
     }
 
+    if (prune < 0 || prune > 7) {
+      await interaction.editReply({
+        content: "`prune` value must be between 0 and 7.",
+      });
+      return;
+    }
+
     const targetMember = await guild.members.fetch(target.id);
 
     if (!targetMember.bannable) {
@@ -70,7 +78,7 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
 
     await targetMember.ban({
       reason: customSubstring(reason, 1000),
-      days: 1,
+      days: prune,
     });
 
     await updateHistory(Becca, "ban", target.id, guild.id);

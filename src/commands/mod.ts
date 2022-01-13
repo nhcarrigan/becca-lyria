@@ -115,6 +115,16 @@ export const mod: Command = {
             .setDescription("The user to kick.")
             .setRequired(true)
         )
+        .addNumberOption((option) =>
+          option
+            .setName("prune")
+            .setDescription(
+              "The number of days to clean up messages. Set to 0 to not clean messages."
+            )
+            .setRequired(true)
+            .setMinValue(0)
+            .setMaxValue(7)
+        )
         .addStringOption((option) =>
           option
             .setName("reason")
