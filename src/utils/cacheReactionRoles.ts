@@ -15,23 +15,27 @@ import { beccaLogHandler } from "./beccaLogHandler";
 export const cacheReactionRoles = async (Becca: BeccaLyria): Promise<void> => {
   try {
     const roleList = await ReactionRoleModel.find({});
+    const cacheMap = new Set();
 
     for (const reactionRole of roleList) {
+      const { messageId, channelId, serverId } = reactionRole;
+      if (cacheMap.has(`${serverId}/${channelId}/${messageId}`)) {
+        continue;
+      }
       const guild =
-        Becca.guilds.cache.find((el) => el.id === reactionRole.serverId) ||
-        (await Becca.guilds.fetch(reactionRole.serverId));
+        Becca.guilds.cache.find((el) => el.id === serverId) ||
+        (await Becca.guilds.fetch(serverId));
       if (!guild) {
         continue;
       }
       const channel =
-        guild.channels.cache.find((el) => el.id === reactionRole.channelId) ||
-        (await guild.channels.fetch(reactionRole.channelId));
+        guild.channels.cache.find((el) => el.id === channelId) ||
+        (await guild.channels.fetch(channelId));
       if (!channel) {
         continue;
       }
-      const message = await (channel as TextChannel).messages.fetch(
-        reactionRole.messageId
-      );
+      const message = await (channel as TextChannel).messages.fetch(messageId);
+      cacheMap.add(`${serverId}/${channelId}/${messageId}`);
       if (!message) {
         continue;
       }
