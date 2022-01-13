@@ -35,7 +35,9 @@ export const handleReactionAdd: CommandHandler = async (Becca, interaction) => {
       return;
     }
 
-    const emojiValue = reacted.emoji.id || reacted.emoji.name;
+    const emojiValue = reacted.emoji.id
+      ? `<:${reacted.emoji.name}:${reacted.emoji.id}>`
+      : reacted.emoji.name;
 
     if (!emojiValue) {
       await interaction.editReply("I can't seem to parse that emoji...");
@@ -64,7 +66,7 @@ export const handleReactionAdd: CommandHandler = async (Becca, interaction) => {
     const addEmbed = new MessageEmbed();
     addEmbed.setTitle("Reaction Role Added");
     addEmbed.setColor(Becca.colours.default);
-    addEmbed.setDescription(`\`${emoji}\` associated with <@&${role.id}>`);
+    addEmbed.setDescription(`${emojiValue} associated with <@&${role.id}>`);
     addEmbed.addField("Message", messageLink);
     addEmbed.setTimestamp();
     addEmbed.setFooter(

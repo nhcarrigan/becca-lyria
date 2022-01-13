@@ -43,7 +43,7 @@ export const handleReactionList: CommandHandler = async (
     listEmbed.setTitle("Reaction Roles");
     listEmbed.setColor(Becca.colours.default);
     listEmbed.setDescription(
-      reactionRoles.map((el) => `\`${el.emoji}\`: <@&${el.roleId}>`).join("\n")
+      reactionRoles.map((el) => `${el.emoji}: <@&${el.roleId}>`).join("\n")
     );
     listEmbed.addField("Message", messageLink);
     listEmbed.setTimestamp();
