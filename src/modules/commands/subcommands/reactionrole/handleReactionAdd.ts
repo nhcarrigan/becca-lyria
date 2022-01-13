@@ -28,10 +28,17 @@ export const handleReactionAdd: CommandHandler = async (Becca, interaction) => {
 
     const reacted = await targetMessage
       .react(emoji)
-      .then(() => true)
-      .catch(() => false);
+      .then((data) => data)
+      .catch(() => null);
     if (!reacted) {
       await interaction.editReply("That emoji does not appear to be valid...");
+      return;
+    }
+
+    const emojiValue = reacted.emoji.id || reacted.emoji.name;
+
+    if (!emojiValue) {
+      await interaction.editReply("I can't seem to parse that emoji...");
       return;
     }
 
@@ -41,13 +48,13 @@ export const handleReactionAdd: CommandHandler = async (Becca, interaction) => {
         serverId,
         channelId,
         messageId,
-        emoji,
+        emoji: emojiValue,
       })) ||
       (await ReactionRoleModel.create({
         serverId,
         channelId,
         messageId,
-        emoji,
+        emoji: emojiValue,
         roleId: role.id,
       }));
 
@@ -57,7 +64,7 @@ export const handleReactionAdd: CommandHandler = async (Becca, interaction) => {
     const addEmbed = new MessageEmbed();
     addEmbed.setTitle("Reaction Role Added");
     addEmbed.setColor(Becca.colours.default);
-    addEmbed.setDescription(`${emoji} associated with <@&${role.id}>`);
+    addEmbed.setDescription(`\`${emoji}\` associated with <@&${role.id}>`);
     addEmbed.addField("Message", messageLink);
     addEmbed.setTimestamp();
     addEmbed.setFooter(
