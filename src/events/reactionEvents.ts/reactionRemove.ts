@@ -28,7 +28,9 @@ export const reactionRemove = async (
 
     const { id: messageId, guildId: serverId, channelId } = reaction.message;
 
-    const emojiValue = reaction.emoji.id || reaction.emoji.name;
+    const emojiValue = reaction.emoji.id
+      ? `<:${reaction.emoji.name}:${reaction.emoji.id}>`
+      : reaction.emoji.name;
 
     if (!emojiValue) {
       return;
