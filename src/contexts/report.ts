@@ -19,7 +19,7 @@ export const report: Context = {
     name: "report",
     type: 3,
   },
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply({ ephemeral: true });
       const guild = interaction.guild as Guild;
@@ -27,7 +27,7 @@ export const report: Context = {
 
       if (!guild || !message) {
         await interaction.editReply({
-          content: getRandomValue(Becca.responses.missingGuild),
+          content: getRandomValue(t("responses:missingGuild")),
         });
         return;
       }
