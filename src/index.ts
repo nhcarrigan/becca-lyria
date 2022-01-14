@@ -31,7 +31,7 @@ Sentry.init({
  * This is the entry point for Becca's process. This will log the boot process,
  * call the necessary helpers to prepare Becca, and then log in to Discord.
  */
-(async () => {
+void (async () => {
   beccaLogHandler.log("debug", "Starting process...");
 
   await initialiseTranslations();

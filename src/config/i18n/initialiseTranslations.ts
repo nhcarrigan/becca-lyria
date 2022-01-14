@@ -6,8 +6,8 @@ import enGbSass from "./en-GB/sass.json";
 /**
  * Function to initialise the i18n plugin, loading the responses.
  */
-export const initialiseTranslations = (): void => {
-  init({
+export const initialiseTranslations = async (): Promise<void> => {
+  await init({
     fallbackLng: "en-GB",
     ns: ["responses", "sass"],
     returnObjects: true,
