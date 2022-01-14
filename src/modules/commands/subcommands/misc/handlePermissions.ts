@@ -12,13 +12,17 @@ import { validateServerPerms } from "../../../commands/server/validateServerPerm
  * Validates that Becca has the correct permissions in the server and the
  * specific channel.
  */
-export const handlePermissions: CommandHandler = async (Becca, interaction) => {
+export const handlePermissions: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const { channel, guild, member } = interaction;
 
     if (!guild || !member || !channel) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -28,7 +32,7 @@ export const handlePermissions: CommandHandler = async (Becca, interaction) => {
       (member as GuildMember).id !== Becca.configs.ownerId
     ) {
       await interaction.reply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
