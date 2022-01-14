@@ -1,10 +1,5 @@
 import * as child from "child_process";
 
-import {
-  BeccaColours,
-  BeccaPhrases,
-  BeccaSass,
-} from "../config/BeccaResponses";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { beccaLogHandler } from "../utils/beccaLogHandler";
 
@@ -92,9 +87,12 @@ export const validateEnv = (
     };
 
     Becca.configs = configs;
-    Becca.colours = BeccaColours;
-    Becca.responses = BeccaPhrases;
-    Becca.sass = BeccaSass;
+    Becca.colours = {
+      default: 0x8b4283,
+      success: 0x1f8b4c,
+      warning: 0xc27c0e,
+      error: 0x992d22,
+    };
 
     Becca.dataCache = {
       orbitData: [],
