@@ -7,7 +7,7 @@ import { getRandomValue } from "../../../utils/getRandomValue";
 /**
  * Submodule for amirite comebacks.
  */
-export const sassAmirite: ListenerHandler = async (Becca, message) => {
+export const sassAmirite: ListenerHandler = async (Becca, message, t) => {
   try {
     const { channel, content } = message;
 
@@ -15,7 +15,7 @@ export const sassAmirite: ListenerHandler = async (Becca, message) => {
       /(am|was)\s?i\sright\??|(i\sam|i'm|i\swas)\s?right|amirite/i;
 
     if (amiriteRegex.test(content)) {
-      await channel.send(getRandomValue(Becca.sass.amirite));
+      await channel.send(getRandomValue(t("sass:amIRite")));
     }
   } catch (err) {
     await beccaErrorHandler(

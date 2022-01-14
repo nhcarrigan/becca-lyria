@@ -13,6 +13,7 @@ import { customSubstring } from "../../utils/customSubstring";
 export const automodProfanity: ListenerHandler = async (
   Becca,
   message,
+  t,
   config
 ) => {
   try {

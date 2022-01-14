@@ -18,7 +18,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 export const levelListener: Listener = {
   name: "Level Up!",
   description: "Grants experience based on message activity in the server.",
-  run: async (Becca, message, serverSettings) => {
+  run: async (Becca, message, t, serverSettings) => {
     try {
       const { author, content, guild, member } = message;
 

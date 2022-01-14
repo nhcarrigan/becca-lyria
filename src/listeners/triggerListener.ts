@@ -5,7 +5,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 export const triggerListener: Listener = {
   name: "triggerListener",
   description: "Handles the logic for a server's triggers.",
-  run: async (Becca, message, config) => {
+  run: async (Becca, message, t, config) => {
     try {
       if (!config.triggers?.length) {
         return;

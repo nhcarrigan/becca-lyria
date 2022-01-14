@@ -7,14 +7,14 @@ import { getRandomValue } from "../../../utils/getRandomValue";
 /**
  * Submodule for amirite comebacks.
  */
-export const sassGreeting: ListenerHandler = async (Becca, message) => {
+export const sassGreeting: ListenerHandler = async (Becca, message, t) => {
   try {
     const { channel, content } = message;
 
     const greetingRegex =
       /good\s(morning|afternoon|evening|night|day)|morning\severyone/i;
     if (greetingRegex.test(content) || content.toLowerCase() === "morning") {
-      await channel.send(getRandomValue(Becca.sass.greeting));
+      await channel.send(getRandomValue(t("sass:greeting")));
     }
   } catch (err) {
     await beccaErrorHandler(

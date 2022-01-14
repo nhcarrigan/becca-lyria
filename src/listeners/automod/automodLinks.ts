@@ -10,7 +10,12 @@ import { customSubstring } from "../../utils/customSubstring";
 /**
  * Detects links in a message and responds accordingly.
  */
-export const automodLinks: ListenerHandler = async (Becca, message, config) => {
+export const automodLinks: ListenerHandler = async (
+  Becca,
+  message,
+  t,
+  config
+) => {
   try {
     const contentWithoutCode = message.content.replace(
       /`{3}\w*\n[^`]*`{3}/g,

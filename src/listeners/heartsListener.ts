@@ -12,7 +12,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 export const heartsListener: Listener = {
   name: "Hearts Listener",
   description: "Adds heart reactions to specified users.",
-  run: async (Becca, message, config) => {
+  run: async (Becca, message, t, config) => {
     try {
       const { author } = message;
       const usersToHeart = defaultHearts.concat(config.hearts);

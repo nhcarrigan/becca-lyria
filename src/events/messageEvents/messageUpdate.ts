@@ -1,5 +1,6 @@
 import { diffSentences } from "diff";
 import { Message, MessageEmbed, PartialMessage } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { automodListener } from "../../listeners/automodListener";
@@ -9,6 +10,7 @@ import { triggerListener } from "../../listeners/triggerListener";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { getMessageLanguage } from "../../utils/getLangCode";
 
 /**
  * Handles the messageUpdate event. Validates that the content in the message
@@ -30,6 +32,8 @@ export const messageUpdate = async (
     if (!guild || newMessage.channel.type === "DM") {
       return;
     }
+    const lang = getMessageLanguage(newMessage as Message);
+    const t = getFixedT(lang);
 
     const serverConfig = await getSettings(Becca, guild.id, guild.name);
 
@@ -72,10 +76,10 @@ export const messageUpdate = async (
 
     const message = await newMessage.fetch();
 
-    await sassListener.run(Becca, message, serverConfig);
-    await automodListener.run(Becca, message, serverConfig);
-    await triggerListener.run(Becca, message, serverConfig);
-    await emoteListener.run(Becca, message, serverConfig);
+    await sassListener.run(Becca, message, t, serverConfig);
+    await automodListener.run(Becca, message, t, serverConfig);
+    await triggerListener.run(Becca, message, t, serverConfig);
+    await emoteListener.run(Becca, message, t, serverConfig);
     Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
