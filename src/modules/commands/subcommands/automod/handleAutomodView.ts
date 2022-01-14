@@ -16,6 +16,7 @@ import { viewSettingsArray } from "../config/viewSettingsArray";
 export const handleAutomodView: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -23,7 +24,7 @@ export const handleAutomodView: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
