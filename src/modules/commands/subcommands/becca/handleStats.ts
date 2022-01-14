@@ -9,12 +9,12 @@ import { formatTextToTable } from "../../../../utils/formatText";
 import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 
-export const handleStats: CommandHandler = async (Becca, interaction) => {
+export const handleStats: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guild, user: author } = interaction;
     if (!guild || !author) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

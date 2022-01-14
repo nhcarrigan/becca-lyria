@@ -29,7 +29,7 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
         !member.permissions.has("MODERATE_MEMBERS"))
     ) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
