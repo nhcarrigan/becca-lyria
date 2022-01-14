@@ -22,6 +22,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 export const handleRole: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ): Promise<void> => {
   try {
@@ -29,7 +30,7 @@ export const handleRole: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

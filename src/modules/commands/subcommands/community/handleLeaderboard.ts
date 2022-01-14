@@ -13,13 +13,17 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * containing the top ten users by experience points, their total XP and level,
  * and the rank of the user who called the command.
  */
-export const handleLeaderboard: CommandHandler = async (Becca, interaction) => {
+export const handleLeaderboard: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const { guildId, guild } = interaction;
 
     if (!guildId || !guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

@@ -13,13 +13,13 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Generates an embed listing the various Discord settings for the specific server.
  */
-export const handleServer: CommandHandler = async (Becca, interaction) => {
+export const handleServer: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guild } = interaction;
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

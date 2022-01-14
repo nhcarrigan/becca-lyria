@@ -15,6 +15,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 export const handleSuggest: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -22,7 +23,7 @@ export const handleSuggest: CommandHandler = async (
     const suggestion = interaction.options.getString("suggestion", true);
     if (!guild || !author) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

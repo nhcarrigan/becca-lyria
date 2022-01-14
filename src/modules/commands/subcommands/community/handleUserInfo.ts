@@ -11,12 +11,12 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Generates an embed containing information about the given `user`, or the author.
  */
-export const handleUserInfo: CommandHandler = async (Becca, interaction) => {
+export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { user, guild } = interaction;
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

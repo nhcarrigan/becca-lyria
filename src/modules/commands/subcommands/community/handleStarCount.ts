@@ -12,13 +12,17 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Generates an embed listing the top ten users with the most stars received in the
  * server, and includes the user's rank.
  */
-export const handleStarCount: CommandHandler = async (Becca, interaction) => {
+export const handleStarCount: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const { member, guild, guildId } = interaction;
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

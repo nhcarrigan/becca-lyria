@@ -11,13 +11,13 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Returns the current level ranking information for the given `user-level` or the author.
  * Does not work if levels are disabled.
  */
-export const handleLevel: CommandHandler = async (Becca, interaction) => {
+export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guildId, guild, user } = interaction;
 
     if (!guildId || !guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

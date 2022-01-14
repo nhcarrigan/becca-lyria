@@ -13,13 +13,13 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Generates an embed to give the `user` a gold star for the given `reason`. If the user
  * has not opted out from the tracking, also increments that user's starcount in the database.
  */
-export const handleStar: CommandHandler = async (Becca, interaction) => {
+export const handleStar: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { member, guild } = interaction;
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
