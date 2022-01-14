@@ -16,13 +16,14 @@ import { updateHistory } from "../../moderation/updateHistory";
 export const handleWarn: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
     const { guild, member } = interaction;
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -33,7 +34,7 @@ export const handleWarn: CommandHandler = async (
       !member.permissions.has("KICK_MEMBERS")
     ) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
@@ -43,14 +44,14 @@ export const handleWarn: CommandHandler = async (
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noModSelf),
+        content: getRandomValue(t("responses:noModSelf")),
       });
       return;
     }
 
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noModBecca),
+        content: getRandomValue(t("responses:noModBecca")),
       });
       return;
     }

@@ -10,14 +10,14 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 /**
  * Fetches a user's moderation history from the database and parses it for display.
  */
-export const handleHistory: CommandHandler = async (Becca, interaction) => {
+export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

@@ -14,7 +14,12 @@ import { updateHistory } from "../../moderation/updateHistory";
  * Bans the `target` user for the provided `reason`, assuming the caller has permissions.
  * Also deletes the `target`'s messages from the last 24 hours.
  */
-export const handleBan: CommandHandler = async (Becca, interaction, config) => {
+export const handleBan: CommandHandler = async (
+  Becca,
+  interaction,
+  t,
+  config
+) => {
   try {
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
@@ -23,7 +28,7 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -34,20 +39,20 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
       !member.permissions.has("BAN_MEMBERS")
     ) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noModSelf),
+        content: getRandomValue(t("responses:noModSelf")),
       });
       return;
     }
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noModBecca),
+        content: getRandomValue(t("responses:noModBecca")),
       });
       return;
     }
