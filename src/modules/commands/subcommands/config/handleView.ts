@@ -17,6 +17,7 @@ import { viewSettingsArray } from "./viewSettingsArray";
 export const handleView: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -24,7 +25,7 @@ export const handleView: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

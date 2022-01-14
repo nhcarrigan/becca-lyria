@@ -14,13 +14,18 @@ import { validateSetting } from "../../../settings/validateSetting";
 /**
  * Provided the `value` is valid, sets the given `setting` to that `value`.
  */
-export const handleSet: CommandHandler = async (Becca, interaction, config) => {
+export const handleSet: CommandHandler = async (
+  Becca,
+  interaction,
+  t,
+  config
+) => {
   try {
     const { guild } = interaction;
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
