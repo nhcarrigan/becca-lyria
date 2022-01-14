@@ -6,6 +6,7 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { handleLanguage } from "../modules/commands/subcommands/misc/handleLanguage";
 import { handleLevelscale } from "../modules/commands/subcommands/misc/handleLevelscale";
 import { handleOrbit } from "../modules/commands/subcommands/misc/handleOrbit";
 import { handlePermissions } from "../modules/commands/subcommands/misc/handlePermissions";
@@ -71,6 +72,13 @@ export const misc: Command = {
         .setDescription(
           "Provides a leaderboard for global activity within nhcommunity."
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("language")
+        .setDescription(
+          "Provides your configured language information (in Discord)."
+        )
     ),
   run: async (Becca, interaction, config) => {
     try {
@@ -96,6 +104,9 @@ export const misc: Command = {
           break;
         case "orbit":
           await handleOrbit(Becca, interaction, config);
+          break;
+        case "language":
+          await handleLanguage(Becca, interaction, config);
           break;
         default:
           await interaction.editReply({
