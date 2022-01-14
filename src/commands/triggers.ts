@@ -50,7 +50,7 @@ export const triggers: Command = {
         .setName("view")
         .setDescription("View a list of triggers in the server.")
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
 
@@ -60,24 +60,24 @@ export const triggers: Command = {
         !(interaction.member as GuildMember).permissions.has("MANAGE_GUILD")
       ) {
         await interaction.editReply({
-          content: getRandomValue(Becca.responses.noPermission),
+          content: getRandomValue(t("responses:noPermission")),
         });
         return;
       }
 
       switch (subcommand) {
         case "add":
-          await handleTriggerAdd(Becca, interaction, config);
+          await handleTriggerAdd(Becca, interaction, t, config);
           break;
         case "remove":
-          await handleTriggerRemove(Becca, interaction, config);
+          await handleTriggerRemove(Becca, interaction, t, config);
           break;
         case "view":
-          await handleTriggerView(Becca, interaction, config);
+          await handleTriggerView(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }

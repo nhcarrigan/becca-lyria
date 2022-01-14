@@ -112,57 +112,57 @@ export const becca: Command = {
         .setName("contact")
         .setDescription("Offers links to contact the development team.")
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
 
       const subCommand = interaction.options.getSubcommand();
       switch (subCommand) {
         case "ping":
-          await handlePing(Becca, interaction, config);
+          await handlePing(Becca, interaction, t, config);
           break;
         case "help":
-          await handleHelp(Becca, interaction, config);
+          await handleHelp(Becca, interaction, t, config);
           break;
         case "about":
-          await handleAbout(Becca, interaction, config);
+          await handleAbout(Becca, interaction, t, config);
           break;
         case "invite":
-          await handleInvite(Becca, interaction, config);
+          await handleInvite(Becca, interaction, t, config);
           break;
         case "art":
-          await handleArt(Becca, interaction, config);
+          await handleArt(Becca, interaction, t, config);
           break;
         case "donate":
-          await handleDonate(Becca, interaction, config);
+          await handleDonate(Becca, interaction, t, config);
           break;
         case "uptime":
-          await handleUptime(Becca, interaction, config);
+          await handleUptime(Becca, interaction, t, config);
           break;
         case "profile":
-          await handleProfile(Becca, interaction, config);
+          await handleProfile(Becca, interaction, t, config);
           break;
         case "updates":
-          await handleUpdates(Becca, interaction, config);
+          await handleUpdates(Becca, interaction, t, config);
           break;
         case "stats":
-          await handleStats(Becca, interaction, config);
+          await handleStats(Becca, interaction, t, config);
           break;
         case "emote":
-          await handleEmote(Becca, interaction, config);
+          await handleEmote(Becca, interaction, t, config);
           break;
         case "adventure":
-          await handleAdventure(Becca, interaction, config);
+          await handleAdventure(Becca, interaction, t, config);
           break;
         case "privacy":
-          await handlePrivacy(Becca, interaction, config);
+          await handlePrivacy(Becca, interaction, t, config);
           break;
         case "contact":
-          await handleContact(Becca, interaction, config);
+          await handleContact(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }

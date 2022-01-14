@@ -69,36 +69,36 @@ export const games: Command = {
             .setRequired(true)
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
 
       const subCommand = interaction.options.getSubcommand();
       switch (subCommand) {
         case "fact":
-          await handleFact(Becca, interaction, config);
+          await handleFact(Becca, interaction, t, config);
           break;
         case "joke":
-          await handleJoke(Becca, interaction, config);
+          await handleJoke(Becca, interaction, t, config);
           break;
         case "mtg":
-          await handleMtg(Becca, interaction, config);
+          await handleMtg(Becca, interaction, t, config);
           break;
         case "sus":
-          await handleSus(Becca, interaction, config);
+          await handleSus(Becca, interaction, t, config);
           break;
         case "trivia":
-          await handleTrivia(Becca, interaction, config);
+          await handleTrivia(Becca, interaction, t, config);
           break;
         case "slime":
-          await handleSlime(Becca, interaction, config);
+          await handleSlime(Becca, interaction, t, config);
           break;
         case "habitica":
-          await handleHabitica(Becca, interaction, config);
+          await handleHabitica(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }

@@ -85,14 +85,14 @@ export const automod: Command = {
             ])
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
       const { guild, member } = interaction;
 
       if (!guild || !member) {
         await interaction.editReply({
-          content: getRandomValue(Becca.responses.missingGuild),
+          content: getRandomValue(t("responses:missingGuild")),
         });
         return;
       }
@@ -103,7 +103,7 @@ export const automod: Command = {
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({
-          content: getRandomValue(Becca.responses.noPermission),
+          content: getRandomValue(t("responses:noPermission")),
         });
         return;
       }
@@ -112,17 +112,17 @@ export const automod: Command = {
       switch (action) {
         case "set":
         case "toggle":
-          await handleAutomodSet(Becca, interaction, config);
+          await handleAutomodSet(Becca, interaction, t, config);
           break;
         case "reset":
-          await handleAutomodReset(Becca, interaction, config);
+          await handleAutomodReset(Becca, interaction, t, config);
           break;
         case "view":
-          await handleAutomodView(Becca, interaction, config);
+          await handleAutomodView(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }

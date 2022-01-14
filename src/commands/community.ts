@@ -162,51 +162,51 @@ export const community: Command = {
           option.setName("d").setDescription("Option D").setRequired(true)
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
       const subcommand = interaction.options.getSubcommand();
 
       switch (subcommand) {
         case "leaderboard":
-          await handleLeaderboard(Becca, interaction, config);
+          await handleLeaderboard(Becca, interaction, t, config);
           break;
         case "level":
-          await handleLevel(Becca, interaction, config);
+          await handleLevel(Becca, interaction, t, config);
           break;
         case "role":
-          await handleRole(Becca, interaction, config);
+          await handleRole(Becca, interaction, t, config);
           break;
         case "motivation":
-          await handleMotivation(Becca, interaction, config);
+          await handleMotivation(Becca, interaction, t, config);
           break;
         case "schedule":
-          await handleSchedule(Becca, interaction, config);
+          await handleSchedule(Becca, interaction, t, config);
           break;
         case "star":
-          await handleStar(Becca, interaction, config);
+          await handleStar(Becca, interaction, t, config);
           break;
         case "starcount":
-          await handleStarCount(Becca, interaction, config);
+          await handleStarCount(Becca, interaction, t, config);
           break;
         case "topic":
-          await handleTopic(Becca, interaction, config);
+          await handleTopic(Becca, interaction, t, config);
           break;
         case "userinfo":
-          await handleUserInfo(Becca, interaction, config);
+          await handleUserInfo(Becca, interaction, t, config);
           break;
         case "server":
-          await handleServer(Becca, interaction, config);
+          await handleServer(Becca, interaction, t, config);
           break;
         case "suggest":
-          await handleSuggest(Becca, interaction, config);
+          await handleSuggest(Becca, interaction, t, config);
           break;
         case "poll":
-          await handlePoll(Becca, interaction, config);
+          await handlePoll(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }

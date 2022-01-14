@@ -80,7 +80,7 @@ export const misc: Command = {
           "Provides your configured language information (in Discord)."
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
 
@@ -88,29 +88,29 @@ export const misc: Command = {
 
       switch (subCommand) {
         case "space":
-          await handleSpace(Becca, interaction, config);
+          await handleSpace(Becca, interaction, t, config);
           break;
         case "username":
-          await handleUsername(Becca, interaction, config);
+          await handleUsername(Becca, interaction, t, config);
           break;
         case "xkcd":
-          await handleXkcd(Becca, interaction, config);
+          await handleXkcd(Becca, interaction, t, config);
           break;
         case "permissions":
-          await handlePermissions(Becca, interaction, config);
+          await handlePermissions(Becca, interaction, t, config);
           break;
         case "levelscale":
-          await handleLevelscale(Becca, interaction, config);
+          await handleLevelscale(Becca, interaction, t, config);
           break;
         case "orbit":
-          await handleOrbit(Becca, interaction, config);
+          await handleOrbit(Becca, interaction, t, config);
           break;
         case "language":
-          await handleLanguage(Becca, interaction, config);
+          await handleLanguage(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }

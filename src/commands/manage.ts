@@ -77,7 +77,7 @@ export const manage: Command = {
             .setRequired(true)
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
 
@@ -85,20 +85,20 @@ export const manage: Command = {
 
       switch (subCommand) {
         case "resetlevels":
-          await handleResetLevels(Becca, interaction, config);
+          await handleResetLevels(Becca, interaction, t, config);
           break;
         case "resetstars":
-          await handleResetStars(Becca, interaction, config);
+          await handleResetStars(Becca, interaction, t, config);
           break;
         case "suggestion":
-          await handleSuggestion(Becca, interaction, config);
+          await handleSuggestion(Becca, interaction, t, config);
           break;
         case "xpmodify":
-          await handleXpModify(Becca, interaction, config);
+          await handleXpModify(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }
