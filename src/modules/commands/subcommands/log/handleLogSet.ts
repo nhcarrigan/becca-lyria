@@ -17,6 +17,7 @@ import { validateSetting } from "../../../settings/validateSetting";
 export const handleLogSet: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -24,7 +25,7 @@ export const handleLogSet: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

@@ -12,6 +12,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleLogReset: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -19,7 +20,7 @@ export const handleLogReset: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
