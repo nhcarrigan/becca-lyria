@@ -11,13 +11,13 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  * Generates a random slime-themed name from the slimeList and assigns it
  * as the user's nickname.
  */
-export const handleSlime: CommandHandler = async (Becca, interaction) => {
+export const handleSlime: CommandHandler = async (Becca, interaction, t) => {
   try {
     const member = interaction.member as GuildMember;
 
     if (!member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
