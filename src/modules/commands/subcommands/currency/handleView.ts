@@ -10,7 +10,12 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  * Generates an embed with the user's current balance, and the cooldowns for
  * the daily and weekly bonuses.
  */
-export const handleView: CurrencyHandler = async (Becca, interaction, data) => {
+export const handleView: CurrencyHandler = async (
+  Becca,
+  interaction,
+  t,
+  data
+) => {
   try {
     const { user } = interaction;
     const now = Date.now();

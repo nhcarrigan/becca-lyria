@@ -13,6 +13,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleWeekly: CurrencyHandler = async (
   Becca,
   interaction,
+  t,
   data
 ) => {
   try {

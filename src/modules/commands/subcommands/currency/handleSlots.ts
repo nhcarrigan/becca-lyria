@@ -15,6 +15,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleSlots: CurrencyHandler = async (
   Becca,
   interaction,
+  t,
   data
 ) => {
   try {

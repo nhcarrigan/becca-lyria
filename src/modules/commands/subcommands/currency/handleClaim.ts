@@ -13,6 +13,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleClaim: CurrencyHandler = async (
   Becca,
   interaction,
+  t,
   data
 ) => {
   try {
