@@ -16,6 +16,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleTriggerView: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {

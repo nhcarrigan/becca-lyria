@@ -11,6 +11,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleTriggerAdd: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
