@@ -10,13 +10,17 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Deletes the server's level data, resetting everyone's progress.
  */
-export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
+export const handleResetLevels: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const { guild, member } = interaction;
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -26,7 +30,7 @@ export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }

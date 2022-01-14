@@ -15,6 +15,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 export const handleSuggestion: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -22,14 +23,14 @@ export const handleSuggestion: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
 
     if (!(member as GuildMember).permissions.has("MANAGE_GUILD")) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }

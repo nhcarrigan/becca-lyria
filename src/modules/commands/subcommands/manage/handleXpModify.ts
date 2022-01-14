@@ -16,6 +16,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 export const handleXpModify: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -27,7 +28,7 @@ export const handleXpModify: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -37,7 +38,7 @@ export const handleXpModify: CommandHandler = async (
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
@@ -51,14 +52,14 @@ export const handleXpModify: CommandHandler = async (
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noSelfXP),
+        content: getRandomValue(t("responses:noSelfXP")),
       });
       return;
     }
 
     if (target.bot) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noBotXP),
+        content: getRandomValue(t("responses:noBotXP")),
       });
       return;
     }
@@ -88,7 +89,7 @@ export const handleXpModify: CommandHandler = async (
 
     if (!targetMember || targetMember.id !== target.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }

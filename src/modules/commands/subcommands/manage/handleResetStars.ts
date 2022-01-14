@@ -10,20 +10,24 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Deletes the server's star counts, resetting everyone's progress.
  */
-export const handleResetStars: CommandHandler = async (Becca, interaction) => {
+export const handleResetStars: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const { member, guild } = interaction;
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
 
     if (!(member as GuildMember).permissions.has("MANAGE_GUILD")) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
