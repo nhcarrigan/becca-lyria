@@ -14,7 +14,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 /**
  * Handles the logic for using an emote.
  */
-export const handleEmoteUse: CommandHandler = async (Becca, interaction) => {
+export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
   try {
     const action = interaction.options.getString("emote", true) as EmoteAction;
     const target = interaction.options.getUser("target", true);
@@ -28,14 +28,14 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction) => {
 
     if (target.id === interaction.user.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noEmoteSelf),
+        content: getRandomValue(t("responses:noEmoteSelf")),
       });
       return;
     }
 
     if (target.id === Becca.configs.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noEmoteBecca),
+        content: getRandomValue(t("responses:noEmoteBecca")),
       });
       return;
     }
