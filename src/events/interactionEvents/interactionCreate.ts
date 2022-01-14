@@ -1,4 +1,5 @@
 import { Interaction, Message } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { commandListener } from "../../listeners/commandListener";
@@ -7,6 +8,7 @@ import { usageListener } from "../../listeners/usageListener";
 import { logActivity } from "../../modules/commands/logActivity";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { getInteractionLanguage } from "../../utils/getLangCode";
 
 /**
  * Processes logic when a new interaction is created. Interactions come in various
@@ -21,6 +23,8 @@ export const interactionCreate = async (
 ): Promise<void> => {
   try {
     Becca.pm2.metrics.events.mark();
+    const lang = getInteractionLanguage(interaction);
+    const t = getFixedT(lang);
     if (interaction.isCommand()) {
       await logActivity(Becca, interaction.user.id, "command");
       const target = Becca.commands.find(
@@ -50,7 +54,7 @@ export const interactionCreate = async (
         return;
       }
       await commandListener.run(Becca, interaction);
-      await target.run(Becca, interaction, config);
+      await target.run(Becca, interaction, t, config);
       await usageListener.run(Becca, interaction);
       await currencyListener.run(Becca, interaction);
     }
@@ -83,7 +87,7 @@ export const interactionCreate = async (
         });
         return;
       }
-      await target.run(Becca, interaction, config);
+      await target.run(Becca, interaction, t, config);
     }
 
     if (interaction.isButton()) {
