@@ -33,7 +33,7 @@ export const sendModerationDm = async (
       } for: \n\n${customSubstring(reason, 2000)}`
     );
 
-    if (action === "ban" && config.appeal_link.length) {
+    if (action === "ban" && config.appeal_link?.length) {
       embed.addField(
         "You can appeal your ban using this link: ",
         config.appeal_link
