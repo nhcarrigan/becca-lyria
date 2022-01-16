@@ -1,4 +1,5 @@
 import { Guild, MessageEmbed } from "discord.js";
+import { TFunction } from "i18next";
 
 import { defaultServer } from "../../../config/database/defaultServer";
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
@@ -12,55 +13,59 @@ import { customSubstring } from "../../../utils/customSubstring";
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {Guild} guild The server to parse the settings for.
+ * @param {TFunction} t The i18n translator function.
  * @param {ServerConfig} config The server's configuration object from the database.
  * @returns {MessageEmbed | null} A message embed or null on error.
  */
 export const viewAutomodSettings = async (
   Becca: BeccaLyria,
   guild: Guild,
+  t: TFunction,
   config: ServerConfig
 ): Promise<MessageEmbed | null> => {
   try {
     const settingsEmbed = new MessageEmbed();
     settingsEmbed.setTitle(`${guild.name} Automod Settings`);
     settingsEmbed.setColor(Becca.colours.default);
-    settingsEmbed.setDescription(
-      "Here are your current automod configurations."
-    );
-    settingsEmbed.addField("Link Detection", config.links || "off", true);
+    settingsEmbed.setDescription(t("commands:automod.view.embed.title"));
     settingsEmbed.addField(
-      "Profanity Detection",
+      t("commands:automod.view.embed.link"),
+      config.links || "off",
+      true
+    );
+    settingsEmbed.addField(
+      t("commands:automod.view.embed.profanity"),
       config.profanity || "off",
       true
     );
     settingsEmbed.addField(
-      "Link removal message",
+      t("commands:automod.view.embed.linkRemoval"),
       customSubstring(config.link_message || defaultServer.link_message, 1000)
     );
     settingsEmbed.addField(
-      "Profanity removal message",
+      t("commands:automod.view.embed.profanityRemoval"),
       customSubstring(
         config.profanity_message || defaultServer.profanity_message,
         1000
       )
     );
     settingsEmbed.addField(
-      "Automodded Channels",
+      t("commands:automod.view.embed.channels"),
       config.automod_channels.length.toString(),
       true
     );
     settingsEmbed.addField(
-      "Non-Automodded Channels",
+      t("commands:automod.view.embed.nonChannels"),
       config.no_automod_channels.length.toString(),
       true
     );
     settingsEmbed.addField(
-      "Automod Exempt Roles",
+      t("commands:automod.view.embed.exempt"),
       config.automod_roles.length.toString(),
       true
     );
     settingsEmbed.addField(
-      "Allowed Links",
+      t("commands:automod.view.embed.allowed"),
       config.allowed_links.length.toString(),
       true
     );

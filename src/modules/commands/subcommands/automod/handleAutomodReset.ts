@@ -35,8 +35,8 @@ export const handleAutomodReset: CommandHandler = async (
     );
     await interaction.editReply(
       success
-        ? `I have reset your ${setting} setting.`
-        : "I am having trouble updating your settings. Please try again later."
+        ? t("commands:automod.reset.success", { setting })
+        : t("commands:automod.reset.failure")
     );
     return;
   } catch (err) {

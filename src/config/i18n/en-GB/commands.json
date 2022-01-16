@@ -1,0 +1,27 @@
+{
+  "automod": {
+    "reset": {
+      "success": "I have reset your {{setting}} setting.",
+      "failure": "I am having trouble updating your settings. Please try again later."
+    },
+    "set": {
+      "invalid": "{{value}} is not a valid option for {{setting}}",
+      "failure": "I am having trouble updating your settings. Please try again later.",
+      "success": "{{setting}} Updated!"
+    },
+    "view": {
+      "noSettings": "I am unable to locate your settings.",
+      "embed": {
+        "title": "Here are your current automod configurations.",
+        "link": "Link Detection",
+        "profanity": "Profanity Detection",
+        "linkRemoval": "Link Removal Message",
+        "profanityRemoval": "Profanity Removal Message",
+        "channels": "Automodded Channels",
+        "nonChannels": "Not Automodded Channels",
+        "exempt": "Automod Exempt Roles",
+        "allowed": "Allowed Links"
+      }
+    }
+  }
+}

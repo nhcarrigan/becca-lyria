@@ -1,5 +1,6 @@
 import { init } from "i18next";
 
+import enGbCommands from "./en-GB/commands.json";
 import enGbContexts from "./en-GB/contexts.json";
 import enGbDefaults from "./en-GB/defaults.json";
 import enGbEvents from "./en-GB/events.json";
@@ -13,10 +14,19 @@ import enGbSass from "./en-GB/sass.json";
 export const initialiseTranslations = async (): Promise<void> => {
   await init({
     fallbackLng: "en-GB",
-    ns: ["responses", "sass", "defaults", "contexts", "events", "listeners"],
+    ns: [
+      "responses",
+      "sass",
+      "defaults",
+      "contexts",
+      "events",
+      "listeners",
+      "commands",
+    ],
     returnObjects: true,
     resources: {
       "en-GB": {
+        commands: enGbCommands,
         contexts: enGbContexts,
         defaults: enGbDefaults,
         events: enGbEvents,
