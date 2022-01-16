@@ -17,7 +17,7 @@ export const bookmark: Context = {
     name: "bookmark",
     type: 3,
   },
-  run: async (Becca, interaction): Promise<void> => {
+  run: async (Becca, interaction, t): Promise<void> => {
     try {
       await interaction.deferReply({ ephemeral: true });
 
@@ -26,16 +26,14 @@ export const bookmark: Context = {
       const guild = interaction.guild?.name;
 
       if (!message || !channel || !guild) {
-        await interaction.editReply(
-          "I cannot bookmark that for you as I cannot locate the necessary records."
-        );
+        await interaction.editReply(t("contexts:bookmark.failed"));
         return;
       }
 
       const author = message.author as User;
 
       const bookmarkEmbed = new MessageEmbed();
-      bookmarkEmbed.setTitle(`Your saved message!`);
+      bookmarkEmbed.setTitle(t("contexts:bookmark.title"));
       bookmarkEmbed.setDescription(message.url);
       bookmarkEmbed.setAuthor({
         name: author.tag,
@@ -44,14 +42,14 @@ export const bookmark: Context = {
       bookmarkEmbed.setColor(Becca.colours.default);
       bookmarkEmbed.addField("Guild", guild, true);
       bookmarkEmbed.addField("Channel", channel.name, true);
-      bookmarkEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com",
-        "https://cdn.nhcarrigan.com/profile-transparent.png"
-      );
+      bookmarkEmbed.setFooter({
+        text: t("defaults:donate"),
+        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      });
 
       const deleteButton = new MessageButton()
         .setCustomId("delete-bookmark")
-        .setLabel("Delete this bookmark.")
+        .setLabel(t("contexts:bookmark.deleteLabel"))
         .setStyle("DANGER");
 
       const row = new MessageActionRow().addComponents([deleteButton]);
@@ -59,14 +57,10 @@ export const bookmark: Context = {
       await interaction.user
         .send({ embeds: [bookmarkEmbed], components: [row] })
         .then(async () => {
-          await interaction.editReply(
-            "I have bookmarked that message for you."
-          );
+          await interaction.editReply(t("contexts:bookmark.success"));
         })
         .catch(async () => {
-          await interaction.editReply(
-            "I could not bookmark that for you. Please ensure your private messages are open."
-          );
+          await interaction.editReply(t("contexts:bookmark.noDm"));
         });
     } catch (err) {
       const errorId = await beccaErrorHandler(

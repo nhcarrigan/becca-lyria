@@ -1,0 +1,22 @@
+{
+  "activity": {
+    "title": "Becca Interactions",
+    "buttons": "Button Clicks",
+    "commands": "Command Uses",
+    "selects": "Select Menu Selections",
+    "contexts": "Context Menu Choices"
+  },
+  "bookmark": {
+    "failed": "I cannot bookmark that for you as I cannot locate the necessary records.",
+    "title": "Your saved message!",
+    "deleteLabel": "Delete this bookmark.",
+    "success": "I have bookmarked that message for you.",
+    "noDm": "I could not bookmark that for you. Please ensure your private messages are open."
+  },
+  "report": {
+    "notEnabled": "The guild staff have not enabled reporting for this guild yet.",
+    "title": "A message was reported!",
+    "reported": "{{- mention}} has reported this message:",
+    "success": "I have reported this message to the guild keepers."
+  }
+}

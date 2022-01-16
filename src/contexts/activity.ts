@@ -11,7 +11,7 @@ export const activity: Context = {
     name: "activity",
     type: 2,
   },
-  run: async (Becca, interaction) => {
+  run: async (Becca, interaction, t) => {
     try {
       await interaction.deferReply();
       const target = interaction.options.getUser("user", true);
@@ -25,16 +25,24 @@ export const activity: Context = {
       }
 
       const activityEmbed = new MessageEmbed();
-      activityEmbed.setTitle("Becca Interactions");
-      activityEmbed.addField("Button Clicks", data.buttons.toString(), true);
-      activityEmbed.addField("Command Uses", data.commands.toString(), true);
+      activityEmbed.setTitle(t("contexts:activity.title"));
       activityEmbed.addField(
-        "Select Menu Selections",
+        t("contexts:activity.buttons"),
+        data.buttons.toString(),
+        true
+      );
+      activityEmbed.addField(
+        t("contexts:activity.commands"),
+        data.commands.toString(),
+        true
+      );
+      activityEmbed.addField(
+        t("contexts:activity.selects"),
         data.selects.toString(),
         true
       );
       activityEmbed.addField(
-        "Context Menu Choices",
+        t("contexts:activity.contexts"),
         data.contexts.toString(),
         true
       );
@@ -43,10 +51,10 @@ export const activity: Context = {
         name: target.tag,
         iconURL: target.displayAvatarURL(),
       });
-      activityEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com",
-        "https://cdn.nhcarrigan.com/profile-transparent.png"
-      );
+      activityEmbed.setFooter({
+        text: t("defaults:donate"),
+        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      });
 
       await interaction.editReply({ embeds: [activityEmbed] });
     } catch (err) {
