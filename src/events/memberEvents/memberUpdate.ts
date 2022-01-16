@@ -1,4 +1,5 @@
 import { GuildMember, MessageEmbed, PartialGuildMember } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { defaultServer } from "../../config/database/defaultServer";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
@@ -21,6 +22,8 @@ export const memberUpdate = async (
 ): Promise<void> => {
   try {
     const { guild, user } = newMember;
+    const lang = guild.preferredLocale;
+    const t = getFixedT(lang);
 
     // passes membership screening
     if (oldMember.pending && !newMember.pending) {
@@ -33,7 +36,7 @@ export const memberUpdate = async (
 
       const welcomeEmbed = new MessageEmbed();
       welcomeEmbed.setColor(Becca.colours.default);
-      welcomeEmbed.setTitle("A new adventurer has joined our guild.");
+      welcomeEmbed.setTitle(t("events:member.join.title"));
       welcomeEmbed.setDescription(welcomeText);
       welcomeEmbed.setAuthor({
         name: user.tag,

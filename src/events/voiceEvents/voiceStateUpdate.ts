@@ -1,4 +1,5 @@
 import { MessageEmbed, VoiceState } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
@@ -18,75 +19,74 @@ export const voiceStateUpdate = async (
   newState: VoiceState
 ): Promise<void> => {
   try {
+    const lang = oldState.guild.preferredLocale;
+    const t = getFixedT(lang);
     const voiceEmbed = new MessageEmbed();
     voiceEmbed.setTimestamp();
     voiceEmbed.setFooter(`ID: ${oldState.id}`);
+    const userId = `<@!${oldState.id}>`;
+    const oldId = `<#${oldState.channelId}>`;
+    const newId = `<#${newState.channelId}>`;
 
     if (
       oldState.channelId &&
       newState.channelId &&
       oldState.channelId !== newState.channelId
     ) {
-      voiceEmbed.setTitle("Member switched channels!");
+      voiceEmbed.setTitle(t("events:voice.move.title"));
       voiceEmbed.setDescription(
-        `<@!${oldState.id}> has moved from <#${oldState.channelId}> to <#${newState.channelId}>.`
+        t("events:voice.move.desc", {
+          userId,
+          oldId,
+          newId,
+        })
       );
       voiceEmbed.setColor(Becca.colours.warning);
     }
 
     if (oldState.channelId && !newState.channelId) {
-      voiceEmbed.setTitle("Member left voice channel!");
+      voiceEmbed.setTitle(t("events:voice.leave.title"));
       voiceEmbed.setDescription(
-        `<@!${oldState.id}> has left the <#${oldState.channelId}> channel.`
+        t("events:voice.leave.desc", {
+          userId,
+          oldId,
+        })
       );
       voiceEmbed.setColor(Becca.colours.error);
     }
 
     if (!oldState.channelId && newState.channelId) {
-      voiceEmbed.setTitle("Member joined voice channel!");
+      voiceEmbed.setTitle(t("events:voice.join.title"));
       voiceEmbed.setDescription(
-        `<@!${oldState.id}> has joined the <#${newState.channelId}> channel.`
+        t("events:voice.join.desc", {
+          userId,
+          newId,
+        })
       );
       voiceEmbed.setColor(Becca.colours.success);
     }
 
     if (!oldState.mute && newState.mute) {
-      voiceEmbed.setTitle("Member voice muted!");
-      voiceEmbed.setDescription(
-        `<@!${newState.id}> has been ${
-          newState.selfMute ? "self muted" : "server muted"
-        }.`
-      );
+      voiceEmbed.setTitle(t("events:voice.mute.title"));
+      voiceEmbed.setDescription(t("events:voice.mute.desc", { userId }));
       voiceEmbed.setColor(Becca.colours.error);
     }
 
     if (oldState.mute && !newState.mute) {
-      voiceEmbed.setTitle("Member voice unmuted!");
-      voiceEmbed.setDescription(
-        `<@!${newState.id}> has been ${
-          oldState.selfMute ? "self unmuted" : "server unmuted"
-        }.`
-      );
+      voiceEmbed.setTitle(t("events:voice.unmute.title"));
+      voiceEmbed.setDescription(t("events:voice.unmute.desc", { userId }));
       voiceEmbed.setColor(Becca.colours.success);
     }
 
     if (!oldState.deaf && newState.deaf) {
-      voiceEmbed.setTitle("Member voice deafened!");
-      voiceEmbed.setDescription(
-        `<@!${newState.id}> has been ${
-          newState.selfDeaf ? "self deafened" : "server deafened"
-        }.`
-      );
+      voiceEmbed.setTitle(t("events:voice.deafen.title"));
+      voiceEmbed.setDescription(t("events:voice.deafen.desc", { userId }));
       voiceEmbed.setColor(Becca.colours.error);
     }
 
     if (oldState.deaf && !newState.deaf) {
-      voiceEmbed.setTitle("Member voice undeafened!");
-      voiceEmbed.setDescription(
-        `<@!${newState.id}> has been ${
-          oldState.selfDeaf ? "self undeafened" : "server undeafened"
-        }.`
-      );
+      voiceEmbed.setTitle(t("events:voice.undeafen.title"));
+      voiceEmbed.setDescription(t("events:voice.undeafen.desc", { userId }));
       voiceEmbed.setColor(Becca.colours.success);
     }
 

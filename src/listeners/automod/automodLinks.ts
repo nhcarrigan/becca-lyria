@@ -63,7 +63,7 @@ export const automodLinks: ListenerHandler = async (
         await message.delete();
       }
       const linkEmbed = new MessageEmbed();
-      linkEmbed.setTitle("Invalid Link Detected!");
+      linkEmbed.setTitle(t("defaults:listeners.automodLinkTitle"));
       linkEmbed.setDescription(
         (config.link_message || defaultServer.link_message).replace(
           /\{@username\}/g,

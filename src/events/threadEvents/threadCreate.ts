@@ -1,4 +1,5 @@
 import { MessageEmbed, ThreadChannel } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
@@ -20,10 +21,15 @@ export const threadCreate = async (
       await thread.join();
     }
 
+    const lang = thread.guild.preferredLocale;
+    const t = getFixedT(lang);
+
     const threadEmbed = new MessageEmbed();
 
-    threadEmbed.setTitle("Thread Created!");
-    threadEmbed.setDescription(`The new thread <#${thread.id}> was created!`);
+    threadEmbed.setTitle(t("events:thread.create.title"));
+    threadEmbed.setDescription(
+      t("events:thread.create.desc", { id: `<#${thread.id}>` })
+    );
     threadEmbed.setColor(Becca.colours.success);
     threadEmbed.setTimestamp();
     threadEmbed.setFooter(`ID: ${thread.id}`);

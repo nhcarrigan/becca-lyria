@@ -1,0 +1,84 @@
+{
+  "interaction": {
+    "bad": "That {{command}} interaction is not valid...",
+    "noDms": "I prefer my privacy. Please talk to me in a guild instead.",
+    "noSettings": "I could not find your guild record."
+  },
+  "member": {
+    "pending": {
+      "title": "A user is viewing the guild!",
+      "desc": "Because we have a magical barrier, they must complete verification before they can participate in our activities. When they have done so, I will officially welcome them."
+    },
+    "join": {
+      "title": "A new adventurer has joined our guild!"
+    },
+    "leave": {
+      "title": "A member has abandoned our guild!",
+      "name": "Name",
+      "roles": "Roles"
+    }
+  },
+  "message": {
+    "delete": {
+      "title": "Message Deleted",
+      "desc": "Here is my record of that message.",
+      "chan": "Channel",
+      "cont": "Content",
+      "nocont": "No content. Embeds or attachments may be coming."
+    },
+    "edit": {
+      "title": "Message Updated",
+      "chan": "Channel",
+      "link": "Message Link",
+      "nocont": "*** Message did not have content..."
+    }
+  },
+  "thread": {
+    "create": {
+      "title": "Thread Created",
+      "desc": "The new thread {{- id}} was created!"
+    },
+    "delete": {
+      "title": "Thread Deleted",
+      "desc": "The thread {{name}} in the {{parentName}} channel was deleted."
+    },
+    "archive": {
+      "title": "Thread Archived",
+      "desc": "The thread {{name}} in the {{parentName}} channel was archived."
+    },
+    "unarchive": {
+      "title": "Thread Unarchived",
+      "desc": "The thread {{name}} in the {{parentName}} channel was unarchived."
+    }
+  },
+  "voice": {
+    "move": {
+      "title": "Member switched channels!",
+      "desc": "{{- userId}} has moved from {{- oldId}} to {{- newId}}."
+    },
+    "leave": {
+      "title": "Member left voice channel!",
+      "desc": "{{- userId}} has left the {{- oldId}} channel."
+    },
+    "join": {
+      "title": "Member joined voice channel!",
+      "desc": "{{- userId}} has joined the {{- newId}} channel."
+    },
+    "mute": {
+      "title": "Member voice muted!",
+      "desc": "{{- userId}} has been muted."
+    },
+    "unmute": {
+      "title": "Member voice unmuted!",
+      "desc": "{{- userId}} has been unmuted."
+    },
+    "deafen": {
+      "title": "Member voice deafened!",
+      "desc": "{{- userId}} has been deafened."
+    },
+    "undeafen": {
+      "title": "Member voice undeafened!",
+      "desc": "{{- userId}} has been undeafened."
+    }
+  }
+}

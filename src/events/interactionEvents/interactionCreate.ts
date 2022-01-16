@@ -32,13 +32,15 @@ export const interactionCreate = async (
       );
       if (!target) {
         interaction.reply({
-          content: `That ${interaction.commandName} interaction is not valid...`,
+          content: t("events:interaction.bad", {
+            command: interaction.commandName,
+          }),
         });
         return;
       }
       if (!interaction.guildId || !interaction.guild) {
         await interaction.reply({
-          content: `I prefer my privacy. Please talk to me in a guild instead.`,
+          content: t("events:interaction.noDms"),
         });
         return;
       }
@@ -49,7 +51,7 @@ export const interactionCreate = async (
       );
       if (!config) {
         await interaction.reply({
-          content: "I could not find your guild record.",
+          content: t("events:interaction.noSettings"),
         });
         return;
       }
@@ -66,13 +68,15 @@ export const interactionCreate = async (
       );
       if (!target) {
         interaction.reply({
-          content: `That ${interaction.commandName} interaction is not valid...`,
+          content: t("events:interaction.bad", {
+            command: interaction.commandName,
+          }),
         });
         return;
       }
       if (!interaction.guildId || !interaction.guild) {
         await interaction.reply({
-          content: `I prefer my privacy. Please talk to me in a guild instead.`,
+          content: t("events:interaction.noDms"),
         });
         return;
       }
@@ -83,7 +87,7 @@ export const interactionCreate = async (
       );
       if (!config) {
         await interaction.reply({
-          content: "I could not find your guild record.",
+          content: t("events:interaction.noSettings"),
         });
         return;
       }

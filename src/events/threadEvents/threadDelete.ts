@@ -1,4 +1,5 @@
 import { MessageEmbed, ThreadChannel } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
@@ -15,10 +16,15 @@ export const threadDelete = async (
   thread: ThreadChannel
 ): Promise<void> => {
   try {
+    const lang = thread.guild.preferredLocale;
+    const t = getFixedT(lang);
     const threadEmbed = new MessageEmbed();
-    threadEmbed.setTitle("Thread Deleted");
+    threadEmbed.setTitle(t("events:thread.delete.title"));
     threadEmbed.setDescription(
-      `The thread ${thread.name} in the ${thread.parent?.name} channel was deleted.`
+      t("events:thread.delete.desc", {
+        name: thread.name,
+        parentName: thread.parent?.name,
+      })
     );
     threadEmbed.setColor(Becca.colours.error);
     threadEmbed.setFooter(`ID: ${thread.id}`);

@@ -10,7 +10,6 @@ import { triggerListener } from "../../listeners/triggerListener";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
-import { getMessageLanguage } from "../../utils/getLangCode";
 
 /**
  * Handles the messageUpdate event. Validates that the content in the message
@@ -32,20 +31,20 @@ export const messageUpdate = async (
     if (!guild || newMessage.channel.type === "DM") {
       return;
     }
-    const lang = getMessageLanguage(newMessage as Message);
+    const lang = guild.preferredLocale;
     const t = getFixedT(lang);
 
     const serverConfig = await getSettings(Becca, guild.id, guild.name);
 
     if (!serverConfig) {
-      throw new Error("Could not get server configuration.");
+      return;
     }
 
     if (oldContent && newContent && oldContent === newContent) {
       return;
     }
 
-    if (!guild || !author || author.bot) {
+    if (!author || author.bot) {
       return;
     }
 
@@ -57,10 +56,10 @@ export const messageUpdate = async (
             )
             .filter((el) => el)
             .join("\n")
-        : "*** Message did not have content...";
+        : t("events:message.edit.nocont");
 
     const updateEmbed = new MessageEmbed();
-    updateEmbed.setTitle("Message Updated");
+    updateEmbed.setTitle(t("events:message.edit.title"));
     updateEmbed.setAuthor({
       name: author.tag,
       iconURL: author.displayAvatarURL(),
@@ -69,8 +68,11 @@ export const messageUpdate = async (
     updateEmbed.setFooter(`Author: ${author.id} | Message: ${oldMessage.id}`);
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setTimestamp();
-    updateEmbed.addField("Channel", `<#${newMessage.channel.id}>`);
-    updateEmbed.addField("Message Link", newMessage.url);
+    updateEmbed.addField(
+      t("events:message.edit.chan"),
+      `<#${newMessage.channel.id}>`
+    );
+    updateEmbed.addField(t("events:message.edit.link"), newMessage.url);
 
     await sendLogEmbed(Becca, guild, updateEmbed, "message_events");
 

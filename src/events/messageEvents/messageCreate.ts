@@ -40,7 +40,7 @@ export const messageCreate = async (
     const serverConfig = await getSettings(Becca, guild.id, guild.name);
 
     if (!serverConfig) {
-      throw new Error("Could not get server configuration.");
+      return;
     }
 
     await heartsListener.run(Becca, message, t, serverConfig);
