@@ -9,7 +9,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 export const beccaMentionListener: Listener = {
   name: "Becca Mention Listener",
   description: "Listens for Becca being mentioned.",
-  run: async (Becca, message) => {
+  run: async (Becca, message, t) => {
     try {
       const { channel, guild, mentions } = message;
       if (!guild || !Becca.user || !mentions.users?.has(Becca.user.id)) {
@@ -17,9 +17,7 @@ export const beccaMentionListener: Listener = {
       }
 
       await message.react(Becca.configs.think);
-      await channel.send(
-        "What can I do for you? Cast `/becca help` to see my spells!"
-      );
+      await channel.send(t("listeners:becca.response"));
     } catch (err) {
       await beccaErrorHandler(
         Becca,
