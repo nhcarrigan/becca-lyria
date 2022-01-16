@@ -59,6 +59,7 @@ export const handleWarn: CommandHandler = async (
     const sentNotice = await sendModerationDm(
       Becca,
       config,
+      t,
       "warn",
       target,
       reason

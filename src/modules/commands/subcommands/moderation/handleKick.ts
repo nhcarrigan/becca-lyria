@@ -68,6 +68,7 @@ export const handleKick: CommandHandler = async (
     const sentNotice = await sendModerationDm(
       Becca,
       config,
+      t,
       "kick",
       target,
       reason

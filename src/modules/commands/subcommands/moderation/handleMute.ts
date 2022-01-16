@@ -81,6 +81,7 @@ export const handleMute: CommandHandler = async (
     const sentNotice = await sendModerationDm(
       Becca,
       config,
+      t,
       "mute",
       target,
       reason

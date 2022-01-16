@@ -76,6 +76,7 @@ export const handleBan: CommandHandler = async (
     const sentNotice = await sendModerationDm(
       Becca,
       config,
+      t,
       "ban",
       target,
       reason

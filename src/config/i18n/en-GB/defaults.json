@@ -1,3 +1,8 @@
 {
-  "donate": "Like the bot? Donate: https://donate.nhcarrigan.com"
+  "donate": "Like the bot? Donate: https://donate.nhcarrigan.com",
+  "moderation": {
+    "title": "{{action}} Notification!",
+    "desc": "You have received a {{action}} in {{name}} for:",
+    "appeal": "You can appeal your ban using this link:"
+  }
 }
