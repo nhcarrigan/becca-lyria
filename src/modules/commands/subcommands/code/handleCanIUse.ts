@@ -8,19 +8,19 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Generates an embed containing CanIUse browser data for the given `feature` argument.
  */
-export const handleCanIUse: CommandHandler = async (Becca, interaction) => {
+export const handleCanIUse: CommandHandler = async (Becca, interaction, t) => {
   try {
     const feature = interaction.options.getString("feature", true);
 
     const caniuseEmbed = new MessageEmbed();
-    caniuseEmbed.setTitle(`Can I Use ${feature}`);
+    caniuseEmbed.setTitle(t("commands:code.caniuse.title", { feature }));
     caniuseEmbed.setImage(`https://caniuse.bitsofco.de/image/${feature}.webp`);
     caniuseEmbed.setTimestamp();
     caniuseEmbed.setColor(Becca.colours.default);
-    caniuseEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    caniuseEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [caniuseEmbed] });
   } catch (err) {

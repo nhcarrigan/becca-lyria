@@ -179,5 +179,18 @@
       "minutes": "Minutes",
       "seconds": "Seconds"
     }
+  },
+  "code": {
+    "caniuse": {
+      "title": "Can I Use {{feature}}"
+    }
+  },
+  "colour": {
+    "invalid": "This spell requires a six-character hex code.",
+    "title": "Colour: {{hex}}"
+  },
+  "http": {
+    "invalid": "That is not a valid HTTP status code.",
+    "title": "HTTP code {{status}}"
   }
 }
