@@ -8,19 +8,19 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 /**
  * Returns a bit of text and some buttons with the different ways to contact the developer team.
  */
-export const handleContact: CommandHandler = async (Becca, interaction) => {
+export const handleContact: CommandHandler = async (Becca, interaction, t) => {
   try {
     const discordButton = new MessageButton()
       .setStyle("LINK")
-      .setLabel("Join our support server.")
+      .setLabel(t("commands:becca.contact.buttons.support"))
       .setURL("https://chat.nhcarrigan.com");
     const twitterButton = new MessageButton()
       .setStyle("LINK")
-      .setLabel("Follow us on Twitter.")
+      .setLabel(t("commands:becca.contact.buttons.twitter"))
       .setURL("https://twitter.com/becca_lyria");
     const githubButton = new MessageButton()
       .setStyle("LINK")
-      .setLabel("Create an issue on GitHub.")
+      .setLabel(t("commands:becca.contact.buttons.github"))
       .setURL("https://github.com/BeccaLyria/discord-bot");
 
     const row = new MessageActionRow().addComponents([
@@ -29,7 +29,7 @@ export const handleContact: CommandHandler = async (Becca, interaction) => {
       githubButton,
     ]);
     await interaction.editReply({
-      content: "Here are the options for getting in touch with us:",
+      content: t("commands:becca.contact.content"),
       components: [row],
     });
   } catch (err) {

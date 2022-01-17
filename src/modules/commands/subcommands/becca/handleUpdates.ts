@@ -13,39 +13,43 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  * Generates an embed explaining the new release schedule, and what the update
  * process breaks in terms of lost cache.
  */
-export const handleUpdates: CommandHandler = async (Becca, interaction) => {
+export const handleUpdates: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { commitHash: hash } = Becca;
     const updateEmbed = new MessageEmbed();
-    updateEmbed.setTitle("Update Information");
-    updateEmbed.setDescription(
-      "Becca's updates are deployed every Sunday around 8AM Pacific Time. This is important information to know, as these deployments clear the cache. This results in any outstanding cache-reliant features, such as polls, trivia games, or scheduled posts, to be lost. Please plan your interactions around this schedule."
-    );
-    updateEmbed.addField("Latest Updates", updatesSinceLastRelease.join("\n"));
+    updateEmbed.setTitle(t("commands:becca.updates.title"));
+    updateEmbed.setDescription(t("commands:becca.updates.description"));
     updateEmbed.addField(
-      "Current Version",
+      t("commands:becca.updates.latest"),
+      updatesSinceLastRelease.join("\n")
+    );
+    updateEmbed.addField(
+      t("commands:becca.updates.version"),
       process.env.npm_package_version || "0.0.0"
     );
-    updateEmbed.addField("Next Scheduled Update", nextScheduledRelease);
     updateEmbed.addField(
-      "Changelog",
-      "View Becca's entire change log [in her documentation](https://docs.beccalyria.com/#/changelog)."
+      t("commands:becca.updates.next"),
+      nextScheduledRelease
     );
     updateEmbed.addField(
-      "Commit Hash",
+      t("commands:becca.updates.changelog.title"),
+      t("commands:becca.updates.changelog.description")
+    );
+    updateEmbed.addField(
+      t("commands:becca.updates.commit"),
       `[${hash.slice(
         0,
         7
       )}](https://github.com/beccalyria/discord-bot/commit/${hash})`
     );
     updateEmbed.setColor(Becca.colours.default);
-    updateEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    updateEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     const button = new MessageButton()
-      .setLabel("View Changelog")
+      .setLabel(t("commands:becca.updates.buttons.view"))
       .setEmoji("<:BeccaNotes:883854700762505287>")
       .setStyle("LINK")
       .setURL("https://docs.beccalyria.com/#/changelog");

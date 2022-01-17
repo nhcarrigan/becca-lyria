@@ -23,5 +23,161 @@
         "allowed": "Allowed Links"
       }
     }
+  },
+  "becca": {
+    "about": {
+      "title": "Becca Lyria the Discord Bot",
+      "description": "Becca Lyria is a Discord bot built for community management and moderation. She includes various tools to help moderate your server, as well as fun commands to drive engagement and interaction among your members. All of her commands use the new slash command interface, which helps your members use the features in a streamlined and clear way.",
+      "version": "Version",
+      "creation": "Creation Date",
+      "guilds": "Guilds",
+      "members": "Members",
+      "commands": "Available Spells",
+      "colour": "Favourite Colour",
+      "purple": "Purple",
+      "buttons": {
+        "join": "Join our support server",
+        "invite": "Add Becca to your server!",
+        "code": "View Becca's source code"
+      }
+    },
+    "adventure": {
+      "description": "This adventure took place in [{{name}}]({{url}})",
+      "buttons": {
+        "more": "View more adventures!"
+      }
+    },
+    "art": {
+      "description": "This portrait of me was done by [{{artist}}]({{url}})",
+      "buttons": {
+        "more": "View more art!"
+      }
+    },
+    "contact": {
+      "content": "Here are the options for getting in touch with us:",
+      "buttons": {
+        "support": "Join our support server",
+        "twitter": "Follow us on Twitter",
+        "github": "Create an issue on GitHub"
+      }
+    },
+    "donate": {
+      "title": "Sponsor my development!",
+      "description": "Did you know I accept donations? These funds help me learn new spells, improve my current abilities, and allow me to serve you better.",
+      "footer": "Join our Discord to get perks when you become a monthly sponsor!",
+      "buttons": {
+        "github": "Donate on GitHub!",
+        "patreon": "Donate on Patreon!",
+        "paypal": "Donate on PayPal!"
+      }
+    },
+    "emote": {
+      "footer": "Art by Starfazers: https://starfazers.art",
+      "buttons": {
+        "more": "View more emotes!"
+      }
+    },
+    "help": {
+      "title": "How to Interact with Becca",
+      "description": "Hello there! I have many spells I can cast. To see the spells, type `/` and select my section from the pop-up menu.",
+      "support": {
+        "title": "Support Server",
+        "description": "If you need some extra guidance, join my support server where my minions will be glad to serve you."
+      },
+      "docs": {
+        "title": "Documentation",
+        "description": "As an alternative, you are welcome to view my instruction manual to see what I can do."
+      },
+      "source": {
+        "title": "Source Code",
+        "description": "Should you be feeling extra ambitious, you can also dive into my spell book and look at my abilities yourself."
+      },
+      "bug": {
+        "title": "Bug Report",
+        "description": "Have I failed you in some way? You can report an issue, or let us know in the support server."
+      },
+      "privacy": {
+        "title": "Privacy Policy",
+        "description": "As part of my services, I collect and use some specific Discord related information. This information includes, but may not be limited to, your user name, nickname, this server's name, and your Discord ID. [View my full policy](https://docs.beccalyria.com/#/privacy-policy)"
+      },
+      "buttons": {
+        "support": "Join our support server",
+        "invite": "Add Becca to your server!",
+        "source": "View Becca's source code",
+        "docs": "View Becca's documentation",
+        "issue": "Report an issue"
+      }
+    },
+    "invite": {
+      "title": "Do you require my assistance?",
+      "description": "I suppose I could provide my services to your guild. Click this [invite link](http://invite.beccalyria.com) and I will come serve you. You should also join our [support server](https://chat.nhcarrigan.com).",
+      "buttons": {
+        "invite": "Invite Becca to your server!",
+        "support": "Join our support server"
+      }
+    },
+    "ping": {
+      "title": "Pong!",
+      "description": "Experiencing slow response times? [Join our support server](https://chat.nhcarrigan.com) for assistance.",
+      "interaction": "Interaction Response Time",
+      "websocket": "Websocket Response Time",
+      "database": "Database Response Time"
+    },
+    "privacy": {
+      "title": "I'll keep your secrets safe!",
+      "description": "To maintain my functionality, I need to collect quite a bit of data. Mostly, this data is user/server IDs, names, and avatars.\n\nI will never store your message content in my database, but it may be logged in this server if the admins have enabled it.\n\nIf you want a full breakdown of everything I collect, [view my privacy policy](https://docs.beccalyria.com/#/privacy-policy)."
+    },
+    "profile": {
+      "title": "Becca Lyria",
+      "description": "If you want to read about my adventures, check my [profile site](https://www.beccalyria.com). I would rather not have to recount them all here.",
+      "buttons": {
+        "view": "View Becca's profile"
+      }
+    },
+    "stats": {
+      "commands": {
+        "title": "Command Stats",
+        "rank": "Rank",
+        "name": "Server Name",
+        "uses": "Command Uses"
+      },
+      "server": {
+        "title": "Server Vote Stats",
+        "votes": "{{-user}} with {{-votes}} votes"
+      },
+      "bot": {
+        "title": "Bot Vote Stats",
+        "votes": "{{-user}} with {{-votes}} votes"
+      },
+      "buttons": {
+        "support": "Join the support server",
+        "server": "Vote for the server",
+        "bot": "Vote for the bot"
+      },
+      "invalid": "That appears to be an invalid stat. Not sure how that happened."
+    },
+    "updates": {
+      "title": "Update Information",
+      "description": "Becca's updates are deployed every Sunday around 8AM Pacific Time. This is important information to know, as these deployments clear the cache. This results in any outstanding cache-reliant features, such as polls, trivia games, or scheduled posts, to be lost. Please plan your interactions around this schedule.",
+      "latest": "Latest Updates",
+      "version": "Current Version",
+      "next": "Next Scheduled Update",
+      "changelog": {
+        "title": "Change Log",
+        "description": "View Becca's entire change log [in her documentation](https://docs.beccalyria.com/#/changelog)."
+      },
+      "commit": "Commit Hash",
+      "buttons": {
+        "view": "View Change Log"
+      }
+    },
+    "uptime": {
+      "title": "Adventure Duration",
+      "description": "This is how long I have been on my adventure.",
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    }
   }
 }

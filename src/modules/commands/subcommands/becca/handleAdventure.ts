@@ -10,7 +10,11 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Using the adventureList config, selects a random adventure object and parses it
  * into an embed. The actual images are fetched from Becca's profile site.
  */
-export const handleAdventure: CommandHandler = async (Becca, interaction) => {
+export const handleAdventure: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const random = Math.floor(Math.random() * adventureList.length);
     const { fileName, gameName, gameUrl } = adventureList[random];
@@ -19,7 +23,10 @@ export const handleAdventure: CommandHandler = async (Becca, interaction) => {
     adventureEmbed.setTitle(gameName);
     adventureEmbed.setColor(Becca.colours.default);
     adventureEmbed.setDescription(
-      `This adventure took place in [${gameName}](${gameUrl})`
+      t("commands:becca.adventure.description", {
+        name: gameName,
+        url: gameUrl,
+      })
     );
     adventureEmbed.setImage(
       `https://www.beccalyria.com/assets/games/${fileName.replace(
@@ -27,13 +34,13 @@ export const handleAdventure: CommandHandler = async (Becca, interaction) => {
         "%20"
       )}`
     );
-    adventureEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    adventureEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     const artButton = new MessageButton()
-      .setLabel("View More Adventures!")
+      .setLabel(t("commands:becca.adventure.buttons.more"))
       .setEmoji("<:BeccaWork:883854701416833024>")
       .setStyle("LINK")
       .setURL("https://beccalyria.com/adventures");

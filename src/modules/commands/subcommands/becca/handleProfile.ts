@@ -9,14 +9,12 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  * Generates an embed with a link to Becca's profile site, where users
  * can read about her adventures.
  */
-export const handleProfile: CommandHandler = async (Becca, interaction) => {
+export const handleProfile: CommandHandler = async (Becca, interaction, t) => {
   try {
     const profileEmbed = new MessageEmbed();
     profileEmbed.setColor(Becca.colours.default);
-    profileEmbed.setTitle("Becca Lyria");
-    profileEmbed.setDescription(
-      "If you want to read about my adventures, check my [profile site](https://www.beccalyria.com). I would rather not have to recount them all here."
-    );
+    profileEmbed.setTitle(t("commands:becca.profile.title"));
+    profileEmbed.setDescription(t("commands:becca.profile.description"));
     profileEmbed.setThumbnail(Becca.user?.avatarURL({ dynamic: true }) || "");
     profileEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",
@@ -24,7 +22,7 @@ export const handleProfile: CommandHandler = async (Becca, interaction) => {
     );
 
     const profileButton = new MessageButton()
-      .setLabel("View Becca's Profile")
+      .setLabel(t("commands:becca.profile.buttons.view"))
       .setEmoji("<:BeccaHello:867102882791424073>")
       .setStyle("LINK")
       .setURL("https://www.beccalyria.com");

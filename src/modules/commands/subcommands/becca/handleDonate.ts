@@ -9,28 +9,26 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Generates an embed containing the various links through which a user
  * can sponsor Becca's development.
  */
-export const handleDonate: CommandHandler = async (Becca, interaction) => {
+export const handleDonate: CommandHandler = async (Becca, interaction, t) => {
   try {
     const sponsorEmbed = new MessageEmbed();
-    sponsorEmbed.setTitle("Sponsor my development!");
+    sponsorEmbed.setTitle(t("commands:becca.donate.title"));
     sponsorEmbed.setColor(Becca.colours.default);
-    sponsorEmbed.setDescription(
-      "Did you know I accept donations? These funds help me learn new spells, improve my current abilities, and allow me to serve you better."
-    );
-    sponsorEmbed.setFooter(
-      "Join our Discord to get perks when you become a monthly sponsor!"
-    );
+    sponsorEmbed.setDescription(t("commands:becca.donate.description"));
+    sponsorEmbed.setFooter({
+      text: t("commands:becca.donate.footer"),
+    });
 
     const githubButton = new MessageButton()
-      .setLabel("Donate on GitHub!")
+      .setLabel(t("commands:becca.donate.buttons.github"))
       .setStyle("LINK")
       .setURL("https://github.com/sponsors/nhcarrigan");
     const patreonButton = new MessageButton()
-      .setLabel("Donate on Patreon!")
+      .setLabel(t("commands:becca.donate.buttons.patreon"))
       .setStyle("LINK")
       .setURL("https://www.patreon.com/nhcarrigan");
     const paypalButton = new MessageButton()
-      .setLabel("Donate on Paypal!")
+      .setLabel("commands:becca.donate.buttons.paypal")
       .setStyle("LINK")
       .setURL("https://paypal.me/nhcarrigan");
 

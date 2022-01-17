@@ -8,7 +8,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Generates an embed with Becca's uptime.
  */
-export const handleUptime: CommandHandler = async (Becca, interaction) => {
+export const handleUptime: CommandHandler = async (Becca, interaction, t) => {
   try {
     const seconds = Math.round(process.uptime());
     const days = seconds >= 86400 ? Math.floor(seconds / 86400) : 0;
@@ -21,18 +21,30 @@ export const handleUptime: CommandHandler = async (Becca, interaction) => {
     const secondsRemain = seconds - days * 86400 - hours * 3600 - minutes * 60;
 
     const uptimeEmbed = new MessageEmbed();
-    uptimeEmbed.setTitle("Adventure Duration");
+    uptimeEmbed.setTitle(t("commands:becca.uptime.title"));
     uptimeEmbed.setColor(Becca.colours.default);
-    uptimeEmbed.setDescription("This is how long I have been on my adventure.");
-    uptimeEmbed.addField("Days", days.toString());
-    uptimeEmbed.addField("Hours", hours.toString(), true);
-    uptimeEmbed.addField("Minutes", minutes.toString(), true);
-    uptimeEmbed.addField("Seconds", secondsRemain.toString(), true);
-    uptimeEmbed.setTimestamp();
-    uptimeEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    uptimeEmbed.setDescription(t("commands:becca.uptime.description"));
+    uptimeEmbed.addField(t("commands:becca.uptime.days"), days.toString());
+    uptimeEmbed.addField(
+      t("commands:becca.uptime.hours"),
+      hours.toString(),
+      true
     );
+    uptimeEmbed.addField(
+      t("commands:becca.uptime.minutes"),
+      minutes.toString(),
+      true
+    );
+    uptimeEmbed.addField(
+      t("commands:becca.uptime.seconds"),
+      secondsRemain.toString(),
+      true
+    );
+    uptimeEmbed.setTimestamp();
+    uptimeEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [uptimeEmbed] });
   } catch (err) {
