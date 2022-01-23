@@ -97,7 +97,7 @@ export const handleStarCount: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "star count", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "star count", errorId, t)],
     });
   }
 };

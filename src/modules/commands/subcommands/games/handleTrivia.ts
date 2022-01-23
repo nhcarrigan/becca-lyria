@@ -135,7 +135,7 @@ export const handleTrivia: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "trivia", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "trivia", errorId, t)],
     });
   }
 };

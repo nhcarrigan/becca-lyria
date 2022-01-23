@@ -84,7 +84,7 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "level", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "level", errorId, t)],
     });
   }
 };

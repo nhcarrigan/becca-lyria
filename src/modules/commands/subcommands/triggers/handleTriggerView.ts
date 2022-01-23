@@ -117,7 +117,7 @@ export const handleTriggerView: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "trigger view", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "trigger view", errorId, t)],
     });
   }
 };

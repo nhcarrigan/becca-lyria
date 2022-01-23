@@ -148,7 +148,7 @@ export const handleAutomodView: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "automod view", errorId, t)],
     });
   }
 };

@@ -109,7 +109,7 @@ export const handleSuggestion: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "suggestion", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "suggestion", errorId, t)],
     });
   }
 };

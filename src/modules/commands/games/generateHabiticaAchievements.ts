@@ -95,7 +95,8 @@ export const generateHabiticaAchievements = async (
     return errorEmbedGenerator(
       Becca,
       "habitica achievements generator",
-      errorId
+      errorId,
+      t
     );
   }
 };

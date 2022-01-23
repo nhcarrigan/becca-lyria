@@ -137,7 +137,7 @@ export const automod: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "automod group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "automod group", errorId, t)],
       });
     }
   },

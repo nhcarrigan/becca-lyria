@@ -32,7 +32,7 @@ export const handleLanguage: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "language", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "language", errorId, t)],
     });
   }
 };

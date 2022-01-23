@@ -70,7 +70,7 @@ export const handleUnregister: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "unregister", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "unregister", errorId, t)],
     });
   }
 };

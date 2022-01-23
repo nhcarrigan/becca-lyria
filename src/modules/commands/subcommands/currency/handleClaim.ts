@@ -124,7 +124,7 @@ export const handleClaim: CurrencyHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "claim", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "claim", errorId, t)],
     });
   }
 };

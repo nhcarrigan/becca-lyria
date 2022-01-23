@@ -47,7 +47,7 @@ export const handleColour: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "colour", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "colour", errorId, t)],
     });
   }
 };

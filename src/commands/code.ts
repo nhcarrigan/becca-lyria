@@ -85,7 +85,7 @@ export const code: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "code group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "code group", errorId, t)],
       });
     }
   },

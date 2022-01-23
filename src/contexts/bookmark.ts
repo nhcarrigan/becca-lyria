@@ -70,7 +70,7 @@ export const bookmark: Context = {
         interaction.guild?.name
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "bookmark context", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "bookmark context", errorId, t)],
       });
     }
   },

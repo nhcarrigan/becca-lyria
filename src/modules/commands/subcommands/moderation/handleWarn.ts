@@ -100,7 +100,7 @@ export const handleWarn: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "warn", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "warn", errorId, t)],
     });
   }
 };

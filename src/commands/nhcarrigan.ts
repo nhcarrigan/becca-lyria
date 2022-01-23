@@ -124,7 +124,7 @@ export const nhcarrigan: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId, t)],
       });
     }
   },

@@ -92,7 +92,7 @@ export const triggers: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "triggers group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "triggers group", errorId, t)],
       });
     }
   },

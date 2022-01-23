@@ -61,7 +61,7 @@ export const handleAdventure: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "adventure", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "adventure", errorId, t)],
     });
   }
 };

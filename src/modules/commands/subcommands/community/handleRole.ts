@@ -167,7 +167,7 @@ export const handleRole: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "role", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "role", errorId, t)],
     });
   }
 };

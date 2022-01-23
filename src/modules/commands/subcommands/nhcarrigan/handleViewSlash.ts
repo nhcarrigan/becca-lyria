@@ -51,7 +51,7 @@ export const handleViewSlash: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "view slash", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "view slash", errorId, t)],
     });
   }
 };

@@ -80,7 +80,7 @@ export const report: Context = {
         interaction.guild?.name
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "report context", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "report context", errorId, t)],
       });
     }
   },

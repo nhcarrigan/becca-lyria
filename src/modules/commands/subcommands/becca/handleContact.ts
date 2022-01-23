@@ -40,7 +40,7 @@ export const handleContact: CommandHandler = async (Becca, interaction, t) => {
       interaction.guild?.name
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "contact", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "contact", errorId, t)],
     });
   }
 };

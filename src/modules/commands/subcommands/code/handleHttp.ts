@@ -40,7 +40,7 @@ export const handleHttp: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "http", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "http", errorId, t)],
     });
   }
 };

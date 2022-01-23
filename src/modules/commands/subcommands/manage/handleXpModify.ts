@@ -166,12 +166,12 @@ export const handleXpModify: CommandHandler = async (
     );
     await interaction
       .reply({
-        embeds: [errorEmbedGenerator(Becca, "xpmodify", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "xpmodify", errorId, t)],
         ephemeral: true,
       })
       .catch(async () => {
         await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "xpmodify", errorId)],
+          embeds: [errorEmbedGenerator(Becca, "xpmodify", errorId, t)],
         });
       });
   }

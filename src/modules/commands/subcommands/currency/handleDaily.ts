@@ -65,7 +65,7 @@ export const handleDaily: CurrencyHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "daily", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "daily", errorId, t)],
     });
   }
 };

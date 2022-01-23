@@ -60,7 +60,7 @@ export const handleResetLevels: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "reset level", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "reset level", errorId, t)],
     });
   }
 };

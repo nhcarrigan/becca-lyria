@@ -100,7 +100,7 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "schedule", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "schedule", errorId, t)],
     });
   }
 };

@@ -103,7 +103,7 @@ export const log: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "log group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "log group", errorId, t)],
       });
     }
   },

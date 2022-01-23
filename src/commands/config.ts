@@ -113,7 +113,7 @@ export const config: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "config group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "config group", errorId, t)],
       });
     }
   },

@@ -33,7 +33,7 @@ export const handleCanIUse: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "caniuse", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "caniuse", errorId, t)],
     });
   }
 };

@@ -92,7 +92,7 @@ export const handleEmoteView: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "emote view", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "emote view", errorId, t)],
     });
   }
 };

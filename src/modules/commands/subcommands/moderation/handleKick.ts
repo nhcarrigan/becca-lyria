@@ -108,7 +108,7 @@ export const handleKick: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "kick", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "kick", errorId, t)],
     });
   }
 };

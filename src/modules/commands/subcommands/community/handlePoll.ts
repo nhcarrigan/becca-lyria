@@ -121,7 +121,7 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "poll", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "poll", errorId, t)],
     });
   }
 };

@@ -49,7 +49,7 @@ export const handleInvite: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "invite", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "invite", errorId, t)],
     });
   }
 };

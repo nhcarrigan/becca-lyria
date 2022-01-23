@@ -57,7 +57,7 @@ export const handleUptime: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "uptime", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "uptime", errorId, t)],
     });
   }
 };

@@ -202,7 +202,7 @@ export const handleTwentyOne: CurrencyHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "twenty one", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "twenty one", errorId, t)],
     });
   }
 };

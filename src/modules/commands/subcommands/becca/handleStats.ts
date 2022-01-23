@@ -173,7 +173,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "stats", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "stats", errorId, t)],
     });
   }
 };

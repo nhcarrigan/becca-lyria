@@ -184,7 +184,7 @@ export const mod: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "mod group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "mod group", errorId, t)],
       });
     }
   },

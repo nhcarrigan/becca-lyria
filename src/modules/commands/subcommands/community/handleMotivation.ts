@@ -36,7 +36,7 @@ export const handleMotivation: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "motivation", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "motivation", errorId, t)],
     });
   }
 };

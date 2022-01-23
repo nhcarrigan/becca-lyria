@@ -78,7 +78,7 @@ export const emote: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "emote group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "emote group", errorId, t)],
       });
     }
   },

@@ -110,7 +110,7 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "emote use", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "emote use", errorId, t)],
     });
   }
 };

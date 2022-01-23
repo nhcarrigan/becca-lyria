@@ -65,7 +65,7 @@ export const activity: Context = {
         interaction.guild?.name
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "activity context", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "activity context", errorId, t)],
       });
     }
   },

@@ -49,7 +49,7 @@ export const handleReset: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "reset", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "reset", errorId, t)],
     });
   }
 };

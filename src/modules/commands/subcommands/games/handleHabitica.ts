@@ -39,7 +39,7 @@ export const handleHabitica: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "habitica", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "habitica", errorId, t)],
     });
   }
 };

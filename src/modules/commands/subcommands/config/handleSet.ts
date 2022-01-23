@@ -86,7 +86,7 @@ export const handleSet: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "set", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "set", errorId, t)],
     });
   }
 };

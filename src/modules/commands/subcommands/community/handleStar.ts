@@ -90,7 +90,7 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "star", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "star", errorId, t)],
     });
   }
 };

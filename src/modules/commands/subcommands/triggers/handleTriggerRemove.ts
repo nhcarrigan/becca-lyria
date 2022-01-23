@@ -57,7 +57,7 @@ export const handleTriggerRemove: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "trigger remove", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "trigger remove", errorId, t)],
     });
   }
 };

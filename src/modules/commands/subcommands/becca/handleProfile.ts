@@ -40,7 +40,7 @@ export const handleProfile: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "profile", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "profile", errorId, t)],
     });
   }
 };

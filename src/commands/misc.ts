@@ -125,7 +125,7 @@ export const misc: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "misc group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "misc group", errorId, t)],
       });
     }
   },

@@ -92,7 +92,7 @@ export const handleLeaderboard: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "leaderboard", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "leaderboard", errorId, t)],
     });
   }
 };

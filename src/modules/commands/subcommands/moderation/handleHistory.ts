@@ -90,7 +90,7 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "history", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "history", errorId, t)],
     });
   }
 };

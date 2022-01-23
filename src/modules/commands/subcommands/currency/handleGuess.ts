@@ -67,7 +67,7 @@ export const handleGuess: CurrencyHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "guess", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "guess", errorId, t)],
     });
   }
 };

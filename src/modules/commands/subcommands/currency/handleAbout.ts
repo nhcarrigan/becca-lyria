@@ -45,7 +45,7 @@ export const handleAbout: CurrencyHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "about", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "about", errorId, t)],
     });
   }
 };

@@ -58,7 +58,7 @@ export const handlePing: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "ping", errorId, t)],
     });
   }
 };

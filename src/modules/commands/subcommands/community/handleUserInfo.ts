@@ -98,7 +98,7 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "user info", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "user info", errorId, t)],
     });
   }
 };

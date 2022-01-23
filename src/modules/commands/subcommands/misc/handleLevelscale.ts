@@ -122,7 +122,7 @@ export const handleLevelscale: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "levelscale", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "levelscale", errorId, t)],
     });
   }
 };

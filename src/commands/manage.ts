@@ -113,7 +113,7 @@ export const manage: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "manage group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "manage group", errorId, t)],
       });
     }
   },

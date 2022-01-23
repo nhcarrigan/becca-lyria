@@ -65,7 +65,7 @@ export const handleLogView: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "log view", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "log view", errorId, t)],
     });
   }
 };

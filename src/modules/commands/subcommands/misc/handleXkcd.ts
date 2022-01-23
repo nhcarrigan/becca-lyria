@@ -43,7 +43,7 @@ export const handleXkcd: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "xkcd", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "xkcd", errorId, t)],
     });
   }
 };

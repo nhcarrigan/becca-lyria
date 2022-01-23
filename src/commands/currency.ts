@@ -178,7 +178,7 @@ export const currency: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "currency group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "currency group", errorId, t)],
       });
     }
   },

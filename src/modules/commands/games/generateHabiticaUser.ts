@@ -107,6 +107,6 @@ export const generateHabiticaUser = async (
       "habitica user generator",
       err
     );
-    return errorEmbedGenerator(Becca, "habitica user generator", errorId);
+    return errorEmbedGenerator(Becca, "habitica user generator", errorId, t);
   }
 };

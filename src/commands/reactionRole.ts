@@ -125,7 +125,7 @@ export const reactionRole: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "reaction role group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "reaction role group", errorId, t)],
       });
     }
   },

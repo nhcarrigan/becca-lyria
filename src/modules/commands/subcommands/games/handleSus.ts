@@ -36,7 +36,7 @@ export const handleSus: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "sus", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "sus", errorId, t)],
     });
   }
 };

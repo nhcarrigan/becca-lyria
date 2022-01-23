@@ -89,7 +89,7 @@ export const handlePermissions: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "permissions", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "permissions", errorId, t)],
     });
   }
 };

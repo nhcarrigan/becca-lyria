@@ -113,7 +113,7 @@ export const games: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "games group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "games group", errorId, t)],
       });
     }
   },

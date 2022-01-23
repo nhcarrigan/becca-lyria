@@ -177,7 +177,7 @@ export const becca: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "becca group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "becca group", errorId, t)],
       });
     }
   },

@@ -121,7 +121,7 @@ export const handleBan: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "ban", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "ban", errorId, t)],
     });
   }
 };

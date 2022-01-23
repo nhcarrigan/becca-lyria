@@ -59,7 +59,7 @@ export const handleView: CurrencyHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "view", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "view", errorId, t)],
     });
   }
 };

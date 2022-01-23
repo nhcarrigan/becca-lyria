@@ -1,4 +1,5 @@
 import { MessageEmbed } from "discord.js";
+import { TFunction } from "i18next";
 import { Types } from "mongoose";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
@@ -10,34 +11,38 @@ import { BeccaLyria } from "../../interfaces/BeccaLyria";
  * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {string} commandName The name of the command that generated the error.
  * @param {Types.ObjectId} errorId The unique ID for the error.
+ * @param {TFunction} t The i18n function.
  * @returns {MessageEmbed} The Discord embed containing the information.
  */
 export const errorEmbedGenerator = (
   Becca: BeccaLyria,
   commandName: string,
-  errorId: Types.ObjectId
+  errorId: Types.ObjectId,
+  t: TFunction
 ): MessageEmbed => {
   const errorEmbed = new MessageEmbed();
   errorEmbed.setColor(Becca.colours.error);
-  errorEmbed.setTitle(`Unknown Error`);
-  errorEmbed.setDescription(`The ${commandName} spell has fizzled out.`);
-  errorEmbed.addField(
-    "What happened?",
-    "Something went wrong with this command."
+  errorEmbed.setTitle(t("defaults:errors.title"));
+  errorEmbed.setDescription(
+    t("defaults:errors.description", { command: commandName })
   );
   errorEmbed.addField(
-    "Did I do something wrong?",
-    "Errors can happen for a number of reasons. It could be an issue with the permissions you gave me, the code that powers me, or a number of other possibilities."
+    t("defaults:errors.what.title"),
+    t("defaults.errors.what.description")
   );
   errorEmbed.addField(
-    "So what can I do to fix it?",
-    " If you need assistance with this feature, please [join our support server](https://chat.nhcarrigan.com). Once there, give this ErrorID to the support team to investigate."
+    t("defaults:errors.wrong.title"),
+    t("defaults:errors.wrong.description")
   );
-  errorEmbed.addField("Error ID:", errorId.toHexString());
+  errorEmbed.addField(
+    t("defaults:errors.fix.title"),
+    t("defaults:errors.fix.description")
+  );
+  errorEmbed.addField(t("defaults:errors.id"), errorId.toHexString());
   errorEmbed.setTimestamp();
-  errorEmbed.setFooter(
-    "Like the bot? Donate: https://donate.nhcarrigan.com",
-    "https://cdn.nhcarrigan.com/profile-transparent.png"
-  );
+  errorEmbed.setFooter({
+    text: t("defaults:donate"),
+    iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png/*  */",
+  });
   return errorEmbed;
 };

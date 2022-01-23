@@ -94,7 +94,7 @@ export const handleReactionAdd: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "handleReactionAdd", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "handleReactionAdd", errorId, t)],
     });
   }
 };

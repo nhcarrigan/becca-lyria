@@ -29,7 +29,7 @@ export const handlePrivacy: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "privacy", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "privacy", errorId, t)],
     });
   }
 };

@@ -49,7 +49,7 @@ export const handleDonate: CommandHandler = async (Becca, interaction, t) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "donate", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "donate", errorId, t)],
     });
   }
 };

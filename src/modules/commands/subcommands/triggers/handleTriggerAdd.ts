@@ -65,7 +65,7 @@ export const handleTriggerAdd: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "trigger add", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "trigger add", errorId, t)],
     });
   }
 };

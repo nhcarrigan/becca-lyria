@@ -221,7 +221,7 @@ export const community: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "community group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "community group", errorId, t)],
       });
     }
   },
