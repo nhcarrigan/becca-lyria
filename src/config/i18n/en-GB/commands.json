@@ -310,5 +310,24 @@
       "nitro": "Nitro",
       "badges": "Badges"
     }
+  },
+  "config": {
+    "reset": {
+      "success": "I have reset your {{setting}} setting.",
+      "failed": "I am having trouble updating your settings. Please try again later."
+    },
+    "set": {
+      "invalid": "{{value}} is not a valid option for {{setting}}",
+      "failed": "I am having trouble updating your settings. Please try again later.",
+      "title": "{{setting}} Updated"
+    },
+    "view": {
+      "none": "I am unable to locate your settings"
+    },
+    "settingsArray": {
+      "title": "Config data for {{setting}}",
+      "none": "No data found.",
+      "page": "Page {{page}} of {{pages}}"
+    }
   }
 }

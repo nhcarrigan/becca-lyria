@@ -35,8 +35,8 @@ export const handleReset: CommandHandler = async (
     );
     await interaction.editReply(
       success
-        ? `I have reset your ${setting} setting.`
-        : "I am having trouble updating your settings. Please try again later."
+        ? t("commands:config.reset.success", { setting })
+        : t("commands:config.reset.failed")
     );
     return;
   } catch (err) {

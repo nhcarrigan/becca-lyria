@@ -1,4 +1,5 @@
 import { MessageEmbed } from "discord.js";
+import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../../../../interfaces/BeccaLyria";
 import { ServerConfig } from "../../../../interfaces/database/ServerConfig";
@@ -11,6 +12,7 @@ import { renderSetting } from "../../../settings/renderSetting";
  * stored in the description separated by new lines.
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
+ * @param {TFunction} t The i18n function.
  * @param {ServerConfig} config The server's settings from the database.
  * @param {ArraySettings} setting The setting to be parsed.
  * @param {number} page The page number for the current embed.
@@ -18,6 +20,7 @@ import { renderSetting } from "../../../settings/renderSetting";
  */
 export const viewSettingsArray = async (
   Becca: BeccaLyria,
+  t: TFunction,
   config: ServerConfig,
   setting: ArraySettings,
   page: number
@@ -26,13 +29,17 @@ export const viewSettingsArray = async (
     const data = config[setting];
 
     const settingEmbed = new MessageEmbed();
-    settingEmbed.setTitle(`Config Data for ${setting}`);
+    settingEmbed.setTitle(
+      t("commands:config.settingsArray.title", { setting })
+    );
     settingEmbed.setTimestamp();
     settingEmbed.setColor(Becca.colours.default);
 
     if (!data || !data.length) {
-      settingEmbed.setDescription("No data found.");
-      settingEmbed.setFooter("Page 1 of 1");
+      settingEmbed.setDescription(t("commands:config.settingsArray.none"));
+      settingEmbed.setFooter({
+        text: t("commands:config.settingsArray.page", { page: 1, pages: 1 }),
+      });
       return settingEmbed;
     }
 
@@ -42,7 +49,9 @@ export const viewSettingsArray = async (
       .map((el) => renderSetting(Becca, setting, el));
 
     settingEmbed.setDescription(paginatedData.join("\n"));
-    settingEmbed.setFooter(`Page ${page} of ${pages}`);
+    settingEmbed.setFooter({
+      text: t("commands:config.settingsArray.page", { page, pages }),
+    });
     return settingEmbed;
   } catch (err) {
     await beccaErrorHandler(Becca, "view settings array module", err);
