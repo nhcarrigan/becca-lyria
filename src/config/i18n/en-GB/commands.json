@@ -156,6 +156,13 @@
       },
       "invalid": "That appears to be an invalid stat. Not sure how that happened."
     },
+    "translators": {
+      "title": "Thanks to Our Wonderful Translators",
+      "none": "No translators have contributed to the project yet.",
+      "help": "Want to help translate?",
+      "join": "[Join our support server to get started.](https://chat.nhcarrigan.com)",
+      "button": "Join Server"
+    },
     "updates": {
       "title": "Update Information",
       "description": "Becca's updates are deployed every Sunday around 8AM Pacific Time. This is important information to know, as these deployments clear the cache. This results in any outstanding cache-reliant features, such as polls, trivia games, or scheduled posts, to be lost. Please plan your interactions around this schedule.",
