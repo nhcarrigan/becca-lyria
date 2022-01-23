@@ -329,5 +329,87 @@
       "none": "No data found.",
       "page": "Page {{page}} of {{pages}}"
     }
+  },
+  "currency": {
+    "about": {
+      "description": "Our new currency system allows you to collect BeccaCoin, a virtual currency, and exchange these coins for rewards. These coins can be collected on a daily and weekly basis. Note that these rewards require you to [join our support server](https://chat.nhcarrigan.com).",
+      "modify": {
+        "title": "Right to Modify",
+        "description": "We reserve the right to add, remove, or modify rewards at any time, without prior notice to the users."
+      },
+      "cash": {
+        "title": "No Cash Value",
+        "description": "BeccaCoin is a virtual currency with *no cash value*, except for implied value available through the reward exchange."
+      },
+      "bots": {
+        "title": "No Bots",
+        "description": "Using automation, scripting, self-bots, or other methods to take advantage of the currency system are violations of Discord Terms of Service and we will deny any rewards obtained this way."
+      },
+      "refuse": {
+        "title": "Right to Refuse",
+        "description": "The development team reserves the right to refuse any claimed reward without compensation to the user."
+      }
+    },
+    "claim": {
+      "price": "This reward costs {{price}} BeccaCoint. You only have {{total}}.",
+      "invalid": "This somehow appears to be an invalid reward. Please check with the developer team.",
+      "details": "Reward Details",
+      "monarch": "You will take the monarch role from whomever has it in our support server, and you will keep the role until someone else takes it from you.",
+      "emote": "You will be able to work with nhcarrigan to determine the next pose for a Becca emote. The emote will be available in the support server. nhcarrigan will retain all rights to the art and the character, but we will make an announcement in the support server thanking you for the emote idea.",
+      "feature": "You will be able to work with nhcarrigan and the development team to suggest a new feature for Becca. We reserve the right to refuse features that are not in line with Becca's primary purpose, but will work with you until you we reach a feature proposal everyone is happy with.",
+      "wealthy": "You will be given the Wealthy role in our support server. You will keep this role.",
+      "button": "Join our server to redeem your rewards!"
+    },
+    "daily": {
+      "cooldown": "You have already claimed your daily. Come back in: {{time}}",
+      "title": "Daily Reward!",
+      "description": "You've earned {{earned}} BeccaCoin! You now have {{total}} BeccaCoin!"
+    },
+    "guess": {
+      "insufficient": "You cannot wager more coin than you have!",
+      "won": "You won!",
+      "lost": "You lost...",
+      "total": "Your BeccaCoin: {{total}}",
+      "guess": "Your Guess",
+      "becca": "Becca's Number"
+    },
+    "slots": {
+      "nowager": "You must wager at least one BeccaCoin.",
+      "insufficient": "You cannot wager more coin than you have!",
+      "cooldown": "You cannot play slots that often! Come back in: {{time}}",
+      "won": "You won!",
+      "lost": "You lost...",
+      "total": "Your BeccaCoin: {{total}}",
+      "footer": "Emotes by Starfazers: https://starfazers.art"
+    },
+    "twentyone": {
+      "nowager": "You must wager at least one BeccaCoin.",
+      "insufficient": "You cannot wager more coin than you have!",
+      "cooldown": "You cannot play 21 that often! Come back in: {{time}}",
+      "title": "Twenty One!",
+      "description": "Get your score higher than Becca without going over 21! Press `hit` to increase your score, and `stand` to stop playing and let Becca finish her turns.",
+      "player": "Your Score",
+      "becca": "Becca's Score",
+      "hit": "Hit",
+      "stand": "Stand",
+      "won": "You win!",
+      "lost": "You lose...",
+      "total": "Your BeccaCoin: {{total}}",
+      "expired": "This game has expired after ten minutes."
+    },
+    "view": {
+      "total": "You currently have {{total}} BeccaCoin!",
+      "daily": "Next Daily Claim",
+      "weekly": "Next Weekly Claim"
+    },
+    "weekly": {
+      "no": {
+        "title": "Uh oh!",
+        "description": "Weekly rewards are only available to members of our support server! You can [join with this link](https://chat.nhcarrigan.com) and come hang out with us!"
+      },
+      "cooldown": "You have already claimed your weekly! Come back in {{time}}",
+      "title": "Weekly Reward!",
+      "description": "You've earned {{earned}} BeccaCoin! You now have {{total}} BeccaCoin!"
+    }
   }
 }

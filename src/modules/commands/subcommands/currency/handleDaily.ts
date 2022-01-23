@@ -23,9 +23,9 @@ export const handleDaily: CurrencyHandler = async (
     if (!canClaim) {
       const cooldown = data.dailyClaimed - now + 86400000;
       await interaction.editReply({
-        content: `You have already claimed your daily!\nCome back in: ${parseSeconds(
-          Math.ceil(cooldown / 1000)
-        )}`,
+        content: t("commands:currency.daily.cooldown", {
+          time: parseSeconds(Math.ceil(cooldown / 1000)),
+        }),
       });
       return;
     }
@@ -37,15 +37,18 @@ export const handleDaily: CurrencyHandler = async (
     await data.save();
 
     const embed = new MessageEmbed();
-    embed.setTitle("Daily Reward!");
+    embed.setTitle(t("commands:currency.daily.title"));
     embed.setDescription(
-      `You've earned ${earnedCurrency} BeccaCoin! You now have ${data.currencyTotal} BeccaCoin.`
+      t("commands:currency.daily.description", {
+        earned: earnedCurrency,
+        total: data.currencyTotal,
+      })
     );
     embed.setColor(Becca.colours.default);
-    embed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    embed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [embed] });
 

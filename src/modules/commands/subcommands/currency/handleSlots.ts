@@ -22,14 +22,12 @@ export const handleSlots: CurrencyHandler = async (
     const wager = interaction.options.getInteger("wager");
 
     if (!wager || wager < 1) {
-      await interaction.editReply("You must wager at least one BeccaCoin.");
+      await interaction.editReply(t("commands:currency.slots.nowager"));
       return;
     }
 
     if (wager > data.currencyTotal) {
-      await interaction.editReply(
-        `You cannot wager ${wager} BeccaCoin, as you only have ${data.currencyTotal}.`
-      );
+      await interaction.editReply(t("commands:currency.slots.insufficient"));
       return;
     }
 
@@ -39,9 +37,9 @@ export const handleSlots: CurrencyHandler = async (
     if (!canPlay) {
       const cooldown = data.slotsPlayed - now + 3600000;
       await interaction.editReply({
-        content: `You cannot play slots that often!\nCome back in: ${parseSeconds(
-          Math.ceil(cooldown / 1000)
-        )}`,
+        content: t("commands:currency.slots.cooldown", {
+          time: parseSeconds(Math.ceil(cooldown / 1000)),
+        }),
       });
       return;
     }
@@ -59,10 +57,16 @@ export const handleSlots: CurrencyHandler = async (
     await data.save();
 
     const slotEmbed = new MessageEmbed();
-    slotEmbed.setTitle(didWin ? "You won!" : "You lost...");
+    slotEmbed.setTitle(
+      didWin
+        ? t("commands:currency.slots.won")
+        : t("commands:currency.slots.lost")
+    );
     slotEmbed.setColor(didWin ? Becca.colours.success : Becca.colours.error);
-    slotEmbed.setDescription(`Your BeccaCoin: ${data.currencyTotal}`);
-    slotEmbed.setFooter("Emotes by Starfazers: https://starfazers.art");
+    slotEmbed.setDescription(
+      t("commands:currency.slots.total", { total: data.currencyTotal })
+    );
+    slotEmbed.setFooter(t("commands:currency.slots.footer"));
 
     await interaction.editReply({
       content: `${first} ${second} ${third}`,
