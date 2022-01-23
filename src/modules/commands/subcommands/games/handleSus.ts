@@ -10,18 +10,20 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Generates an embed with a random colour from Among Us, and delcares that
  * colour the new sus.
  */
-export const handleSus: CommandHandler = async (Becca, interaction) => {
+export const handleSus: CommandHandler = async (Becca, interaction, t) => {
   try {
     const random = Math.floor(Math.random() * SusNames.length);
     const susEmbed = new MessageEmbed();
-    susEmbed.setTitle("Emergency Meeting!");
-    susEmbed.setDescription(SusNames[random] + " is the new SUS!");
+    susEmbed.setTitle(t("commands:games.sus.title"));
+    susEmbed.setDescription(
+      t("commands:games.sus.description", { color: SusNames[random] })
+    );
     susEmbed.setColor(SusColours[random]);
     susEmbed.setTimestamp();
-    susEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    susEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [susEmbed] });
   } catch (err) {

@@ -10,7 +10,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Generates an embed containing a random joke.
  */
-export const handleJoke: CommandHandler = async (Becca, interaction) => {
+export const handleJoke: CommandHandler = async (Becca, interaction, t) => {
   try {
     const joke = await axios.get<Joke>("https://icanhazdadjoke.com/", {
       headers: {
@@ -21,20 +21,20 @@ export const handleJoke: CommandHandler = async (Becca, interaction) => {
 
     if (!joke.data || joke.data.status !== 200) {
       await interaction.editReply({
-        content: "I am not in the mood for humour right now.",
+        content: t("commands:games.joke.no"),
       });
       return;
     }
 
     const jokeEmbed = new MessageEmbed();
     jokeEmbed.setColor(Becca.colours.default);
-    jokeEmbed.setTitle("Perhaps this will entertain you...");
+    jokeEmbed.setTitle(t("commands:games.joke.title"));
     jokeEmbed.setDescription(joke.data.joke);
     jokeEmbed.setTimestamp();
-    jokeEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    jokeEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
     await interaction.editReply({ embeds: [jokeEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(

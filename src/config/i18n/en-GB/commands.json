@@ -436,5 +436,67 @@
       "smacks": "Smacks",
       "uwus": "UwU Faces"
     }
+  },
+  "games": {
+    "fact": {
+      "title": "Did You Know?"
+    },
+    "habitica": {
+      "nouser": {
+        "title": "User not found!",
+        "description": "I am afraid I came back empty handed. That user does not appear to exist."
+      },
+      "user": {
+        "title": "{{user}}'s Habitica Profile",
+        "description": "{{user}}: Stats",
+        "class": "Class",
+        "hp": "Health Points",
+        "mp": "Mana Points",
+        "stats": "Stats",
+        "values": "Strength: {{str}}, Constitution: {{con}}, Intelligence: {{int}}, Perception: {{per}}",
+        "exp": "Experience",
+        "total": "{{exp}} - {{next}} to reach the next level.",
+        "join": "Join Date",
+        "last": "Last Seen"
+      },
+      "noach": {
+        "title": "No Achievements!",
+        "description": "That user has not made any notable achievements."
+      },
+      "achievements": {
+        "title": "Achievements",
+        "basic": "Basic Achievements",
+        "onboarding": "Onboarding Achievements",
+        "season": "Seasonal Achievements",
+        "special": "Special Achievements"
+      }
+    },
+    "joke": {
+      "no": "I am not in the mood for humour right now.",
+      "title": "Perhaps this will entertain you..."
+    },
+    "mtg": {
+      "no": "That card does not seem to exist...",
+      "flavour": "This card has no flavour text...",
+      "abilities": "Abilities",
+      "noability": "This card has no ability text...",
+      "types": "Types",
+      "cost": "Cost"
+    },
+    "slime": {
+      "success": "You've been slimed!",
+      "failure": "I lack the permission to bequeath you a new name."
+    },
+    "sus": {
+      "title": "Emergency Meeting!",
+      "description": "{{color}} is the new sus!"
+    },
+    "trivia": {
+      "footer": "Can you answer this correctly in 30 seconds? Good luck...",
+      "duplicate": "You have already submitted an answer!",
+      "answered": "Your answer of {{answer}} has been recorded.",
+      "result": "{{count}} of you got this right!",
+      "correct": "Correct Answer:"
+    }
   }
 }

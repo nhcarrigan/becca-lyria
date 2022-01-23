@@ -1,5 +1,6 @@
 import axios from "axios";
 import { MessageEmbed } from "discord.js";
+import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import {
@@ -14,12 +15,14 @@ import { errorEmbedGenerator } from "../errorEmbedGenerator";
  * formatted in an embed.
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
+ * @param {TFunction} t The i18n function.
  * @param {string} id The user's Habitica ID.
  * @param {HabiticaRequestHeaders} headers The headers to use for the request.
  * @returns {MessageEmbed} The formatted Discord embed.
  */
 export const generateHabiticaUser = async (
   Becca: BeccaLyria,
+  t: TFunction,
   id: string,
   headers: HabiticaRequestHeaders
 ): Promise<MessageEmbed> => {
@@ -33,10 +36,8 @@ export const generateHabiticaUser = async (
     const userEmbed = new MessageEmbed();
 
     if (!user || !user.data || !user.data.success) {
-      userEmbed.setTitle("User not found!");
-      userEmbed.setDescription(
-        "I am afraid I came back empty handed. That user does not appear to exist."
-      );
+      userEmbed.setTitle(t("commands:games.habitica.nouser.title"));
+      userEmbed.setDescription(t("commands:games.habitica.nouser.description"));
       return userEmbed;
     }
 
@@ -44,34 +45,60 @@ export const generateHabiticaUser = async (
     const url = `https://habitica.com/profile/${id}`;
 
     userEmbed.setColor(Becca.colours.default);
-    userEmbed.setTitle(`${profile.name}'s Habitica Profile`);
+    userEmbed.setTitle(
+      t("commands:games.habitica.user.title", { user: profile.name })
+    );
     userEmbed.setURL(url);
-    userEmbed.setDescription(`@${auth.local.username}: Stats`);
-    userEmbed.addField("Class", stats.class, true);
-    userEmbed.addField("HP", `${~~stats.hp}/${stats.maxHealth}`, true);
-    userEmbed.addField("MP", `${stats.mp}/${stats.maxMP}`, true);
-    userEmbed.addField(
-      "Stats",
-      `STR: ${stats.str}, CON: ${stats.con}, INT: ${stats.int}, PER: ${stats.per}`
+    userEmbed.setDescription(
+      t("commands:games.habitica.user.description", {
+        user: auth.local.username,
+      })
     );
     userEmbed.addField(
-      "Experience",
-      `${stats.exp} - ${stats.toNextLevel} to reach the next level.`
+      t("commands:games.habitica.user.class"),
+      stats.class,
+      true
     );
     userEmbed.addField(
-      "Join date",
+      t("commands:games.habitica.user.hp"),
+      `${~~stats.hp}/${stats.maxHealth}`,
+      true
+    );
+    userEmbed.addField(
+      t("commands:games.habitica.user.mp"),
+      `${stats.mp}/${stats.maxMP}`,
+      true
+    );
+    userEmbed.addField(
+      t("commands:games.habitica.user.stats"),
+      t("commands:games.habitica.user.values", {
+        str: stats.str,
+        con: stats.con,
+        int: stats.int,
+        per: stats.per,
+      })
+    );
+    userEmbed.addField(
+      t("commands:games.habitica.user.exp"),
+      t("commands:games.habitica.user.total", {
+        exp: stats.exp,
+        next: stats.toNextLevel,
+      })
+    );
+    userEmbed.addField(
+      t("commands:games.habitica.user.join"),
       new Date(auth.timestamps.created).toLocaleDateString(),
       true
     );
     userEmbed.addField(
-      "Last seen",
+      t("commands:games.habitica.user.last"),
       new Date(auth.timestamps.loggedin).toLocaleDateString(),
       true
     );
-    userEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    userEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     return userEmbed;
   } catch (err) {
