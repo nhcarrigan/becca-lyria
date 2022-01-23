@@ -18,6 +18,7 @@ import { handlePing } from "../modules/commands/subcommands/becca/handlePing";
 import { handlePrivacy } from "../modules/commands/subcommands/becca/handlePrivacy";
 import { handleProfile } from "../modules/commands/subcommands/becca/handleProfile";
 import { handleStats } from "../modules/commands/subcommands/becca/handleStats";
+import { handleTranslators } from "../modules/commands/subcommands/becca/handleTranslators";
 import { handleUpdates } from "../modules/commands/subcommands/becca/handleUpdates";
 import { handleUptime } from "../modules/commands/subcommands/becca/handleUptime";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
@@ -111,6 +112,13 @@ export const becca: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("contact")
         .setDescription("Offers links to contact the development team.")
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("translators")
+        .setDescription(
+          "Lists the wonderful people who have helped translate Becca."
+        )
     ),
   run: async (Becca, interaction, t, config) => {
     try {
@@ -159,6 +167,9 @@ export const becca: Command = {
           break;
         case "contact":
           await handleContact(Becca, interaction, t, config);
+          break;
+        case "translators":
+          await handleTranslators(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
