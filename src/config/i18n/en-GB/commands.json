@@ -411,5 +411,30 @@
       "title": "Weekly Reward!",
       "description": "You've earned {{earned}} BeccaCoin! You now have {{total}} BeccaCoin!"
     }
+  },
+  "emote": {
+    "use": {
+      "optout": "This member has opted out of the emote system.",
+      "null": "Oh no there should have been something here!",
+      "hug": "You gave {{- user}} a big hug! They have been hugged {{count}} times!",
+      "kiss": "You gave {{- user}} a kiss on the cheek! They have been kissed {{count}} times!",
+      "pat": "You gave {{- user}} a gentle pat on the head! They have been patted {{count}} times!",
+      "boop": "You boop {{- user}} on the nose! They have been booped {{count}} times!",
+      "smack": "You smack {{- user}} with {{item}}! They have been smacked {{count}} times!",
+      "throw": "You throw {{item}} at {{- user}}! They have had {{count}} things thrown at them!",
+      "uwu": "You make an UwU face at {{- user}}! They have been uwued {{count}} times!"
+    },
+    "view": {
+      "none": "You have not received any emotes yet!",
+      "title": "Your Emote Counts!",
+      "description": "You have received a total of {{total}} emtoes!",
+      "hugs": "Hugs",
+      "kisses": "Kisses",
+      "pats": "Pats",
+      "boops": "Boops",
+      "throws": "Throws",
+      "smacks": "Smacks",
+      "uwus": "UwU Faces"
+    }
   }
 }

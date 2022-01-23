@@ -20,9 +20,7 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
     const target = interaction.options.getUser("target", true);
 
     if (EmoteOptOut.includes(target.id)) {
-      await interaction.editReply(
-        "This member has opted out of the emote system."
-      );
+      await interaction.editReply(t("commands:emote.use.optout"));
       return;
     }
 
@@ -55,40 +53,45 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
         uwu: 0,
       }));
 
-    let result = "oh no there should have been something here!";
+    let result = t("commands:emote.use.null");
+    const user = `<@!${target.id}>`;
 
     switch (action) {
       case "hug":
         targetData.hug++;
-        result = `You gave <@!${target.id}> a big hug! They have been hugged ${targetData.hug} times!`;
+        result = t("commands:emote.use.hug", { user, count: targetData.hug });
         break;
       case "kiss":
         targetData.kiss++;
-        result = `You gave <@!${target.id}> a kiss on the cheek! They have been kissed ${targetData.kiss} times!`;
+        result = t("commands:emote.use.kiss", { user, total: targetData.kiss });
         break;
       case "pat":
         targetData.pat++;
-        result = `You gave <@!${target.id}> a gentle pat on the head! They have been patted ${targetData.pat} times!`;
+        result = t("commands:emote.use.pat", { user, total: targetData.pat });
         break;
       case "boop":
         targetData.boop++;
-        result = `You boop <@!${target.id}> on the nose! They have been booped ${targetData.boop} times.`;
+        result = t("commands:emote.use.boop", { user, total: targetData.boop });
         break;
       case "smack":
         targetData.smack++;
-        result = `You smack <@!${target.id}> with ${getRandomValue(
-          smackList
-        )}! They have been smacked ${targetData.smack} times.`;
+        result = t("commands:emote.use.smack", {
+          user,
+          total: targetData.smack,
+          item: getRandomValue(smackList),
+        });
         break;
       case "throw":
         targetData.throw++;
-        result = `You throw ${getRandomValue(throwList)} at <@!${
-          target.id
-        }>! They have had ${targetData.throw} things thrown at them.`;
+        result = t("commands:emote.use.throw", {
+          user,
+          total: targetData.throw,
+          item: getRandomValue(throwList),
+        });
         break;
       case "uwu":
         targetData.uwu++;
-        result = `Youwu makey-wakey an UwU face at <@!${target.id}>. They have been given ${targetData.uwu} UwU faces. Teehee!`;
+        result = t("commands:emote.use.uwu", { user, total: targetData.uwu });
         break;
     }
 
