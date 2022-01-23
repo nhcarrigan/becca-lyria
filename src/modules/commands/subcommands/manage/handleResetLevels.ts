@@ -39,7 +39,7 @@ export const handleResetLevels: CommandHandler = async (
 
     if (!currentLevels || !currentLevels.length) {
       await interaction.editReply({
-        content: "I cannot find any level data for this server.",
+        content: t("commands:manage.levels.none"),
       });
       return;
     }
@@ -47,7 +47,7 @@ export const handleResetLevels: CommandHandler = async (
       await level.delete();
     }
     await interaction.editReply({
-      content: "I have burned all records of your guild's activities.",
+      content: t("commands:manage.levels.success"),
     });
     return;
   } catch (err) {

@@ -536,5 +536,33 @@
       "mod": "Moderation Events",
       "member": "Member Events"
     }
+  },
+  "manage": {
+    "levels": {
+      "none": "I cannot find any level data for this server.",
+      "success": "I have burned all records of your guild's activities."
+    },
+    "stars": {
+      "none": "I cannot locate the star charts for this server.",
+      "success": "I have returned the stars to the heavens."
+    },
+    "suggestion": {
+      "lost": "So... where exactly *are* your suggestions?",
+      "missing": "It seems that suggestion fell off the notice board.",
+      "invalid": "That is not a suggestion. I am not messing with that.",
+      "duplicate": "I already put a decision on this one. We cannot do it again.",
+      "approved": "Suggestion approved by",
+      "denied": "Suggestion denied by",
+      "reason": "Reason",
+      "success": "Signed, sealed, and delivered."
+    },
+    "xp": {
+      "disabled": "Levels aren't enabled in this guild.",
+      "optout": "That member has opted out of the levelling system.",
+      "max": "That member has reached their maximum ability.",
+      "min": "That member cannot possibly get any weaker.",
+      "added": "{{-mod}} has granted {{amount}} experience to {{- target}}",
+      "removed": "{{- mod}} has taken away {{amount}} experience from {{- target}}"
+    }
   }
 }

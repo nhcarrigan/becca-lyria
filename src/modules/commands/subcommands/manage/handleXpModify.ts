@@ -45,7 +45,7 @@ export const handleXpModify: CommandHandler = async (
 
     if (config.levels !== "on") {
       await interaction.editReply({
-        content: "Levels aren't enabled in this guild.",
+        content: t("commands:manage.xp.disabled"),
       });
       return;
     }
@@ -66,7 +66,7 @@ export const handleXpModify: CommandHandler = async (
 
     if (LevelOptOut.includes(target?.id)) {
       await interaction.editReply({
-        content: "That member has opted out of the levelling system.",
+        content: t("commands:manage.xp.optout"),
       });
       return;
     }
@@ -97,7 +97,7 @@ export const handleXpModify: CommandHandler = async (
     if (action === "add") {
       if (user.level >= 100) {
         await interaction.editReply({
-          content: "That user has maxed out... over 9000!!!",
+          content: t("commands:manage.xp.max"),
         });
         return;
       }
@@ -108,7 +108,7 @@ export const handleXpModify: CommandHandler = async (
     } else {
       if (user.points - amount <= 0) {
         await interaction.editReply({
-          content: "Can't reduce XP below 0.",
+          content: t("commands:manage.xp.min"),
         });
         return;
       }
@@ -140,16 +140,18 @@ export const handleXpModify: CommandHandler = async (
       }
     }
 
+    const transVars = {
+      mod: `<@!${member.user.id}>`,
+      amount,
+      target: `<@!${target.id}>`,
+    };
+
     const xpmodifyEmbed = new MessageEmbed();
     xpmodifyEmbed.setTitle("XP Modified");
     if (action === "add") {
-      xpmodifyEmbed.setDescription(
-        `<@!${member.user.id}> has granted ${amount} XP to <@!${target.id}>!`
-      );
+      xpmodifyEmbed.setDescription(t("commands:manage.ex.added", transVars));
     } else {
-      xpmodifyEmbed.setDescription(
-        `<@!${member.user.id}> has taken away ${amount} XP from <@!${target.id}>!`
-      );
+      xpmodifyEmbed.setDescription(t("commands:manage.xp.removed", transVars));
     }
     xpmodifyEmbed.setColor(Becca.colours.default);
     await interaction.editReply({

@@ -45,7 +45,7 @@ export const handleSuggestion: CommandHandler = async (
 
     if (!suggestionChannel) {
       await interaction.editReply({
-        content: "So... where exactly *are* your suggestions?",
+        content: t("commands:manage.suggestion.lost"),
       });
       return;
     }
@@ -56,7 +56,7 @@ export const handleSuggestion: CommandHandler = async (
 
     if (!targetSuggestion) {
       await interaction.editReply({
-        content: "It seems that suggestion fell off the notice board.",
+        content: t("commands:manage.suggestion.missing"),
       });
       return;
     }
@@ -65,33 +65,40 @@ export const handleSuggestion: CommandHandler = async (
 
     if (
       !embeddedSuggestion ||
-      embeddedSuggestion.title !== "Someone had an idea:"
+      embeddedSuggestion.title !== t("commands:community.suggest.title")
     ) {
       await interaction.editReply({
-        content: "That is not a suggestion. I am not messing with that.",
+        content: t("commands:manage.suggestion.invalid"),
       });
       return;
     }
 
     if (embeddedSuggestion.fields.length) {
       await interaction.editReply({
-        content: "I already put a decision on this one. We cannot do it again.",
+        content: t("commands:manage.suggestion.duplicate"),
       });
       return;
     }
 
     embeddedSuggestion.addField(
-      action === "approve" ? "Suggestion approved by" : "Suggestion denied by",
+      action === "approve"
+        ? t("commands:manage.suggestion.approved")
+        : t("commands:manage.suggestion.denied"),
       `<@!${author.id}>`
     );
-    embeddedSuggestion.addField("Reason", customSubstring(reason, 1000));
+    embeddedSuggestion.addField(
+      t("commands:manage.suggestion.reason"),
+      customSubstring(reason, 1000)
+    );
     embeddedSuggestion.setColor(
       action === "approve" ? Becca.colours.success : Becca.colours.error
     );
 
     targetSuggestion.edit({ embeds: [embeddedSuggestion] });
 
-    await interaction.editReply({ content: "Signed, sealed, and delivered." });
+    await interaction.editReply({
+      content: t("commands:manage.suggestion.success"),
+    });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

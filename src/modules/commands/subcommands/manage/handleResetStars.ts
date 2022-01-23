@@ -36,7 +36,7 @@ export const handleResetStars: CommandHandler = async (
 
     if (!starData) {
       await interaction.editReply({
-        content: "I cannot locate the star data for this server.",
+        content: t("commands:manage.stars.none"),
       });
       return;
     }
@@ -45,7 +45,7 @@ export const handleResetStars: CommandHandler = async (
     starData.markModified("users");
     await starData.save();
     await interaction.editReply({
-      content: "I have returned the stars to the heavens.",
+      content: t("commands:manage.stars.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(
