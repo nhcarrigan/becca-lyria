@@ -48,6 +48,7 @@ export const handleAutomodView: CommandHandler = async (
 
     let embed = await viewSettingsArray(
       Becca,
+      t,
       config,
       setting as ArraySettings,
       1
@@ -109,6 +110,7 @@ export const handleAutomodView: CommandHandler = async (
 
       embed = await viewSettingsArray(
         Becca,
+        t,
         config,
         setting as ArraySettings,
         page
