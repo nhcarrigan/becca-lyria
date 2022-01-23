@@ -13,6 +13,7 @@ import { customSubstring } from "./customSubstring";
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {ServerConfig} config The settings for the server where this function was triggered.
+ * @param {TFunction} t The i18n function.
  * @param {ModerationActions} action The moderation action taken.
  * @param {User} user The Discord user being moderated.
  * @param {string} reason The reason for the moderation action.
