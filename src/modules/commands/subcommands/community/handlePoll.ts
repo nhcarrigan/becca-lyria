@@ -16,7 +16,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  * Clicking a button allows the user to vote for the option. Users can only vote
  * once.
  */
-export const handlePoll: CommandHandler = async (Becca, interaction) => {
+export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
   try {
     const question = interaction.options.getString("question", true);
     const optionA = interaction.options.getString("a", true);
@@ -27,7 +27,7 @@ export const handlePoll: CommandHandler = async (Becca, interaction) => {
     const responses: { userId: string; response: string }[] = [];
 
     const pollEmbed = new MessageEmbed();
-    pollEmbed.setTitle("Poll time!");
+    pollEmbed.setTitle(t("commands:community.poll.title"));
     pollEmbed.setDescription(question);
     pollEmbed.addField("A", optionA, true);
     pollEmbed.addField("B", optionB, true);
@@ -36,10 +36,10 @@ export const handlePoll: CommandHandler = async (Becca, interaction) => {
     pollEmbed.addField("D", optionD, true);
     pollEmbed.addField("\u200b", "\u200b", true);
     pollEmbed.setColor(Becca.colours.default);
-    pollEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    pollEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     const buttonA = new MessageButton()
       .setEmoji("🇦")
@@ -77,11 +77,13 @@ export const handlePoll: CommandHandler = async (Becca, interaction) => {
     collector.on("collect", async (click) => {
       await click.deferReply({ ephemeral: true });
       if (responses.find((el) => el.userId === click.user.id)) {
-        await click.editReply("You have already made a choice for this poll!");
+        await click.editReply(t("commands:community.pull.failed"));
         return;
       }
       responses.push({ userId: click.user.id, response: click.customId });
-      await click.editReply(`You have voted for ${click.customId}!`);
+      await click.editReply(
+        t("commands:community.poll.success", { id: click.customId })
+      );
     });
 
     collector.on("end", async () => {
@@ -91,7 +93,7 @@ export const handlePoll: CommandHandler = async (Becca, interaction) => {
       const countsD = responses.filter((el) => el.response === "d").length;
 
       pollEmbed.addField(
-        "Results!",
+        t("commands:community.poll.results"),
         `**A:** ${countsA}\n**B:** ${countsB}\n**C:** ${countsC}\n**D:** ${countsD}`
       );
 

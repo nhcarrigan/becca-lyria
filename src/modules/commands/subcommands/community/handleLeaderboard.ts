@@ -37,7 +37,7 @@ export const handleLeaderboard: CommandHandler = async (
 
     if (!serverLevels || !serverLevels.length) {
       await interaction.editReply({
-        content: "It would appear that rankings are not enabled here.",
+        content: t("commands:community.leaderboard.disabled"),
       });
       return;
     }
@@ -50,22 +50,29 @@ export const handleLeaderboard: CommandHandler = async (
     ]);
 
     const levelEmbed = new MessageEmbed();
-    levelEmbed.setTitle(`${guild.name} leaderboard`);
+    levelEmbed.setTitle(
+      t("commands:community.leaderboard.title", { name: guild.name })
+    );
     levelEmbed.setColor(Becca.colours.default);
     levelEmbed.setDescription(
       `\`\`\`\n${formatTextToTable(topTen, {
-        headers: ["Rank", "User", "Level", "XP"],
+        headers: [
+          t("commands:community.leaderboard.rank"),
+          t("commands:community.leaderboard.user"),
+          t("commands:community.leaderboard.level"),
+          t("commands:community.leaderboard.xp"),
+        ],
       })}\n\`\`\``
     );
     levelEmbed.setTimestamp();
     levelEmbed.setURL(`https://dash.beccalyria.com/leaderboard/${guildId}`);
-    levelEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    levelEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     const button = new MessageButton()
-      .setLabel("View leaderboard")
+      .setLabel(t("commands:community.leaderboard.buttons.view"))
       .setEmoji("<:BeccaCheer:897545794176045096>")
       .setStyle("LINK")
       .setURL(`https://dash.beccalyria.com/leaderboard/${guildId}`);

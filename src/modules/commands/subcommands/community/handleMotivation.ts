@@ -8,6 +8,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
 /**
  * Returns a random motivational quote, formatted in an embed.
+ * TODO: Determine how to i18n the quotes...
  */
 export const handleMotivation: CommandHandler = async (Becca, interaction) => {
   try {

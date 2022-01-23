@@ -30,8 +30,7 @@ export const handleSuggest: CommandHandler = async (
 
     if (!config.suggestion_channel) {
       await interaction.editReply({
-        content:
-          "The guild is not open to feedback at this time. Save your ideas for later.",
+        content: t("commands:community.suggest.disabled"),
       });
       return;
     }
@@ -42,14 +41,13 @@ export const handleSuggest: CommandHandler = async (
 
     if (!suggestionChannel) {
       await interaction.editReply({
-        content:
-          "I am not sure where to put this. You should hold on to it for now.",
+        content: t("commands:community.suggest.lost"),
       });
       return;
     }
 
     const suggestionEmbed = new MessageEmbed();
-    suggestionEmbed.setTitle("Someone had an idea:");
+    suggestionEmbed.setTitle(t("commands:community.suggest.title"));
     suggestionEmbed.setTimestamp();
     suggestionEmbed.setColor(Becca.colours.default);
     suggestionEmbed.setAuthor({
@@ -57,10 +55,10 @@ export const handleSuggest: CommandHandler = async (
       iconURL: author.displayAvatarURL(),
     });
     suggestionEmbed.setDescription(customSubstring(suggestion, 2000));
-    suggestionEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    suggestionEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     const sentMessage = await suggestionChannel.send({
       embeds: [suggestionEmbed],
@@ -69,7 +67,7 @@ export const handleSuggest: CommandHandler = async (
     await sentMessage.react(Becca.configs.no);
 
     await interaction.editReply({
-      content: "Alright, I have posted that. Good luck!",
+      content: t("commands:community.suggest.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

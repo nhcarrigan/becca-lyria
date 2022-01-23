@@ -31,33 +31,43 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
 
     if (!targetLevel) {
       await interaction.editReply({
-        content: `<@!${target.id}> has not earned any levels yet...`,
+        content: t("commands:community.level.none", {
+          user: `<@!${target.id}>`,
+        }),
       });
       return;
     }
 
     const levelEmbed = new MessageEmbed();
     levelEmbed.setColor(Becca.colours.default);
-    levelEmbed.setTitle(`${targetLevel.userTag}'s ranking`);
-    levelEmbed.setDescription(`Here is the record I have in \`${guild.name}\``);
+    levelEmbed.setTitle(
+      t("commands:community.level.title", { user: target.tag })
+    );
+    levelEmbed.setDescription(
+      t("commands:community.level.description", { name: guild.name })
+    );
     levelEmbed.addField(
-      "Experience Points",
+      t("commands:community.level.points"),
       targetLevel.points.toString(),
       true
     );
-    levelEmbed.addField("Level", targetLevel.level.toString(), true);
     levelEmbed.addField(
-      "Last Seen",
+      t("commands:community.level.level"),
+      targetLevel.level.toString(),
+      true
+    );
+    levelEmbed.addField(
+      t("commands:community.level.seen"),
       `${new Date(targetLevel.lastSeen).toLocaleDateString()}`
     );
     levelEmbed.setTimestamp();
-    levelEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    levelEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     const button = new MessageButton()
-      .setLabel("View leaderboard")
+      .setLabel(t("commands:community.level.buttons.view"))
       .setEmoji("<:BeccaCheer:897545794176045096>")
       .setStyle("LINK")
       .setURL(`https://dash.beccalyria.com/leaderboard/${guildId}`);

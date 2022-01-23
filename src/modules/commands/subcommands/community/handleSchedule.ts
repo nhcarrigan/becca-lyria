@@ -17,7 +17,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * where the user does not have permission to send messages themselves.
  * Scheduled posts are stored in memory, so are lost in a reboot.
  */
-export const handleSchedule: CommandHandler = async (Becca, interaction) => {
+export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { member } = interaction;
     const time = interaction.options.getInteger("time", true);
@@ -31,7 +31,7 @@ export const handleSchedule: CommandHandler = async (Becca, interaction) => {
         .has("SEND_MESSAGES")
     ) {
       await interaction.editReply({
-        content: "You are not allowed to send messages in that channel.",
+        content: t("commands:community.schedule.permission"),
       });
       return;
     }
@@ -41,23 +41,24 @@ export const handleSchedule: CommandHandler = async (Becca, interaction) => {
       targetChannel.type !== "GUILD_NEWS"
     ) {
       await interaction.editReply({
-        content: "That channel is not a text channel.",
+        content: t("commands:community.schedule.notext"),
       });
       return;
     }
 
     if (time < 1 || time > 1440) {
       await interaction.editReply({
-        content: "You must specify a time between 1 and 1440",
+        content: t("commands:community.schedule.badtime"),
       });
       return;
     }
 
     setTimeout(async () => {
       await (targetChannel as TextChannel | NewsChannel).send({
-        content: `<@!${
-          (member as GuildMember).id
-        }>, here is your scheduled post:\n${message}`,
+        content: t("commands:community.schedule.post", {
+          id: `<@!${(member as GuildMember).id}`,
+          message,
+        }),
         allowedMentions: {
           users: [interaction.user.id],
         },
@@ -65,18 +66,29 @@ export const handleSchedule: CommandHandler = async (Becca, interaction) => {
     }, time * 60000);
 
     const successEmbed = new MessageEmbed();
-    successEmbed.setTitle("Message Scheduled");
+    successEmbed.setTitle(t("commands:community.schedule.embed.title"));
     successEmbed.setDescription(
-      "I will send your message with the following settings. Please note that my memory is not perfect, and if I need to be restarted your scheduled post will be lost."
+      t("commands:community.schedule.embed.description")
     );
     successEmbed.setColor(Becca.colours.default);
-    successEmbed.addField("Time", `${time} minutes`, true);
-    successEmbed.addField("Target Channel", `<#${targetChannel.id}>`, true);
-    successEmbed.addField("Message", message);
-    successEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    successEmbed.addField(
+      t("commands:community.schedule.embed.time"),
+      t("commands:community.schedule.embed.minutes", { time }),
+      true
     );
+    successEmbed.addField(
+      t("commands:community.schedule.embed.channel"),
+      `<#${targetChannel.id}>`,
+      true
+    );
+    successEmbed.addField(
+      t("commands:community.schedule.embeds.message"),
+      message
+    );
+    successEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent",
+    });
     await interaction.editReply({ embeds: [successEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(

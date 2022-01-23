@@ -9,7 +9,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Generates an embed containing a random conversation starter from the topicList.
  */
-export const handleTopic: CommandHandler = async (Becca, interaction) => {
+export const handleTopic: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { user } = interaction;
 
@@ -20,11 +20,11 @@ export const handleTopic: CommandHandler = async (Becca, interaction) => {
     const randomTopic = topicArray[randomIndex];
 
     const topicEmbed = new MessageEmbed();
-    topicEmbed.setTitle("Start a Conversation!");
+    topicEmbed.setTitle(t("commands:community.topic.title"));
     topicEmbed.setDescription(randomTopic);
     topicEmbed.setColor(Becca.colours.default);
     topicEmbed.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() });
-    topicEmbed.setFooter("Topics pulled from conversationstartersworld.com");
+    topicEmbed.setFooter({ text: t("commands:community.topic.footer") });
 
     await interaction.editReply({ embeds: [topicEmbed] });
   } catch (err) {

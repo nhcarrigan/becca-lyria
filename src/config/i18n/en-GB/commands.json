@@ -183,14 +183,132 @@
   "code": {
     "caniuse": {
       "title": "Can I Use {{feature}}"
+    },
+    "colour": {
+      "invalid": "This spell requires a six-character hex code.",
+      "title": "Colour: {{hex}}"
+    },
+    "http": {
+      "invalid": "That is not a valid HTTP status code.",
+      "title": "HTTP code {{status}}"
     }
   },
-  "colour": {
-    "invalid": "This spell requires a six-character hex code.",
-    "title": "Colour: {{hex}}"
-  },
-  "http": {
-    "invalid": "That is not a valid HTTP status code.",
-    "title": "HTTP code {{status}}"
+  "community": {
+    "leaderboard": {
+      "disabled": "It would appear that rankings are not enabled here.",
+      "title": "{{name}} Leaderboard",
+      "rank": "Rank",
+      "user": "User",
+      "level": "Level",
+      "xp": "XP",
+      "buttons": {
+        "view": "View leaderboard"
+      }
+    },
+    "level": {
+      "none": "{{user}} has not earned any levels yet...",
+      "title": "{{user}}'s Ranking",
+      "description": "Here is the record I have in {{name}}",
+      "points": "Experience Points",
+      "level": "Level",
+      "seen": "Last Seen",
+      "buttons": {
+        "view": "View Leaderboard"
+      }
+    },
+    "poll": {
+      "title": "Poll time!",
+      "failed": "You have already made a choice for this poll!",
+      "success": "You have voted for {{id}}!",
+      "results": "Results!"
+    },
+    "role": {
+      "none": "Your guild does not have any self assignable titles.",
+      "title": "Here are the titles I can grant you!",
+      "page": "Page {{page}} of {{last}}",
+      "invalid": "I cannot cast that enchantment. You will need to speak to someone higher up.",
+      "error": "Something is wrong with your role data...",
+      "removed": "You are no longer enchanted with {{name}}.",
+      "added": "I have cast the {{name}} charm on you."
+    },
+    "schedule": {
+      "permission": "You are not allowed to send messages in that channel.",
+      "notext": "That channel is not a text channel.",
+      "badtime": "You must specify a time between 1 and 1440.",
+      "post": "{{- id}}, here is your scheduled post:\n{{- message}}",
+      "embed": {
+        "title": "Message Scheduled",
+        "description": "I will send your message with the following settings. Please note that my memory is not perfect, and if I need to be restarted your scheduled post will be lost.",
+        "time": "Time",
+        "minutes": "{{time}} minutes",
+        "channel": "Target Channel",
+        "message": "Message"
+      }
+    },
+    "server": {
+      "mfa": "Moderators require MFA",
+      "nomfa": "Moderators do not require MFA",
+      "description": "This guild does not have a description yet.",
+      "creation": "Creation Date",
+      "owner": "Owner",
+      "members": "Members",
+      "living": "Living Members",
+      "bot": "Robot Members",
+      "ban": "Banished Members",
+      "titles": "Titles",
+      "channels": "Channels",
+      "text": "Text Channels",
+      "voice": "Voice Channels",
+      "boosts": "Boosts",
+      "semote": "Static Emotes",
+      "aemote": "Animated Emotes",
+      "content": "Content Filter",
+      "auth": "Authentication Level",
+      "account": "Account Verification Requirement",
+      "status": "Statuses",
+      "statuses": "**Partnered?** `{{partnered}}`\n**Verified?** `{{verified}}`",
+      "special": "Special Channels",
+      "schannels": "**System Channel:** `{{system}}\n**Rules Channel:** {{rules}}\n**Public Channel:** {{public}}"
+    },
+    "star": {
+      "optout": "I am not permitted to give stars to this user.",
+      "title": "{{user}}, this gold star is for you.",
+      "description": "{{user}} wants you to carry this around forever.",
+      "reason": "Reason",
+      "total": "You're now carrying {{total}} of these. Enjoy."
+    },
+    "starcount": {
+      "none": "It seems no one here is carrying around stars yet. You should probably fix that.",
+      "nostar": "{{user}} does not have any stars yet...",
+      "star": "{{user}} is rank {{rank}} with {{stars}} stars.",
+      "embed": {
+        "title": "Helpful people in {{guild}}",
+        "rank": "Rank",
+        "user": "User",
+        "stars": "Stars",
+        "yours": "Your Stars"
+      }
+    },
+    "suggest": {
+      "disabled": "The guild is not open to feedback at this time. Save your ideas for later.",
+      "lost": "I am not sure where to put this. You should hold on to it for now.",
+      "title": "Someone had an idea:",
+      "success": "Alright, I have posted that. Good luck!"
+    },
+    "topic": {
+      "title": "Start a Conversation!",
+      "footer": "Topics pulled from conversationstartersworld.com"
+    },
+    "userinfo": {
+      "nouser": "Strange. That user record does not exist.",
+      "description": "Here are my records for {{- user}}:",
+      "create": "Creation Date",
+      "join": "Join Date",
+      "username": "Username",
+      "roles": "Roles",
+      "colour": "Colour",
+      "nitro": "Nitro",
+      "badges": "Badges"
+    }
   }
 }
