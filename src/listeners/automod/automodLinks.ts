@@ -2,7 +2,6 @@
 import { MessageEmbed } from "discord.js";
 
 import { defaultServer } from "../../config/database/defaultServer";
-import { allowedTLDs, deniedTLDs } from "../../config/listeners/linkRegex";
 import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { customSubstring } from "../../utils/customSubstring";
@@ -43,12 +42,8 @@ export const automodLinks: ListenerHandler = async (
       }
     }
 
-    const linkRegex = new RegExp(
-      `(([a-z]+:\\/\\/)?(([a-z0-9-]+\\.)+((?!${allowedTLDs.join(
-        "|"
-      )})[a-z]{3,4}|${deniedTLDs.join("|")})))(:[0-9]{1,5})?[^\\s\\n]*`,
-      "ig"
-    );
+    const linkRegex =
+      /(([a-z]+:\/\/)?(([a-z0-9-]+\.)+([a-z]{2,})))(:[0-9]{1,5})?[^\s\n]*/gi;
 
     const blockedMatches = contentWithoutCode.match(linkRegex);
     if (blockedMatches) {
