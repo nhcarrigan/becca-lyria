@@ -41,21 +41,41 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
 
     if (!targetRecord) {
       await interaction.editReply({
-        content: "That user is absolutely squeaky clean!",
+        content: t("commands:mod.history.clean"),
       });
       return;
     }
 
     const embed = new MessageEmbed();
-    embed.setTitle(`${target.tag}'s history`);
-    embed.setDescription("Here are the actions taken against this member.");
+    embed.setTitle(t("commnands:mod.history.title", { user: target.tag }));
+    embed.setDescription(t("commands:mod.history.description"));
     embed.setColor(Becca.colours.default);
     embed.setThumbnail(target.displayAvatarURL());
-    embed.addField("Bans", String(targetRecord.bans), true);
-    embed.addField("Kicks", String(targetRecord.kicks), true);
-    embed.addField("Warnings", String(targetRecord.warns), true);
-    embed.addField("Mutes", String(targetRecord.mutes), true);
-    embed.addField("Unmutes", String(targetRecord.unmutes), true);
+    embed.addField(
+      t("commands:mod.history.ban"),
+      String(targetRecord.bans),
+      true
+    );
+    embed.addField(
+      t("commands:mod.history.kick"),
+      String(targetRecord.kicks),
+      true
+    );
+    embed.addField(
+      t("commands:mod.history.warn"),
+      String(targetRecord.warns),
+      true
+    );
+    embed.addField(
+      t("commands:mod.history.mute"),
+      String(targetRecord.mutes),
+      true
+    );
+    embed.addField(
+      t("commands:mod.history.unmute"),
+      String(targetRecord.unmutes),
+      true
+    );
 
     await interaction.editReply({
       embeds: [embed],

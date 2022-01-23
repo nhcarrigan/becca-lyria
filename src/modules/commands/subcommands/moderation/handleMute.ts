@@ -33,14 +33,14 @@ export const handleMute: CommandHandler = async (
 
     if (!durationMilliseconds) {
       await interaction.editReply({
-        content: `${duration}${durationUnit} is not a valid duration.`,
+        content: t("commands:mod.mute.invalid", { duration, durationUnit }),
       });
       return;
     }
 
     if (durationMilliseconds > 2419200000) {
       await interaction.editReply({
-        content: "You cannot mute someone for longer than a month.",
+        content: t("commands:mod.mute.long"),
       });
       return;
     }
@@ -92,12 +92,20 @@ export const handleMute: CommandHandler = async (
     await updateHistory(Becca, "mute", target.id, guild.id);
 
     const muteEmbed = new MessageEmbed();
-    muteEmbed.setTitle("A user has been silenced!");
-    muteEmbed.setDescription(`They were silenced by ${member.user.username}`);
+    muteEmbed.setTitle(t("commands:mod.mute.title"));
+    muteEmbed.setDescription(
+      t("commands:mod.mute.description", { user: member.user.username })
+    );
     muteEmbed.setColor(Becca.colours.warning);
-    muteEmbed.addField("Reason", customSubstring(reason, 1000));
-    muteEmbed.addField("Duration", `${duration} ${durationUnit}`);
-    muteEmbed.addField("User Notified?", String(sentNotice));
+    muteEmbed.addField(
+      t("commands:mod.mute.reason"),
+      customSubstring(reason, 1000)
+    );
+    muteEmbed.addField(
+      t("commands:mod.mute.duration"),
+      `${duration} ${durationUnit}`
+    );
+    muteEmbed.addField(t("commands:mod.mute.notified"), String(sentNotice));
     muteEmbed.setFooter(`ID: ${targetUser.id}`);
     muteEmbed.setTimestamp();
     muteEmbed.setAuthor({
@@ -108,7 +116,7 @@ export const handleMute: CommandHandler = async (
     await sendLogEmbed(Becca, guild, muteEmbed, "moderation_events");
 
     await interaction.editReply({
-      content: "That user has been cursed with silence.",
+      content: t("commands:mod.mute.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

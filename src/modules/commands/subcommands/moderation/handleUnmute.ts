@@ -73,11 +73,16 @@ export const handleUnmute: CommandHandler = async (
     );
 
     const muteEmbed = new MessageEmbed();
-    muteEmbed.setTitle("A user is no longer silenced!");
-    muteEmbed.setDescription(`The curse was lifted by ${member.user.username}`);
+    muteEmbed.setTitle(t("commands:mod.unmute.title"));
+    muteEmbed.setDescription(
+      t("commands:mod.unmute.description", { user: member.user.username })
+    );
     muteEmbed.setColor(Becca.colours.success);
-    muteEmbed.addField("Reason", customSubstring(reason, 1000));
-    muteEmbed.addField("User Notified?", String(sentNotice));
+    muteEmbed.addField(
+      t("commands:mod.unmute.reason"),
+      customSubstring(reason, 1000)
+    );
+    muteEmbed.addField(t("commands:mod.unmute.notified"), String(sentNotice));
     muteEmbed.setFooter(`ID: ${targetUser.id}`);
     muteEmbed.setTimestamp();
     muteEmbed.setAuthor({
@@ -88,7 +93,7 @@ export const handleUnmute: CommandHandler = async (
     await sendLogEmbed(Becca, guild, muteEmbed, "moderation_events");
 
     await interaction.editReply({
-      content: "That user may speak once more.",
+      content: t("commands:mod.unmute.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

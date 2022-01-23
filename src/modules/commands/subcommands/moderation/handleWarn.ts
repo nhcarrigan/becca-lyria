@@ -7,6 +7,7 @@ import { customSubstring } from "../../../../utils/customSubstring";
 import { getRandomValue } from "../../../../utils/getRandomValue";
 import { sendModerationDm } from "../../../../utils/sendModerationDm";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
+import { sendLogEmbed } from "../../../guild/sendLogEmbed";
 import { updateHistory } from "../../moderation/updateHistory";
 
 /**
@@ -68,20 +69,26 @@ export const handleWarn: CommandHandler = async (
     await updateHistory(Becca, "warn", target.id, guild.id);
 
     const warnEmbed = new MessageEmbed();
-    warnEmbed.setTitle("A user has messed up.");
-    warnEmbed.setDescription(`Warning issued by ${member.user.username}`);
+    warnEmbed.setTitle(t("commands:mod.warn.title"));
+    warnEmbed.setDescription(
+      t("commands:mod.warn.description", { user: member.user.username })
+    );
     warnEmbed.setColor(Becca.colours.warning);
-    warnEmbed.addField("Reason", customSubstring(reason, 1000));
-    warnEmbed.addField("User Notified?", String(sentNotice));
+    warnEmbed.addField(
+      t("commands:mod.warn.reason"),
+      customSubstring(reason, 1000)
+    );
+    warnEmbed.addField(t("commands:mod.warn.notified"), String(sentNotice));
     warnEmbed.setTimestamp();
     warnEmbed.setAuthor({
       name: target.tag,
       iconURL: target.displayAvatarURL(),
     });
 
+    await sendLogEmbed(Becca, guild, warnEmbed, "moderation_events");
+
     await interaction.editReply({
-      content: `<@!${target.id}>, you have been warned.`,
-      embeds: [warnEmbed],
+      content: t("commands:mod.warn.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

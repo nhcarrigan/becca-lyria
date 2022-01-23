@@ -59,7 +59,7 @@ export const handleBan: CommandHandler = async (
 
     if (prune < 0 || prune > 7) {
       await interaction.editReply({
-        content: "`prune` value must be between 0 and 7.",
+        content: t("commands:mod.ban.prune"),
       });
       return;
     }
@@ -68,7 +68,7 @@ export const handleBan: CommandHandler = async (
 
     if (!targetMember.bannable) {
       await interaction.editReply({
-        content: "I am afraid they are too important for me to remove.",
+        content: t("commands:mod.ban.invalid"),
       });
       return;
     }
@@ -91,12 +91,15 @@ export const handleBan: CommandHandler = async (
 
     const banLogEmbed = new MessageEmbed();
     banLogEmbed.setColor(Becca.colours.error);
-    banLogEmbed.setTitle("I have permanently removed a member.");
+    banLogEmbed.setTitle(t("commands:mod.ban.title"));
     banLogEmbed.setDescription(
-      `Member ban was requested by ${member.user.username}`
+      t("commands:mod.ban.description", { name: member.user.username })
     );
-    banLogEmbed.addField("Reason", customSubstring(reason, 1000));
-    banLogEmbed.addField("User notified?", String(sentNotice));
+    banLogEmbed.addField(
+      t("commands:mod.ban.reason"),
+      customSubstring(reason, 1000)
+    );
+    banLogEmbed.addField(t("commands:mod.ban.notified"), String(sentNotice));
     banLogEmbed.setTimestamp();
     banLogEmbed.setAuthor({
       name: target.tag,
@@ -106,7 +109,7 @@ export const handleBan: CommandHandler = async (
 
     await sendLogEmbed(Becca, guild, banLogEmbed, "moderation_events");
     await interaction.editReply({
-      content: "They have been banished and shall never return.",
+      content: t("commands:mod.ban.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

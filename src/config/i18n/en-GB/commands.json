@@ -644,5 +644,58 @@
     "xkcd": {
       "footer": "XKCD comic {{num}}"
     }
+  },
+  "mod": {
+    "ban": {
+      "prune": "I can only clean between 0 and 7 days of activity.",
+      "invalid": "I am afraid they are too important for me to remove.",
+      "title": "I have permanently removed a member.",
+      "description": "Member ban was requested by {{user}}",
+      "reason": "Reason",
+      "notified": "User Notified?",
+      "success": "They have been banished and shall never return."
+    },
+    "history": {
+      "clean": "That user is absolutely squeaky clean.",
+      "title": "{{user}}'s History",
+      "description": "Here are the actions taken against this member.",
+      "ban": "Bans",
+      "kick": "Kicks",
+      "warn": "Warnings",
+      "mute": "Mutes",
+      "unmute": "Unmutes"
+    },
+    "kick": {
+      "invalid": "I am afraid they are too important for me to remove.",
+      "title": "I have removed a member.",
+      "description": "Member kick was requested by {{user}}",
+      "reason": "Reason",
+      "notified": "User Notified?",
+      "success": "They have been evicted."
+    },
+    "mute": {
+      "invalid": "{{duration}}{{durationUnit}} is not a valid duration.",
+      "long": "You cannot mute someone for longer than a month.",
+      "title": "A user has been silenced!",
+      "description": "They were silenced by {{user}}",
+      "reason": "Reason",
+      "duration": "Duration",
+      "notified": "User Notified?",
+      "success": "That user has been cursed with silence."
+    },
+    "unmute": {
+      "title": "A user is no longer silenced!",
+      "description": "The curse was lifted by {{user}}",
+      "reason": "Reason",
+      "notified": "User Notified?",
+      "success": "That user may speak once more."
+    },
+    "warn": {
+      "title": "A user has messed up.",
+      "description": "Warning issued by {{user}}",
+      "reason": "Reason",
+      "notified": "User Notified?",
+      "success": "I have informed them of their shortcomings."
+    }
   }
 }
