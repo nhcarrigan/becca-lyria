@@ -19,7 +19,7 @@ export const report: Context = {
     name: "report",
     type: 3,
   },
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply({ ephemeral: true });
       const guild = interaction.guild as Guild;
@@ -27,7 +27,7 @@ export const report: Context = {
 
       if (!guild || !message) {
         await interaction.editReply({
-          content: getRandomValue(Becca.responses.missingGuild),
+          content: getRandomValue(t("responses:missingGuild")),
         });
         return;
       }
@@ -37,16 +37,14 @@ export const report: Context = {
       )) as TextChannel;
 
       if (!reportChannel || !config.report_channel) {
-        await interaction.editReply(
-          "The guild staff have not enabled reporting for this guild yet."
-        );
+        await interaction.editReply(t("contexts:report.notEnabled"));
         return;
       }
 
       const author = message.author as User;
 
       const reportEmbed = new MessageEmbed();
-      reportEmbed.setTitle(`Your saved message!`);
+      reportEmbed.setTitle(t("contexts:report.title"));
       reportEmbed.setDescription(
         `${customSubstring(message.content || "no content found!", 4000)}`
       );
@@ -61,18 +59,18 @@ export const report: Context = {
         true
       );
       reportEmbed.addField("Link", message.url, true);
-      reportEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com",
-        "https://cdn.nhcarrigan.com/profile-transparent.png"
-      );
+      reportEmbed.setFooter({
+        text: t("defaults:donate"),
+        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      });
 
       await reportChannel.send({
-        content: `<@!${interaction.user.id}> has reported this message:`,
+        content: t("contexts:report.reported", {
+          mention: `<@!${interaction.user.id}>`,
+        }),
         embeds: [reportEmbed],
       });
-      await interaction.editReply(
-        "I have reported this message to the guild keepers."
-      );
+      await interaction.editReply(t("contexts:report.success"));
       reportEmbed.addField("Link", message.url);
     } catch (err) {
       const errorId = await beccaErrorHandler(
@@ -82,7 +80,7 @@ export const report: Context = {
         interaction.guild?.name
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "report context", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "report context", errorId, t)],
       });
     }
   },

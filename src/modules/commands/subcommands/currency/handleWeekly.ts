@@ -13,6 +13,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleWeekly: CurrencyHandler = async (
   Becca,
   interaction,
+  t,
   data
 ) => {
   try {
@@ -28,10 +29,8 @@ export const handleWeekly: CurrencyHandler = async (
 
     if (!userIsMember) {
       const nopeEmbed = new MessageEmbed();
-      nopeEmbed.setTitle("Uh oh!");
-      nopeEmbed.setDescription(
-        "Weekly rewards are only available to members of our support server! You can [join with this link](https://chat.nhcarrigan.com) and come hang out with us!"
-      );
+      nopeEmbed.setTitle(t("commands:currency.weekly.no.title"));
+      nopeEmbed.setDescription(t("commands:currency.weekly.no.description"));
       nopeEmbed.setColor(Becca.colours.error);
       await interaction.editReply({ embeds: [nopeEmbed] });
       return;
@@ -40,9 +39,9 @@ export const handleWeekly: CurrencyHandler = async (
     if (!canClaim) {
       const cooldown = data.weeklyClaimed - now + 604800000;
       await interaction.editReply({
-        content: `You have already claimed your weekly!\nCome back in: ${parseSeconds(
-          Math.ceil(cooldown / 1000)
-        )}`,
+        content: t("commands:currency.weekly.cooldown", {
+          time: parseSeconds(Math.ceil(cooldown / 1000)),
+        }),
       });
       return;
     }
@@ -54,9 +53,12 @@ export const handleWeekly: CurrencyHandler = async (
     await data.save();
 
     const embed = new MessageEmbed();
-    embed.setTitle("Weekly Reward!");
+    embed.setTitle(t("commands:currency.weekly.title"));
     embed.setDescription(
-      `You've earned ${earnedCurrency} BeccaCoin! You now have ${data.currencyTotal} BeccaCoin.`
+      t("commands:currency.weekly.description", {
+        earned: earnedCurrency,
+        total: data.currencyTotal,
+      })
     );
     embed.setColor(Becca.colours.default);
 
@@ -74,7 +76,7 @@ export const handleWeekly: CurrencyHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "weekly", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "weekly", errorId, t)],
     });
   }
 };

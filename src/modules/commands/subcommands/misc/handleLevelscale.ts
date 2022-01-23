@@ -5,16 +5,20 @@ import {
   MessageButton,
   MessageEmbed,
 } from "discord.js";
+import { TFunction } from "i18next";
 
 import levelScale from "../../../../config/listeners/levelScale";
 import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
-const formatLevels = (page: number) => {
+const formatLevels = (page: number, t: TFunction) => {
   let formattedText = "";
   for (let i = page * 10 - 9; i <= page * 10; i++) {
-    formattedText += `\nLevel ${i} - **${levelScale[i]}** xp`;
+    formattedText += t("commands:misc.level.format", {
+      level: i,
+      xp: levelScale[i],
+    });
   }
   return formattedText;
 };
@@ -22,27 +26,26 @@ const formatLevels = (page: number) => {
 /**
  * Generates a paginated embed containing the level scale.
  */
-export const handleLevelscale: CommandHandler = async (Becca, interaction) => {
+export const handleLevelscale: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
+    let page = 1;
+    const lastPage = Math.ceil((Object.keys(levelScale).length - 1) / 10);
+
     const embed = new MessageEmbed();
-    embed.setTitle("Level Scale");
+    embed.setTitle(t("commands:misc.level.title"));
     embed.setURL(
       "https://www.beccalyria.com/discord-documentation/#/level-scale"
     );
     embed.setDescription(
-      `This is the breakdown of experience points needed for Becca's levelling system.\n${formatLevels(
-        1
-      )}`
+      t("commands:misc.level.description", { levels: formatLevels(1, t) })
     );
     embed.setColor(Becca.colours.default);
     embed.setTimestamp();
-    embed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
-
-    let page = 1;
-    const lastPage = Math.ceil((Object.keys(levelScale).length - 1) / 10);
+    embed.setFooter(t("commands:misc.level.footer", { page, pages: lastPage }));
 
     const pageBack = new MessageButton()
       .setCustomId("prev")
@@ -86,11 +89,11 @@ export const handleLevelscale: CommandHandler = async (Becca, interaction) => {
       }
 
       embed.setDescription(
-        `This is the breakdown of experience points needed for Becca's levelling system.\n${formatLevels(
-          page
-        )}`
+        t("commands:misc.level.description", { levels: formatLevels(page, t) })
       );
-      embed.setFooter(`Page ${page} of ${lastPage}`);
+      embed.setFooter({
+        text: t("commands:misc.level.footer", { page, pages: lastPage }),
+      });
 
       await interaction.editReply({
         embeds: [embed],
@@ -119,7 +122,7 @@ export const handleLevelscale: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "levelscale", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "levelscale", errorId, t)],
     });
   }
 };

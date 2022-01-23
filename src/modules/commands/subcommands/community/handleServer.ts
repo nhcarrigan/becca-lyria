@@ -13,13 +13,13 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Generates an embed listing the various Discord settings for the specific server.
  */
-export const handleServer: CommandHandler = async (Becca, interaction) => {
+export const handleServer: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guild } = interaction;
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -30,95 +30,118 @@ export const handleServer: CommandHandler = async (Becca, interaction) => {
     const guildChannels = guild.channels.cache;
     const guildEmojis = guild.emojis.cache;
     const guildMfa = guild.mfaLevel
-      ? "Moderators require MFA"
-      : "Moderators do not require MFA";
+      ? t("commands:community.server.mfa")
+      : t("commands:community.server.nomfa");
 
     const serverEmbed = new MessageEmbed();
     serverEmbed.setColor(Becca.colours.default);
     serverEmbed.setTitle(guild.name);
     serverEmbed.setDescription(
-      guild.description || "This guild does not have a description yet."
+      guild.description || t("commands:community.server.description")
     );
     serverEmbed.setThumbnail(guild.iconURL({ dynamic: true }) || "");
     serverEmbed.addField(
-      "Creation Date",
+      t("commands:community.server.creation"),
       new Date(guild.createdTimestamp).toLocaleDateString(),
       true
     );
-    serverEmbed.addField("Owner", guildOwner.toString(), true);
-    serverEmbed.addField("Members", guild.memberCount.toString(), true);
     serverEmbed.addField(
-      "Living Members",
+      t("commands:community.server.owner"),
+      guildOwner.toString(),
+      true
+    );
+    serverEmbed.addField(
+      t("commands:community.server.members"),
+      guild.memberCount.toString(),
+      true
+    );
+    serverEmbed.addField(
+      t("commands:community.server.living"),
       guildMembers.filter((member) => !member.user.bot).length.toString(),
       true
     );
     serverEmbed.addField(
-      "Robot Members",
+      t("commands:community.server.bot"),
       guildMembers.filter((member) => member.user.bot).length.toString(),
       true
     );
-    serverEmbed.addField("Banished Members", guildBans.size.toString(), true);
-    serverEmbed.addField("\u200b", "\u200b", true);
-    serverEmbed.addField("Titles", guild.roles.cache.size.toString(), true);
-    serverEmbed.addField("Channels", guildChannels.size.toString(), true);
     serverEmbed.addField(
-      "Text Channels",
+      t("commands:community.server.ban"),
+      guildBans.size.toString(),
+      true
+    );
+    serverEmbed.addField("\u200b", "\u200b", true);
+    serverEmbed.addField(
+      t("commands:community.server.titles"),
+      guild.roles.cache.size.toString(),
+      true
+    );
+    serverEmbed.addField(
+      t("commands:community.server.channels"),
+      guildChannels.size.toString(),
+      true
+    );
+    serverEmbed.addField(
+      t("commands:community.server.text"),
       guildChannels
         .filter((chan) => chan.type === "GUILD_TEXT")
         .size.toString(),
       true
     );
     serverEmbed.addField(
-      "Voice Channels",
+      t("commands:community.server.voice"),
       guildChannels
         .filter((chan) => chan.type === "GUILD_VOICE")
         .size.toString(),
       true
     );
     serverEmbed.addField(
-      "Boosts",
+      t("commands:community.server.boost"),
       `Level ${guild.premiumTier} with ${guild.premiumSubscriptionCount} boosts.`,
       true
     );
     serverEmbed.addField(
-      "Static Emoji",
+      t("commands:community.server.semote"),
       guildEmojis.filter((emote) => !emote.animated).size.toString(),
       true
     );
     serverEmbed.addField(
-      "Animated Emoji",
+      t("commands:community.server.aemote"),
       guildEmojis.filter((emote) => !!emote.animated).size.toString(),
       true
     );
     serverEmbed.addField(
-      "Content Filter",
+      t("commands:community.server.content"),
       contentFilterMap[guild.explicitContentFilter],
       true
     );
-    serverEmbed.addField("Authentication Level", guildMfa, true);
+    serverEmbed.addField(t("commands:community.server.auth"), guildMfa, true);
     serverEmbed.addField(
-      "Account Verification Requirement",
+      t("commands:community.server.account"),
       accountVerificationMap[guild.verificationLevel],
       true
     );
     serverEmbed.addField(
-      "Statuses",
-      `**Partnered?** \`${guild.partnered}\`\n**Verified?** \`${guild.verified}\``,
+      t("commands:community.server.status"),
+      t("commands:community.server.statuses", {
+        partnered: guild.partnered,
+        verified: guild.verified,
+      }),
       true
     );
     serverEmbed.addField(
-      "Special channels",
-      `**System Channel:** \`${
-        guild.systemChannel?.name || "no"
-      }\` \n**Rules Channel:** \`${
-        guild.rulesChannel?.name || "nope"
-      }\`\n**Public Channel:** \`${guild.publicUpdatesChannel?.name || "no"}\``,
+      t("commands:community.server.special"),
+      t("commands:community.server.schannels", {
+        system: guild.systemChannel?.name || "null",
+        rules: guild.rulesChannel?.name || "null",
+        public: guild.publicUpdatesChannel?.name || "null",
+      }),
       true
     );
-    serverEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    serverEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [serverEmbed] });
   } catch (err) {
@@ -131,7 +154,7 @@ export const handleServer: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "server", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "server", errorId, t)],
     });
   }
 };

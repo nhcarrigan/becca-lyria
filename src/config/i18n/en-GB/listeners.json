@@ -1,0 +1,35 @@
+{
+  "automod": {
+    "links": {
+      "title": "Invalid link detected!",
+      "dmTitle": "Your message has been deleted...",
+      "dmDesc": "Here's the contents of the deleted message:",
+      "server": "Server",
+      "channel": "Channel",
+      "reason": "Reason",
+      "blocked": "Blocked link detected!",
+      "links": "Links:",
+      "allowed": "Allowed Links:",
+      "noBlocked": "No links detected. Please contact the developer.",
+      "noAllowed": "No links were permitted."
+    },
+    "profanity": {
+      "title": "Profanity detected!",
+      "dmTitle": "Your message has been deleted...",
+      "dmDesc": "Here's the contents of the deleted message:",
+      "server": "Server",
+      "channel": "Channel",
+      "reason": "Reason",
+      "profane": "Profanity detected."
+    }
+  },
+  "becca": {
+    "response": "What can I do for you? Cast `/becca help` to see my spells!"
+  },
+  "level": {
+    "title": "Level up!",
+    "desc": "{{-user}} has grown stronger. They are now level {{-level}}!",
+    "roleTitle": "A title has been granted!",
+    "roleDesc": "{{-user}} has earned the {{-role}} title!"
+  }
+}

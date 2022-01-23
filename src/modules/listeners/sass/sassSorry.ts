@@ -7,14 +7,14 @@ import { getRandomValue } from "../../../utils/getRandomValue";
 /**
  * Submodule for sorry comebacks.
  */
-export const sassSorry: ListenerHandler = async (Becca, message) => {
+export const sassSorry: ListenerHandler = async (Becca, message, t) => {
   try {
     const { channel, content } = message;
     const sorryRegex =
       /(i'm|i\s?am)\s?sorry|(my\s?)?apologies|(i\s?)?(apologize|apologise)/i;
 
     if (sorryRegex.test(content) || content.toLowerCase() === "sorry") {
-      await channel.send(getRandomValue(Becca.sass.sorry));
+      await channel.send(getRandomValue(t("sass:sorry")));
     }
   } catch (err) {
     await beccaErrorHandler(

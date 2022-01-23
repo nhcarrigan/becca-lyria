@@ -9,60 +9,58 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Generates an embed containing information on how to interact with Becca,
  * links to the support server, docs, and code.
  */
-export const handleHelp: CommandHandler = async (Becca, interaction) => {
+export const handleHelp: CommandHandler = async (Becca, interaction, t) => {
   try {
     const helpEmbed = new MessageEmbed();
-    helpEmbed.setTitle("How to Interact with Becca");
-    helpEmbed.setDescription(
-      "Hello there! I have many spells I can cast. To see the spells, type `/` and select my section from the pop-up menu."
+    helpEmbed.setTitle(t("commands:becca.help.title"));
+    helpEmbed.setDescription(t("commands:becca.help.description"));
+    helpEmbed.addField(
+      t("commands:becca.help.support.title"),
+      t("commands:becca.help.support.description")
     );
     helpEmbed.addField(
-      "Support Server",
-      "If you need some extra guidance, join my support server where my minions will be glad to serve you."
+      t("commands:becca.help.docs.title"),
+      t("commands:becca.help.docs.description")
     );
     helpEmbed.addField(
-      "Documentation",
-      "As an alternative, you are welcome to view my instruction manual to see what I can do."
+      t("commands:becca.help.source.title"),
+      t("commands:becca.help.source.description")
     );
     helpEmbed.addField(
-      "Source Code",
-      "Should you be feeling extra ambitious, you can also dive in to my spellbook and look at my abilities yourself."
+      t("commands:becca.help.bug.title"),
+      t("commands:becca.help.bug.description")
     );
     helpEmbed.addField(
-      "Bug Report",
-      "Have I failed you in some way? You can report an issue, or let us know in the support server."
+      t("commands:becca.help.privacy.title"),
+      t("commands:becca.help.privacy.description")
     );
-    helpEmbed.addField(
-      "Privacy Policy",
-      "As part of my services, I collect and use some specific Discord related information. This information includes, but may not be limited to, your user name, nickname, this server's name, and your Discord ID. [View my full policy](https://docs.beccalyria.com/#/privacy-policy)"
-    );
-    helpEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    helpEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     const supportServerButton = new MessageButton()
-      .setLabel("Join the Support Server")
+      .setLabel(t("commands:becca.help.buttons.support"))
       .setEmoji("<:BeccaHuh:877278300739887134>")
       .setStyle("LINK")
       .setURL("https://chat.nhcarrigan.com");
     const inviteButton = new MessageButton()
-      .setLabel("Add Becca to your server!")
+      .setLabel(t("commands:becca.help.buttons.invite"))
       .setEmoji("<:BeccaHello:867102882791424073>")
       .setStyle("LINK")
       .setURL("https://invite.beccalyria.com");
     const codeButton = new MessageButton()
-      .setLabel("View Becca's Source Code")
+      .setLabel(t("commands:becca.help.buttons.source"))
       .setEmoji("<:BeccaNotes:883854700762505287>")
       .setStyle("LINK")
       .setURL("https://github.com/beccalyria/discord-bot");
     const docsButton = new MessageButton()
-      .setLabel("View the Documentation")
+      .setLabel(t("commands:becca.help.buttons.docs"))
       .setEmoji("<:BeccaSalute:872577687590420501>")
       .setStyle("LINK")
       .setURL("https://docs.beccalyria.com");
     const reportButton = new MessageButton()
-      .setLabel("Report an Issue")
+      .setLabel(t("commands:becca.help.buttons.issue"))
       .setEmoji("<:BeccaBan:897545793886634085>")
       .setStyle("LINK")
       .setURL("https://github.com/beccalyria/discord-bot/issues/new/choose");
@@ -86,7 +84,7 @@ export const handleHelp: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "help", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "help", errorId, t)],
     });
   }
 };

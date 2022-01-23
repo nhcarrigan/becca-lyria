@@ -11,7 +11,8 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  */
 export const handleReactionRemove: CommandHandler = async (
   Becca,
-  interaction
+  interaction,
+  t
 ) => {
   try {
     const messageLink = interaction.options.getString("message", true);
@@ -25,23 +26,26 @@ export const handleReactionRemove: CommandHandler = async (
     });
 
     if (!reactionRole) {
-      await interaction.editReply("That reaction role does not exist.");
+      await interaction.editReply(t("commands:reactionrole.remove.missing"));
       return;
     }
     await reactionRole.delete();
 
     const removeEmbed = new MessageEmbed();
-    removeEmbed.setTitle("Reaction Role Removed");
+    removeEmbed.setTitle(t("commands:reactionrole.remove.title"));
     removeEmbed.setColor(Becca.colours.default);
     removeEmbed.setDescription(
-      `${reactionRole.emoji} no longer associated with <@&${reactionRole.roleId}>`
+      t("commands:reactionrole.remove.description", {
+        emote: reactionRole.emoji,
+        role: `<@&${reactionRole.roleId}>`,
+      })
     );
-    removeEmbed.addField("Message", messageLink);
+    removeEmbed.addField(t("commands:reactionrole.remove.link"), messageLink);
     removeEmbed.setTimestamp();
-    removeEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    removeEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [removeEmbed] });
   } catch (err) {
@@ -54,7 +58,7 @@ export const handleReactionRemove: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "handleReactionRemove", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "handleReactionRemove", errorId, t)],
     });
   }
 };

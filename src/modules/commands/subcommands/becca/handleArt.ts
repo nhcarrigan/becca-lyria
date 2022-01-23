@@ -10,7 +10,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Using the artList config, selects a random art object and parses it
  * into an embed. The actual images are fetched from Becca's profile site.
  */
-export const handleArt: CommandHandler = async (Becca, interaction) => {
+export const handleArt: CommandHandler = async (Becca, interaction, t) => {
   try {
     const random = Math.floor(Math.random() * artList.length);
     const { fileName, artName, artist, artistUrl } = artList[random];
@@ -19,7 +19,7 @@ export const handleArt: CommandHandler = async (Becca, interaction) => {
     artEmbed.setTitle(artName);
     artEmbed.setColor(Becca.colours.default);
     artEmbed.setDescription(
-      `This portrait of me was done by [${artist}](${artistUrl})`
+      t("commands:becca.art.description", { artist, url: artistUrl })
     );
     artEmbed.setImage(
       `https://www.beccalyria.com/assets/art/${fileName.replace(/\s/g, "%20")}`
@@ -30,7 +30,7 @@ export const handleArt: CommandHandler = async (Becca, interaction) => {
     );
 
     const artButton = new MessageButton()
-      .setLabel("View More Art!")
+      .setLabel(t("commands:becca.art.buttons.more"))
       .setEmoji("<:BeccaArt:897545793655930910>")
       .setStyle("LINK")
       .setURL("https://www.beccalyria.com/gallery");
@@ -48,7 +48,7 @@ export const handleArt: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "art", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "art", errorId, t)],
     });
   }
 };

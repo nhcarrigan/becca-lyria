@@ -17,6 +17,7 @@ import { viewSettingsArray } from "./viewSettingsArray";
 export const handleView: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -24,7 +25,7 @@ export const handleView: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -32,10 +33,10 @@ export const handleView: CommandHandler = async (
     const setting = interaction.options.getString("setting");
 
     if (setting === "global") {
-      const result = await viewSettings(Becca, guild, config);
+      const result = await viewSettings(Becca, t, guild, config);
       if (!result) {
         await interaction.editReply({
-          content: "I am unable to locate your settings.",
+          content: t("commands:config.view.none"),
         });
         return;
       }
@@ -48,6 +49,7 @@ export const handleView: CommandHandler = async (
 
     let embed = await viewSettingsArray(
       Becca,
+      t,
       config,
       setting as ArraySettings,
       1
@@ -55,7 +57,7 @@ export const handleView: CommandHandler = async (
 
     if (!embed) {
       await interaction.editReply({
-        content: "I am unable to locate your settings.",
+        content: t("commands:config.view.none"),
       });
       return;
     }
@@ -109,6 +111,7 @@ export const handleView: CommandHandler = async (
 
       embed = await viewSettingsArray(
         Becca,
+        t,
         config,
         setting as ArraySettings,
         page
@@ -116,7 +119,7 @@ export const handleView: CommandHandler = async (
 
       if (!embed) {
         await interaction.editReply({
-          content: "I am unable to locate your settings.",
+          content: t("commands:config.view.none"),
         });
         return;
       }
@@ -148,7 +151,7 @@ export const handleView: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "view", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "view", errorId, t)],
     });
   }
 };

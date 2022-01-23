@@ -16,6 +16,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 export const handleXpModify: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -27,7 +28,7 @@ export const handleXpModify: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -37,35 +38,35 @@ export const handleXpModify: CommandHandler = async (
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
 
     if (config.levels !== "on") {
       await interaction.editReply({
-        content: "Levels aren't enabled in this guild.",
+        content: t("commands:manage.xp.disabled"),
       });
       return;
     }
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noSelfXP),
+        content: getRandomValue(t("responses:noSelfXP")),
       });
       return;
     }
 
     if (target.bot) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noBotXP),
+        content: getRandomValue(t("responses:noBotXP")),
       });
       return;
     }
 
     if (LevelOptOut.includes(target?.id)) {
       await interaction.editReply({
-        content: "That member has opted out of the levelling system.",
+        content: t("commands:manage.xp.optout"),
       });
       return;
     }
@@ -88,7 +89,7 @@ export const handleXpModify: CommandHandler = async (
 
     if (!targetMember || targetMember.id !== target.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -96,7 +97,7 @@ export const handleXpModify: CommandHandler = async (
     if (action === "add") {
       if (user.level >= 100) {
         await interaction.editReply({
-          content: "That user has maxed out... over 9000!!!",
+          content: t("commands:manage.xp.max"),
         });
         return;
       }
@@ -107,7 +108,7 @@ export const handleXpModify: CommandHandler = async (
     } else {
       if (user.points - amount <= 0) {
         await interaction.editReply({
-          content: "Can't reduce XP below 0.",
+          content: t("commands:manage.xp.min"),
         });
         return;
       }
@@ -139,16 +140,18 @@ export const handleXpModify: CommandHandler = async (
       }
     }
 
+    const transVars = {
+      mod: `<@!${member.user.id}>`,
+      amount,
+      target: `<@!${target.id}>`,
+    };
+
     const xpmodifyEmbed = new MessageEmbed();
     xpmodifyEmbed.setTitle("XP Modified");
     if (action === "add") {
-      xpmodifyEmbed.setDescription(
-        `<@!${member.user.id}> has granted ${amount} XP to <@!${target.id}>!`
-      );
+      xpmodifyEmbed.setDescription(t("commands:manage.ex.added", transVars));
     } else {
-      xpmodifyEmbed.setDescription(
-        `<@!${member.user.id}> has taken away ${amount} XP from <@!${target.id}>!`
-      );
+      xpmodifyEmbed.setDescription(t("commands:manage.xp.removed", transVars));
     }
     xpmodifyEmbed.setColor(Becca.colours.default);
     await interaction.editReply({
@@ -163,12 +166,12 @@ export const handleXpModify: CommandHandler = async (
     );
     await interaction
       .reply({
-        embeds: [errorEmbedGenerator(Becca, "xpmodify", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "xpmodify", errorId, t)],
         ephemeral: true,
       })
       .catch(async () => {
         await interaction.editReply({
-          embeds: [errorEmbedGenerator(Becca, "xpmodify", errorId)],
+          embeds: [errorEmbedGenerator(Becca, "xpmodify", errorId, t)],
         });
       });
   }

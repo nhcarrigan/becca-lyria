@@ -1,4 +1,5 @@
 import { MessageEmbed, ThreadChannel } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
@@ -17,24 +18,32 @@ export const threadUpdate = async (
   newThread: ThreadChannel
 ): Promise<void> => {
   try {
+    const lang = newThread.guild.preferredLocale;
+    const t = getFixedT(lang);
     const threadEmbed = new MessageEmbed();
     threadEmbed.setFooter(`ID: ${oldThread.id}`);
     threadEmbed.setTimestamp();
     threadEmbed.setColor(Becca.colours.warning);
 
     if (!oldThread.archived && newThread.archived) {
-      threadEmbed.setTitle("Thread Archived");
+      threadEmbed.setTitle(t("events:thread.archive.title"));
       threadEmbed.setDescription(
-        `The ${oldThread.name} thread in ${oldThread.parent?.name} was archived.`
+        t("events:thread.archive.desc", {
+          name: newThread.name,
+          parentName: newThread.parent?.name,
+        })
       );
       await sendLogEmbed(Becca, newThread.guild, threadEmbed, "thread_events");
       return;
     }
 
     if (oldThread.archived && !newThread.archived) {
-      threadEmbed.setTitle("Thread Unarchived");
+      threadEmbed.setTitle(t("events:thread.unarchive.title"));
       threadEmbed.setDescription(
-        `The ${oldThread.name} thread in ${oldThread.parent?.name} was unarchived.`
+        t("events:thread.unarchive.desc", {
+          name: newThread.name,
+          parentName: newThread.parent?.name,
+        })
       );
       await sendLogEmbed(Becca, newThread.guild, threadEmbed, "thread_events");
       return;

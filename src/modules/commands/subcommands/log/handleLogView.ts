@@ -13,6 +13,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleLogView: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -20,38 +21,38 @@ export const handleLogView: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
 
     const settingEmbed = new MessageEmbed();
     settingEmbed.setColor(Becca.colours.default);
-    settingEmbed.setTitle(`Log Settings for ${guild.name}`);
+    settingEmbed.setTitle(t("commands:log.view.title", { name: guild.name }));
     settingEmbed.addField(
-      "Message Events",
+      t("commands:log.view.message"),
       renderSetting(Becca, "message_events", config.message_events)
     );
     settingEmbed.addField(
-      "Voice Events",
+      t("commands:log.view.voice"),
       renderSetting(Becca, "voice_events", config.voice_events)
     );
     settingEmbed.addField(
-      "Thread Events",
+      t("commands:log.view.thread"),
       renderSetting(Becca, "thread_events", config.thread_events)
     );
     settingEmbed.addField(
-      "Moderation Events",
+      t("commands:log.view.mod"),
       renderSetting(Becca, "moderation_events", config.moderation_events)
     );
     settingEmbed.addField(
-      "Member Events",
+      t("commands:log.view.member"),
       renderSetting(Becca, "member_events", config.member_events)
     );
-    settingEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    settingEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [settingEmbed] });
   } catch (err) {
@@ -64,7 +65,7 @@ export const handleLogView: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "log view", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "log view", errorId, t)],
     });
   }
 };

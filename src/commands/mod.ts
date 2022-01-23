@@ -143,33 +143,33 @@ export const mod: Command = {
             .setRequired(true)
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
       const subcommand = interaction.options.getSubcommand();
 
       switch (subcommand) {
         case "warn":
-          await handleWarn(Becca, interaction, config);
+          await handleWarn(Becca, interaction, t, config);
           break;
         case "mute":
-          await handleMute(Becca, interaction, config);
+          await handleMute(Becca, interaction, t, config);
           break;
         case "unmute":
-          await handleUnmute(Becca, interaction, config);
+          await handleUnmute(Becca, interaction, t, config);
           break;
         case "kick":
-          await handleKick(Becca, interaction, config);
+          await handleKick(Becca, interaction, t, config);
           break;
         case "ban":
-          await handleBan(Becca, interaction, config);
+          await handleBan(Becca, interaction, t, config);
           break;
         case "history":
-          await handleHistory(Becca, interaction, config);
+          await handleHistory(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }
@@ -184,7 +184,7 @@ export const mod: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "mod group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "mod group", errorId, t)],
       });
     }
   },

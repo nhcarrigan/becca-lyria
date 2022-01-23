@@ -10,13 +10,17 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Deletes the server's level data, resetting everyone's progress.
  */
-export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
+export const handleResetLevels: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const { guild, member } = interaction;
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -26,7 +30,7 @@ export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
@@ -35,7 +39,7 @@ export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
 
     if (!currentLevels || !currentLevels.length) {
       await interaction.editReply({
-        content: "I cannot find any level data for this server.",
+        content: t("commands:manage.levels.none"),
       });
       return;
     }
@@ -43,7 +47,7 @@ export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
       await level.delete();
     }
     await interaction.editReply({
-      content: "I have burned all records of your guild's activities.",
+      content: t("commands:manage.levels.success"),
     });
     return;
   } catch (err) {
@@ -56,7 +60,7 @@ export const handleResetLevels: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "reset level", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "reset level", errorId, t)],
     });
   }
 };

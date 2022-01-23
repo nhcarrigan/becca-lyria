@@ -111,7 +111,7 @@ export const currency: Command = {
             .setRequired(true)
         )
     ),
-  run: async (Becca, interaction) => {
+  run: async (Becca, interaction, t) => {
     try {
       await interaction.deferReply();
 
@@ -138,32 +138,32 @@ export const currency: Command = {
 
       switch (subcommand) {
         case "daily":
-          await handleDaily(Becca, interaction, userData);
+          await handleDaily(Becca, interaction, t, userData);
           break;
         case "weekly":
-          await handleWeekly(Becca, interaction, userData);
+          await handleWeekly(Becca, interaction, t, userData);
           break;
         case "view":
-          await handleView(Becca, interaction, userData);
+          await handleView(Becca, interaction, t, userData);
           break;
         case "claim":
-          await handleClaim(Becca, interaction, userData);
+          await handleClaim(Becca, interaction, t, userData);
           break;
         case "about":
-          await handleAbout(Becca, interaction, userData);
+          await handleAbout(Becca, interaction, t, userData);
           break;
         case "slots":
-          await handleSlots(Becca, interaction, userData);
+          await handleSlots(Becca, interaction, t, userData);
           break;
         case "21":
-          await handleTwentyOne(Becca, interaction, userData);
+          await handleTwentyOne(Becca, interaction, t, userData);
           break;
         case "guess":
-          await handleGuess(Becca, interaction, userData);
+          await handleGuess(Becca, interaction, t, userData);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }
@@ -178,7 +178,7 @@ export const currency: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "currency group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "currency group", errorId, t)],
       });
     }
   },

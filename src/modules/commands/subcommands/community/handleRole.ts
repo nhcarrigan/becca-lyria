@@ -22,6 +22,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 export const handleRole: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ): Promise<void> => {
   try {
@@ -29,7 +30,7 @@ export const handleRole: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -39,7 +40,7 @@ export const handleRole: CommandHandler = async (
     if (!targetRole) {
       if (!config.self_roles.length) {
         await interaction.editReply({
-          content: "Your guild does not have any self-assignable titles.",
+          content: t("commands:community.role.none"),
         });
         return;
       }
@@ -48,7 +49,7 @@ export const handleRole: CommandHandler = async (
       const lastPage = Math.ceil(roleList.length / 10);
 
       const embed = new MessageEmbed();
-      embed.setTitle("Here are the titles I can grant you!");
+      embed.setTitle(t("commands:community.role.title"));
       embed.setDescription(
         roleList.slice(page * 10 - 10, page * 10).join("\n")
       );
@@ -103,7 +104,9 @@ export const handleRole: CommandHandler = async (
         embed.setDescription(
           roleList.slice(page * 10 - 10, page * 10).join("\n")
         );
-        embed.setFooter(`Page ${page} of ${lastPage}`);
+        embed.setFooter(
+          t("commands:community.role.page", { page, last: lastPage })
+        );
 
         await interaction.editReply({
           embeds: [embed],
@@ -129,15 +132,14 @@ export const handleRole: CommandHandler = async (
 
     if (!config.self_roles.includes(targetRole.id)) {
       await interaction.editReply({
-        content:
-          "I cannot cast that enchantment. You will need to speak to someone higher up.",
+        content: t("commands:community.poll.invalid"),
       });
       return;
     }
 
     if (Array.isArray(member.roles)) {
       await interaction.editReply({
-        content: "Something is wrong with your role data...",
+        content: t("commands:community.poll.error"),
       });
       return;
     }
@@ -145,13 +147,15 @@ export const handleRole: CommandHandler = async (
     if (member.roles.cache.has(targetRole.id)) {
       await member.roles.remove(targetRole as Role);
       await interaction.editReply({
-        content: `You are no longer enchanted with \`${targetRole.name}\`.`,
+        content: t("commands:community.poll.removed", {
+          name: targetRole.name,
+        }),
       });
       return;
     }
     await member.roles.add(targetRole as Role);
     await interaction.editReply({
-      content: `I have cast the \`${targetRole.name}\` charm on you.`,
+      content: t("commands:community.role.added", { name: targetRole.name }),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(
@@ -163,7 +167,7 @@ export const handleRole: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "role", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "role", errorId, t)],
     });
   }
 };

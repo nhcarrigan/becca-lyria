@@ -1,4 +1,5 @@
 import { GuildMember, MessageEmbed, PartialGuildMember } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { defaultServer } from "../../config/database/defaultServer";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
@@ -24,6 +25,8 @@ export const memberAdd = async (
     if (!user) {
       return;
     }
+    const lang = guild.preferredLocale;
+    const t = getFixedT(lang);
 
     const serverSettings = await getSettings(Becca, guild.id, guild.name);
 
@@ -31,10 +34,8 @@ export const memberAdd = async (
       // logic for pending members
       const partialJoinEmbed = new MessageEmbed();
       partialJoinEmbed.setColor(Becca.colours.warning);
-      partialJoinEmbed.setTitle("A user is viewing the guild");
-      partialJoinEmbed.setDescription(
-        "Because we have a magical barrier, they must complete verification before they can participate in our activities. When they have done so, I will officially welcome them."
-      );
+      partialJoinEmbed.setTitle(t("events:member.pending.title"));
+      partialJoinEmbed.setDescription(t("events:member.pending.desc"));
       partialJoinEmbed.setAuthor({
         name: user.tag,
         iconURL: user.displayAvatarURL(),
@@ -51,7 +52,7 @@ export const memberAdd = async (
 
     const welcomeEmbed = new MessageEmbed();
     welcomeEmbed.setColor(Becca.colours.default);
-    welcomeEmbed.setTitle("A new adventurer has joined our guild.");
+    welcomeEmbed.setTitle(t("events:member.join.title"));
     welcomeEmbed.setDescription(welcomeText);
     welcomeEmbed.setAuthor({
       name: user.tag,

@@ -1,0 +1,25 @@
+{
+  "donate": "Like the bot? Donate: https://donate.nhcarrigan.com",
+  "moderation": {
+    "title": "{{action}} Notification!",
+    "desc": "You have received a {{action}} in {{name}} for:",
+    "appeal": "You can appeal your ban using this link:"
+  },
+  "errors": {
+    "title": "Unknown Error",
+    "description": "The {{command}} spell has fizzled out.",
+    "what": {
+      "title": "What happened?",
+      "description": "Something went wrong with this command."
+    },
+    "wrong": {
+      "title": "Did I do something wrong?",
+      "description": "Errors can happen for a number of reasons. It could be an issue with the permissions you gave me, the code that powers me, or a number of other possibilities."
+    },
+    "fix": {
+      "title": "So what can I do to fix it?",
+      "description": "If you need assistance with this feature, please [join our support server](https://chat.nhcarrigan.com). Once there, give this ErrorID to the support team to investigate."
+    },
+    "id": "Error ID:"
+  }
+}

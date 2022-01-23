@@ -7,6 +7,7 @@ import { customSubstring } from "../../../../utils/customSubstring";
 import { getRandomValue } from "../../../../utils/getRandomValue";
 import { sendModerationDm } from "../../../../utils/sendModerationDm";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
+import { sendLogEmbed } from "../../../guild/sendLogEmbed";
 import { updateHistory } from "../../moderation/updateHistory";
 
 /**
@@ -16,13 +17,14 @@ import { updateHistory } from "../../moderation/updateHistory";
 export const handleWarn: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
     const { guild, member } = interaction;
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -33,7 +35,7 @@ export const handleWarn: CommandHandler = async (
       !member.permissions.has("KICK_MEMBERS")
     ) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
@@ -43,14 +45,14 @@ export const handleWarn: CommandHandler = async (
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noModSelf),
+        content: getRandomValue(t("responses:noModSelf")),
       });
       return;
     }
 
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noModBecca),
+        content: getRandomValue(t("responses:noModBecca")),
       });
       return;
     }
@@ -58,6 +60,7 @@ export const handleWarn: CommandHandler = async (
     const sentNotice = await sendModerationDm(
       Becca,
       config,
+      t,
       "warn",
       target,
       reason
@@ -66,20 +69,26 @@ export const handleWarn: CommandHandler = async (
     await updateHistory(Becca, "warn", target.id, guild.id);
 
     const warnEmbed = new MessageEmbed();
-    warnEmbed.setTitle("A user has messed up.");
-    warnEmbed.setDescription(`Warning issued by ${member.user.username}`);
+    warnEmbed.setTitle(t("commands:mod.warn.title"));
+    warnEmbed.setDescription(
+      t("commands:mod.warn.description", { user: member.user.username })
+    );
     warnEmbed.setColor(Becca.colours.warning);
-    warnEmbed.addField("Reason", customSubstring(reason, 1000));
-    warnEmbed.addField("User Notified?", String(sentNotice));
+    warnEmbed.addField(
+      t("commands:mod.warn.reason"),
+      customSubstring(reason, 1000)
+    );
+    warnEmbed.addField(t("commands:mod.warn.notified"), String(sentNotice));
     warnEmbed.setTimestamp();
     warnEmbed.setAuthor({
       name: target.tag,
       iconURL: target.displayAvatarURL(),
     });
 
+    await sendLogEmbed(Becca, guild, warnEmbed, "moderation_events");
+
     await interaction.editReply({
-      content: `<@!${target.id}>, you have been warned.`,
-      embeds: [warnEmbed],
+      content: t("commands:mod.warn.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(
@@ -91,7 +100,7 @@ export const handleWarn: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "warn", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "warn", errorId, t)],
     });
   }
 };

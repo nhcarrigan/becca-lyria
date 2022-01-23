@@ -12,6 +12,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleGuess: CurrencyHandler = async (
   Becca,
   interaction,
+  t,
   data
 ) => {
   try {
@@ -19,7 +20,7 @@ export const handleGuess: CurrencyHandler = async (
     const guess = interaction.options.getInteger("guess", true);
 
     if (wager > data.currencyTotal) {
-      await interaction.editReply("You cannot wager more coin than you have!");
+      await interaction.editReply(t("commands:currency.guess.insufficient"));
       return;
     }
 
@@ -35,15 +36,19 @@ export const handleGuess: CurrencyHandler = async (
     await data.save();
 
     const embed = new MessageEmbed();
-    embed.setTitle(won ? "You won!" : "You lost!");
-    embed.setColor(won ? Becca.colours.success : Becca.colours.error);
-    embed.setDescription(`Your BeccaCoin: ${data.currencyTotal}`);
-    embed.addField("Your Guess", guess.toString(), true);
-    embed.addField("Becca's Number", becca.toString(), true);
-    embed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    embed.setTitle(
+      won ? t("commands:currency.guess.won") : t("commands:currency.guess.lost")
     );
+    embed.setColor(won ? Becca.colours.success : Becca.colours.error);
+    embed.setDescription(
+      t("commands:currency.guess.total", { total: data.currencyTotal })
+    );
+    embed.addField(t("commands:currency.guess.guess"), guess.toString(), true);
+    embed.addField(t("commands:currency.guess.becca"), becca.toString(), true);
+    embed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [embed] });
 
@@ -62,7 +67,7 @@ export const handleGuess: CurrencyHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "guess", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "guess", errorId, t)],
     });
   }
 };

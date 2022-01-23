@@ -41,26 +41,7 @@ export interface BeccaLyria extends Client {
     error: ColorResolvable;
   };
   commands: Command[];
-  responses: {
-    missingGuild: string[];
-    invalidCommand: string[];
-    noPermission: string[];
-    ownerOnly: string[];
-    noModSelf: string[];
-    noModBecca: string[];
-    noSelfXP: string[];
-    noBotXP: string[];
-    noEmoteSelf: string[];
-    noEmoteBecca: string[];
-  };
   contexts: Context[];
-  sass: {
-    greeting: string[];
-    amirite: string[];
-    sorry: string[];
-    selfthanks: string[];
-    beccathanks: string[];
-  };
   dataCache: {
     orbitData: OrbitMember[];
   };

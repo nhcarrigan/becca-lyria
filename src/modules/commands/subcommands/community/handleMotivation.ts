@@ -8,8 +8,13 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
 /**
  * Returns a random motivational quote, formatted in an embed.
+ * TODO: Determine how to i18n the quotes...
  */
-export const handleMotivation: CommandHandler = async (Becca, interaction) => {
+export const handleMotivation: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const random = Math.floor(Math.random() * motivationalQuotes.length);
     const quote = motivationalQuotes[random];
@@ -35,7 +40,7 @@ export const handleMotivation: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "motivation", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "motivation", errorId, t)],
     });
   }
 };

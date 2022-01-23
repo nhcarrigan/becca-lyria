@@ -1,4 +1,5 @@
 import { Message } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { automodListener } from "../../listeners/automodListener";
@@ -9,6 +10,7 @@ import { sassListener } from "../../listeners/sassListener";
 import { triggerListener } from "../../listeners/triggerListener";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { getMessageLanguage } from "../../utils/getLangCode";
 import { registerCommands } from "../../utils/registerCommands";
 
 /**
@@ -32,19 +34,21 @@ export const messageCreate = async (
     if (!guild || channel.type === "DM") {
       return;
     }
+    const lang = getMessageLanguage(message);
+    const t = getFixedT(lang);
 
     const serverConfig = await getSettings(Becca, guild.id, guild.name);
 
     if (!serverConfig) {
-      throw new Error("Could not get server configuration.");
+      return;
     }
 
-    await heartsListener.run(Becca, message, serverConfig);
-    await automodListener.run(Becca, message, serverConfig);
-    await levelListener.run(Becca, message, serverConfig);
-    await sassListener.run(Becca, message, serverConfig);
-    await triggerListener.run(Becca, message, serverConfig);
-    await emoteListener.run(Becca, message, serverConfig);
+    await heartsListener.run(Becca, message, t, serverConfig);
+    await automodListener.run(Becca, message, t, serverConfig);
+    await levelListener.run(Becca, message, t, serverConfig);
+    await sassListener.run(Becca, message, t, serverConfig);
+    await triggerListener.run(Becca, message, t, serverConfig);
+    await emoteListener.run(Becca, message, t, serverConfig);
 
     if (
       message.author.id === Becca.configs.ownerId &&

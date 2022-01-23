@@ -39,8 +39,9 @@
     "cors": "^2.8.5",
     "diff": "^5.0.0",
     "discord-api-types": "^0.26.0",
-    "discord.js": "^13.4.0",
+    "discord.js": "^13.6.0",
     "express": "^4.17.1",
+    "i18next": "^21.6.6",
     "leo-profanity": "^1.5.0",
     "mongoose": "^6.0.14",
     "winston": "^3.3.3"

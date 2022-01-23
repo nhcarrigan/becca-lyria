@@ -12,7 +12,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Fetches the latest Astronomy Photo of the Day from NASA, or the photo from
  * the given `date`.
  */
-export const handleSpace: CommandHandler = async (Becca, interaction) => {
+export const handleSpace: CommandHandler = async (Becca, interaction, t) => {
   try {
     if (!Becca.configs.nasaKey) {
       throw new Error("no nasaKey configured");
@@ -23,7 +23,7 @@ export const handleSpace: CommandHandler = async (Becca, interaction) => {
     if (date) {
       if (!/[\d]{4}-[\d]{2}-[\d]{2}/.test(date)) {
         interaction.editReply({
-          content: `${date} is not a valid date format.`,
+          content: t("commands:misc.space.invalid", { date }),
         });
         return;
       }
@@ -35,20 +35,23 @@ export const handleSpace: CommandHandler = async (Becca, interaction) => {
 
     const space = await axios.get<Space>(url, { validateStatus: null });
     if (!space.data || space.status !== 200) {
-      spaceEmbed.setTitle("SPAAAAAAACE");
-      spaceEmbed.setDescription("I got lost in space. Please try agian later.");
+      spaceEmbed.setTitle(t("commands:misc.space.error.title"));
+      spaceEmbed.setDescription(t("commands:misc.space.error.description"));
       spaceEmbed.setColor(Becca.colours.error);
       await interaction.editReply({ embeds: [spaceEmbed] });
     }
 
     spaceEmbed.setTitle(
-      `${date || space.data.date} Space Image: ${space.data.title}`
+      t("commands:misc.space.title", {
+        date: date || space.data.date,
+        title: space.data.title,
+      })
     );
     spaceEmbed.setURL("https://apod.nasa.gov/apod/astropix.html");
     spaceEmbed.setDescription(customSubstring(space.data.explanation, 2000));
     spaceEmbed.setImage(space.data.hdurl);
     spaceEmbed.setFooter(
-      `© ${space.data.copyright || "No copyright provided"}`
+      `© ${space.data.copyright || t("commands:misc.space.copy")}`
     );
     interaction.editReply({ embeds: [spaceEmbed] });
   } catch (err) {
@@ -61,7 +64,7 @@ export const handleSpace: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "space", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "space", errorId, t)],
     });
   }
 };

@@ -10,7 +10,12 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  * Generates an embed with the user's current balance, and the cooldowns for
  * the daily and weekly bonuses.
  */
-export const handleView: CurrencyHandler = async (Becca, interaction, data) => {
+export const handleView: CurrencyHandler = async (
+  Becca,
+  interaction,
+  t,
+  data
+) => {
   try {
     const { user } = interaction;
     const now = Date.now();
@@ -26,22 +31,22 @@ export const handleView: CurrencyHandler = async (Becca, interaction, data) => {
     viewEmbed.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() });
     viewEmbed.setColor(Becca.colours.default);
     viewEmbed.setDescription(
-      `You currently have ${data.currencyTotal} BeccaCoin!`
+      t("commands:currency.view.total", { total: data.currencyTotal })
     );
     viewEmbed.addField(
-      "Next Daily Claim",
+      t("commands:currency.view.daily"),
       dailyCooldown < 0 ? "now!" : parseSeconds(dailyCooldown),
       true
     );
     viewEmbed.addField(
-      "Next Weekly Claim",
+      t("commands:currency.view.weekly"),
       weeklyCooldown < 0 ? "now!" : parseSeconds(weeklyCooldown),
       true
     );
-    viewEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    viewEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [viewEmbed] });
   } catch (err) {
@@ -54,7 +59,7 @@ export const handleView: CurrencyHandler = async (Becca, interaction, data) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "view", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "view", errorId, t)],
     });
   }
 };

@@ -1,4 +1,5 @@
 import { Interaction, Message } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { commandListener } from "../../listeners/commandListener";
@@ -7,6 +8,7 @@ import { usageListener } from "../../listeners/usageListener";
 import { logActivity } from "../../modules/commands/logActivity";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { getInteractionLanguage } from "../../utils/getLangCode";
 
 /**
  * Processes logic when a new interaction is created. Interactions come in various
@@ -21,6 +23,8 @@ export const interactionCreate = async (
 ): Promise<void> => {
   try {
     Becca.pm2.metrics.events.mark();
+    const lang = getInteractionLanguage(interaction);
+    const t = getFixedT(lang);
     if (interaction.isCommand()) {
       await logActivity(Becca, interaction.user.id, "command");
       const target = Becca.commands.find(
@@ -28,13 +32,15 @@ export const interactionCreate = async (
       );
       if (!target) {
         interaction.reply({
-          content: `That ${interaction.commandName} interaction is not valid...`,
+          content: t("events:interaction.bad", {
+            command: interaction.commandName,
+          }),
         });
         return;
       }
       if (!interaction.guildId || !interaction.guild) {
         await interaction.reply({
-          content: `I prefer my privacy. Please talk to me in a guild instead.`,
+          content: t("events:interaction.noDms"),
         });
         return;
       }
@@ -45,12 +51,12 @@ export const interactionCreate = async (
       );
       if (!config) {
         await interaction.reply({
-          content: "I could not find your guild record.",
+          content: t("events:interaction.noSettings"),
         });
         return;
       }
       await commandListener.run(Becca, interaction);
-      await target.run(Becca, interaction, config);
+      await target.run(Becca, interaction, t, config);
       await usageListener.run(Becca, interaction);
       await currencyListener.run(Becca, interaction);
     }
@@ -62,13 +68,15 @@ export const interactionCreate = async (
       );
       if (!target) {
         interaction.reply({
-          content: `That ${interaction.commandName} interaction is not valid...`,
+          content: t("events:interaction.bad", {
+            command: interaction.commandName,
+          }),
         });
         return;
       }
       if (!interaction.guildId || !interaction.guild) {
         await interaction.reply({
-          content: `I prefer my privacy. Please talk to me in a guild instead.`,
+          content: t("events:interaction.noDms"),
         });
         return;
       }
@@ -79,11 +87,11 @@ export const interactionCreate = async (
       );
       if (!config) {
         await interaction.reply({
-          content: "I could not find your guild record.",
+          content: t("events:interaction.noSettings"),
         });
         return;
       }
-      await target.run(Becca, interaction, config);
+      await target.run(Becca, interaction, t, config);
     }
 
     if (interaction.isButton()) {

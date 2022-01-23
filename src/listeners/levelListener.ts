@@ -18,7 +18,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 export const levelListener: Listener = {
   name: "Level Up!",
   description: "Grants experience based on message activity in the server.",
-  run: async (Becca, message, serverSettings) => {
+  run: async (Becca, message, t, serverSettings) => {
     try {
       const { author, content, guild, member } = message;
 
@@ -86,19 +86,22 @@ export const levelListener: Listener = {
 
       if (levelUp) {
         const levelEmbed = new MessageEmbed();
-        levelEmbed.setTitle("Level Up!");
+        levelEmbed.setTitle(t("listeners:level.title"));
         levelEmbed.setDescription(
-          `<@!${author.id}> has grown stronger. They are now level ${user.level}.`
+          t("listeners:level.desc", {
+            user: `<@!${author.id}>`,
+            level: user.level,
+          })
         );
         levelEmbed.setColor(Becca.colours.default);
         levelEmbed.setAuthor({
           name: author.tag,
           iconURL: author.displayAvatarURL(),
         });
-        levelEmbed.setFooter(
-          "Like the bot? Donate: https://donate.nhcarrigan.com",
-          "https://cdn.nhcarrigan.com/profile-transparent.png"
-        );
+        levelEmbed.setFooter({
+          text: t("defaults:donate"),
+          iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+        });
         await targetChannel.send({ embeds: [levelEmbed] });
       }
 
@@ -109,19 +112,22 @@ export const levelListener: Listener = {
             if (role && !member?.roles.cache.find((r) => r.id === role.id)) {
               await member?.roles.add(role);
               const roleEmbed = new MessageEmbed();
-              roleEmbed.setTitle("A title has been granted!");
+              roleEmbed.setTitle(t("listeners:level.roleTitle"));
               roleEmbed.setDescription(
-                `<@!${author.id}> has earned the <@&${role.id}> title!`
+                t("listeners:level.roleDesc", {
+                  user: `<@!${author.id}>`,
+                  role: `<@&${role.id}>`,
+                })
               );
               roleEmbed.setColor(Becca.colours.default);
               roleEmbed.setAuthor({
                 name: author.tag,
                 iconURL: author.displayAvatarURL(),
               });
-              roleEmbed.setFooter(
-                "Like the bot? Donate: https://donate.nhcarrigan.com",
-                "https://cdn.nhcarrigan.com/profile-transparent.png"
-              );
+              roleEmbed.setFooter({
+                text: t("default:donate"),
+                iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+              });
               await targetChannel.send({ embeds: [roleEmbed] });
             }
           }

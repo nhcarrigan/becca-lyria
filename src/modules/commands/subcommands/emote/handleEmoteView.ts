@@ -9,13 +9,17 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 /**
  * Renders a user's emote data into an embed.
  */
-export const handleEmoteView: CommandHandler = async (Becca, interaction) => {
+export const handleEmoteView: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const data = await EmoteCountModel.findOne({ userId: interaction.user.id });
 
     if (!data) {
       await interaction.editReply({
-        content: "You have not received any emotes yet!",
+        content: t("commands:emote.view.none"),
       });
       return;
     }
@@ -30,24 +34,52 @@ export const handleEmoteView: CommandHandler = async (Becca, interaction) => {
       data.uwu;
 
     const emoteEmbed = new MessageEmbed();
-    emoteEmbed.setTitle("Your emote counts!");
+    emoteEmbed.setTitle(t("commands:emote.view.title"));
     emoteEmbed.setAuthor({
       name: interaction.user.tag,
       iconURL: interaction.user.displayAvatarURL(),
     });
     emoteEmbed.setColor(Becca.colours.default);
-    emoteEmbed.setDescription(`You have received a total of ${total} emotes!`);
-    emoteEmbed.addField("Hugs", data.hug.toString(), true);
-    emoteEmbed.addField("Kisses", data.kiss.toString(), true);
-    emoteEmbed.addField("Pats", data.pat.toString(), true);
-    emoteEmbed.addField("Boops", data.boop.toString(), true);
-    emoteEmbed.addField("Throws", data.throw.toString(), true);
-    emoteEmbed.addField("Smacks", data.smack.toString(), true);
-    emoteEmbed.addField("UwU faces", data.uwu.toString(), true);
-    emoteEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    emoteEmbed.setDescription(t("commands:emote.view.description", { total }));
+    emoteEmbed.addField(
+      t("commands:emote.view.hugs"),
+      data.hug.toString(),
+      true
     );
+    emoteEmbed.addField(
+      t("commands:emote.view.kisses"),
+      data.kiss.toString(),
+      true
+    );
+    emoteEmbed.addField(
+      t("commands:emote.view.pats"),
+      data.pat.toString(),
+      true
+    );
+    emoteEmbed.addField(
+      t("commands:emote.view.boops"),
+      data.boop.toString(),
+      true
+    );
+    emoteEmbed.addField(
+      t("commands:emote.view.throws"),
+      data.throw.toString(),
+      true
+    );
+    emoteEmbed.addField(
+      t("commands:emote.view.smacks"),
+      data.smack.toString(),
+      true
+    );
+    emoteEmbed.addField(
+      t("commands:emote.view.uwus"),
+      data.uwu.toString(),
+      true
+    );
+    emoteEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent",
+    });
 
     await interaction.editReply({ embeds: [emoteEmbed] });
   } catch (err) {
@@ -60,7 +92,7 @@ export const handleEmoteView: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "emote view", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "emote view", errorId, t)],
     });
   }
 };

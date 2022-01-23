@@ -8,33 +8,31 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 /**
  * Generates an embed describing the currency system.
  */
-export const handleAbout: CurrencyHandler = async (Becca, interaction) => {
+export const handleAbout: CurrencyHandler = async (Becca, interaction, t) => {
   try {
     const aboutEmbed = new MessageEmbed();
     aboutEmbed.setTitle("Currency System");
-    aboutEmbed.setDescription(
-      "Our new currency system allows you to collect BeccaCoin, a virtual currency, and exchange these coins for rewards. These coins can be collected on a daily and weekly basis. Note that these rewards require you to [join our support server](https://chat.nhcarrigan.com)."
+    aboutEmbed.setDescription(t("commands:currency.about.description"));
+    aboutEmbed.addField(
+      t("commands:currency.about.modify.title"),
+      t("commands:currency.about.modify.description")
     );
     aboutEmbed.addField(
-      "Right to Modify",
-      "We reserve the right to add, remove, or modify rewards at any time, without prior notice to the users."
+      t("commands:currency.about.cash.title"),
+      t("commands:currency.about.cash.description")
     );
     aboutEmbed.addField(
-      "No Cash Value",
-      "BeccaCoin is a virtual currency with *no cash value*, except for implied value available through the reward exchange."
+      t("commands:currency.about.bots.title"),
+      t("commands:currency.about.bots.description")
     );
     aboutEmbed.addField(
-      "No Bots",
-      "Using automation, scripting, self-bots, or other methods to take advantage of the currency system are violations of Discord Terms of Service and we will deny any rewards obtained this way."
+      t("commands:currency.about.refuse.title"),
+      t("commands:currency.about.refuse.description")
     );
-    aboutEmbed.addField(
-      "Right to Refuse",
-      "The development team reserves the right to refuse any claimed reward without compensation to the user."
-    );
-    aboutEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    aboutEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [aboutEmbed] });
   } catch (err) {
@@ -47,7 +45,7 @@ export const handleAbout: CurrencyHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "about", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "about", errorId, t)],
     });
   }
 };

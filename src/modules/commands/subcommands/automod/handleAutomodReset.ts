@@ -12,6 +12,7 @@ import { resetSetting } from "../../../settings/resetSetting";
 export const handleAutomodReset: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -19,7 +20,7 @@ export const handleAutomodReset: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -34,8 +35,8 @@ export const handleAutomodReset: CommandHandler = async (
     );
     await interaction.editReply(
       success
-        ? `I have reset your ${setting} setting.`
-        : "I am having trouble updating your settings. Please try again later."
+        ? t("commands:automod.reset.success", { setting })
+        : t("commands:automod.reset.failure")
     );
     return;
   } catch (err) {
@@ -48,7 +49,7 @@ export const handleAutomodReset: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "automod reset", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "automod reset", errorId, t)],
     });
   }
 };

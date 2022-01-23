@@ -11,7 +11,8 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  */
 export const handleReactionList: CommandHandler = async (
   Becca,
-  interaction
+  interaction,
+  t
 ) => {
   try {
     const guild = interaction.guild as Guild;
@@ -24,7 +25,7 @@ export const handleReactionList: CommandHandler = async (
     const targetMessage = await targetChannel?.messages.fetch(messageId);
 
     if (!targetMessage) {
-      await interaction.editReply("That message does not exist.");
+      await interaction.editReply(t("commands:reactionrole.list.missing"));
       return;
     }
 
@@ -35,22 +36,22 @@ export const handleReactionList: CommandHandler = async (
     });
 
     if (!reactionRoles.length) {
-      await interaction.editReply("That message has no reaction roles.");
+      await interaction.editReply(t("commands:reactionrole.list.none"));
       return;
     }
 
     const listEmbed = new MessageEmbed();
-    listEmbed.setTitle("Reaction Roles");
+    listEmbed.setTitle(t("commands:reactionrole.list.title"));
     listEmbed.setColor(Becca.colours.default);
     listEmbed.setDescription(
       reactionRoles.map((el) => `${el.emoji}: <@&${el.roleId}>`).join("\n")
     );
-    listEmbed.addField("Message", messageLink);
+    listEmbed.addField(t("commands:reactionrole.list.message"), messageLink);
     listEmbed.setTimestamp();
-    listEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    listEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [listEmbed] });
   } catch (err) {
@@ -63,7 +64,7 @@ export const handleReactionList: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "handleReactionList", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "handleReactionList", errorId, t)],
     });
   }
 };

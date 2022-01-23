@@ -6,6 +6,7 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { handleLanguage } from "../modules/commands/subcommands/misc/handleLanguage";
 import { handleLevelscale } from "../modules/commands/subcommands/misc/handleLevelscale";
 import { handleOrbit } from "../modules/commands/subcommands/misc/handleOrbit";
 import { handlePermissions } from "../modules/commands/subcommands/misc/handlePermissions";
@@ -71,8 +72,15 @@ export const misc: Command = {
         .setDescription(
           "Provides a leaderboard for global activity within nhcommunity."
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("language")
+        .setDescription(
+          "Provides your configured language information (in Discord)."
+        )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
 
@@ -80,26 +88,29 @@ export const misc: Command = {
 
       switch (subCommand) {
         case "space":
-          await handleSpace(Becca, interaction, config);
+          await handleSpace(Becca, interaction, t, config);
           break;
         case "username":
-          await handleUsername(Becca, interaction, config);
+          await handleUsername(Becca, interaction, t, config);
           break;
         case "xkcd":
-          await handleXkcd(Becca, interaction, config);
+          await handleXkcd(Becca, interaction, t, config);
           break;
         case "permissions":
-          await handlePermissions(Becca, interaction, config);
+          await handlePermissions(Becca, interaction, t, config);
           break;
         case "levelscale":
-          await handleLevelscale(Becca, interaction, config);
+          await handleLevelscale(Becca, interaction, t, config);
           break;
         case "orbit":
-          await handleOrbit(Becca, interaction, config);
+          await handleOrbit(Becca, interaction, t, config);
+          break;
+        case "language":
+          await handleLanguage(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }
@@ -114,7 +125,7 @@ export const misc: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "misc group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "misc group", errorId, t)],
       });
     }
   },

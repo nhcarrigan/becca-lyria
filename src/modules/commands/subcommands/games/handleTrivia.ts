@@ -20,7 +20,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * to that embed for the four answers, then collects button responses from users.
  * Tracks the users that answered correctly and announces the winners after 30 seconds.
  */
-export const handleTrivia: CommandHandler = async (Becca, interaction) => {
+export const handleTrivia: CommandHandler = async (Becca, interaction, t) => {
   try {
     const letters = ["A", "B", "C", "D"];
 
@@ -51,9 +51,7 @@ export const handleTrivia: CommandHandler = async (Becca, interaction) => {
     triviaEmbed.addField("C", answers[2], true);
     triviaEmbed.addField("D", answers[3], true);
     triviaEmbed.addField("\u200b", "\u200b", true);
-    triviaEmbed.setFooter(
-      "Can you answer this correctly in 30 seconds? Good luck..."
-    );
+    triviaEmbed.setFooter(t("commands:games.trivia.footer"));
 
     const resultEmbed = new MessageEmbed();
 
@@ -93,13 +91,15 @@ export const handleTrivia: CommandHandler = async (Becca, interaction) => {
     answerCollector.on("collect", async (click) => {
       if (answered.includes(click.user.id)) {
         await click.reply({
-          content: "You have already submitted an answer!",
+          content: t("commands:games.trivia.duplicate"),
           ephemeral: true,
         });
         return;
       }
       await click.reply({
-        content: `Your answer of ${click.customId} has been recorded.`,
+        content: t("commands:games.trivia.answered", {
+          answer: click.customId,
+        }),
         ephemeral: true,
       });
 
@@ -112,12 +112,14 @@ export const handleTrivia: CommandHandler = async (Becca, interaction) => {
     answerCollector.on("end", async () => {
       resultEmbed.setTimestamp();
       resultEmbed.setColor(Becca.colours.default);
-      resultEmbed.setTitle(`${correct.length} of you got this right!`);
+      resultEmbed.setTitle(
+        t("commands:games.trivia.result", { count: correct.length })
+      );
       resultEmbed.setDescription(
         customSubstring(correct.map((el) => `<@!${el}>`).join(", "), 4000)
       );
       resultEmbed.addField(
-        "Correct Answer:",
+        t("commands:games.trivia.correct"),
         `${correctAnswerLetter}: ${replaceHtml(correct_answer)}`
       );
 
@@ -133,7 +135,7 @@ export const handleTrivia: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "trivia", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "trivia", errorId, t)],
     });
   }
 };

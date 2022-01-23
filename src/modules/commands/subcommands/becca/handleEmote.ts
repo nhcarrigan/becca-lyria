@@ -10,20 +10,20 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Using the artList config, selects a random art object and parses it
  * into an embed. The actual images are fetched from Becca's profile site.
  */
-export const handleEmote: CommandHandler = async (Becca, interaction) => {
+export const handleEmote: CommandHandler = async (Becca, interaction, t) => {
   try {
     const random = Math.floor(Math.random() * emoteList.length);
     const { emoteName, description, fileName } = emoteList[random];
 
     const emoteEmbed = new MessageEmbed();
-    emoteEmbed.setTitle(`Becca is ${emoteName}`);
+    emoteEmbed.setTitle(emoteName);
     emoteEmbed.setColor(Becca.colours.default);
     emoteEmbed.setDescription(description);
     emoteEmbed.setImage(`https://www.beccalyria.com/assets/emotes/${fileName}`);
-    emoteEmbed.setFooter("Art by Starfazers: https://starfazers.art");
+    emoteEmbed.setFooter({ text: t("commands:becca.emote.footer") });
 
     const button = new MessageButton()
-      .setLabel("View More Emotes")
+      .setLabel(t("commands:becca.emote.buttons.more"))
       .setEmoji("<:BeccaArt:897545793655930910>")
       .setStyle("LINK")
       .setURL("https://www.beccalyria.com/emotes");
@@ -41,7 +41,7 @@ export const handleEmote: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "emote", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "emote", errorId, t)],
     });
   }
 };

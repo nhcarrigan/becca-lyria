@@ -5,7 +5,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 export const emoteListener: Listener = {
   name: "emoteListener",
   description: "Handles the logic for emote-only channels.",
-  run: async (Becca, message, config) => {
+  run: async (Becca, message, t, config) => {
     try {
       if (!config.emote_channels?.includes(message.channel.id)) {
         return;

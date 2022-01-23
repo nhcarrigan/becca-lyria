@@ -11,7 +11,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Fetches data from a Magic: The Gathering API to get information on
  * the `card`, and parses it into an embed.
  */
-export const handleMtg: CommandHandler = async (Becca, interaction) => {
+export const handleMtg: CommandHandler = async (Becca, interaction, t) => {
   try {
     const query = interaction.options.getString("card");
 
@@ -21,7 +21,7 @@ export const handleMtg: CommandHandler = async (Becca, interaction) => {
 
     if (!cards.data || !cards.data.cards.length) {
       await interaction.editReply({
-        content: "That card does not seem to exist...",
+        content: t("commands:games.mtg.no"),
       });
       return;
     }
@@ -34,17 +34,17 @@ export const handleMtg: CommandHandler = async (Becca, interaction) => {
     cardEmbed.setImage(
       card.imageUrl || "https://cdn.nhcarrigan.com/content/projects/mtg.jpg"
     );
-    cardEmbed.setDescription(card.flavor || "This card has no flavour text...");
-    cardEmbed.addField("Types", card.types.join(", "));
-    cardEmbed.addField("Cost", card.manaCost);
+    cardEmbed.setDescription(card.flavor || t("commands:games.mtg.flavour"));
+    cardEmbed.addField(t("commands:games.mtg.types"), card.types.join(", "));
+    cardEmbed.addField(t("commands:games.mtg.cost"), card.manaCost);
     cardEmbed.addField(
-      "Abilities",
-      card.text || "This card has no ability text..."
+      t("commands:games.mtg.abilities"),
+      card.text || t("commands:games.mtg.ability")
     );
-    cardEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    cardEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [cardEmbed] });
   } catch (err) {
@@ -57,7 +57,7 @@ export const handleMtg: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "mtg", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "mtg", errorId, t)],
     });
   }
 };

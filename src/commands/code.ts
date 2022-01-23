@@ -53,24 +53,24 @@ export const code: Command = {
             .setRequired(true)
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
 
       const subCommand = interaction.options.getSubcommand();
       switch (subCommand) {
         case "caniuse":
-          await handleCanIUse(Becca, interaction, config);
+          await handleCanIUse(Becca, interaction, t, config);
           break;
         case "colour":
-          await handleColour(Becca, interaction, config);
+          await handleColour(Becca, interaction, t, config);
           break;
         case "http":
-          await handleHttp(Becca, interaction, config);
+          await handleHttp(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }
@@ -85,7 +85,7 @@ export const code: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "code group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "code group", errorId, t)],
       });
     }
   },

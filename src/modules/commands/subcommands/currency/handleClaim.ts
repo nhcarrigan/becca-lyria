@@ -13,6 +13,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleClaim: CurrencyHandler = async (
   Becca,
   interaction,
+  t,
   data
 ) => {
   try {
@@ -31,68 +32,78 @@ export const handleClaim: CurrencyHandler = async (
       case "monarch":
         if (data.currencyTotal < 1000) {
           await interaction.editReply(
-            `This reward costs 1000 BeccaCoin. You only have ${data.currencyTotal}.`
+            t("commands:currency.claim.price", {
+              price: 1000,
+              total: data.currencyTotal,
+            })
           );
           return;
         }
         data.currencyTotal -= 1000;
         await data.save();
         claimEmbed.addField(
-          "Reward Details",
-          "You will take the monarch role from whomever has it in our support server, and you will keep the role until someone else takes it from you."
+          t("commands:currency.claim.details"),
+          t("commands:currency.claim.monarch")
         );
         break;
       case "emote":
         if (data.currencyTotal < 5000) {
           await interaction.editReply(
-            `This reward costs 5000 BeccaCoin. You only have ${data.currencyTotal}.`
+            t("commands:currency.claim.price", {
+              price: 5000,
+              total: data.currencyTotal,
+            })
           );
           return;
         }
         data.currencyTotal -= 5000;
         await data.save();
         claimEmbed.addField(
-          "Reward Details",
-          "You will be able to work with nhcarrigan to determine the next pose for a Becca emote. The emote will be available in the support server. nhcarrigan will retain all rights to the art and the character, but we will make an announcement in the support server thanking you for the emote idea."
+          t("commands:currency.claim.details"),
+          t("commands:currency.claim.emote")
         );
         break;
       case "feature":
         if (data.currencyTotal < 10000) {
           await interaction.editReply(
-            `This reward costs 10000 BeccaCoin. You only have ${data.currencyTotal}.`
+            t("commands:currency.claim.price", {
+              price: 10000,
+              total: data.currencyTotal,
+            })
           );
           return;
         }
         data.currencyTotal -= 10000;
         await data.save();
         claimEmbed.addField(
-          "Reward Details",
-          "You will be able to work with nhcarrigan and the development team to suggest a new feature for Becca. We reserve the right to refuse features that are not in line with Becca's primary purpose, but will work with you until you we reach a feature proposal everyone is happy with."
+          t("commands:currency.claim.details"),
+          t("commands:currency.claim.feature")
         );
         break;
       case "wealthy":
         if (data.currencyTotal < 25000) {
           await interaction.editReply(
-            `This reward costs 25000 BeccaCoin. You only have ${data.currencyTotal}.`
+            t("commands:currency.claim.price", {
+              price: 25000,
+              total: data.currencyTotal,
+            })
           );
           return;
         }
         data.currencyTotal -= 25000;
         await data.save();
         claimEmbed.addField(
-          "Reward Details",
-          "You will be given the Wealthy role in our support server. You will keep this role."
+          t("commands:currency.claim.details"),
+          t("commands:currency.claim.wealthy")
         );
         break;
       case "default":
-        await interaction.editReply(
-          "This somehow appears to be an invalid reward. Please check with the developer team."
-        );
+        await interaction.editReply(t("commands:currency.claim.invalid"));
         return;
     }
 
     const supportServerButton = new MessageButton()
-      .setLabel("Join Our Server to Redeem your Rewards!")
+      .setLabel(t("commands:currency.claim.buttons"))
       .setEmoji("<:BeccaHuh:877278300739887134>")
       .setStyle("LINK")
       .setURL("https://chat.nhcarrigan.com");
@@ -113,7 +124,7 @@ export const handleClaim: CurrencyHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "claim", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "claim", errorId, t)],
     });
   }
 };

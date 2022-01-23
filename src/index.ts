@@ -3,6 +3,7 @@ import { RewriteFrames } from "@sentry/integrations";
 import * as Sentry from "@sentry/node";
 import { Client, WebhookClient } from "discord.js";
 
+import { initialiseTranslations } from "./config/i18n/initialiseTranslations";
 import { IntentOptions } from "./config/IntentOptions";
 import { connectDatabase } from "./database/connectDatabase";
 import { handleEvents } from "./events/handleEvents";
@@ -30,8 +31,12 @@ Sentry.init({
  * This is the entry point for Becca's process. This will log the boot process,
  * call the necessary helpers to prepare Becca, and then log in to Discord.
  */
-(async () => {
+void (async () => {
   beccaLogHandler.log("debug", "Starting process...");
+
+  await initialiseTranslations();
+
+  beccaLogHandler.log("debug", "Loaded i18n!");
 
   const Becca = new Client({
     shards: "auto",

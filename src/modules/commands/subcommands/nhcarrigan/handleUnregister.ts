@@ -12,14 +12,18 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  * Removes the given `command` from the list of available commands.
  * Run this if a stray command isn't getting deleted.
  */
-export const handleUnregister: CommandHandler = async (Becca, interaction) => {
+export const handleUnregister: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const target = interaction.options.getString("command", true);
 
     const targetCommand = Becca.commands.find((el) => el.data.name === target);
 
     if (!targetCommand) {
-      await interaction.editReply("Cannot find that command.");
+      await interaction.editReply(t("commands:nhcarrigan.unregister.missing"));
       return;
     }
 
@@ -32,9 +36,7 @@ export const handleUnregister: CommandHandler = async (Becca, interaction) => {
     const command = commands.find((el) => el.name === targetCommand.data.name);
 
     if (!command) {
-      await interaction.editReply(
-        "That command does not appear to be registered."
-      );
+      await interaction.editReply(t("commands:nhcarrigan.unregister.invalid"));
       return;
     }
 
@@ -43,7 +45,9 @@ export const handleUnregister: CommandHandler = async (Becca, interaction) => {
     );
 
     const confirm = new MessageEmbed();
-    confirm.setTitle(`${command.name} Command Unregistered`);
+    confirm.setTitle(
+      t("commands:nhcarrigan.unregister.title", { name: command.name })
+    );
     confirm.setDescription(command.description);
 
     if (command.options) {
@@ -66,7 +70,7 @@ export const handleUnregister: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "unregister", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "unregister", errorId, t)],
     });
   }
 };

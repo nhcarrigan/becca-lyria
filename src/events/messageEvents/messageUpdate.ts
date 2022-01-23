@@ -1,5 +1,6 @@
 import { diffSentences } from "diff";
 import { Message, MessageEmbed, PartialMessage } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { automodListener } from "../../listeners/automodListener";
@@ -30,18 +31,20 @@ export const messageUpdate = async (
     if (!guild || newMessage.channel.type === "DM") {
       return;
     }
+    const lang = guild.preferredLocale;
+    const t = getFixedT(lang);
 
     const serverConfig = await getSettings(Becca, guild.id, guild.name);
 
     if (!serverConfig) {
-      throw new Error("Could not get server configuration.");
+      return;
     }
 
     if (oldContent && newContent && oldContent === newContent) {
       return;
     }
 
-    if (!guild || !author || author.bot) {
+    if (!author || author.bot) {
       return;
     }
 
@@ -53,10 +56,10 @@ export const messageUpdate = async (
             )
             .filter((el) => el)
             .join("\n")
-        : "*** Message did not have content...";
+        : t("events:message.edit.nocont");
 
     const updateEmbed = new MessageEmbed();
-    updateEmbed.setTitle("Message Updated");
+    updateEmbed.setTitle(t("events:message.edit.title"));
     updateEmbed.setAuthor({
       name: author.tag,
       iconURL: author.displayAvatarURL(),
@@ -65,17 +68,20 @@ export const messageUpdate = async (
     updateEmbed.setFooter(`Author: ${author.id} | Message: ${oldMessage.id}`);
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setTimestamp();
-    updateEmbed.addField("Channel", `<#${newMessage.channel.id}>`);
-    updateEmbed.addField("Message Link", newMessage.url);
+    updateEmbed.addField(
+      t("events:message.edit.chan"),
+      `<#${newMessage.channel.id}>`
+    );
+    updateEmbed.addField(t("events:message.edit.link"), newMessage.url);
 
     await sendLogEmbed(Becca, guild, updateEmbed, "message_events");
 
     const message = await newMessage.fetch();
 
-    await sassListener.run(Becca, message, serverConfig);
-    await automodListener.run(Becca, message, serverConfig);
-    await triggerListener.run(Becca, message, serverConfig);
-    await emoteListener.run(Becca, message, serverConfig);
+    await sassListener.run(Becca, message, t, serverConfig);
+    await automodListener.run(Becca, message, t, serverConfig);
+    await triggerListener.run(Becca, message, t, serverConfig);
+    await emoteListener.run(Becca, message, t, serverConfig);
     Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(

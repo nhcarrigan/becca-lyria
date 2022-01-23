@@ -13,13 +13,13 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Generates an embed to give the `user` a gold star for the given `reason`. If the user
  * has not opted out from the tracking, also increments that user's starcount in the database.
  */
-export const handleStar: CommandHandler = async (Becca, interaction) => {
+export const handleStar: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { member, guild } = interaction;
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -28,9 +28,7 @@ export const handleStar: CommandHandler = async (Becca, interaction) => {
     const reason = interaction.options.getString("reason", true);
 
     if (StarOptOut.includes(targetUser.id)) {
-      await interaction.editReply(
-        "I am not permitted to give stars to this user."
-      );
+      await interaction.editReply(t("commands:community.star.optout"));
       return;
     }
 
@@ -64,12 +62,19 @@ export const handleStar: CommandHandler = async (Becca, interaction) => {
     const starTotal = targetUserStars?.stars || 1;
 
     const starEmbed = new MessageEmbed();
-    starEmbed.setTitle(`${targetUser.username}, this gold star is for you`);
-    starEmbed.setDescription(
-      `${member.user.username} wants you to carry this around forever.`
+    starEmbed.setTitle(
+      t("commands:community.star.title", { user: targetUser.username })
     );
-    starEmbed.addField("Reason", customSubstring(reason, 2000));
-    starEmbed.setFooter(`You're now carrying ${starTotal} of these. Enjoy.`);
+    starEmbed.setDescription(
+      t("commands:community.star.description", { user: member.user.username })
+    );
+    starEmbed.addField(
+      t("commands:community.star.reason"),
+      customSubstring(reason, 2000)
+    );
+    starEmbed.setFooter(
+      t("commands:community.star.total", { total: starTotal })
+    );
     starEmbed.setColor(Becca.colours.default);
     starEmbed.setTimestamp();
     starEmbed.setImage("https://cdn.nhcarrigan.com/content/projects/star.png");
@@ -85,7 +90,7 @@ export const handleStar: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "star", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "star", errorId, t)],
     });
   }
 };

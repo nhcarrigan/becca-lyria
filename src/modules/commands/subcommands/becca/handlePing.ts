@@ -11,7 +11,8 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  */
 export const handlePing: CommandHandler = async (
   Becca,
-  interaction
+  interaction,
+  t
 ): Promise<void> => {
   try {
     const receivedInteraction = Date.now();
@@ -27,21 +28,23 @@ export const handlePing: CommandHandler = async (
       discordLatency > 100 || websocketLatency > 100 || databaseLatency > 100;
 
     const pingEmbed = new MessageEmbed();
-    pingEmbed.setTitle("Pong!");
-    pingEmbed.setDescription(
-      "Experiencing slow response times? [Join our support server](https://chat.nhcarrigan.com) for assistance."
-    );
+    pingEmbed.setTitle(t("commands:becca.ping.title"));
+    pingEmbed.setDescription(t("commands:becca.ping.description"));
     pingEmbed.addField(
-      "Interaction Response Time",
+      t("commands:becca.ping.interaction"),
       `${discordLatency} ms`,
       true
     );
     pingEmbed.addField(
-      "Websocket Response Time",
+      t("commands:becca.ping.websocket"),
       `${websocketLatency} ms`,
       true
     );
-    pingEmbed.addField("Database Response Time", `${databaseLatency} ms`, true);
+    pingEmbed.addField(
+      t("commands:becca.ping.databaase"),
+      `${databaseLatency} ms`,
+      true
+    );
     pingEmbed.setColor(isSlow ? Becca.colours.error : Becca.colours.success);
 
     await interaction.editReply({ embeds: [pingEmbed] });
@@ -55,7 +58,7 @@ export const handlePing: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "ping", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "ping", errorId, t)],
     });
   }
 };

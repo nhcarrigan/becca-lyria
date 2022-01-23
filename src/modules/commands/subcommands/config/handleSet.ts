@@ -14,25 +14,24 @@ import { validateSetting } from "../../../settings/validateSetting";
 /**
  * Provided the `value` is valid, sets the given `setting` to that `value`.
  */
-export const handleSet: CommandHandler = async (Becca, interaction, config) => {
+export const handleSet: CommandHandler = async (
+  Becca,
+  interaction,
+  t,
+  config
+) => {
   try {
     const { guild } = interaction;
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
 
-    const setting = interaction.options.getString("setting");
-    const value = interaction.options.getString("value");
-    if (!value) {
-      await interaction.editReply(
-        "Not sure how, but you managed to forget the value!"
-      );
-      return;
-    }
+    const setting = interaction.options.getString("setting", true);
+    const value = interaction.options.getString("value", true);
 
     const isValid = await validateSetting(
       Becca,
@@ -43,7 +42,7 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
     );
     if (!isValid) {
       await interaction.editReply(
-        `${value} is not a valid option for ${setting}.`
+        t("commands:config.set.invalid", { value, setting })
       );
       return;
     }
@@ -58,9 +57,7 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
     );
 
     if (!isSet) {
-      await interaction.editReply(
-        "I am having trouble updating your settings. Please try again later."
-      );
+      await interaction.editReply(t("commands:config.set.failed"));
       return;
     }
     const newContent = isSet[setting as Settings];
@@ -70,14 +67,14 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
           .join(", ")
       : renderSetting(Becca, setting as Settings, newContent);
     const successEmbed = new MessageEmbed();
-    successEmbed.setTitle(`${setting} Updated`);
+    successEmbed.setTitle(t("commands:config.set.title", { setting }));
     successEmbed.setDescription(customSubstring(parsedContent, 2000));
     successEmbed.setTimestamp();
     successEmbed.setColor(Becca.colours.default);
-    successEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    successEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
     await interaction.editReply({ embeds: [successEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
@@ -89,7 +86,7 @@ export const handleSet: CommandHandler = async (Becca, interaction, config) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "set", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "set", errorId, t)],
     });
   }
 };

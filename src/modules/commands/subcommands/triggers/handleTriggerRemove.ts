@@ -11,6 +11,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleTriggerRemove: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -20,7 +21,7 @@ export const handleTriggerRemove: CommandHandler = async (
 
     if (triggerIndex === -1) {
       await interaction.editReply({
-        content: "That trigger does not exist.",
+        content: t("commands:triggers.remove.missing"),
       });
       return;
     }
@@ -30,18 +31,20 @@ export const handleTriggerRemove: CommandHandler = async (
     await config.save();
 
     const success = new MessageEmbed();
-    success.setTitle("Trigger Removed");
-    success.setDescription(`Successfully removed the trigger \`${trigger}\``);
+    success.setTitle(t("commands:triggers.remove.title"));
+    success.setDescription(
+      t("commands:triggers.remove.description", { trigger })
+    );
     success.setColor(Becca.colours.default);
     success.setAuthor({
       name: interaction.user.tag,
       iconURL: interaction.user.displayAvatarURL(),
     });
     success.setTimestamp();
-    success.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    success.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [success] });
   } catch (err) {
@@ -54,7 +57,7 @@ export const handleTriggerRemove: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "trigger remove", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "trigger remove", errorId, t)],
     });
   }
 };

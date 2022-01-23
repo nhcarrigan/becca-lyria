@@ -8,7 +8,7 @@ import { generateHabiticaUser } from "../../games/generateHabiticaUser";
 /**
  * Handles fetching a user's habitica data.
  */
-export const handleHabitica: CommandHandler = async (Becca, interaction) => {
+export const handleHabitica: CommandHandler = async (Becca, interaction, t) => {
   try {
     const id = interaction.options.getString("id", true);
 
@@ -18,10 +18,11 @@ export const handleHabitica: CommandHandler = async (Becca, interaction) => {
       "x-api-key": Becca.configs.habiticaKey,
     };
     const habiticaEmbeds = [];
-    habiticaEmbeds[0] = await generateHabiticaUser(Becca, id, headers);
-    if (habiticaEmbeds[0].title !== "User not found!") {
+    habiticaEmbeds[0] = await generateHabiticaUser(Becca, t, id, headers);
+    if (habiticaEmbeds[0].title !== t("commands:games.habitica.nouser.title")) {
       habiticaEmbeds[1] = await generateHabiticaAchievements(
         Becca,
+        t,
         id,
         headers
       );
@@ -38,7 +39,7 @@ export const handleHabitica: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "habitica", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "habitica", errorId, t)],
     });
   }
 };

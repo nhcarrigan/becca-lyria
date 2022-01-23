@@ -75,7 +75,7 @@ export const nhcarrigan: Command = {
             ])
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply({ ephemeral: true });
 
@@ -96,20 +96,20 @@ export const nhcarrigan: Command = {
 
       switch (subcommand) {
         case "register":
-          await handleRegister(Becca, interaction, config);
+          await handleRegister(Becca, interaction, t, config);
           break;
         case "unregister":
-          await handleUnregister(Becca, interaction, config);
+          await handleUnregister(Becca, interaction, t, config);
           break;
         case "viewslash":
-          await handleViewSlash(Becca, interaction, config);
+          await handleViewSlash(Becca, interaction, t, config);
           break;
         case "purge":
-          await handlePurge(Becca, interaction, config);
+          await handlePurge(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }
@@ -124,7 +124,7 @@ export const nhcarrigan: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "nhcarrigan group", errorId, t)],
       });
     }
   },

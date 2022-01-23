@@ -16,6 +16,7 @@ import { viewSettingsArray } from "../config/viewSettingsArray";
 export const handleAutomodView: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -23,7 +24,7 @@ export const handleAutomodView: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -31,10 +32,10 @@ export const handleAutomodView: CommandHandler = async (
     const setting = interaction.options.getString("setting");
 
     if (setting === "global") {
-      const result = await viewAutomodSettings(Becca, guild, config);
+      const result = await viewAutomodSettings(Becca, guild, t, config);
       if (!result) {
         await interaction.editReply({
-          content: "I am unable to locate your settings.",
+          content: t("commands:automod.view.noSettings"),
         });
         return;
       }
@@ -47,6 +48,7 @@ export const handleAutomodView: CommandHandler = async (
 
     let embed = await viewSettingsArray(
       Becca,
+      t,
       config,
       setting as ArraySettings,
       1
@@ -54,7 +56,7 @@ export const handleAutomodView: CommandHandler = async (
 
     if (!embed) {
       await interaction.editReply({
-        content: "I am unable to locate your settings.",
+        content: t("commands:automod.view.noSettings"),
       });
       return;
     }
@@ -108,6 +110,7 @@ export const handleAutomodView: CommandHandler = async (
 
       embed = await viewSettingsArray(
         Becca,
+        t,
         config,
         setting as ArraySettings,
         page
@@ -115,7 +118,7 @@ export const handleAutomodView: CommandHandler = async (
 
       if (!embed) {
         await interaction.editReply({
-          content: "I am unable to locate your settings.",
+          content: t("commands:automod.view.noSettings"),
         });
         return;
       }
@@ -147,7 +150,7 @@ export const handleAutomodView: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "automod view", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "automod view", errorId, t)],
     });
   }
 };

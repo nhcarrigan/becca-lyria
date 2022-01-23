@@ -11,6 +11,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleTriggerAdd: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -21,14 +22,14 @@ export const handleTriggerAdd: CommandHandler = async (
 
     if (hasTrigger) {
       await interaction.editReply({
-        content: "That trigger is already present.",
+        content: t("commands:triggers.add.duplicate"),
       });
       return;
     }
 
     if (config.triggers.length >= 50) {
       await interaction.editReply({
-        content: "You can't have more than 50 triggers.",
+        content: t("commands:triggers.add.max"),
       });
       return;
     }
@@ -38,20 +39,20 @@ export const handleTriggerAdd: CommandHandler = async (
     await config.save();
 
     const success = new MessageEmbed();
-    success.setTitle("Trigger Added");
-    success.setDescription(`Successfully added the trigger \`${trigger}\``);
+    success.setTitle(t("commands:triggers.add.title"));
+    success.setDescription(t("commands:triggers.add.description", { trigger }));
     success.setColor(Becca.colours.default);
-    success.addField("Trigger", trigger);
-    success.addField("Response", response);
+    success.addField(t("commands:triggers.add.trigger"), trigger);
+    success.addField(t("commands:triggers.add.response"), response);
     success.setAuthor({
       name: interaction.user.tag,
       iconURL: interaction.user.displayAvatarURL(),
     });
     success.setTimestamp();
-    success.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    success.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [success] });
   } catch (err) {
@@ -64,7 +65,7 @@ export const handleTriggerAdd: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "trigger add", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "trigger add", errorId, t)],
     });
   }
 };

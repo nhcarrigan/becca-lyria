@@ -9,25 +9,25 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Returns a cat photo depicting the given HTTP `status`.
  */
-export const handleHttp: CommandHandler = async (Becca, interaction) => {
+export const handleHttp: CommandHandler = async (Becca, interaction, t) => {
   try {
     const status = interaction.options.getInteger("status", true);
 
     if (!httpStatus.includes(status)) {
       await interaction.editReply({
-        content: "That is not a valid HTTP status code.",
+        content: t("commands:code.http.invalid"),
       });
       return;
     }
     const httpEmbed = new MessageEmbed();
-    httpEmbed.setTitle(`HTTP code ${status}`);
+    httpEmbed.setTitle(t("commands:code.http.title", { status }));
     httpEmbed.setImage(`https://http.cat/${status}.jpg`);
     httpEmbed.setColor(Becca.colours.default);
     httpEmbed.setTimestamp();
-    httpEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    httpEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [httpEmbed] });
   } catch (err) {
@@ -40,7 +40,7 @@ export const handleHttp: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "http", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "http", errorId, t)],
     });
   }
 };

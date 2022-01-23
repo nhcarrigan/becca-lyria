@@ -10,7 +10,12 @@ import { customSubstring } from "../../utils/customSubstring";
 /**
  * Detects links in a message and responds accordingly.
  */
-export const automodLinks: ListenerHandler = async (Becca, message, config) => {
+export const automodLinks: ListenerHandler = async (
+  Becca,
+  message,
+  t,
+  config
+) => {
   try {
     const contentWithoutCode = message.content.replace(
       /`{3}\w*\n[^`]*`{3}/g,
@@ -58,7 +63,7 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
         await message.delete();
       }
       const linkEmbed = new MessageEmbed();
-      linkEmbed.setTitle("Invalid Link Detected!");
+      linkEmbed.setTitle(t("listeners:automod.links.title"));
       linkEmbed.setDescription(
         (config.link_message || defaultServer.link_message).replace(
           /\{@username\}/g,
@@ -70,10 +75,10 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
         name: message.author.tag,
         iconURL: message.author.displayAvatarURL(),
       });
-      linkEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com",
-        "https://cdn.nhcarrigan.com/profile-transparent.png"
-      );
+      linkEmbed.setFooter({
+        text: t("defaults:donate"),
+        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      });
       const warning = await message.channel.send({ embeds: [linkEmbed] });
 
       setTimeout(async () => await warning.delete(), 300000);
@@ -81,22 +86,31 @@ export const automodLinks: ListenerHandler = async (Becca, message, config) => {
       const dmEmbed = new MessageEmbed();
       dmEmbed.setTitle("Your message has been deleted...");
       dmEmbed.setDescription(
-        "Here's the contents of the deleted message: \n```\n" +
-          customSubstring(message.content, 2000) +
-          "```"
+        `${t("listeners:automod.links.dmTitle")}\n\`\`\`\n${customSubstring(
+          message.content,
+          2000
+        )}\n\`\`\``
       );
       dmEmbed.setColor(Becca.colours.error);
-      dmEmbed.addField("Server", message.guild?.name || "unknown");
-      dmEmbed.addField("Channel", message.channel.toString());
-      dmEmbed.addField("Reason", "Blocked Link detected");
       dmEmbed.addField(
-        "Links:",
-        blockedLinkList.join(" ") ||
-          `No links detected. Please contact the developer.`
+        t("listeners:automod.links.server"),
+        message.guild?.name || "unknown"
       );
       dmEmbed.addField(
-        "Allowed Links:",
-        allowedLinkList.join(" ") || `No links were permitted.`
+        t("listeners:automod.links.channel"),
+        message.channel.toString()
+      );
+      dmEmbed.addField(
+        t("listeners:automod.links.reason"),
+        t("listeners:automod.links.blocked")
+      );
+      dmEmbed.addField(
+        t("listeners:automod.links.links"),
+        blockedLinkList.join(" ") || t("listeners:automod.links.noBlocked")
+      );
+      dmEmbed.addField(
+        t("listeners:automod.links.allowed"),
+        allowedLinkList.join(" ") || t("listeners:automod.links.noAllowed")
       );
 
       await message.author.send({ embeds: [dmEmbed] }).catch(() => null);

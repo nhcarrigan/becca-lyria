@@ -11,22 +11,22 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Generates an embed containing a random fun fact.
  */
-export const handleFact: CommandHandler = async (Becca, interaction) => {
+export const handleFact: CommandHandler = async (Becca, interaction, t) => {
   try {
     const fact = await axios.get<Fact>(
       "https://uselessfacts.jsph.pl/random.json?language=en"
     );
 
     const factEmbed = new MessageEmbed();
-    factEmbed.setTitle("Did you know?");
+    factEmbed.setTitle(t("commands:games.fact.title"));
     factEmbed.setColor(Becca.colours.default);
     factEmbed.setDescription(customSubstring(fact.data.text, 4000));
     factEmbed.setURL(fact.data.source_url);
     factEmbed.setTimestamp();
-    factEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    factEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [factEmbed] });
   } catch (err) {
@@ -39,7 +39,7 @@ export const handleFact: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "fact", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "fact", errorId, t)],
     });
   }
 };

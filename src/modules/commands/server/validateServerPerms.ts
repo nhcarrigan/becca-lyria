@@ -1,4 +1,5 @@
 import { GuildMember, MessageEmbed, TextBasedChannel } from "discord.js";
+import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -7,12 +8,14 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  * Validates that Becca has the expected guild-level permissions.
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
+ * @param {TFunction} t The i18n function.
  * @param {GuildMember} BeccaMember Becca's guild member object for that server.
  * @param {TextBasedChannel} channel The channel to send the result to.
  * @returns {boolean} True if Becca has ALL required permissions, false otherwise.
  */
 export const validateServerPerms = async (
   Becca: BeccaLyria,
+  t: TFunction,
   BeccaMember: GuildMember,
   channel: TextBasedChannel
 ): Promise<boolean> => {
@@ -37,31 +40,91 @@ export const validateServerPerms = async (
     const readMessages = BeccaMember.permissions.has("READ_MESSAGE_HISTORY");
 
     const permissionEmbed = new MessageEmbed();
-    permissionEmbed.setTitle("Guild Permissions");
+    permissionEmbed.setTitle(t("commands:misc.permissions.guild.title"));
     permissionEmbed.setDescription(
-      `Here are the permissions I have in ${BeccaMember.guild.name}.`
+      t("commands:misc.permissions.guild.description")
     );
     permissionEmbed.addFields([
-      { name: "Manage Server", value: `${manageServer}`, inline: true },
-      { name: "Manage Roles", value: `${manageRoles}`, inline: true },
-      { name: "Manage Channels", value: `${manageChannels}`, inline: true },
-      { name: "Kick Members", value: `${kickMembers}`, inline: true },
-      { name: "Ban Members", value: `${banMembers}`, inline: true },
-      { name: "Send Messages", value: `${sendMessages}`, inline: true },
-      { name: "Manage Messages", value: `${manageMessages}`, inline: true },
-      { name: "Embed Links", value: `${embedLinks}`, inline: true },
-      { name: "Attach Files", value: `${attachFiles}`, inline: true },
       {
-        name: "Read Message History",
+        name: t("commands:misc.permissions.names.server"),
+        value: `${manageServer}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.roles"),
+        value: `${manageRoles}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.channels"),
+        value: `${manageChannels}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.kick"),
+        value: `${kickMembers}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.ban"),
+        value: `${banMembers}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.send"),
+        value: `${sendMessages}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.message"),
+        value: `${manageMessages}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.embed"),
+        value: `${embedLinks}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.attach"),
+        value: `${attachFiles}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.history"),
         value: `${readMessageHistory}`,
         inline: true,
       },
-      { name: "Add Reactions", value: `${addReactions}`, inline: true },
-      { name: "Use Emotes", value: `${useEmotes}`, inline: true },
-      { name: "Manage Nicknames", value: `${manageNicknames}`, inline: true },
-      { name: "Moderate Members", value: `${moderateMembers}`, inline: true },
-      { name: "View Channel", value: `${viewChannel}`, inline: true },
-      { name: "Read Messages", value: `${readMessages}`, inline: true },
+      {
+        name: t("commands:misc.permissions.names.react"),
+        value: `${addReactions}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.emote"),
+        value: `${useEmotes}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.nick"),
+        value: `${manageNicknames}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.mod"),
+        value: `${moderateMembers}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.view"),
+        value: `${viewChannel}`,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.permissions.names.read"),
+        value: `${readMessages}`,
+        inline: true,
+      },
     ]);
     permissionEmbed.setColor(Becca.colours.default);
     permissionEmbed.setTimestamp();

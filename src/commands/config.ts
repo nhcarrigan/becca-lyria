@@ -62,14 +62,14 @@ export const config: Command = {
             .addChoices(configViewChoices)
         )
     ),
-  run: async (Becca, interaction, serverConfig) => {
+  run: async (Becca, interaction, t, serverConfig) => {
     try {
       await interaction.deferReply();
       const { guild, member } = interaction;
 
       if (!guild || !member) {
         await interaction.editReply({
-          content: getRandomValue(Becca.responses.missingGuild),
+          content: getRandomValue(t("responses:missingGuild")),
         });
         return;
       }
@@ -80,7 +80,7 @@ export const config: Command = {
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({
-          content: getRandomValue(Becca.responses.noPermission),
+          content: getRandomValue(t("responses:noPermission")),
         });
         return;
       }
@@ -88,17 +88,17 @@ export const config: Command = {
       const action = interaction.options.getSubcommand();
       switch (action) {
         case "set":
-          await handleSet(Becca, interaction, serverConfig);
+          await handleSet(Becca, interaction, t, serverConfig);
           break;
         case "reset":
-          await handleReset(Becca, interaction, serverConfig);
+          await handleReset(Becca, interaction, t, serverConfig);
           break;
         case "view":
-          await handleView(Becca, interaction, serverConfig);
+          await handleView(Becca, interaction, t, serverConfig);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }
@@ -113,7 +113,7 @@ export const config: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "config group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "config group", errorId, t)],
       });
     }
   },

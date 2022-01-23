@@ -15,7 +15,7 @@ import { automodProfanity } from "./automod/automodProfanity";
 export const automodListener: Listener = {
   name: "automod",
   description: "Handles the automod logic",
-  run: async (Becca, message, config) => {
+  run: async (Becca, message, t, config) => {
     try {
       if (
         !config.automod_channels.includes(message.channel.id) &&
@@ -40,11 +40,11 @@ export const automodListener: Listener = {
       }
 
       if (config.links === "on") {
-        await automodLinks(Becca, message, config);
+        await automodLinks(Becca, message, t, config);
       }
 
       if (config.profanity === "on") {
-        await automodProfanity(Becca, message, config);
+        await automodProfanity(Becca, message, t, config);
       }
     } catch (error) {
       await beccaErrorHandler(

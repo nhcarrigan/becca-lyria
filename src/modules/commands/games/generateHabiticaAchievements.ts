@@ -1,5 +1,6 @@
 import axios from "axios";
 import { MessageEmbed } from "discord.js";
+import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import {
@@ -29,12 +30,14 @@ const getAchievementList = (achievements: HabiticaAchievement[]): string => {
  * formatted in an embed.
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
+ * @param {TFunction} t The i18n function.
  * @param {string} id The user's Habitica ID.
  * @param {HabiticaRequestHeaders} headers The headers to use for the request.
  * @returns {MessageEmbed} The formatted Discord embed.
  */
 export const generateHabiticaAchievements = async (
   Becca: BeccaLyria,
+  t: TFunction,
   id: string,
   headers: HabiticaRequestHeaders
 ): Promise<MessageEmbed> => {
@@ -50,9 +53,9 @@ export const generateHabiticaAchievements = async (
 
     // Check if the user achievements data result is not success.
     if (!achievements || !achievements.data || !achievements.data.success) {
-      achievementsEmbed.setTitle("No achievements!");
+      achievementsEmbed.setTitle(t("commands:games.habitica.noach.title"));
       achievementsEmbed.setDescription(
-        "That user had not made any notable achievements."
+        t("commands:games.habitica.noach.description")
       );
       return achievementsEmbed;
     }
@@ -60,27 +63,27 @@ export const generateHabiticaAchievements = async (
     const { basic, onboarding, seasonal, special } = achievements.data.data;
 
     achievementsEmbed.setColor(Becca.colours.default);
-    achievementsEmbed.setTitle("Achievements");
+    achievementsEmbed.setTitle(t("commands:games.habitica.achievements.title"));
     achievementsEmbed.addField(
-      "Basic achievements",
+      t("commands:games.habitica.achievements.basic"),
       getAchievementList(Object.values(basic.achievements))
     );
     achievementsEmbed.addField(
-      "Onboarding achievements",
+      t("commands:games.habitica.achievements.onboarding"),
       getAchievementList(Object.values(onboarding.achievements))
     );
     achievementsEmbed.addField(
-      "Seasonal achievements",
+      t("commands:games.habitica.achievements.season"),
       getAchievementList(Object.values(seasonal.achievements))
     );
     achievementsEmbed.addField(
-      "Special achievements",
+      t("commands:games.habitica.achievements.special"),
       getAchievementList(Object.values(special.achievements))
     );
-    achievementsEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    achievementsEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     return achievementsEmbed;
   } catch (err) {
@@ -92,7 +95,8 @@ export const generateHabiticaAchievements = async (
     return errorEmbedGenerator(
       Becca,
       "habitica achievements generator",
-      errorId
+      errorId,
+      t
     );
   }
 };

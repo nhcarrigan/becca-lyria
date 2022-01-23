@@ -17,6 +17,7 @@ import { updateHistory } from "../../moderation/updateHistory";
 export const handleKick: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -26,7 +27,7 @@ export const handleKick: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -37,20 +38,20 @@ export const handleKick: CommandHandler = async (
       !member.permissions.has("KICK_MEMBERS")
     ) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noModSelf),
+        content: getRandomValue(t("responses:noModSelf")),
       });
       return;
     }
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noModBecca),
+        content: getRandomValue(t("responses:noModBecca")),
       });
       return;
     }
@@ -59,7 +60,7 @@ export const handleKick: CommandHandler = async (
 
     if (!targetMember.kickable) {
       await interaction.editReply({
-        content: "I am afraid they are too important for me to remove.",
+        content: t("commands:mod.kick.invalid"),
       });
       return;
     }
@@ -67,6 +68,7 @@ export const handleKick: CommandHandler = async (
     const sentNotice = await sendModerationDm(
       Becca,
       config,
+      t,
       "kick",
       target,
       reason
@@ -78,12 +80,15 @@ export const handleKick: CommandHandler = async (
 
     const kickLogEmbed = new MessageEmbed();
     kickLogEmbed.setColor(Becca.colours.error);
-    kickLogEmbed.setTitle("I have removed a member.");
+    kickLogEmbed.setTitle(t("commands:mod.kick.title"));
     kickLogEmbed.setDescription(
-      `Member removal was requested by ${member.user.username}`
+      t("commands:mod.kick.description", { user: member.user.username })
     );
-    kickLogEmbed.addField("Reason", customSubstring(reason, 1000));
-    kickLogEmbed.addField("User Notified?", String(sentNotice));
+    kickLogEmbed.addField(
+      t("commands:mod.kick.reason"),
+      customSubstring(reason, 1000)
+    );
+    kickLogEmbed.addField(t("commands:mod.kick.notified"), String(sentNotice));
     kickLogEmbed.setTimestamp();
     kickLogEmbed.setAuthor({
       name: target.tag,
@@ -92,7 +97,7 @@ export const handleKick: CommandHandler = async (
     kickLogEmbed.setFooter(`ID: ${targetMember.id}`);
 
     await sendLogEmbed(Becca, guild, kickLogEmbed, "moderation_events");
-    await interaction.editReply({ content: "They have been evicted." });
+    await interaction.editReply({ content: t("commands:mod.kick.success") });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
@@ -103,7 +108,7 @@ export const handleKick: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "kick", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "kick", errorId, t)],
     });
   }
 };

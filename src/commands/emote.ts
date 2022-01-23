@@ -42,7 +42,7 @@ export const emote: Command = {
           "View the number of times you have been the target of an emote."
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
 
@@ -57,14 +57,14 @@ export const emote: Command = {
 
       switch (subcommand) {
         case "use":
-          await handleEmoteUse(Becca, interaction, config);
+          await handleEmoteUse(Becca, interaction, t, config);
           break;
         case "view":
-          await handleEmoteView(Becca, interaction, config);
+          await handleEmoteView(Becca, interaction, t, config);
           break;
         default:
           await interaction.reply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
       }
       Becca.pm2.metrics.commands.mark();
@@ -78,7 +78,7 @@ export const emote: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "emote group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "emote group", errorId, t)],
       });
     }
   },

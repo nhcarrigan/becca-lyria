@@ -1,4 +1,5 @@
 import { Message, MessageEmbed, PartialMessage } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
@@ -23,18 +24,18 @@ export const messageDelete = async (
       return;
     }
 
+    const lang = guild.preferredLocale;
+    const t = getFixedT(lang);
+
     const deleteEmbed = new MessageEmbed();
-    deleteEmbed.setTitle("Message Deleted");
+    deleteEmbed.setTitle(t("events:message.delete.title"));
     deleteEmbed.setColor(Becca.colours.default);
-    deleteEmbed.setDescription("Here is my record of that message.");
-    deleteEmbed.addField("Channel", `<#${channel.id}>`);
+    deleteEmbed.setDescription(t("events:message.delete.desc"));
+    deleteEmbed.addField(t("events:message.delete.chan"), `<#${channel.id}>`);
     deleteEmbed.setTimestamp();
     deleteEmbed.addField(
-      "Content",
-      customSubstring(
-        content || "`No content. Embeds or attachments may be coming.`",
-        1000
-      )
+      t("events:message.delete.cont"),
+      customSubstring(content || t("events:message.delete.nocont"), 1000)
     );
 
     if (author) {

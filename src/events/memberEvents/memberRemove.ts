@@ -1,4 +1,5 @@
 import { GuildMember, MessageEmbed, PartialGuildMember } from "discord.js";
+import { getFixedT } from "i18next";
 
 import { defaultServer } from "../../config/database/defaultServer";
 import ServerModel from "../../database/models/ServerConfigModel";
@@ -25,20 +26,26 @@ export const memberRemove = async (
       return;
     }
 
+    const lang = guild.preferredLocale;
+    const t = getFixedT(lang);
+
     const roleList = roles.cache.map((el) => el);
 
     const serverConfig = await ServerModel.findOne({ serverID: guild.id });
 
     const goodbyeEmbed = new MessageEmbed();
-    goodbyeEmbed.setTitle("A member has abandoned our guild.");
+    goodbyeEmbed.setTitle(t("events:member.leave.title"));
     goodbyeEmbed.setColor(Becca.colours.default);
     goodbyeEmbed.setDescription(
       (serverConfig?.leave_message || defaultServer.leave_message)
         .replace(/\{@username\}/g, `<@!${member.id}>`)
         .replace(/\{@servername\}/g, guild.name)
     );
-    goodbyeEmbed.addField("Name", nickname || user.username);
-    goodbyeEmbed.addField("Roles", roleList.join("\n"));
+    goodbyeEmbed.addField(
+      t("events:member.leave.name"),
+      nickname || user.username
+    );
+    goodbyeEmbed.addField(t("events:member.leave.roles"), roleList.join("\n"));
     goodbyeEmbed.setAuthor({
       name: user.tag,
       iconURL: user.displayAvatarURL(),

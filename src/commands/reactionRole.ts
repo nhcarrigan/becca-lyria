@@ -74,14 +74,14 @@ export const reactionRole: Command = {
             .setRequired(true)
         )
     ),
-  run: async (Becca, interaction, config) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
       const { guild, member } = interaction;
 
       if (!guild || !member) {
         await interaction.editReply({
-          content: getRandomValue(Becca.responses.missingGuild),
+          content: getRandomValue(t("responses:missingGuild")),
         });
         return;
       }
@@ -92,7 +92,7 @@ export const reactionRole: Command = {
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({
-          content: getRandomValue(Becca.responses.noPermission),
+          content: getRandomValue(t("responses:noPermission")),
         });
         return;
       }
@@ -100,17 +100,17 @@ export const reactionRole: Command = {
       const action = interaction.options.getSubcommand();
       switch (action) {
         case "add":
-          await handleReactionAdd(Becca, interaction, config);
+          await handleReactionAdd(Becca, interaction, t, config);
           break;
         case "remove":
-          await handleReactionRemove(Becca, interaction, config);
+          await handleReactionRemove(Becca, interaction, t, config);
           break;
         case "list":
-          await handleReactionList(Becca, interaction, config);
+          await handleReactionList(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
-            content: getRandomValue(Becca.responses.invalidCommand),
+            content: getRandomValue(t("responses:invalidCommand")),
           });
           break;
       }
@@ -125,7 +125,7 @@ export const reactionRole: Command = {
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "reaction role group", errorId)],
+        embeds: [errorEmbedGenerator(Becca, "reaction role group", errorId, t)],
       });
     }
   },

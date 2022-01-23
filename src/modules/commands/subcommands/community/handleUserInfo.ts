@@ -11,12 +11,12 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Generates an embed containing information about the given `user`, or the author.
  */
-export const handleUserInfo: CommandHandler = async (Becca, interaction) => {
+export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { user, guild } = interaction;
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -27,7 +27,7 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction) => {
 
     if (!target) {
       await interaction.editReply({
-        content: "Strange. That user record does not exist.",
+        content: t("commands:community.userinfo.nouser"),
       });
       return;
     }
@@ -39,41 +39,53 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction) => {
     userEmbed.setColor(Becca.colours.default);
     userEmbed.setTitle(target.displayName);
     userEmbed.setThumbnail(target.user.displayAvatarURL());
-    userEmbed.setDescription(`Here are my records for <@!${target.id}>.`);
+    userEmbed.setDescription(
+      t("commands:community.userinfo.description", {
+        user: `<@!${target.id}>`,
+      })
+    );
     userEmbed.addField(
-      "Creation Date",
+      t("commands:community.userinfo.create"),
       new Date(target.user.createdTimestamp).toLocaleDateString(),
       true
     );
     userEmbed.addField(
-      "Join Date",
+      t("commands:community.userinfo.join"),
       new Date(target.joinedTimestamp || Date.now()).toLocaleDateString(),
       true
     );
-    userEmbed.addField("Username", target.user.tag, true);
     userEmbed.addField(
-      "Roles",
+      t("commands:community.userinfo.username"),
+      target.user.tag,
+      true
+    );
+    userEmbed.addField(
+      t("commands:community.userinfo.roles"),
       customSubstring(
         target.roles.cache.map((role) => `<@&${role.id}>`).join(" "),
         1000
       )
     );
-    userEmbed.addField("Colour", target.displayHexColor, true);
     userEmbed.addField(
-      "Nitro",
+      t("commands:community.userinfo.colour"),
+      target.displayHexColor,
+      true
+    );
+    userEmbed.addField(
+      t("commands:community.userinfo.nitro"),
       target.premiumSinceTimestamp
         ? `Since ${new Date(target.premiumSinceTimestamp).toLocaleDateString()}`
         : "No.",
       true
     );
     userEmbed.addField(
-      "Badges",
+      t("commands:community.userinfo.badges"),
       flags.map((el) => UserFlagMap[el]).join(", ") || "None"
     );
-    userEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    userEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [userEmbed] });
   } catch (err) {
@@ -86,7 +98,7 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "user info", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "user info", errorId, t)],
     });
   }
 };

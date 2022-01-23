@@ -14,7 +14,12 @@ import { updateHistory } from "../../moderation/updateHistory";
  * Bans the `target` user for the provided `reason`, assuming the caller has permissions.
  * Also deletes the `target`'s messages from the last 24 hours.
  */
-export const handleBan: CommandHandler = async (Becca, interaction, config) => {
+export const handleBan: CommandHandler = async (
+  Becca,
+  interaction,
+  t,
+  config
+) => {
   try {
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
@@ -23,7 +28,7 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -34,27 +39,27 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
       !member.permissions.has("BAN_MEMBERS")
     ) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noPermission),
+        content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noModSelf),
+        content: getRandomValue(t("responses:noModSelf")),
       });
       return;
     }
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.noModBecca),
+        content: getRandomValue(t("responses:noModBecca")),
       });
       return;
     }
 
     if (prune < 0 || prune > 7) {
       await interaction.editReply({
-        content: "`prune` value must be between 0 and 7.",
+        content: t("commands:mod.ban.prune"),
       });
       return;
     }
@@ -63,7 +68,7 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
 
     if (!targetMember.bannable) {
       await interaction.editReply({
-        content: "I am afraid they are too important for me to remove.",
+        content: t("commands:mod.ban.invalid"),
       });
       return;
     }
@@ -71,6 +76,7 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
     const sentNotice = await sendModerationDm(
       Becca,
       config,
+      t,
       "ban",
       target,
       reason
@@ -85,12 +91,15 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
 
     const banLogEmbed = new MessageEmbed();
     banLogEmbed.setColor(Becca.colours.error);
-    banLogEmbed.setTitle("I have permanently removed a member.");
+    banLogEmbed.setTitle(t("commands:mod.ban.title"));
     banLogEmbed.setDescription(
-      `Member ban was requested by ${member.user.username}`
+      t("commands:mod.ban.description", { name: member.user.username })
     );
-    banLogEmbed.addField("Reason", customSubstring(reason, 1000));
-    banLogEmbed.addField("User notified?", String(sentNotice));
+    banLogEmbed.addField(
+      t("commands:mod.ban.reason"),
+      customSubstring(reason, 1000)
+    );
+    banLogEmbed.addField(t("commands:mod.ban.notified"), String(sentNotice));
     banLogEmbed.setTimestamp();
     banLogEmbed.setAuthor({
       name: target.tag,
@@ -100,7 +109,7 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
 
     await sendLogEmbed(Becca, guild, banLogEmbed, "moderation_events");
     await interaction.editReply({
-      content: "They have been banished and shall never return.",
+      content: t("commands:mod.ban.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(
@@ -112,7 +121,7 @@ export const handleBan: CommandHandler = async (Becca, interaction, config) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "ban", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "ban", errorId, t)],
     });
   }
 };

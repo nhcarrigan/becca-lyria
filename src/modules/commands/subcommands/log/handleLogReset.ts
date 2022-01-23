@@ -12,6 +12,7 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 export const handleLogReset: CommandHandler = async (
   Becca,
   interaction,
+  t,
   config
 ) => {
   try {
@@ -19,7 +20,7 @@ export const handleLogReset: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -34,8 +35,8 @@ export const handleLogReset: CommandHandler = async (
     );
     await interaction.editReply(
       success
-        ? `I have reset your ${setting} setting.`
-        : "I am having trouble updating your settings. Please try again later."
+        ? t("commands:log.reset.success", { setting })
+        : t("commands:log.reset.failed")
     );
     return;
   } catch (err) {
@@ -48,7 +49,7 @@ export const handleLogReset: CommandHandler = async (
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "log reset", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "log reset", errorId, t)],
     });
   }
 };

@@ -7,7 +7,7 @@ import { getRandomValue } from "../../../utils/getRandomValue";
 /**
  * Submodule for sorry comebacks.
  */
-export const sassThanks: ListenerHandler = async (Becca, message) => {
+export const sassThanks: ListenerHandler = async (Becca, message, t) => {
   try {
     const { channel, content, mentions, author } = message;
     const thanksRegex =
@@ -19,11 +19,11 @@ export const sassThanks: ListenerHandler = async (Becca, message) => {
 
       for (const member of members) {
         if (member.id === Becca.user?.id) {
-          replies.push(getRandomValue(Becca.sass.beccathanks));
+          replies.push(getRandomValue(t("sass:beccaThanks")));
           continue;
         }
         if (member.id === author.id) {
-          replies.push(getRandomValue(Becca.sass.selfthanks));
+          replies.push(getRandomValue(t("sass:selfThanks")));
           continue;
         }
         replies.push(

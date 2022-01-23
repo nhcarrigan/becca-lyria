@@ -12,13 +12,17 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  * Generates an embed listing the top ten users with the most stars received in the
  * server, and includes the user's rank.
  */
-export const handleStarCount: CommandHandler = async (Becca, interaction) => {
+export const handleStarCount: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const { member, guild, guildId } = interaction;
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -27,8 +31,7 @@ export const handleStarCount: CommandHandler = async (Becca, interaction) => {
 
     if (!starCounts || !starCounts.users.length) {
       await interaction.editReply({
-        content:
-          "It seems no one here is carrying around stars yet. You should probably fix that.",
+        content: t("commands:community.starcount.none"),
       });
       return;
     }
@@ -43,10 +46,14 @@ export const handleStarCount: CommandHandler = async (Becca, interaction) => {
       .slice(0, 10);
 
     const userRankString = userStars
-      ? `${member.user.username} is rank ${userRank + 1} with ${
-          userStars.stars
-        } stars.`
-      : `${member.user.username} does not have any stars yet...`;
+      ? t("commands:community.starcount.star", {
+          user: member.user.username,
+          rank: userRank + 1,
+          stars: userStars?.stars || 0,
+        })
+      : t("commands:community.starcount.nostar", {
+          user: member.user.username,
+        });
 
     const topTenArray = topTen.map((u, index) => [
       index + 1,
@@ -55,14 +62,23 @@ export const handleStarCount: CommandHandler = async (Becca, interaction) => {
     ]);
 
     const starEmbed = new MessageEmbed();
-    starEmbed.setTitle(`Helpful people in ${guild.name}`);
+    starEmbed.setTitle(
+      t("commands:community.starcount.embed.title", { guild: guild.name })
+    );
     starEmbed.setColor(Becca.colours.default);
     starEmbed.setDescription(
       `\`\`\`\n${formatTextToTable(topTenArray, {
-        headers: ["Rank", "User", "Stars"],
+        headers: [
+          t("commands:community.starcount.embed.rank"),
+          t("commands:community.starcount.embed.user"),
+          t("commands:community.starcount.embed.stars"),
+        ],
       })}\n\`\`\``
     );
-    starEmbed.addField("Your stars", userRankString);
+    starEmbed.addField(
+      t("commands:community.starcount.embed.yours"),
+      userRankString
+    );
     starEmbed.setTimestamp();
     starEmbed.setURL(`https://dash.beccalyria.com/stars/${guildId}`);
     starEmbed.setFooter(
@@ -81,7 +97,7 @@ export const handleStarCount: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "star count", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "star count", errorId, t)],
     });
   }
 };

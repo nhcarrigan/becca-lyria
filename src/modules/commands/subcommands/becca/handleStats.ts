@@ -9,12 +9,12 @@ import { formatTextToTable } from "../../../../utils/formatText";
 import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 
-export const handleStats: CommandHandler = async (Becca, interaction) => {
+export const handleStats: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guild, user: author } = interaction;
     if (!guild || !author) {
       await interaction.editReply({
-        content: getRandomValue(Becca.responses.missingGuild),
+        content: getRandomValue(t("responses:missingGuild")),
       });
       return;
     }
@@ -34,7 +34,7 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       ]);
 
       const commandEmbed = new MessageEmbed();
-      commandEmbed.setTitle("Command Stats");
+      commandEmbed.setTitle(t("commands:becca.stats.commands.title"));
       commandEmbed.setTimestamp();
       commandEmbed.setColor(Becca.colours.default);
       commandEmbed.setAuthor({
@@ -43,13 +43,17 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       });
       commandEmbed.setDescription(
         `\`\`\`\n${formatTextToTable(topServersEmbed, {
-          headers: ["Rank", "Server Name", "Command Uses"],
+          headers: [
+            t("commands:becca.stats.commands.rank"),
+            t("commands:becca.stats.commands.name"),
+            t("commands:becca.stats.commands.uses"),
+          ],
         })}\`\`\``
       );
-      commandEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com",
-        "https://cdn.nhcarrigan.com/profile-transparent.png"
-      );
+      commandEmbed.setFooter({
+        text: t("defaults:donate"),
+        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      });
 
       await interaction.editReply({
         embeds: [commandEmbed],
@@ -65,12 +69,16 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
 
       const serverVoteEmbed = topVotes
         .map(
-          (el, i) => `#${i + 1}: <@!${el.userId}> with ${el.serverVotes} votes.`
+          (el, i) =>
+            `#${i + 1}: ${t("commands:becca.stats.bot.votes", {
+              user: `<@!${el.userId}>`,
+              votes: el.serverVotes,
+            })}`
         )
         .join("\n");
 
       const serverEmbed = new MessageEmbed();
-      serverEmbed.setTitle("Server Vote Stats");
+      serverEmbed.setTitle(t("commands:becca.stats.server.title"));
       serverEmbed.setTimestamp();
       serverEmbed.setColor(Becca.colours.default);
       serverEmbed.setAuthor({
@@ -78,18 +86,18 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
         iconURL: author.displayAvatarURL(),
       });
       serverEmbed.setDescription(serverVoteEmbed);
-      serverEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com",
-        "https://cdn.nhcarrigan.com/profile-transparent.png"
-      );
+      serverEmbed.setFooter({
+        text: t("defaults:donate"),
+        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      });
 
       const supportServerButton = new MessageButton()
-        .setLabel("Join the Support Server")
+        .setLabel(t("commands:becca.stats.buttons.support"))
         .setEmoji("<:BeccaHello:867102882791424073>")
         .setStyle("LINK")
         .setURL("https://chat.nhcarrigan.com");
       const voteServerButton = new MessageButton()
-        .setLabel("Vote for the Server")
+        .setLabel(t("commands:becca.stats.buttons.server"))
         .setEmoji("<:BeccaWoah:877278300949585980>")
         .setStyle("LINK")
         .setURL("https://top.gg/servers/778130114772598785/vote");
@@ -111,12 +119,16 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
 
       const botVoteEmbed = topVotes
         .map(
-          (el, i) => `#${i + 1}: <@!${el.userId}> with ${el.botVotes} votes.`
+          (el, i) =>
+            `#${i + 1}: ${t("commands:becca.stats.bot.votes", {
+              user: `<@!${el.userId}>`,
+              votes: el.botVotes,
+            })}`
         )
         .join("\n");
 
       const botEmbed = new MessageEmbed();
-      botEmbed.setTitle("Bot Vote Stats");
+      botEmbed.setTitle(t("commands:becca.stats.bot.title"));
       botEmbed.setTimestamp();
       botEmbed.setColor(Becca.colours.default);
       botEmbed.setAuthor({
@@ -124,18 +136,18 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
         iconURL: author.displayAvatarURL(),
       });
       botEmbed.setDescription(botVoteEmbed);
-      botEmbed.setFooter(
-        "Like the bot? Donate: https://donate.nhcarrigan.com",
-        "https://cdn.nhcarrigan.com/profile-transparent.png"
-      );
+      botEmbed.setFooter({
+        text: t("defaults:donate"),
+        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      });
 
       const supportServerButton = new MessageButton()
-        .setLabel("Join the Support Server")
+        .setLabel(t("commands:becca.stats.button.support"))
         .setEmoji("<:BeccaHello:867102882791424073>")
         .setStyle("LINK")
         .setURL("https://chat.nhcarrigan.com");
       const voteBotButton = new MessageButton()
-        .setLabel("Vote for the Bot")
+        .setLabel(t("commands:becca.stats.buttons.bot"))
         .setEmoji("<:BeccaWoah:877278300949585980>")
         .setStyle("LINK")
         .setURL("https://top.gg/bot/716707753090875473/vote");
@@ -149,8 +161,7 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
     }
 
     await interaction.editReply({
-      content:
-        "That appears to be an invalid stat. Not sure how that happened.",
+      content: t("commands:becca.stats.invalid"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(
@@ -162,7 +173,7 @@ export const handleStats: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "stats", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "stats", errorId, t)],
     });
   }
 };

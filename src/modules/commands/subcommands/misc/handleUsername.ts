@@ -10,7 +10,7 @@ import { generateUsername } from "../../../commands/general/generateUsername";
  * Generates a random DigitalOcean themed username and sends it in an embed.
  * Limits the length of the username to `length`, or 30.
  */
-export const handleUsername: CommandHandler = async (Becca, interaction) => {
+export const handleUsername: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { user } = interaction;
     const length = interaction.options.getInteger("length") || 30;
@@ -23,20 +23,22 @@ export const handleUsername: CommandHandler = async (Becca, interaction) => {
       name: user.tag,
       iconURL: user.displayAvatarURL(),
     });
-    usernameEmbed.setDescription(
-      "This feature brought to you by [MattIPv4](https://github.com/mattipv4)."
-    );
-    usernameEmbed.addField("Your username is...", username);
+    usernameEmbed.setDescription(t("commands:misc.username.description"));
+    usernameEmbed.addField(t("commands:misc.username.user"), username);
     usernameEmbed.addField(
-      "Generated Length",
+      t("commands:misc.username.gen"),
       username.length.toString(),
       true
     );
-    usernameEmbed.addField("Maximum length", length.toString(), true);
-    usernameEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    usernameEmbed.addField(
+      t("commands:misc.username.max"),
+      length.toString(),
+      true
     );
+    usernameEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [usernameEmbed] });
   } catch (err) {
@@ -49,7 +51,7 @@ export const handleUsername: CommandHandler = async (Becca, interaction) => {
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "username", errorId)],
+      embeds: [errorEmbedGenerator(Becca, "username", errorId, t)],
     });
   }
 };
