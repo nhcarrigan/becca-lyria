@@ -9,7 +9,11 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 /**
  * Adds a reaction role to the provided message.
  */
-export const handleReactionAdd: CommandHandler = async (Becca, interaction) => {
+export const handleReactionAdd: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const guild = interaction.guild as Guild;
     const messageLink = interaction.options.getString("message", true);
@@ -20,7 +24,7 @@ export const handleReactionAdd: CommandHandler = async (Becca, interaction) => {
     const targetMessage = await targetChannel?.messages.fetch(messageId);
 
     if (!targetMessage) {
-      await interaction.editReply("That message does not exist.");
+      await interaction.editReply(t("commands:reactionrole.add.message"));
       return;
     }
 
@@ -31,7 +35,7 @@ export const handleReactionAdd: CommandHandler = async (Becca, interaction) => {
       .then((data) => data)
       .catch(() => null);
     if (!reacted) {
-      await interaction.editReply("That emoji does not appear to be valid...");
+      await interaction.editReply(t("commands:reactionrole.add.invalid"));
       return;
     }
 
@@ -40,7 +44,7 @@ export const handleReactionAdd: CommandHandler = async (Becca, interaction) => {
       : reacted.emoji.name;
 
     if (!emojiValue) {
-      await interaction.editReply("I can't seem to parse that emoji...");
+      await interaction.editReply(t("commands:reactionrole.add.parse"));
       return;
     }
 
@@ -64,15 +68,20 @@ export const handleReactionAdd: CommandHandler = async (Becca, interaction) => {
     await reactionRole.save();
 
     const addEmbed = new MessageEmbed();
-    addEmbed.setTitle("Reaction Role Added");
+    addEmbed.setTitle(t("commands:reactionrole.add.title"));
     addEmbed.setColor(Becca.colours.default);
-    addEmbed.setDescription(`${emojiValue} associated with <@&${role.id}>`);
-    addEmbed.addField("Message", messageLink);
-    addEmbed.setTimestamp();
-    addEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
+    addEmbed.setDescription(
+      t("commands:reactionrole.add.description", {
+        emote: emojiValue,
+        role: `<@&${role.id}>`,
+      })
     );
+    addEmbed.addField(t("commands:reactionrole.add.link"), messageLink);
+    addEmbed.setTimestamp();
+    addEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent",
+    });
 
     await interaction.editReply({ embeds: [addEmbed] });
   } catch (err) {

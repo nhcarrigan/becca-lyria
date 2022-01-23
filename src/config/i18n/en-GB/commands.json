@@ -727,5 +727,27 @@
       "description": "These are the spells I currently have prepared.",
       "opts": "This spell has no options."
     }
+  },
+  "reactionrole": {
+    "add": {
+      "message": "That message does not exist.",
+      "invalid": "That emoji does not appear to be valid...",
+      "parse": "I cannot seem to parse that emoji...",
+      "title": "Reaction Role Added",
+      "description": "{{emote}} associated with {{- role}}",
+      "link": "Message Link"
+    },
+    "list": {
+      "missing": "That message does not exist.",
+      "none": "That message has no reaction roles.",
+      "title": "Reaction Roles",
+      "message": "Message Link"
+    },
+    "remove": {
+      "missing": "That reaction role does not exist.",
+      "title": "Reaction Role Removed",
+      "description": "{{emote}} no longer associated with {{- role}}",
+      "link": "Message Link"
+    }
   }
 }
