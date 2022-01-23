@@ -8,17 +8,19 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 /**
  * Returns a user's language settings.
  */
-export const handleLanguage: CommandHandler = async (Becca, interaction) => {
+export const handleLanguage: CommandHandler = async (Becca, interaction, t) => {
   try {
     const userLang = interaction.locale;
     const guildLang = interaction.guildLocale;
     const langEmbed = new MessageEmbed();
-    langEmbed.setTitle("Language Data");
-    langEmbed.setDescription(
-      "Here are the language settings Discord has for you."
+    langEmbed.setTitle(t("commands:misc.language.title"));
+    langEmbed.setDescription(t("commands:misc.language.description"));
+    langEmbed.addField(t("commands:misc.language.yours"), userLang, true);
+    langEmbed.addField(
+      t("commands:misc.language.server"),
+      guildLang || "unset",
+      true
     );
-    langEmbed.addField("Your Language", userLang, true);
-    langEmbed.addField("Server Language", guildLang || "unset", true);
     await interaction.editReply({ embeds: [langEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(

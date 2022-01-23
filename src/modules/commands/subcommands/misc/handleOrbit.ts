@@ -11,7 +11,7 @@ import { getOrbitData } from "../../misc/getOrbitData";
 /**
  * Generates the Orbit leaderboard and parses into an embed.
  */
-export const handleOrbit: CommandHandler = async (Becca, interaction) => {
+export const handleOrbit: CommandHandler = async (Becca, interaction, t) => {
   try {
     const author = interaction.user;
     let cached = true;
@@ -28,21 +28,19 @@ export const handleOrbit: CommandHandler = async (Becca, interaction) => {
       .slice(0, 20);
 
     const orbitEmbed = new MessageEmbed();
-    orbitEmbed.setTitle("nhcommunity Engagement Leaderboard");
-    orbitEmbed.setDescription(
-      "This leaderboard represents the global contributions for all of nhcarrigan's party members"
-    );
+    orbitEmbed.setTitle(t("commands:misc.orbit.title"));
+    orbitEmbed.setDescription(t("commands:misc.orbit.description"));
     orbitEmbed.setColor(Becca.colours.default);
     orbitEmbed.setTimestamp();
-    orbitEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    orbitEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     parsed.forEach((user) => {
       orbitEmbed.addField(
         user.attributes.name,
-        user.attributes.love + " love points",
+        user.attributes.love + " " + t("commands:misc.orbit.points"),
         true
       );
     });
@@ -59,28 +57,31 @@ export const handleOrbit: CommandHandler = async (Becca, interaction) => {
     );
 
     const authorString = authorData.data.data
-      ? `${author.username} has ${authorData.data.data.attributes.love} love points.`
-      : `${author.username} has no Orbit record.`;
+      ? t("commands:misc.orbit.record", {
+          user: author.username,
+          points: authorData.data.data.attributes.love,
+        })
+      : t("commands:misc.orbit.norecord", { user: author.username });
 
-    orbitEmbed.addField("Your rank:", authorString);
-    orbitEmbed.addField("Cached Data?", String(cached));
-    orbitEmbed.setFooter("Want to join the community? Click below!");
+    orbitEmbed.addField(t("commands:misc.orbit.rank"), authorString);
+    orbitEmbed.addField(t("commands:misc.orbit.cache"), String(cached));
+    orbitEmbed.setFooter(t("commands:misc.orbit.footer"));
 
     const discordBtn = new MessageButton()
       .setStyle("LINK")
       .setEmoji("<:discord:904209263738642482>")
       .setURL("https://chat.nhcarrigan.com")
-      .setLabel("Join Our Server!");
+      .setLabel(t("commands:misc.orbit.buttons.discord"));
     const githubBtn = new MessageButton()
       .setStyle("LINK")
       .setEmoji("<:github:904209263717658624>")
       .setURL("https://github.com/nhcarrigan")
-      .setLabel("Contribute on GitHub!");
+      .setLabel(t("commands:misc.orbit.buttons.github"));
     const twitterBtn = new MessageButton()
       .setStyle("LINK")
       .setEmoji("<:twitter:904209263642177556>")
       .setURL("https://twitter.com/becca_lyria")
-      .setLabel("Follow us on Twitter!");
+      .setLabel(t("commands:misc.orbit.buttons.twitter"));
 
     const buttons = new MessageActionRow().addComponents([
       discordBtn,

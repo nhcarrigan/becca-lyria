@@ -10,7 +10,7 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 /**
  * Fetches the latest XKCD comic, or the comic matching `number`.
  */
-export const handleXkcd: CommandHandler = async (Becca, interaction) => {
+export const handleXkcd: CommandHandler = async (Becca, interaction, t) => {
   try {
     const number = interaction.options.getInteger("number");
     let url = "https://xkcd.com/";
@@ -26,7 +26,9 @@ export const handleXkcd: CommandHandler = async (Becca, interaction) => {
     xkcdEmbed.setURL(xkcd.data.link || "https://xkcd.com");
     xkcdEmbed.setImage(xkcd.data.img);
     xkcdEmbed.setDescription(xkcd.data.alt);
-    xkcdEmbed.setFooter(`XKCD comic ${xkcd.data.num}`);
+    xkcdEmbed.setFooter({
+      text: t("commands:misc.xkcd.footer", { num: xkcd.data.num }),
+    });
     xkcdEmbed.setColor(Becca.colours.default);
     xkcdEmbed.setTimestamp();
 

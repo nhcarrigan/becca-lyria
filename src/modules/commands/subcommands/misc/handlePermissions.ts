@@ -41,18 +41,20 @@ export const handlePermissions: CommandHandler = async (
 
     if (!BeccaMember) {
       await interaction.editReply({
-        content: "I cannot seem to find my membership record.",
+        content: t("commands:misc.permissions.missing"),
       });
       return;
     }
 
     const hasChannelPerms = await validateChannelPerms(
       Becca,
+      t,
       BeccaMember,
       channel
     );
     const hasGuildPerms = await validateServerPerms(
       Becca,
+      t,
       BeccaMember,
       channel
     );
@@ -60,17 +62,21 @@ export const handlePermissions: CommandHandler = async (
     const areValid = hasChannelPerms && hasGuildPerms;
 
     const descriptionString = areValid
-      ? "I seem to have an adequate level of access here."
-      : "I cannot seem to get to everything I need. You should fix that.";
+      ? t("commands:misc.permissions.valid")
+      : t("commands:misc.permissions.invalid");
 
     const validEmbed = new MessageEmbed();
-    validEmbed.setTitle(areValid ? "All good!" : "Uh oh...");
+    validEmbed.setTitle(
+      areValid
+        ? t("commands:misc.permissions.yes")
+        : t("commands:misc.permissions.no")
+    );
     validEmbed.setDescription(descriptionString);
     validEmbed.setColor(areValid ? Becca.colours.success : Becca.colours.error);
-    validEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    validEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
 
     await interaction.editReply({ embeds: [validEmbed] });
   } catch (err) {

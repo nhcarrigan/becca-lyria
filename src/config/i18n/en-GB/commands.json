@@ -564,5 +564,85 @@
       "added": "{{-mod}} has granted {{amount}} experience to {{- target}}",
       "removed": "{{- mod}} has taken away {{amount}} experience from {{- target}}"
     }
+  },
+  "misc": {
+    "language": {
+      "title": "Language Data",
+      "description": "Here are the language settings Discord has for you.",
+      "yours": "Your Language",
+      "server": "Server Language"
+    },
+    "level": {
+      "format": "\nLevel {{level}} - **{{xp}}** XP",
+      "title": "Level Scale",
+      "description": "This is the breakdown of experience points needed for Becca's levelling system.\n{{levels}}",
+      "footer": "Page {{page}} of {{pages}}"
+    },
+    "orbit": {
+      "title": "nhcommunity Engagement Leaderboard",
+      "description": "This leaderboard represents the global contributions for all of nhcarrigan's party members",
+      "points": "love points",
+      "record": "{{user}} has {{points}} love points.",
+      "norecord": "{{user}} has no Orbit record.",
+      "rank": "Your Rank:",
+      "cache": "Cached Data?",
+      "footer": "Want to join the community? Click below!",
+      "buttons": {
+        "discord": "Join our server!",
+        "github": "Contribute on GitHub!",
+        "twitter": "Follow us on Twitter!"
+      }
+    },
+    "permissions": {
+      "missing": "I cannot seem to find my membership record.",
+      "valid": "I seem to have an adequate level of access here.",
+      "invalid": "I cannot seem to get everything I need. You should fix that.",
+      "yes": "All good!",
+      "no": "Uh oh...",
+      "channel": {
+        "title": "Channel Permissions",
+        "description": "Here are the permissions I have in this channel."
+      },
+      "guild": {
+        "title": "Server Permission",
+        "description": "Here are the permissions I have in this server."
+      },
+      "names": {
+        "server": "Manage Server",
+        "roles": "Manage Roles",
+        "channels": "Manage Channels",
+        "kick": "Kick Members",
+        "ban": "Ban Members",
+        "send": "Send Messages",
+        "message": "Manage Messages",
+        "embed": "Embed Links",
+        "attach": "Attach Files",
+        "history": "Read Message History",
+        "react": "Add Reactions",
+        "emote": "Use External Emotes",
+        "nick": "Manage Nicknames",
+        "mod": "Moderate Members",
+        "view": "View Channel",
+        "read": "Read Messages"
+      }
+    },
+    "space": {
+      "invalid": "{{- date}} is not a valid date format.",
+      "error": {
+        "title": "SPAAAAAAACE!",
+        "description": "I got lost in space. Please try again later."
+      },
+      "title": "{{- date}} Space Image: {{title}}",
+      "copy": "No copyright provided"
+    },
+    "username": {
+      "description": "This feature brought to you by [MattIPv4](https://github.com/mattipv4)",
+      "user": "Your username is...",
+      "gen": "Generated Length",
+      "max": "Maximum Length"
+    },
+    "xkcd": {
+      "footer": "XKCD comic {{num}}"
+    }
   }
 }
