@@ -33,7 +33,7 @@ export const handleView: CommandHandler = async (
     const setting = interaction.options.getString("setting");
 
     if (setting === "global") {
-      const result = await viewSettings(Becca, guild, config);
+      const result = await viewSettings(Becca, t, guild, config);
       if (!result) {
         await interaction.editReply({
           content: t("commands:config.view.none"),

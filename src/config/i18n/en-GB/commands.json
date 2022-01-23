@@ -322,7 +322,26 @@
       "title": "{{setting}} Updated"
     },
     "view": {
-      "none": "I am unable to locate your settings"
+      "none": "I am unable to locate your settings",
+      "title": "{{name}} Settings",
+      "description": "Here are your current configurations.",
+      "levels": "Level System",
+      "sass": "Sassy Mode",
+      "welcome": "Welcome Channel",
+      "leave": "Departure Channel",
+      "levellog": "Level Logging Channel",
+      "suggestion": "Suggestion Channel",
+      "report": "Report Channel",
+      "join": "Join Role",
+      "levelrole": "Level Based Roles",
+      "nolevel": "Level Ignored Channels",
+      "wmessage": "Custom Welcome Message",
+      "lmessage": "Custom Leave Message",
+      "hearts": "Hearts Count",
+      "blocked": "Blocked User Count",
+      "selfrole": "Self Assignable Titles",
+      "emote": "Emote Only Channels",
+      "ban": "Ban Appeal Link"
     },
     "settingsArray": {
       "title": "Config data for {{setting}}",
