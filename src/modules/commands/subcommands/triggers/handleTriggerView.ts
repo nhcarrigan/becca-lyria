@@ -22,7 +22,7 @@ export const handleTriggerView: CommandHandler = async (
   try {
     if (!config.triggers.length) {
       await interaction.editReply({
-        content: "This server does not have any triggers set.",
+        content: t("commands:triggers.view.none"),
       });
       return;
     }
@@ -35,9 +35,11 @@ export const handleTriggerView: CommandHandler = async (
     const lastPage = Math.ceil(config.triggers.length / 10);
 
     const embed = new MessageEmbed();
-    embed.setTitle("Available Triggers");
+    embed.setTitle(t("commands:triggers.view.title"));
     embed.setFields(triggerList.slice(page * 10 - 10, page * 10));
-    embed.setFooter(`Page ${page} of ${lastPage}`);
+    embed.setFooter({
+      text: t("commands:triggers.view.footer", { page, last: lastPage }),
+    });
 
     const pageBack = new MessageButton()
       .setCustomId("prev")
@@ -84,7 +86,9 @@ export const handleTriggerView: CommandHandler = async (
       }
 
       embed.setFields(triggerList.slice(page * 10 - 10, page * 10));
-      embed.setFooter(`Page ${page} of ${lastPage}`);
+      embed.setFooter(
+        t("commands:triggers.view.footer", { page, last: lastPage })
+      );
 
       await interaction.editReply({
         embeds: [embed],

@@ -749,5 +749,25 @@
       "description": "{{emote}} no longer associated with {{- role}}",
       "link": "Message Link"
     }
+  },
+  "triggers": {
+    "add": {
+      "duplicate": "That trigger is already present.",
+      "max": "You cannot have more than 50 triggers.",
+      "title": "Trigger Added",
+      "description": "Successfully added the trigger `{{trigger}}`",
+      "trigger": "Trigger",
+      "response": "Response"
+    },
+    "remove": {
+      "missing": "That trigger does not exist.",
+      "title": "Trigger Removed",
+      "description": "Successfully removed the trigger `{{trigger}}`"
+    },
+    "view": {
+      "none": "This server does not have any triggers yet.",
+      "title": "Available Triggers",
+      "footer": "Page {{page}} of {{last}}"
+    }
   }
 }
