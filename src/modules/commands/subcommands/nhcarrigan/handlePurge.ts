@@ -14,18 +14,21 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  * Purges the given `data` type for the provided `user`. Use this when a user
  * has requested data deletion or opt out.
  */
-export const handlePurge: CommandHandler = async (Becca, interaction) => {
+export const handlePurge: CommandHandler = async (Becca, interaction, t) => {
   try {
     const target = interaction.options.getString("target", true);
     const data = interaction.options.getString("data");
-    let name = "`no data found!`";
+    let name = t("commands:nhcarrigan.purge.no");
 
     if (data === "levels") {
       const levels = await LevelModel.find({ userID: target });
       for (const datum of levels) {
         await datum.delete();
+        name = datum.userTag;
       }
-      await interaction.editReply(`I have cleared the level data for ${name}.`);
+      await interaction.editReply(
+        t("commands:nhcarrigan.purge,levels", { name })
+      );
       return;
     }
 
@@ -36,7 +39,7 @@ export const handlePurge: CommandHandler = async (Becca, interaction) => {
         name = activity.userId;
       }
       await interaction.editReply(
-        `I have cleared the activity data for ${name}.`
+        t("commands:nhcarrigan.purge.activity", { name })
       );
       return;
     }
@@ -52,7 +55,9 @@ export const handlePurge: CommandHandler = async (Becca, interaction) => {
           await datum.save();
         }
       }
-      await interaction.editReply(`I have cleared star data for ${name}.`);
+      await interaction.editReply(
+        t("commands:nhcarrigan.purge.stars", { name })
+      );
       return;
     }
 
@@ -63,7 +68,7 @@ export const handlePurge: CommandHandler = async (Becca, interaction) => {
         await currency.delete();
       }
       await interaction.editReply(
-        `I have cleared the currency data for ${name}.`
+        t("commands:nhcarrigan.purge.currency", { name })
       );
       return;
     }
@@ -74,7 +79,9 @@ export const handlePurge: CommandHandler = async (Becca, interaction) => {
         name = votes.userId;
         await votes.delete();
       }
-      await interaction.editReply(`I have cleared the vote data for ${name}.`);
+      await interaction.editReply(
+        t("commands:nhcarrigan.purge.votes", { name })
+      );
       return;
     }
 
@@ -85,7 +92,7 @@ export const handlePurge: CommandHandler = async (Becca, interaction) => {
         await commands.delete();
       }
       await interaction.editReply(
-        `I have cleared the command data for ${name}.`
+        t("commands:nhcarrigan.purge.commands", { name })
       );
       return;
     }
@@ -96,11 +103,15 @@ export const handlePurge: CommandHandler = async (Becca, interaction) => {
         name = emotes.userName;
         await emotes.delete();
       }
-      await interaction.editReply(`I have cleared the emote data for ${name}.`);
+      await interaction.editReply(
+        t("commands:nhcarrigan.purge.emotes", { name })
+      );
       return;
     }
 
-    await interaction.editReply(`${data} is not a valid option.`);
+    await interaction.editReply(
+      t("commands:nhcarrigan.purge.invalid", { data })
+    );
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

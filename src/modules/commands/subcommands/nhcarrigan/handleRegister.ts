@@ -11,24 +11,24 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  * to a command's `data` property is deployed, or a command is added/deleted. This
  * does NOT need to be run for changes to the `run` property.
  */
-export const handleRegister: CommandHandler = async (Becca, interaction) => {
+export const handleRegister: CommandHandler = async (Becca, interaction, t) => {
   try {
     const valid = await registerCommands(Becca);
 
     if (!valid) {
-      await interaction.editReply("Failed to register commands!");
+      await interaction.editReply(t("commands:nhcarrigan.register.failed"));
       return;
     }
     const confirm = new MessageEmbed();
-    confirm.setTitle(`Commands Registered`);
-    confirm.setDescription("The following commands have been registered.");
+    confirm.setTitle(t("commands:nhcarrigan.register.title"));
+    confirm.setDescription(t("commands:nhcarrigan.register.description"));
 
     for (const command of Becca.commands) {
       confirm.addField(command.data.name, command.data.description, true);
     }
 
     confirm.addField(
-      "Context Commands",
+      t("commands:nhcarrigan.register.context"),
       Becca.contexts.map((el) => el.data.name).join(", ")
     );
 

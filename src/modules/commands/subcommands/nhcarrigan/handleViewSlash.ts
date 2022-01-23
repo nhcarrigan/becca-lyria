@@ -11,7 +11,11 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 /**
  * Generates a list of currently registered commands.
  */
-export const handleViewSlash: CommandHandler = async (Becca, interaction) => {
+export const handleViewSlash: CommandHandler = async (
+  Becca,
+  interaction,
+  t
+) => {
   try {
     const rest = new REST({ version: "9" }).setToken(Becca.configs.token);
 
@@ -20,19 +24,19 @@ export const handleViewSlash: CommandHandler = async (Becca, interaction) => {
     )) as CommandData[];
 
     if (!commands.length) {
-      await interaction.editReply("No commands registered at this time.");
+      await interaction.editReply(t("commands:nhcarrigan.viewslash.none"));
       return;
     }
 
     const embed = new MessageEmbed();
-    embed.setTitle("Available commands");
-    embed.setDescription("These are the currently registered global commands.");
+    embed.setTitle(t("commands:nhcarrigan.viewslash.title"));
+    embed.setDescription(t("commands:nhcarrigan.viewslash.description"));
 
     for (const command of commands) {
       embed.addField(
         command.name,
         command.options?.map((opt) => opt.name).join(", ") ||
-          "Command has no options."
+          t("commands:nhcarrigan.viewslash.opts")
       );
     }
 
