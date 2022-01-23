@@ -18,9 +18,7 @@ export const reactionRole: Command = {
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("add")
-        .setDescription(
-          "(⚠️ CURRENTLY IN BETA - SUBJECT TO CHANGE) Add a reaction role to a message."
-        )
+        .setDescription("Add a reaction role to a message.")
         .addStringOption((option) =>
           option
             .setName("message")
@@ -43,9 +41,7 @@ export const reactionRole: Command = {
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("remove")
-        .setDescription(
-          "(⚠️ CURRENTLY IN BETA - SUBJECT TO CHANGE) Remove a reaction role from a message."
-        )
+        .setDescription("Remove a reaction role from a message.")
         .addStringOption((option) =>
           option
             .setName("message")
@@ -64,9 +60,7 @@ export const reactionRole: Command = {
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("list")
-        .setDescription(
-          "(⚠️ CURRENTLY IN BETA - SUBJECT TO CHANGE) List all reaction roles on a message."
-        )
+        .setDescription("List all reaction roles on a message.")
         .addStringOption((option) =>
           option
             .setName("message")
