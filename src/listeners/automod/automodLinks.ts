@@ -18,7 +18,7 @@ export const automodLinks: ListenerHandler = async (
 ) => {
   try {
     const contentWithoutCode = message.content.replace(
-      /`{3}\w*\n[^`]*`{3}/g,
+      /`{3}([\S]+)?\n((?!`{3})((?!```)[\s\S])+)\n`{3}/gi,
       ""
     );
 
