@@ -498,5 +498,24 @@
       "result": "{{count}} of you got this right!",
       "correct": "Correct Answer:"
     }
+  },
+  "log": {
+    "reset": {
+      "success": "I have reset your {{setting}} setting.",
+      "failed": "I am having trouble updating your settings. Please try again later."
+    },
+    "set": {
+      "invalid": "{{value}} is not a valid option for {{setting}}",
+      "failed": "I am having trouble updating your settings. Please try again later.",
+      "title": "{{setting}} Updated"
+    },
+    "view": {
+      "title": "Log settings for {{name}}",
+      "message": "Message Events",
+      "voice": "Voice Events",
+      "thread": "Thread Events",
+      "mod": "Moderation Events",
+      "member": "Member Events"
+    }
   }
 }

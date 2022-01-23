@@ -30,14 +30,8 @@ export const handleLogSet: CommandHandler = async (
       return;
     }
 
-    const setting = interaction.options.getString("event");
-    const value = interaction.options.getChannel("channel");
-    if (!value) {
-      await interaction.editReply(
-        "Not sure how, but you managed to forget the value!"
-      );
-      return;
-    }
+    const setting = interaction.options.getString("event", true);
+    const value = interaction.options.getChannel("channel", true);
 
     const isValid = await validateSetting(
       Becca,
@@ -48,7 +42,7 @@ export const handleLogSet: CommandHandler = async (
     );
     if (!isValid) {
       await interaction.editReply(
-        `${value} is not a valid option for ${setting}.`
+        t("commands:log.set.invalid", { value, setting })
       );
       return;
     }
@@ -63,9 +57,7 @@ export const handleLogSet: CommandHandler = async (
     );
 
     if (!isSet) {
-      await interaction.editReply(
-        "I am having trouble updating your settings. Please try again later."
-      );
+      await interaction.editReply(t("commands:log.set.failed"));
       return;
     }
     const newContent = isSet[setting as LogSettings];
@@ -75,14 +67,14 @@ export const handleLogSet: CommandHandler = async (
       newContent
     );
     const successEmbed = new MessageEmbed();
-    successEmbed.setTitle(`${setting} Updated`);
+    successEmbed.setTitle(t("commands:log.set.tilte", { setting }));
     successEmbed.setDescription(customSubstring(parsedContent, 2000));
     successEmbed.setTimestamp();
     successEmbed.setColor(Becca.colours.default);
-    successEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
-    );
+    successEmbed.setFooter({
+      text: t("defaults:donate"),
+      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+    });
     await interaction.editReply({ embeds: [successEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(
