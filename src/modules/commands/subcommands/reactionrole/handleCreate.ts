@@ -61,6 +61,8 @@ export const handleCreate: CommandHandler = async (Becca, interaction, t) => {
       content: title,
       components,
     });
+
+    await interaction.editReply(t("commands:reactionrole.create.success"));
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
