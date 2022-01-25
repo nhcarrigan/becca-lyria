@@ -2,7 +2,10 @@
   "interaction": {
     "bad": "That {{command}} interaction is not valid...",
     "noDms": "I prefer my privacy. Please talk to me in a guild instead.",
-    "noSettings": "I could not find your guild record."
+    "noSettings": "I could not find your guild record.",
+    "noRole": "I cannot find that role.",
+    "addedRole": "You have been granted that title.",
+    "removedRole": "You have been stripped of that title."
   },
   "member": {
     "pending": {

@@ -6,6 +6,7 @@ import { commandListener } from "../../listeners/commandListener";
 import { currencyListener } from "../../listeners/currencyListener";
 import { usageListener } from "../../listeners/usageListener";
 import { logActivity } from "../../modules/commands/logActivity";
+import { reactionButtonClick } from "../../modules/events/reactionButtonClick";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { getInteractionLanguage } from "../../utils/getLangCode";
@@ -98,6 +99,10 @@ export const interactionCreate = async (
       await logActivity(Becca, interaction.user.id, "button");
       if (interaction.customId === "delete-bookmark") {
         await (interaction.message as Message).delete();
+      }
+      if (interaction.customId.startsWith("rr-")) {
+        await interaction.deferReply();
+        await reactionButtonClick(Becca, t, interaction);
       }
     }
 
