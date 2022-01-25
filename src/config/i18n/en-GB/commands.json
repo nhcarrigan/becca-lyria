@@ -738,7 +738,7 @@
   "reactionrole": {
     "create": {
       "channel": "That does not appear to be a valid text channel.",
-      "commands": "I have created the post for people to request titles!"
+      "success": "I have created the post for people to request titles!"
     }
   },
   "triggers": {

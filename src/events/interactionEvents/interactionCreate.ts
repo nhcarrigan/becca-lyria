@@ -101,7 +101,7 @@ export const interactionCreate = async (
         await (interaction.message as Message).delete();
       }
       if (interaction.customId.startsWith("rr-")) {
-        await interaction.deferReply();
+        await interaction.deferReply({ ephemeral: true });
         await reactionButtonClick(Becca, t, interaction);
       }
     }
