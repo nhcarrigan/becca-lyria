@@ -5,9 +5,7 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleReactionAdd } from "../modules/commands/subcommands/reactionrole/handleReactionAdd";
-import { handleReactionList } from "../modules/commands/subcommands/reactionrole/handleReactionList";
-import { handleReactionRemove } from "../modules/commands/subcommands/reactionrole/handleReactionRemove";
+import { handleCreate } from "../modules/commands/subcommands/reactionrole/handleCreate";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
@@ -17,55 +15,104 @@ export const reactionRole: Command = {
     .setDescription("Commands for managing reaction roles.")
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
-        .setName("add")
-        .setDescription("Add a reaction role to a message.")
-        .addStringOption((option) =>
+        .setName("create")
+        .setDescription("Create a new post with role buttons")
+        .addChannelOption((option) =>
           option
-            .setName("message")
-            .setDescription("The message LINK to add the reaction role to.")
+            .setName("channel")
+            .setDescription("Channel to create the post in.")
             .setRequired(true)
         )
         .addStringOption((option) =>
           option
-            .setName("emoji")
-            .setDescription("The emoji to react with.")
+            .setName("header")
+            .setDescription("Text to include at the top of the post.")
             .setRequired(true)
         )
         .addRoleOption((option) =>
           option
-            .setName("role")
-            .setDescription("The role to add or remove.")
+            .setName("role1")
+            .setDescription("Role to create a button for.")
             .setRequired(true)
         )
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("remove")
-        .setDescription("Remove a reaction role from a message.")
-        .addStringOption((option) =>
-          option
-            .setName("message")
-            .setDescription(
-              "The message LINK to remove the reaction role from."
-            )
-            .setRequired(true)
+        .addRoleOption((option) =>
+          option.setName("role2").setDescription("Role to create a button for.")
         )
-        .addStringOption((option) =>
-          option
-            .setName("emoji")
-            .setDescription("The emoji to react with.")
-            .setRequired(true)
+        .addRoleOption((option) =>
+          option.setName("role3").setDescription("Role to create a button for.")
         )
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("list")
-        .setDescription("List all reaction roles on a message.")
-        .addStringOption((option) =>
+        .addRoleOption((option) =>
+          option.setName("role4").setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option.setName("role5").setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option.setName("role6").setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option.setName("role7").setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option.setName("role8").setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option.setName("role9").setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
           option
-            .setName("message")
-            .setDescription("The message LINK to list the reaction roles on.")
-            .setRequired(true)
+            .setName("role10")
+            .setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role11")
+            .setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role12")
+            .setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role13")
+            .setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role14")
+            .setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role15")
+            .setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role16")
+            .setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role17")
+            .setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role18")
+            .setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role19")
+            .setDescription("Role to create a button for.")
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role20")
+            .setDescription("Role to create a button for.")
         )
     ),
   run: async (Becca, interaction, t, config) => {
@@ -93,14 +140,8 @@ export const reactionRole: Command = {
 
       const action = interaction.options.getSubcommand();
       switch (action) {
-        case "add":
-          await handleReactionAdd(Becca, interaction, t, config);
-          break;
-        case "remove":
-          await handleReactionRemove(Becca, interaction, t, config);
-          break;
-        case "list":
-          await handleReactionList(Becca, interaction, t, config);
+        case "create":
+          await handleCreate(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
