@@ -42,7 +42,7 @@ export const errorEmbedGenerator = (
   errorEmbed.setTimestamp();
   errorEmbed.setFooter({
     text: t("defaults:donate"),
-    iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png/*  */",
+    iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
   });
   return errorEmbed;
 };

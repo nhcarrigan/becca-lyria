@@ -71,14 +71,14 @@ export const handleTwentyOne: CurrencyHandler = async (
     );
 
     const hitButton = new MessageButton()
-      .setCustomId(t("commands:currency.twentyone.hit"))
+      .setCustomId("hit")
       .setEmoji("<:BeccaThumbsup:875129902997860393>")
-      .setLabel("Hit")
+      .setLabel(t("commands:currency.twentyone.hit"))
       .setStyle("SUCCESS");
     const standButton = new MessageButton()
-      .setCustomId(t("commands:currency.twentyone.stand"))
+      .setCustomId("stand")
       .setEmoji("<:BeccaYikes:877278299066347632>")
-      .setLabel("Stand")
+      .setLabel(t("commands:currency.twentyone.stand"))
       .setStyle("PRIMARY");
 
     const row = new MessageActionRow().addComponents([hitButton, standButton]);
@@ -119,14 +119,14 @@ export const handleTwentyOne: CurrencyHandler = async (
         gameState.won = true;
       }
       const newHitButton = new MessageButton()
-        .setCustomId(t("commands:currency.twentyone.hit"))
+        .setCustomId("hit")
         .setEmoji("<:BeccaThumbsup:875129902997860393>")
-        .setLabel("Hit")
+        .setLabel(t("commands:currency.twentyone.hit"))
         .setStyle("SUCCESS");
       const newStandButton = new MessageButton()
-        .setCustomId(t("commands:currency.twentyone.stand"))
+        .setCustomId("stand")
         .setEmoji("<:BeccaYikes:877278299066347632>")
-        .setLabel("Stand")
+        .setLabel(t("commands:currency.twentyone.stand"))
         .setStyle("PRIMARY");
 
       if (gameState.over) {
