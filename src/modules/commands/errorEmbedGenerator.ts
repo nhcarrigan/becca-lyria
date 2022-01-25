@@ -28,7 +28,7 @@ export const errorEmbedGenerator = (
   );
   errorEmbed.addField(
     t("defaults:errors.what.title"),
-    t("defaults.errors.what.description")
+    t("defaults:errors.what.description")
   );
   errorEmbed.addField(
     t("defaults:errors.wrong.title"),
