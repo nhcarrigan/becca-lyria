@@ -3,7 +3,6 @@ import { MessageEmbed } from "discord.js";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { getCounts } from "../../modules/becca/getCounts";
 import { beccaLogHandler } from "../../utils/beccaLogHandler";
-import { cacheReactionRoles } from "../../utils/cacheReactionRoles";
 
 /**
  * Sends a notification to the debug hook when Becca has connected to
@@ -13,7 +12,6 @@ import { cacheReactionRoles } from "../../utils/cacheReactionRoles";
  */
 export const ready = async (Becca: BeccaLyria): Promise<void> => {
   beccaLogHandler.log("debug", "Fetching reaction role data...");
-  await cacheReactionRoles(Becca);
   const readyEmbed = new MessageEmbed();
   readyEmbed.setTitle("Becca is online");
   readyEmbed.setDescription(

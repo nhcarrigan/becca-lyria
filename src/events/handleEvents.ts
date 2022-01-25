@@ -11,8 +11,6 @@ import { memberUpdate } from "./memberEvents/memberUpdate";
 import { messageCreate } from "./messageEvents/messageCreate";
 import { messageDelete } from "./messageEvents/messageDelete";
 import { messageUpdate } from "./messageEvents/messageUpdate";
-import { reactionAdd } from "./reactionEvents.ts/reactionAdd";
-import { reactionRemove } from "./reactionEvents.ts/reactionRemove";
 import { shardError } from "./shardEvents/shardError";
 import { shardReady } from "./shardEvents/shardReady";
 import { threadCreate } from "./threadEvents/threadCreate";
@@ -80,13 +78,6 @@ export const handleEvents = (Becca: BeccaLyria): void => {
   });
   Becca.on("threadDelete", async (thread) => {
     await threadDelete(Becca, thread);
-  });
-
-  Becca.on("messageReactionAdd", async (reaction, user) => {
-    await reactionAdd(Becca, reaction, user);
-  });
-  Becca.on("messageReactionRemove", async (reaction, user) => {
-    await reactionRemove(Becca, reaction, user);
   });
 
   Becca.on("interactionCreate", async (interaction) => {
