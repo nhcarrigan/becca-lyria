@@ -1,7 +1,7 @@
 /**
  * Type definitions for leo-profanity version 1.3.0.
  * Project: https://github.com/jojoee/leo-profanity
- * Definitions by: Nicholas Carrigan <https://github.com/nhcarrigan>.
+ * Definitions by: Naomi Carrigan <https://github.com/nhcarrigan>.
  */
 declare module "leo-profanity" {
   /**
