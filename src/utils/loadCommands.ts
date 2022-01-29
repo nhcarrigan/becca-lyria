@@ -17,12 +17,12 @@ export const loadCommands = async (Becca: BeccaLyria): Promise<Command[]> => {
   try {
     const result: Command[] = [];
     const files = await readdir(
-      join(process.cwd() + "/prod/commands"),
+      join(process.cwd(), "prod", "commands"),
       "utf-8"
     );
     for (const file of files) {
       const name = file.split(".")[0];
-      const mod = await import(join(process.cwd() + `/prod/commands/${file}`));
+      const mod = await import(join(process.cwd(), "prod", "commands", file));
       result.push(mod[name] as Command);
     }
     return result;

@@ -17,12 +17,12 @@ export const loadContexts = async (Becca: BeccaLyria): Promise<Context[]> => {
   try {
     const result: Context[] = [];
     const files = await readdir(
-      join(process.cwd() + "/prod/contexts"),
+      join(process.cwd(), "prod", "contexts"),
       "utf-8"
     );
     for (const file of files) {
       const name = file.split(".")[0];
-      const mod = await import(join(process.cwd() + `/prod/contexts/${file}`));
+      const mod = await import(join(process.cwd(), "prod", "contexts", file));
       result.push(mod[name] as Context);
     }
     return result;
