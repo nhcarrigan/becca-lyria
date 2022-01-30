@@ -1,5 +1,7 @@
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 
+import { beccaErrorHandler } from "./beccaErrorHandler";
+
 /**
  * Grabs the user's language code from an interaction, falls back to the
  * guild language code, then falls back to en-GB.
@@ -9,13 +11,17 @@ import { BeccaLyria } from "../interfaces/BeccaLyria";
  * @param {number} duration The duration to timeout for.
  * @param {string} message The message to send to the user.
  */
-export const scheduleCurrencyReminder = (
+export const scheduleCurrencyReminder = async (
   Becca: BeccaLyria,
   userId: string,
   duration: number,
   message: string
 ) => {
-  setTimeout(async () => {
-    await Becca.currencyReminderHook.send(message);
-  }, duration);
+  try {
+    setTimeout(async () => {
+      await Becca.currencyReminderHook.send(message);
+    }, duration);
+  } catch (err) {
+    await beccaErrorHandler(Becca, "send currency reminder", err);
+  }
 };
