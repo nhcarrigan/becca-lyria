@@ -4,6 +4,7 @@ import { MessageEmbed } from "discord.js";
 import { CurrencyHandler } from "../../../../interfaces/commands/CurrencyHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { parseSeconds } from "../../../../utils/parseSeconds";
+import { scheduleCurrencyReminder } from "../../../../utils/scheduleCurrencyReminder";
 import { errorEmbedGenerator } from "../../errorEmbedGenerator";
 
 /**
@@ -35,6 +36,15 @@ export const handleDaily: CurrencyHandler = async (
     data.currencyTotal += earnedCurrency;
     data.dailyClaimed = now;
     await data.save();
+
+    await scheduleCurrencyReminder(
+      Becca,
+      data.userId,
+      86400000,
+      t("commands:currency.daily.reminder", {
+        user: `<@!${data.userId}>`,
+      })
+    );
 
     const embed = new MessageEmbed();
     embed.setTitle(t("commands:currency.daily.title"));
