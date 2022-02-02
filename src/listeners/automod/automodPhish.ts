@@ -72,29 +72,39 @@ export const automodPhish: ListenerHandler = async (
       t,
       config.antiphish,
       message.author,
-      "A scam link was detected in one of your messages. Please reset your password."
+      t("listeners:automod.antiphish.dm")
     );
+
+    const reason = t("listeners:automod.antiphish.reason");
 
     switch (config.antiphish) {
       case "mute":
-        await message.member.timeout(86400000, "scam links");
+        await message.member.timeout(86400000, reason);
         break;
       case "kick":
-        await message.member.kick("scam links");
+        await message.member.kick(reason);
         break;
       case "ban":
-        await message.member.ban({ reason: "scam links" });
+        await message.member.ban({ reason });
         break;
       default:
         break;
     }
 
     const logEmbed = new MessageEmbed();
-    logEmbed.setTitle("Scam detected!");
-    logEmbed.setDescription("A scam link was detected in the server.");
-    logEmbed.addField("User", message.author.tag, true);
-    logEmbed.addField("Link", scamLink, true);
-    logEmbed.addField("Action", config.antiphish, true);
+    logEmbed.setTitle(t("listeners:automod.antiphish.title"));
+    logEmbed.setDescription(t("listeners:automod.antiphish.description"));
+    logEmbed.addField(
+      t("listeners:automod.antiphish.user"),
+      message.author.tag,
+      true
+    );
+    logEmbed.addField(t("listeners:automod.antiphish.link"), scamLink, true);
+    logEmbed.addField(
+      t("listeners:automod.antiphish.action"),
+      config.antiphish,
+      true
+    );
 
     await sendLogEmbed(Becca, message.guild, logEmbed, "moderation_events");
 

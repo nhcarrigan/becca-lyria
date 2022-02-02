@@ -44,15 +44,13 @@ export const handleAutomodAntiphish: CommandHandler = async (
     );
 
     if (!isSet) {
-      await interaction.editReply(t("commands:automod.set.failure"));
+      await interaction.editReply(t("commands:automod.antiphish.failure"));
       return;
     }
     const newContent = isSet["antiphish"];
     const parsedContent = renderSetting(Becca, "antiphish", newContent);
     const successEmbed = new MessageEmbed();
-    successEmbed.setTitle(
-      t("commands:automod.set.success", { setting: "antiphish" })
-    );
+    successEmbed.setTitle(t("commands:automod.antiphish.success"));
     successEmbed.setDescription(customSubstring(parsedContent, 2000));
     successEmbed.setTimestamp();
     successEmbed.setColor(Becca.colours.default);

@@ -1,5 +1,9 @@
 {
   "automod": {
+    "antiphish": {
+      "failure": "I am having trouble updating your settings. Please try again later.",
+      "success": "Anti-phishing Setting Updated!"
+    },
     "reset": {
       "success": "I have reset your {{setting}} setting.",
       "failure": "I am having trouble updating your settings. Please try again later."
