@@ -95,6 +95,9 @@ export const setSetting = async (
       case "appeal_link":
         server[key] = value;
         break;
+      case "antiphish":
+        server[key] = value as "none" | "mute" | "kick" | "ban";
+        break;
       case "welcome_channel":
       case "depart_channel":
       case "message_events":

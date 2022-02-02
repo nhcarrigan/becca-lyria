@@ -5,12 +5,14 @@ import {
 } from "@discordjs/builders";
 
 import {
+  automodAntiphishChoices,
   automodChoices,
   automodToggleChoices,
   automodViewChoices,
 } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { handleAutomodAntiphish } from "../modules/commands/subcommands/automod/handleAutomodAntiphish";
 import { handleAutomodReset } from "../modules/commands/subcommands/automod/handleAutomodReset";
 import { handleAutomodSet } from "../modules/commands/subcommands/automod/handleAutomodSet";
 import { handleAutomodView } from "../modules/commands/subcommands/automod/handleAutomodView";
@@ -84,6 +86,20 @@ export const automod: Command = {
               ["Disabled", "off"],
             ])
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("antiphish")
+        .setDescription(
+          "Set the action to take when a fishing link is detected."
+        )
+        .addStringOption((option) =>
+          option
+            .setName("action")
+            .setDescription("The action to take.")
+            .setRequired(true)
+            .addChoices(automodAntiphishChoices)
+        )
     ),
   run: async (Becca, interaction, t, config) => {
     try {
@@ -119,6 +135,9 @@ export const automod: Command = {
           break;
         case "view":
           await handleAutomodView(Becca, interaction, t, config);
+          break;
+        case "antiphish":
+          await handleAutomodAntiphish(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({

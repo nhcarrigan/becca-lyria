@@ -41,4 +41,5 @@ export const defaultServer = {
     "{@username}, your message appears to have been inappropriate. I removed it.",
   emote_channels: [] as string[],
   appeal_link: "",
+  antiphish: "none",
 };

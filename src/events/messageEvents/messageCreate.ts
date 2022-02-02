@@ -2,6 +2,7 @@ import { Message } from "discord.js";
 import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { automodPhish } from "../../listeners/automod/automodPhish";
 import { automodListener } from "../../listeners/automodListener";
 import { emoteListener } from "../../listeners/emoteListener";
 import { heartsListener } from "../../listeners/heartsListener";
@@ -40,6 +41,12 @@ export const messageCreate = async (
     const serverConfig = await getSettings(Becca, guild.id, guild.name);
 
     if (!serverConfig) {
+      return;
+    }
+
+    const isScam = await automodPhish(Becca, message, t, serverConfig);
+
+    if (isScam) {
       return;
     }
 

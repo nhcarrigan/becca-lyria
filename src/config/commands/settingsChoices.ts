@@ -67,3 +67,13 @@ export const automodToggleChoices: [string, AutomodToggleSettings][] = [
   ["Link Detection", "links"],
   ["Profanity Detection", "profanity"],
 ];
+
+export const automodAntiphishChoices: [
+  string,
+  "none" | "mute" | "kick" | "ban"
+][] = [
+  ["Do nothing when a scam link is detected.", "none"],
+  ["Mute the user for 24 hours.", "mute"],
+  ["Kick the user.", "kick"],
+  ["Ban the user.", "ban"],
+];

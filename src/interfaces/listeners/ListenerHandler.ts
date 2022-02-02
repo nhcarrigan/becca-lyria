@@ -9,4 +9,4 @@ export type ListenerHandler = (
   message: Message,
   t: TFunction,
   config: ServerConfig
-) => Promise<void>;
+) => Promise<void | boolean>;

@@ -37,6 +37,7 @@ export interface ServerConfig extends Document {
   profanity_message: string;
   emote_channels: string[];
   appeal_link: string;
+  antiphish: "none" | "mute" | "kick" | "ban";
 }
 
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
@@ -73,4 +74,5 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   profanity_message: "",
   emote_channels: [],
   appeal_link: "",
+  antiphish: "none",
 };
