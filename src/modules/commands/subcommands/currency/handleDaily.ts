@@ -39,7 +39,6 @@ export const handleDaily: CurrencyHandler = async (
 
     await scheduleCurrencyReminder(
       Becca,
-      data.userId,
       86400000,
       t("commands:currency.daily.reminder", {
         user: `<@!${data.userId}>`,
