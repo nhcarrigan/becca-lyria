@@ -93,7 +93,7 @@ export const handleBan: CommandHandler = async (
     banLogEmbed.setColor(Becca.colours.error);
     banLogEmbed.setTitle(t("commands:mod.ban.title"));
     banLogEmbed.setDescription(
-      t("commands:mod.ban.description", { name: member.user.username })
+      t("commands:mod.ban.description", { user: member.user.username })
     );
     banLogEmbed.addField(
       t("commands:mod.ban.reason"),
