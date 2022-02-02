@@ -393,7 +393,8 @@
     "daily": {
       "cooldown": "You have already claimed your daily. Come back in: {{time}}",
       "title": "Daily Reward!",
-      "description": "You've earned {{earned}} BeccaCoin! You now have {{total}} BeccaCoin!"
+      "description": "You've earned {{earned}} BeccaCoin! You now have {{total}} BeccaCoin!",
+      "reminder": "{{- user}}, you can claim your daily BeccaCoin now!"
     },
     "guess": {
       "insufficient": "You cannot wager more coin than you have!",
@@ -439,7 +440,8 @@
       },
       "cooldown": "You have already claimed your weekly! Come back in {{time}}",
       "title": "Weekly Reward!",
-      "description": "You've earned {{earned}} BeccaCoin! You now have {{total}} BeccaCoin!"
+      "description": "You've earned {{earned}} BeccaCoin! You now have {{total}} BeccaCoin!",
+      "reminder": "{{- user}}, you can claim your weekly BeccaCoin now!"
     }
   },
   "emote": {

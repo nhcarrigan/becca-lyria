@@ -57,6 +57,9 @@ void (async () => {
 
   Becca.debugHook = new WebhookClient({ url: Becca.configs.whUrl });
   Becca.currencyHook = new WebhookClient({ url: Becca.configs.currencyUrl });
+  Becca.currencyReminderHook = new WebhookClient({
+    url: Becca.configs.currencyReminderUrl,
+  });
 
   beccaLogHandler.log("debug", "Initialising web server...");
   const server = await createServer(Becca);
