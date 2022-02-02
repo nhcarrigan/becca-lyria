@@ -32,6 +32,7 @@ export const renderSetting = (
       case "profanity":
       case "profanity_message":
       case "appeal_link":
+      case "antiphish":
         return value as string;
       case "welcome_channel":
       case "depart_channel":

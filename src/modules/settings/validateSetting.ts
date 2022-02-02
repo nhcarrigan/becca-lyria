@@ -94,6 +94,7 @@ export const validateSetting = async (
         );
       case "allowed_links":
       case "appeal_link":
+      case "antiphish":
       case "custom_welcome":
       case "link_message":
       case "leave_message":

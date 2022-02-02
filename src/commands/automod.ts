@@ -5,6 +5,7 @@ import {
 } from "@discordjs/builders";
 
 import {
+  automodAntiphishChoices,
   automodChoices,
   automodToggleChoices,
   automodViewChoices,
@@ -84,6 +85,20 @@ export const automod: Command = {
               ["Disabled", "off"],
             ])
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("antiphish")
+        .setDescription(
+          "Set the action to take when a fishing link is detected."
+        )
+        .addStringOption((option) =>
+          option
+            .setName("action")
+            .setDescription("The action to take.")
+            .setRequired(true)
+            .addChoices(automodAntiphishChoices)
+        )
     ),
   run: async (Becca, interaction, t, config) => {
     try {
@@ -119,6 +134,8 @@ export const automod: Command = {
           break;
         case "view":
           await handleAutomodView(Becca, interaction, t, config);
+          break;
+        case "antiphish":
           break;
         default:
           await interaction.editReply({

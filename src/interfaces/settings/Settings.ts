@@ -32,4 +32,5 @@ export type Settings =
   | "profanity"
   | "profanity_message"
   | "emote_channels"
-  | "appeal_link";
+  | "appeal_link"
+  | "antiphish";

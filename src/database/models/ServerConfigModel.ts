@@ -42,6 +42,10 @@ export const ServerConfigSchema = new Schema({
   thread_events: String,
   moderation_events: String,
   member_events: String,
+  antiphish: {
+    type: String,
+    default: "none",
+  },
 });
 
 export default model<ServerConfig>("server", ServerConfigSchema);
