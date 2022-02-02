@@ -24,7 +24,8 @@
         "channels": "Automodded Channels",
         "nonChannels": "Not Automodded Channels",
         "exempt": "Automod Exempt Roles",
-        "allowed": "Allowed Links"
+        "allowed": "Allowed Links",
+        "antiphish": "Anti-Phish Action"
       }
     }
   },

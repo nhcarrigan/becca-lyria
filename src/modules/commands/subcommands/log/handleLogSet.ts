@@ -67,7 +67,7 @@ export const handleLogSet: CommandHandler = async (
       newContent
     );
     const successEmbed = new MessageEmbed();
-    successEmbed.setTitle(t("commands:log.set.tilte", { setting }));
+    successEmbed.setTitle(t("commands:log.set.title", { setting }));
     successEmbed.setDescription(customSubstring(parsedContent, 2000));
     successEmbed.setTimestamp();
     successEmbed.setColor(Becca.colours.default);
