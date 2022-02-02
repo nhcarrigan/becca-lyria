@@ -12,6 +12,7 @@ import {
 } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { handleAutomodAntiphish } from "../modules/commands/subcommands/automod/handleAutomodAntiphish";
 import { handleAutomodReset } from "../modules/commands/subcommands/automod/handleAutomodReset";
 import { handleAutomodSet } from "../modules/commands/subcommands/automod/handleAutomodSet";
 import { handleAutomodView } from "../modules/commands/subcommands/automod/handleAutomodView";
@@ -136,6 +137,7 @@ export const automod: Command = {
           await handleAutomodView(Becca, interaction, t, config);
           break;
         case "antiphish":
+          await handleAutomodAntiphish(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({

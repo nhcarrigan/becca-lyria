@@ -69,6 +69,11 @@ export const viewAutomodSettings = async (
       config.allowed_links.length.toString(),
       true
     );
+    settingsEmbed.addField(
+      t("commands:automod.view.embed.antiphish"),
+      config.antiphish || "none",
+      true
+    );
     settingsEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",
       "https://cdn.nhcarrigan.com/profile-transparent.png"
