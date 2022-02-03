@@ -9,6 +9,7 @@ import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
 import { sassListener } from "../../listeners/sassListener";
 import { triggerListener } from "../../listeners/triggerListener";
+import { naomiAntiphish } from "../../modules/naomi/naomiAntiphish";
 import { naomiPurgeData } from "../../modules/naomi/naomiPurgeData";
 import { naomiUnregisterCommand } from "../../modules/naomi/naomiUnregisterCommand";
 import { naomiViewCommands } from "../../modules/naomi/naomiViewCommands";
@@ -80,6 +81,10 @@ export const messageCreate = async (
       }
       if (message.content.startsWith("Naomi purge")) {
         await naomiPurgeData(Becca, message);
+        return;
+      }
+      if (message.content.startsWith("Naomi fish")) {
+        await naomiAntiphish(Becca, message);
         return;
       }
     }
