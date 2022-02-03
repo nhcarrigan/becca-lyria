@@ -16,7 +16,7 @@ export const naomiAntiphish = async (Becca: BeccaLyria, message: Message) => {
     const [, , link] = message.content.split(" ");
 
     const result = await axios.post<{ message: string }>(
-      "POST https://bad-domains.walshy.dev/report",
+      "https://bad-domains.walshy.dev/report",
       { domain: link }
     );
 
