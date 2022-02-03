@@ -712,36 +712,6 @@
       "success": "I have informed them of their shortcomings."
     }
   },
-  "nhcarrigan": {
-    "purge": {
-      "no": "no data found!",
-      "levels": "I have cleared the level data for {{name}}.",
-      "activity": "I have cleared the activity data for {{name}}.",
-      "stars": "I have cleared the star data for {{name}}.",
-      "currency": "I have cleared the currency data for {{name}}.",
-      "votes": "I have cleared the vote data for {{name}}.",
-      "commands": "I have cleared the command data for {{name}}.",
-      "emotes": "I have cleared the emote data for {{name}}.",
-      "invalid": "{{data}} is not a valid option."
-    },
-    "register": {
-      "failed": "Failed to prepare spells!",
-      "title": "Spells Prepared",
-      "description": "The following spells have been prepared.",
-      "context": "Context Commands"
-    },
-    "unregister": {
-      "missing": "I cannot seem to find that spell.",
-      "invalid": "That spell does not appear to be prepared.",
-      "title": "{{name}} Spell Forgotten"
-    },
-    "viewslash": {
-      "none": "It seems I do not have any spells prepared at this time.",
-      "title": "Available Spells",
-      "description": "These are the spells I currently have prepared.",
-      "opts": "This spell has no options."
-    }
-  },
   "reactionrole": {
     "create": {
       "channel": "That does not appear to be a valid text channel.",

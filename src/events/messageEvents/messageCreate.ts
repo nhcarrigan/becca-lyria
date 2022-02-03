@@ -9,6 +9,9 @@ import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
 import { sassListener } from "../../listeners/sassListener";
 import { triggerListener } from "../../listeners/triggerListener";
+import { naomiPurgeData } from "../../modules/naomi/naomiPurgeData";
+import { naomiUnregisterCommand } from "../../modules/naomi/naomiUnregisterCommand";
+import { naomiViewCommands } from "../../modules/naomi/naomiViewCommands";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { getMessageLanguage } from "../../utils/getLangCode";
@@ -59,10 +62,26 @@ export const messageCreate = async (
 
     if (
       message.author.id === Becca.configs.ownerId &&
-      message.content === "emergency reload"
+      message.content.startsWith("Naomi")
     ) {
-      await registerCommands(Becca);
-      await message.reply("Reloaded all commands.");
+      await message.reply("Heya, Naomi!");
+      if (message.content === "Naomi register") {
+        await registerCommands(Becca);
+        await message.reply("Registered commands!");
+        return;
+      }
+      if (message.content.startsWith("Naomi unregister")) {
+        await naomiUnregisterCommand(Becca, message);
+        return;
+      }
+      if (message.content === "Naomi view") {
+        await naomiViewCommands(Becca, message);
+        return;
+      }
+      if (message.content.startsWith("Naomi purge")) {
+        await naomiPurgeData(Becca, message);
+        return;
+      }
     }
     Becca.pm2.metrics.events.mark();
   } catch (err) {
