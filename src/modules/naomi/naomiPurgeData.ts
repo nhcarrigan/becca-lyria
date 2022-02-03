@@ -40,7 +40,6 @@ export const naomiPurgeData = async (Becca: BeccaLyria, message: Message) => {
       }
       await message.reply(`I have cleared the activity data for ${name}.`);
       return;
-      return;
     }
 
     if (data === "stars") {
