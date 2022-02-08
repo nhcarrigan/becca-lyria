@@ -1,8 +1,5 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Patched some incorrect i18n strings",
-  "- Added a new anti-phishing system",
-  "- Added currency reward reminders",
-  "- Moved the owner commands into hidden message commands",
+  "- Added the ability to migrate existing Mee6 levels to Becca.",
 ];
 
-export const nextScheduledRelease = "<t:1644206474:F>";
+export const nextScheduledRelease = "<t:1644681641:F>";
