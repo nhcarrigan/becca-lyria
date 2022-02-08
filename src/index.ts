@@ -61,6 +61,18 @@ void (async () => {
     url: Becca.configs.currencyReminderUrl,
   });
 
+  /**
+   * Fallthrough error handlers. These fire in rare cases where something throws
+   * in a way that our standard catch block cannot see it.
+   */
+  process.on("unhandledRejection", async (error: Error) => {
+    await beccaErrorHandler(Becca, "Unhandled Rejection Error", error);
+  });
+
+  process.on("uncaughtException", async (error) => {
+    await beccaErrorHandler(Becca, "Uncaught Exception Error", error);
+  });
+
   beccaLogHandler.log("debug", "Initialising web server...");
   const server = await createServer(Becca);
   if (!server) {
@@ -102,17 +114,5 @@ void (async () => {
   beccaLogHandler.log("debug", "Setting activity...");
   Becca.user?.setActivity("over your guild", {
     type: "WATCHING",
-  });
-
-  /**
-   * Fallthrough error handlers. These fire in rare cases where something throws
-   * in a way that our standard catch block cannot see it.
-   */
-  process.on("unhandledRejection", async (error: Error) => {
-    await beccaErrorHandler(Becca, "Unhandled Rejection Error", error);
-  });
-
-  process.on("uncaughtException", async (error) => {
-    await beccaErrorHandler(Becca, "Uncaught Exception Error", error);
   });
 })();
