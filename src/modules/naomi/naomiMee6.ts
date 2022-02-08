@@ -5,6 +5,8 @@ import levelScale from "../../config/listeners/levelScale";
 import LevelModel from "../../database/models/LevelModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { getSettings } from "../settings/getSettings";
+import { setSetting } from "../settings/setSetting";
 
 /**
  * Owner command for migrating Mee6 levels to Becca's system.
@@ -14,7 +16,7 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  */
 export const naomiMee6 = async (Becca: BeccaLyria, message: Message) => {
   try {
-    // Naomi fish <link>
+    // Naomi Mee6 <id>
     const [, , serverId] = message.content.split(" ");
 
     const targetGuild = await Becca.guilds.fetch(serverId);
@@ -47,11 +49,40 @@ export const naomiMee6 = async (Becca: BeccaLyria, message: Message) => {
       });
     }
 
+    await message.reply("User levels migrated!");
+
+    const roles = await mee6.getRoleRewards(serverId);
+
+    if (!roles.length) {
+      await message.reply(
+        "Guild has no level roles! Migration complete! Kick that shit bot."
+      );
+      return;
+    }
+    await message.reply(`Migrating ${roles.length} roles!`);
+    const serverConfig = await getSettings(Becca, serverId, targetGuild.name);
+    if (!serverConfig) {
+      await message.reply(
+        "Error with guild config! Migration complete! Kick that shit bot!"
+      );
+      return;
+    }
+    for (const role of roles) {
+      await setSetting(
+        Becca,
+        serverId,
+        targetGuild.name,
+        "level_roles",
+        `${role.level} ${role.role.id}`,
+        serverConfig
+      );
+    }
+
     await message.reply("Migration complete! Kick that shit bot.");
   } catch (err) {
     await beccaErrorHandler(
       Becca,
-      "naomi antiphish",
+      "naomi mee6",
       err,
       message.guild?.name,
       message
