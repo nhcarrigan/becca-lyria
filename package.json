@@ -43,6 +43,7 @@
     "express": "^4.17.2",
     "i18next": "^21.6.7",
     "leo-profanity": "^1.5.0",
+    "mee6-levels-api": "^1.3.0",
     "mongoose": "^6.1.7",
     "winston": "^3.4.0"
   },
