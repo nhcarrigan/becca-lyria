@@ -40,12 +40,14 @@ export const naomiMee6 = async (Becca: BeccaLyria, message: Message) => {
         userID: user.id,
         userTag: `${user.username}#${user.discriminator}`,
         avatar: user.avatarUrl,
-        points: levelScale[user.level] || 505000,
+        points: user.level <= 100 ? levelScale[user.level] : 505000,
         level: user.level <= 100 ? user.level : 100,
         lastSeen: new Date(),
         cooldown: 0,
       });
     }
+
+    await message.reply("Migration complete! Kick that shit bot.");
   } catch (err) {
     await beccaErrorHandler(
       Becca,
