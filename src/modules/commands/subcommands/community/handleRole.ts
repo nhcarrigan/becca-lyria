@@ -132,14 +132,14 @@ export const handleRole: CommandHandler = async (
 
     if (!config.self_roles.includes(targetRole.id)) {
       await interaction.editReply({
-        content: t("commands:community.poll.invalid"),
+        content: t("commands:community.role.invalid"),
       });
       return;
     }
 
     if (Array.isArray(member.roles)) {
       await interaction.editReply({
-        content: t("commands:community.poll.error"),
+        content: t("commands:community.role.error"),
       });
       return;
     }
@@ -147,7 +147,7 @@ export const handleRole: CommandHandler = async (
     if (member.roles.cache.has(targetRole.id)) {
       await member.roles.remove(targetRole as Role);
       await interaction.editReply({
-        content: t("commands:community.poll.removed", {
+        content: t("commands:community.role.removed", {
           name: targetRole.name,
         }),
       });
