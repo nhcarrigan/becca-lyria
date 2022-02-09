@@ -218,7 +218,7 @@
       }
     },
     "level": {
-      "none": "{{user}} has not earned any levels yet...",
+      "none": "{{- user}} has not earned any levels yet...",
       "title": "{{user}}'s Ranking",
       "description": "Here is the record I have in {{name}}",
       "points": "Experience Points",
