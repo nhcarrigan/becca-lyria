@@ -125,7 +125,7 @@ export const levelListener: Listener = {
                 iconURL: author.displayAvatarURL(),
               });
               roleEmbed.setFooter({
-                text: t("default:donate"),
+                text: t("defaults:donate"),
                 iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
               });
               await targetChannel.send({ embeds: [roleEmbed] });
