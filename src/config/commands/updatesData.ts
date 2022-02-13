@@ -1,5 +1,6 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Added the ability to migrate existing Mee6 levels to Becca.",
+  "- Patched some broken i18n strings",
+  "- General code cleanup and maintenance",
 ];
 
-export const nextScheduledRelease = "<t:1644681641:F>";
+export const nextScheduledRelease = "<t:1645372803:F>";
