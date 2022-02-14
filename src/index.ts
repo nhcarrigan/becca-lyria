@@ -25,6 +25,8 @@ Sentry.init({
       root: global.__dirname,
     }),
   ],
+  release: `becca-lyria-bot@v${process.env.npm_package_version}`,
+  environment: "production",
 });
 
 /**
