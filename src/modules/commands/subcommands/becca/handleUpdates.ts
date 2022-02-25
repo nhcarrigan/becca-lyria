@@ -52,7 +52,9 @@ export const handleUpdates: CommandHandler = async (Becca, interaction, t) => {
       .setLabel(t("commands:becca.updates.buttons.view"))
       .setEmoji("<:BeccaNotes:883854700762505287>")
       .setStyle("LINK")
-      .setURL("https://docs.beccalyria.com/#/changelog");
+      .setURL(
+        "https://docs.beccalyria.com/#/changelog?utm_source=discord&utm_medium=updates-command"
+      );
 
     const row = new MessageActionRow().addComponents([button]);
     await interaction.editReply({ embeds: [updateEmbed], components: [row] });

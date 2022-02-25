@@ -70,7 +70,9 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
       .setLabel(t("commands:community.level.buttons.view"))
       .setEmoji("<:BeccaCheer:897545794176045096>")
       .setStyle("LINK")
-      .setURL(`https://dash.beccalyria.com/leaderboard/${guildId}`);
+      .setURL(
+        `https://dash.beccalyria.com/leaderboard/${guildId}?utm_source=discord&utm_medium=level-command`
+      );
     const row = new MessageActionRow().addComponents([button]);
 
     await interaction.editReply({ embeds: [levelEmbed], components: [row] });

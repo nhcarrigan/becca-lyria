@@ -2,7 +2,7 @@
 
 Welcome to the repository for `Becca Lyria`!
 
-[You can invite Becca to your own server!](http://invite.beccalyria.com) Already have her there? [Read the documentation](https://www.beccalyria.com/discord-documentation) to get her set up!
+[You can invite Becca to your own server!](http://invite.beccalyria.com) Already have her there? [Read the documentation](https://www.beccalyria.com/discord-documentation?utm_source=github&utm_medium=readme) to get her set up!
 
 ## Join Our Team!
 

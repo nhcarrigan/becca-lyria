@@ -103,7 +103,7 @@
       },
       "privacy": {
         "title": "Privacy Policy",
-        "description": "As part of my services, I collect and use some specific Discord related information. This information includes, but may not be limited to, your user name, nickname, this server's name, and your Discord ID. [View my full policy](https://docs.beccalyria.com/#/privacy-policy)"
+        "description": "As part of my services, I collect and use some specific Discord related information. This information includes, but may not be limited to, your user name, nickname, this server's name, and your Discord ID. [View my full policy](https://docs.beccalyria.com/#/privacy-policy?utm_source=discord&utm_medium=privacy-command)"
       },
       "buttons": {
         "support": "Join our support server",
@@ -130,11 +130,11 @@
     },
     "privacy": {
       "title": "I'll keep your secrets safe!",
-      "description": "To maintain my functionality, I need to collect quite a bit of data. Mostly, this data is user/server IDs, names, and avatars.\n\nI will never store your message content in my database, but it may be logged in this server if the admins have enabled it.\n\nIf you want a full breakdown of everything I collect, [view my privacy policy](https://docs.beccalyria.com/#/privacy-policy)."
+      "description": "To maintain my functionality, I need to collect quite a bit of data. Mostly, this data is user/server IDs, names, and avatars.\n\nI will never store your message content in my database, but it may be logged in this server if the admins have enabled it.\n\nIf you want a full breakdown of everything I collect, [view my privacy policy](https://docs.beccalyria.com/#/privacy-policy?utm_source=discord&utm_medium=privacy-command)."
     },
     "profile": {
       "title": "Becca Lyria",
-      "description": "If you want to read about my adventures, check my [profile site](https://www.beccalyria.com). I would rather not have to recount them all here.",
+      "description": "If you want to read about my adventures, check my [profile site](https://www.beccalyria.com?utm_source=discord&utm_medium=profile-command). I would rather not have to recount them all here.",
       "buttons": {
         "view": "View Becca's profile"
       }
@@ -176,7 +176,7 @@
       "next": "Next Scheduled Update",
       "changelog": {
         "title": "Change Log",
-        "description": "View Becca's entire change log [in her documentation](https://docs.beccalyria.com/#/changelog)."
+        "description": "View Becca's entire change log [in her documentation](https://docs.beccalyria.com/#/changelog?utm_source=discord&utm_medium=changelog-command)."
       },
       "commit": "Commit Hash",
       "buttons": {

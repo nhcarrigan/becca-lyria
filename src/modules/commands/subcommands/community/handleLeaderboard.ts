@@ -65,7 +65,9 @@ export const handleLeaderboard: CommandHandler = async (
       })}\n\`\`\``
     );
     levelEmbed.setTimestamp();
-    levelEmbed.setURL(`https://dash.beccalyria.com/leaderboard/${guildId}`);
+    levelEmbed.setURL(
+      `https://dash.beccalyria.com/leaderboard/${guildId}?utm_source=discord&utm_medium=leaderboard-command`
+    );
     levelEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
@@ -75,7 +77,9 @@ export const handleLeaderboard: CommandHandler = async (
       .setLabel(t("commands:community.leaderboard.buttons.view"))
       .setEmoji("<:BeccaCheer:897545794176045096>")
       .setStyle("LINK")
-      .setURL(`https://dash.beccalyria.com/leaderboard/${guildId}`);
+      .setURL(
+        `https://dash.beccalyria.com/leaderboard/${guildId}?utm_source=discord&utm_medium=leaderboard-command`
+      );
     const row = new MessageActionRow().addComponents([button]);
 
     await interaction.editReply({
