@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout Source Files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Crowdin Upload
         uses: crowdin/github-action@master
