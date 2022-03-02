@@ -385,10 +385,10 @@
       "price": "This reward costs {{price}} BeccaCoint. You only have {{total}}.",
       "invalid": "This somehow appears to be an invalid reward. Please check with the developer team.",
       "details": "Reward Details",
-      "monarch": "You will take the monarch role from whomever has it in our support server, and you will keep the role until someone else takes it from you.",
-      "emote": "You will be able to work with nhcarrigan to determine the next pose for a Becca emote. The emote will be available in the support server. nhcarrigan will retain all rights to the art and the character, but we will make an announcement in the support server thanking you for the emote idea.",
-      "feature": "You will be able to work with nhcarrigan and the development team to suggest a new feature for Becca. We reserve the right to refuse features that are not in line with Becca's primary purpose, but will work with you until you we reach a feature proposal everyone is happy with.",
-      "wealthy": "You will be given the Wealthy role in our support server. You will keep this role.",
+      "monarch": "You will take the `Monarch` role from whomever has it in our support server, and you will keep the role until someone else takes it from you.",
+      "custom-monarch": "You will take the `Monarch (custom)` role from whomever has it in our support server, and you will keep the role until someone else takes it from you. You will also be able to choose a new colour for the role.",
+      "wealthy": "You will be given the `Wealthy` role in our support server. You will keep this role.",
+      "custom-wealthy": "You will be given your own `Wealthy (custom)` role in our support server. You will keep this role. (In the event of a server role cap, this reward will be unavailable.)",
       "button": "Join our server to redeem your rewards!"
     },
     "daily": {
