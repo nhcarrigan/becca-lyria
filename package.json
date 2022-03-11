@@ -38,7 +38,7 @@
     "axios": "^0.26.0",
     "cors": "^2.8.5",
     "diff": "^5.0.0",
-    "discord-api-types": "^0.28.0",
+    "discord-api-types": "^0.29.0",
     "discord.js": "^13.6.0",
     "express": "^4.17.2",
     "i18next": "^21.6.7",
