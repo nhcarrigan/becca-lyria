@@ -88,6 +88,7 @@ export const validateEnv = (
       version: process.env.npm_package_version || "null",
       id: process.env.CLIENT_ID,
       homeGuild: process.env.HOME_GUILD_ID,
+      topGGToken: process.env.TOPGG_TOKEN || "",
       topGG: process.env.TOPGG_PASSWORD,
       voteChannel: process.env.VOTE_CHANNEL_ID,
       habiticaKey: process.env.HABITICA_KEY,

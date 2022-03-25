@@ -5,6 +5,7 @@ import { registerCommands } from "../../utils/registerCommands";
 import { naomiAntiphish } from "../naomi/naomiAntiphish";
 import { naomiMee6 } from "../naomi/naomiMee6";
 import { naomiPurgeData } from "../naomi/naomiPurgeData";
+import { naomiTopgg } from "../naomi/naomiTopgg";
 import { naomiUnregisterCommand } from "../naomi/naomiUnregisterCommand";
 import { naomiViewCommands } from "../naomi/naomiViewCommands";
 
@@ -37,6 +38,9 @@ export const runNaomiCommands = async (Becca: BeccaLyria, message: Message) => {
       break;
     case "Mee6":
       await naomiMee6(Becca, message);
+      break;
+    case "topgg":
+      await naomiTopgg(Becca, message);
       break;
     default:
       await message.reply("Hope you are well!");
