@@ -1,6 +1,8 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Patched some broken i18n strings",
-  "- General code cleanup and maintenance",
+  "- Added UTM tracking to Becca's links",
+  "- Updated the currency rewards",
+  "- Tweaked the member remove flow",
+  "- Added topgg owner command",
 ];
 
-export const nextScheduledRelease = "<t:1645372803:F>";
+export const nextScheduledRelease = "<t:1648998000:F>";
