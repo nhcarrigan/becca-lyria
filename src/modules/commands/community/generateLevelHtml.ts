@@ -43,10 +43,10 @@ export const generateLevelHtml = async (user: User, levelData: Level) => {
   />
   <div class="details">
     <div class="username">${user.tag}</div>
-    <div class="level">Level ${levelData.level}</div>
+    <div class="level">Level ${levelData.level} - ${progressString}</div>
   </div>
   <div class="progress">
-    <div class="progress-info">${progressString}</div>
+    <div class="progress-info">${progressToNextLevel}% to next level:</div>
     <progress class="progress-bar" value="${progressToNextLevel}" max="100"></progress>
   </div>
 </div>
