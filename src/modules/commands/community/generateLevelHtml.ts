@@ -1,6 +1,7 @@
 import { User } from "discord.js";
 
 import levelScale from "../../../config/listeners/levelScale";
+import UserConfigModel from "../../../database/models/UserConfigModel";
 import { Level } from "../../../interfaces/database/Level";
 
 /**
@@ -10,7 +11,13 @@ import { Level } from "../../../interfaces/database/Level";
  * @param {Level} levelData The user's level data.
  * @returns {string} An HTML string for the user's level card.
  */
-export const generateLevelHtml = (user: User, levelData: Level) => {
+export const generateLevelHtml = async (user: User, levelData: Level) => {
+  const levelConfig = await UserConfigModel.findOne({ userId: user.id });
+  const colours = {
+    background: levelConfig?.levelcard?.background || "#3a3240",
+    foreground: levelConfig?.levelcard?.foreground || "#aea8de",
+    progress: levelConfig?.levelcard?.progress || "#ffffff",
+  };
   const pointsForNextLevel =
     levelData.level < 100 ? levelScale[levelData.level + 1] : null;
   const pointsForCurrentLevel = levelScale[levelData.level];
@@ -54,8 +61,8 @@ export const generateLevelHtml = (user: User, levelData: Level) => {
   max-width: 500px;
   margin: 10px auto;
   padding: 10px 0;
-  background-color: #3a3240;
-  color: #aea8de;
+  background-color: ${colours.background};
+  color: ${colours.foreground};
   justify-items: center;
   align-items: center;
   border-radius: 25px;
@@ -93,14 +100,14 @@ progress[value] {
 }
 
 progress[value]::-webkit-progress-bar {
-  background-color: #aea8de;
+  background-color: ${colours.foreground};
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
 
 progress[value]::-webkit-progress-value {
   border-radius: 10px;
-  background-color: white;
+  background-color: ${colours.progress};
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
 `;
