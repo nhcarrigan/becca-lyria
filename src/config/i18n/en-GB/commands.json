@@ -737,5 +737,24 @@
       "title": "Available Triggers",
       "footer": "Page {{page}} of {{last}}"
     }
+  },
+  "userconfig": {
+    "view": {
+      "title": "Your Bot Settings",
+      "description": "These are the individual settings you have configured for Becca.",
+      "levelcard": {
+        "background": "Background Colour",
+        "foreground": "Foreground Colour",
+        "progress": "Progress Bar Colour"
+      }
+    },
+    "levelcard": {
+      "title": "Level Card Settings",
+      "description": "Your level card settings have been updated!",
+      "invalidColour": "Colours must be hex strings, such as #FFFFFF.",
+      "background": "Background Colour",
+      "foreground": "Foreground Colour",
+      "progress": "Progress Bar Colour"
+    }
   }
 }

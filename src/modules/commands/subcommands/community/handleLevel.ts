@@ -6,6 +6,8 @@ import { CommandHandler } from "../../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
+import { generateLevelHtml } from "../../community/generateLevelHtml";
+import { generateLevelImage } from "../../community/generateLevelImage";
 
 /**
  * Returns the current level ranking information for the given `user-level` or the author.
@@ -38,6 +40,9 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
+    const levelCardHtml = await generateLevelHtml(target, targetLevel);
+    const levelCardImage = await generateLevelImage(levelCardHtml);
+
     const levelEmbed = new MessageEmbed();
     levelEmbed.setColor(Becca.colours.default);
     levelEmbed.setTitle(
@@ -65,6 +70,7 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
     });
+    levelEmbed.setImage("attachment://level.png");
 
     const button = new MessageButton()
       .setLabel(t("commands:community.level.buttons.view"))
@@ -75,7 +81,11 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
       );
     const row = new MessageActionRow().addComponents([button]);
 
-    await interaction.editReply({ embeds: [levelEmbed], components: [row] });
+    await interaction.editReply({
+      embeds: [levelEmbed],
+      components: [row],
+      files: [levelCardImage],
+    });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
