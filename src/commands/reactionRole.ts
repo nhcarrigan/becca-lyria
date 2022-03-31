@@ -7,6 +7,7 @@ import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { handleAdd } from "../modules/commands/subcommands/reactionrole/handleAdd";
 import { handleCreate } from "../modules/commands/subcommands/reactionrole/handleCreate";
+import { handleRemove } from "../modules/commands/subcommands/reactionrole/handleRemove";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
@@ -184,6 +185,9 @@ export const reactionRole: Command = {
           break;
         case "add":
           await handleAdd(Becca, interaction, t, config);
+          break;
+        case "remove":
+          await handleRemove(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
