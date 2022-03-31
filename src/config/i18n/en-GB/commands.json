@@ -716,6 +716,16 @@
     "create": {
       "channel": "That does not appear to be a valid text channel.",
       "success": "I have created the post for people to request titles!"
+    },
+    "add": {
+      "badLink": "That does not appear to be a valid Discord message link.",
+      "badChannel": "That channel does not exist, or is not a text channel.",
+      "badMessage": "That message does not appear to exist.",
+      "notMine": "I cannot edit someone else's messages!",
+      "notReactionRole": "That message does not appear to be a reaction role post.",
+      "hasRole": "That role is already available on this post.",
+      "tooManyRoles": "This reaction role post has 20 roles. I can't add any more!",
+      "success": "I have added that role to the post!"
     }
   },
   "triggers": {

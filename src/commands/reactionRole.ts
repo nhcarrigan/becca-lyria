@@ -5,6 +5,7 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { handleAdd } from "../modules/commands/subcommands/reactionrole/handleAdd";
 import { handleCreate } from "../modules/commands/subcommands/reactionrole/handleCreate";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
@@ -114,6 +115,44 @@ export const reactionRole: Command = {
             .setName("role20")
             .setDescription("Role to create a button for.")
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("add")
+        .setDescription("Adds a reaction role to an existing post.")
+        .addStringOption((option) =>
+          option
+            .setName("link")
+            .setDescription(
+              "The link to the reaction role message you want to add a role to."
+            )
+            .setRequired(true)
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role")
+            .setDescription("The role to add to the reaction role post.")
+            .setRequired(true)
+        )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("remove")
+        .setDescription("Removes a reaction role from an existing post.")
+        .addStringOption((option) =>
+          option
+            .setName("link")
+            .setDescription(
+              "The link to the reaction role message you want to remove a role from."
+            )
+            .setRequired(true)
+        )
+        .addRoleOption((option) =>
+          option
+            .setName("role")
+            .setDescription("The role to remove from the reaction role post.")
+            .setRequired(true)
+        )
     ),
   run: async (Becca, interaction, t, config) => {
     try {
@@ -142,6 +181,9 @@ export const reactionRole: Command = {
       switch (action) {
         case "create":
           await handleCreate(Becca, interaction, t, config);
+          break;
+        case "add":
+          await handleAdd(Becca, interaction, t, config);
           break;
         default:
           await interaction.editReply({
