@@ -1,8 +1,7 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Added UTM tracking to Becca's links",
-  "- Updated the currency rewards",
-  "- Tweaked the member remove flow",
-  "- Added topgg owner command",
+  "- Added level card image to `/community rank`.",
+  "- Added `/userconfig` commands to allow card customisation.",
+  "- Added ability to edit reaction role post buttons.",
 ];
 
-export const nextScheduledRelease = "<t:1648998000:F>";
+export const nextScheduledRelease = "<t:1649602800:F>";
