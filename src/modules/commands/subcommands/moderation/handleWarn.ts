@@ -29,19 +29,24 @@ export const handleWarn: CommandHandler = async (
       return;
     }
 
+    const target = interaction.options.getUser("target", true);
+    const reason = interaction.options.getString("reason", true);
+
+    const targetMember = await guild.members.fetch(target.id);
+
     if (
       !member ||
       typeof member.permissions === "string" ||
-      !member.permissions.has("KICK_MEMBERS")
+      !member.permissions.has("KICK_MEMBERS") ||
+      !targetMember ||
+      typeof targetMember.permissions === "string" ||
+      targetMember.permissions.has("KICK_MEMBERS")
     ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
-
-    const target = interaction.options.getUser("target", true);
-    const reason = interaction.options.getString("reason", true);
 
     if (target.id === member.user.id) {
       await interaction.editReply({

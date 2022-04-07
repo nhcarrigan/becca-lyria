@@ -33,10 +33,15 @@ export const handleBan: CommandHandler = async (
       return;
     }
 
+    const targetMember = await guild.members.fetch(target.id);
+
     if (
       !member ||
       typeof member.permissions === "string" ||
-      !member.permissions.has("BAN_MEMBERS")
+      !member.permissions.has("BAN_MEMBERS") ||
+      !targetMember ||
+      typeof targetMember.permissions === "string" ||
+      !targetMember.permissions.has("BAN_MEMBERS")
     ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
@@ -63,8 +68,6 @@ export const handleBan: CommandHandler = async (
       });
       return;
     }
-
-    const targetMember = await guild.members.fetch(target.id);
 
     if (!targetMember.bannable) {
       await interaction.editReply({
