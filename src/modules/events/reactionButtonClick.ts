@@ -33,7 +33,7 @@ export const reactionButtonClick = async (
       return;
     }
 
-    let content = "Something broke...";
+    let content = "";
 
     if (member.roles.cache.has(role.id)) {
       await member.roles.remove(role);

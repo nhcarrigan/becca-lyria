@@ -58,7 +58,9 @@ export const handleHelp: CommandHandler = async (Becca, interaction, t) => {
       .setLabel(t("commands:becca.help.buttons.docs"))
       .setEmoji("<:BeccaSalute:872577687590420501>")
       .setStyle("LINK")
-      .setURL("https://docs.beccalyria.com");
+      .setURL(
+        "https://docs.beccalyria.com?utm_source=discord&utm_medium=help-command"
+      );
     const reportButton = new MessageButton()
       .setLabel(t("commands:becca.help.buttons.issue"))
       .setEmoji("<:BeccaBan:897545793886634085>")

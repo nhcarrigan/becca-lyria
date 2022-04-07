@@ -9,14 +9,10 @@ import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
 import { sassListener } from "../../listeners/sassListener";
 import { triggerListener } from "../../listeners/triggerListener";
-import { naomiAntiphish } from "../../modules/naomi/naomiAntiphish";
-import { naomiPurgeData } from "../../modules/naomi/naomiPurgeData";
-import { naomiUnregisterCommand } from "../../modules/naomi/naomiUnregisterCommand";
-import { naomiViewCommands } from "../../modules/naomi/naomiViewCommands";
+import { runNaomiCommands } from "../../modules/events/runNaomiCommands";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { getMessageLanguage } from "../../utils/getLangCode";
-import { registerCommands } from "../../utils/registerCommands";
 
 /**
  * Handles the onMessage event. Validates that the message did not come from
@@ -65,28 +61,7 @@ export const messageCreate = async (
       message.author.id === Becca.configs.ownerId &&
       message.content.startsWith("Naomi")
     ) {
-      await message.reply("Heya, Naomi!");
-      if (message.content === "Naomi register") {
-        await registerCommands(Becca);
-        await message.reply("Registered commands!");
-        return;
-      }
-      if (message.content.startsWith("Naomi unregister")) {
-        await naomiUnregisterCommand(Becca, message);
-        return;
-      }
-      if (message.content === "Naomi view") {
-        await naomiViewCommands(Becca, message);
-        return;
-      }
-      if (message.content.startsWith("Naomi purge")) {
-        await naomiPurgeData(Becca, message);
-        return;
-      }
-      if (message.content.startsWith("Naomi fish")) {
-        await naomiAntiphish(Becca, message);
-        return;
-      }
+      await runNaomiCommands(Becca, message);
     }
     Becca.pm2.metrics.events.mark();
   } catch (err) {

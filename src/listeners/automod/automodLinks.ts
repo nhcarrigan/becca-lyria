@@ -76,7 +76,9 @@ export const automodLinks: ListenerHandler = async (
       });
       const warning = await message.channel.send({ embeds: [linkEmbed] });
 
-      setTimeout(async () => await warning.delete(), 300000);
+      setTimeout(async () => {
+        await warning.delete();
+      }, 300000);
 
       const dmEmbed = new MessageEmbed();
       dmEmbed.setTitle("Your message has been deleted...");

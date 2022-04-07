@@ -103,7 +103,7 @@
       },
       "privacy": {
         "title": "Privacy Policy",
-        "description": "As part of my services, I collect and use some specific Discord related information. This information includes, but may not be limited to, your user name, nickname, this server's name, and your Discord ID. [View my full policy](https://docs.beccalyria.com/#/privacy-policy)"
+        "description": "As part of my services, I collect and use some specific Discord related information. This information includes, but may not be limited to, your user name, nickname, this server's name, and your Discord ID. [View my full policy](https://docs.beccalyria.com/#/privacy-policy?utm_source=discord&utm_medium=privacy-command)"
       },
       "buttons": {
         "support": "Join our support server",
@@ -130,11 +130,11 @@
     },
     "privacy": {
       "title": "I'll keep your secrets safe!",
-      "description": "To maintain my functionality, I need to collect quite a bit of data. Mostly, this data is user/server IDs, names, and avatars.\n\nI will never store your message content in my database, but it may be logged in this server if the admins have enabled it.\n\nIf you want a full breakdown of everything I collect, [view my privacy policy](https://docs.beccalyria.com/#/privacy-policy)."
+      "description": "To maintain my functionality, I need to collect quite a bit of data. Mostly, this data is user/server IDs, names, and avatars.\n\nI will never store your message content in my database, but it may be logged in this server if the admins have enabled it.\n\nIf you want a full breakdown of everything I collect, [view my privacy policy](https://docs.beccalyria.com/#/privacy-policy?utm_source=discord&utm_medium=privacy-command)."
     },
     "profile": {
       "title": "Becca Lyria",
-      "description": "If you want to read about my adventures, check my [profile site](https://www.beccalyria.com). I would rather not have to recount them all here.",
+      "description": "If you want to read about my adventures, check my [profile site](https://www.beccalyria.com?utm_source=discord&utm_medium=profile-command). I would rather not have to recount them all here.",
       "buttons": {
         "view": "View Becca's profile"
       }
@@ -176,7 +176,7 @@
       "next": "Next Scheduled Update",
       "changelog": {
         "title": "Change Log",
-        "description": "View Becca's entire change log [in her documentation](https://docs.beccalyria.com/#/changelog)."
+        "description": "View Becca's entire change log [in her documentation](https://docs.beccalyria.com/#/changelog?utm_source=discord&utm_medium=changelog-command)."
       },
       "commit": "Commit Hash",
       "buttons": {
@@ -218,7 +218,7 @@
       }
     },
     "level": {
-      "none": "{{user}} has not earned any levels yet...",
+      "none": "{{- user}} has not earned any levels yet...",
       "title": "{{user}}'s Ranking",
       "description": "Here is the record I have in {{name}}",
       "points": "Experience Points",
@@ -385,10 +385,10 @@
       "price": "This reward costs {{price}} BeccaCoint. You only have {{total}}.",
       "invalid": "This somehow appears to be an invalid reward. Please check with the developer team.",
       "details": "Reward Details",
-      "monarch": "You will take the monarch role from whomever has it in our support server, and you will keep the role until someone else takes it from you.",
-      "emote": "You will be able to work with nhcarrigan to determine the next pose for a Becca emote. The emote will be available in the support server. nhcarrigan will retain all rights to the art and the character, but we will make an announcement in the support server thanking you for the emote idea.",
-      "feature": "You will be able to work with nhcarrigan and the development team to suggest a new feature for Becca. We reserve the right to refuse features that are not in line with Becca's primary purpose, but will work with you until you we reach a feature proposal everyone is happy with.",
-      "wealthy": "You will be given the Wealthy role in our support server. You will keep this role.",
+      "monarch": "You will take the `Monarch` role from whomever has it in our support server, and you will keep the role until someone else takes it from you.",
+      "custom-monarch": "You will take the `Monarch (custom)` role from whomever has it in our support server, and you will keep the role until someone else takes it from you. You will also be able to choose a new colour for the role.",
+      "wealthy": "You will be given the `Wealthy` role in our support server. You will keep this role.",
+      "custom-wealthy": "You will be given your own `Wealthy (custom)` role in our support server. You will keep this role. (In the event of a server role cap, this reward will be unavailable.)",
       "button": "Join our server to redeem your rewards!"
     },
     "daily": {
@@ -716,6 +716,25 @@
     "create": {
       "channel": "That does not appear to be a valid text channel.",
       "success": "I have created the post for people to request titles!"
+    },
+    "add": {
+      "badLink": "That does not appear to be a valid Discord message link.",
+      "badChannel": "That channel does not exist, or is not a text channel.",
+      "badMessage": "That message does not appear to exist.",
+      "notMine": "I cannot edit someone else's messages!",
+      "notReactionRole": "That message does not appear to be a reaction role post.",
+      "hasRole": "That role is already available on this post.",
+      "tooManyRoles": "This reaction role post has 20 roles. I can't add any more!",
+      "success": "I have added that role to the post!"
+    },
+    "remove": {
+      "badLink": "That does not appear to be a valid Discord message link.",
+      "badChannel": "That channel does not exist, or is not a text channel.",
+      "badMessage": "That message does not appear to exist.",
+      "notMine": "I cannot edit someone else's messages!",
+      "notReactionRole": "That message does not appear to be a reaction role post.",
+      "noRole": "That role is not available on this post.",
+      "success": "I have removed that role from the post!"
     }
   },
   "triggers": {
@@ -736,6 +755,25 @@
       "none": "This server does not have any triggers yet.",
       "title": "Available Triggers",
       "footer": "Page {{page}} of {{last}}"
+    }
+  },
+  "userconfig": {
+    "view": {
+      "title": "Your Bot Settings",
+      "description": "These are the individual settings you have configured for Becca.",
+      "levelcard": {
+        "background": "Background Colour",
+        "foreground": "Foreground Colour",
+        "progress": "Progress Bar Colour"
+      }
+    },
+    "levelcard": {
+      "title": "Level Card Settings",
+      "description": "Your level card settings have been updated!",
+      "invalidColour": "Colours must be hex strings, such as #FFFFFF.",
+      "background": "Background Colour",
+      "foreground": "Foreground Colour",
+      "progress": "Progress Bar Colour"
     }
   }
 }

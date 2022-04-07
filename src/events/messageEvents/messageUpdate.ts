@@ -1,4 +1,3 @@
-import { diffSentences } from "diff";
 import { Message, MessageEmbed, PartialMessage } from "discord.js";
 import { getFixedT } from "i18next";
 
@@ -10,6 +9,7 @@ import { triggerListener } from "../../listeners/triggerListener";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { generateDiff } from "../../utils/generateDiff";
 
 /**
  * Handles the messageUpdate event. Validates that the content in the message
@@ -50,12 +50,7 @@ export const messageUpdate = async (
 
     const diffContent =
       oldContent && newContent
-        ? diffSentences(oldContent, newContent)
-            .map((el) =>
-              el.added ? `+ ${el.value}` : el.removed ? `- ${el.value}` : ""
-            )
-            .filter((el) => el)
-            .join("\n")
+        ? generateDiff(oldContent, newContent)
         : t("events:message.edit.nocont");
 
     const updateEmbed = new MessageEmbed();
