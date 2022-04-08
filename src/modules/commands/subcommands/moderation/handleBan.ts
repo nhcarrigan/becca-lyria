@@ -40,7 +40,6 @@ export const handleBan: CommandHandler = async (
       typeof member.permissions === "string" ||
       !member.permissions.has("BAN_MEMBERS") ||
       !targetMember ||
-      typeof targetMember.permissions === "string" ||
       !targetMember.permissions.has("BAN_MEMBERS")
     ) {
       await interaction.editReply({

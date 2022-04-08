@@ -39,7 +39,6 @@ export const handleWarn: CommandHandler = async (
       typeof member.permissions === "string" ||
       !member.permissions.has("KICK_MEMBERS") ||
       !targetMember ||
-      typeof targetMember.permissions === "string" ||
       targetMember.permissions.has("KICK_MEMBERS")
     ) {
       await interaction.editReply({

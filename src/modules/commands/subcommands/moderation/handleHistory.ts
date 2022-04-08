@@ -29,7 +29,6 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
         !member.permissions.has("BAN_MEMBERS") &&
         !member.permissions.has("MODERATE_MEMBERS")) ||
       !targetMember ||
-      typeof targetMember.permissions === "string" ||
       (!targetMember.permissions.has("KICK_MEMBERS") &&
         !targetMember.permissions.has("BAN_MEMBERS") &&
         !targetMember.permissions.has("MODERATE_MEMBERS"))

@@ -39,7 +39,6 @@ export const handleUnmute: CommandHandler = async (
       typeof member.permissions === "string" ||
       !member.permissions.has("MODERATE_MEMBERS") ||
       !targetMember ||
-      typeof targetMember.permissions === "string" ||
       targetMember.permissions.has("MODERATE_MEMBERS")
     ) {
       await interaction.editReply({
