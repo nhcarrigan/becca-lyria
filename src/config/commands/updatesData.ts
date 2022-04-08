@@ -1,8 +1,7 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Patched some incorrect i18n strings",
-  "- Added a new anti-phishing system",
-  "- Added currency reward reminders",
-  "- Moved the owner commands into hidden message commands",
+  "- Added level card image to `/community rank`.",
+  "- Added `/userconfig` commands to allow card customisation.",
+  "- Added ability to edit reaction role post buttons.",
 ];
 
-export const nextScheduledRelease = "<t:1644206474:F>";
+export const nextScheduledRelease = "<t:1649602800:F>";

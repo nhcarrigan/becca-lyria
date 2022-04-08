@@ -52,7 +52,7 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
     }
 
     const embed = new MessageEmbed();
-    embed.setTitle(t("commnands:mod.history.title", { user: target.tag }));
+    embed.setTitle(t("commands:mod.history.title", { user: target.tag }));
     embed.setDescription(t("commands:mod.history.description"));
     embed.setColor(Becca.colours.default);
     embed.setThumbnail(target.displayAvatarURL());

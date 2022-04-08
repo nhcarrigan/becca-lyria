@@ -25,7 +25,9 @@ export const handleProfile: CommandHandler = async (Becca, interaction, t) => {
       .setLabel(t("commands:becca.profile.buttons.view"))
       .setEmoji("<:BeccaHello:867102882791424073>")
       .setStyle("LINK")
-      .setURL("https://www.beccalyria.com");
+      .setURL(
+        "https://www.beccalyria.com?utm_source=discord&utm_medium=profile-command"
+      );
 
     const row = new MessageActionRow().addComponents([profileButton]);
 

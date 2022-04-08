@@ -46,7 +46,7 @@ export const handleClaim: CurrencyHandler = async (
           t("commands:currency.claim.monarch")
         );
         break;
-      case "emote":
+      case "custom-monarch":
         if (data.currencyTotal < 5000) {
           await interaction.editReply(
             t("commands:currency.claim.price", {
@@ -60,10 +60,10 @@ export const handleClaim: CurrencyHandler = async (
         await data.save();
         claimEmbed.addField(
           t("commands:currency.claim.details"),
-          t("commands:currency.claim.emote")
+          t("commands:currency.claim.custom-monarch")
         );
         break;
-      case "feature":
+      case "wealthy":
         if (data.currencyTotal < 10000) {
           await interaction.editReply(
             t("commands:currency.claim.price", {
@@ -77,10 +77,10 @@ export const handleClaim: CurrencyHandler = async (
         await data.save();
         claimEmbed.addField(
           t("commands:currency.claim.details"),
-          t("commands:currency.claim.feature")
+          t("commands:currency.claim.wealthy")
         );
         break;
-      case "wealthy":
+      case "custom-wealthy":
         if (data.currencyTotal < 25000) {
           await interaction.editReply(
             t("commands:currency.claim.price", {
@@ -94,7 +94,7 @@ export const handleClaim: CurrencyHandler = async (
         await data.save();
         claimEmbed.addField(
           t("commands:currency.claim.details"),
-          t("commands:currency.claim.wealthy")
+          t("commands:currency.claim.custom-wealthy")
         );
         break;
       case "default":

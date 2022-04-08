@@ -5,6 +5,7 @@ import { defaultServer } from "../../config/database/defaultServer";
 import ServerModel from "../../database/models/ServerConfigModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { memberRemoveCleanup } from "../../modules/guild/memberRemoveCleanup";
+import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { sendWelcomeEmbed } from "../../modules/guild/sendWelcomeEmbed";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
@@ -20,7 +21,7 @@ export const memberRemove = async (
   member: GuildMember | PartialGuildMember
 ): Promise<void> => {
   try {
-    const { user, guild, nickname, roles } = member;
+    const { user, guild, nickname, roles, pending } = member;
 
     if (!user) {
       return;
@@ -53,7 +54,10 @@ export const memberRemove = async (
     goodbyeEmbed.setFooter(`ID: ${user.id}`);
     goodbyeEmbed.setTimestamp();
 
-    await sendWelcomeEmbed(Becca, guild, "leave", goodbyeEmbed);
+    pending
+      ? await sendLogEmbed(Becca, guild, goodbyeEmbed, "member_events")
+      : await sendWelcomeEmbed(Becca, guild, "leave", goodbyeEmbed);
+
     await memberRemoveCleanup(Becca, member.id, guild.id);
 
     Becca.pm2.metrics.users.set(Becca.pm2.metrics.users.val() - 1);

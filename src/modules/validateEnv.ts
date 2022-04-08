@@ -10,7 +10,7 @@ import { beccaLogHandler } from "../utils/beccaLogHandler";
  * and attaches them.
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
- * @returns {Object} Object containing a valid property as boolean, and a message as string.
+ * @returns {object} Object containing a valid property as boolean, and a message as string.
  */
 export const validateEnv = (
   Becca: BeccaLyria
@@ -88,6 +88,7 @@ export const validateEnv = (
       version: process.env.npm_package_version || "null",
       id: process.env.CLIENT_ID,
       homeGuild: process.env.HOME_GUILD_ID,
+      topGGToken: process.env.TOPGG_TOKEN || "",
       topGG: process.env.TOPGG_PASSWORD,
       voteChannel: process.env.VOTE_CHANNEL_ID,
       habiticaKey: process.env.HABITICA_KEY,
