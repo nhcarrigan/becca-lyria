@@ -28,7 +28,6 @@ export const handleMute: CommandHandler = async (
     const duration = interaction.options.getInteger("duration", true);
     const durationUnit = interaction.options.getString("unit", true);
     const reason = interaction.options.getString("reason", true);
-
     const durationMilliseconds = calculateMilliseconds(duration, durationUnit);
 
     if (!durationMilliseconds) {
@@ -52,10 +51,14 @@ export const handleMute: CommandHandler = async (
       return;
     }
 
+    const targetMember = await guild.members.fetch(target.id);
+
     if (
       !member ||
       typeof member.permissions === "string" ||
-      !member.permissions.has("MODERATE_MEMBERS")
+      !member.permissions.has("MODERATE_MEMBERS") ||
+      !targetMember ||
+      targetMember.permissions.has("MODERATE_MEMBERS")
     ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),

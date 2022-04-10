@@ -32,10 +32,14 @@ export const handleKick: CommandHandler = async (
       return;
     }
 
+    const targetMember = await guild.members.fetch(target.id);
+
     if (
       !member ||
       typeof member.permissions === "string" ||
-      !member.permissions.has("KICK_MEMBERS")
+      !member.permissions.has("KICK_MEMBERS") ||
+      !targetMember ||
+      targetMember.permissions.has("KICK_MEMBERS")
     ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
@@ -55,8 +59,6 @@ export const handleKick: CommandHandler = async (
       });
       return;
     }
-
-    const targetMember = await guild.members.fetch(target.id);
 
     if (!targetMember.kickable) {
       await interaction.editReply({
