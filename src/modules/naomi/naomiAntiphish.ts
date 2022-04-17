@@ -34,7 +34,10 @@ export const naomiAntiphish = async (Becca: BeccaLyria, message: Message) => {
     );
 
     await message.reply(
-      `I have reported that domain! Here's the result:\n\`${result.data.message}\``
+      `I have reported that domain! Here's the result:\n${JSON.stringify({
+        walshy: walshyResult.data.message,
+        heptagram: heptagramResult.data,
+      })}`
     );
   } catch (err) {
     await beccaErrorHandler(
