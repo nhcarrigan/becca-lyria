@@ -71,6 +71,10 @@ export const validateEnv = (
       return { valid: false, message: "Missing Orbit API key" };
     }
 
+    if (!process.env.HEPTAGRAM_API_TOKEN) {
+      return { valid: false, message: "Missing Heptagram API token" };
+    }
+
     Becca.commitHash = child.execSync("git rev-parse HEAD").toString().trim();
 
     const configs: BeccaLyria["configs"] = {
@@ -93,6 +97,7 @@ export const validateEnv = (
       voteChannel: process.env.VOTE_CHANNEL_ID,
       habiticaKey: process.env.HABITICA_KEY,
       orbitKey: process.env.ORBIT_KEY,
+      heptagramApiToken: process.env.HEPTAGRAM_API_TOKEN,
     };
 
     Becca.configs = configs;
