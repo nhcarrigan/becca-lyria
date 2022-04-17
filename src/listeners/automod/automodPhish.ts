@@ -47,6 +47,23 @@ export const automodPhish: ListenerHandler = async (
     let scamSource = "";
 
     for (const link of blockedLinkList) {
+
+      const checkHeptagramAPI = await axios.get<boolean>(
+        `http://heptagrambotproject.com/api/v0/api/scam/link/check?url=${link}`,
+        {
+          // send authentication header
+          headers: {
+            Authorization: "Bearer " + config.heptagramApiToken,
+          },
+        });
+
+      if (checkHeptagramAPI.data) {
+        scamDetected = true;
+        scamLink = link;
+        scamSource = "Heptagram";
+        break;
+      }
+
       const checkWalshyAPI = await axios.post<{
         badDomain: boolean;
         detection: "discord" | "community";
@@ -58,22 +75,6 @@ export const automodPhish: ListenerHandler = async (
         scamDetected = true;
         scamLink = link;
         scamSource = "walshy";
-        break;
-      }
-
-     const checkHeptagramAPI = await axios.get<boolean>(
-        `http://heptagrambotproject.com/api/v0/api/scam/link/check?url=${link}`,
-        {
-        // send authentication header
-        headers: {
-          Authorization: "Bearer " + config.heptagramApiToken,
-        },
-      });
-
-      if (checkHeptagramAPI.data) {
-        scamDetected = true;
-        scamLink = link;
-        scamSource = "Heptagram";
         break;
       }
 
