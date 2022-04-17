@@ -43,7 +43,6 @@ export const validateSetting = async (
         );
       case "join_role":
         return !!parsedValue && !!(await guild.roles.fetch(`${parsedValue}`));
-      case "self_roles":
       case "automod_roles":
         return (
           !!parsedValue &&

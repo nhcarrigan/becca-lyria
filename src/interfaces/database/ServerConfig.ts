@@ -14,7 +14,6 @@ export interface ServerConfig extends Document {
   custom_welcome: string;
   hearts: string[];
   blocked: string[];
-  self_roles: string[];
   triggers: [string, string][];
   automod_channels: string[];
   no_automod_channels: string[];
@@ -51,7 +50,6 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   custom_welcome: "",
   hearts: [],
   blocked: [],
-  self_roles: [],
   triggers: [],
   automod_channels: [],
   no_automod_channels: [],

@@ -235,13 +235,7 @@
       "results": "Results!"
     },
     "role": {
-      "none": "Your guild does not have any self assignable titles.",
-      "title": "Here are the titles I can grant you!",
-      "page": "Page {{page}} of {{last}}",
-      "invalid": "I cannot cast that enchantment. You will need to speak to someone higher up.",
-      "error": "Something is wrong with your role data...",
-      "removed": "You are no longer enchanted with {{name}}.",
-      "added": "I have cast the {{name}} charm on you."
+      "deprecated": "This command has been deprecated in favour of reaction roles. If your server does not have reaction roles set up, ask an admin to configure them!"
     },
     "schedule": {
       "permission": "You are not allowed to send messages in that channel.",

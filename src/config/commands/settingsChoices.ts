@@ -15,7 +15,6 @@ export const configChoices: [string, Settings][] = [
   ["Custom Welcome Message", "custom_welcome"],
   ["Heart Users", "hearts"],
   ["Blocked Users", "blocked"],
-  ["Self-assignable Roles", "self_roles"],
   ["Level-assigned Roles", "level_roles"],
   ["Role on Join", "join_role"],
   ["Custom Leave Message", "leave_message"],
@@ -30,7 +29,6 @@ export const configViewChoices: [string, ArraySettings | "global"][] = [
   ["Global Settings", "global"],
   // global must be on top for tests to pass
   ["Heart Users", "hearts"],
-  ["Self-Assignable Roles", "self_roles"],
   ["Blocked Users", "blocked"],
   ["Level-assigned Roles", "level_roles"],
   ["No Levelling Channels", "level_ignore"],

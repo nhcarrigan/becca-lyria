@@ -49,7 +49,6 @@ export const renderSetting = (
       case "hearts":
       case "blocked":
         return `<@!${value}>`;
-      case "self_roles":
       case "automod_roles":
       case "join_role":
         return `<@&${value}>`;

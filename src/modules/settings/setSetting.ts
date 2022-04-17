@@ -46,7 +46,6 @@ export const setSetting = async (
         break;
       case "hearts":
       case "blocked":
-      case "self_roles":
       case "automod_roles":
       case "level_ignore":
       case "emote_channels":

@@ -11,7 +11,6 @@ export type Settings =
   | "custom_welcome"
   | "hearts"
   | "blocked"
-  | "self_roles"
   | "automod_channels"
   | "no_automod_channels"
   | "automod_roles"

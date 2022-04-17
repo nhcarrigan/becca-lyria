@@ -15,7 +15,6 @@ export const defaultServer = {
     "Hello {@username}! Welcome to {@servername}! My name is Becca. Feel free to let me know if you need anything.",
   hearts: [] as string[],
   blocked: [] as string[],
-  self_roles: [] as string[],
   triggers: [] as [string, string][],
   automod_channels: [] as string[],
   no_automod_channels: [] as string[],
