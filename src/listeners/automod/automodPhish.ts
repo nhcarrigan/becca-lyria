@@ -61,6 +61,22 @@ export const automodPhish: ListenerHandler = async (
         break;
       }
 
+     const checkHeptagramAPI = await axios.get<boolean>(
+        `http://heptagrambotproject.com/api/v0/api/scam/link/check?url=${link}`,
+        {
+        // send authentication header
+        headers: {
+          Authorization: "Bearer " + config.heptagramApiToken,
+        },
+      });
+
+      if (checkHeptagramAPI.data) {
+        scamDetected = true;
+        scamLink = link;
+        scamSource = "Heptagram";
+        break;
+      }
+
       const checkSinkingYachtsAPI = await axios.get<boolean>(
         `https://phish.sinking.yachts/v2/check/${link.replace(
           /https?:\/\//,
