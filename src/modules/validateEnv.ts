@@ -72,7 +72,7 @@ export const validateEnv = (
     }
 
     if (!process.env.HEPTAGRAM_API_TOKEN) {
-      return { valid: false, message: "Missing Heptagram API token"};
+      return { valid: false, message: "Missing Heptagram API token" };
     }
 
     Becca.commitHash = child.execSync("git rev-parse HEAD").toString().trim();
@@ -97,7 +97,7 @@ export const validateEnv = (
       voteChannel: process.env.VOTE_CHANNEL_ID,
       habiticaKey: process.env.HABITICA_KEY,
       orbitKey: process.env.ORBIT_KEY,
-      heptagramApiToken: process.env.HEPTAGRAM_API_TOKEN
+      heptagramApiToken: process.env.HEPTAGRAM_API_TOKEN,
     };
 
     Becca.configs = configs;
