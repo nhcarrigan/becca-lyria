@@ -7,7 +7,8 @@
       "description": "A scam link was detected in the server.",
       "user": "User",
       "link": "Link",
-      "action": "Action"
+      "action": "Action",
+      "source": "Detection Source"
     },
     "links": {
       "title": "Invalid link detected!",
