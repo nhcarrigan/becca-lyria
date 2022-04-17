@@ -20,7 +20,7 @@ export const naomiAntiphish = async (Becca: BeccaLyria, message: Message) => {
       { domain: link }
     ) &&
       axios.post<boolean>(
-      `http://heptagrambotproject.com/api/v0/api/scam/link/post}`,
+      `http://heptagrambotproject.com/api/v0/api/scam/link/post`,
       {
       headers: {
         Authorization: "Bearer " + config.heptagramApiToken,
