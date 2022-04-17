@@ -63,8 +63,12 @@ export const handleSuggest: CommandHandler = async (
     const sentMessage = await suggestionChannel.send({
       embeds: [suggestionEmbed],
     });
-    await sentMessage.react(Becca.configs.yes);
-    await sentMessage.react(Becca.configs.no);
+    await sentMessage
+      .react(Becca.configs.yes)
+      .catch(async () => await sentMessage.react("✅"));
+    await sentMessage
+      .react(Becca.configs.no)
+      .catch(async () => await sentMessage.react("❌"));
 
     await interaction.editReply({
       content: t("commands:community.suggest.success"),
