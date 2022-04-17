@@ -103,11 +103,6 @@ export const viewSettings = async (
       true
     );
     settingsEmbed.addField(
-      t("commands:config.view.selfrole"),
-      config.self_roles.length.toString(),
-      true
-    );
-    settingsEmbed.addField(
       t("commands:config.view.emote"),
       config.emote_channels.length.toString(),
       true

@@ -17,7 +17,6 @@ export const ServerConfigSchema = new Schema({
   custom_welcome: String,
   hearts: [String],
   blocked: [String],
-  self_roles: [String],
   level_roles: [Object],
   join_role: String,
   leave_message: String,
