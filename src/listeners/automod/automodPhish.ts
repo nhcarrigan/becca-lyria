@@ -44,18 +44,40 @@ export const automodPhish: ListenerHandler = async (
 
     let scamDetected = false;
     let scamLink = "";
+    let scamSource = "";
 
     for (const link of blockedLinkList) {
-      const checkForScam = await axios.post<{
+      const checkWalshyAPI = await axios.post<{
         badDomain: boolean;
         detection: "discord" | "community";
       }>("https://bad-domains.walshy.dev/check", {
         domain: link,
       });
 
-      if (checkForScam.data.badDomain) {
+      if (checkWalshyAPI.data.badDomain) {
         scamDetected = true;
         scamLink = link;
+        scamSource = "walshy";
+        break;
+      }
+
+      const checkSinkingYachtsAPI = await axios.get<boolean>(
+        `https://phish.sinking.yachts/v2/check/${link.replace(
+          /https?:\/\//,
+          ""
+        )}`,
+        {
+          headers: {
+            accept: "application/json",
+            "X-Identity": "Becca Lyria - built by Naomi#0001",
+          },
+        }
+      );
+
+      if (checkSinkingYachtsAPI.data) {
+        scamDetected = true;
+        scamLink = link;
+        scamSource = "sinking yachts";
         break;
       }
     }
@@ -103,6 +125,11 @@ export const automodPhish: ListenerHandler = async (
     logEmbed.addField(
       t("listeners:automod.antiphish.action"),
       config.antiphish,
+      true
+    );
+    logEmbed.addField(
+      t("listeners:automod.antiphish.source"),
+      scamSource,
       true
     );
 
