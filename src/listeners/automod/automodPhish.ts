@@ -47,9 +47,10 @@ export const automodPhish: ListenerHandler = async (
     let scamSource = "";
 
     for (const link of blockedLinkList) {
+      const encodedLink = encodeURI(link.replace(/https?:\/\//, ""));
       const checkHeptagramAPI = await axios
         .get<boolean>(
-          `http://api.heptagrambotproject.com/api/v0/api/scam/link/check?url=${link}`,
+          `http://api.heptagrambotproject.com/api/v0/api/scam/link/check?url=${encodedLink}`,
           {
             // send authentication header
             headers: {
@@ -115,18 +116,12 @@ export const automodPhish: ListenerHandler = async (
       }
 
       const checkSinkingYachtsAPI = await axios
-        .get<boolean>(
-          `https://phish.sinking.yachts/v2/check/${link.replace(
-            /https?:\/\//,
-            ""
-          )}`,
-          {
-            headers: {
-              accept: "application/json",
-              "X-Identity": "Becca Lyria - built by Naomi#0001",
-            },
-          }
-        )
+        .get<boolean>(`https://phish.sinking.yachts/v2/check/${encodedLink}`, {
+          headers: {
+            accept: "application/json",
+            "X-Identity": "Becca Lyria - built by Naomi#0001",
+          },
+        })
         .catch(async (err) => {
           await Becca.debugHook.send({
             embeds: [
