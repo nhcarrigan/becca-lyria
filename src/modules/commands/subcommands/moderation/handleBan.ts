@@ -40,7 +40,7 @@ export const handleBan: CommandHandler = async (
       typeof member.permissions === "string" ||
       !member.permissions.has("BAN_MEMBERS") ||
       !targetMember ||
-      !targetMember.permissions.has("BAN_MEMBERS")
+      targetMember.permissions.has("BAN_MEMBERS")
     ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
