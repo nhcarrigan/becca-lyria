@@ -47,15 +47,33 @@ export const automodPhish: ListenerHandler = async (
     let scamSource = "";
 
     for (const link of blockedLinkList) {
-      const checkHeptagramAPI = await axios.get<boolean>(
-        `http://api.heptagrambotproject.com/api/v0/api/scam/link/check?url=${link}`,
-        {
-          // send authentication header
-          headers: {
-            Authorization: "Bearer " + Becca.configs.heptagramApiToken,
-          },
-        }
-      );
+      const checkHeptagramAPI = await axios
+        .get<boolean>(
+          `http://api.heptagrambotproject.com/api/v0/api/scam/link/check?url=${link}`,
+          {
+            // send authentication header
+            headers: {
+              Authorization: "Bearer " + Becca.configs.heptagramApiToken,
+            },
+          }
+        )
+        .catch(async (err) => {
+          await Becca.debugHook.send({
+            embeds: [
+              {
+                title: "Heptagram Api Error",
+                description: JSON.stringify(err, null, 2),
+                fields: [
+                  {
+                    name: "Link Detected",
+                    value: link,
+                  },
+                ],
+              },
+            ],
+          });
+          return { data: false };
+        });
 
       if (checkHeptagramAPI.data) {
         scamDetected = true;
@@ -64,12 +82,30 @@ export const automodPhish: ListenerHandler = async (
         break;
       }
 
-      const checkWalshyAPI = await axios.post<{
-        badDomain: boolean;
-        detection: "discord" | "community";
-      }>("https://bad-domains.walshy.dev/check", {
-        domain: link,
-      });
+      const checkWalshyAPI = await axios
+        .post<{
+          badDomain: boolean;
+          detection: "discord" | "community";
+        }>("https://bad-domains.walshy.dev/check", {
+          domain: link,
+        })
+        .catch(async (err) => {
+          await Becca.debugHook.send({
+            embeds: [
+              {
+                title: "Walshy Api Error",
+                description: JSON.stringify(err, null, 2),
+                fields: [
+                  {
+                    name: "Link Detected",
+                    value: link,
+                  },
+                ],
+              },
+            ],
+          });
+          return { data: { badDomain: false } };
+        });
 
       if (checkWalshyAPI.data.badDomain) {
         scamDetected = true;
@@ -78,18 +114,36 @@ export const automodPhish: ListenerHandler = async (
         break;
       }
 
-      const checkSinkingYachtsAPI = await axios.get<boolean>(
-        `https://phish.sinking.yachts/v2/check/${link.replace(
-          /https?:\/\//,
-          ""
-        )}`,
-        {
-          headers: {
-            accept: "application/json",
-            "X-Identity": "Becca Lyria - built by Naomi#0001",
-          },
-        }
-      );
+      const checkSinkingYachtsAPI = await axios
+        .get<boolean>(
+          `https://phish.sinking.yachts/v2/check/${link.replace(
+            /https?:\/\//,
+            ""
+          )}`,
+          {
+            headers: {
+              accept: "application/json",
+              "X-Identity": "Becca Lyria - built by Naomi#0001",
+            },
+          }
+        )
+        .catch(async (err) => {
+          await Becca.debugHook.send({
+            embeds: [
+              {
+                title: "Sinking Yachts Api Error",
+                description: JSON.stringify(err, null, 2),
+                fields: [
+                  {
+                    name: "Link Detected",
+                    value: link,
+                  },
+                ],
+              },
+            ],
+          });
+          return { data: false };
+        });
 
       if (checkSinkingYachtsAPI.data) {
         scamDetected = true;
