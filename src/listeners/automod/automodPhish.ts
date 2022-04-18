@@ -48,7 +48,7 @@ export const automodPhish: ListenerHandler = async (
 
     for (const link of blockedLinkList) {
       const checkHeptagramAPI = await axios.get<boolean>(
-        `http://heptagrambotproject.com/api/v0/api/scam/link/check?url=${link}`,
+        `http://api.heptagrambotproject.com/api/v0/api/scam/link/check?url=${link}`,
         {
           // send authentication header
           headers: {
