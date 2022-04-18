@@ -47,7 +47,9 @@ export const automodPhish: ListenerHandler = async (
     let scamSource = "";
 
     for (const link of blockedLinkList) {
-      const encodedLink = encodeURI(link.replace(/https?:\/\//, ""));
+      const encodedLink = encodeURI(
+        link.replace(/https?:\/\//, "").split("/")[0]
+      );
       const checkHeptagramAPI = await axios
         .get<boolean>(
           `http://api.heptagrambotproject.com/api/v0/api/scam/link/check?url=${encodedLink}`,
