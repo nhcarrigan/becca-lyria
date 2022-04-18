@@ -50,40 +50,40 @@ export const automodPhish: ListenerHandler = async (
       const encodedLink = encodeURI(
         link.replace(/https?:\/\//, "").split("/")[0]
       );
-      // const checkHeptagramAPI = await axios
-      //   .get<boolean>(
-      //     `https://api.heptagrambotproject.com/api/v0/scam/links/check?url=${encodedLink}`,
-      //     {
-      //       // send authentication header
-      //       headers: {
-      //         Authorization: "Bearer " + Becca.configs.heptagramApiToken,
-      //       },
-      //     }
-      //   )
-      //   .catch(async (err) => {
-      //     await Becca.debugHook.send({
-      //       embeds: [
-      //         {
-      //           title: "Heptagram Api Error",
-      //           description: JSON.stringify(err, null, 2),
-      //           fields: [
-      //             {
-      //               name: "Link Detected",
-      //               value: link,
-      //             },
-      //           ],
-      //         },
-      //       ],
-      //     });
-      //     return { data: false };
-      //   });
+      const checkHeptagramAPI = await axios
+        .get<{ scamDetected: boolean }>(
+          `https://api.heptagrambotproject.com/api/v0/scam/links/check?url=${encodedLink}`,
+          {
+            // send authentication header
+            headers: {
+              Authorization: "Bearer " + Becca.configs.heptagramApiToken,
+            },
+          }
+        )
+        .catch(async (err) => {
+          await Becca.debugHook.send({
+            embeds: [
+              {
+                title: "Heptagram Api Error",
+                description: JSON.stringify(err, null, 2),
+                fields: [
+                  {
+                    name: "Link Detected",
+                    value: link,
+                  },
+                ],
+              },
+            ],
+          });
+          return { data: { scamDetected: false } };
+        });
 
-      // if (checkHeptagramAPI.data) {
-      //   scamDetected = true;
-      //   scamLink = link;
-      //   scamSource = "Heptagram";
-      //   break;
-      // }
+      if (checkHeptagramAPI.data.scamDetected) {
+        scamDetected = true;
+        scamLink = link;
+        scamSource = "Heptagram";
+        break;
+      }
 
       const checkWalshyAPI = await axios
         .post<{
