@@ -52,7 +52,7 @@ export const automodPhish: ListenerHandler = async (
       );
       const checkHeptagramAPI = await axios
         .get<boolean>(
-          `http://api.heptagrambotproject.com/api/v0/api/scam/link/check?url=${encodedLink}`,
+          `https://api.heptagrambotproject.com/api/v0/scam/links/check?url=${encodedLink}`,
           {
             // send authentication header
             headers: {
