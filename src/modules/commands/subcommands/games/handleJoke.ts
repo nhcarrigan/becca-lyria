@@ -21,7 +21,7 @@ export const handleJoke: CommandHandler = async (Becca, interaction, t) => {
       }
     );
 
-    if (!joke.data || joke.data.status !== 200) {
+    if (!joke.data || joke.status !== 200) {
       await interaction.editReply({
         content: t("commands:games.joke.no"),
       });
