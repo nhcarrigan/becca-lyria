@@ -502,6 +502,10 @@
       "no": "I am not in the mood for humour right now.",
       "title": "Perhaps this will entertain you..."
     },
+    "quote": {
+      "no": "I am not in the mood for quoting right now.",
+      "title": "Perhaps this will enlighten you..."
+    },
     "mtg": {
       "no": "That card does not seem to exist...",
       "flavour": "This card has no flavour text...",
