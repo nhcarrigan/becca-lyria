@@ -10,6 +10,7 @@ import { handleFact } from "../modules/commands/subcommands/games/handleFact";
 import { handleHabitica } from "../modules/commands/subcommands/games/handleHabitica";
 import { handleJoke } from "../modules/commands/subcommands/games/handleJoke";
 import { handleMtg } from "../modules/commands/subcommands/games/handleMtg";
+import { handleQuote } from "../modules/commands/subcommands/games/handleQuote";
 import { handleSlime } from "../modules/commands/subcommands/games/handleSlime";
 import { handleSus } from "../modules/commands/subcommands/games/handleSus";
 import { handleTrivia } from "../modules/commands/subcommands/games/handleTrivia";
@@ -29,6 +30,11 @@ export const games: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("joke")
         .setDescription("Tells a random joke.")
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("quote")
+        .setDescription("Gives a random quote.")
     )
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
@@ -80,6 +86,9 @@ export const games: Command = {
           break;
         case "joke":
           await handleJoke(Becca, interaction, t, config);
+          break;
+        case "quote":
+          await handleQuote(Becca, interaction, t, config);
           break;
         case "mtg":
           await handleMtg(Becca, interaction, t, config);
