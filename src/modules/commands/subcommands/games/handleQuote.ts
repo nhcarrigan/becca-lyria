@@ -12,11 +12,14 @@ import { errorEmbedGenerator } from "../../errorEmbedGenerator";
  */
 export const handleQuote: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const quote = await axios.get<Quote>("https://api.heptagrambotproject.com/api/v0/quotes/random", {
-      headers: {
-        Authorization: "Bearer " + Becca.configs.heptagramApiToken,
-      },
-    });
+    const quote = await axios.get<Quote>(
+      "https://api.heptagrambotproject.com/api/v0/quotes/random",
+      {
+        headers: {
+          Authorization: "Bearer " + Becca.configs.heptagramApiToken,
+        },
+      }
+    );
 
     if (!quote.data || quote.data.status !== 200) {
       await interaction.editReply({
