@@ -21,7 +21,7 @@ export const handleQuote: CommandHandler = async (Becca, interaction, t) => {
       }
     );
 
-    if (!quote.data || quote.data.status !== 200) {
+    if (!quote.data || quote.status !== 200) {
       await interaction.editReply({
         content: t("commands:games.quote.no"),
       });
