@@ -12,10 +12,9 @@ import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
  */
 export const handleJoke: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const joke = await axios.get<Joke>("https://icanhazdadjoke.com/", {
+    const joke = await axios.get<Joke>("https://api.heptagrambotproject.com/api/v0/jokes/random", {
       headers: {
-        Accept: "application/json",
-        "User-Agent": "Becca Lyria (https://www.beccalyria.com)",
+        Authorization: "Bearer " + Becca.configs.heptagramApiToken,
       },
     });
 
