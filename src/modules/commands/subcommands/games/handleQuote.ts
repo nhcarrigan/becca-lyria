@@ -31,7 +31,9 @@ export const handleQuote: CommandHandler = async (Becca, interaction, t) => {
     const quoteEmbed = new MessageEmbed();
     quoteEmbed.setColor(Becca.colours.default);
     quoteEmbed.setTitle(t("commands:games.quote.title"));
-    quoteEmbed.setDescription(quote.data.quote);
+    quoteEmbed.setDescription(
+      `"${quote.data.quote[0]}"\n-- ${quote.data.quote[1]}`
+    );
     quoteEmbed.setTimestamp();
     quoteEmbed.setFooter({
       text: t("defaults:donate"),
