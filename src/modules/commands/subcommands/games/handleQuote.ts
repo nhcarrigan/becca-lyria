@@ -32,7 +32,7 @@ export const handleQuote: CommandHandler = async (Becca, interaction, t) => {
     quoteEmbed.setColor(Becca.colours.default);
     quoteEmbed.setTitle(t("commands:games.quote.title"));
     quoteEmbed.setDescription(
-      `"${quote.data.quote[0]}"\n-- ${quote.data.quote[1]}`
+      `"${quote.data.quote}"\n-- ${quote.data.author}`
     );
     quoteEmbed.setTimestamp();
     quoteEmbed.setFooter({
