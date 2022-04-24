@@ -6,12 +6,12 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleBan } from "../modules/commands/subcommands/moderation/handleBan";
-import { handleHistory } from "../modules/commands/subcommands/moderation/handleHistory";
-import { handleKick } from "../modules/commands/subcommands/moderation/handleKick";
-import { handleMute } from "../modules/commands/subcommands/moderation/handleMute";
-import { handleUnmute } from "../modules/commands/subcommands/moderation/handleUnmute";
-import { handleWarn } from "../modules/commands/subcommands/moderation/handleWarn";
+import { handleBan } from "./subcommands/moderation/handleBan";
+import { handleHistory } from "./subcommands/moderation/handleHistory";
+import { handleKick } from "./subcommands/moderation/handleKick";
+import { handleMute } from "./subcommands/moderation/handleMute";
+import { handleUnmute } from "./subcommands/moderation/handleUnmute";
+import { handleWarn } from "./subcommands/moderation/handleWarn";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 

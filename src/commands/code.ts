@@ -6,9 +6,9 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleCanIUse } from "../modules/commands/subcommands/code/handleCanIUse";
-import { handleColour } from "../modules/commands/subcommands/code/handleColour";
-import { handleHttp } from "../modules/commands/subcommands/code/handleHttp";
+import { handleCanIUse } from "./subcommands/code/handleCanIUse";
+import { handleColour } from "./subcommands/code/handleColour";
+import { handleHttp } from "./subcommands/code/handleHttp";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 

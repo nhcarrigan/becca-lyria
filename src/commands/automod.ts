@@ -12,10 +12,10 @@ import {
 } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleAutomodAntiphish } from "../modules/commands/subcommands/automod/handleAutomodAntiphish";
-import { handleAutomodReset } from "../modules/commands/subcommands/automod/handleAutomodReset";
-import { handleAutomodSet } from "../modules/commands/subcommands/automod/handleAutomodSet";
-import { handleAutomodView } from "../modules/commands/subcommands/automod/handleAutomodView";
+import { handleAutomodAntiphish } from "./subcommands/automod/handleAutomodAntiphish";
+import { handleAutomodReset } from "./subcommands/automod/handleAutomodReset";
+import { handleAutomodSet } from "./subcommands/automod/handleAutomodSet";
+import { handleAutomodView } from "./subcommands/automod/handleAutomodView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 

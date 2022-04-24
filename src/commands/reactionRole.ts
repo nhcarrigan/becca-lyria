@@ -5,9 +5,9 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleAdd } from "../modules/commands/subcommands/reactionrole/handleAdd";
-import { handleCreate } from "../modules/commands/subcommands/reactionrole/handleCreate";
-import { handleRemove } from "../modules/commands/subcommands/reactionrole/handleRemove";
+import { handleAdd } from "./subcommands/reactionrole/handleAdd";
+import { handleCreate } from "./subcommands/reactionrole/handleCreate";
+import { handleRemove } from "./subcommands/reactionrole/handleRemove";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 

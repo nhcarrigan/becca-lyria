@@ -6,13 +6,13 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleLanguage } from "../modules/commands/subcommands/misc/handleLanguage";
-import { handleLevelscale } from "../modules/commands/subcommands/misc/handleLevelscale";
-import { handleOrbit } from "../modules/commands/subcommands/misc/handleOrbit";
-import { handlePermissions } from "../modules/commands/subcommands/misc/handlePermissions";
-import { handleSpace } from "../modules/commands/subcommands/misc/handleSpace";
-import { handleUsername } from "../modules/commands/subcommands/misc/handleUsername";
-import { handleXkcd } from "../modules/commands/subcommands/misc/handleXkcd";
+import { handleLanguage } from "./subcommands/misc/handleLanguage";
+import { handleLevelscale } from "./subcommands/misc/handleLevelscale";
+import { handleOrbit } from "./subcommands/misc/handleOrbit";
+import { handlePermissions } from "./subcommands/misc/handlePermissions";
+import { handleSpace } from "./subcommands/misc/handleSpace";
+import { handleUsername } from "./subcommands/misc/handleUsername";
+import { handleXkcd } from "./subcommands/misc/handleXkcd";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 

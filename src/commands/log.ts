@@ -7,9 +7,9 @@ import {
 import { logChoices } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleLogReset } from "../modules/commands/subcommands/log/handleLogReset";
-import { handleLogSet } from "../modules/commands/subcommands/log/handleLogSet";
-import { handleLogView } from "../modules/commands/subcommands/log/handleLogView";
+import { handleLogReset } from "./subcommands/log/handleLogReset";
+import { handleLogSet } from "./subcommands/log/handleLogSet";
+import { handleLogView } from "./subcommands/log/handleLogView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 

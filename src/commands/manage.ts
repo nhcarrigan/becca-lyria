@@ -6,10 +6,10 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleResetLevels } from "../modules/commands/subcommands/manage/handleResetLevels";
-import { handleResetStars } from "../modules/commands/subcommands/manage/handleResetStars";
-import { handleSuggestion } from "../modules/commands/subcommands/manage/handleSuggestion";
-import { handleXpModify } from "../modules/commands/subcommands/manage/handleXpModify";
+import { handleResetLevels } from "./subcommands/manage/handleResetLevels";
+import { handleResetStars } from "./subcommands/manage/handleResetStars";
+import { handleSuggestion } from "./subcommands/manage/handleSuggestion";
+import { handleXpModify } from "./subcommands/manage/handleXpModify";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 

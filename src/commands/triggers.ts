@@ -7,9 +7,9 @@ import { GuildMember } from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleTriggerAdd } from "../modules/commands/subcommands/triggers/handleTriggerAdd";
-import { handleTriggerRemove } from "../modules/commands/subcommands/triggers/handleTriggerRemove";
-import { handleTriggerView } from "../modules/commands/subcommands/triggers/handleTriggerView";
+import { handleTriggerAdd } from "./subcommands/triggers/handleTriggerAdd";
+import { handleTriggerRemove } from "./subcommands/triggers/handleTriggerRemove";
+import { handleTriggerView } from "./subcommands/triggers/handleTriggerView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
