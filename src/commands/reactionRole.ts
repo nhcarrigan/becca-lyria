@@ -4,12 +4,21 @@ import {
 } from "@discordjs/builders";
 
 import { Command } from "../interfaces/commands/Command";
+import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleAdd } from "../modules/commands/subcommands/reactionrole/handleAdd";
-import { handleCreate } from "../modules/commands/subcommands/reactionrole/handleCreate";
-import { handleRemove } from "../modules/commands/subcommands/reactionrole/handleRemove";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
+
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+import { handleAdd } from "./subcommands/reactionrole/handleAdd";
+import { handleCreate } from "./subcommands/reactionrole/handleCreate";
+import { handleRemove } from "./subcommands/reactionrole/handleRemove";
+
+const handlers: { [key: string]: CommandHandler } = {
+  create: handleCreate,
+  add: handleAdd,
+  remove: handleRemove,
+};
 
 export const reactionRole: Command = {
   data: new SlashCommandBuilder()
@@ -179,22 +188,8 @@ export const reactionRole: Command = {
       }
 
       const action = interaction.options.getSubcommand();
-      switch (action) {
-        case "create":
-          await handleCreate(Becca, interaction, t, config);
-          break;
-        case "add":
-          await handleAdd(Becca, interaction, t, config);
-          break;
-        case "remove":
-          await handleRemove(Becca, interaction, t, config);
-          break;
-        default:
-          await interaction.editReply({
-            content: getRandomValue(t("responses:invalidCommand")),
-          });
-          break;
-      }
+      const handler = handlers[action] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, config);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

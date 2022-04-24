@@ -6,12 +6,21 @@ import {
 import { GuildMember } from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
+import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleTriggerAdd } from "../modules/commands/subcommands/triggers/handleTriggerAdd";
-import { handleTriggerRemove } from "../modules/commands/subcommands/triggers/handleTriggerRemove";
-import { handleTriggerView } from "../modules/commands/subcommands/triggers/handleTriggerView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
+
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+import { handleTriggerAdd } from "./subcommands/triggers/handleTriggerAdd";
+import { handleTriggerRemove } from "./subcommands/triggers/handleTriggerRemove";
+import { handleTriggerView } from "./subcommands/triggers/handleTriggerView";
+
+const handlers: { [key: string]: CommandHandler } = {
+  add: handleTriggerAdd,
+  remove: handleTriggerRemove,
+  view: handleTriggerView,
+};
 
 export const triggers: Command = {
   data: new SlashCommandBuilder()
@@ -64,23 +73,8 @@ export const triggers: Command = {
         });
         return;
       }
-
-      switch (subcommand) {
-        case "add":
-          await handleTriggerAdd(Becca, interaction, t, config);
-          break;
-        case "remove":
-          await handleTriggerRemove(Becca, interaction, t, config);
-          break;
-        case "view":
-          await handleTriggerView(Becca, interaction, t, config);
-          break;
-        default:
-          await interaction.editReply({
-            content: getRandomValue(t("responses:invalidCommand")),
-          });
-          break;
-      }
+      const handler = handlers[subcommand] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, config);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

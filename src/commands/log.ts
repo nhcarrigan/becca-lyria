@@ -6,12 +6,21 @@ import {
 
 import { logChoices } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
+import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleLogReset } from "../modules/commands/subcommands/log/handleLogReset";
-import { handleLogSet } from "../modules/commands/subcommands/log/handleLogSet";
-import { handleLogView } from "../modules/commands/subcommands/log/handleLogView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
+
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+import { handleLogReset } from "./subcommands/log/handleLogReset";
+import { handleLogSet } from "./subcommands/log/handleLogSet";
+import { handleLogView } from "./subcommands/log/handleLogView";
+
+const handlers: { [key: string]: CommandHandler } = {
+  set: handleLogSet,
+  reset: handleLogReset,
+  view: handleLogView,
+};
 
 export const log: Command = {
   data: new SlashCommandBuilder()
@@ -76,22 +85,8 @@ export const log: Command = {
       }
 
       const action = interaction.options.getSubcommand();
-      switch (action) {
-        case "set":
-          await handleLogSet(Becca, interaction, t, config);
-          break;
-        case "reset":
-          await handleLogReset(Becca, interaction, t, config);
-          break;
-        case "view":
-          await handleLogView(Becca, interaction, t, config);
-          break;
-        default:
-          await interaction.editReply({
-            content: getRandomValue(t("responses:invalidCommand")),
-          });
-          break;
-      }
+      const handler = handlers[action] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, config);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

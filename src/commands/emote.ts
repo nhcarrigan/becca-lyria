@@ -7,11 +7,18 @@ import {
 import { emoteChoices } from "../config/commands/emoteData";
 import { EmoteOptOut } from "../config/optout/EmoteOptOut";
 import { Command } from "../interfaces/commands/Command";
+import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleEmoteUse } from "../modules/commands/subcommands/emote/handleEmoteUse";
-import { handleEmoteView } from "../modules/commands/subcommands/emote/handleEmoteView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
+
+import { handleEmoteUse } from "./subcommands/emote/handleEmoteUse";
+import { handleEmoteView } from "./subcommands/emote/handleEmoteView";
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+
+const handlers: { [key: string]: CommandHandler } = {
+  use: handleEmoteUse,
+  view: handleEmoteView,
+};
 
 export const emote: Command = {
   data: new SlashCommandBuilder()
@@ -54,19 +61,8 @@ export const emote: Command = {
       }
 
       const subcommand = interaction.options.getSubcommand();
-
-      switch (subcommand) {
-        case "use":
-          await handleEmoteUse(Becca, interaction, t, config);
-          break;
-        case "view":
-          await handleEmoteView(Becca, interaction, t, config);
-          break;
-        default:
-          await interaction.reply({
-            content: getRandomValue(t("responses:invalidCommand")),
-          });
-      }
+      const handler = handlers[subcommand] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, config);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
