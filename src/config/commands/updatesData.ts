@@ -1,7 +1,9 @@
 export const updatesSinceLastRelease: string[] = [
-  "- improved anti-phish system to use multiple APIs",
-  "- patched logic in reaction calls to better support custom emotes",
-  "- deprecating `/community role` and self-assignable roles flow",
+  "- Patched error in new mod permission system",
+  "- Patched error in Heptagram anti-phish endpoint",
+  "- Updated `/games joke` command to use Heptagram API",
+  "- Added `/games quote` command",
+  "- Refactored the command logic for a cleaner subcommand approach",
 ];
 
-export const nextScheduledRelease = "<t:1650812400:F>";
+export const nextScheduledRelease = "<t:1651417200:F>";
