@@ -9,6 +9,7 @@ import {
   configViewChoices,
 } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
+import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
@@ -16,6 +17,13 @@ import { getRandomValue } from "../utils/getRandomValue";
 import { handleReset } from "./subcommands/config/handleReset";
 import { handleSet } from "./subcommands/config/handleSet";
 import { handleView } from "./subcommands/config/handleView";
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+
+const handlers: { [key: string]: CommandHandler } = {
+  set: handleSet,
+  reset: handleReset,
+  view: handleView,
+};
 
 export const config: Command = {
   data: new SlashCommandBuilder()
@@ -87,22 +95,8 @@ export const config: Command = {
       }
 
       const action = interaction.options.getSubcommand();
-      switch (action) {
-        case "set":
-          await handleSet(Becca, interaction, t, serverConfig);
-          break;
-        case "reset":
-          await handleReset(Becca, interaction, t, serverConfig);
-          break;
-        case "view":
-          await handleView(Becca, interaction, t, serverConfig);
-          break;
-        default:
-          await interaction.editReply({
-            content: getRandomValue(t("responses:invalidCommand")),
-          });
-          break;
-      }
+      const handler = handlers[action] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, serverConfig);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

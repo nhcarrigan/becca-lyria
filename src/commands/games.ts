@@ -5,9 +5,9 @@ import {
 } from "@discordjs/builders";
 
 import { Command } from "../interfaces/commands/Command";
+import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 import { handleFact } from "./subcommands/games/handleFact";
 import { handleHabitica } from "./subcommands/games/handleHabitica";
@@ -17,6 +17,18 @@ import { handleQuote } from "./subcommands/games/handleQuote";
 import { handleSlime } from "./subcommands/games/handleSlime";
 import { handleSus } from "./subcommands/games/handleSus";
 import { handleTrivia } from "./subcommands/games/handleTrivia";
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+
+const handlers: { [key: string]: CommandHandler } = {
+  fact: handleFact,
+  joke: handleJoke,
+  quote: handleQuote,
+  mtg: handleMtg,
+  sus: handleSus,
+  trivia: handleTrivia,
+  slime: handleSlime,
+  habitica: handleHabitica,
+};
 
 export const games: Command = {
   data: new SlashCommandBuilder()
@@ -81,37 +93,8 @@ export const games: Command = {
       await interaction.deferReply();
 
       const subCommand = interaction.options.getSubcommand();
-      switch (subCommand) {
-        case "fact":
-          await handleFact(Becca, interaction, t, config);
-          break;
-        case "joke":
-          await handleJoke(Becca, interaction, t, config);
-          break;
-        case "quote":
-          await handleQuote(Becca, interaction, t, config);
-          break;
-        case "mtg":
-          await handleMtg(Becca, interaction, t, config);
-          break;
-        case "sus":
-          await handleSus(Becca, interaction, t, config);
-          break;
-        case "trivia":
-          await handleTrivia(Becca, interaction, t, config);
-          break;
-        case "slime":
-          await handleSlime(Becca, interaction, t, config);
-          break;
-        case "habitica":
-          await handleHabitica(Becca, interaction, t, config);
-          break;
-        default:
-          await interaction.editReply({
-            content: getRandomValue(t("responses:invalidCommand")),
-          });
-          break;
-      }
+      const handler = handlers[subCommand] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, config);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

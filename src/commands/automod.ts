@@ -11,6 +11,7 @@ import {
   automodViewChoices,
 } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
+import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
@@ -19,6 +20,15 @@ import { handleAutomodAntiphish } from "./subcommands/automod/handleAutomodAntip
 import { handleAutomodReset } from "./subcommands/automod/handleAutomodReset";
 import { handleAutomodSet } from "./subcommands/automod/handleAutomodSet";
 import { handleAutomodView } from "./subcommands/automod/handleAutomodView";
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+
+const handlers: { [key: string]: CommandHandler } = {
+  set: handleAutomodSet,
+  toggle: handleAutomodSet,
+  reset: handleAutomodReset,
+  view: handleAutomodView,
+  antiphish: handleAutomodAntiphish,
+};
 
 export const automod: Command = {
   data: new SlashCommandBuilder()
@@ -126,26 +136,8 @@ export const automod: Command = {
       }
 
       const action = interaction.options.getSubcommand();
-      switch (action) {
-        case "set":
-        case "toggle":
-          await handleAutomodSet(Becca, interaction, t, config);
-          break;
-        case "reset":
-          await handleAutomodReset(Becca, interaction, t, config);
-          break;
-        case "view":
-          await handleAutomodView(Becca, interaction, t, config);
-          break;
-        case "antiphish":
-          await handleAutomodAntiphish(Becca, interaction, t, config);
-          break;
-        default:
-          await interaction.editReply({
-            content: getRandomValue(t("responses:invalidCommand")),
-          });
-          break;
-      }
+      const handler = handlers[action] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, config);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

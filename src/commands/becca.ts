@@ -5,9 +5,9 @@ import {
 } from "@discordjs/builders";
 
 import { Command } from "../interfaces/commands/Command";
+import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 import { handleAbout } from "./subcommands/becca/handleAbout";
 import { handleAdventure } from "./subcommands/becca/handleAdventure";
@@ -24,6 +24,25 @@ import { handleStats } from "./subcommands/becca/handleStats";
 import { handleTranslators } from "./subcommands/becca/handleTranslators";
 import { handleUpdates } from "./subcommands/becca/handleUpdates";
 import { handleUptime } from "./subcommands/becca/handleUptime";
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+
+const handlers: { [key: string]: CommandHandler } = {
+  ping: handlePing,
+  help: handleHelp,
+  about: handleAbout,
+  invite: handleInvite,
+  art: handleArt,
+  donate: handleDonate,
+  uptime: handleUptime,
+  profile: handleProfile,
+  updates: handleUpdates,
+  stats: handleStats,
+  emote: handleEmote,
+  adventure: handleAdventure,
+  privacy: handlePrivacy,
+  contact: handleContact,
+  translators: handleTranslators,
+};
 
 export const becca: Command = {
   data: new SlashCommandBuilder()
@@ -126,58 +145,8 @@ export const becca: Command = {
       await interaction.deferReply();
 
       const subCommand = interaction.options.getSubcommand();
-      switch (subCommand) {
-        case "ping":
-          await handlePing(Becca, interaction, t, config);
-          break;
-        case "help":
-          await handleHelp(Becca, interaction, t, config);
-          break;
-        case "about":
-          await handleAbout(Becca, interaction, t, config);
-          break;
-        case "invite":
-          await handleInvite(Becca, interaction, t, config);
-          break;
-        case "art":
-          await handleArt(Becca, interaction, t, config);
-          break;
-        case "donate":
-          await handleDonate(Becca, interaction, t, config);
-          break;
-        case "uptime":
-          await handleUptime(Becca, interaction, t, config);
-          break;
-        case "profile":
-          await handleProfile(Becca, interaction, t, config);
-          break;
-        case "updates":
-          await handleUpdates(Becca, interaction, t, config);
-          break;
-        case "stats":
-          await handleStats(Becca, interaction, t, config);
-          break;
-        case "emote":
-          await handleEmote(Becca, interaction, t, config);
-          break;
-        case "adventure":
-          await handleAdventure(Becca, interaction, t, config);
-          break;
-        case "privacy":
-          await handlePrivacy(Becca, interaction, t, config);
-          break;
-        case "contact":
-          await handleContact(Becca, interaction, t, config);
-          break;
-        case "translators":
-          await handleTranslators(Becca, interaction, t, config);
-          break;
-        default:
-          await interaction.editReply({
-            content: getRandomValue(t("responses:invalidCommand")),
-          });
-          break;
-      }
+      const handler = handlers[subCommand] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, config);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

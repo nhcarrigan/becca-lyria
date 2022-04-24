@@ -5,16 +5,26 @@ import {
 } from "@discordjs/builders";
 
 import { Command } from "../interfaces/commands/Command";
+import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
 import { handleBan } from "./subcommands/moderation/handleBan";
 import { handleHistory } from "./subcommands/moderation/handleHistory";
 import { handleKick } from "./subcommands/moderation/handleKick";
 import { handleMute } from "./subcommands/moderation/handleMute";
 import { handleUnmute } from "./subcommands/moderation/handleUnmute";
 import { handleWarn } from "./subcommands/moderation/handleWarn";
+
+const handlers: { [key: string]: CommandHandler } = {
+  warn: handleWarn,
+  mute: handleMute,
+  unmute: handleUnmute,
+  kick: handleKick,
+  ban: handleBan,
+  history: handleHistory,
+};
 
 export const mod: Command = {
   data: new SlashCommandBuilder()
@@ -148,32 +158,8 @@ export const mod: Command = {
     try {
       await interaction.deferReply();
       const subcommand = interaction.options.getSubcommand();
-
-      switch (subcommand) {
-        case "warn":
-          await handleWarn(Becca, interaction, t, config);
-          break;
-        case "mute":
-          await handleMute(Becca, interaction, t, config);
-          break;
-        case "unmute":
-          await handleUnmute(Becca, interaction, t, config);
-          break;
-        case "kick":
-          await handleKick(Becca, interaction, t, config);
-          break;
-        case "ban":
-          await handleBan(Becca, interaction, t, config);
-          break;
-        case "history":
-          await handleHistory(Becca, interaction, t, config);
-          break;
-        default:
-          await interaction.editReply({
-            content: getRandomValue(t("responses:invalidCommand")),
-          });
-          break;
-      }
+      const handler = handlers[subcommand] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, config);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

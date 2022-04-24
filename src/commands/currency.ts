@@ -7,9 +7,9 @@ import {
 import { CurrencyOptOut } from "../config/optout/CurrencyOptOut";
 import CurrencyModel from "../database/models/CurrencyModel";
 import { Command } from "../interfaces/commands/Command";
+import { CurrencyHandler } from "../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 import { handleAbout } from "./subcommands/currency/handleAbout";
 import { handleClaim } from "./subcommands/currency/handleClaim";
@@ -19,6 +19,18 @@ import { handleSlots } from "./subcommands/currency/handleSlots";
 import { handleTwentyOne } from "./subcommands/currency/handleTwentyOne";
 import { handleView } from "./subcommands/currency/handleView";
 import { handleWeekly } from "./subcommands/currency/handleWeekly";
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+
+const handlers: { [key: string]: CurrencyHandler } = {
+  daily: handleDaily,
+  weekly: handleWeekly,
+  view: handleView,
+  claim: handleClaim,
+  about: handleAbout,
+  slots: handleSlots,
+  "21": handleTwentyOne,
+  guess: handleGuess,
+};
 
 export const currency: Command = {
   data: new SlashCommandBuilder()
@@ -136,38 +148,8 @@ export const currency: Command = {
         }));
 
       const subcommand = interaction.options.getSubcommand();
-
-      switch (subcommand) {
-        case "daily":
-          await handleDaily(Becca, interaction, t, userData);
-          break;
-        case "weekly":
-          await handleWeekly(Becca, interaction, t, userData);
-          break;
-        case "view":
-          await handleView(Becca, interaction, t, userData);
-          break;
-        case "claim":
-          await handleClaim(Becca, interaction, t, userData);
-          break;
-        case "about":
-          await handleAbout(Becca, interaction, t, userData);
-          break;
-        case "slots":
-          await handleSlots(Becca, interaction, t, userData);
-          break;
-        case "21":
-          await handleTwentyOne(Becca, interaction, t, userData);
-          break;
-        case "guess":
-          await handleGuess(Becca, interaction, t, userData);
-          break;
-        default:
-          await interaction.editReply({
-            content: getRandomValue(t("responses:invalidCommand")),
-          });
-          break;
-      }
+      const handler = handlers[subcommand] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, userData);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

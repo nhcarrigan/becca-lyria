@@ -7,9 +7,9 @@ import {
 } from "@discordjs/builders";
 
 import { Command } from "../interfaces/commands/Command";
+import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 import { handleLeaderboard } from "./subcommands/community/handleLeaderboard";
 import { handleLevel } from "./subcommands/community/handleLevel";
@@ -23,6 +23,22 @@ import { handleStarCount } from "./subcommands/community/handleStarCount";
 import { handleSuggest } from "./subcommands/community/handleSuggest";
 import { handleTopic } from "./subcommands/community/handleTopic";
 import { handleUserInfo } from "./subcommands/community/handleUserInfo";
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+
+const handlers: { [key: string]: CommandHandler } = {
+  leaderboard: handleLeaderboard,
+  level: handleLevel,
+  role: handleRole,
+  motivation: handleMotivation,
+  schedule: handleSchedule,
+  star: handleStar,
+  starcount: handleStarCount,
+  topic: handleTopic,
+  userinfo: handleUserInfo,
+  server: handleServer,
+  suggest: handleSuggest,
+  poll: handlePoll,
+};
 
 export const community: Command = {
   data: new SlashCommandBuilder()
@@ -167,50 +183,8 @@ export const community: Command = {
     try {
       await interaction.deferReply();
       const subcommand = interaction.options.getSubcommand();
-
-      switch (subcommand) {
-        case "leaderboard":
-          await handleLeaderboard(Becca, interaction, t, config);
-          break;
-        case "level":
-          await handleLevel(Becca, interaction, t, config);
-          break;
-        case "role":
-          await handleRole(Becca, interaction, t, config);
-          break;
-        case "motivation":
-          await handleMotivation(Becca, interaction, t, config);
-          break;
-        case "schedule":
-          await handleSchedule(Becca, interaction, t, config);
-          break;
-        case "star":
-          await handleStar(Becca, interaction, t, config);
-          break;
-        case "starcount":
-          await handleStarCount(Becca, interaction, t, config);
-          break;
-        case "topic":
-          await handleTopic(Becca, interaction, t, config);
-          break;
-        case "userinfo":
-          await handleUserInfo(Becca, interaction, t, config);
-          break;
-        case "server":
-          await handleServer(Becca, interaction, t, config);
-          break;
-        case "suggest":
-          await handleSuggest(Becca, interaction, t, config);
-          break;
-        case "poll":
-          await handlePoll(Becca, interaction, t, config);
-          break;
-        default:
-          await interaction.editReply({
-            content: getRandomValue(t("responses:invalidCommand")),
-          });
-          break;
-      }
+      const handler = handlers[subcommand] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, config);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

@@ -5,12 +5,19 @@ import {
 
 import UserConfigModel from "../database/models/UserConfigModel";
 import { Command } from "../interfaces/commands/Command";
+import { UserConfigCommandHandler } from "../interfaces/commands/UserConfigCommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
+import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
 import { handleLevelCard } from "./subcommands/userconfig/handleLevelCard";
 import { handleUserConfigView } from "./subcommands/userconfig/handleUserConfigView";
+
+const handlers: { [key: string]: UserConfigCommandHandler } = {
+  view: handleUserConfigView,
+  levelcard: handleLevelCard,
+};
 
 export const userConfig: Command = {
   data: new SlashCommandBuilder()
@@ -68,18 +75,8 @@ export const userConfig: Command = {
           },
         }));
 
-      switch (subcommand) {
-        case "view":
-          await handleUserConfigView(Becca, interaction, t, userConfig);
-          break;
-        case "levelcard":
-          await handleLevelCard(Becca, interaction, t, userConfig);
-          break;
-        default:
-          await interaction.editReply({
-            content: getRandomValue(t("responses:missingSubcommand")),
-          });
-      }
+      const handler = handlers[subcommand] || handleInvalidSubcommand;
+      await handler(Becca, interaction, t, userConfig);
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,
