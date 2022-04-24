@@ -3,9 +3,9 @@ import { MessageEmbed } from "discord.js";
 
 import HistoryModel from "../../../database/models/HistoryModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Fetches a user's moderation history from the database and parses it for display.

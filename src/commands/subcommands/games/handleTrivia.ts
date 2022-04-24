@@ -10,10 +10,10 @@ import {
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { Trivia } from "../../../interfaces/commands/games/Trivia";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
 import { replaceHtml } from "../../../utils/replaceHtml";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Fetches a trivia question from an API, generates it into an embed. Adds buttons

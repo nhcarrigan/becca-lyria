@@ -12,12 +12,13 @@ import {
 } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
+
 import { handleAutomodAntiphish } from "./subcommands/automod/handleAutomodAntiphish";
 import { handleAutomodReset } from "./subcommands/automod/handleAutomodReset";
 import { handleAutomodSet } from "./subcommands/automod/handleAutomodSet";
 import { handleAutomodView } from "./subcommands/automod/handleAutomodView";
-import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 export const automod: Command = {
   data: new SlashCommandBuilder()

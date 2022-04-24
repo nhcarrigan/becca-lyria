@@ -4,9 +4,9 @@ import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { Space } from "../../../interfaces/commands/general/Space";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Fetches the latest Astronomy Photo of the Day from NASA, or the photo from

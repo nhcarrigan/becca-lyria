@@ -3,8 +3,8 @@ import { MessageEmbed } from "discord.js";
 
 import { motivationalQuotes } from "../../../config/commands/motivationalQuotes";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Returns a random motivational quote, formatted in an embed.

@@ -4,8 +4,8 @@ import { TFunction } from "i18next";
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { ServerConfig } from "../../../interfaces/database/ServerConfig";
 import { ArraySettings } from "../../../interfaces/settings/ArraySettings";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { renderSetting } from "../../../modules/settings/renderSetting";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Parses a settings array into a paginated embed, with array values

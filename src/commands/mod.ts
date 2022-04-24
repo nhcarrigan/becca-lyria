@@ -6,14 +6,15 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
+
 import { handleBan } from "./subcommands/moderation/handleBan";
 import { handleHistory } from "./subcommands/moderation/handleHistory";
 import { handleKick } from "./subcommands/moderation/handleKick";
 import { handleMute } from "./subcommands/moderation/handleMute";
 import { handleUnmute } from "./subcommands/moderation/handleUnmute";
 import { handleWarn } from "./subcommands/moderation/handleWarn";
-import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 export const mod: Command = {
   data: new SlashCommandBuilder()

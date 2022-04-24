@@ -2,8 +2,8 @@
 import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Confirms a user has sufficient currency to claim the `reward` they selected. If so,

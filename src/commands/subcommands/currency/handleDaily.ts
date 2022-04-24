@@ -2,10 +2,10 @@
 import { MessageEmbed } from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { parseSeconds } from "../../../utils/parseSeconds";
 import { scheduleCurrencyReminder } from "../../../utils/scheduleCurrencyReminder";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Confirms that a user has not used the command within the last 24 hours, then

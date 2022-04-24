@@ -2,9 +2,9 @@
 import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getCounts } from "../../../modules/becca/getCounts";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Generates an embed containing information about Becca.

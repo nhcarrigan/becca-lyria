@@ -4,9 +4,9 @@ import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { IndividualOrbitData } from "../../../interfaces/commands/misc/Orbit";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { getOrbitData } from "../../../modules/commands/misc/getOrbitData";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Generates the Orbit leaderboard and parses into an embed.

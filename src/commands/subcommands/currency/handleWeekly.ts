@@ -2,10 +2,10 @@
 import { MessageEmbed } from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { parseSeconds } from "../../../utils/parseSeconds";
 import { scheduleCurrencyReminder } from "../../../utils/scheduleCurrencyReminder";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Grants the user a bonus currency amount between 25 and 100. Can be used

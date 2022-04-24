@@ -3,8 +3,8 @@ import { MessageEmbed } from "discord.js";
 
 import { SusColours, SusNames } from "../../../config/commands/susList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Generates an embed with a random colour from Among Us, and delcares that

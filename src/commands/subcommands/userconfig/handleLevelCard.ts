@@ -2,9 +2,9 @@
 import { MessageEmbed } from "discord.js";
 
 import { UserConfigCommandHandler } from "../../../interfaces/commands/UserConfigCommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Handles setting a user's levelcard configuration.

@@ -8,6 +8,9 @@ import { CurrencyOptOut } from "../config/optout/CurrencyOptOut";
 import CurrencyModel from "../database/models/CurrencyModel";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
+
 import { handleAbout } from "./subcommands/currency/handleAbout";
 import { handleClaim } from "./subcommands/currency/handleClaim";
 import { handleDaily } from "./subcommands/currency/handleDaily";
@@ -16,8 +19,6 @@ import { handleSlots } from "./subcommands/currency/handleSlots";
 import { handleTwentyOne } from "./subcommands/currency/handleTwentyOne";
 import { handleView } from "./subcommands/currency/handleView";
 import { handleWeekly } from "./subcommands/currency/handleWeekly";
-import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 export const currency: Command = {
   data: new SlashCommandBuilder()

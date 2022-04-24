@@ -2,10 +2,10 @@
 import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { renderSetting } from "../../../modules/settings/renderSetting";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
-import { renderSetting } from "../../../modules/settings/renderSetting";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Handles viewing the log settings.

@@ -2,9 +2,9 @@
 import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { generateUsername } from "../../../modules/commands/general/generateUsername";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Generates a random DigitalOcean themed username and sends it in an embed.

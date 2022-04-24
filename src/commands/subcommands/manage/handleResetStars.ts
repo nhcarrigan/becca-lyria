@@ -3,9 +3,9 @@ import { GuildMember } from "discord.js";
 
 import StarModel from "../../../database/models/StarModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Deletes the server's star counts, resetting everyone's progress.

@@ -10,11 +10,12 @@ import {
 } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
+
 import { handleReset } from "./subcommands/config/handleReset";
 import { handleSet } from "./subcommands/config/handleSet";
 import { handleView } from "./subcommands/config/handleView";
-import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 export const config: Command = {
   data: new SlashCommandBuilder()

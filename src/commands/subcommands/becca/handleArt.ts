@@ -3,8 +3,8 @@ import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { artList } from "../../../config/commands/artList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Using the artList config, selects a random art object and parses it

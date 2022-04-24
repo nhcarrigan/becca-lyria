@@ -5,11 +5,12 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
+
 import { handleAdd } from "./subcommands/reactionrole/handleAdd";
 import { handleCreate } from "./subcommands/reactionrole/handleCreate";
 import { handleRemove } from "./subcommands/reactionrole/handleRemove";
-import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 export const reactionRole: Command = {
   data: new SlashCommandBuilder()

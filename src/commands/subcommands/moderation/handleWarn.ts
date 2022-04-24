@@ -2,13 +2,13 @@
 import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { updateHistory } from "../../../modules/commands/moderation/updateHistory";
+import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
 import { getRandomValue } from "../../../utils/getRandomValue";
 import { sendModerationDm } from "../../../utils/sendModerationDm";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
-import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
-import { updateHistory } from "../../../modules/commands/moderation/updateHistory";
 
 /**
  * Issues a warning to the `target` user, and adds it to the server's warning count.

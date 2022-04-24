@@ -6,6 +6,9 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
+
 import { handleLanguage } from "./subcommands/misc/handleLanguage";
 import { handleLevelscale } from "./subcommands/misc/handleLevelscale";
 import { handleOrbit } from "./subcommands/misc/handleOrbit";
@@ -13,8 +16,6 @@ import { handlePermissions } from "./subcommands/misc/handlePermissions";
 import { handleSpace } from "./subcommands/misc/handleSpace";
 import { handleUsername } from "./subcommands/misc/handleUsername";
 import { handleXkcd } from "./subcommands/misc/handleXkcd";
-import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 export const misc: Command = {
   data: new SlashCommandBuilder()

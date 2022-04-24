@@ -3,8 +3,8 @@ import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { adventureList } from "../../../config/commands/adventureList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Using the adventureList config, selects a random adventure object and parses it

@@ -1,10 +1,10 @@
 /* eslint-disable jsdoc/require-param */
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { AutomodSettings } from "../../../interfaces/settings/AutomodSettings";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { resetSetting } from "../../../modules/settings/resetSetting";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Resets the given `setting` to the default value.

@@ -7,9 +7,9 @@ import {
 } from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { parseSeconds } from "../../../utils/parseSeconds";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Allows a user to play a game of 21 with Becca, similar to Blackjack. If the user

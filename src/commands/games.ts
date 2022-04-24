@@ -6,6 +6,9 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
+
 import { handleFact } from "./subcommands/games/handleFact";
 import { handleHabitica } from "./subcommands/games/handleHabitica";
 import { handleJoke } from "./subcommands/games/handleJoke";
@@ -14,8 +17,6 @@ import { handleQuote } from "./subcommands/games/handleQuote";
 import { handleSlime } from "./subcommands/games/handleSlime";
 import { handleSus } from "./subcommands/games/handleSus";
 import { handleTrivia } from "./subcommands/games/handleTrivia";
-import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 export const games: Command = {
   data: new SlashCommandBuilder()

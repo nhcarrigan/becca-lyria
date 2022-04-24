@@ -8,6 +8,9 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
+
 import { handleLeaderboard } from "./subcommands/community/handleLeaderboard";
 import { handleLevel } from "./subcommands/community/handleLevel";
 import { handleMotivation } from "./subcommands/community/handleMotivation";
@@ -20,8 +23,6 @@ import { handleStarCount } from "./subcommands/community/handleStarCount";
 import { handleSuggest } from "./subcommands/community/handleSuggest";
 import { handleTopic } from "./subcommands/community/handleTopic";
 import { handleUserInfo } from "./subcommands/community/handleUserInfo";
-import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 export const community: Command = {
   data: new SlashCommandBuilder()

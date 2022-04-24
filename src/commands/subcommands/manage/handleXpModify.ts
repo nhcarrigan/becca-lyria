@@ -5,9 +5,9 @@ import levelScale from "../../../config/listeners/levelScale";
 import { LevelOptOut } from "../../../config/optout/LevelOptOut";
 import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Modifies the xp of a `user` depending on the `action` taken

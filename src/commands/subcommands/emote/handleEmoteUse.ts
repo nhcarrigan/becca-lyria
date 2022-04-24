@@ -7,9 +7,9 @@ import {
 import { EmoteOptOut } from "../../../config/optout/EmoteOptOut";
 import EmoteCountModel from "../../../database/models/EmoteCountModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Handles the logic for using an emote.

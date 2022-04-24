@@ -3,10 +3,10 @@ import { MessageEmbed } from "discord.js";
 
 import StarModel from "../../../database/models/StarModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { formatTextToTable } from "../../../utils/formatText";
 import { getRandomValue } from "../../../utils/getRandomValue";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Generates an embed listing the top ten users with the most stars received in the

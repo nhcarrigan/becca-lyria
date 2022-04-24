@@ -6,10 +6,11 @@ import {
 import UserConfigModel from "../database/models/UserConfigModel";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleLevelCard } from "./subcommands/userconfig/handleLevelCard";
-import { handleUserConfigView } from "./subcommands/userconfig/handleUserConfigView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
+
+import { handleLevelCard } from "./subcommands/userconfig/handleLevelCard";
+import { handleUserConfigView } from "./subcommands/userconfig/handleUserConfigView";
 
 export const userConfig: Command = {
   data: new SlashCommandBuilder()

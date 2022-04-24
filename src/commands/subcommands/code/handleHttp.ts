@@ -3,8 +3,8 @@ import { MessageEmbed } from "discord.js";
 
 import { httpStatus } from "../../../config/commands/httpStatus";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Returns a cat photo depicting the given HTTP `status`.

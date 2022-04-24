@@ -4,10 +4,10 @@ import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 import CommandCountModel from "../../../database/models/CommandCountModel";
 import VoterModel from "../../../database/models/VoterModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { formatTextToTable } from "../../../utils/formatText";
 import { getRandomValue } from "../../../utils/getRandomValue";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 export const handleStats: CommandHandler = async (Becca, interaction, t) => {
   try {

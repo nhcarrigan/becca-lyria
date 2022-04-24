@@ -6,6 +6,9 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
+
 import { handleAbout } from "./subcommands/becca/handleAbout";
 import { handleAdventure } from "./subcommands/becca/handleAdventure";
 import { handleArt } from "./subcommands/becca/handleArt";
@@ -21,8 +24,6 @@ import { handleStats } from "./subcommands/becca/handleStats";
 import { handleTranslators } from "./subcommands/becca/handleTranslators";
 import { handleUpdates } from "./subcommands/becca/handleUpdates";
 import { handleUptime } from "./subcommands/becca/handleUptime";
-import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 export const becca: Command = {
   data: new SlashCommandBuilder()

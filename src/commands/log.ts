@@ -7,11 +7,12 @@ import {
 import { logChoices } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
+
 import { handleLogReset } from "./subcommands/log/handleLogReset";
 import { handleLogSet } from "./subcommands/log/handleLogSet";
 import { handleLogView } from "./subcommands/log/handleLogView";
-import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 export const log: Command = {
   data: new SlashCommandBuilder()

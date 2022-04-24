@@ -2,11 +2,11 @@
 import { GuildMember, MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { validateChannelPerms } from "../../../modules/commands/server/validateChannelPerms";
 import { validateServerPerms } from "../../../modules/commands/server/validateServerPerms";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Validates that Becca has the correct permissions in the server and the

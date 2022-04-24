@@ -3,8 +3,8 @@ import { MessageEmbed } from "discord.js";
 
 import { topicList } from "../../../config/commands/topicList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Generates an embed containing a random conversation starter from the topicList.

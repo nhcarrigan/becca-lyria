@@ -6,12 +6,13 @@ import {
 
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
+
 import { handleResetLevels } from "./subcommands/manage/handleResetLevels";
 import { handleResetStars } from "./subcommands/manage/handleResetStars";
 import { handleSuggestion } from "./subcommands/manage/handleSuggestion";
 import { handleXpModify } from "./subcommands/manage/handleXpModify";
-import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 export const manage: Command = {
   data: new SlashCommandBuilder()

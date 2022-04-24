@@ -9,8 +9,8 @@ import { TFunction } from "i18next";
 
 import levelScale from "../../../config/listeners/levelScale";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 const formatLevels = (page: number, t: TFunction) => {
   let formattedText = "";

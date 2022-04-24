@@ -3,9 +3,9 @@ import { GuildMember } from "discord.js";
 
 import { slimeList } from "../../../config/commands/slimeList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Generates a random slime-themed name from the slimeList and assigns it

@@ -3,9 +3,9 @@ import { MessageEmbed } from "discord.js";
 
 import { slotsList } from "../../../config/commands/slotsList";
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { parseSeconds } from "../../../utils/parseSeconds";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 
 /**
  * Confirms that the user has not used this command within the last hour, then

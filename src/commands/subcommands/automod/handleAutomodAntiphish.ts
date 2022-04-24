@@ -2,12 +2,12 @@
 import { MessageEmbed } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { customSubstring } from "../../../utils/customSubstring";
-import { getRandomValue } from "../../../utils/getRandomValue";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { renderSetting } from "../../../modules/settings/renderSetting";
 import { setSetting } from "../../../modules/settings/setSetting";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { customSubstring } from "../../../utils/customSubstring";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Provided the `value` is valid, sets the given `setting` to that `value`.

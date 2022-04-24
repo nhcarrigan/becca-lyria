@@ -1,7 +1,7 @@
 /* eslint-disable jsdoc/require-param */
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * If the `role` parameter is passed, and if the value is a self-assignable role as

@@ -3,10 +3,10 @@ import { Message, MessageActionRow, MessageButton } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { ArraySettings } from "../../../interfaces/settings/ArraySettings";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
 import { viewSettings } from "../../../modules/commands/config/viewSettings";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 import { viewSettingsArray } from "./viewSettingsArray";
 

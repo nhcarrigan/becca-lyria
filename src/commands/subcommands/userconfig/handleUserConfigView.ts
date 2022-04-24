@@ -2,8 +2,8 @@
 import { MessageEmbed } from "discord.js";
 
 import { UserConfigCommandHandler } from "../../../interfaces/commands/UserConfigCommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Handles viewing a user's config.

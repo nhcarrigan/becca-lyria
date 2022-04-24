@@ -3,11 +3,11 @@ import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { generateLevelHtml } from "../../../modules/commands/community/generateLevelHtml";
 import { generateLevelImage } from "../../../modules/commands/community/generateLevelImage";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Returns the current level ranking information for the given `user-level` or the author.

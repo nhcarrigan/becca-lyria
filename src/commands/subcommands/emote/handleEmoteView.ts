@@ -3,8 +3,8 @@ import { MessageEmbed } from "discord.js";
 
 import EmoteCountModel from "../../../database/models/EmoteCountModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Renders a user's emote data into an embed.

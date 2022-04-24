@@ -8,10 +8,11 @@ import { emoteChoices } from "../config/commands/emoteData";
 import { EmoteOptOut } from "../config/optout/EmoteOptOut";
 import { Command } from "../interfaces/commands/Command";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
-import { handleEmoteUse } from "./subcommands/emote/handleEmoteUse";
-import { handleEmoteView } from "./subcommands/emote/handleEmoteView";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
+
+import { handleEmoteUse } from "./subcommands/emote/handleEmoteUse";
+import { handleEmoteView } from "./subcommands/emote/handleEmoteView";
 
 export const emote: Command = {
   data: new SlashCommandBuilder()

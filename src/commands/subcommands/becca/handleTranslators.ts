@@ -4,8 +4,8 @@ import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 
 import { translatorList } from "../../../config/commands/translatorList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
 /**
  * Handles providing a list of translators.
