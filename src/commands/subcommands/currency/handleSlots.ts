@@ -5,6 +5,7 @@ import { slotsList } from "../../../config/commands/slotsList";
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 import { parseSeconds } from "../../../utils/parseSeconds";
 
 /**
@@ -44,9 +45,9 @@ export const handleSlots: CurrencyHandler = async (
       return;
     }
 
-    const first = slotsList[Math.floor(Math.random() * slotsList.length)];
-    const second = slotsList[Math.floor(Math.random() * slotsList.length)];
-    const third = slotsList[Math.floor(Math.random() * slotsList.length)];
+    const first = getRandomValue(slotsList);
+    const second = getRandomValue(slotsList);
+    const third = getRandomValue(slotsList);
 
     const didWin = first === second && second === third;
 

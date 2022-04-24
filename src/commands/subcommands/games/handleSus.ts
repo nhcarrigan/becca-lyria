@@ -1,10 +1,11 @@
 /* eslint-disable jsdoc/require-param */
 import { MessageEmbed } from "discord.js";
 
-import { SusColours, SusNames } from "../../../config/commands/susList";
+import { SusList } from "../../../config/commands/susList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Generates an embed with a random colour from Among Us, and delcares that
@@ -12,13 +13,13 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  */
 export const handleSus: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const random = Math.floor(Math.random() * SusNames.length);
+    const susData = getRandomValue(SusList);
     const susEmbed = new MessageEmbed();
     susEmbed.setTitle(t("commands:games.sus.title"));
     susEmbed.setDescription(
-      t("commands:games.sus.description", { color: SusNames[random] })
+      t("commands:games.sus.description", { color: susData.name })
     );
-    susEmbed.setColor(SusColours[random]);
+    susEmbed.setColor(susData.colour);
     susEmbed.setTimestamp();
     susEmbed.setFooter({
       text: t("defaults:donate"),

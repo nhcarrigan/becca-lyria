@@ -5,6 +5,7 @@ import { artList } from "../../../config/commands/artList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Using the artList config, selects a random art object and parses it
@@ -12,8 +13,7 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  */
 export const handleArt: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const random = Math.floor(Math.random() * artList.length);
-    const { fileName, artName, artist, artistUrl } = artList[random];
+    const { fileName, artName, artist, artistUrl } = getRandomValue(artList);
 
     const artEmbed = new MessageEmbed();
     artEmbed.setTitle(artName);

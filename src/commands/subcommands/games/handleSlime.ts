@@ -22,8 +22,7 @@ export const handleSlime: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const index = Math.floor(Math.random() * slimeList.length);
-    const noun = slimeList[index];
+    const noun = getRandomValue(slimeList);
 
     await member
       .setNickname(`${noun}slime`)

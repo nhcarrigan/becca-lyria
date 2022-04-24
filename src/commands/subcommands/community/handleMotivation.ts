@@ -5,6 +5,7 @@ import { motivationalQuotes } from "../../../config/commands/motivationalQuotes"
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Returns a random motivational quote, formatted in an embed.
@@ -16,8 +17,7 @@ export const handleMotivation: CommandHandler = async (
   t
 ) => {
   try {
-    const random = Math.floor(Math.random() * motivationalQuotes.length);
-    const quote = motivationalQuotes[random];
+    const quote = getRandomValue(motivationalQuotes);
     const quoteEmbed = new MessageEmbed();
     quoteEmbed.setTitle("We are counting on you!");
     quoteEmbed.setDescription(quote.quote);

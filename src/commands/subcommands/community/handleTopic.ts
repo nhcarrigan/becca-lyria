@@ -5,6 +5,7 @@ import { topicList } from "../../../config/commands/topicList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Generates an embed containing a random conversation starter from the topicList.
@@ -15,9 +16,7 @@ export const handleTopic: CommandHandler = async (Becca, interaction, t) => {
 
     const topicArray = topicList.split("\n");
 
-    const randomIndex = Math.floor(Math.random() * topicArray.length);
-
-    const randomTopic = topicArray[randomIndex];
+    const randomTopic = getRandomValue(topicArray);
 
     const topicEmbed = new MessageEmbed();
     topicEmbed.setTitle(t("commands:community.topic.title"));

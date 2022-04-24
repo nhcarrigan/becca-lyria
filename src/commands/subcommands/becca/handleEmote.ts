@@ -5,6 +5,7 @@ import { emoteList } from "../../../config/commands/emoteList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Using the artList config, selects a random art object and parses it
@@ -12,8 +13,7 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  */
 export const handleEmote: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const random = Math.floor(Math.random() * emoteList.length);
-    const { emoteName, description, fileName } = emoteList[random];
+    const { emoteName, description, fileName } = getRandomValue(emoteList);
 
     const emoteEmbed = new MessageEmbed();
     emoteEmbed.setTitle(emoteName);

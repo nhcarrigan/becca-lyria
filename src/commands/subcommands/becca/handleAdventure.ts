@@ -5,6 +5,7 @@ import { adventureList } from "../../../config/commands/adventureList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Using the adventureList config, selects a random adventure object and parses it
@@ -16,8 +17,7 @@ export const handleAdventure: CommandHandler = async (
   t
 ) => {
   try {
-    const random = Math.floor(Math.random() * adventureList.length);
-    const { fileName, gameName, gameUrl } = adventureList[random];
+    const { fileName, gameName, gameUrl } = getRandomValue(adventureList);
 
     const adventureEmbed = new MessageEmbed();
     adventureEmbed.setTitle(gameName);
