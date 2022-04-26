@@ -61,20 +61,20 @@ export const currency: Command = {
             .setDescription("The reward you want to claim.")
             .addChoices([
               [
-                "Steal the `Monarch` role in Becca's Discord server. (1000 BeccaCoin)",
+                "Change the colour of the `Monarch` role in Naomi's Discord server. (2500 BeccaCoin)",
+                "monarch-colour",
+              ],
+              [
+                "Steal the `Monarch` role in Naomi's Discord server. (5000 BeccaCoin)",
                 "monarch",
               ],
               [
-                "Steal the `Monarch (custom)` role in Becca's Discord server. (5000 BeccaCoin)",
-                "custom-monarch",
+                "Change the colour of the `Wealthy` role in Naomi's Discord server! (7500 BeccaCoin)",
+                "wealthy-colour",
               ],
               [
-                "Claim a special `Wealthy` role in Becca's Discord server! (10000 BeccaCoin)",
+                "Claim a special `Wealthy` role in Naomi's Discord server! (10000 BeccaCoin)",
                 "wealthy",
-              ],
-              [
-                "Claim a special `Wealthy (custom)` role in Becca's Discord server! (25000 BeccaCoin)",
-                "custom-wealthy",
               ],
             ])
             .setRequired(true)

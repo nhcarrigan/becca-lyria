@@ -21,7 +21,7 @@ export const handleClaim: CurrencyHandler = async (
     const claimEmbed = new MessageEmbed();
     claimEmbed.setTitle("Reward Claimed!");
     claimEmbed.setDescription(
-      "Congratulations on claiming a reward! Please note that you will need to join our [support server](https://chat.nhcarrigan.com) and ping `nhcarrigan` so we can work with you to get your prize."
+      "Congratulations on claiming a reward! Please note that you will need to join our [support server](https://chat.nhcarrigan.com) and ping Naomi so we can work with you to get your prize."
     );
     claimEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",
@@ -29,24 +29,24 @@ export const handleClaim: CurrencyHandler = async (
     );
 
     switch (reward) {
-      case "monarch":
-        if (data.currencyTotal < 1000) {
+      case "monarch-colour":
+        if (data.currencyTotal < 2500) {
           await interaction.editReply(
             t("commands:currency.claim.price", {
-              price: 1000,
+              price: 2500,
               total: data.currencyTotal,
             })
           );
           return;
         }
-        data.currencyTotal -= 1000;
+        data.currencyTotal -= 2500;
         await data.save();
         claimEmbed.addField(
           t("commands:currency.claim.details"),
-          t("commands:currency.claim.monarch")
+          t("commands:currency.claim.monarch-colour")
         );
         break;
-      case "custom-monarch":
+      case "monarch":
         if (data.currencyTotal < 5000) {
           await interaction.editReply(
             t("commands:currency.claim.price", {
@@ -60,7 +60,24 @@ export const handleClaim: CurrencyHandler = async (
         await data.save();
         claimEmbed.addField(
           t("commands:currency.claim.details"),
-          t("commands:currency.claim.custom-monarch")
+          t("commands:currency.claim.monarch")
+        );
+        break;
+      case "wealthy-colour":
+        if (data.currencyTotal < 7500) {
+          await interaction.editReply(
+            t("commands:currency.claim.price", {
+              price: 7500,
+              total: data.currencyTotal,
+            })
+          );
+          return;
+        }
+        data.currencyTotal -= 7500;
+        await data.save();
+        claimEmbed.addField(
+          t("commands:currency.claim.details"),
+          t("commands:currency.claim.wealthy-colour")
         );
         break;
       case "wealthy":
@@ -78,23 +95,6 @@ export const handleClaim: CurrencyHandler = async (
         claimEmbed.addField(
           t("commands:currency.claim.details"),
           t("commands:currency.claim.wealthy")
-        );
-        break;
-      case "custom-wealthy":
-        if (data.currencyTotal < 25000) {
-          await interaction.editReply(
-            t("commands:currency.claim.price", {
-              price: 25000,
-              total: data.currencyTotal,
-            })
-          );
-          return;
-        }
-        data.currencyTotal -= 25000;
-        await data.save();
-        claimEmbed.addField(
-          t("commands:currency.claim.details"),
-          t("commands:currency.claim.custom-wealthy")
         );
         break;
       case "default":
