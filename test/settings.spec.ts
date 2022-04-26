@@ -32,18 +32,18 @@ suite("Validate Settings", () => {
 
   suite("Config Choices", () => {
     test("Config choices should be unique", () => {
-      const configChoicesSet = new Set(configChoices.map((el) => el[1]));
+      const configChoicesSet = new Set(configChoices.map((el) => el.value));
       assert.strictEqual(configChoicesSet.size, configChoices.length);
     });
 
     test("Config View choices should be unique", () => {
       const configViewChoicesSet = new Set(
-        configViewChoices.map((el) => el[1])
+        configViewChoices.map((el) => el.value)
       );
       assert.strictEqual(configViewChoicesSet.size, configViewChoices.length);
     });
 
-    for (const [, choice] of configChoices) {
+    for (const { value: choice } of configChoices) {
       test(`${choice} should be a valid config option`, () => {
         assert(
           choice in testServerConfig,
@@ -54,12 +54,12 @@ suite("Validate Settings", () => {
 
     test("First Config View choice should be global", () => {
       assert(
-        configViewChoices[0][1] === "global",
+        configViewChoices[0].value === "global",
         `First choice is not global.`
       );
     });
 
-    for (const [, choice] of configViewChoices.slice(1)) {
+    for (const { value: choice } of configViewChoices.slice(1)) {
       test(`${choice} should be a valid config view option`, () => {
         assert(
           choice in testServerConfig,
@@ -78,11 +78,11 @@ suite("Validate Settings", () => {
 
   suite("Log Choices", () => {
     test("Log choices should be unique", () => {
-      const logChoicesSet = new Set(logChoices.map((el) => el[1]));
+      const logChoicesSet = new Set(logChoices.map((el) => el.value));
       assert.strictEqual(logChoicesSet.size, logChoices.length);
     });
 
-    for (const [, choice] of logChoices) {
+    for (const { value: choice } of logChoices) {
       test(`${choice} should be a valid log option`, () => {
         assert(
           choice in testServerConfig,
@@ -94,20 +94,20 @@ suite("Validate Settings", () => {
 
   suite("Automod Choices", () => {
     test("Automod choices should be unique", () => {
-      const automodChoicesSet = new Set(automodChoices.map((el) => el[1]));
+      const automodChoicesSet = new Set(automodChoices.map((el) => el.value));
       assert.strictEqual(automodChoicesSet.size, automodChoices.length);
     });
 
     test("Automod View choices should be unique", () => {
       const automodViewChoicesSet = new Set(
-        automodViewChoices.map((el) => el[1])
+        automodViewChoices.map((el) => el.value)
       );
       assert.strictEqual(automodViewChoicesSet.size, automodViewChoices.length);
     });
 
     test("Automod Toggle choices should be unique", () => {
       const automodToggleChoicesSet = new Set(
-        automodToggleChoices.map((el) => el[1])
+        automodToggleChoices.map((el) => el.value)
       );
       assert.strictEqual(
         automodToggleChoicesSet.size,
@@ -115,7 +115,7 @@ suite("Validate Settings", () => {
       );
     });
 
-    for (const [, choice] of automodChoices) {
+    for (const { value: choice } of automodChoices) {
       test(`${choice} should be a valid automod option`, () => {
         assert(
           choice in testServerConfig,
@@ -126,12 +126,12 @@ suite("Validate Settings", () => {
 
     test("First Automod View choice should be global", () => {
       assert(
-        automodViewChoices[0][1] === "global",
+        automodViewChoices[0].value === "global",
         `First choice is not global.`
       );
     });
 
-    for (const [, choice] of automodViewChoices.slice(1)) {
+    for (const { value: choice } of automodViewChoices.slice(1)) {
       test(`${choice} should be a valid automod view option`, () => {
         assert(
           choice in testServerConfig,
@@ -147,7 +147,7 @@ suite("Validate Settings", () => {
       });
     }
 
-    for (const [, choice] of automodToggleChoices) {
+    for (const { value: choice } of automodToggleChoices) {
       test(`${choice} should be a valid automod toggle option`, () => {
         assert(
           choice in testServerConfig,
