@@ -1,3 +1,5 @@
+import { APIApplicationCommandOptionChoice } from "discord-api-types/v10";
+
 import { ArraySettings } from "../../interfaces/settings/ArraySettings";
 import {
   AutomodSettings,
@@ -6,72 +8,80 @@ import {
 import { LogSettings } from "../../interfaces/settings/LogSettings";
 import { Settings } from "../../interfaces/settings/Settings";
 
-export const configChoices: [string, Settings][] = [
-  ["Level System", "levels"],
-  ["Welcome Message Channel", "welcome_channel"],
-  ["Departure Message Channel", "depart_channel"],
-  ["Level Log Channel", "level_channel"],
-  ["Suggestion Channel", "suggestion_channel"],
-  ["Custom Welcome Message", "custom_welcome"],
-  ["Heart Users", "hearts"],
-  ["Blocked Users", "blocked"],
-  ["Level-assigned Roles", "level_roles"],
-  ["Role on Join", "join_role"],
-  ["Custom Leave Message", "leave_message"],
-  ["Report Channel", "report_channel"],
-  ["No Levelling Channels", "level_ignore"],
-  ["Ban Appeal Link", "appeal_link"],
-  ["Sass Mode", "sass_mode"],
-  ["Emote-Only Channels", "emote_channels"],
+export const configChoices: APIApplicationCommandOptionChoice<Settings>[] = [
+  { name: "Level System", value: "levels" },
+  { name: "Welcome Message Channel", value: "welcome_channel" },
+  { name: "Departure Message Channel", value: "depart_channel" },
+  { name: "Level Log Channel", value: "level_channel" },
+  { name: "Suggestion Channel", value: "suggestion_channel" },
+  { name: "Custom Welcome Message", value: "custom_welcome" },
+  { name: "Heart Users", value: "hearts" },
+  { name: "Blocked Users", value: "blocked" },
+  { name: "Level-assigned Roles", value: "level_roles" },
+  { name: "Role on Join", value: "join_role" },
+  { name: "Custom Leave Message", value: "leave_message" },
+  { name: "Report Channel", value: "report_channel" },
+  { name: "No Levelling Channels", value: "level_ignore" },
+  { name: "Ban Appeal Link", value: "appeal_link" },
+  { name: "Sass Mode", value: "sass_mode" },
+  { name: "Emote-Only Channels", value: "emote_channels" },
 ];
 
-export const configViewChoices: [string, ArraySettings | "global"][] = [
-  ["Global Settings", "global"],
+export const configViewChoices: APIApplicationCommandOptionChoice<
+  ArraySettings | "global"
+>[] = [
+  { name: "Global Settings", value: "global" },
   // global must be on top for tests to pass
-  ["Heart Users", "hearts"],
-  ["Blocked Users", "blocked"],
-  ["Level-assigned Roles", "level_roles"],
-  ["No Levelling Channels", "level_ignore"],
-  ["Emote-Only Channels", "emote_channels"],
+  { name: "Heart Users", value: "hearts" },
+  { name: "Blocked Users", value: "blocked" },
+  { name: "Level-assigned Roles", value: "level_roles" },
+  { name: "No Levelling Channels", value: "level_ignore" },
+  { name: "Emote-Only Channels", value: "emote_channels" },
 ];
 
-export const logChoices: [string, LogSettings][] = [
-  ["Message Events (edit, delete)", "message_events"],
-  ["Voice Events (join, disconnect, mute, deafen)", "voice_events"],
-  ["Thread Events (create, archive, delete)", "thread_events"],
-  ["Moderation Activity (kick, ban, mute)", "moderation_events"],
-  ["Member Events (screening, updates)", "member_events"],
+export const logChoices: APIApplicationCommandOptionChoice<LogSettings>[] = [
+  { name: "Message Events (edit, delete)", value: "message_events" },
+  {
+    name: "Voice Events (join, disconnect, mute, deafen)",
+    value: "voice_events",
+  },
+  { name: "Thread Events (create, archive, delete)", value: "thread_events" },
+  { name: "Moderation Activity (kick, ban, mute)", value: "moderation_events" },
+  { name: "Member Events (screening, updates)", value: "member_events" },
 ];
 
-export const automodChoices: [string, AutomodSettings][] = [
-  ["Automodded Channels", "automod_channels"],
-  ["Automod Ignored Channels", "no_automod_channels"],
-  ["Automod Exempt Roles", "automod_roles"],
-  ["Allowed Link Regex", "allowed_links"],
-  ["Link Delete Message", "link_message"],
-  ["Profanity Delete Message", "profanity_message"],
-];
+export const automodChoices: APIApplicationCommandOptionChoice<AutomodSettings>[] =
+  [
+    { name: "Automodded Channels", value: "automod_channels" },
+    { name: "Automod Ignored Channels", value: "no_automod_channels" },
+    { name: "Automod Exempt Roles", value: "automod_roles" },
+    { name: "Allowed Link Regex", value: "allowed_links" },
+    { name: "Link Delete Message", value: "link_message" },
+    { name: "Profanity Delete Message", value: "profanity_message" },
+  ];
 
-export const automodViewChoices: [string, ArraySettings | "global"][] = [
-  ["Global Automod Settings", "global"],
+export const automodViewChoices: APIApplicationCommandOptionChoice<
+  ArraySettings | "global"
+>[] = [
+  { name: "Global Settings", value: "global" },
   // global must be on top for tests to pass
-  ["Automodded Channels", "automod_channels"],
-  ["Automod Ignored Channels", "no_automod_channels"],
-  ["Automod Exempt Roles", "automod_roles"],
-  ["Allowed Link Regex", "allowed_links"],
+  { name: "Automodded Channels", value: "automod_channels" },
+  { name: "Automod Ignored Channels", value: "no_automod_channels" },
+  { name: "Automod Exempt Roles", value: "automod_roles" },
+  { name: "Allowed Link Regex", value: "allowed_links" },
 ];
 
-export const automodToggleChoices: [string, AutomodToggleSettings][] = [
-  ["Link Detection", "links"],
-  ["Profanity Detection", "profanity"],
-];
+export const automodToggleChoices: APIApplicationCommandOptionChoice<AutomodToggleSettings>[] =
+  [
+    { name: "Link Detection", value: "links" },
+    { name: "Profanity Detection", value: "profanity" },
+  ];
 
-export const automodAntiphishChoices: [
-  string,
+export const automodAntiphishChoices: APIApplicationCommandOptionChoice<
   "none" | "mute" | "kick" | "ban"
-][] = [
-  ["Do nothing when a scam link is detected.", "none"],
-  ["Mute the user for 24 hours.", "mute"],
-  ["Kick the user.", "kick"],
-  ["Ban the user.", "ban"],
+>[] = [
+  { name: "Do nothing when a scam link is detected.", value: "none" },
+  { name: "Mute the user for 24 hours.", value: "mute" },
+  { name: "Kick the user.", value: "kick" },
+  { name: "Ban the user.", value: "ban" },
 ];

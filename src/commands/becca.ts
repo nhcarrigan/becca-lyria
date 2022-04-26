@@ -105,11 +105,11 @@ export const becca: Command = {
           option
             .setName("view")
             .setDescription("Which stat do you want to view?")
-            .addChoices([
-              ["Bot Votes", "bvotes"],
-              ["Command Leaderboard", "commands"],
-              ["Server Votes", "svotes"],
-            ])
+            .addChoices(
+              { name: "Bot Votes", value: "bvotes" },
+              { name: "Command Leaderboard", value: "commands" },
+              { name: "Server Votes", value: "svotes" }
+            )
             .setRequired(true)
         )
     )
