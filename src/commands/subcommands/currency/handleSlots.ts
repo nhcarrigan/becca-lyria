@@ -50,20 +50,29 @@ export const handleSlots: CurrencyHandler = async (
     const third = getRandomValue(slotsList);
 
     const didWin = first === second && second === third;
+    const partialWin = first === second || second === third || first === third;
 
-    data.currencyTotal = didWin
-      ? data.currencyTotal + wager
-      : data.currencyTotal - wager;
+    let change = 0 - wager;
+    if (partialWin) {
+      change = wager * 10;
+    }
+    if (didWin) {
+      change = wager * 100;
+    }
+
+    data.currencyTotal = data.currencyTotal + change;
     data.slotsPlayed = now;
     await data.save();
 
     const slotEmbed = new MessageEmbed();
     slotEmbed.setTitle(
-      didWin
+      didWin || partialWin
         ? t("commands:currency.slots.won")
         : t("commands:currency.slots.lost")
     );
-    slotEmbed.setColor(didWin ? Becca.colours.success : Becca.colours.error);
+    slotEmbed.setColor(
+      didWin || partialWin ? Becca.colours.success : Becca.colours.error
+    );
     slotEmbed.setDescription(
       t("commands:currency.slots.total", { total: data.currencyTotal })
     );
@@ -77,7 +86,7 @@ export const handleSlots: CurrencyHandler = async (
     await Becca.currencyHook.send(
       `${interaction.user.username} played slots in ${
         interaction.guild?.name
-      }! They ${didWin ? "won" : "lost"} ${wager} BeccaCoin.`
+      }! They ${didWin || partialWin ? "won" : "lost"} ${change} BeccaCoin.`
     );
   } catch (err) {
     const errorId = await beccaErrorHandler(
