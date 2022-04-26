@@ -42,7 +42,7 @@ export const automod: Command = {
           option
             .setName("setting")
             .setDescription("The setting to edit.")
-            .addChoices(automodChoices)
+            .addChoices(...automodChoices)
             .setRequired(true)
         )
         .addStringOption((option) =>
@@ -60,7 +60,7 @@ export const automod: Command = {
           option
             .setName("setting")
             .setDescription("The setting to clear the value of.")
-            .addChoices(automodChoices)
+            .addChoices(...automodChoices)
             .setRequired(true)
         )
     )
@@ -73,7 +73,7 @@ export const automod: Command = {
             .setName("setting")
             .setDescription("The setting to view.")
             .setRequired(true)
-            .addChoices(automodViewChoices)
+            .addChoices(...automodViewChoices)
         )
     )
     .addSubcommand(
@@ -85,17 +85,17 @@ export const automod: Command = {
             .setName("setting")
             .setDescription("The setting to toggle.")
             .setRequired(true)
-            .addChoices(automodToggleChoices)
+            .addChoices(...automodToggleChoices)
         )
         .addStringOption((option) =>
           option
             .setName("value")
             .setDescription("Enable/Disable the setting.")
             .setRequired(true)
-            .addChoices([
-              ["Enabled", "on"],
-              ["Disabled", "off"],
-            ])
+            .addChoices(
+              { name: "Enabled", value: "on" },
+              { name: "Disabled", value: "off" }
+            )
         )
     )
     .addSubcommand(
@@ -109,7 +109,7 @@ export const automod: Command = {
             .setName("action")
             .setDescription("The action to take.")
             .setRequired(true)
-            .addChoices(automodAntiphishChoices)
+            .addChoices(...automodAntiphishChoices)
         )
     ),
   run: async (Becca, interaction, t, config) => {

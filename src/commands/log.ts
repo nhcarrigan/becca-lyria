@@ -34,7 +34,7 @@ export const log: Command = {
           option
             .setName("event")
             .setDescription("The type of events to log")
-            .addChoices(logChoices)
+            .addChoices(...logChoices)
             .setRequired(true)
         )
         .addChannelOption((option) =>
@@ -52,7 +52,7 @@ export const log: Command = {
           option
             .setName("event")
             .setDescription("The type of events to log")
-            .addChoices(logChoices)
+            .addChoices(...logChoices)
             .setRequired(true)
         )
     )

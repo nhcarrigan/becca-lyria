@@ -33,7 +33,7 @@ export const emote: Command = {
             .setName("emote")
             .setRequired(true)
             .setDescription("The emote to use.")
-            .addChoices(emoteChoices)
+            .addChoices(...emoteChoices)
         )
         .addUserOption((option) =>
           option

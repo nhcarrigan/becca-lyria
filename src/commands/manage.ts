@@ -44,8 +44,16 @@ export const manage: Command = {
           option
             .setName("action")
             .setDescription("The action to take on the suggestion.")
-            .addChoice("approve", "approve")
-            .addChoice("deny", "deny")
+            .addChoices(
+              {
+                name: "approve",
+                value: "approve",
+              },
+              {
+                name: "deny",
+                value: "deny",
+              }
+            )
             .setRequired(true)
         )
         .addStringOption((option) =>
@@ -69,8 +77,16 @@ export const manage: Command = {
           option
             .setName("action")
             .setDescription("The action you want to take with the xp.")
-            .addChoice("add", "add")
-            .addChoice("remove", "remove")
+            .addChoices(
+              {
+                name: "add",
+                value: "add",
+              },
+              {
+                name: "remove",
+                value: "remove",
+              }
+            )
             .setRequired(true)
         )
         .addUserOption((option) =>

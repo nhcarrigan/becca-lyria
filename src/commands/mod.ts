@@ -68,12 +68,12 @@ export const mod: Command = {
             .setName("unit")
             .setDescription("The unit of time for the duration.")
             .setRequired(true)
-            .addChoices([
-              ["Minutes", "minutes"],
-              ["Hours", "hours"],
-              ["Days", "days"],
-              ["Weeks", "weeks"],
-            ])
+            .addChoices(
+              { name: "Minutes", value: "minutes" },
+              { name: "Hours", value: "hours" },
+              { name: "Days", value: "days" },
+              { name: "Weeks", value: "weeks" }
+            )
         )
         .addStringOption((option) =>
           option

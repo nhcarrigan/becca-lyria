@@ -38,7 +38,7 @@ export const config: Command = {
             .setName("setting")
             .setDescription("The setting to update")
             .setRequired(true)
-            .addChoices(configChoices)
+            .addChoices(...configChoices)
         )
         .addStringOption((option) =>
           option
@@ -56,7 +56,7 @@ export const config: Command = {
             .setName("setting")
             .setDescription("The setting to reset")
             .setRequired(true)
-            .addChoices(configChoices)
+            .addChoices(...configChoices)
         )
     )
     .addSubcommand(
@@ -68,7 +68,7 @@ export const config: Command = {
             .setName("setting")
             .setDescription("The setting list to view.")
             .setRequired(true)
-            .addChoices(configViewChoices)
+            .addChoices(...configViewChoices)
         )
     ),
   run: async (Becca, interaction, t, serverConfig) => {
