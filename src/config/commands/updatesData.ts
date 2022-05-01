@@ -1,9 +1,7 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Patched error in new mod permission system",
-  "- Patched error in Heptagram anti-phish endpoint",
-  "- Updated `/games joke` command to use Heptagram API",
-  "- Added `/games quote` command",
-  "- Refactored the command logic for a cleaner subcommand approach",
+  "- Updated the available currency rewards",
+  "- Increased the daily and weekly currency gain amounts",
+  "- Added a partial win rate to the slots game and increased the win amounts",
 ];
 
 export const nextScheduledRelease = "<t:1651417200:F>";
