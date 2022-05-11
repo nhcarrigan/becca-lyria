@@ -43,7 +43,7 @@ export const automodLinks: ListenerHandler = async (
     }
 
     const linkRegex =
-      /(([a-z]+:\/\/)?(([a-z0-9-]+\.)+([a-z]{2,})))(:[\d]{1,5})?[^\s]*/gi;
+      /(https?:\/\/(([a-z0-9-]+\.)+([a-z]{2,})))(:[\d]{1,5})?[^\s]*/gi;
 
     const blockedMatches = contentWithoutCode.match(linkRegex);
     if (blockedMatches) {
