@@ -1,7 +1,5 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Updated the available currency rewards",
-  "- Increased the daily and weekly currency gain amounts",
-  "- Added a partial win rate to the slots game and increased the win amounts",
+  "- Tightened the link detection regex to remove false positives.",
 ];
 
-export const nextScheduledRelease = "<t:1651417200:F>";
+export const nextScheduledRelease = "<t:1653238800:F>";
