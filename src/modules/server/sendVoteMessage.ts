@@ -33,7 +33,9 @@ export const sendVoteMessage = async (
       payload.user
     }>! Thanks for voting for the ${type} on top.gg! Remember to vote again in 12 hours!\n\nYou have voted ${
       type === "bot" ? voter.botVotes : voter.serverVotes
-    } times!`;
+    } times! This month, you have voted ${
+      voter.monthlyVotes
+    } out of 60 times to claim your reward!`;
 
     await channel.send({ content: message });
   } catch (err) {
