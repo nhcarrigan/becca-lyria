@@ -16,6 +16,7 @@ import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { getCounts } from "../modules/becca/getCounts";
 import { sendVoteMessage } from "../modules/server/sendVoteMessage";
 import { sendVoteReminder } from "../modules/server/sendVoteReminder";
+import { sendVoteReward } from "../modules/server/sendVoteReward";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { beccaLogHandler } from "../utils/beccaLogHandler";
 
@@ -54,6 +55,7 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
         if (VoteOptOut.includes(payload.user)) {
           return;
         }
+        const currentMonth = new Date(Date.now()).getMonth();
         let voteType: "bot" | "server" | "unknown" = "unknown";
         const voteRecord =
           (await VoterModel.findOne({ userId: payload.user })) ||
@@ -61,7 +63,20 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
             userId: payload.user,
             serverVotes: 0,
             botVotes: 0,
+            activeMonth: new Date(Date.now()).getMonth(),
+            monthlyVotes: 0,
           }));
+
+        if (voteRecord.activeMonth !== currentMonth) {
+          if (voteRecord.monthlyVotes > 60) {
+            await sendVoteReward(Becca, voteRecord);
+          }
+          /* eslint-disable require-atomic-updates */
+          voteRecord.activeMonth = currentMonth;
+          voteRecord.monthlyVotes = 0;
+          /* eslint-enable require-atomic-updates */
+        }
+        voteRecord.monthlyVotes = (voteRecord.monthlyVotes || 0) + 1;
 
         if (payload.bot === Becca.configs.id) {
           voteRecord.botVotes = voteRecord.botVotes + 1;
