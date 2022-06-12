@@ -116,36 +116,6 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
       }
     });
 
-    HTTPEndpoint.use("/leaderboard/:serverId", async (req, res) => {
-      const data = await LevelModel.find(
-        { serverID: req.params.serverId },
-        { _id: 0, __v: 0 }
-      )
-        .sort({ points: -1 })
-        .limit(100)
-        .lean()
-        .exec();
-
-      if (!data) {
-        res.status(404).send("IDK what to put here yet.");
-        return;
-      }
-      res.json(data);
-    });
-
-    HTTPEndpoint.use("/stars/:serverId", async (req, res) => {
-      const data = await StarModel.findOne(
-        { serverID: req.params.serverId },
-        { _id: 0, __v: 0 }
-      );
-
-      if (!data) {
-        res.status(404).send("IDK what to put here yet.");
-        return;
-      }
-      res.json(data);
-    });
-
     HTTPEndpoint.use("/commands", async (_, res) => {
       const data = await UsageModel.find();
       res.json(data);

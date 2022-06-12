@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import { MessageEmbed } from "discord.js";
 
 import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -72,18 +72,8 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
     });
     levelEmbed.setImage("attachment://level.png");
 
-    const button = new MessageButton()
-      .setLabel(t("commands:community.level.buttons.view"))
-      .setEmoji("<:BeccaCheer:897545794176045096>")
-      .setStyle("LINK")
-      .setURL(
-        `https://dash.beccalyria.com/leaderboard/${guildId}?utm_source=discord&utm_medium=level-command`
-      );
-    const row = new MessageActionRow().addComponents([button]);
-
     await interaction.editReply({
       embeds: [levelEmbed],
-      components: [row],
       files: [levelCardImage],
     });
   } catch (err) {
