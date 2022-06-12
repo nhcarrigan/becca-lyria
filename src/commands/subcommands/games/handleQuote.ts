@@ -13,7 +13,7 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 export const handleQuote: CommandHandler = async (Becca, interaction, t) => {
   try {
     const quote = await axios.get<Quote>(
-      "https://api.heptagrambotproject.com/api/v0/quotes/random",
+      "https://api.heptagrambotproject.com/v4/quotes/random",
       {
         headers: {
           Authorization: "Bearer " + Becca.configs.heptagramApiToken,

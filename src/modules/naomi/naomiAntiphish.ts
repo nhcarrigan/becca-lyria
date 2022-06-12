@@ -21,7 +21,7 @@ export const naomiAntiphish = async (Becca: BeccaLyria, message: Message) => {
     );
 
     const heptagramResult = await axios.post<boolean>(
-      `http://heptagrambotproject.com/api/v0/api/scam/link/post`,
+      `http://api.heptagrambotproject.com/v4/api/scam/link/report?url=${link}`,
       {
         headers: {
           Authorization: "Bearer " + Becca.configs.heptagramApiToken,
