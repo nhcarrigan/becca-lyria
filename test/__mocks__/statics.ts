@@ -15,3 +15,5 @@ export const CommandNames = [
   "triggers",
   "userconfig",
 ];
+
+export const ContextNames = ["activity", "bookmark", "report"];
