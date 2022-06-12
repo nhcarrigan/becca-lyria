@@ -1,25 +1,25 @@
 import { assert } from "chai";
 
-import ActivityModel from "../src/database/models/ActivityModel";
-import CommandCountModel from "../src/database/models/CommandCountModel";
-import CurrencyModel from "../src/database/models/CurrencyModel";
-import EmoteCountModel from "../src/database/models/EmoteCountModel";
-import HistoryModel from "../src/database/models/HistoryModel";
-import LevelModel from "../src/database/models/LevelModel";
-import ServerConfigModel from "../src/database/models/ServerConfigModel";
-import StarModel from "../src/database/models/StarModel";
-import UsageModel from "../src/database/models/UsageModel";
-import VoterModel from "../src/database/models/VoterModel";
-import { testActivity } from "../src/interfaces/database/Activity";
-import { testCommandCount } from "../src/interfaces/database/CommandCount";
-import { testCurrency } from "../src/interfaces/database/Currency";
-import { testEmoteCount } from "../src/interfaces/database/EmoteCount";
-import { testHistory } from "../src/interfaces/database/History";
-import { testLevel } from "../src/interfaces/database/Level";
-import { testServerConfig } from "../src/interfaces/database/ServerConfig";
-import { testStar } from "../src/interfaces/database/Star";
-import { testUsage } from "../src/interfaces/database/Usage";
-import { testVoter } from "../src/interfaces/database/Voter";
+import ActivityModel from "../../src/database/models/ActivityModel";
+import CommandCountModel from "../../src/database/models/CommandCountModel";
+import CurrencyModel from "../../src/database/models/CurrencyModel";
+import EmoteCountModel from "../../src/database/models/EmoteCountModel";
+import HistoryModel from "../../src/database/models/HistoryModel";
+import LevelModel from "../../src/database/models/LevelModel";
+import ServerConfigModel from "../../src/database/models/ServerConfigModel";
+import StarModel from "../../src/database/models/StarModel";
+import UsageModel from "../../src/database/models/UsageModel";
+import VoterModel from "../../src/database/models/VoterModel";
+import { testActivity } from "../../src/interfaces/database/Activity";
+import { testCommandCount } from "../../src/interfaces/database/CommandCount";
+import { testCurrency } from "../../src/interfaces/database/Currency";
+import { testEmoteCount } from "../../src/interfaces/database/EmoteCount";
+import { testHistory } from "../../src/interfaces/database/History";
+import { testLevel } from "../../src/interfaces/database/Level";
+import { testServerConfig } from "../../src/interfaces/database/ServerConfig";
+import { testStar } from "../../src/interfaces/database/Star";
+import { testUsage } from "../../src/interfaces/database/Usage";
+import { testVoter } from "../../src/interfaces/database/Voter";
 
 suite("Schema Validation", () => {
   suite("Activity Schema", () => {
