@@ -8,8 +8,6 @@ import express from "express";
 
 import { VoteOptOut } from "../config/optout/VoteOptOut";
 import CommandCountModel from "../database/models/CommandCountModel";
-import LevelModel from "../database/models/LevelModel";
-import StarModel from "../database/models/StarModel";
 import UsageModel from "../database/models/UsageModel";
 import VoterModel from "../database/models/VoterModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";

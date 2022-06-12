@@ -18,7 +18,7 @@ export const handleStarCount: CommandHandler = async (
   t
 ) => {
   try {
-    const { member, guild, guildId } = interaction;
+    const { member, guild } = interaction;
 
     if (!guild || !member) {
       await interaction.editReply({
