@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import { MessageEmbed } from "discord.js";
 
 import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -65,26 +65,13 @@ export const handleLeaderboard: CommandHandler = async (
       })}\n\`\`\``
     );
     levelEmbed.setTimestamp();
-    levelEmbed.setURL(
-      `https://dash.beccalyria.com/leaderboard/${guildId}?utm_source=discord&utm_medium=leaderboard-command`
-    );
     levelEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
     });
 
-    const button = new MessageButton()
-      .setLabel(t("commands:community.leaderboard.buttons.view"))
-      .setEmoji("<:BeccaCheer:897545794176045096>")
-      .setStyle("LINK")
-      .setURL(
-        `https://dash.beccalyria.com/leaderboard/${guildId}?utm_source=discord&utm_medium=leaderboard-command`
-      );
-    const row = new MessageActionRow().addComponents([button]);
-
     await interaction.editReply({
       embeds: [levelEmbed],
-      components: [row],
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

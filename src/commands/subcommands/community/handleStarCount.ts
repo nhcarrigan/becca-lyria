@@ -18,7 +18,7 @@ export const handleStarCount: CommandHandler = async (
   t
 ) => {
   try {
-    const { member, guild, guildId } = interaction;
+    const { member, guild } = interaction;
 
     if (!guild || !member) {
       await interaction.editReply({
@@ -80,9 +80,6 @@ export const handleStarCount: CommandHandler = async (
       userRankString
     );
     starEmbed.setTimestamp();
-    starEmbed.setURL(
-      `https://dash.beccalyria.com/stars/${guildId}?utm_source=discord&utm_medium=starcount-command`
-    );
     starEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",
       "https://cdn.nhcarrigan.com/profile-transparent.png"

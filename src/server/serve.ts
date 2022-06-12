@@ -8,8 +8,6 @@ import express from "express";
 
 import { VoteOptOut } from "../config/optout/VoteOptOut";
 import CommandCountModel from "../database/models/CommandCountModel";
-import LevelModel from "../database/models/LevelModel";
-import StarModel from "../database/models/StarModel";
 import UsageModel from "../database/models/UsageModel";
 import VoterModel from "../database/models/VoterModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
@@ -114,36 +112,6 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
         default:
           res.status(404).send("Invalid stat view!");
       }
-    });
-
-    HTTPEndpoint.use("/leaderboard/:serverId", async (req, res) => {
-      const data = await LevelModel.find(
-        { serverID: req.params.serverId },
-        { _id: 0, __v: 0 }
-      )
-        .sort({ points: -1 })
-        .limit(100)
-        .lean()
-        .exec();
-
-      if (!data) {
-        res.status(404).send("IDK what to put here yet.");
-        return;
-      }
-      res.json(data);
-    });
-
-    HTTPEndpoint.use("/stars/:serverId", async (req, res) => {
-      const data = await StarModel.findOne(
-        { serverID: req.params.serverId },
-        { _id: 0, __v: 0 }
-      );
-
-      if (!data) {
-        res.status(404).send("IDK what to put here yet.");
-        return;
-      }
-      res.json(data);
     });
 
     HTTPEndpoint.use("/commands", async (_, res) => {
