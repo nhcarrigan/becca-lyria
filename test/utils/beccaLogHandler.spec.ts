@@ -7,4 +7,9 @@ suite("beccaLogHandler", () => {
     assert.isDefined(beccaLogHandler, "beccaLogHandler is not defined");
     assert.isObject(beccaLogHandler, "beccaLogHandler is not an object");
   });
+
+  test("has log function", () => {
+    assert.isDefined(beccaLogHandler.log, "log is not defined");
+    assert.isFunction(beccaLogHandler.log, "log is not a function");
+  });
 });
