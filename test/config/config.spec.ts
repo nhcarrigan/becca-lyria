@@ -1,7 +1,7 @@
 import { assert } from "chai";
 
-import { emoteChoices } from "../src/config/commands/emoteData";
-import { testEmoteCount } from "../src/interfaces/database/EmoteCount";
+import { emoteChoices } from "../../src/config/commands/emoteData";
+import { testEmoteCount } from "../../src/interfaces/database/EmoteCount";
 
 suite("Config Validation", () => {
   suite("Emote Choices", () => {

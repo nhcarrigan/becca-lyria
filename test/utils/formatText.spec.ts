@@ -1,6 +1,6 @@
 import { assert } from "chai";
 
-import { formatTextToTable } from "../src/utils/formatText";
+import { formatTextToTable } from "../../src/utils/formatText";
 
 suite("formatTextToTable", () => {
   test("is defined", () => {

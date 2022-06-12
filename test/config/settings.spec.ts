@@ -7,9 +7,9 @@ import {
   configChoices,
   configViewChoices,
   logChoices,
-} from "../src/config/commands/settingsChoices";
-import { defaultServer } from "../src/config/database/defaultServer";
-import { testServerConfig } from "../src/interfaces/database/ServerConfig";
+} from "../../src/config/commands/settingsChoices";
+import { defaultServer } from "../../src/config/database/defaultServer";
+import { testServerConfig } from "../../src/interfaces/database/ServerConfig";
 
 suite("Validate Settings", () => {
   suite("Default Server", () => {
