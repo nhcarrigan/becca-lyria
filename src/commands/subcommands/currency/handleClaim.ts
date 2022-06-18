@@ -25,7 +25,7 @@ export const handleClaim: CurrencyHandler = async (
     );
     claimEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
+      "https://cdn.nhcarrigan.com/profile.png"
     );
 
     switch (reward) {

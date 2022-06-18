@@ -140,7 +140,7 @@ export const handleServer: CommandHandler = async (Becca, interaction, t) => {
     );
     serverEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({ embeds: [serverEmbed] });

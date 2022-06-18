@@ -75,7 +75,7 @@ export const handlePermissions: CommandHandler = async (
     validEmbed.setColor(areValid ? Becca.colours.success : Becca.colours.error);
     validEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({ embeds: [validEmbed] });

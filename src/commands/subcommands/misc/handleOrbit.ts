@@ -34,7 +34,7 @@ export const handleOrbit: CommandHandler = async (Becca, interaction, t) => {
     orbitEmbed.setTimestamp();
     orbitEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     parsed.forEach((user) => {

@@ -72,7 +72,7 @@ export const automodLinks: ListenerHandler = async (
       });
       linkEmbed.setFooter({
         text: t("defaults:donate"),
-        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+        iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
       const warning = await message.channel.send({ embeds: [linkEmbed] });
 

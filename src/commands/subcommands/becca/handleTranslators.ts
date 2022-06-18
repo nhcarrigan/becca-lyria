@@ -29,7 +29,7 @@ export const handleTranslators: CommandHandler = async (
     );
     embed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     const button = new MessageButton();

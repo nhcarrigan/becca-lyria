@@ -26,7 +26,7 @@ export const handleArt: CommandHandler = async (Becca, interaction, t) => {
     );
     artEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
+      "https://cdn.nhcarrigan.com/profile.png"
     );
 
     const artButton = new MessageButton()

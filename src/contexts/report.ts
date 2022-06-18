@@ -61,7 +61,7 @@ export const report: Context = {
       reportEmbed.addField("Link", message.url, true);
       reportEmbed.setFooter({
         text: t("defaults:donate"),
-        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+        iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
       await reportChannel.send({

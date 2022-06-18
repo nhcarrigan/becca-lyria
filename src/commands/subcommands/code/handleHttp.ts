@@ -26,7 +26,7 @@ export const handleHttp: CommandHandler = async (Becca, interaction, t) => {
     httpEmbed.setTimestamp();
     httpEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({ embeds: [httpEmbed] });

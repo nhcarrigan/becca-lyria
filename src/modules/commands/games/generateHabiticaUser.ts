@@ -97,7 +97,7 @@ export const generateHabiticaUser = async (
     );
     userEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     return userEmbed;

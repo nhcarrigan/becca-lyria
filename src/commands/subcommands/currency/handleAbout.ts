@@ -31,7 +31,7 @@ export const handleAbout: CurrencyHandler = async (Becca, interaction, t) => {
     );
     aboutEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({ embeds: [aboutEmbed] });

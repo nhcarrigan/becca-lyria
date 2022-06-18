@@ -35,7 +35,7 @@ export const handleQuote: CommandHandler = async (Becca, interaction, t) => {
     quoteEmbed.setTimestamp();
     quoteEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     await interaction.editReply({ embeds: [quoteEmbed] });
   } catch (err) {

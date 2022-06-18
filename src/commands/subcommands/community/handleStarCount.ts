@@ -82,7 +82,7 @@ export const handleStarCount: CommandHandler = async (
     starEmbed.setTimestamp();
     starEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
+      "https://cdn.nhcarrigan.com/profile.png"
     );
 
     await interaction.editReply({ embeds: [starEmbed] });

@@ -36,7 +36,7 @@ export const handleAdventure: CommandHandler = async (
     );
     adventureEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     const artButton = new MessageButton()

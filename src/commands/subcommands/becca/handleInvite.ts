@@ -18,7 +18,7 @@ export const handleInvite: CommandHandler = async (Becca, interaction, t) => {
     inviteEmbed.setColor(Becca.colours.default);
     inviteEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     inviteEmbed.setTimestamp();
 

@@ -56,7 +56,7 @@ export const handleDaily: CurrencyHandler = async (
     embed.setColor(Becca.colours.default);
     embed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({ embeds: [embed] });
