@@ -57,7 +57,7 @@ export const handleSuggest: CommandHandler = async (
     suggestionEmbed.setDescription(customSubstring(suggestion, 2000));
     suggestionEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     const sentMessage = await suggestionChannel.send({

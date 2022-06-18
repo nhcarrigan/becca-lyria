@@ -25,7 +25,7 @@ export const handleFact: CommandHandler = async (Becca, interaction, t) => {
     factEmbed.setTimestamp();
     factEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({ embeds: [factEmbed] });

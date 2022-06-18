@@ -100,7 +100,7 @@ export const levelListener: Listener = {
         });
         levelEmbed.setFooter({
           text: t("defaults:donate"),
-          iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+          iconURL: "https://cdn.nhcarrigan.com/profile.png",
         });
         await targetChannel.send({ embeds: [levelEmbed] });
       }
@@ -126,7 +126,7 @@ export const levelListener: Listener = {
               });
               roleEmbed.setFooter({
                 text: t("defaults:donate"),
-                iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+                iconURL: "https://cdn.nhcarrigan.com/profile.png",
               });
               await targetChannel.send({ embeds: [roleEmbed] });
             }

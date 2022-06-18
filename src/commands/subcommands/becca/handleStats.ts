@@ -52,7 +52,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       );
       commandEmbed.setFooter({
         text: t("defaults:donate"),
-        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+        iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
       await interaction.editReply({
@@ -88,7 +88,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       serverEmbed.setDescription(serverVoteEmbed);
       serverEmbed.setFooter({
         text: t("defaults:donate"),
-        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+        iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
       const supportServerButton = new MessageButton()
@@ -138,7 +138,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       botEmbed.setDescription(botVoteEmbed);
       botEmbed.setFooter({
         text: t("defaults:donate"),
-        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+        iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
       const supportServerButton = new MessageButton()

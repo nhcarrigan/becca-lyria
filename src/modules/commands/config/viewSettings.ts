@@ -114,7 +114,7 @@ export const viewSettings = async (
     );
     settingsEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     return settingsEmbed;
   } catch (err) {

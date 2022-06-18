@@ -84,7 +84,7 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
     );
     userEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({ embeds: [userEmbed] });

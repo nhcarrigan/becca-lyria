@@ -51,7 +51,7 @@ export const handleLogView: CommandHandler = async (
     );
     settingEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({ embeds: [settingEmbed] });

@@ -68,7 +68,7 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
     levelEmbed.setTimestamp();
     levelEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     levelEmbed.setImage("attachment://level.png");
 

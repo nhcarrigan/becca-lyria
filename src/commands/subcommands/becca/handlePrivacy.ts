@@ -15,7 +15,7 @@ export const handlePrivacy: CommandHandler = async (Becca, interaction, t) => {
     privacyEmbed.setDescription(t("commands:becca.privacy.description"));
     privacyEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({ embeds: [privacyEmbed] });

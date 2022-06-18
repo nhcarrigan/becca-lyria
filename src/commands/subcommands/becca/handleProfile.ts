@@ -18,7 +18,7 @@ export const handleProfile: CommandHandler = async (Becca, interaction, t) => {
     profileEmbed.setThumbnail(Becca.user?.avatarURL({ dynamic: true }) || "");
     profileEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
+      "https://cdn.nhcarrigan.com/profile.png"
     );
 
     const profileButton = new MessageButton()

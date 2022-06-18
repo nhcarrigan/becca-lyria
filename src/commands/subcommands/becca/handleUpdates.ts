@@ -45,7 +45,7 @@ export const handleUpdates: CommandHandler = async (Becca, interaction, t) => {
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     const button = new MessageButton()

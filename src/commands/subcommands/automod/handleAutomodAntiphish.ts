@@ -56,7 +56,7 @@ export const handleAutomodAntiphish: CommandHandler = async (
     successEmbed.setColor(Becca.colours.default);
     successEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     await interaction.editReply({ embeds: [successEmbed] });
   } catch (err) {

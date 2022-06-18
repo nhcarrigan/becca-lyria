@@ -19,7 +19,7 @@ export const handleCanIUse: CommandHandler = async (Becca, interaction, t) => {
     caniuseEmbed.setColor(Becca.colours.default);
     caniuseEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({ embeds: [caniuseEmbed] });

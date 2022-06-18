@@ -44,7 +44,7 @@ export const bookmark: Context = {
       bookmarkEmbed.addField("Channel", channel.name, true);
       bookmarkEmbed.setFooter({
         text: t("defaults:donate"),
-        iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+        iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
       const deleteButton = new MessageButton()

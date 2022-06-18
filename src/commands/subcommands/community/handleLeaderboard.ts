@@ -67,7 +67,7 @@ export const handleLeaderboard: CommandHandler = async (
     levelEmbed.setTimestamp();
     levelEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({

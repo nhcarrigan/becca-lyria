@@ -26,7 +26,7 @@ export const handleMotivation: CommandHandler = async (
     quoteEmbed.setColor(Becca.colours.default);
     quoteEmbed.setFooter(
       "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile-transparent.png"
+      "https://cdn.nhcarrigan.com/profile.png"
     );
 
     await interaction.editReply({ embeds: [quoteEmbed] });

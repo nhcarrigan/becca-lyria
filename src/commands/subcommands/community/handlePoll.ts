@@ -38,7 +38,7 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
     pollEmbed.setColor(Becca.colours.default);
     pollEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     const buttonA = new MessageButton()

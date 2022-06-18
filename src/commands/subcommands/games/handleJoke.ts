@@ -35,7 +35,7 @@ export const handleJoke: CommandHandler = async (Becca, interaction, t) => {
     jokeEmbed.setTimestamp();
     jokeEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     await interaction.editReply({ embeds: [jokeEmbed] });
   } catch (err) {

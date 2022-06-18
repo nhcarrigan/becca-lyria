@@ -48,7 +48,7 @@ export const handleAbout: CommandHandler = async (Becca, interaction, t) => {
     );
     aboutEmbed.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     const supportServerButton = new MessageButton()

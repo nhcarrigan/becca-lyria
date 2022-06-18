@@ -51,7 +51,7 @@ export const handleTriggerAdd: CommandHandler = async (
     success.setTimestamp();
     success.setFooter({
       text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile-transparent.png",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await interaction.editReply({ embeds: [success] });
