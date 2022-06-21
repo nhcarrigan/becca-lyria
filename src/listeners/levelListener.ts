@@ -66,7 +66,7 @@ export const levelListener: Listener = {
           cooldown: 0,
         }));
 
-      if (Date.now() - user.cooldown < 300000 || user.level >= 100) {
+      if (Date.now() - user.cooldown < 60000 || user.level >= 100) {
         return;
       }
 
