@@ -1,6 +1,5 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Removed public leaderboard and starboard",
-  "- Updated endpoints for Heptagram API",
+  "- Decreased the cooldown for experience gain.",
 ];
 
-export const nextScheduledRelease = "<t:1655650800:F>";
+export const nextScheduledRelease = "<t:1656262800:F>";
