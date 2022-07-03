@@ -33,17 +33,23 @@ export const handleBan: CommandHandler = async (
       return;
     }
 
-    const targetMember = await guild.members.fetch(target.id);
+    const targetMember = await guild.members.fetch(target.id).catch(() => null);
 
     if (
       !member ||
       typeof member.permissions === "string" ||
       !member.permissions.has("BAN_MEMBERS") ||
-      !targetMember ||
-      targetMember.permissions.has("BAN_MEMBERS")
+      (targetMember && targetMember.permissions.has("BAN_MEMBERS"))
     ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
+      });
+      return;
+    }
+
+    if (!targetMember) {
+      await interaction.editReply({
+        content: "That user appears to have left the guild.",
       });
       return;
     }
