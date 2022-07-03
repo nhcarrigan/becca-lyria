@@ -91,6 +91,8 @@ export const validateSetting = async (
           !!role.replace(/\D/g, "") &&
           !!(await guild.roles.fetch(role.replace(/\D/g, "") as `${bigint}`))
         );
+      case "initial_xp":
+        return !isNaN(parseInt(value)) && parseInt(value) >= 0;
       case "allowed_links":
       case "appeal_link":
       case "antiphish":

@@ -2,6 +2,7 @@ import { GuildMember, MessageEmbed, PartialGuildMember } from "discord.js";
 import { getFixedT } from "i18next";
 
 import { defaultServer } from "../../config/database/defaultServer";
+import LevelModel from "../../database/models/LevelModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { sendWelcomeEmbed } from "../../modules/guild/sendWelcomeEmbed";
@@ -11,6 +12,7 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 /**
  * Handles the guildMemberAdd event. Checks if the member has passed screening,
  * handles the role onjoin logic, and sends the welcome message or pending notice.
+ * Also handles assigning the initial experience points.
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {GuildMember | PartialGuildMember} member Member object that represents user who joined.
@@ -68,6 +70,25 @@ export const memberAdd = async (
       if (joinRole) {
         await member.roles.add(joinRole);
       }
+    }
+
+    if (serverSettings?.initial_xp) {
+      const userRecord =
+        (await LevelModel.findOne({ serverID: guild.id, userID: member.id })) ||
+        (await LevelModel.create({
+          serverID: guild.id,
+          serverName: guild.name,
+          userID: member.id,
+          userTag: user.tag,
+          avatar: user.displayAvatarURL(),
+          points: 0,
+          level: 0,
+          lastSeen: new Date(Date.now()),
+          cooldown: 0,
+        }));
+
+      userRecord.points += parseInt(serverSettings.initial_xp);
+      await userRecord.save();
     }
 
     Becca.pm2.metrics.users.set(Becca.pm2.metrics.users.val() + 1);

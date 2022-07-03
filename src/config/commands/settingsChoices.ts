@@ -25,6 +25,7 @@ export const configChoices: APIApplicationCommandOptionChoice<Settings>[] = [
   { name: "Ban Appeal Link", value: "appeal_link" },
   { name: "Sass Mode", value: "sass_mode" },
   { name: "Emote-Only Channels", value: "emote_channels" },
+  { name: "Initial Experience", value: "initial_xp" },
 ];
 
 export const configViewChoices: APIApplicationCommandOptionChoice<
