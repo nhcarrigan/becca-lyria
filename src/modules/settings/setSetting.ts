@@ -92,6 +92,7 @@ export const setSetting = async (
       case "profanity":
       case "profanity_message":
       case "appeal_link":
+      case "initial_xp":
         server[key] = value;
         break;
       case "antiphish":

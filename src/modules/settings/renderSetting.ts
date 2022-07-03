@@ -33,6 +33,7 @@ export const renderSetting = (
       case "profanity_message":
       case "appeal_link":
       case "antiphish":
+      case "initial_xp":
         return value as string;
       case "welcome_channel":
       case "depart_channel":

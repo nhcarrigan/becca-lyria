@@ -37,6 +37,7 @@ export interface ServerConfig extends Document {
   emote_channels: string[];
   appeal_link: string;
   antiphish: "none" | "mute" | "kick" | "ban";
+  initial_xp: string;
 }
 
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
@@ -73,4 +74,5 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   emote_channels: [],
   appeal_link: "",
   antiphish: "none",
+  initial_xp: "0",
 };

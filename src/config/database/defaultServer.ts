@@ -41,4 +41,5 @@ export const defaultServer = {
   emote_channels: [] as string[],
   appeal_link: "",
   antiphish: "none",
+  initial_xp: "0",
 };

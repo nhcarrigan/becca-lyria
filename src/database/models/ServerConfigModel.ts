@@ -45,6 +45,10 @@ export const ServerConfigSchema = new Schema({
     type: String,
     default: "none",
   },
+  initial_xp: {
+    type: String,
+    default: "0",
+  },
 });
 
 export default model<ServerConfig>("server", ServerConfigSchema);

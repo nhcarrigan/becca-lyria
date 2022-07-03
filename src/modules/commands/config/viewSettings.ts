@@ -112,6 +112,11 @@ export const viewSettings = async (
       config.appeal_link || "not set",
       true
     );
+    settingsEmbed.addField(
+      t("commands:config.view.initialXp"),
+      config.initial_xp,
+      true
+    );
     settingsEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
