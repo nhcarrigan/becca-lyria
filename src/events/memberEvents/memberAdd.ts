@@ -72,7 +72,7 @@ export const memberAdd = async (
       }
     }
 
-    if (serverSettings?.initial_xp) {
+    if (serverSettings?.initial_xp && serverSettings?.levels === "on") {
       const userRecord =
         (await LevelModel.findOne({ serverID: guild.id, userID: member.id })) ||
         (await LevelModel.create({
