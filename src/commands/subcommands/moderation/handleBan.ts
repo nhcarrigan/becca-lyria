@@ -48,8 +48,12 @@ export const handleBan: CommandHandler = async (
     }
 
     if (!targetMember) {
+      await guild.bans.create(target.id, {
+        reason,
+        days: prune,
+      });
       await interaction.editReply({
-        content: "That user appears to have left the guild.",
+        content: `Hack-banned ${target.tag}`,
       });
       return;
     }
