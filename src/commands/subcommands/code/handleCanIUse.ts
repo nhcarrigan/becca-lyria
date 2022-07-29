@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -12,7 +12,7 @@ export const handleCanIUse: CommandHandler = async (Becca, interaction, t) => {
   try {
     const feature = interaction.options.getString("feature", true);
 
-    const caniuseEmbed = new MessageEmbed();
+    const caniuseEmbed = new EmbedBuilder();
     caniuseEmbed.setTitle(t("commands:code.caniuse.title", { feature }));
     caniuseEmbed.setImage(`https://caniuse.bitsofco.de/image/${feature}.webp`);
     caniuseEmbed.setTimestamp();

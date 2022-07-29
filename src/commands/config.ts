@@ -3,6 +3,7 @@ import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
+import { PermissionFlagsBits } from "discord.js";
 
 import {
   configChoices,
@@ -85,7 +86,7 @@ export const config: Command = {
 
       if (
         (typeof member.permissions === "string" ||
-          !member.permissions.has("MANAGE_GUILD")) &&
+          !member.permissions.has(PermissionFlagsBits.ManageGuild)) &&
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({

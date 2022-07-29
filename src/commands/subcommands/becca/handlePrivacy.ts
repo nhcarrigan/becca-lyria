@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -10,7 +10,7 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  */
 export const handlePrivacy: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const privacyEmbed = new MessageEmbed();
+    const privacyEmbed = new EmbedBuilder();
     privacyEmbed.setTitle(t("commands:becca.privacy.title"));
     privacyEmbed.setDescription(t("commands:becca.privacy.description"));
     privacyEmbed.setFooter({

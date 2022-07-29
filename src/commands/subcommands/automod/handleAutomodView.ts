@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { Message, MessageActionRow, MessageButton } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  Message,
+} from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { ArraySettings } from "../../../interfaces/settings/ArraySettings";
@@ -61,17 +66,17 @@ export const handleAutomodView: CommandHandler = async (
       return;
     }
 
-    const pageBack = new MessageButton()
+    const pageBack = new ButtonBuilder()
       .setCustomId("prev")
       .setDisabled(true)
       .setLabel("◀")
-      .setStyle("PRIMARY");
-    const pageForward = new MessageButton()
+      .setStyle(ButtonStyle.Primary);
+    const pageForward = new ButtonBuilder()
       .setCustomId("next")
       .setLabel("▶")
-      .setStyle("PRIMARY");
+      .setStyle(ButtonStyle.Primary);
     lastPage = parseInt(
-      embed?.footer?.text?.split(" ").reverse()[0] || "haha",
+      embed?.data?.footer?.text?.split(" ").reverse()[0] || "haha",
       10
     );
     if (lastPage === 1) {
@@ -80,7 +85,12 @@ export const handleAutomodView: CommandHandler = async (
 
     const sent = (await interaction.editReply({
       embeds: [embed],
-      components: [new MessageActionRow().addComponents(pageBack, pageForward)],
+      components: [
+        new ActionRowBuilder<ButtonBuilder>().addComponents(
+          pageBack,
+          pageForward
+        ),
+      ],
     })) as Message;
 
     const buttonCollector = sent.createMessageComponentCollector({
@@ -126,7 +136,10 @@ export const handleAutomodView: CommandHandler = async (
       await interaction.editReply({
         embeds: [embed],
         components: [
-          new MessageActionRow().addComponents(pageBack, pageForward),
+          new ActionRowBuilder<ButtonBuilder>().addComponents(
+            pageBack,
+            pageForward
+          ),
         ],
       });
     });
@@ -136,7 +149,10 @@ export const handleAutomodView: CommandHandler = async (
       pageForward.setDisabled(true);
       await interaction.editReply({
         components: [
-          new MessageActionRow().addComponents(pageBack, pageForward),
+          new ActionRowBuilder<ButtonBuilder>().addComponents(
+            pageBack,
+            pageForward
+          ),
         ],
       });
     });

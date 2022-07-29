@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { ChannelType, EmbedBuilder } from "discord.js";
 
 import {
   accountVerificationMap,
@@ -33,111 +33,125 @@ export const handleServer: CommandHandler = async (Becca, interaction, t) => {
       ? t("commands:community.server.mfa")
       : t("commands:community.server.nomfa");
 
-    const serverEmbed = new MessageEmbed();
+    const serverEmbed = new EmbedBuilder();
     serverEmbed.setColor(Becca.colours.default);
     serverEmbed.setTitle(guild.name);
     serverEmbed.setDescription(
       guild.description || t("commands:community.server.description")
     );
-    serverEmbed.setThumbnail(guild.iconURL({ dynamic: true }) || "");
-    serverEmbed.addField(
-      t("commands:community.server.creation"),
-      new Date(guild.createdTimestamp).toLocaleDateString(),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.owner"),
-      guildOwner.toString(),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.members"),
-      guild.memberCount.toString(),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.living"),
-      guildMembers.filter((member) => !member.user.bot).length.toString(),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.bot"),
-      guildMembers.filter((member) => member.user.bot).length.toString(),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.ban"),
-      guildBans.size.toString(),
-      true
-    );
-    serverEmbed.addField("\u200b", "\u200b", true);
-    serverEmbed.addField(
-      t("commands:community.server.titles"),
-      guild.roles.cache.size.toString(),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.channels"),
-      guildChannels.size.toString(),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.text"),
-      guildChannels
-        .filter((chan) => chan.type === "GUILD_TEXT")
-        .size.toString(),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.voice"),
-      guildChannels
-        .filter((chan) => chan.type === "GUILD_VOICE")
-        .size.toString(),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.boost"),
-      `Level ${guild.premiumTier} with ${guild.premiumSubscriptionCount} boosts.`,
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.semote"),
-      guildEmojis.filter((emote) => !emote.animated).size.toString(),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.aemote"),
-      guildEmojis.filter((emote) => !!emote.animated).size.toString(),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.content"),
-      contentFilterMap[guild.explicitContentFilter],
-      true
-    );
-    serverEmbed.addField(t("commands:community.server.auth"), guildMfa, true);
-    serverEmbed.addField(
-      t("commands:community.server.account"),
-      accountVerificationMap[guild.verificationLevel],
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.status"),
-      t("commands:community.server.statuses", {
-        partnered: guild.partnered,
-        verified: guild.verified,
-      }),
-      true
-    );
-    serverEmbed.addField(
-      t("commands:community.server.special"),
-      t("commands:community.server.schannels", {
-        system: guild.systemChannel?.name || "null",
-        rules: guild.rulesChannel?.name || "null",
-        public: guild.publicUpdatesChannel?.name || "null",
-      }),
-      true
-    );
+    serverEmbed.setThumbnail(guild.iconURL() || "");
+    serverEmbed.addFields([
+      {
+        name: t("commands:community.server.creation"),
+        value: new Date(guild.createdTimestamp).toLocaleDateString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.owner"),
+        value: guildOwner.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.members"),
+        value: guild.memberCount.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.living"),
+        value: guildMembers
+          .filter((member) => !member.user.bot)
+          .length.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.bot"),
+        value: guildMembers
+          .filter((member) => member.user.bot)
+          .length.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.ban"),
+        value: guildBans.size.toString(),
+        inline: true,
+      },
+      {
+        name: "\u200b",
+        value: "\u200b",
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.titles"),
+        value: guild.roles.cache.size.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.channels"),
+        value: guildChannels.size.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.text"),
+        value: guildChannels
+          .filter((chan) => chan.type === ChannelType.GuildText)
+          .size.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.voice"),
+        value: guildChannels
+          .filter((chan) => chan.type === ChannelType.GuildVoice)
+          .size.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.boost"),
+        value: `Level ${guild.premiumTier} with ${guild.premiumSubscriptionCount} boosts.`,
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.semote"),
+        value: guildEmojis.filter((emote) => !emote.animated).size.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.aemote"),
+        value: guildEmojis.filter((emote) => !!emote.animated).size.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.content"),
+        value: contentFilterMap[guild.explicitContentFilter],
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.auth"),
+        value: guildMfa,
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.account"),
+        value: accountVerificationMap[guild.verificationLevel],
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.status"),
+        value: t("commands:community.server.statuses", {
+          partnered: guild.partnered,
+          verified: guild.verified,
+        }),
+        inline: true,
+      },
+      {
+        name: t("commands:community.server.special"),
+        value: t("commands:community.server.schannels", {
+          system: guild.systemChannel?.name || "null",
+          rules: guild.rulesChannel?.name || "null",
+          public: guild.publicUpdatesChannel?.name || "null",
+        }),
+        inline: true,
+      },
+    ]);
     serverEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",

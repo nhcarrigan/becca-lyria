@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 
@@ -13,10 +13,10 @@ export const shardReady = async (
   Becca: BeccaLyria,
   shard: number
 ): Promise<void> => {
-  const shardEmbed = new MessageEmbed();
+  const shardEmbed = new EmbedBuilder();
   shardEmbed.setTitle("Shard Online!");
   shardEmbed.setDescription("Becca has brought a new shard online!");
-  shardEmbed.addField("Shard", shard.toString());
+  shardEmbed.addFields([{ name: "Shard", value: shard.toString() }]);
   shardEmbed.setTimestamp();
   shardEmbed.setColor(Becca.colours.success);
 

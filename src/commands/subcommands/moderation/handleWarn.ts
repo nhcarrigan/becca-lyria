@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -37,9 +37,9 @@ export const handleWarn: CommandHandler = async (
     if (
       !member ||
       typeof member.permissions === "string" ||
-      !member.permissions.has("KICK_MEMBERS") ||
+      !member.permissions.has(PermissionFlagsBits.KickMembers) ||
       !targetMember ||
-      targetMember.permissions.has("KICK_MEMBERS")
+      targetMember.permissions.has(PermissionFlagsBits.KickMembers)
     ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
@@ -72,17 +72,22 @@ export const handleWarn: CommandHandler = async (
 
     await updateHistory(Becca, "warn", target.id, guild.id);
 
-    const warnEmbed = new MessageEmbed();
+    const warnEmbed = new EmbedBuilder();
     warnEmbed.setTitle(t("commands:mod.warn.title"));
     warnEmbed.setDescription(
       t("commands:mod.warn.description", { user: member.user.username })
     );
     warnEmbed.setColor(Becca.colours.warning);
-    warnEmbed.addField(
-      t("commands:mod.warn.reason"),
-      customSubstring(reason, 1000)
-    );
-    warnEmbed.addField(t("commands:mod.warn.notified"), String(sentNotice));
+    warnEmbed.addFields([
+      {
+        name: t("commands:mod.warn.reason"),
+        value: customSubstring(reason, 1000),
+      },
+      {
+        name: t("commands:mod.warn.notified"),
+        value: String(sentNotice),
+      },
+    ]);
     warnEmbed.setTimestamp();
     warnEmbed.setAuthor({
       name: target.tag,

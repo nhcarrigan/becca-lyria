@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -49,7 +49,7 @@ export const handleAutomodAntiphish: CommandHandler = async (
     }
     const newContent = isSet["antiphish"];
     const parsedContent = renderSetting(Becca, "antiphish", newContent);
-    const successEmbed = new MessageEmbed();
+    const successEmbed = new EmbedBuilder();
     successEmbed.setTitle(t("commands:automod.antiphish.success"));
     successEmbed.setDescription(customSubstring(parsedContent, 2000));
     successEmbed.setTimestamp();

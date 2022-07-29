@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { motivationalQuotes } from "../../../config/commands/motivationalQuotes";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -18,16 +18,16 @@ export const handleMotivation: CommandHandler = async (
 ) => {
   try {
     const quote = getRandomValue(motivationalQuotes);
-    const quoteEmbed = new MessageEmbed();
+    const quoteEmbed = new EmbedBuilder();
     quoteEmbed.setTitle("We are counting on you!");
     quoteEmbed.setDescription(quote.quote);
-    quoteEmbed.setFooter(quote.author);
+    quoteEmbed.setFooter({ text: quote.author });
     quoteEmbed.setTimestamp();
     quoteEmbed.setColor(Becca.colours.default);
-    quoteEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile.png"
-    );
+    quoteEmbed.setFooter({
+      text: "Like the bot? Donate: https://donate.nhcarrigan.com",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
+    });
 
     await interaction.editReply({ embeds: [quoteEmbed] });
   } catch (err) {

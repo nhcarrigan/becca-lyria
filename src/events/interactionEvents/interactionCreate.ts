@@ -26,7 +26,7 @@ export const interactionCreate = async (
     Becca.pm2.metrics.events.mark();
     const lang = getInteractionLanguage(interaction);
     const t = getFixedT(lang);
-    if (interaction.isCommand()) {
+    if (interaction.isChatInputCommand()) {
       await logActivity(Becca, interaction.user.id, "command");
       const target = Becca.commands.find(
         (el) => el.data.name === interaction.commandName
@@ -62,7 +62,7 @@ export const interactionCreate = async (
       await currencyListener.run(Becca, interaction);
     }
 
-    if (interaction.isContextMenu()) {
+    if (interaction.isContextMenuCommand()) {
       await logActivity(Becca, interaction.user.id, "context");
       const target = Becca.contexts.find(
         (el) => el.data.name === interaction.commandName

@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import ActivityModel from "../database/models/ActivityModel";
 import { Context } from "../interfaces/contexts/Context";
@@ -24,28 +24,30 @@ export const activity: Context = {
         return;
       }
 
-      const activityEmbed = new MessageEmbed();
+      const activityEmbed = new EmbedBuilder();
       activityEmbed.setTitle(t("contexts:activity.title"));
-      activityEmbed.addField(
-        t("contexts:activity.buttons"),
-        data.buttons.toString(),
-        true
-      );
-      activityEmbed.addField(
-        t("contexts:activity.commands"),
-        data.commands.toString(),
-        true
-      );
-      activityEmbed.addField(
-        t("contexts:activity.selects"),
-        data.selects.toString(),
-        true
-      );
-      activityEmbed.addField(
-        t("contexts:activity.contexts"),
-        data.contexts.toString(),
-        true
-      );
+      activityEmbed.addFields([
+        {
+          name: t("contexts:activity.buttons"),
+          value: data.buttons.toString(),
+          inline: true,
+        },
+        {
+          name: t("contexts:activity.commands"),
+          value: data.commands.toString(),
+          inline: true,
+        },
+        {
+          name: t("contexts:activity.selects"),
+          value: data.selects.toString(),
+          inline: true,
+        },
+        {
+          name: t("contexts:activity.contexts"),
+          value: data.contexts.toString(),
+          inline: true,
+        },
+      ]);
       activityEmbed.setColor(Becca.colours.default);
       activityEmbed.setAuthor({
         name: target.tag,

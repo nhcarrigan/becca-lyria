@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -38,8 +38,9 @@ export const handleBan: CommandHandler = async (
     if (
       !member ||
       typeof member.permissions === "string" ||
-      !member.permissions.has("BAN_MEMBERS") ||
-      (targetMember && targetMember.permissions.has("BAN_MEMBERS"))
+      !member.permissions.has(PermissionFlagsBits.BanMembers) ||
+      (targetMember &&
+        targetMember.permissions.has(PermissionFlagsBits.BanMembers))
     ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
@@ -48,8 +49,9 @@ export const handleBan: CommandHandler = async (
     }
 
     if (!targetMember) {
+      await guild.bans.create(target.id);
       await interaction.editReply({
-        content: "That user appears to have left the guild.",
+        content: `Hackbaned ${target.tag}`,
       });
       return;
     }
@@ -92,28 +94,33 @@ export const handleBan: CommandHandler = async (
 
     await targetMember.ban({
       reason: customSubstring(reason, 1000),
-      days: prune,
+      deleteMessageDays: prune,
     });
 
     await updateHistory(Becca, "ban", target.id, guild.id);
 
-    const banLogEmbed = new MessageEmbed();
+    const banLogEmbed = new EmbedBuilder();
     banLogEmbed.setColor(Becca.colours.error);
     banLogEmbed.setTitle(t("commands:mod.ban.title"));
     banLogEmbed.setDescription(
       t("commands:mod.ban.description", { user: member.user.username })
     );
-    banLogEmbed.addField(
-      t("commands:mod.ban.reason"),
-      customSubstring(reason, 1000)
-    );
-    banLogEmbed.addField(t("commands:mod.ban.notified"), String(sentNotice));
+    banLogEmbed.addFields([
+      {
+        name: t("commands:mod.ban.reason"),
+        value: customSubstring(reason, 1000),
+      },
+      {
+        name: t("commands:mod.ban.notified"),
+        value: String(sentNotice),
+      },
+    ]);
     banLogEmbed.setTimestamp();
     banLogEmbed.setAuthor({
       name: target.tag,
       iconURL: target.displayAvatarURL(),
     });
-    banLogEmbed.setFooter(`ID: ${targetMember.id}`);
+    banLogEmbed.setFooter({ text: `ID: ${targetMember.id}` });
 
     await sendLogEmbed(Becca, guild, banLogEmbed, "moderation_events");
     await interaction.editReply({

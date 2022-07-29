@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import StarModel from "../../../database/models/StarModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -61,7 +61,7 @@ export const handleStarCount: CommandHandler = async (
       u.stars,
     ]);
 
-    const starEmbed = new MessageEmbed();
+    const starEmbed = new EmbedBuilder();
     starEmbed.setTitle(
       t("commands:community.starcount.embed.title", { guild: guild.name })
     );
@@ -75,15 +75,17 @@ export const handleStarCount: CommandHandler = async (
         ],
       })}\n\`\`\``
     );
-    starEmbed.addField(
-      t("commands:community.starcount.embed.yours"),
-      userRankString
-    );
+    starEmbed.addFields([
+      {
+        name: t("commands:community.starcount.embed.yours"),
+        value: userRankString,
+      },
+    ]);
     starEmbed.setTimestamp();
-    starEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile.png"
-    );
+    starEmbed.setFooter({
+      text: "Like the bot? Donate: https://donate.nhcarrigan.com",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
+    });
 
     await interaction.editReply({ embeds: [starEmbed] });
   } catch (err) {

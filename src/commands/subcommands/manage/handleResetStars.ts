@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { GuildMember } from "discord.js";
+import { GuildMember, PermissionFlagsBits } from "discord.js";
 
 import StarModel from "../../../database/models/StarModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -25,7 +25,9 @@ export const handleResetStars: CommandHandler = async (
       return;
     }
 
-    if (!(member as GuildMember).permissions.has("MANAGE_GUILD")) {
+    if (
+      !(member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild)
+    ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
       });

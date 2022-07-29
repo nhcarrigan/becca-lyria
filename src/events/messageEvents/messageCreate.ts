@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { ChannelType, Message } from "discord.js";
 import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
@@ -32,7 +32,7 @@ export const messageCreate = async (
       return;
     }
 
-    if (!guild || channel.type === "DM") {
+    if (!guild || channel.type === ChannelType.DM) {
       return;
     }
     const lang = getMessageLanguage(message);

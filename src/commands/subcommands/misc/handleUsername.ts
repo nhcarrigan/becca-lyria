@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -17,24 +17,29 @@ export const handleUsername: CommandHandler = async (Becca, interaction, t) => {
 
     const username = generateUsername(length);
 
-    const usernameEmbed = new MessageEmbed();
+    const usernameEmbed = new EmbedBuilder();
     usernameEmbed.setColor(Becca.colours.default);
     usernameEmbed.setAuthor({
       name: user.tag,
       iconURL: user.displayAvatarURL(),
     });
     usernameEmbed.setDescription(t("commands:misc.username.description"));
-    usernameEmbed.addField(t("commands:misc.username.user"), username);
-    usernameEmbed.addField(
-      t("commands:misc.username.gen"),
-      username.length.toString(),
-      true
-    );
-    usernameEmbed.addField(
-      t("commands:misc.username.max"),
-      length.toString(),
-      true
-    );
+    usernameEmbed.addFields([
+      {
+        name: t("commands:misc.username.user"),
+        value: username,
+      },
+      {
+        name: t("commands:misc.username.gen"),
+        value: username.length.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:misc.username.max"),
+        value: length.toString(),
+        inline: true,
+      },
+    ]);
     usernameEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",

@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { Guild } from "discord.js";
+import { ChannelType, Guild } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { ServerConfig } from "../../interfaces/database/ServerConfig";
@@ -61,14 +61,16 @@ export const validateSetting = async (
       case "report_channel":
       case "level_ignore":
         return !!guild.channels.cache.find(
-          (el) => el.type === "GUILD_TEXT" && el.id === `${parsedValue}`
+          (el) =>
+            el.type === ChannelType.GuildText && el.id === `${parsedValue}`
         );
       case "automod_channels":
       case "no_automod_channels":
       case "emote_channels":
         return (
           !!guild.channels.cache.find(
-            (el) => el.type === "GUILD_TEXT" && el.id === `${parsedValue}`
+            (el) =>
+              el.type === ChannelType.GuildText && el.id === `${parsedValue}`
           ) ||
           config[setting].includes(`${parsedValue}`) ||
           value === "all"

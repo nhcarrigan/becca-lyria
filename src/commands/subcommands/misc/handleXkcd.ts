@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { Xkcd } from "../../../interfaces/commands/general/Xkcd";
@@ -21,7 +21,7 @@ export const handleXkcd: CommandHandler = async (Becca, interaction, t) => {
 
     const xkcd = await axios.get<Xkcd>(url);
 
-    const xkcdEmbed = new MessageEmbed();
+    const xkcdEmbed = new EmbedBuilder();
     xkcdEmbed.setTitle(xkcd.data.title);
     xkcdEmbed.setURL(xkcd.data.link || "https://xkcd.com");
     xkcdEmbed.setImage(xkcd.data.img);

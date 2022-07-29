@@ -19,7 +19,10 @@ export const handleHabitica: CommandHandler = async (Becca, interaction, t) => {
     };
     const habiticaEmbeds = [];
     habiticaEmbeds[0] = await generateHabiticaUser(Becca, t, id, headers);
-    if (habiticaEmbeds[0].title !== t("commands:games.habitica.nouser.title")) {
+    if (
+      habiticaEmbeds[0]?.data.title !==
+      t("commands:games.habitica.nouser.title")
+    ) {
       habiticaEmbeds[1] = await generateHabiticaAchievements(
         Becca,
         t,

@@ -1,7 +1,7 @@
 import io from "@pm2/io";
 import Gauge from "@pm2/io/build/main/utils/metrics/gauge";
 import Meter from "@pm2/io/build/main/utils/metrics/meter";
-import { Client, ColorResolvable, WebhookClient } from "discord.js";
+import { Client, WebhookClient } from "discord.js";
 
 import { Command } from "./commands/Command";
 import { OrbitMember } from "./commands/misc/Orbit";
@@ -39,10 +39,10 @@ export interface BeccaLyria extends Client {
     heptagramApiToken: string;
   };
   colours: {
-    default: ColorResolvable;
-    success: ColorResolvable;
-    warning: ColorResolvable;
-    error: ColorResolvable;
+    default: number;
+    success: number;
+    warning: number;
+    error: number;
   };
   commands: Command[];
   contexts: Context[];

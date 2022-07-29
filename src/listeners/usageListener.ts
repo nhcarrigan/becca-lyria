@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { CommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 
 import UsageModel from "../database/models/UsageModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
@@ -14,7 +14,7 @@ export const usageListener = {
   description: "Tracks command usage.",
   run: async (
     Becca: BeccaLyria,
-    interaction: CommandInteraction
+    interaction: ChatInputCommandInteraction
   ): Promise<void> => {
     try {
       const command = interaction.commandName;

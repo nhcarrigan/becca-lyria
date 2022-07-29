@@ -1,9 +1,10 @@
 /* eslint-disable jsdoc/require-param */
 import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
   Message,
-  MessageActionRow,
-  MessageButton,
-  MessageEmbed,
 } from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
@@ -55,33 +56,37 @@ export const handleTwentyOne: CurrencyHandler = async (
     let dealer = Math.ceil(Math.random() * 10);
     let player = Math.ceil(Math.random() * 10);
 
-    const gameEmbed = new MessageEmbed();
+    const gameEmbed = new EmbedBuilder();
     gameEmbed.setTitle(t("commands:currency.twentyone.title"));
     gameEmbed.setDescription(t("commands:currency.twentyone.description"));
     gameEmbed.setColor(Becca.colours.default);
-    gameEmbed.addField(
-      t("commands:currency.twentyone.player"),
-      player.toString(),
-      true
-    );
-    gameEmbed.addField(
-      t("commands:currency.twentyone.becca"),
-      dealer.toString(),
-      true
-    );
-
-    const hitButton = new MessageButton()
+    gameEmbed.addFields([
+      {
+        name: t("commands:currency.twentyone.player"),
+        value: player.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:currency.twentyone.becca"),
+        value: dealer.toString(),
+        inline: true,
+      },
+    ]);
+    const hitButton = new ButtonBuilder()
       .setCustomId("hit")
       .setEmoji("<:BeccaThumbsup:875129902997860393>")
       .setLabel(t("commands:currency.twentyone.hit"))
-      .setStyle("SUCCESS");
-    const standButton = new MessageButton()
+      .setStyle(ButtonStyle.Success);
+    const standButton = new ButtonBuilder()
       .setCustomId("stand")
       .setEmoji("<:BeccaYikes:877278299066347632>")
       .setLabel(t("commands:currency.twentyone.stand"))
-      .setStyle("PRIMARY");
+      .setStyle(ButtonStyle.Primary);
 
-    const row = new MessageActionRow().addComponents([hitButton, standButton]);
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
+      hitButton,
+      standButton,
+    ]);
 
     const message = (await interaction.editReply({
       embeds: [gameEmbed],
@@ -118,28 +123,35 @@ export const handleTwentyOne: CurrencyHandler = async (
         gameState.over = true;
         gameState.won = true;
       }
-      const newHitButton = new MessageButton()
+      if (player === dealer) {
+        gameState.over = true;
+      }
+      const newHitButton = new ButtonBuilder()
         .setCustomId("hit")
         .setEmoji("<:BeccaThumbsup:875129902997860393>")
         .setLabel(t("commands:currency.twentyone.hit"))
-        .setStyle("SUCCESS");
-      const newStandButton = new MessageButton()
+        .setStyle(ButtonStyle.Success);
+      const newStandButton = new ButtonBuilder()
         .setCustomId("stand")
         .setEmoji("<:BeccaYikes:877278299066347632>")
         .setLabel(t("commands:currency.twentyone.stand"))
-        .setStyle("PRIMARY");
+        .setStyle(ButtonStyle.Primary);
 
       if (gameState.over) {
         newHitButton.setDisabled(true);
         newStandButton.setDisabled(true);
         gameEmbed.setTitle(
-          gameState.won
+          player === dealer
+            ? "Tie!"
+            : gameState.won
             ? t("commands:currency.twentyone.won")
             : t("commands:currency.twentyone.lost")
         );
-        data.currencyTotal = gameState.won
-          ? data.currencyTotal + wager
-          : data.currencyTotal - wager;
+        if (player !== dealer) {
+          data.currencyTotal = gameState.won
+            ? data.currencyTotal + wager
+            : data.currencyTotal - wager;
+        }
         data.twentyOnePlayed = now;
         await data.save();
         gameEmbed.setDescription(
@@ -148,11 +160,13 @@ export const handleTwentyOne: CurrencyHandler = async (
         await Becca.currencyHook.send(
           `${interaction.user.username} played 21 in ${
             interaction.guild?.name
-          }! They ${gameState.won ? "won" : "lost"} ${wager} BeccaCoin.`
+          }! They ${
+            player === dealer ? "tied" : gameState.won ? "won" : "lost"
+          } ${wager} BeccaCoin.`
         );
       }
 
-      const newRow = new MessageActionRow().addComponents([
+      const newRow = new ActionRowBuilder<ButtonBuilder>().addComponents([
         newHitButton,
         newStandButton,
       ]);

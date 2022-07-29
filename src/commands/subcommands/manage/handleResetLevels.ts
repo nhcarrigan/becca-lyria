@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { GuildMember } from "discord.js";
+import { GuildMember, PermissionFlagsBits } from "discord.js";
 
 import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -26,7 +26,9 @@ export const handleResetLevels: CommandHandler = async (
     }
 
     if (
-      !(member as GuildMember).permissions.has("MANAGE_GUILD") &&
+      !(member as GuildMember).permissions.has(
+        PermissionFlagsBits.ManageGuild
+      ) &&
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({

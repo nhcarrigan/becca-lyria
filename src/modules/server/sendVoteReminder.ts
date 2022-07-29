@@ -1,4 +1,5 @@
 import { WebhookPayload } from "@top-gg/sdk";
+import { ChannelType } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { Voter } from "../../interfaces/database/Voter";
@@ -25,7 +26,7 @@ export const sendVoteReminder = async (
     const guild = await Becca.guilds.fetch(Becca.configs.homeGuild);
     const channel = await guild.channels.fetch(Becca.configs.voteChannel);
 
-    if (channel?.type !== "GUILD_TEXT") {
+    if (channel?.type !== ChannelType.GuildText) {
       return;
     }
 

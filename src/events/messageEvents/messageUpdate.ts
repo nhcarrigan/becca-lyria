@@ -1,4 +1,4 @@
-import { Message, MessageEmbed, PartialMessage } from "discord.js";
+import { Message, EmbedBuilder, PartialMessage, ChannelType } from "discord.js";
 import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
@@ -28,7 +28,7 @@ export const messageUpdate = async (
     const { author, guild, content: newContent } = newMessage;
     const { content: oldContent } = oldMessage;
 
-    if (!guild || newMessage.channel.type === "DM") {
+    if (!guild || newMessage.channel.type === ChannelType.DM) {
       return;
     }
     const lang = guild.preferredLocale;
@@ -53,21 +53,28 @@ export const messageUpdate = async (
         ? generateDiff(oldContent, newContent)
         : t("events:message.edit.nocont");
 
-    const updateEmbed = new MessageEmbed();
+    const updateEmbed = new EmbedBuilder();
     updateEmbed.setTitle(t("events:message.edit.title"));
     updateEmbed.setAuthor({
       name: author.tag,
       iconURL: author.displayAvatarURL(),
     });
     updateEmbed.setDescription(`\`\`\`diff\n${diffContent}\`\`\``);
-    updateEmbed.setFooter(`Author: ${author.id} | Message: ${oldMessage.id}`);
+    updateEmbed.setFooter({
+      text: `Author: ${author.id} | Message: ${oldMessage.id}`,
+    });
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setTimestamp();
-    updateEmbed.addField(
-      t("events:message.edit.chan"),
-      `<#${newMessage.channel.id}>`
-    );
-    updateEmbed.addField(t("events:message.edit.link"), newMessage.url);
+    updateEmbed.addFields([
+      {
+        name: t("events:message.edit.chan"),
+        value: `<#${newMessage.channel.id}>`,
+      },
+      {
+        name: t("events:message.edit.link"),
+        value: newMessage.url,
+      },
+    ]);
 
     await sendLogEmbed(Becca, guild, updateEmbed, "message_events");
 

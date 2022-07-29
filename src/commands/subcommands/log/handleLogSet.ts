@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { LogSettings } from "../../../interfaces/settings/LogSettings";
@@ -66,7 +66,7 @@ export const handleLogSet: CommandHandler = async (
       setting as LogSettings,
       newContent
     );
-    const successEmbed = new MessageEmbed();
+    const successEmbed = new EmbedBuilder();
     successEmbed.setTitle(t("commands:log.set.title", { setting }));
     successEmbed.setDescription(customSubstring(parsedContent, 2000));
     successEmbed.setTimestamp();

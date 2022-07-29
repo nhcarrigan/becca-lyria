@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -26,23 +26,25 @@ export const handleView: CurrencyHandler = async (
       (data.weeklyClaimed - now + 604800000) / 1000
     );
 
-    const viewEmbed = new MessageEmbed();
+    const viewEmbed = new EmbedBuilder();
     viewEmbed.setTitle("Currency Report");
     viewEmbed.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() });
     viewEmbed.setColor(Becca.colours.default);
     viewEmbed.setDescription(
       t("commands:currency.view.total", { total: data.currencyTotal })
     );
-    viewEmbed.addField(
-      t("commands:currency.view.daily"),
-      dailyCooldown < 0 ? "now!" : parseSeconds(dailyCooldown),
-      true
-    );
-    viewEmbed.addField(
-      t("commands:currency.view.weekly"),
-      weeklyCooldown < 0 ? "now!" : parseSeconds(weeklyCooldown),
-      true
-    );
+    viewEmbed.addFields([
+      {
+        name: t("commands:currency.view.daily"),
+        value: dailyCooldown < 0 ? "now!" : parseSeconds(dailyCooldown),
+        inline: true,
+      },
+      {
+        name: t("commands:currency.view.weekly"),
+        value: weeklyCooldown < 0 ? "now!" : parseSeconds(weeklyCooldown),
+        inline: true,
+      },
+    ]);
     viewEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",

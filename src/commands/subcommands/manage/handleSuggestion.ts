@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { GuildMember, TextChannel } from "discord.js";
+import { GuildMember, PermissionFlagsBits, TextChannel } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -28,7 +28,9 @@ export const handleSuggestion: CommandHandler = async (
       return;
     }
 
-    if (!(member as GuildMember).permissions.has("MANAGE_GUILD")) {
+    if (
+      !(member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild)
+    ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
       });
@@ -80,21 +82,29 @@ export const handleSuggestion: CommandHandler = async (
       return;
     }
 
-    embeddedSuggestion.addField(
-      action === "approve"
-        ? t("commands:manage.suggestion.approved")
-        : t("commands:manage.suggestion.denied"),
-      `<@!${author.id}>`
-    );
-    embeddedSuggestion.addField(
-      t("commands:manage.suggestion.reason"),
-      customSubstring(reason, 1000)
-    );
-    embeddedSuggestion.setColor(
-      action === "approve" ? Becca.colours.success : Becca.colours.error
+    embeddedSuggestion.fields.push(
+      {
+        name:
+          action === "approve"
+            ? t("commands:manage.suggestion.approved")
+            : t("commands:manage.suggestion.denied"),
+        value: `<@!${author.id}>`,
+      },
+      {
+        name: t("commands:manage.suggestion.reason"),
+        value: customSubstring(reason, 1000),
+      }
     );
 
-    targetSuggestion.edit({ embeds: [embeddedSuggestion] });
+    targetSuggestion.edit({
+      embeds: [
+        {
+          ...embeddedSuggestion.toJSON(),
+          color:
+            action === "approve" ? Becca.colours.success : Becca.colours.error,
+        },
+      ],
+    });
 
     await interaction.editReply({
       content: t("commands:manage.suggestion.success"),

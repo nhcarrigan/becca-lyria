@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -24,7 +24,7 @@ export const handleColour: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const colourEmbed = new MessageEmbed();
+    const colourEmbed = new EmbedBuilder();
     colourEmbed.setTitle(
       t("commands:code.colour.title", { hex: parsedColour })
     );

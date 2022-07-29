@@ -2,9 +2,9 @@
 import * as Sentry from "@sentry/node";
 import {
   CommandInteraction,
-  ContextMenuInteraction,
+  ContextMenuCommandInteraction,
+  EmbedBuilder,
   Message,
-  MessageEmbed,
 } from "discord.js";
 import { Types } from "mongoose";
 
@@ -32,7 +32,7 @@ export const beccaErrorHandler = async (
   err: unknown,
   guild?: string,
   message?: Message,
-  interaction?: CommandInteraction | ContextMenuInteraction
+  interaction?: CommandInteraction | ContextMenuCommandInteraction
 ): Promise<Types.ObjectId> => {
   if (Becca.pm2.metrics.errors) {
     Becca.pm2.metrics.errors.mark();
@@ -47,46 +47,52 @@ export const beccaErrorHandler = async (
   Sentry.captureException(error);
 
   const errorId = new Types.ObjectId();
-  const errorEmbed = new MessageEmbed();
+  const errorEmbed = new EmbedBuilder();
   errorEmbed.setTitle(
     `${context} error ${guild ? "in " + guild : "from an unknown source"}.`
   );
   errorEmbed.setColor(Becca.colours.error);
   errorEmbed.setDescription(customSubstring(error.message, 2000));
-  errorEmbed.addField(
-    "Stack Trace:",
-    `\`\`\`\n${customSubstring(error.stack || "null", 1000)}\n\`\`\``
-  );
-  errorEmbed.addField("Error ID", errorId.toHexString());
+  errorEmbed.addFields([
+    {
+      name: "Stack Trace:",
+      value: `\`\`\`\n${customSubstring(error.stack || "null", 1000)}\n\`\`\``,
+    },
+    { name: "Error ID:", value: errorId.toHexString() },
+  ]);
   errorEmbed.setTimestamp();
   if (message) {
-    errorEmbed.addField(
-      "Message Content:",
-      customSubstring(message.content, 1000)
-    );
+    errorEmbed.addFields([
+      {
+        name: "Message Content:",
+        value: customSubstring(message.content, 1000),
+      },
+    ]);
   }
 
   if (interaction) {
-    errorEmbed.addField(
-      "Interaction Details",
-      customSubstring(
-        `${interaction.commandName} ${
-          interaction.isCommand()
-            ? interaction.options.getSubcommand() || ""
-            : ""
-        }`,
-        1000
-      )
-    );
-    errorEmbed.addField(
-      "Interaction Options",
-      customSubstring(
-        interaction.options.data[0].options
-          ?.map((o) => `\`${o.name}\`: ${o.value}`)
-          .join(", ") || "no options",
-        1000
-      )
-    );
+    errorEmbed.addFields([
+      {
+        name: "Interaction Details",
+        value: customSubstring(
+          `${interaction.commandName} ${
+            interaction.isChatInputCommand()
+              ? interaction.options.getSubcommand() || ""
+              : ""
+          }`,
+          1000
+        ),
+      },
+      {
+        name: "Interaction Options",
+        value: customSubstring(
+          interaction.options.data[0].options
+            ?.map((o) => `\`${o.name}\`: ${o.value}`)
+            .join(", ") || "no options",
+          1000
+        ),
+      },
+    ]);
   }
   await Becca.debugHook.send({ embeds: [errorEmbed] });
 

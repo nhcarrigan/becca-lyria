@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed, TextChannel } from "discord.js";
+import { EmbedBuilder, TextChannel } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -46,7 +46,7 @@ export const handleSuggest: CommandHandler = async (
       return;
     }
 
-    const suggestionEmbed = new MessageEmbed();
+    const suggestionEmbed = new EmbedBuilder();
     suggestionEmbed.setTitle(t("commands:community.suggest.title"));
     suggestionEmbed.setTimestamp();
     suggestionEmbed.setColor(Becca.colours.default);

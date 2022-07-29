@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { UserConfigCommandHandler } from "../../../interfaces/commands/UserConfigCommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -15,22 +15,24 @@ export const handleUserConfigView: UserConfigCommandHandler = async (
   userConfig
 ) => {
   try {
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setColor(Becca.colours.default);
     embed.setTitle(t("commands:userconfig.view.title"));
     embed.setDescription(t("commands:userconfig.view.description"));
-    embed.addField(
-      t("commands:userconfig.view.levelcard.background"),
-      userConfig.levelcard.background || "Not set."
-    );
-    embed.addField(
-      t("commands:userconfig.view.levelcard.foreground"),
-      userConfig.levelcard.foreground || "Not set."
-    );
-    embed.addField(
-      t("commands:userconfig.view.levelcard.progress"),
-      userConfig.levelcard.progress || "Not set."
-    );
+    embed.addFields([
+      {
+        name: t("commands:userconfig.view.levelcard.background"),
+        value: userConfig.levelcard.background || "Not set.",
+      },
+      {
+        name: t("commands:userconfig.view.levelcard.foreground"),
+        value: userConfig.levelcard.foreground || "Not set.",
+      },
+      {
+        name: t("commands:userconfig.view.levelcard.progress"),
+        value: userConfig.levelcard.progress || "Not set.",
+      },
+    ]);
     embed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",

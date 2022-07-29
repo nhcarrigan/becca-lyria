@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
 import HistoryModel from "../../../database/models/HistoryModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -25,13 +25,13 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
 
     if (
       typeof member.permissions === "string" ||
-      (!member.permissions.has("KICK_MEMBERS") &&
-        !member.permissions.has("BAN_MEMBERS") &&
-        !member.permissions.has("MODERATE_MEMBERS")) ||
+      (!member.permissions.has(PermissionFlagsBits.KickMembers) &&
+        !member.permissions.has(PermissionFlagsBits.BanMembers) &&
+        !member.permissions.has(PermissionFlagsBits.ModerateMembers)) ||
       !targetMember ||
-      targetMember.permissions.has("KICK_MEMBERS") ||
-      targetMember.permissions.has("BAN_MEMBERS") ||
-      targetMember.permissions.has("MODERATE_MEMBERS")
+      targetMember.permissions.has(PermissionFlagsBits.KickMembers) ||
+      targetMember.permissions.has(PermissionFlagsBits.BanMembers) ||
+      targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)
     ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
@@ -51,36 +51,38 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setTitle(t("commands:mod.history.title", { user: target.tag }));
     embed.setDescription(t("commands:mod.history.description"));
     embed.setColor(Becca.colours.default);
     embed.setThumbnail(target.displayAvatarURL());
-    embed.addField(
-      t("commands:mod.history.ban"),
-      String(targetRecord.bans),
-      true
-    );
-    embed.addField(
-      t("commands:mod.history.kick"),
-      String(targetRecord.kicks),
-      true
-    );
-    embed.addField(
-      t("commands:mod.history.warn"),
-      String(targetRecord.warns),
-      true
-    );
-    embed.addField(
-      t("commands:mod.history.mute"),
-      String(targetRecord.mutes),
-      true
-    );
-    embed.addField(
-      t("commands:mod.history.unmute"),
-      String(targetRecord.unmutes),
-      true
-    );
+    embed.addFields([
+      {
+        name: t("commands:mod.history.ban"),
+        value: String(targetRecord.bans),
+        inline: true,
+      },
+      {
+        name: t("commands:mod.history.kick"),
+        value: String(targetRecord.kicks),
+        inline: true,
+      },
+      {
+        name: t("commands:mod.history.warn"),
+        value: String(targetRecord.warns),
+        inline: true,
+      },
+      {
+        name: t("commands:mod.history.mute"),
+        value: String(targetRecord.mutes),
+        inline: true,
+      },
+      {
+        name: t("commands:mod.history.unmute"),
+        value: String(targetRecord.unmutes),
+        inline: true,
+      },
+    ]);
 
     await interaction.editReply({
       embeds: [embed],

@@ -3,7 +3,7 @@ import {
   RESTPostAPIApplicationCommandsJSONBody,
   RESTPostAPIChatInputApplicationCommandsJSONBody,
   Routes,
-} from "discord-api-types/v9";
+} from "discord-api-types/v10";
 
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 
@@ -23,7 +23,7 @@ import { beccaLogHandler } from "./beccaLogHandler";
  */
 export const registerCommands = async (Becca: BeccaLyria): Promise<boolean> => {
   try {
-    const rest = new REST({ version: "9" }).setToken(Becca.configs.token);
+    const rest = new REST({ version: "10" }).setToken(Becca.configs.token);
 
     const commandData: (
       | RESTPostAPIApplicationCommandsJSONBody

@@ -1,10 +1,10 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import { User } from "@sentry/types";
 import {
+  ChannelType,
+  EmbedBuilder,
   Guild,
-  GuildChannel,
   Message,
-  MessageEmbed,
   TextChannel,
 } from "discord.js";
 
@@ -25,7 +25,7 @@ export const report: Context = {
       const guild = interaction.guild as Guild;
       const message = interaction.options.getMessage("message") as Message;
 
-      if (!guild || !message) {
+      if (!guild || !message || message.channel.type === ChannelType.DM) {
         await interaction.editReply({
           content: getRandomValue(t("responses:missingGuild")),
         });
@@ -43,7 +43,7 @@ export const report: Context = {
 
       const author = message.author as User;
 
-      const reportEmbed = new MessageEmbed();
+      const reportEmbed = new EmbedBuilder();
       reportEmbed.setTitle(t("contexts:report.title"));
       reportEmbed.setDescription(
         `${customSubstring(message.content || "no content found!", 4000)}`
@@ -53,12 +53,18 @@ export const report: Context = {
         iconURL: author.displayAvatarURL(),
       });
       reportEmbed.setColor(Becca.colours.default);
-      reportEmbed.addField(
-        "Channel",
-        (message.channel as GuildChannel).name,
-        true
-      );
-      reportEmbed.addField("Link", message.url, true);
+      reportEmbed.addFields([
+        {
+          name: "Channel",
+          value: message.channel.name,
+          inline: true,
+        },
+        {
+          name: "Link",
+          value: message.url,
+          inline: true,
+        },
+      ]);
       reportEmbed.setFooter({
         text: t("defaults:donate"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
@@ -71,7 +77,6 @@ export const report: Context = {
         embeds: [reportEmbed],
       });
       await interaction.editReply(t("contexts:report.success"));
-      reportEmbed.addField("Link", message.url);
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

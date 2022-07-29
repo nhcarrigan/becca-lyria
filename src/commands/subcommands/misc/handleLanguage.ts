@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -12,15 +12,21 @@ export const handleLanguage: CommandHandler = async (Becca, interaction, t) => {
   try {
     const userLang = interaction.locale;
     const guildLang = interaction.guildLocale;
-    const langEmbed = new MessageEmbed();
+    const langEmbed = new EmbedBuilder();
     langEmbed.setTitle(t("commands:misc.language.title"));
     langEmbed.setDescription(t("commands:misc.language.description"));
-    langEmbed.addField(t("commands:misc.language.yours"), userLang, true);
-    langEmbed.addField(
-      t("commands:misc.language.server"),
-      guildLang || "unset",
-      true
-    );
+    langEmbed.addFields([
+      {
+        name: t("commands:misc.language.yours"),
+        value: userLang,
+        inline: true,
+      },
+      {
+        name: t("commands:misc.language.server"),
+        value: guildLang || "unset",
+        inline: true,
+      },
+    ]);
     await interaction.editReply({ embeds: [langEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(

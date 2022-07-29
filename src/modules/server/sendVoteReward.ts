@@ -1,3 +1,5 @@
+import { ChannelType } from "discord.js";
+
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { Voter } from "../../interfaces/database/Voter";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
@@ -17,7 +19,7 @@ export const sendVoteReward = async (
     const guild = await Becca.guilds.fetch(Becca.configs.homeGuild);
     const channel = await guild.channels.fetch(Becca.configs.voteChannel);
 
-    if (channel?.type !== "GUILD_TEXT") {
+    if (channel?.type !== ChannelType.GuildText) {
       return;
     }
 

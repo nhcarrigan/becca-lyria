@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -35,7 +35,7 @@ export const handleGuess: CurrencyHandler = async (
 
     await data.save();
 
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setTitle(
       won ? t("commands:currency.guess.won") : t("commands:currency.guess.lost")
     );
@@ -43,8 +43,18 @@ export const handleGuess: CurrencyHandler = async (
     embed.setDescription(
       t("commands:currency.guess.total", { total: data.currencyTotal })
     );
-    embed.addField(t("commands:currency.guess.guess"), guess.toString(), true);
-    embed.addField(t("commands:currency.guess.becca"), becca.toString(), true);
+    embed.addFields([
+      {
+        name: t("commands:currency.guess.guess"),
+        value: guess.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:currency.guess.becca"),
+        value: becca.toString(),
+        inline: true,
+      },
+    ]);
     embed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",

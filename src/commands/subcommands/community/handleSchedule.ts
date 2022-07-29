@@ -1,9 +1,11 @@
 /* eslint-disable jsdoc/require-param */
 import {
+  ChannelType,
+  EmbedBuilder,
   GuildBasedChannel,
   GuildMember,
-  MessageEmbed,
   NewsChannel,
+  PermissionFlagsBits,
   TextChannel,
 } from "discord.js";
 
@@ -28,7 +30,7 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
       !member ||
       !(member as GuildMember)
         ?.permissionsIn(targetChannel as GuildBasedChannel)
-        .has("SEND_MESSAGES")
+        .has(PermissionFlagsBits.SendMessages)
     ) {
       await interaction.editReply({
         content: t("commands:community.schedule.permission"),
@@ -37,8 +39,8 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
     }
 
     if (
-      targetChannel.type !== "GUILD_TEXT" &&
-      targetChannel.type !== "GUILD_NEWS"
+      targetChannel.type !== ChannelType.GuildText &&
+      targetChannel.type !== ChannelType.GuildNews
     ) {
       await interaction.editReply({
         content: t("commands:community.schedule.notext"),
@@ -65,26 +67,28 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
       });
     }, time * 60000);
 
-    const successEmbed = new MessageEmbed();
+    const successEmbed = new EmbedBuilder();
     successEmbed.setTitle(t("commands:community.schedule.embed.title"));
     successEmbed.setDescription(
       t("commands:community.schedule.embed.description")
     );
     successEmbed.setColor(Becca.colours.default);
-    successEmbed.addField(
-      t("commands:community.schedule.embed.time"),
-      t("commands:community.schedule.embed.minutes", { time }),
-      true
-    );
-    successEmbed.addField(
-      t("commands:community.schedule.embed.channel"),
-      `<#${targetChannel.id}>`,
-      true
-    );
-    successEmbed.addField(
-      t("commands:community.schedule.embeds.message"),
-      message
-    );
+    successEmbed.addFields([
+      {
+        name: t("commands:community.schedule.embed.time"),
+        value: t("commands:community.schedule.embed.minutes", { time }),
+        inline: true,
+      },
+      {
+        name: t("commands:community.schedule.embed.channel"),
+        value: `<#${targetChannel.id}>`,
+        inline: true,
+      },
+      {
+        name: t("commands:community.schedule.embed.message"),
+        value: message,
+      },
+    ]);
     successEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile-transparent",

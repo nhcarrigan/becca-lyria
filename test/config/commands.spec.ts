@@ -30,7 +30,6 @@ import {
   updatesSinceLastRelease,
   nextScheduledRelease,
 } from "../../src/config/commands/updatesData";
-import { UserFlagMap } from "../../src/config/commands/userInfo";
 import { defaultServer } from "../../src/config/database/defaultServer";
 import { testEmoteCount } from "../../src/interfaces/database/EmoteCount";
 import { testServerConfig } from "../../src/interfaces/database/ServerConfig";
@@ -318,12 +317,5 @@ suite("updatesData", () => {
       nextScheduledRelease,
       "nextScheduledRelease is not a string"
     );
-  });
-});
-
-suite("userInfo", () => {
-  test("is defined", () => {
-    assert.isDefined(UserFlagMap, "UserFlagMap is not defined");
-    assert.isObject(UserFlagMap, "UserFlagMap is not an object");
   });
 });

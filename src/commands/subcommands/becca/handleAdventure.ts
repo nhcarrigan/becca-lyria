@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import { adventureList } from "../../../config/commands/adventureList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -19,7 +24,7 @@ export const handleAdventure: CommandHandler = async (
   try {
     const { fileName, gameName, gameUrl } = getRandomValue(adventureList);
 
-    const adventureEmbed = new MessageEmbed();
+    const adventureEmbed = new EmbedBuilder();
     adventureEmbed.setTitle(gameName);
     adventureEmbed.setColor(Becca.colours.default);
     adventureEmbed.setDescription(
@@ -39,15 +44,17 @@ export const handleAdventure: CommandHandler = async (
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
-    const artButton = new MessageButton()
+    const artButton = new ButtonBuilder()
       .setLabel(t("commands:becca.adventure.buttons.more"))
       .setEmoji("<:BeccaWork:883854701416833024>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL(
         "https://beccalyria.com/adventures?utm_source=discord&utm_medium=art-command"
       );
 
-    const row = new MessageActionRow().addComponents([artButton]);
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
+      artButton,
+    ]);
 
     await interaction.editReply({
       embeds: [adventureEmbed],

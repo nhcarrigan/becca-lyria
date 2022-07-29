@@ -1,4 +1,4 @@
-import { Guild, MessageEmbed } from "discord.js";
+import { EmbedBuilder, Guild } from "discord.js";
 import { TFunction } from "i18next";
 
 import { defaultServer } from "../../../config/database/defaultServer";
@@ -15,69 +15,76 @@ import { customSubstring } from "../../../utils/customSubstring";
  * @param {Guild} guild The server to parse the settings for.
  * @param {TFunction} t The i18n translator function.
  * @param {ServerConfig} config The server's configuration object from the database.
- * @returns {MessageEmbed | null} A message embed or null on error.
+ * @returns {EmbedBuilder | null} A message embed or null on error.
  */
 export const viewAutomodSettings = async (
   Becca: BeccaLyria,
   guild: Guild,
   t: TFunction,
   config: ServerConfig
-): Promise<MessageEmbed | null> => {
+): Promise<EmbedBuilder | null> => {
   try {
-    const settingsEmbed = new MessageEmbed();
+    const settingsEmbed = new EmbedBuilder();
     settingsEmbed.setTitle(`${guild.name} Automod Settings`);
     settingsEmbed.setColor(Becca.colours.default);
     settingsEmbed.setDescription(t("commands:automod.view.embed.title"));
-    settingsEmbed.addField(
-      t("commands:automod.view.embed.link"),
-      config.links || "off",
-      true
-    );
-    settingsEmbed.addField(
-      t("commands:automod.view.embed.profanity"),
-      config.profanity || "off",
-      true
-    );
-    settingsEmbed.addField(
-      t("commands:automod.view.embed.linkRemoval"),
-      customSubstring(config.link_message || defaultServer.link_message, 1000)
-    );
-    settingsEmbed.addField(
-      t("commands:automod.view.embed.profanityRemoval"),
-      customSubstring(
-        config.profanity_message || defaultServer.profanity_message,
-        1000
-      )
-    );
-    settingsEmbed.addField(
-      t("commands:automod.view.embed.channels"),
-      config.automod_channels.length.toString(),
-      true
-    );
-    settingsEmbed.addField(
-      t("commands:automod.view.embed.nonChannels"),
-      config.no_automod_channels.length.toString(),
-      true
-    );
-    settingsEmbed.addField(
-      t("commands:automod.view.embed.exempt"),
-      config.automod_roles.length.toString(),
-      true
-    );
-    settingsEmbed.addField(
-      t("commands:automod.view.embed.allowed"),
-      config.allowed_links.length.toString(),
-      true
-    );
-    settingsEmbed.addField(
-      t("commands:automod.view.embed.antiphish"),
-      config.antiphish || "none",
-      true
-    );
-    settingsEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile.png"
-    );
+    settingsEmbed.addFields([
+      {
+        name: t("commands:automod.view.embed.link"),
+        value: config.links || "off",
+        inline: true,
+      },
+      {
+        name: t("commands:automod.view.embed.profanity"),
+        value: config.profanity || "off",
+        inline: true,
+      },
+      {
+        name: t("commands:automod.view.embed.linkRemoval"),
+        value: customSubstring(
+          config.link_message || defaultServer.link_message,
+          1000
+        ),
+        inline: true,
+      },
+      {
+        name: t("commands:automod.view.embed.profanityRemoval"),
+        value: customSubstring(
+          config.profanity_message || defaultServer.profanity_message,
+          1000
+        ),
+        inline: true,
+      },
+      {
+        name: t("commands:automod.view.embed.channels"),
+        value: config.automod_channels.length.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:automod.view.embed.nonChannels"),
+        value: config.no_automod_channels.length.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:automod.view.embed.exempt"),
+        value: config.automod_roles.length.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:automod.view.embed.allowed"),
+        value: config.allowed_links.length.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:automod.view.embed.antiphish"),
+        value: config.antiphish || "none",
+        inline: true,
+      },
+    ]);
+    settingsEmbed.setFooter({
+      text: "Like the bot? Donate: https://donate.nhcarrigan.com",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
+    });
     return settingsEmbed;
   } catch (err) {
     await beccaErrorHandler(

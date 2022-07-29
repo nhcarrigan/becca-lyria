@@ -1,4 +1,4 @@
-import { GuildMember, MessageEmbed, PartialGuildMember } from "discord.js";
+import { GuildMember, EmbedBuilder, PartialGuildMember } from "discord.js";
 import { getFixedT } from "i18next";
 
 import { defaultServer } from "../../config/database/defaultServer";
@@ -34,7 +34,7 @@ export const memberAdd = async (
 
     if (member.pending) {
       // logic for pending members
-      const partialJoinEmbed = new MessageEmbed();
+      const partialJoinEmbed = new EmbedBuilder();
       partialJoinEmbed.setColor(Becca.colours.warning);
       partialJoinEmbed.setTitle(t("events:member.pending.title"));
       partialJoinEmbed.setDescription(t("events:member.pending.desc"));
@@ -52,7 +52,7 @@ export const memberAdd = async (
       .replace(/{@username}/gi, user.username)
       .replace(/{@servername}/gi, guild.name);
 
-    const welcomeEmbed = new MessageEmbed();
+    const welcomeEmbed = new EmbedBuilder();
     welcomeEmbed.setColor(Becca.colours.default);
     welcomeEmbed.setTitle(t("events:member.join.title"));
     welcomeEmbed.setDescription(welcomeText);
@@ -60,7 +60,7 @@ export const memberAdd = async (
       name: user.tag,
       iconURL: user.displayAvatarURL(),
     });
-    welcomeEmbed.setFooter(`ID: ${user.id}`);
+    welcomeEmbed.setFooter({ text: `ID: ${user.id}` });
     welcomeEmbed.setTimestamp();
 
     await sendWelcomeEmbed(Becca, guild, "join", welcomeEmbed);

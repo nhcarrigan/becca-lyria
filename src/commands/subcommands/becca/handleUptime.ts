@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -20,26 +20,31 @@ export const handleUptime: CommandHandler = async (Becca, interaction, t) => {
         : 0;
     const secondsRemain = seconds - days * 86400 - hours * 3600 - minutes * 60;
 
-    const uptimeEmbed = new MessageEmbed();
+    const uptimeEmbed = new EmbedBuilder();
     uptimeEmbed.setTitle(t("commands:becca.uptime.title"));
     uptimeEmbed.setColor(Becca.colours.default);
     uptimeEmbed.setDescription(t("commands:becca.uptime.description"));
-    uptimeEmbed.addField(t("commands:becca.uptime.days"), days.toString());
-    uptimeEmbed.addField(
-      t("commands:becca.uptime.hours"),
-      hours.toString(),
-      true
-    );
-    uptimeEmbed.addField(
-      t("commands:becca.uptime.minutes"),
-      minutes.toString(),
-      true
-    );
-    uptimeEmbed.addField(
-      t("commands:becca.uptime.seconds"),
-      secondsRemain.toString(),
-      true
-    );
+    uptimeEmbed.addFields([
+      {
+        name: t("commands:becca.uptime.days"),
+        value: days.toString(),
+      },
+      {
+        name: t("commands:becca.uptime.hours"),
+        value: hours.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:becca.uptime.minutes"),
+        value: minutes.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:becca.uptime.seconds"),
+        value: secondsRemain.toString(),
+        inline: true,
+      },
+    ]);
     uptimeEmbed.setTimestamp();
     uptimeEmbed.setFooter({
       text: t("defaults:donate"),

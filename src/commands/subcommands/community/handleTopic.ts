@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { topicList } from "../../../config/commands/topicList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -18,7 +18,7 @@ export const handleTopic: CommandHandler = async (Becca, interaction, t) => {
 
     const randomTopic = getRandomValue(topicArray);
 
-    const topicEmbed = new MessageEmbed();
+    const topicEmbed = new EmbedBuilder();
     topicEmbed.setTitle(t("commands:community.topic.title"));
     topicEmbed.setDescription(randomTopic);
     topicEmbed.setColor(Becca.colours.default);

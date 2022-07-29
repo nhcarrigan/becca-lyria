@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
@@ -181,25 +181,31 @@ export const automodPhish: ListenerHandler = async (
         break;
     }
 
-    const logEmbed = new MessageEmbed();
+    const logEmbed = new EmbedBuilder();
     logEmbed.setTitle(t("listeners:automod.antiphish.title"));
     logEmbed.setDescription(t("listeners:automod.antiphish.description"));
-    logEmbed.addField(
-      t("listeners:automod.antiphish.user"),
-      message.author.tag,
-      true
-    );
-    logEmbed.addField(t("listeners:automod.antiphish.link"), scamLink, true);
-    logEmbed.addField(
-      t("listeners:automod.antiphish.action"),
-      config.antiphish,
-      true
-    );
-    logEmbed.addField(
-      t("listeners:automod.antiphish.source"),
-      scamSource,
-      true
-    );
+    logEmbed.addFields([
+      {
+        name: t("listeners:automod.antiphish.user"),
+        value: message.author.tag,
+        inline: true,
+      },
+      {
+        name: t("listeners:automod.antiphish.link"),
+        value: scamLink,
+        inline: true,
+      },
+      {
+        name: t("listeners:automod.antiphish.action"),
+        value: config.antiphish,
+        inline: true,
+      },
+      {
+        name: t("listeners:automod.antiphish.source"),
+        value: scamSource,
+        inline: true,
+      },
+    ]);
 
     await sendLogEmbed(Becca, message.guild, logEmbed, "moderation_events");
 

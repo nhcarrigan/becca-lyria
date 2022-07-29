@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { Joke } from "../../../interfaces/commands/games/Joke";
@@ -28,7 +28,7 @@ export const handleJoke: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const jokeEmbed = new MessageEmbed();
+    const jokeEmbed = new EmbedBuilder();
     jokeEmbed.setColor(Becca.colours.default);
     jokeEmbed.setTitle(t("commands:games.joke.title"));
     jokeEmbed.setDescription(joke.data.joke);

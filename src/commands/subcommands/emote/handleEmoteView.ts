@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import EmoteCountModel from "../../../database/models/EmoteCountModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -33,7 +33,7 @@ export const handleEmoteView: CommandHandler = async (
       data.smack +
       data.uwu;
 
-    const emoteEmbed = new MessageEmbed();
+    const emoteEmbed = new EmbedBuilder();
     emoteEmbed.setTitle(t("commands:emote.view.title"));
     emoteEmbed.setAuthor({
       name: interaction.user.tag,
@@ -41,41 +41,43 @@ export const handleEmoteView: CommandHandler = async (
     });
     emoteEmbed.setColor(Becca.colours.default);
     emoteEmbed.setDescription(t("commands:emote.view.description", { total }));
-    emoteEmbed.addField(
-      t("commands:emote.view.hugs"),
-      data.hug.toString(),
-      true
-    );
-    emoteEmbed.addField(
-      t("commands:emote.view.kisses"),
-      data.kiss.toString(),
-      true
-    );
-    emoteEmbed.addField(
-      t("commands:emote.view.pats"),
-      data.pat.toString(),
-      true
-    );
-    emoteEmbed.addField(
-      t("commands:emote.view.boops"),
-      data.boop.toString(),
-      true
-    );
-    emoteEmbed.addField(
-      t("commands:emote.view.throws"),
-      data.throw.toString(),
-      true
-    );
-    emoteEmbed.addField(
-      t("commands:emote.view.smacks"),
-      data.smack.toString(),
-      true
-    );
-    emoteEmbed.addField(
-      t("commands:emote.view.uwus"),
-      data.uwu.toString(),
-      true
-    );
+    emoteEmbed.addFields([
+      {
+        name: t("commands:emote.view.hugs"),
+        value: data.hug.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:emote.view.kisses"),
+        value: data.kiss.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:emote.view.pats"),
+        value: data.pat.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:emote.view.boops"),
+        value: data.boop.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:emote.view.throws"),
+        value: data.throw.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:emote.view.smacks"),
+        value: data.smack.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:emote.view.uwus"),
+        value: data.uwu.toString(),
+        inline: true,
+      },
+    ]);
     emoteEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile-transparent",

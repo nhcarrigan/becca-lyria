@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { slotsList } from "../../../config/commands/slotsList";
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
@@ -64,7 +64,7 @@ export const handleSlots: CurrencyHandler = async (
     data.slotsPlayed = now;
     await data.save();
 
-    const slotEmbed = new MessageEmbed();
+    const slotEmbed = new EmbedBuilder();
     slotEmbed.setTitle(
       didWin || partialWin
         ? t("commands:currency.slots.won")
@@ -76,7 +76,7 @@ export const handleSlots: CurrencyHandler = async (
     slotEmbed.setDescription(
       t("commands:currency.slots.total", { total: data.currencyTotal })
     );
-    slotEmbed.setFooter(t("commands:currency.slots.footer"));
+    slotEmbed.setFooter({ text: t("commands:currency.slots.footer") });
 
     await interaction.editReply({
       content: `${first} ${second} ${third}`,

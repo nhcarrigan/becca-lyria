@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { StarOptOut } from "../../../config/optout/StarOptOut";
 import StarModel from "../../../database/models/StarModel";
@@ -61,17 +61,19 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
 
     const starTotal = targetUserStars?.stars || 1;
 
-    const starEmbed = new MessageEmbed();
+    const starEmbed = new EmbedBuilder();
     starEmbed.setTitle(
       t("commands:community.star.title", { user: targetUser.username })
     );
     starEmbed.setDescription(
       t("commands:community.star.description", { user: member.user.username })
     );
-    starEmbed.addField(
-      t("commands:community.star.reason"),
-      customSubstring(reason, 2000)
-    );
+    starEmbed.addFields([
+      {
+        name: t("commands:community.star.reason"),
+        value: customSubstring(reason, 2000),
+      },
+    ]);
     starEmbed.setFooter(
       t("commands:community.star.total", { total: starTotal })
     );

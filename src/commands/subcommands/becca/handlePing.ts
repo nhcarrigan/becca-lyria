@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import { connection } from "mongoose";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -27,24 +27,26 @@ export const handlePing: CommandHandler = async (
     const isSlow =
       discordLatency > 100 || websocketLatency > 100 || databaseLatency > 100;
 
-    const pingEmbed = new MessageEmbed();
+    const pingEmbed = new EmbedBuilder();
     pingEmbed.setTitle(t("commands:becca.ping.title"));
     pingEmbed.setDescription(t("commands:becca.ping.description"));
-    pingEmbed.addField(
-      t("commands:becca.ping.interaction"),
-      `${discordLatency} ms`,
-      true
-    );
-    pingEmbed.addField(
-      t("commands:becca.ping.websocket"),
-      `${websocketLatency} ms`,
-      true
-    );
-    pingEmbed.addField(
-      t("commands:becca.ping.databaase"),
-      `${databaseLatency} ms`,
-      true
-    );
+    pingEmbed.addFields([
+      {
+        name: t("commands:becca.ping.interaction"),
+        value: `${discordLatency} ms`,
+        inline: true,
+      },
+      {
+        name: t("commands:becca.ping.websocket"),
+        value: `${websocketLatency} ms`,
+        inline: true,
+      },
+      {
+        name: t("commands:becca.ping.databaase"),
+        value: `${databaseLatency} ms`,
+        inline: true,
+      },
+    ]);
     pingEmbed.setColor(isSlow ? Becca.colours.error : Becca.colours.success);
 
     await interaction.editReply({ embeds: [pingEmbed] });

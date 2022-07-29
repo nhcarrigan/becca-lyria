@@ -1,9 +1,10 @@
 /* eslint-disable jsdoc/require-param */
 import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
   Message,
-  MessageActionRow,
-  MessageButton,
-  MessageEmbed,
 } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -26,39 +27,65 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
 
     const responses: { userId: string; response: string }[] = [];
 
-    const pollEmbed = new MessageEmbed();
+    const pollEmbed = new EmbedBuilder();
     pollEmbed.setTitle(t("commands:community.poll.title"));
     pollEmbed.setDescription(question);
-    pollEmbed.addField("A", optionA, true);
-    pollEmbed.addField("B", optionB, true);
-    pollEmbed.addField("\u200b", "\u200b", true);
-    pollEmbed.addField("C", optionC, true);
-    pollEmbed.addField("D", optionD, true);
-    pollEmbed.addField("\u200b", "\u200b", true);
+    pollEmbed.addFields([
+      {
+        name: "A",
+        value: optionA,
+        inline: true,
+      },
+      {
+        name: "B",
+        value: optionB,
+        inline: true,
+      },
+      {
+        name: "\u200b",
+        value: "\u200b",
+        inline: true,
+      },
+      {
+        name: "C",
+        value: optionC,
+        inline: true,
+      },
+      {
+        name: "D",
+        value: optionD,
+        inline: true,
+      },
+      {
+        name: "\u200b",
+        value: "\u200b",
+        inline: true,
+      },
+    ]);
     pollEmbed.setColor(Becca.colours.default);
     pollEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
-    const buttonA = new MessageButton()
+    const buttonA = new ButtonBuilder()
       .setEmoji("🇦")
       .setCustomId("a")
-      .setStyle("PRIMARY");
-    const buttonB = new MessageButton()
+      .setStyle(ButtonStyle.Primary);
+    const buttonB = new ButtonBuilder()
       .setEmoji("🇧")
       .setCustomId("b")
-      .setStyle("PRIMARY");
-    const buttonC = new MessageButton()
+      .setStyle(ButtonStyle.Primary);
+    const buttonC = new ButtonBuilder()
       .setEmoji("🇨")
       .setCustomId("c")
-      .setStyle("PRIMARY");
-    const buttonD = new MessageButton()
+      .setStyle(ButtonStyle.Primary);
+    const buttonD = new ButtonBuilder()
       .setEmoji("🇩")
       .setCustomId("d")
-      .setStyle("PRIMARY");
+      .setStyle(ButtonStyle.Primary);
 
-    const row = new MessageActionRow().addComponents([
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
       buttonA,
       buttonB,
       buttonC,
@@ -92,17 +119,19 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
       const countsC = responses.filter((el) => el.response === "c").length;
       const countsD = responses.filter((el) => el.response === "d").length;
 
-      pollEmbed.addField(
-        t("commands:community.poll.results"),
-        `**A:** ${countsA}\n**B:** ${countsB}\n**C:** ${countsC}\n**D:** ${countsD}`
-      );
+      pollEmbed.addFields([
+        {
+          name: t("commands:community.poll.results"),
+          value: `**A:** ${countsA}\n**B:** ${countsB}\n**C:** ${countsC}\n**D:** ${countsD}`,
+        },
+      ]);
 
       buttonA.setDisabled(true);
       buttonB.setDisabled(true);
       buttonC.setDisabled(true);
       buttonD.setDisabled(true);
 
-      const disabledRow = new MessageActionRow().addComponents([
+      const disabledRow = new ActionRowBuilder<ButtonBuilder>().addComponents([
         buttonA,
         buttonB,
         buttonC,

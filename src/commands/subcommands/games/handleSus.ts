@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { SusList } from "../../../config/commands/susList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -14,7 +14,7 @@ import { getRandomValue } from "../../../utils/getRandomValue";
 export const handleSus: CommandHandler = async (Becca, interaction, t) => {
   try {
     const susData = getRandomValue(SusList);
-    const susEmbed = new MessageEmbed();
+    const susEmbed = new EmbedBuilder();
     susEmbed.setTitle(t("commands:games.sus.title"));
     susEmbed.setDescription(
       t("commands:games.sus.description", { color: susData.name })

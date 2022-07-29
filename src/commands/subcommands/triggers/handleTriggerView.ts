@@ -1,9 +1,10 @@
 /* eslint-disable jsdoc/require-param */
 import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
   Message,
-  MessageActionRow,
-  MessageButton,
-  MessageEmbed,
 } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -34,22 +35,22 @@ export const handleTriggerView: CommandHandler = async (
     }));
     const lastPage = Math.ceil(config.triggers.length / 10);
 
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setTitle(t("commands:triggers.view.title"));
     embed.setFields(triggerList.slice(page * 10 - 10, page * 10));
     embed.setFooter({
       text: t("commands:triggers.view.footer", { page, last: lastPage }),
     });
 
-    const pageBack = new MessageButton()
+    const pageBack = new ButtonBuilder()
       .setCustomId("prev")
       .setDisabled(true)
       .setLabel("◀")
-      .setStyle("PRIMARY");
-    const pageForward = new MessageButton()
+      .setStyle(ButtonStyle.Primary);
+    const pageForward = new ButtonBuilder()
       .setCustomId("next")
       .setLabel("▶")
-      .setStyle("PRIMARY");
+      .setStyle(ButtonStyle.Primary);
 
     if (lastPage === 1) {
       pageForward.setDisabled(true);
@@ -57,7 +58,12 @@ export const handleTriggerView: CommandHandler = async (
 
     const sent = (await interaction.editReply({
       embeds: [embed],
-      components: [new MessageActionRow().addComponents(pageBack, pageForward)],
+      components: [
+        new ActionRowBuilder<ButtonBuilder>().addComponents(
+          pageBack,
+          pageForward
+        ),
+      ],
     })) as Message;
 
     const clickyClick = sent.createMessageComponentCollector({
@@ -93,7 +99,10 @@ export const handleTriggerView: CommandHandler = async (
       await interaction.editReply({
         embeds: [embed],
         components: [
-          new MessageActionRow().addComponents(pageBack, pageForward),
+          new ActionRowBuilder<ButtonBuilder>().addComponents(
+            pageBack,
+            pageForward
+          ),
         ],
       });
     });
@@ -103,7 +112,10 @@ export const handleTriggerView: CommandHandler = async (
       pageForward.setDisabled(true);
       await interaction.editReply({
         components: [
-          new MessageActionRow().addComponents(pageBack, pageForward),
+          new ActionRowBuilder<ButtonBuilder>().addComponents(
+            pageBack,
+            pageForward
+          ),
         ],
       });
     });

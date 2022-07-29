@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import CommandCountModel from "../../../database/models/CommandCountModel";
 import VoterModel from "../../../database/models/VoterModel";
@@ -33,7 +38,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
         server.commandUses,
       ]);
 
-      const commandEmbed = new MessageEmbed();
+      const commandEmbed = new EmbedBuilder();
       commandEmbed.setTitle(t("commands:becca.stats.commands.title"));
       commandEmbed.setTimestamp();
       commandEmbed.setColor(Becca.colours.default);
@@ -77,7 +82,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
         )
         .join("\n");
 
-      const serverEmbed = new MessageEmbed();
+      const serverEmbed = new EmbedBuilder();
       serverEmbed.setTitle(t("commands:becca.stats.server.title"));
       serverEmbed.setTimestamp();
       serverEmbed.setColor(Becca.colours.default);
@@ -91,18 +96,18 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
-      const supportServerButton = new MessageButton()
+      const supportServerButton = new ButtonBuilder()
         .setLabel(t("commands:becca.stats.buttons.support"))
         .setEmoji("<:BeccaHello:867102882791424073>")
-        .setStyle("LINK")
+        .setStyle(ButtonStyle.Link)
         .setURL("https://chat.nhcarrigan.com");
-      const voteServerButton = new MessageButton()
+      const voteServerButton = new ButtonBuilder()
         .setLabel(t("commands:becca.stats.buttons.server"))
         .setEmoji("<:BeccaWoah:877278300949585980>")
-        .setStyle("LINK")
+        .setStyle(ButtonStyle.Link)
         .setURL("https://top.gg/servers/778130114772598785/vote");
 
-      const row = new MessageActionRow().addComponents([
+      const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
         supportServerButton,
         voteServerButton,
       ]);
@@ -127,7 +132,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
         )
         .join("\n");
 
-      const botEmbed = new MessageEmbed();
+      const botEmbed = new EmbedBuilder();
       botEmbed.setTitle(t("commands:becca.stats.bot.title"));
       botEmbed.setTimestamp();
       botEmbed.setColor(Becca.colours.default);
@@ -141,17 +146,17 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
-      const supportServerButton = new MessageButton()
+      const supportServerButton = new ButtonBuilder()
         .setLabel(t("commands:becca.stats.button.support"))
         .setEmoji("<:BeccaHello:867102882791424073>")
-        .setStyle("LINK")
+        .setStyle(ButtonStyle.Link)
         .setURL("https://chat.nhcarrigan.com");
-      const voteBotButton = new MessageButton()
+      const voteBotButton = new ButtonBuilder()
         .setLabel(t("commands:becca.stats.buttons.bot"))
         .setEmoji("<:BeccaWoah:877278300949585980>")
-        .setStyle("LINK")
+        .setStyle(ButtonStyle.Link)
         .setURL("https://top.gg/bot/716707753090875473/vote");
-      const row = new MessageActionRow().addComponents([
+      const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
         supportServerButton,
         voteBotButton,
       ]);

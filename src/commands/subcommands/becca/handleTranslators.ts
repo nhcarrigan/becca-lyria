@@ -1,6 +1,11 @@
 /* eslint-disable jsdoc/require-param */
 
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import { translatorList } from "../../../config/commands/translatorList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -19,25 +24,27 @@ export const handleTranslators: CommandHandler = async (
     const list = translatorList.length
       ? translatorList.map((el) => `${el.name} - ${el.language}`).join("\n")
       : t("commands:becca.translators.none");
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setTitle(t("commands:becca.translators.title"));
     embed.setDescription(list);
     embed.setColor(Becca.colours.default);
-    embed.addField(
-      t("commands:becca.translators.help"),
-      t("commands:becca.translators.join")
-    );
+    embed.addFields([
+      {
+        name: t("commands:becca.translators.help"),
+        value: t("commands:becca.translators.join"),
+      },
+    ]);
     embed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
-    const button = new MessageButton();
-    button.setStyle("LINK");
+    const button = new ButtonBuilder();
+    button.setStyle(ButtonStyle.Link);
     button.setLabel(t("commands:becca.translators.button"));
     button.setURL("https://chat.nhcarrigan.com");
 
-    const row = new MessageActionRow().addComponents([button]);
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([button]);
 
     await interaction.editReply({
       embeds: [embed],

@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 
@@ -8,7 +8,7 @@ import { BeccaLyria } from "../../interfaces/BeccaLyria";
  * @param {BeccaLyria} Becca Becca's Discord instance.
  */
 export const disconnect = async (Becca: BeccaLyria): Promise<void> => {
-  const disconnectEmbed = new MessageEmbed();
+  const disconnectEmbed = new EmbedBuilder();
   disconnectEmbed.setTitle("Becca has disconnected");
   disconnectEmbed.setDescription(
     `${
