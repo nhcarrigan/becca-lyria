@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { getCounts } from "../../modules/becca/getCounts";
@@ -12,14 +12,14 @@ import { beccaLogHandler } from "../../utils/beccaLogHandler";
  */
 export const ready = async (Becca: BeccaLyria): Promise<void> => {
   beccaLogHandler.log("debug", "Fetching reaction role data...");
-  const readyEmbed = new MessageEmbed();
+  const readyEmbed = new EmbedBuilder();
   readyEmbed.setTitle("Becca is online");
   readyEmbed.setDescription(
     `${Becca.user?.username || "Becca Lyria"} has come online.`
   );
   readyEmbed.setTimestamp();
   readyEmbed.setColor(Becca.colours.success);
-  readyEmbed.setFooter(`Version ${Becca.configs.version}`);
+  readyEmbed.setFooter({ text: `Version ${Becca.configs.version}` });
 
   await Becca.debugHook.send({ embeds: [readyEmbed] });
   beccaLogHandler.log("debug", "Discord ready!");

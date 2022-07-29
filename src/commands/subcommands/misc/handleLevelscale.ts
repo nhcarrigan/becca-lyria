@@ -1,9 +1,10 @@
 /* eslint-disable jsdoc/require-param */
 import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
   Message,
-  MessageActionRow,
-  MessageButton,
-  MessageEmbed,
 } from "discord.js";
 import { TFunction } from "i18next";
 
@@ -35,7 +36,7 @@ export const handleLevelscale: CommandHandler = async (
     let page = 1;
     const lastPage = Math.ceil((Object.keys(levelScale).length - 1) / 10);
 
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setTitle(t("commands:misc.level.title"));
     embed.setURL(
       "https://docs.beccalyria.com/#/level-scale?utm_source=discord&utm_medium=levelscale-command"
@@ -47,20 +48,25 @@ export const handleLevelscale: CommandHandler = async (
     embed.setTimestamp();
     embed.setFooter(t("commands:misc.level.footer", { page, pages: lastPage }));
 
-    const pageBack = new MessageButton()
+    const pageBack = new ButtonBuilder()
       .setCustomId("prev")
       .setDisabled(true)
       .setLabel("◀")
-      .setStyle("PRIMARY");
+      .setStyle(ButtonStyle.Primary);
 
-    const pageForward = new MessageButton()
+    const pageForward = new ButtonBuilder()
       .setCustomId("next")
       .setLabel("▶")
-      .setStyle("PRIMARY");
+      .setStyle(ButtonStyle.Primary);
 
     const sent = (await interaction.editReply({
       embeds: [embed],
-      components: [new MessageActionRow().addComponents(pageBack, pageForward)],
+      components: [
+        new ActionRowBuilder<ButtonBuilder>().addComponents(
+          pageBack,
+          pageForward
+        ),
+      ],
     })) as Message;
 
     const componentCollector = sent.createMessageComponentCollector({
@@ -98,7 +104,10 @@ export const handleLevelscale: CommandHandler = async (
       await interaction.editReply({
         embeds: [embed],
         components: [
-          new MessageActionRow().addComponents(pageBack, pageForward),
+          new ActionRowBuilder<ButtonBuilder>().addComponents(
+            pageBack,
+            pageForward
+          ),
         ],
       });
     });
@@ -108,7 +117,10 @@ export const handleLevelscale: CommandHandler = async (
       pageForward.setDisabled(true);
       await interaction.editReply({
         components: [
-          new MessageActionRow().addComponents(pageBack, pageForward),
+          new ActionRowBuilder<ButtonBuilder>().addComponents(
+            pageBack,
+            pageForward
+          ),
         ],
       });
     });

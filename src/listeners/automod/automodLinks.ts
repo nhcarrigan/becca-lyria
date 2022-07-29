@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { defaultServer } from "../../config/database/defaultServer";
 import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
@@ -57,7 +57,7 @@ export const automodLinks: ListenerHandler = async (
       if (message.deletable) {
         await message.delete();
       }
-      const linkEmbed = new MessageEmbed();
+      const linkEmbed = new EmbedBuilder();
       linkEmbed.setTitle(t("listeners:automod.links.title"));
       linkEmbed.setDescription(
         (config.link_message || defaultServer.link_message).replace(
@@ -80,7 +80,7 @@ export const automodLinks: ListenerHandler = async (
         await warning.delete();
       }, 300000);
 
-      const dmEmbed = new MessageEmbed();
+      const dmEmbed = new EmbedBuilder();
       dmEmbed.setTitle("Your message has been deleted...");
       dmEmbed.setDescription(
         `${t("listeners:automod.links.dmTitle")}\n\`\`\`\n${customSubstring(
@@ -89,26 +89,30 @@ export const automodLinks: ListenerHandler = async (
         )}\n\`\`\``
       );
       dmEmbed.setColor(Becca.colours.error);
-      dmEmbed.addField(
-        t("listeners:automod.links.server"),
-        message.guild?.name || "unknown"
-      );
-      dmEmbed.addField(
-        t("listeners:automod.links.channel"),
-        message.channel.toString()
-      );
-      dmEmbed.addField(
-        t("listeners:automod.links.reason"),
-        t("listeners:automod.links.blocked")
-      );
-      dmEmbed.addField(
-        t("listeners:automod.links.links"),
-        blockedLinkList.join(" ") || t("listeners:automod.links.noBlocked")
-      );
-      dmEmbed.addField(
-        t("listeners:automod.links.allowed"),
-        allowedLinkList.join(" ") || t("listeners:automod.links.noAllowed")
-      );
+      dmEmbed.addFields([
+        {
+          name: t("listeners:automod.links.server"),
+          value: message.guild?.name || "unknown",
+        },
+        {
+          name: t("listeners:automod.links.channel"),
+          value: message.channel.toString(),
+        },
+        {
+          name: t("listeners:automod.links.reason"),
+          value: t("listeners:automod.links.blocked"),
+        },
+        {
+          name: t("listeners:automod.links.links"),
+          value:
+            blockedLinkList.join(" ") || t("listeners:automod.links.noBlocked"),
+        },
+        {
+          name: t("listeners:automod.links.allowed"),
+          value:
+            allowedLinkList.join(" ") || t("listeners:automod.links.noAllowed"),
+        },
+      ]);
 
       await message.author.send({ embeds: [dmEmbed] }).catch(() => null);
     }

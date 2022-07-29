@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -43,7 +43,7 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
     const levelCardHtml = await generateLevelHtml(target, targetLevel);
     const levelCardImage = await generateLevelImage(levelCardHtml);
 
-    const levelEmbed = new MessageEmbed();
+    const levelEmbed = new EmbedBuilder();
     levelEmbed.setColor(Becca.colours.default);
     levelEmbed.setTitle(
       t("commands:community.level.title", { user: target.tag })
@@ -51,20 +51,22 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
     levelEmbed.setDescription(
       t("commands:community.level.description", { name: guild.name })
     );
-    levelEmbed.addField(
-      t("commands:community.level.points"),
-      targetLevel.points.toString(),
-      true
-    );
-    levelEmbed.addField(
-      t("commands:community.level.level"),
-      targetLevel.level.toString(),
-      true
-    );
-    levelEmbed.addField(
-      t("commands:community.level.seen"),
-      `${new Date(targetLevel.lastSeen).toLocaleDateString()}`
-    );
+    levelEmbed.addFields([
+      {
+        name: t("commands:community.level.points"),
+        value: targetLevel.points.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.level.level"),
+        value: targetLevel.level.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.level.seen"),
+        value: `${new Date(targetLevel.lastSeen).toLocaleDateString()}`,
+      },
+    ]);
     levelEmbed.setTimestamp();
     levelEmbed.setFooter({
       text: t("defaults:donate"),

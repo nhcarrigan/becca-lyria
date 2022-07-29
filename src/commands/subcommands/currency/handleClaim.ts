@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -18,15 +23,15 @@ export const handleClaim: CurrencyHandler = async (
 ) => {
   try {
     const reward = interaction.options.getString("reward");
-    const claimEmbed = new MessageEmbed();
+    const claimEmbed = new EmbedBuilder();
     claimEmbed.setTitle("Reward Claimed!");
     claimEmbed.setDescription(
       "Congratulations on claiming a reward! Please note that you will need to join our [support server](https://chat.nhcarrigan.com) and ping Naomi so we can work with you to get your prize."
     );
-    claimEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile.png"
-    );
+    claimEmbed.setFooter({
+      text: "Like the bot? Donate: https://donate.nhcarrigan.com",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
+    });
 
     switch (reward) {
       case "monarch-colour":
@@ -41,10 +46,12 @@ export const handleClaim: CurrencyHandler = async (
         }
         data.currencyTotal -= 2500;
         await data.save();
-        claimEmbed.addField(
-          t("commands:currency.claim.details"),
-          t("commands:currency.claim.monarch-colour")
-        );
+        claimEmbed.addFields([
+          {
+            name: t("commands:currency.claim.details"),
+            value: t("commands:currency.claim.monarch-colour"),
+          },
+        ]);
         break;
       case "monarch":
         if (data.currencyTotal < 5000) {
@@ -58,10 +65,12 @@ export const handleClaim: CurrencyHandler = async (
         }
         data.currencyTotal -= 5000;
         await data.save();
-        claimEmbed.addField(
-          t("commands:currency.claim.details"),
-          t("commands:currency.claim.monarch")
-        );
+        claimEmbed.addFields([
+          {
+            name: t("commands:currency.claim.details"),
+            value: t("commands:currency.claim.monarch"),
+          },
+        ]);
         break;
       case "wealthy-colour":
         if (data.currencyTotal < 7500) {
@@ -75,10 +84,12 @@ export const handleClaim: CurrencyHandler = async (
         }
         data.currencyTotal -= 7500;
         await data.save();
-        claimEmbed.addField(
-          t("commands:currency.claim.details"),
-          t("commands:currency.claim.wealthy-colour")
-        );
+        claimEmbed.addFields([
+          {
+            name: t("commands:currency.claim.details"),
+            value: t("commands:currency.claim.wealthy-colour"),
+          },
+        ]);
         break;
       case "wealthy":
         if (data.currencyTotal < 10000) {
@@ -92,22 +103,26 @@ export const handleClaim: CurrencyHandler = async (
         }
         data.currencyTotal -= 10000;
         await data.save();
-        claimEmbed.addField(
-          t("commands:currency.claim.details"),
-          t("commands:currency.claim.wealthy")
-        );
+        claimEmbed.addFields([
+          {
+            name: t("commands:currency.claim.details"),
+            value: t("commands:currency.claim.wealthy"),
+          },
+        ]);
         break;
       case "default":
         await interaction.editReply(t("commands:currency.claim.invalid"));
         return;
     }
 
-    const supportServerButton = new MessageButton()
+    const supportServerButton = new ButtonBuilder()
       .setLabel(t("commands:currency.claim.buttons"))
       .setEmoji("<:BeccaHuh:877278300739887134>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL("https://chat.nhcarrigan.com");
-    const row = new MessageActionRow().addComponents([supportServerButton]);
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
+      supportServerButton,
+    ]);
 
     await interaction.editReply({ embeds: [claimEmbed], components: [row] });
 

@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { MessageEmbed, TextChannel } from "discord.js";
+import { ChannelType, EmbedBuilder, TextChannel } from "discord.js";
 
 import levelScale from "../config/listeners/levelScale";
 import { LevelOptOut } from "../config/optout/LevelOptOut";
@@ -43,7 +43,8 @@ export const levelListener: Listener = {
       if (serverSettings.level_channel) {
         const realChannel = guild.channels.cache.find(
           (c) =>
-            c.id === serverSettings.level_channel && c.type === "GUILD_TEXT"
+            c.id === serverSettings.level_channel &&
+            c.type === ChannelType.GuildText
         );
         if (realChannel) {
           targetChannel = realChannel as TextChannel;
@@ -85,7 +86,7 @@ export const levelListener: Listener = {
       await user.save();
 
       if (levelUp) {
-        const levelEmbed = new MessageEmbed();
+        const levelEmbed = new EmbedBuilder();
         levelEmbed.setTitle(t("listeners:level.title"));
         levelEmbed.setDescription(
           t("listeners:level.desc", {
@@ -111,7 +112,7 @@ export const levelListener: Listener = {
             const role = guild.roles.cache.find((r) => r.id === setting.role);
             if (role && !member?.roles.cache.find((r) => r.id === role.id)) {
               await member?.roles.add(role);
-              const roleEmbed = new MessageEmbed();
+              const roleEmbed = new EmbedBuilder();
               roleEmbed.setTitle(t("listeners:level.roleTitle"));
               roleEmbed.setDescription(
                 t("listeners:level.roleDesc", {

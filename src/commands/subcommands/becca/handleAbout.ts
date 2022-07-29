@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { getCounts } from "../../../modules/becca/getCounts";
@@ -12,62 +17,64 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 export const handleAbout: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guilds, members, commands } = getCounts(Becca);
-    const aboutEmbed = new MessageEmbed();
+    const aboutEmbed = new EmbedBuilder();
     aboutEmbed.setColor(Becca.colours.default);
     aboutEmbed.setTitle(t("commands:becca.about.title"));
     aboutEmbed.setDescription(t("commands:becca.about.description"));
-    aboutEmbed.addField(
-      t("commands:becca.about.version"),
-      process.env.npm_package_version || "unknown version",
-      true
-    );
-    aboutEmbed.addField(
-      t("commands:becca.about.creation"),
-      "Sunday, 31 May 2020",
-      true
-    );
-    aboutEmbed.addField(
-      t("commands:becca.about.guilds"),
-      guilds.toString(),
-      true
-    );
-    aboutEmbed.addField(
-      t("commands:becca.about.members"),
-      members.toString(),
-      true
-    );
-    aboutEmbed.addField(
-      t("commands:becca.about.commands"),
-      commands.toString(),
-      true
-    );
-    aboutEmbed.addField(
-      t("commands:becca.about.colour"),
-      t("commands:becca.about.purple"),
-      true
-    );
+    aboutEmbed.addFields([
+      {
+        name: t("commands:becca.about.version"),
+        value: process.env.npm_package_version || "unknown version",
+        inline: true,
+      },
+      {
+        name: t("commands:becca.about.creation"),
+        value: "Sunday, 31 May 2020",
+        inline: true,
+      },
+      {
+        name: t("commands:becca.about.guilds"),
+        value: guilds.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:becca.about.members"),
+        value: members.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:becca.about.commands"),
+        value: commands.toString(),
+        inline: true,
+      },
+      {
+        name: t("commands:becca.about.colour"),
+        value: t("commands:becca.about.purple"),
+        inline: true,
+      },
+    ]);
     aboutEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
-    const supportServerButton = new MessageButton()
+    const supportServerButton = new ButtonBuilder()
       .setLabel(t("commands:becca.about.buttons.join"))
       .setEmoji("<:BeccaHuh:877278300739887134>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL("https://chat.nhcarrigan.com");
-    const inviteButton = new MessageButton()
+    const inviteButton = new ButtonBuilder()
       .setLabel(t("commands:becca.about.buttons.invite"))
       .setEmoji("<:BeccaHello:867102882791424073>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL("https://invite.beccalyria.com");
-    const codeButton = new MessageButton()
+    const codeButton = new ButtonBuilder()
       .setLabel(t("commands:becca.about.buttons.code"))
       .setEmoji("<:BeccaNotes:883854700762505287>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL("https://github.com/beccalyria/discord-bot");
 
-    const row = new MessageActionRow().addComponents([
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
       supportServerButton,
       inviteButton,
       codeButton,

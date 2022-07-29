@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -45,7 +45,7 @@ export const handleDaily: CurrencyHandler = async (
       })
     );
 
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setTitle(t("commands:currency.daily.title"));
     embed.setDescription(
       t("commands:currency.daily.description", {

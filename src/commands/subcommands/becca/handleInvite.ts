@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -12,7 +17,7 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  */
 export const handleInvite: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const inviteEmbed = new MessageEmbed();
+    const inviteEmbed = new EmbedBuilder();
     inviteEmbed.setTitle(t("commands:becca.invite.title"));
     inviteEmbed.setDescription("");
     inviteEmbed.setColor(Becca.colours.default);
@@ -22,18 +27,18 @@ export const handleInvite: CommandHandler = async (Becca, interaction, t) => {
     });
     inviteEmbed.setTimestamp();
 
-    const inviteButton = new MessageButton()
+    const inviteButton = new ButtonBuilder()
       .setLabel(t("commands:becca.invite.buttons.invite"))
       .setEmoji("<:BeccaHello:867102882791424073>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL("https://invite.beccalyria.com");
-    const supportServerButton = new MessageButton()
+    const supportServerButton = new ButtonBuilder()
       .setLabel(t("commands:becca.invite.buttons.support"))
       .setEmoji("<:BeccaHuh:877278300739887134>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL("https://chat.nhcarrigan.com");
 
-    const row = new MessageActionRow().addComponents([
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
       inviteButton,
       supportServerButton,
     ]);

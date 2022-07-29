@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -11,25 +16,27 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  */
 export const handleProfile: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const profileEmbed = new MessageEmbed();
+    const profileEmbed = new EmbedBuilder();
     profileEmbed.setColor(Becca.colours.default);
     profileEmbed.setTitle(t("commands:becca.profile.title"));
     profileEmbed.setDescription(t("commands:becca.profile.description"));
-    profileEmbed.setThumbnail(Becca.user?.avatarURL({ dynamic: true }) || "");
-    profileEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile.png"
-    );
+    profileEmbed.setThumbnail(Becca.user?.avatarURL() || "");
+    profileEmbed.setFooter({
+      text: "Like the bot? Donate: https://donate.nhcarrigan.com",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
+    });
 
-    const profileButton = new MessageButton()
+    const profileButton = new ButtonBuilder()
       .setLabel(t("commands:becca.profile.buttons.view"))
       .setEmoji("<:BeccaHello:867102882791424073>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL(
         "https://www.beccalyria.com?utm_source=discord&utm_medium=profile-command"
       );
 
-    const row = new MessageActionRow().addComponents([profileButton]);
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
+      profileButton,
+    ]);
 
     await interaction.editReply({ embeds: [profileEmbed], components: [row] });
   } catch (err) {

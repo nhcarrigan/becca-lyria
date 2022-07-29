@@ -1,7 +1,6 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
-import { UserFlagMap } from "../../../config/commands/userInfo";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -32,10 +31,7 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const flagBits = await target.user.fetchFlags();
-    const flags = flagBits.toArray();
-
-    const userEmbed = new MessageEmbed();
+    const userEmbed = new EmbedBuilder();
     userEmbed.setColor(Becca.colours.default);
     userEmbed.setTitle(target.displayName);
     userEmbed.setThumbnail(target.user.displayAvatarURL());
@@ -44,44 +40,49 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
         user: `<@!${target.id}>`,
       })
     );
-    userEmbed.addField(
-      t("commands:community.userinfo.create"),
-      new Date(target.user.createdTimestamp).toLocaleDateString(),
-      true
-    );
-    userEmbed.addField(
-      t("commands:community.userinfo.join"),
-      new Date(target.joinedTimestamp || Date.now()).toLocaleDateString(),
-      true
-    );
-    userEmbed.addField(
-      t("commands:community.userinfo.username"),
-      target.user.tag,
-      true
-    );
-    userEmbed.addField(
-      t("commands:community.userinfo.roles"),
-      customSubstring(
-        target.roles.cache.map((role) => `<@&${role.id}>`).join(" "),
-        1000
-      )
-    );
-    userEmbed.addField(
-      t("commands:community.userinfo.colour"),
-      target.displayHexColor,
-      true
-    );
-    userEmbed.addField(
-      t("commands:community.userinfo.nitro"),
-      target.premiumSinceTimestamp
-        ? `Since ${new Date(target.premiumSinceTimestamp).toLocaleDateString()}`
-        : "No.",
-      true
-    );
-    userEmbed.addField(
-      t("commands:community.userinfo.badges"),
-      flags.map((el) => UserFlagMap[el]).join(", ") || "None"
-    );
+    userEmbed.addFields([
+      {
+        name: t("commands:community.userinfo.create"),
+        value: new Date(target.user.createdTimestamp).toLocaleDateString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.userinfo.join"),
+        value: new Date(
+          target.joinedTimestamp || Date.now()
+        ).toLocaleDateString(),
+        inline: true,
+      },
+      {
+        name: t("commands:community.userinfo.username"),
+        value: target.user.tag,
+        inline: true,
+      },
+      {
+        name: t("commands:community.userinfo.roles"),
+        value: customSubstring(
+          target.roles.cache
+            .filter((role) => role.id !== guild.id)
+            .map((role) => `<@&${role.id}>`)
+            .join(" "),
+          1000
+        ),
+      },
+      {
+        name: t("commands:community.userinfo.colour"),
+        value: target.displayHexColor,
+        inline: true,
+      },
+      {
+        name: t("commands:community.userinfo.nitro"),
+        value: target.premiumSinceTimestamp
+          ? `Since ${new Date(
+              target.premiumSinceTimestamp
+            ).toLocaleDateString()}`
+          : "No.",
+        inline: true,
+      },
+    ]);
     userEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",

@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, Role } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Role } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -45,15 +45,15 @@ export const handleCreate: CommandHandler = async (Becca, interaction, t) => {
       dividedRoles.push(roleArray.splice(0, 5));
     }
 
-    const components: MessageActionRow[] = [];
+    const components: ActionRowBuilder<ButtonBuilder>[] = [];
     for (const roleBlock of dividedRoles) {
       const buttons = roleBlock.map((el) =>
-        new MessageButton()
+        new ButtonBuilder()
           .setLabel(el.name)
           .setCustomId(`rr-${el.id}`)
-          .setStyle("SECONDARY")
+          .setStyle(ButtonStyle.Secondary)
       );
-      const row = new MessageActionRow().addComponents(buttons);
+      const row = new ActionRowBuilder<ButtonBuilder>().addComponents(buttons);
       components.push(row);
     }
 

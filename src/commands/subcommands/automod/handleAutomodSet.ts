@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { Settings } from "../../../interfaces/settings/Settings";
@@ -69,7 +69,7 @@ export const handleAutomodSet: CommandHandler = async (
           .map((el) => renderSetting(Becca, setting as Settings, el))
           .join(", ")
       : renderSetting(Becca, setting as Settings, newContent);
-    const successEmbed = new MessageEmbed();
+    const successEmbed = new EmbedBuilder();
     successEmbed.setTitle(t("commands:automod.set.success", { setting }));
     successEmbed.setDescription(customSubstring(parsedContent, 2000));
     successEmbed.setTimestamp();

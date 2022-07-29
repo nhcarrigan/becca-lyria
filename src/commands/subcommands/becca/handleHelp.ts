@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -11,63 +16,65 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  */
 export const handleHelp: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const helpEmbed = new MessageEmbed();
+    const helpEmbed = new EmbedBuilder();
     helpEmbed.setTitle(t("commands:becca.help.title"));
     helpEmbed.setDescription(t("commands:becca.help.description"));
-    helpEmbed.addField(
-      t("commands:becca.help.support.title"),
-      t("commands:becca.help.support.description")
-    );
-    helpEmbed.addField(
-      t("commands:becca.help.docs.title"),
-      t("commands:becca.help.docs.description")
-    );
-    helpEmbed.addField(
-      t("commands:becca.help.source.title"),
-      t("commands:becca.help.source.description")
-    );
-    helpEmbed.addField(
-      t("commands:becca.help.bug.title"),
-      t("commands:becca.help.bug.description")
-    );
-    helpEmbed.addField(
-      t("commands:becca.help.privacy.title"),
-      t("commands:becca.help.privacy.description")
-    );
+    helpEmbed.addFields([
+      {
+        name: t("commands:becca.help.support.title"),
+        value: t("commands:becca.help.support.description"),
+      },
+      {
+        name: t("commands:becca.help.docs.title"),
+        value: t("commands:becca.help.docs.description"),
+      },
+      {
+        name: t("commands:becca.help.source.title"),
+        value: t("commands:becca.help.source.description"),
+      },
+      {
+        name: t("commands:becca.help.bug.title"),
+        value: t("commands:becca.help.bug.description"),
+      },
+      {
+        name: t("commands:becca.help.privacy.title"),
+        value: t("commands:becca.help.privacy.description"),
+      },
+    ]);
     helpEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
-    const supportServerButton = new MessageButton()
+    const supportServerButton = new ButtonBuilder()
       .setLabel(t("commands:becca.help.buttons.support"))
       .setEmoji("<:BeccaHuh:877278300739887134>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL("https://chat.nhcarrigan.com");
-    const inviteButton = new MessageButton()
+    const inviteButton = new ButtonBuilder()
       .setLabel(t("commands:becca.help.buttons.invite"))
       .setEmoji("<:BeccaHello:867102882791424073>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL("https://invite.beccalyria.com");
-    const codeButton = new MessageButton()
+    const codeButton = new ButtonBuilder()
       .setLabel(t("commands:becca.help.buttons.source"))
       .setEmoji("<:BeccaNotes:883854700762505287>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL("https://github.com/beccalyria/discord-bot");
-    const docsButton = new MessageButton()
+    const docsButton = new ButtonBuilder()
       .setLabel(t("commands:becca.help.buttons.docs"))
       .setEmoji("<:BeccaSalute:872577687590420501>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL(
         "https://docs.beccalyria.com?utm_source=discord&utm_medium=help-command"
       );
-    const reportButton = new MessageButton()
+    const reportButton = new ButtonBuilder()
       .setLabel(t("commands:becca.help.buttons.issue"))
       .setEmoji("<:BeccaBan:897545793886634085>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL("https://github.com/beccalyria/discord-bot/issues/new/choose");
 
-    const row = new MessageActionRow().addComponents([
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
       supportServerButton,
       inviteButton,
       codeButton,

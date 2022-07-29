@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { Fact } from "../../../interfaces/commands/games/Fact";
@@ -17,7 +17,7 @@ export const handleFact: CommandHandler = async (Becca, interaction, t) => {
       "https://uselessfacts.jsph.pl/random.json?language=en"
     );
 
-    const factEmbed = new MessageEmbed();
+    const factEmbed = new EmbedBuilder();
     factEmbed.setTitle(t("commands:games.fact.title"));
     factEmbed.setColor(Becca.colours.default);
     factEmbed.setDescription(customSubstring(fact.data.text, 4000));

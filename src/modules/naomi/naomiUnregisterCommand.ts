@@ -1,6 +1,6 @@
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
-import { Message, MessageEmbed } from "discord.js";
+import { EmbedBuilder, Message } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { CommandData } from "../../interfaces/commands/CommandData";
@@ -44,14 +44,18 @@ export const naomiUnregisterCommand = async (
       `${Routes.applicationCommands(Becca.configs.id)}/${command.id}`
     );
 
-    const confirm = new MessageEmbed();
+    const confirm = new EmbedBuilder();
     confirm.setTitle(`${command.name} forgotten!`);
     confirm.setDescription(command.description);
 
     if (command.options) {
-      for (const option of command.options) {
-        confirm.addField(option.name, option.description, true);
-      }
+      confirm.addFields(
+        command.options.map((opt) => ({
+          name: opt.name,
+          value: opt.description,
+          inline: true,
+        }))
+      );
     }
 
     await message.reply({ embeds: [confirm] });

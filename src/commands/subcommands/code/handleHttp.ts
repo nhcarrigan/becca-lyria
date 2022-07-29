@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { httpStatus } from "../../../config/commands/httpStatus";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -19,7 +19,7 @@ export const handleHttp: CommandHandler = async (Becca, interaction, t) => {
       });
       return;
     }
-    const httpEmbed = new MessageEmbed();
+    const httpEmbed = new EmbedBuilder();
     httpEmbed.setTitle(t("commands:code.http.title", { status }));
     httpEmbed.setImage(`https://http.cat/${status}.jpg`);
     httpEmbed.setColor(Becca.colours.default);

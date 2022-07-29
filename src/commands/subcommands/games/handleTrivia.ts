@@ -2,10 +2,11 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
 import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
   Message,
-  MessageActionRow,
-  MessageButton,
-  MessageEmbed,
 } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -41,38 +42,64 @@ export const handleTrivia: CommandHandler = async (Becca, interaction, t) => {
     const answered: string[] = [];
     const correct: string[] = [];
 
-    const triviaEmbed = new MessageEmbed();
+    const triviaEmbed = new EmbedBuilder();
     triviaEmbed.setColor(Becca.colours.default);
     triviaEmbed.setTitle(category);
     triviaEmbed.setDescription(replaceHtml(question));
-    triviaEmbed.addField("A", answers[0], true);
-    triviaEmbed.addField("B", answers[1], true);
-    triviaEmbed.addField("\u200b", "\u200b", true);
-    triviaEmbed.addField("C", answers[2], true);
-    triviaEmbed.addField("D", answers[3], true);
-    triviaEmbed.addField("\u200b", "\u200b", true);
+    triviaEmbed.addFields([
+      {
+        name: "A",
+        value: answers[0],
+        inline: true,
+      },
+      {
+        name: "B",
+        value: answers[1],
+        inline: true,
+      },
+      {
+        name: "\u200b",
+        value: "\u200b",
+        inline: true,
+      },
+      {
+        name: "C",
+        value: answers[2],
+        inline: true,
+      },
+      {
+        name: "D",
+        value: answers[3],
+        inline: true,
+      },
+      {
+        name: "\u200b",
+        value: "\u200b",
+        inline: true,
+      },
+    ]);
     triviaEmbed.setFooter(t("commands:games.trivia.footer"));
 
-    const resultEmbed = new MessageEmbed();
+    const resultEmbed = new EmbedBuilder();
 
-    const aButton = new MessageButton()
+    const aButton = new ButtonBuilder()
       .setCustomId("a")
       .setLabel("A")
-      .setStyle("PRIMARY");
-    const bButton = new MessageButton()
+      .setStyle(ButtonStyle.Primary);
+    const bButton = new ButtonBuilder()
       .setCustomId("b")
       .setLabel("B")
-      .setStyle("PRIMARY");
-    const cButton = new MessageButton()
+      .setStyle(ButtonStyle.Primary);
+    const cButton = new ButtonBuilder()
       .setCustomId("c")
       .setLabel("C")
-      .setStyle("PRIMARY");
-    const dButton = new MessageButton()
+      .setStyle(ButtonStyle.Primary);
+    const dButton = new ButtonBuilder()
       .setCustomId("d")
       .setLabel("D")
-      .setStyle("PRIMARY");
+      .setStyle(ButtonStyle.Primary);
 
-    const buttons = new MessageActionRow().addComponents(
+    const buttons = new ActionRowBuilder<ButtonBuilder>().addComponents(
       aButton,
       bButton,
       cButton,
@@ -118,10 +145,12 @@ export const handleTrivia: CommandHandler = async (Becca, interaction, t) => {
       resultEmbed.setDescription(
         customSubstring(correct.map((el) => `<@!${el}>`).join(", "), 4000)
       );
-      resultEmbed.addField(
-        t("commands:games.trivia.correct"),
-        `${correctAnswerLetter}: ${replaceHtml(correct_answer)}`
-      );
+      resultEmbed.addFields([
+        {
+          name: t("commands:games.trivia.correct"),
+          value: `${correctAnswerLetter}: ${replaceHtml(correct_answer)}`,
+        },
+      ]);
 
       await interaction.channel?.send({ embeds: [resultEmbed] });
     });

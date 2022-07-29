@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 /* eslint-disable */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -56,9 +56,9 @@ export const handleMute: CommandHandler = async (
     if (
       !member ||
       typeof member.permissions === "string" ||
-      !member.permissions.has("MODERATE_MEMBERS") ||
+      !member.permissions.has(PermissionFlagsBits.ModerateMembers) ||
       !targetMember ||
-      targetMember.permissions.has("MODERATE_MEMBERS")
+      targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)
     ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
@@ -94,22 +94,27 @@ export const handleMute: CommandHandler = async (
 
     await updateHistory(Becca, "mute", target.id, guild.id);
 
-    const muteEmbed = new MessageEmbed();
+    const muteEmbed = new EmbedBuilder();
     muteEmbed.setTitle(t("commands:mod.mute.title"));
     muteEmbed.setDescription(
       t("commands:mod.mute.description", { user: member.user.username })
     );
     muteEmbed.setColor(Becca.colours.warning);
-    muteEmbed.addField(
-      t("commands:mod.mute.reason"),
-      customSubstring(reason, 1000)
-    );
-    muteEmbed.addField(
-      t("commands:mod.mute.duration"),
-      `${duration} ${durationUnit}`
-    );
-    muteEmbed.addField(t("commands:mod.mute.notified"), String(sentNotice));
-    muteEmbed.setFooter(`ID: ${targetUser.id}`);
+    muteEmbed.addFields([
+      {
+        name: t("commands:mod.mute.reason"),
+        value: customSubstring(reason, 1000),
+      },
+      {
+        name: t("commands:mod.mute.duration"),
+        value: `${duration} ${durationUnit}`,
+      },
+      {
+        name: t("commands:mod.mute.notified"),
+        value: String(sentNotice),
+      },
+    ]);
+    muteEmbed.setFooter({ text: `ID: ${targetUser.id}` });
     muteEmbed.setTimestamp();
     muteEmbed.setAuthor({
       name: target.tag,

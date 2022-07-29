@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { Quote } from "../../../interfaces/commands/games/Quote";
@@ -28,7 +28,7 @@ export const handleQuote: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const quoteEmbed = new MessageEmbed();
+    const quoteEmbed = new EmbedBuilder();
     quoteEmbed.setColor(Becca.colours.default);
     quoteEmbed.setTitle(t("commands:games.quote.title"));
     quoteEmbed.setDescription(`"${quote.data.quote}"\n-- ${quote.data.author}`);

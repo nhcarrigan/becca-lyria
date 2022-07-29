@@ -36,7 +36,7 @@ export const generateLevelHtml = async (user: User, levelData: Level) => {
   <img
     class="avatar"
     src="${user.displayAvatarURL({
-      format: "png",
+      extension: "png",
       size: 128,
     })}"
     onError="this.onError=null;this.src='https://dash.beccalyria.com/assets/img/default.png';"

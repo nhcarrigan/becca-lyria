@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import { emoteList } from "../../../config/commands/emoteList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -15,22 +20,22 @@ export const handleEmote: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { emoteName, description, fileName } = getRandomValue(emoteList);
 
-    const emoteEmbed = new MessageEmbed();
+    const emoteEmbed = new EmbedBuilder();
     emoteEmbed.setTitle(emoteName);
     emoteEmbed.setColor(Becca.colours.default);
     emoteEmbed.setDescription(description);
     emoteEmbed.setImage(`https://www.beccalyria.com/assets/emotes/${fileName}`);
     emoteEmbed.setFooter({ text: t("commands:becca.emote.footer") });
 
-    const button = new MessageButton()
+    const button = new ButtonBuilder()
       .setLabel(t("commands:becca.emote.buttons.more"))
       .setEmoji("<:BeccaArt:897545793655930910>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL(
         "https://www.beccalyria.com/emotes?utm_source=discord&utm_medium=emote-command"
       );
 
-    const row = new MessageActionRow().addComponents([button]);
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([button]);
 
     await interaction.editReply({ embeds: [emoteEmbed], components: [row] });
   } catch (err) {

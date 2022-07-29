@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -29,7 +29,7 @@ export const handleWeekly: CurrencyHandler = async (
       .catch(() => null);
 
     if (!userIsMember) {
-      const nopeEmbed = new MessageEmbed();
+      const nopeEmbed = new EmbedBuilder();
       nopeEmbed.setTitle(t("commands:currency.weekly.no.title"));
       nopeEmbed.setDescription(t("commands:currency.weekly.no.description"));
       nopeEmbed.setColor(Becca.colours.error);
@@ -61,7 +61,7 @@ export const handleWeekly: CurrencyHandler = async (
       })
     );
 
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setTitle(t("commands:currency.weekly.title"));
     embed.setDescription(
       t("commands:currency.weekly.description", {

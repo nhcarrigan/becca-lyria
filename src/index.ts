@@ -1,7 +1,7 @@
 /* eslint-disable require-atomic-updates */
 import { RewriteFrames } from "@sentry/integrations";
 import * as Sentry from "@sentry/node";
-import { Client, WebhookClient } from "discord.js";
+import { ActivityType, Client, WebhookClient } from "discord.js";
 
 import { initialiseTranslations } from "./config/i18n/initialiseTranslations";
 import { IntentOptions } from "./config/IntentOptions";
@@ -114,7 +114,8 @@ void (async () => {
   beccaLogHandler.log("debug", "Connecting to Discord...");
   await Becca.login(Becca.configs.token);
   beccaLogHandler.log("debug", "Setting activity...");
-  Becca.user?.setActivity("over your guild", {
-    type: "WATCHING",
+  Becca.user?.setActivity({
+    name: "over your guild",
+    type: ActivityType.Watching,
   });
 })();

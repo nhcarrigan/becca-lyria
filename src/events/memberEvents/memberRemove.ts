@@ -1,4 +1,4 @@
-import { GuildMember, MessageEmbed, PartialGuildMember } from "discord.js";
+import { GuildMember, EmbedBuilder, PartialGuildMember } from "discord.js";
 import { getFixedT } from "i18next";
 
 import { defaultServer } from "../../config/database/defaultServer";
@@ -34,7 +34,7 @@ export const memberRemove = async (
 
     const serverConfig = await ServerModel.findOne({ serverID: guild.id });
 
-    const goodbyeEmbed = new MessageEmbed();
+    const goodbyeEmbed = new EmbedBuilder();
     goodbyeEmbed.setTitle(t("events:member.leave.title"));
     goodbyeEmbed.setColor(Becca.colours.default);
     goodbyeEmbed.setDescription(
@@ -42,16 +42,21 @@ export const memberRemove = async (
         .replace(/\{@username\}/g, `<@!${member.id}>`)
         .replace(/\{@servername\}/g, guild.name)
     );
-    goodbyeEmbed.addField(
-      t("events:member.leave.name"),
-      nickname || user.username
-    );
-    goodbyeEmbed.addField(t("events:member.leave.roles"), roleList.join("\n"));
+    goodbyeEmbed.addFields([
+      {
+        name: t("events:member.leave.name"),
+        value: nickname || user.username,
+      },
+      {
+        name: t("events:member.leave.roles"),
+        value: roleList.join("\n"),
+      },
+    ]);
     goodbyeEmbed.setAuthor({
       name: user.tag,
       iconURL: user.displayAvatarURL(),
     });
-    goodbyeEmbed.setFooter(`ID: ${user.id}`);
+    goodbyeEmbed.setFooter({ text: `ID: ${user.id}` });
     goodbyeEmbed.setTimestamp();
 
     pending

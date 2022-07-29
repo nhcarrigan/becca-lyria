@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -30,7 +30,7 @@ export const handleTriggerRemove: CommandHandler = async (
     config.markModified("triggers");
     await config.save();
 
-    const success = new MessageEmbed();
+    const success = new EmbedBuilder();
     success.setTitle(t("commands:triggers.remove.title"));
     success.setDescription(
       t("commands:triggers.remove.description", { trigger })

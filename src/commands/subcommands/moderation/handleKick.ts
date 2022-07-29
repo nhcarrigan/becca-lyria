@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -37,8 +37,9 @@ export const handleKick: CommandHandler = async (
     if (
       !member ||
       typeof member.permissions === "string" ||
-      !member.permissions.has("KICK_MEMBERS") ||
-      (targetMember && targetMember.permissions.has("KICK_MEMBERS"))
+      !member.permissions.has(PermissionFlagsBits.KickMembers) ||
+      (targetMember &&
+        targetMember.permissions.has(PermissionFlagsBits.KickMembers))
     ) {
       await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
@@ -86,23 +87,28 @@ export const handleKick: CommandHandler = async (
 
     await updateHistory(Becca, "kick", target.id, guild.id);
 
-    const kickLogEmbed = new MessageEmbed();
+    const kickLogEmbed = new EmbedBuilder();
     kickLogEmbed.setColor(Becca.colours.error);
     kickLogEmbed.setTitle(t("commands:mod.kick.title"));
     kickLogEmbed.setDescription(
       t("commands:mod.kick.description", { user: member.user.username })
     );
-    kickLogEmbed.addField(
-      t("commands:mod.kick.reason"),
-      customSubstring(reason, 1000)
-    );
-    kickLogEmbed.addField(t("commands:mod.kick.notified"), String(sentNotice));
+    kickLogEmbed.addFields([
+      {
+        name: t("commands:mod.kick.reason"),
+        value: customSubstring(reason, 1000),
+      },
+      {
+        name: t("commands:mod.kick.notified"),
+        value: String(sentNotice),
+      },
+    ]);
     kickLogEmbed.setTimestamp();
     kickLogEmbed.setAuthor({
       name: target.tag,
       iconURL: target.displayAvatarURL(),
     });
-    kickLogEmbed.setFooter(`ID: ${targetMember.id}`);
+    kickLogEmbed.setFooter({ text: `ID: ${targetMember.id}` });
 
     await sendLogEmbed(Becca, guild, kickLogEmbed, "moderation_events");
     await interaction.editReply({ content: t("commands:mod.kick.success") });

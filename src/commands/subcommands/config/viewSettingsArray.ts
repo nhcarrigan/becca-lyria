@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
@@ -16,7 +16,7 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  * @param {ServerConfig} config The server's settings from the database.
  * @param {ArraySettings} setting The setting to be parsed.
  * @param {number} page The page number for the current embed.
- * @returns {MessageEmbed | null} The parsed embed, or null on error.
+ * @returns {EmbedBuilder | null} The parsed embed, or null on error.
  */
 export const viewSettingsArray = async (
   Becca: BeccaLyria,
@@ -24,11 +24,11 @@ export const viewSettingsArray = async (
   config: ServerConfig,
   setting: ArraySettings,
   page: number
-): Promise<MessageEmbed | null> => {
+): Promise<EmbedBuilder | null> => {
   try {
     const data = config[setting];
 
-    const settingEmbed = new MessageEmbed();
+    const settingEmbed = new EmbedBuilder();
     settingEmbed.setTitle(
       t("commands:config.settingsArray.title", { setting })
     );

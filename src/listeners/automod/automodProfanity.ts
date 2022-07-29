@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import * as filter from "leo-profanity";
 
 import { defaultServer } from "../../config/database/defaultServer";
@@ -26,7 +26,7 @@ export const automodProfanity: ListenerHandler = async (
       2000
     ).replace(/\{@username\}/g, `<@!${message.author.id}>`);
 
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setTitle(t("listeners:automod.profanity.title"));
     embed.setDescription(string);
     embed.setColor(Becca.colours.error);
@@ -43,7 +43,7 @@ export const automodProfanity: ListenerHandler = async (
     await message.delete();
     const warning = await message.channel.send({ embeds: [embed] });
 
-    const dmEmbed = new MessageEmbed();
+    const dmEmbed = new EmbedBuilder();
     dmEmbed.setTitle(t("listeners:automod.profanity.dmTitle"));
     dmEmbed.setURL(warning.url);
     dmEmbed.setDescription(
@@ -54,18 +54,20 @@ export const automodProfanity: ListenerHandler = async (
       )}\n\`\`\``
     );
     dmEmbed.setColor(Becca.colours.error);
-    dmEmbed.addField(
-      t("listeners:automod.profanity.reason"),
-      message.guild?.name || "unknown"
-    );
-    dmEmbed.addField(
-      t("listeners:automod.profanity.channel"),
-      message.channel.toString()
-    );
-    dmEmbed.addField(
-      t("listeners:automod.profanity.reason"),
-      t("listeners:automod.profanity.profane")
-    );
+    dmEmbed.addFields([
+      {
+        name: t("listeners:automod.profanity.reason"),
+        value: message.guild?.name || "unknown",
+      },
+      {
+        name: t("listeners:automod.profanity.channel"),
+        value: message.channel.toString(),
+      },
+      {
+        name: t("listeners:automod.profanity.reason"),
+        value: t("listeners:automod.profanity.profane"),
+      },
+    ]);
 
     await message.author.send({ embeds: [dmEmbed] }).catch(() => null);
   } catch (error) {

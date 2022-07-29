@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -49,7 +49,7 @@ export const handleLeaderboard: CommandHandler = async (
       u.points,
     ]);
 
-    const levelEmbed = new MessageEmbed();
+    const levelEmbed = new EmbedBuilder();
     levelEmbed.setTitle(
       t("commands:community.leaderboard.title", { name: guild.name })
     );

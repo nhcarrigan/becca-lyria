@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import { artList } from "../../../config/commands/artList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -15,7 +20,7 @@ export const handleArt: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { fileName, artName, artist, artistUrl } = getRandomValue(artList);
 
-    const artEmbed = new MessageEmbed();
+    const artEmbed = new EmbedBuilder();
     artEmbed.setTitle(artName);
     artEmbed.setColor(Becca.colours.default);
     artEmbed.setDescription(
@@ -24,20 +29,22 @@ export const handleArt: CommandHandler = async (Becca, interaction, t) => {
     artEmbed.setImage(
       `https://www.beccalyria.com/assets/art/${fileName.replace(/\s/g, "%20")}`
     );
-    artEmbed.setFooter(
-      "Like the bot? Donate: https://donate.nhcarrigan.com",
-      "https://cdn.nhcarrigan.com/profile.png"
-    );
+    artEmbed.setFooter({
+      text: "Like the bot? Donate: https://donate.nhcarrigan.com",
+      iconURL: "https://cdn.nhcarrigan.com/profile.png",
+    });
 
-    const artButton = new MessageButton()
+    const artButton = new ButtonBuilder()
       .setLabel(t("commands:becca.art.buttons.more"))
       .setEmoji("<:BeccaArt:897545793655930910>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL(
         "https://www.beccalyria.com/gallery?utm_source=discord&utm_medium=art-command"
       );
 
-    const row = new MessageActionRow().addComponents([artButton]);
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
+      artButton,
+    ]);
 
     await interaction.editReply({ embeds: [artEmbed], components: [row] });
   } catch (err) {

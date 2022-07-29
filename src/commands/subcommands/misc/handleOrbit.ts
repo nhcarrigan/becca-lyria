@@ -1,6 +1,11 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { IndividualOrbitData } from "../../../interfaces/commands/misc/Orbit";
@@ -27,7 +32,7 @@ export const handleOrbit: CommandHandler = async (Becca, interaction, t) => {
       .sort((a, b) => b.attributes.love - a.attributes.love)
       .slice(0, 20);
 
-    const orbitEmbed = new MessageEmbed();
+    const orbitEmbed = new EmbedBuilder();
     orbitEmbed.setTitle(t("commands:misc.orbit.title"));
     orbitEmbed.setDescription(t("commands:misc.orbit.description"));
     orbitEmbed.setColor(Becca.colours.default);
@@ -37,13 +42,13 @@ export const handleOrbit: CommandHandler = async (Becca, interaction, t) => {
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
-    parsed.forEach((user) => {
-      orbitEmbed.addField(
-        user.attributes.name,
-        user.attributes.love + " " + t("commands:misc.orbit.points"),
-        true
-      );
-    });
+    orbitEmbed.addFields(
+      parsed.map((user) => ({
+        name: user.attributes.name,
+        value: user.attributes.love + " " + t("commands:misc.orbit.points"),
+        inline: true,
+      }))
+    );
 
     const authorData = await axios.get<IndividualOrbitData>(
       `https://app.orbit.love/api/v1/nhcarrigan/members/find?source=discord&username=${author.username}%23${author.discriminator}`,
@@ -63,27 +68,36 @@ export const handleOrbit: CommandHandler = async (Becca, interaction, t) => {
         })
       : t("commands:misc.orbit.norecord", { user: author.username });
 
-    orbitEmbed.addField(t("commands:misc.orbit.rank"), authorString);
-    orbitEmbed.addField(t("commands:misc.orbit.cache"), String(cached));
+    orbitEmbed.addFields([
+      {
+        name: t("commands:misc.orbit.rank"),
+        value: authorString,
+      },
+      {
+        name: t("commands:misc.orbit.cache"),
+        value: String(cached),
+      },
+    ]);
+
     orbitEmbed.setFooter(t("commands:misc.orbit.footer"));
 
-    const discordBtn = new MessageButton()
-      .setStyle("LINK")
+    const discordBtn = new ButtonBuilder()
+      .setStyle(ButtonStyle.Link)
       .setEmoji("<:discord:904209263738642482>")
       .setURL("https://chat.nhcarrigan.com")
       .setLabel(t("commands:misc.orbit.buttons.discord"));
-    const githubBtn = new MessageButton()
-      .setStyle("LINK")
+    const githubBtn = new ButtonBuilder()
+      .setStyle(ButtonStyle.Link)
       .setEmoji("<:github:904209263717658624>")
       .setURL("https://github.com/nhcarrigan")
       .setLabel(t("commands:misc.orbit.buttons.github"));
-    const twitterBtn = new MessageButton()
-      .setStyle("LINK")
+    const twitterBtn = new ButtonBuilder()
+      .setStyle(ButtonStyle.Link)
       .setEmoji("<:twitter:904209263642177556>")
       .setURL("https://twitter.com/becca_lyria")
       .setLabel(t("commands:misc.orbit.buttons.twitter"));
 
-    const buttons = new MessageActionRow().addComponents([
+    const buttons = new ActionRowBuilder<ButtonBuilder>().addComponents([
       discordBtn,
       githubBtn,
       twitterBtn,

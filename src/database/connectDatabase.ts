@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import { connect } from "mongoose";
 
 import { BeccaLyria } from "../interfaces/BeccaLyria";
@@ -14,7 +14,7 @@ export const connectDatabase = async (Becca: BeccaLyria): Promise<boolean> => {
   try {
     await connect(Becca.configs.dbToken);
 
-    const databaseEmbed = new MessageEmbed();
+    const databaseEmbed = new EmbedBuilder();
     databaseEmbed.setTitle("Database connected!");
     databaseEmbed.setDescription(
       `${Becca.user?.username || "Becca Lyria"} has found her record room.`

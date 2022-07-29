@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { Space } from "../../../interfaces/commands/general/Space";
@@ -30,7 +30,7 @@ export const handleSpace: CommandHandler = async (Becca, interaction, t) => {
       url += `&date=${date}`;
     }
 
-    const spaceEmbed = new MessageEmbed();
+    const spaceEmbed = new EmbedBuilder();
     spaceEmbed.setTimestamp();
 
     const space = await axios.get<Space>(url, { validateStatus: null });
@@ -50,9 +50,9 @@ export const handleSpace: CommandHandler = async (Becca, interaction, t) => {
     spaceEmbed.setURL("https://apod.nasa.gov/apod/astropix.html");
     spaceEmbed.setDescription(customSubstring(space.data.explanation, 2000));
     spaceEmbed.setImage(space.data.hdurl);
-    spaceEmbed.setFooter(
-      `© ${space.data.copyright || t("commands:misc.space.copy")}`
-    );
+    spaceEmbed.setFooter({
+      text: `© ${space.data.copyright || t("commands:misc.space.copy")}`,
+    });
     interaction.editReply({ embeds: [spaceEmbed] });
   } catch (err) {
     const errorId = await beccaErrorHandler(

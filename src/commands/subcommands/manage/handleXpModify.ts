@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { GuildMember, MessageEmbed } from "discord.js";
+import { EmbedBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
 
 import levelScale from "../../../config/listeners/levelScale";
 import { LevelOptOut } from "../../../config/optout/LevelOptOut";
@@ -34,7 +34,9 @@ export const handleXpModify: CommandHandler = async (
     }
 
     if (
-      !(member as GuildMember).permissions.has("MANAGE_GUILD") &&
+      !(member as GuildMember).permissions.has(
+        PermissionFlagsBits.ManageGuild
+      ) &&
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({
@@ -146,7 +148,7 @@ export const handleXpModify: CommandHandler = async (
       target: `<@!${target.id}>`,
     };
 
-    const xpmodifyEmbed = new MessageEmbed();
+    const xpmodifyEmbed = new EmbedBuilder();
     xpmodifyEmbed.setTitle("XP Modified");
     if (action === "add") {
       xpmodifyEmbed.setDescription(t("commands:manage.ex.added", transVars));

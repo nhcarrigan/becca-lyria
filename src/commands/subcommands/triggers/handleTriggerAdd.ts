@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -38,12 +38,20 @@ export const handleTriggerAdd: CommandHandler = async (
     config.markModified("triggers");
     await config.save();
 
-    const success = new MessageEmbed();
+    const success = new EmbedBuilder();
     success.setTitle(t("commands:triggers.add.title"));
     success.setDescription(t("commands:triggers.add.description", { trigger }));
     success.setColor(Becca.colours.default);
-    success.addField(t("commands:triggers.add.trigger"), trigger);
-    success.addField(t("commands:triggers.add.response"), response);
+    success.addFields([
+      {
+        name: t("commands:triggers.add.trigger"),
+        value: trigger,
+      },
+      {
+        name: t("commands:triggers.add.response"),
+        value: response,
+      },
+    ]);
     success.setAuthor({
       name: interaction.user.tag,
       iconURL: interaction.user.displayAvatarURL(),

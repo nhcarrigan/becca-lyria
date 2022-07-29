@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { GuildMember, MessageEmbed } from "discord.js";
+import { EmbedBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -28,7 +28,9 @@ export const handlePermissions: CommandHandler = async (
     }
 
     if (
-      !(member as GuildMember).permissions.has("MANAGE_GUILD") &&
+      !(member as GuildMember).permissions.has(
+        PermissionFlagsBits.ManageGuild
+      ) &&
       (member as GuildMember).id !== Becca.configs.ownerId
     ) {
       await interaction.reply({
@@ -37,7 +39,9 @@ export const handlePermissions: CommandHandler = async (
       return;
     }
 
-    const BeccaMember = guild.me;
+    const BeccaMember =
+      guild.members.cache.get(Becca.user?.id || "oops") ||
+      (await guild.members.fetch(Becca.user?.id || "oops"));
 
     if (!BeccaMember) {
       await interaction.editReply({
@@ -65,7 +69,7 @@ export const handlePermissions: CommandHandler = async (
       ? t("commands:misc.permissions.valid")
       : t("commands:misc.permissions.invalid");
 
-    const validEmbed = new MessageEmbed();
+    const validEmbed = new EmbedBuilder();
     validEmbed.setTitle(
       areValid
         ? t("commands:misc.permissions.yes")

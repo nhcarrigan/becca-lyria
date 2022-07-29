@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 
 import {
   nextScheduledRelease,
@@ -16,47 +21,49 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 export const handleUpdates: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { commitHash: hash } = Becca;
-    const updateEmbed = new MessageEmbed();
+    const updateEmbed = new EmbedBuilder();
     updateEmbed.setTitle(t("commands:becca.updates.title"));
     updateEmbed.setDescription(t("commands:becca.updates.description"));
-    updateEmbed.addField(
-      t("commands:becca.updates.latest"),
-      updatesSinceLastRelease.join("\n")
-    );
-    updateEmbed.addField(
-      t("commands:becca.updates.version"),
-      process.env.npm_package_version || "0.0.0"
-    );
-    updateEmbed.addField(
-      t("commands:becca.updates.next"),
-      nextScheduledRelease
-    );
-    updateEmbed.addField(
-      t("commands:becca.updates.changelog.title"),
-      t("commands:becca.updates.changelog.description")
-    );
-    updateEmbed.addField(
-      t("commands:becca.updates.commit"),
-      `[${hash.slice(
-        0,
-        7
-      )}](https://github.com/beccalyria/discord-bot/commit/${hash})`
-    );
+    updateEmbed.addFields([
+      {
+        name: t("commands:becca.updates.latest"),
+        value: updatesSinceLastRelease.join("\n"),
+      },
+      {
+        name: t("commands:becca.updates.version"),
+        value: process.env.npm_package_version || "0.0.0",
+      },
+      {
+        name: t("commands:becca.updates.next"),
+        value: nextScheduledRelease,
+      },
+      {
+        name: t("commands:becca.updates.changelog.title"),
+        value: t("commands:becca.updates.changelog.description"),
+      },
+      {
+        name: t("commands:becca.updates.commit"),
+        value: `[${hash.slice(
+          0,
+          7
+        )}](https://github.com/beccalyria/discord-bot/commit/${hash})`,
+      },
+    ]);
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
-    const button = new MessageButton()
+    const button = new ButtonBuilder()
       .setLabel(t("commands:becca.updates.buttons.view"))
       .setEmoji("<:BeccaNotes:883854700762505287>")
-      .setStyle("LINK")
+      .setStyle(ButtonStyle.Link)
       .setURL(
         "https://docs.beccalyria.com/#/changelog?utm_source=discord&utm_medium=updates-command"
       );
 
-    const row = new MessageActionRow().addComponents([button]);
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents([button]);
     await interaction.editReply({ embeds: [updateEmbed], components: [row] });
   } catch (err) {
     const errorId = await beccaErrorHandler(

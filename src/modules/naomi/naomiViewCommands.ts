@@ -1,6 +1,6 @@
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
-import { Message, MessageEmbed } from "discord.js";
+import { EmbedBuilder, Message } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { CommandData } from "../../interfaces/commands/CommandData";
@@ -30,17 +30,17 @@ export const naomiViewCommands = async (
       return;
     }
 
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setTitle("Available Spells");
     embed.setDescription("These are the spells I currently have prepared.");
-
-    for (const command of commands) {
-      embed.addField(
-        command.name,
-        command.options?.map((opt) => opt.name).join(", ") ||
-          "This spell has no options."
-      );
-    }
+    embed.addFields(
+      commands.map((el) => ({
+        name: el.name,
+        value: el.options
+          ? el.options?.map((opt) => opt.name).join(", ")
+          : "This spell has no options.",
+      }))
+    );
 
     await message.reply({ embeds: [embed] });
   } catch (err) {

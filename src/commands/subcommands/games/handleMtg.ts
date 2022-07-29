@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { MagicCard } from "../../../interfaces/commands/games/MagicCard";
@@ -28,19 +28,27 @@ export const handleMtg: CommandHandler = async (Becca, interaction, t) => {
 
     const card = cards.data.cards[0];
 
-    const cardEmbed = new MessageEmbed();
+    const cardEmbed = new EmbedBuilder();
     cardEmbed.setColor(Becca.colours.default);
     cardEmbed.setTitle(card.name);
     cardEmbed.setImage(
       card.imageUrl || "https://cdn.nhcarrigan.com/content/projects/mtg.jpg"
     );
     cardEmbed.setDescription(card.flavor || t("commands:games.mtg.flavour"));
-    cardEmbed.addField(t("commands:games.mtg.types"), card.types.join(", "));
-    cardEmbed.addField(t("commands:games.mtg.cost"), card.manaCost);
-    cardEmbed.addField(
-      t("commands:games.mtg.abilities"),
-      card.text || t("commands:games.mtg.ability")
-    );
+    cardEmbed.addFields([
+      {
+        name: t("commands:games.mtg.types"),
+        value: card.types.join(", "),
+      },
+      {
+        name: t("commands:games.mtg.cost"),
+        value: card.manaCost,
+      },
+      {
+        name: t("commands:games.mtg.abilities"),
+        value: card.text || t("commands:games.mtg.ability"),
+      },
+    ]);
     cardEmbed.setFooter({
       text: t("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",

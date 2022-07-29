@@ -3,7 +3,7 @@ import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
-import { GuildMember } from "discord.js";
+import { GuildMember, PermissionFlagsBits } from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
@@ -66,7 +66,9 @@ export const triggers: Command = {
       const subcommand = interaction.options.getSubcommand();
 
       if (
-        !(interaction.member as GuildMember).permissions.has("MANAGE_GUILD")
+        !(interaction.member as GuildMember).permissions.has(
+          PermissionFlagsBits.ManageGuild
+        )
       ) {
         await interaction.editReply({
           content: getRandomValue(t("responses:noPermission")),
