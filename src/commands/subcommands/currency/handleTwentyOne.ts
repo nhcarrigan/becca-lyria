@@ -123,7 +123,7 @@ export const handleTwentyOne: CurrencyHandler = async (
         gameState.over = true;
         gameState.won = true;
       }
-      if (player === dealer) {
+      if (player === dealer && click.customId === "stand") {
         gameState.over = true;
       }
       const newHitButton = new ButtonBuilder()
