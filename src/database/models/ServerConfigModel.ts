@@ -49,6 +49,12 @@ export const ServerConfigSchema = new Schema({
     type: String,
     default: "0",
   },
+  level_style: {
+    type: String,
+    default: "embed",
+  },
+  level_message: String,
+  role_message: String,
 });
 
 export default model<ServerConfig>("server", ServerConfigSchema);

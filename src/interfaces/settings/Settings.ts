@@ -33,4 +33,7 @@ export type Settings =
   | "emote_channels"
   | "appeal_link"
   | "antiphish"
-  | "initial_xp";
+  | "initial_xp"
+  | "level_style"
+  | "level_message"
+  | "role_message";

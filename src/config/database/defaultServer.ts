@@ -42,4 +42,7 @@ export const defaultServer = {
   appeal_link: "",
   antiphish: "none",
   initial_xp: "0",
+  level_style: "embed",
+  level_message: "",
+  role_message: "",
 };

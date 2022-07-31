@@ -26,6 +26,9 @@ export const configChoices: APIApplicationCommandOptionChoice<Settings>[] = [
   { name: "Sass Mode", value: "sass_mode" },
   { name: "Emote-Only Channels", value: "emote_channels" },
   { name: "Initial Experience", value: "initial_xp" },
+  { name: "Level Message Style", value: "level_style" },
+  { name: "Level Message", value: "level_message" },
+  { name: "Role Message", value: "role_message" },
 ];
 
 export const configViewChoices: APIApplicationCommandOptionChoice<
