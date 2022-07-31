@@ -34,6 +34,9 @@ export const renderSetting = (
       case "appeal_link":
       case "antiphish":
       case "initial_xp":
+      case "level_style":
+      case "level_message":
+      case "role_message":
         return value as string;
       case "welcome_channel":
       case "depart_channel":

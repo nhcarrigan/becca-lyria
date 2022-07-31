@@ -347,7 +347,11 @@
       "blocked": "Blocked User Count",
       "selfrole": "Self Assignable Titles",
       "emote": "Emote Only Channels",
-      "ban": "Ban Appeal Link"
+      "ban": "Ban Appeal Link",
+      "initialXp": "Initial Experience",
+      "levelStyle": "Level Messages Style",
+      "levelMessage": "Level Message",
+      "roleMessage": "Role Message"
     },
     "settingsArray": {
       "title": "Config data for {{setting}}",

@@ -127,6 +127,28 @@ export const viewSettings = async (
         value: config.initial_xp,
         inline: true,
       },
+      {
+        name: t("commands:config.view.levelStyle"),
+        value: config.level_style,
+        inline: true,
+      },
+      {
+        name: t("commands:config.view.levelMessage"),
+        value: customSubstring(
+          config.level_message ||
+            t("listeners:level.desc", { user: "{@user}", level: "{level}" }),
+          1000
+        ),
+      },
+      {
+        name: t("commands:config.view.roleMessage"),
+        value: customSubstring(
+          config.role_message ||
+            t("listeners:level.roleDesc", { user: "{@user}", role: "{@role}" }),
+          1000
+        ),
+        inline: true,
+      },
     ]);
     settingsEmbed.setFooter({
       text: t("defaults:donate"),

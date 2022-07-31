@@ -95,6 +95,8 @@ export const validateSetting = async (
         );
       case "initial_xp":
         return !isNaN(parseInt(value)) && parseInt(value) >= 0;
+      case "level_style":
+        return value === "embed" || value === "text";
       case "allowed_links":
       case "appeal_link":
       case "antiphish":
@@ -102,6 +104,8 @@ export const validateSetting = async (
       case "link_message":
       case "leave_message":
       case "profanity_message":
+      case "level_message":
+      case "role_message":
         return true;
       default:
         return false;

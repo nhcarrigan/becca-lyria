@@ -5,6 +5,8 @@ import levelScale from "../config/listeners/levelScale";
 import { LevelOptOut } from "../config/optout/LevelOptOut";
 import LevelModel from "../database/models/LevelModel";
 import { Listener } from "../interfaces/listeners/Listener";
+import { generateLevelText } from "../modules/listeners/generateLevelText";
+import { generateRoleText } from "../modules/listeners/generateRoleText";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 /**
@@ -86,24 +88,29 @@ export const levelListener: Listener = {
       await user.save();
 
       if (levelUp) {
-        const levelEmbed = new EmbedBuilder();
-        levelEmbed.setTitle(t("listeners:level.title"));
-        levelEmbed.setDescription(
-          t("listeners:level.desc", {
-            user: `<@!${author.id}>`,
-            level: user.level,
-          })
-        );
-        levelEmbed.setColor(Becca.colours.default);
-        levelEmbed.setAuthor({
-          name: author.tag,
-          iconURL: author.displayAvatarURL(),
-        });
-        levelEmbed.setFooter({
-          text: t("defaults:donate"),
-          iconURL: "https://cdn.nhcarrigan.com/profile.png",
-        });
-        await targetChannel.send({ embeds: [levelEmbed] });
+        const content = serverSettings.level_message
+          ? generateLevelText(serverSettings.level_message, author, user.level)
+          : t("listeners:level.desc", {
+              user: `<@!${author.id}>`,
+              level: user.level,
+            });
+        if (serverSettings.level_style === "embed") {
+          const levelEmbed = new EmbedBuilder();
+          levelEmbed.setTitle(t("listeners:level.title"));
+          levelEmbed.setDescription(content);
+          levelEmbed.setColor(Becca.colours.default);
+          levelEmbed.setAuthor({
+            name: author.tag,
+            iconURL: author.displayAvatarURL(),
+          });
+          levelEmbed.setFooter({
+            text: t("defaults:donate"),
+            iconURL: "https://cdn.nhcarrigan.com/profile.png",
+          });
+          await targetChannel.send({ embeds: [levelEmbed] });
+        } else {
+          await targetChannel.send(content);
+        }
       }
 
       if (serverSettings.level_roles.length) {
@@ -112,24 +119,29 @@ export const levelListener: Listener = {
             const role = guild.roles.cache.find((r) => r.id === setting.role);
             if (role && !member?.roles.cache.find((r) => r.id === role.id)) {
               await member?.roles.add(role);
-              const roleEmbed = new EmbedBuilder();
-              roleEmbed.setTitle(t("listeners:level.roleTitle"));
-              roleEmbed.setDescription(
-                t("listeners:level.roleDesc", {
-                  user: `<@!${author.id}>`,
-                  role: `<@&${role.id}>`,
-                })
-              );
-              roleEmbed.setColor(Becca.colours.default);
-              roleEmbed.setAuthor({
-                name: author.tag,
-                iconURL: author.displayAvatarURL(),
-              });
-              roleEmbed.setFooter({
-                text: t("defaults:donate"),
-                iconURL: "https://cdn.nhcarrigan.com/profile.png",
-              });
-              await targetChannel.send({ embeds: [roleEmbed] });
+              const content = serverSettings.role_message
+                ? generateRoleText(serverSettings.role_message, author, role)
+                : t("listeners:role.desc", {
+                    user: `<@!${author.id}>`,
+                    role: `<@&${role.id}>`,
+                  });
+              if (serverSettings.level_style === "embed") {
+                const roleEmbed = new EmbedBuilder();
+                roleEmbed.setTitle(t("listeners:level.roleTitle"));
+                roleEmbed.setDescription(content);
+                roleEmbed.setColor(Becca.colours.default);
+                roleEmbed.setAuthor({
+                  name: author.tag,
+                  iconURL: author.displayAvatarURL(),
+                });
+                roleEmbed.setFooter({
+                  text: t("defaults:donate"),
+                  iconURL: "https://cdn.nhcarrigan.com/profile.png",
+                });
+                await targetChannel.send({ embeds: [roleEmbed] });
+              } else {
+                await targetChannel.send(content);
+              }
             }
           }
         }

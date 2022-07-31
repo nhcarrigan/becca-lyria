@@ -38,6 +38,9 @@ export interface ServerConfig extends Document {
   appeal_link: string;
   antiphish: "none" | "mute" | "kick" | "ban";
   initial_xp: string;
+  level_style: "embed" | "text";
+  level_message: string;
+  role_message: string;
 }
 
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
@@ -75,4 +78,7 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   appeal_link: "",
   antiphish: "none",
   initial_xp: "0",
+  level_message: "",
+  level_style: "embed",
+  role_message: "",
 };

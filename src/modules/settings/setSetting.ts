@@ -93,10 +93,15 @@ export const setSetting = async (
       case "profanity_message":
       case "appeal_link":
       case "initial_xp":
+      case "level_message":
+      case "role_message":
         server[key] = value;
         break;
       case "antiphish":
         server[key] = value as "none" | "mute" | "kick" | "ban";
+        break;
+      case "level_style":
+        server[key] = value as "embed" | "text";
         break;
       case "welcome_channel":
       case "depart_channel":
