@@ -10,6 +10,7 @@ export const IntentOptions = [
   GatewayIntentBits.GuildMessages,
   GatewayIntentBits.GuildMessageReactions,
   GatewayIntentBits.GuildVoiceStates,
+  GatewayIntentBits.MessageContent,
   GatewayIntentBits.DirectMessages,
   GatewayIntentBits.DirectMessageReactions,
 ];
