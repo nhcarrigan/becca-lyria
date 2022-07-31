@@ -1,5 +1,4 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { defaultHearts } from "../config/listeners/defaultHearts";
 import { Listener } from "../interfaces/listeners/Listener";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
@@ -15,8 +14,7 @@ export const heartsListener: Listener = {
   run: async (Becca, message, t, config) => {
     try {
       const { author } = message;
-      const usersToHeart = defaultHearts.concat(config.hearts);
-      if (usersToHeart.includes(author.id)) {
+      if (config.hearts.includes(author.id)) {
         await message
           .react(Becca.configs.love)
           .catch(async () => await message.react("💜"));
