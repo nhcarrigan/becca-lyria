@@ -9,7 +9,9 @@ import { BeccaLyria } from "../BeccaLyria";
 import { ServerConfig } from "../database/ServerConfig";
 
 export interface Command {
-  data: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder;
+  data:
+    | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">
+    | SlashCommandSubcommandsOnlyBuilder;
   /**
    * Handles the logic for running a given command.
    *
