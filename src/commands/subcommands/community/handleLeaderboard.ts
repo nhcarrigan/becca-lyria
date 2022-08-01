@@ -1,5 +1,11 @@
 /* eslint-disable jsdoc/require-param */
-import { EmbedBuilder } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  ComponentType,
+  EmbedBuilder,
+} from "discord.js";
 
 import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -31,7 +37,6 @@ export const handleLeaderboard: CommandHandler = async (
       serverID: guildId,
     })
       .sort({ points: -1 })
-      .limit(10)
       .lean()
       .exec();
 
@@ -42,12 +47,32 @@ export const handleLeaderboard: CommandHandler = async (
       return;
     }
 
-    const topTen = serverLevels.map((u, index) => [
-      index + 1,
-      u.userTag,
-      u.level,
-      u.points,
-    ]);
+    const mapped: [number, string, number, number][] = serverLevels.map(
+      (level, index) => [index + 1, level.userTag, level.level, level.points]
+    );
+
+    const authorLevel = mapped.find((el) => el[1] === interaction.user.tag);
+
+    const rankString = authorLevel
+      ? `You are rank ${authorLevel[0]} at level ${authorLevel[2]} (${authorLevel[3]} XP)`
+      : "You have not earned any experience yet!";
+
+    let page = 1;
+    const lastPage = Math.ceil(mapped.length / 10);
+
+    const pageBack = new ButtonBuilder()
+      .setCustomId("prev")
+      .setDisabled(true)
+      .setLabel("◀")
+      .setStyle(ButtonStyle.Primary);
+    const pageForward = new ButtonBuilder()
+      .setCustomId("next")
+      .setLabel("▶")
+      .setStyle(ButtonStyle.Primary);
+
+    if (lastPage <= 1) {
+      pageForward.setDisabled(true);
+    }
 
     const levelEmbed = new EmbedBuilder();
     levelEmbed.setTitle(
@@ -55,7 +80,7 @@ export const handleLeaderboard: CommandHandler = async (
     );
     levelEmbed.setColor(Becca.colours.default);
     levelEmbed.setDescription(
-      `\`\`\`\n${formatTextToTable(topTen, {
+      `\`\`\`\n${formatTextToTable(mapped.slice(page * 10 - 10, page * 10), {
         headers: [
           t("commands:community.leaderboard.rank"),
           t("commands:community.leaderboard.user"),
@@ -70,8 +95,78 @@ export const handleLeaderboard: CommandHandler = async (
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
-    await interaction.editReply({
+    const response = await interaction.editReply({
+      content: rankString,
       embeds: [levelEmbed],
+      components: [
+        new ActionRowBuilder<ButtonBuilder>().addComponents(
+          pageBack,
+          pageForward
+        ),
+      ],
+    });
+
+    const collector =
+      response.createMessageComponentCollector<ComponentType.Button>({
+        time: 30000,
+        filter: (click) => click.user.id === interaction.user.id,
+      });
+
+    collector.on("collect", async (click) => {
+      await click.deferUpdate();
+      if (click.customId === "prev") {
+        page--;
+      }
+      if (click.customId === "next") {
+        page++;
+      }
+
+      if (page <= 1) {
+        pageBack.setDisabled(true);
+      } else {
+        pageBack.setDisabled(false);
+      }
+
+      if (page >= lastPage) {
+        pageForward.setDisabled(true);
+      } else {
+        pageForward.setDisabled(false);
+      }
+
+      levelEmbed.setDescription(
+        `\`\`\`\n${formatTextToTable(mapped.slice(page * 10 - 10, page * 10), {
+          headers: [
+            t("commands:community.leaderboard.rank"),
+            t("commands:community.leaderboard.user"),
+            t("commands:community.leaderboard.level"),
+            t("commands:community.leaderboard.xp"),
+          ],
+        })}\n\`\`\``
+      );
+
+      await interaction.editReply({
+        content: rankString,
+        embeds: [levelEmbed],
+        components: [
+          new ActionRowBuilder<ButtonBuilder>().addComponents(
+            pageBack,
+            pageForward
+          ),
+        ],
+      });
+    });
+
+    collector.on("end", async () => {
+      pageBack.setDisabled(true);
+      pageForward.setDisabled(true);
+      await interaction.editReply({
+        components: [
+          new ActionRowBuilder<ButtonBuilder>().addComponents(
+            pageBack,
+            pageForward
+          ),
+        ],
+      });
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(
