@@ -111,7 +111,7 @@ export const levelListener: Listener = {
           });
           await targetChannel.send({ embeds: [levelEmbed] });
         } else {
-          await targetChannel.send(content);
+          await targetChannel.send({ content, allowedMentions: {} });
         }
       }
 
@@ -142,7 +142,7 @@ export const levelListener: Listener = {
                 });
                 await targetChannel.send({ embeds: [roleEmbed] });
               } else {
-                await targetChannel.send(content);
+                await targetChannel.send({ content, allowedMentions: {} });
               }
             }
           }
