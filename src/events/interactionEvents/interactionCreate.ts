@@ -2,7 +2,6 @@ import { Interaction, Message } from "discord.js";
 import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { commandListener } from "../../listeners/commandListener";
 import { currencyListener } from "../../listeners/currencyListener";
 import { usageListener } from "../../listeners/usageListener";
 import { logActivity } from "../../modules/commands/logActivity";
@@ -56,7 +55,6 @@ export const interactionCreate = async (
         });
         return;
       }
-      await commandListener.run(Becca, interaction);
       await target.run(Becca, interaction, t, config);
       await usageListener.run(Becca, interaction);
       await currencyListener.run(Becca, interaction);
