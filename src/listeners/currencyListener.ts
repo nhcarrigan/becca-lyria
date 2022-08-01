@@ -44,7 +44,7 @@ export const currencyListener = {
     } catch (err) {
       await beccaErrorHandler(
         Becca,
-        "thanks listener",
+        "currency listener",
         err,
         interaction.guild?.name
       );

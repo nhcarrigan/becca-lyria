@@ -76,12 +76,12 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
         value: customSubstring(reason, 2000),
       },
     ]);
-    starEmbed.setFooter(
-      t("commands:community.star.total", { total: starTotal })
-    );
+    starEmbed.setFooter({
+      text: t("commands:community.star.total", { total: starTotal }),
+    });
     starEmbed.setColor(Becca.colours.default);
     starEmbed.setTimestamp();
-    starEmbed.setImage("https://cdn.nhcarrigan.com/content/projects/star.png");
+    starEmbed.setImage("https://cdn.nhcarrigan.com/projects/star.png");
 
     await interaction.editReply({ embeds: [starEmbed] });
   } catch (err) {
