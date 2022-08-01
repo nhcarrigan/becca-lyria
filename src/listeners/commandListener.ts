@@ -1,6 +1,5 @@
 import { CommandInteraction } from "discord.js";
 
-import { ServerCommandOptOut } from "../config/optout/ServerCommandOptOut";
 import CommandCountModel from "../database/models/CommandCountModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
@@ -22,10 +21,6 @@ export const commandListener = {
     try {
       const { guild } = interaction;
       if (!guild) {
-        return;
-      }
-
-      if (ServerCommandOptOut.includes(guild.id)) {
         return;
       }
 

@@ -1,7 +1,7 @@
-import { ActivityOptOut } from "../../config/optout/ActivityOptOut";
 import ActivityModel from "../../database/models/ActivityModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { getOptOutRecord } from "../listeners/getOptOutRecord";
 
 /**
  * Provided the user has not opted out from bot activity tracking, this fetches or
@@ -18,9 +18,12 @@ export const logActivity = async (
   activity: "button" | "command" | "select" | "context"
 ): Promise<void> => {
   try {
-    if (ActivityOptOut.includes(user)) {
+    const optout = await getOptOutRecord(Becca, user);
+
+    if (!optout || optout.activity) {
       return;
     }
+
     const userActivity =
       (await ActivityModel.findOne({ userId: user })) ||
       (await ActivityModel.create({

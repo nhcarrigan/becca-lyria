@@ -714,6 +714,16 @@
       "success": "I have informed them of their shortcomings."
     }
   },
+  "optOut": {
+    "invalidType": "{{type}} is not a valid type.",
+    "noRecord": "There was an error fetching your database record. Please try again.",
+    "optIn": "You have been opted back in to the {{type}} system.",
+    "confirm": "Please confirm you wish to opt out of the {{type}} system. This will prevent you from using any features related to that system, and all of your relevant data for that system will be automatically deleted.",
+    "cancelled": "Your request has been cancelled. Feel free to try again later. **Note that you are still opted in.**",
+    "success": "You have been opted out and your data have been deleted.",
+    "failure": "You have been opted out, but there was an issue deleting your data. Please contact Naomi.",
+    "timeout": "Your request has timed out. Feel free to try again later. **Note that you are still opted in.**"
+  },
   "reactionrole": {
     "create": {
       "channel": "That does not appear to be a valid text channel.",

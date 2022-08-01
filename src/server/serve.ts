@@ -6,12 +6,12 @@ import * as Topgg from "@top-gg/sdk";
 import cors from "cors";
 import express from "express";
 
-import { VoteOptOut } from "../config/optout/VoteOptOut";
 import CommandCountModel from "../database/models/CommandCountModel";
 import UsageModel from "../database/models/UsageModel";
 import VoterModel from "../database/models/VoterModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { getCounts } from "../modules/becca/getCounts";
+import { getOptOutRecord } from "../modules/listeners/getOptOutRecord";
 import { sendVoteMessage } from "../modules/server/sendVoteMessage";
 import { sendVoteReminder } from "../modules/server/sendVoteReminder";
 import { sendVoteReward } from "../modules/server/sendVoteReward";
@@ -50,9 +50,12 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
     HTTPEndpoint.post(
       "/votes",
       topgg.listener(async (payload) => {
-        if (VoteOptOut.includes(payload.user)) {
+        const optout = await getOptOutRecord(Becca, payload.user);
+
+        if (!optout || optout.vote) {
           return;
         }
+
         const currentMonth = new Date(Date.now()).getMonth();
         let voteType: "bot" | "server" | "unknown" = "unknown";
         const voteRecord =

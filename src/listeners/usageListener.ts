@@ -18,7 +18,8 @@ export const usageListener = {
   ): Promise<void> => {
     try {
       const command = interaction.commandName;
-      const subcommand = interaction.options.getSubcommand();
+      const subcommand =
+        interaction.options.getSubcommand(false) || "no subcommand";
 
       const data =
         (await UsageModel.findOne({ command, subcommand })) ||
@@ -29,7 +30,7 @@ export const usageListener = {
     } catch (err) {
       await beccaErrorHandler(
         Becca,
-        "thanks listener",
+        "usage listener",
         err,
         interaction.guild?.name
       );

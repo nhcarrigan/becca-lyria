@@ -4,11 +4,11 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import { CurrencyOptOut } from "../config/optout/CurrencyOptOut";
 import CurrencyModel from "../database/models/CurrencyModel";
 import { Command } from "../interfaces/commands/Command";
 import { CurrencyHandler } from "../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { getOptOutRecord } from "../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 import { handleAbout } from "./subcommands/currency/handleAbout";
@@ -128,10 +128,9 @@ export const currency: Command = {
     try {
       await interaction.deferReply();
 
-      if (CurrencyOptOut.includes(interaction.user.id)) {
-        await interaction.editReply(
-          "You have opted out of the currency system and cannot use these commands."
-        );
+      const optout = await getOptOutRecord(Becca, interaction.user.id);
+
+      if (!optout || optout.currency) {
         return;
       }
 

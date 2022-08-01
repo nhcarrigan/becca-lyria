@@ -5,10 +5,10 @@ import {
 } from "@discordjs/builders";
 
 import { emoteChoices } from "../config/commands/emoteData";
-import { EmoteOptOut } from "../config/optout/EmoteOptOut";
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { getOptOutRecord } from "../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 import { handleEmoteUse } from "./subcommands/emote/handleEmoteUse";
@@ -53,10 +53,9 @@ export const emote: Command = {
     try {
       await interaction.deferReply();
 
-      if (EmoteOptOut.includes(interaction.user.id)) {
-        await interaction.editReply(
-          "You have opted out of the emote system and cannot use these commands."
-        );
+      const optout = await getOptOutRecord(Becca, interaction.user.id);
+
+      if (!optout || optout.emote) {
         return;
       }
 
