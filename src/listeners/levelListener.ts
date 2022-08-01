@@ -2,11 +2,11 @@
 import { ChannelType, EmbedBuilder, TextChannel } from "discord.js";
 
 import levelScale from "../config/listeners/levelScale";
-import { LevelOptOut } from "../config/optout/LevelOptOut";
 import LevelModel from "../database/models/LevelModel";
 import { Listener } from "../interfaces/listeners/Listener";
 import { generateLevelText } from "../modules/listeners/generateLevelText";
 import { generateRoleText } from "../modules/listeners/generateRoleText";
+import { getOptOutRecord } from "../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 /**
@@ -24,7 +24,9 @@ export const levelListener: Listener = {
     try {
       const { author, content, guild, member } = message;
 
-      if (LevelOptOut.includes(author.id)) {
+      const optout = await getOptOutRecord(Becca, author.id);
+
+      if (!optout || optout.level) {
         return;
       }
 

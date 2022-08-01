@@ -2,10 +2,10 @@
 import { EmbedBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
 
 import levelScale from "../../../config/listeners/levelScale";
-import { LevelOptOut } from "../../../config/optout/LevelOptOut";
 import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
 
@@ -66,7 +66,9 @@ export const handleXpModify: CommandHandler = async (
       return;
     }
 
-    if (LevelOptOut.includes(target?.id)) {
+    const optout = await getOptOutRecord(Becca, target.id);
+
+    if (!optout || optout.level) {
       await interaction.editReply({
         content: t("commands:manage.xp.optout"),
       });

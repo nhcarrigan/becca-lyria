@@ -1,10 +1,10 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder } from "discord.js";
 
-import { StarOptOut } from "../../../config/optout/StarOptOut";
 import StarModel from "../../../database/models/StarModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
 import { getRandomValue } from "../../../utils/getRandomValue";
@@ -27,7 +27,9 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
     const targetUser = interaction.options.getUser("user", true);
     const reason = interaction.options.getString("reason", true);
 
-    if (StarOptOut.includes(targetUser.id)) {
+    const optout = await getOptOutRecord(Becca, targetUser.id);
+
+    if (!optout || optout.star) {
       await interaction.editReply(t("commands:community.star.optout"));
       return;
     }

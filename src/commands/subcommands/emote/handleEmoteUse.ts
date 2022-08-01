@@ -4,10 +4,10 @@ import {
   smackList,
   throwList,
 } from "../../../config/commands/emoteData";
-import { EmoteOptOut } from "../../../config/optout/EmoteOptOut";
 import EmoteCountModel from "../../../database/models/EmoteCountModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
 
@@ -19,7 +19,9 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
     const action = interaction.options.getString("emote", true) as EmoteAction;
     const target = interaction.options.getUser("target", true);
 
-    if (EmoteOptOut.includes(target.id)) {
+    const optout = await getOptOutRecord(Becca, interaction.user.id);
+
+    if (!optout || optout.emote) {
       await interaction.editReply(t("commands:emote.use.optout"));
       return;
     }

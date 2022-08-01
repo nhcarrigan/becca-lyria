@@ -1,9 +1,9 @@
 /*eslint-disable jsdoc/require-jsdoc*/
 import { CommandInteraction } from "discord.js";
 
-import { CurrencyOptOut } from "../config/optout/CurrencyOptOut";
 import CurrencyModel from "../database/models/CurrencyModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
+import { getOptOutRecord } from "../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 /**
@@ -18,13 +18,12 @@ export const currencyListener = {
     interaction: CommandInteraction
   ): Promise<void> => {
     try {
-      if (interaction.commandName === "nhcarrigan") {
-        return;
-      }
       const { user } = interaction;
       const target = user.id;
 
-      if (CurrencyOptOut.includes(target)) {
+      const optout = await getOptOutRecord(Becca, target);
+
+      if (!optout || optout.currency) {
         return;
       }
 
