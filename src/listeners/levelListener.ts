@@ -123,7 +123,7 @@ export const levelListener: Listener = {
               await member?.roles.add(role);
               const content = serverSettings.role_message
                 ? generateRoleText(serverSettings.role_message, author, role)
-                : t("listeners:role.desc", {
+                : t("listeners:level.roleDesc", {
                     user: `<@!${author.id}>`,
                     role: `<@&${role.id}>`,
                   });
