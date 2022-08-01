@@ -9,6 +9,7 @@ import {
 } from "../../src/config/commands/emoteData";
 import { httpStatus } from "../../src/config/commands/httpStatus";
 import { motivationalQuotes } from "../../src/config/commands/motivationalQuotes";
+import { optOutChoices } from "../../src/config/commands/optOutChoices";
 import {
   accountVerificationMap,
   contentFilterMap,
@@ -93,6 +94,13 @@ suite("serverInfo", () => {
     );
     assert.isDefined(contentFilterMap, "contentFilterMap is not defined");
     assert.isObject(contentFilterMap, "contentFilterMap is not an object");
+  });
+});
+
+suite("optOutChoices", () => {
+  test("is defined", () => {
+    assert.isDefined(optOutChoices, "optOutChoices is not defined");
+    assert.isArray(optOutChoices, "optOutChoices is not an array");
   });
 });
 
