@@ -31,7 +31,7 @@ export const handleDaily: CurrencyHandler = async (
       return;
     }
 
-    const earnedCurrency = Math.round(Math.random() * 50) + 50;
+    const earnedCurrency = Math.ceil(Math.random() * 50) + 50;
 
     data.currencyTotal += earnedCurrency;
     data.dailyClaimed = now;

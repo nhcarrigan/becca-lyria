@@ -47,7 +47,7 @@ export const handleWeekly: CurrencyHandler = async (
       return;
     }
 
-    const earnedCurrency = Math.round(Math.random() * 100 + 100);
+    const earnedCurrency = Math.ceil(Math.random() * 100 + 100);
 
     data.currencyTotal += earnedCurrency;
     data.weeklyClaimed = now;
