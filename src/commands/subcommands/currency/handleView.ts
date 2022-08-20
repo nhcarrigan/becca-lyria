@@ -4,7 +4,6 @@ import { EmbedBuilder } from "discord.js";
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { parseSeconds } from "../../../utils/parseSeconds";
 
 /**
  * Generates an embed with the user's current balance, and the cooldowns for
@@ -20,10 +19,10 @@ export const handleView: CurrencyHandler = async (
     const { user } = interaction;
     const now = Date.now();
     const dailyCooldown = Math.round(
-      (data.dailyClaimed - now + 86400000) / 1000
+      new Date(data.dailyClaimed - now + 86400000).getTime() / 1000
     );
     const weeklyCooldown = Math.round(
-      (data.weeklyClaimed - now + 604800000) / 1000
+      new Date(data.weeklyClaimed - now + 604800000).getTime() / 1000
     );
 
     const viewEmbed = new EmbedBuilder();
@@ -36,12 +35,14 @@ export const handleView: CurrencyHandler = async (
     viewEmbed.addFields([
       {
         name: t("commands:currency.view.daily"),
-        value: dailyCooldown < 0 ? "now!" : parseSeconds(dailyCooldown),
+        value:
+          dailyCooldown - Date.now() <= 0 ? "now!" : `<t:${dailyCooldown}:R>`,
         inline: true,
       },
       {
         name: t("commands:currency.view.weekly"),
-        value: weeklyCooldown < 0 ? "now!" : parseSeconds(weeklyCooldown),
+        value:
+          weeklyCooldown - Date.now() <= 0 ? "now!" : `<t:${weeklyCooldown}:R>`,
         inline: true,
       },
     ]);
