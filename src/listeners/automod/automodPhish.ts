@@ -51,7 +51,7 @@ export const automodPhish: ListenerHandler = async (
         link.replace(/https?:\/\//, "").split("/")[0]
       );
       const checkHeptagramAPI = await axios
-        .get<{ scamDetected: boolean }>(
+        .get<{ scamDetected: boolean, native: boolean }>(
           `https://api.heptagrambotproject.com/v4/scam/links/check?url=${encodedLink}`,
           {
             // send authentication header
