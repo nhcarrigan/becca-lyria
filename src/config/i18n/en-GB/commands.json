@@ -82,6 +82,9 @@
         "more": "View more emotes!"
       }
     },
+    "feedback": {
+      "success": "Thanks! That feedback has been sent to our team!"
+    },
     "help": {
       "title": "How to Interact with Becca",
       "description": "Hello there! I have many spells I can cast. To see the spells, type `/` and select my section from the pop-up menu.",
