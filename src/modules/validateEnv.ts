@@ -39,6 +39,10 @@ export const validateEnv = (
       };
     }
 
+    if (!process.env.FEEDBACK_WH) {
+      return { valid: false, message: "Missing Discord Feedback webhook URL" };
+    }
+
     if (!process.env.NASA_API) {
       beccaLogHandler.log("warn", "Missing NASA API key");
     }
@@ -83,6 +87,7 @@ export const validateEnv = (
       whUrl: process.env.WH_URL,
       currencyUrl: process.env.CURRENCY_WH,
       currencyReminderUrl: process.env.CURRENCY_REMINDER_WH,
+      feedbackUrl: process.env.FEEDBACK_WH,
       nasaKey: process.env.NASA_API || "",
       ownerId: process.env.OWNER_ID,
       love: process.env.BECCA_LOVE || "💜",

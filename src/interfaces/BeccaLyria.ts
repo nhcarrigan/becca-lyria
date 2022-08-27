@@ -16,12 +16,14 @@ export interface BeccaLyria extends Client {
   debugHook: WebhookClient;
   currencyHook: WebhookClient;
   currencyReminderHook: WebhookClient;
+  feedbackHook: WebhookClient;
   configs: {
     token: string;
     dbToken: string;
     whUrl: string;
     currencyUrl: string;
     currencyReminderUrl: string;
+    feedbackUrl: string;
     nasaKey: string;
     ownerId: string;
     love: string;

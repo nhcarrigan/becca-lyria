@@ -15,6 +15,7 @@ import { handleArt } from "./subcommands/becca/handleArt";
 import { handleContact } from "./subcommands/becca/handleContact";
 import { handleDonate } from "./subcommands/becca/handleDonate";
 import { handleEmote } from "./subcommands/becca/handleEmote";
+import { handleFeedback } from "./subcommands/becca/handleFeedback";
 import { handleHelp } from "./subcommands/becca/handleHelp";
 import { handleInvite } from "./subcommands/becca/handleInvite";
 import { handlePing } from "./subcommands/becca/handlePing";
@@ -42,6 +43,7 @@ const handlers: { [key: string]: CommandHandler } = {
   privacy: handlePrivacy,
   contact: handleContact,
   translators: handleTranslators,
+  feedback: handleFeedback,
 };
 
 export const becca: Command = {
@@ -139,12 +141,21 @@ export const becca: Command = {
         .setDescription(
           "Lists the wonderful people who have helped translate Becca."
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("feedback")
+        .setDescription(
+          "Provide feedback on Becca - request features, report bugs, or share your thoughts!"
+        )
     ),
   run: async (Becca, interaction, t, config) => {
     try {
-      await interaction.deferReply();
-
       const subCommand = interaction.options.getSubcommand();
+      if (subCommand !== "feedback") {
+        await interaction.deferReply();
+      }
+
       const handler = handlers[subCommand] || handleInvalidSubcommand;
       await handler(Becca, interaction, t, config);
       Becca.pm2.metrics.commands.mark();

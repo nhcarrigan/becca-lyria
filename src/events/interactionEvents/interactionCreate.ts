@@ -1,6 +1,7 @@
-import { Interaction, Message } from "discord.js";
+import { Interaction, InteractionType, Message } from "discord.js";
 import { getFixedT } from "i18next";
 
+import { handleFeedbackModal } from "../../commands/subcommands/becca/handleFeedbackModal";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { currencyListener } from "../../listeners/currencyListener";
 import { usageListener } from "../../listeners/usageListener";
@@ -106,6 +107,12 @@ export const interactionCreate = async (
 
     if (interaction.isSelectMenu()) {
       await logActivity(Becca, interaction.user.id, "select");
+    }
+
+    if (interaction.type === InteractionType.ModalSubmit) {
+      if (interaction.customId === "feedback-modal") {
+        await handleFeedbackModal(Becca, interaction, t);
+      }
     }
   } catch (err) {
     await beccaErrorHandler(Becca, "interaction create event", err);

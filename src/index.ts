@@ -62,6 +62,7 @@ void (async () => {
   Becca.currencyReminderHook = new WebhookClient({
     url: Becca.configs.currencyReminderUrl,
   });
+  Becca.feedbackHook = new WebhookClient({ url: Becca.configs.feedbackUrl });
 
   /**
    * Fallthrough error handlers. These fire in rare cases where something throws
