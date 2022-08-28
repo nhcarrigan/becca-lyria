@@ -18,12 +18,6 @@ export const handleView: CurrencyHandler = async (
   try {
     const { user } = interaction;
     const now = Date.now();
-    const dailyCooldown = Math.round(
-      new Date(data.dailyClaimed - now + 86400000).getTime() / 1000
-    );
-    const weeklyCooldown = Math.round(
-      new Date(data.weeklyClaimed - now + 604800000).getTime() / 1000
-    );
 
     const viewEmbed = new EmbedBuilder();
     viewEmbed.setTitle("Currency Report");
@@ -36,13 +30,17 @@ export const handleView: CurrencyHandler = async (
       {
         name: t("commands:currency.view.daily"),
         value:
-          dailyCooldown - Date.now() <= 0 ? "now!" : `<t:${dailyCooldown}:R>`,
+          data.dailyClaimed + 86400000 < now
+            ? "now!"
+            : `<t:${Math.round((data.dailyClaimed + 86400000) / 1000)}:R>`,
         inline: true,
       },
       {
         name: t("commands:currency.view.weekly"),
         value:
-          weeklyCooldown - Date.now() <= 0 ? "now!" : `<t:${weeklyCooldown}:R>`,
+          data.weeklyClaimed + 604800000 < now
+            ? "now!"
+            : `<t:${Math.round((data.weeklyClaimed + 604800000) / 1000)}:R>`,
         inline: true,
       },
     ]);
