@@ -82,24 +82,23 @@ export const handleSuggestion: CommandHandler = async (
       return;
     }
 
-    embeddedSuggestion.fields.push(
-      {
-        name:
-          action === "approve"
-            ? t("commands:manage.suggestion.approved")
-            : t("commands:manage.suggestion.denied"),
-        value: `<@!${author.id}>`,
-      },
-      {
-        name: t("commands:manage.suggestion.reason"),
-        value: customSubstring(reason, 1000),
-      }
-    );
-
     targetSuggestion.edit({
       embeds: [
         {
           ...embeddedSuggestion.toJSON(),
+          fields: [
+            {
+              name:
+                action === "approve"
+                  ? t("commands:manage.suggestion.approved")
+                  : t("commands:manage.suggestion.denied"),
+              value: `<@!${author.id}>`,
+            },
+            {
+              name: t("commands:manage.suggestion.reason"),
+              value: customSubstring(reason, 1000),
+            },
+          ],
           color:
             action === "approve" ? Becca.colours.success : Becca.colours.error,
         },
