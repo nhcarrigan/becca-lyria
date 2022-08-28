@@ -317,6 +317,11 @@ suite("updatesData", () => {
       updatesSinceLastRelease,
       "updatesSinceLastRelease is not an array"
     );
+    assert.isAtMost(
+      updatesSinceLastRelease.join("\n").length,
+      1024,
+      "Update list is too long for an embed field."
+    );
     assert.isDefined(
       nextScheduledRelease,
       "nextScheduledRelease is not defined"
