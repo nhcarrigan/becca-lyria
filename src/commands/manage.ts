@@ -67,6 +67,7 @@ export const manage: Command = {
             .setName("reason")
             .setDescription("The reason for approving/denying the suggestion.")
             .setRequired(true)
+            .setMaxLength(1024)
         )
     )
     .addSubcommand(
