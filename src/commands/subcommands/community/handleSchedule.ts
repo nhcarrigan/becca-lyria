@@ -60,7 +60,7 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
 
     await createEvent(Becca, {
       member: member.user.id,
-      time: time * 60000,
+      time: Date.now() + time * 60000,
       targetChannel: targetChannel.id,
       lang: getInteractionLanguage(interaction),
       message,

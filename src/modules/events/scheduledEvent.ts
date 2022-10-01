@@ -4,6 +4,7 @@ import ScheduledEventModel from "../../database/models/ScheduledEventModel";
 import { ScheduledEvent, RawScheduledEvent } from "../../interfaces/database/ScheduledEvent";
 import { ObjectId } from "bson";
 import { getFixedT } from "i18next";
+import e from "express";
 
 interface DBEvent extends ScheduledEvent {
   _id: ObjectId;
@@ -31,7 +32,7 @@ const createTimeout = (Becca: BeccaLyria, { member, targetChannel, lang, message
     }
     await ScheduledEventModel.deleteOne({ _id: _id });
     delete timeOuts[id];
-  }, time);
+  }, time - Date.now());
 };
 
 export const createEvent = async (Becca: BeccaLyria, rawEvent: RawScheduledEvent) => {
@@ -42,6 +43,10 @@ export const createEvent = async (Becca: BeccaLyria, rawEvent: RawScheduledEvent
 export const loadEvents = async (Becca: BeccaLyria) => {
   const events = await ScheduledEventModel.find();
   for (const event of events) {
-    createTimeout(Becca, event);
+    if(Date.now() > event.time) {
+      await ScheduledEventModel.deleteOne({ _id: event._id });
+    } else {
+      createTimeout(Becca, event);
+    }
   }
 };
