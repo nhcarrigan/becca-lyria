@@ -25,6 +25,7 @@ export const reactionRole: Command = {
   data: new SlashCommandBuilder()
     .setName("reactionrole")
     .setDescription("Commands for managing reaction roles.")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("create")

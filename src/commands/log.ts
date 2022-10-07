@@ -27,6 +27,7 @@ export const log: Command = {
   data: new SlashCommandBuilder()
     .setName("log")
     .setDescription("Manages the logging config.")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("set")

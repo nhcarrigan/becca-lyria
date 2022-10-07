@@ -35,6 +35,7 @@ export const automod: Command = {
   data: new SlashCommandBuilder()
     .setName("automod")
     .setDescription("Manages the automod config")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("set")

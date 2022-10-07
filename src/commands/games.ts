@@ -34,6 +34,7 @@ export const games: Command = {
   data: new SlashCommandBuilder()
     .setName("games")
     .setDescription("Fun and silly commands!")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("fact")
