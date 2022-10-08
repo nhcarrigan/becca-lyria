@@ -4,12 +4,9 @@ import {
   EmbedBuilder,
   GuildBasedChannel,
   GuildMember,
-  NewsChannel,
   PermissionFlagsBits,
-  TextChannel,
 } from "discord.js";
 
-import ScheduledEventModel from "../../../database/models/ScheduledEventModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -30,11 +27,11 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
     const message = interaction.options.getString("message", true);
 
     if (
-      !member ||
-      !(member as GuildMember)
-        ?.permissionsIn(targetChannel as GuildBasedChannel)
-        .has(PermissionFlagsBits.SendMessages)
-    ) {
+      !(member &&
+        (member as GuildMember)
+          ?.permissionsIn(targetChannel as GuildBasedChannel)
+          .has(PermissionFlagsBits.SendMessages)
+      )) {
       await interaction.editReply({
         content: t("commands:community.schedule.permission"),
       });
