@@ -2,8 +2,8 @@ import { EmbedBuilder } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { getCounts } from "../../modules/becca/getCounts";
-import { beccaLogHandler } from "../../utils/beccaLogHandler";
 import { loadEvents } from "../../modules/events/scheduledEvent";
+import { beccaLogHandler } from "../../utils/beccaLogHandler";
 
 /**
  * Sends a notification to the debug hook when Becca has connected to

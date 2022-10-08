@@ -7,7 +7,7 @@ export const ScheduledEventSchema = new Schema({
   time: Number,
   targetChannel: String,
   lang: String,
-  message: String
+  message: String,
 });
 
 export default model<ScheduledEvent>("ScheduledEvent", ScheduledEventSchema);

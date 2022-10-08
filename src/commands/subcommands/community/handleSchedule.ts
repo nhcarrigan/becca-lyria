@@ -9,8 +9,8 @@ import {
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
-import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { createEvent } from "../../../modules/events/scheduledEvent";
+import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getInteractionLanguage } from "../../../utils/getLangCode";
 
 /**
@@ -27,11 +27,13 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
     const message = interaction.options.getString("message", true);
 
     if (
-      !(member &&
+      !(
+        member &&
         (member as GuildMember)
           ?.permissionsIn(targetChannel as GuildBasedChannel)
           .has(PermissionFlagsBits.SendMessages)
-      )) {
+      )
+    ) {
       await interaction.editReply({
         content: t("commands:community.schedule.permission"),
       });

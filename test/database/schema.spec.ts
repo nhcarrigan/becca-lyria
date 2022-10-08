@@ -135,7 +135,10 @@ suite("Schema Validation", () => {
     const testModel = new ScheduledEventModel();
     for (const key in testSchedule) {
       test(`${key} should be in the ScheduledEvent schema`, () => {
-        assert(key in testModel, `Missing ${key} from the ScheduledEvent schema.`);
+        assert(
+          key in testModel,
+          `Missing ${key} from the ScheduledEvent schema.`
+        );
       });
     }
   });
