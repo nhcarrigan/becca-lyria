@@ -727,6 +727,13 @@
     "failure": "You have been opted out, but there was an issue deleting your data. Please contact Naomi.",
     "timeout": "Your request has timed out. Feel free to try again later. **Note that you are still opted in.**"
   },
+  "post": {
+    "create": {
+      "nonTextChannel": "I can't send messages in the <#{{channelId}}> channel as it isn't a text channel.",
+      "noPerms": "I don't have permissions to send messages in the <#{{channelId}}> channel.",
+      "success": "Successfully sent the post in <#{{channelId}}> channel!"
+    }
+  },
   "reactionrole": {
     "create": {
       "channel": "That does not appear to be a valid text channel.",
