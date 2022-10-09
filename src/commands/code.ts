@@ -24,6 +24,7 @@ export const code: Command = {
   data: new SlashCommandBuilder()
     .setName("code")
     .setDescription("Commands related to programming.")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("caniuse")

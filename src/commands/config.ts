@@ -30,6 +30,7 @@ export const config: Command = {
   data: new SlashCommandBuilder()
     .setName("config")
     .setDescription("Modify your server settings.")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("set")

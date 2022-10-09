@@ -44,6 +44,7 @@ export const community: Command = {
   data: new SlashCommandBuilder()
     .setName("community")
     .setDescription("Handles community-related features")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("leaderboard")

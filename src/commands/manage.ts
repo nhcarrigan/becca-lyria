@@ -26,6 +26,7 @@ export const manage: Command = {
   data: new SlashCommandBuilder()
     .setName("manage")
     .setDescription("Commands for managing your server.")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("resetlevels")

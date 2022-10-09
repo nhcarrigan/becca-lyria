@@ -50,6 +50,7 @@ export const becca: Command = {
   data: new SlashCommandBuilder()
     .setName("becca")
     .setDescription("Returns the uptime of the bot.")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("ping")
