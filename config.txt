@@ -1,0 +1,40 @@
+Config
+  Suggestion Channel
+  Heart Users
+  Blocked users
+  Report Channel
+  Ban Appeal
+  Sass Mode
+  Emote-only Channels
+
+Welcome
+  Welcome Channel
+  Leave Channel
+  Welcome Message
+  Leave Message
+  Join Role
+
+Levels
+  Level Toggle
+  Level Logs
+  Level Roles
+  Level Style
+  Level Message
+  Role Message
+  Starting XP
+  No-level Channels
+
+Automod
+  Automodded Channels
+  Automodded Ignores
+  Automodded Exempts
+  Allowed Links
+  Link Delete Message
+  Profanity Delete Message
+
+Logs
+  Message Events
+  Voice Events
+  Thread Events
+  Moderation Logs
+  Member Events
