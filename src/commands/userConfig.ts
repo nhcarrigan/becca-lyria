@@ -23,6 +23,7 @@ export const userConfig: Command = {
   data: new SlashCommandBuilder()
     .setName("userconfig")
     .setDescription("Manage your personal bot settings.")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("view")
