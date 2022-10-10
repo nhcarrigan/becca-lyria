@@ -17,14 +17,7 @@ import { getRandomValue } from "../../../utils/getRandomValue";
  */
 export const handleCreate: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const { member, guild } = interaction;
-
-    if (!guild) {
-      await interaction.reply({
-        content: getRandomValue(t("responses:missingGuild")),
-      });
-      return;
-    }
+    const { member } = interaction;
 
     if (
       !member ||
