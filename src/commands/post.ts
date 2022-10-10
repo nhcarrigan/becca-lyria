@@ -25,6 +25,7 @@ export const post: Command = {
   data: new SlashCommandBuilder()
     .setName("post")
     .setDescription("Commands for managing server posts.")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("create")
