@@ -17,21 +17,28 @@ import { getRandomValue } from "../../../utils/getRandomValue";
  */
 export const handleCreate: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const { member } = interaction;
+    const { member, guild } = interaction;
+
+    if (!guild) {
+      await interaction.reply({
+        content: getRandomValue(t("responses:missingGuild")),
+      });
+      return;
+    }
 
     if (
       !member ||
       typeof member.permissions === "string" ||
       !member.permissions.has(PermissionFlagsBits.ManageGuild)
     ) {
-      await interaction.editReply({
+      await interaction.reply({
         content: getRandomValue(t("responses:noPermission")),
       });
       return;
     }
 
     const channel = interaction.options.getChannel("channel", true);
-    const contentModal = new ModalBuilder()
+    const createModal = new ModalBuilder()
       .setCustomId(`pc-${channel.id}`)
       .setTitle("post create");
     const contentInput = new TextInputBuilder()
@@ -43,8 +50,8 @@ export const handleCreate: CommandHandler = async (Becca, interaction, t) => {
     const row = new ActionRowBuilder<TextInputBuilder>().addComponents(
       contentInput
     );
-    contentModal.addComponents(row);
-    await interaction.showModal(contentModal);
+    createModal.addComponents(row);
+    await interaction.showModal(createModal);
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
@@ -54,7 +61,7 @@ export const handleCreate: CommandHandler = async (Becca, interaction, t) => {
       undefined,
       interaction
     );
-    await interaction.editReply({
+    await interaction.reply({
       embeds: [errorEmbedGenerator(Becca, "create", errorId, t)],
     });
   }

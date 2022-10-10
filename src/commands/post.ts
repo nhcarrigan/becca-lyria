@@ -74,7 +74,7 @@ export const post: Command = {
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,
-        "code group command",
+        "post group command",
         err,
         interaction.guild?.name,
         undefined,
