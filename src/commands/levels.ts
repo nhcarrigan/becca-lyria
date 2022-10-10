@@ -1,10 +1,9 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import {
+  PermissionFlagsBits,
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
-} from "@discordjs/builders";
-import { PermissionFlagsBits } from "discord.js";
+} from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
@@ -13,60 +12,61 @@ import { attachSubcommandsToGroup } from "../utils/attachSubcommands";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
-import { handleAutomodAntiphish } from "./subcommands/automod/handleAutomodAntiphish";
-import { handleAutomodReset } from "./subcommands/automod/handleAutomodReset";
-import { handleAutomodSet } from "./subcommands/automod/handleAutomodSet";
-import { handleAutomodView } from "./subcommands/automod/handleAutomodView";
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
 
-const handlers: { [key: string]: CommandHandler } = {
-  set: handleAutomodSet,
-  toggle: handleAutomodSet,
-  reset: handleAutomodReset,
-  view: handleAutomodView,
-  antiphish: handleAutomodAntiphish,
-};
+const handlers: { [key: string]: CommandHandler } = {};
 
 const subcommands = [
   new SlashCommandSubcommandBuilder()
-    .setName("channels")
-    .setDescription("Add or remove a channel from automod.")
-    .addChannelOption((option) =>
+    .setName("toggle")
+    .setDescription("Turn the level system on or off.")
+    .addStringOption((option) =>
       option
-        .setName("channel")
-        .setDescription("The channel to edit.")
+        .setName("toggle")
+        .setDescription("Turn levels on or off.")
+        .addChoices({ name: "on", value: "on" }, { name: "off", value: "off" })
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("ignored-channels")
-    .setDescription("Add or remove a channel from automod's ignore list.")
+    .setName("logs")
+    .setDescription("Set where level + role messages should be logged.")
     .addChannelOption((option) =>
       option
         .setName("channel")
-        .setDescription("The channel to edit.")
+        .setDescription("The channel to log.")
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("exempt")
-    .setDescription("Add or remove a role from the automod exemption list.")
+    .setName("roles")
+    .setDescription("Add or remove a level-based role.")
     .addRoleOption((option) =>
       option
         .setName("role")
         .setDescription("The role to edit.")
         .setRequired(true)
-    ),
-  new SlashCommandSubcommandBuilder()
-    .setName("allowed-links")
-    .setDescription("Add or remove a regex to test for allowed links.")
-    .addStringOption((option) =>
+    )
+    .addIntegerOption((option) =>
       option
-        .setName("regex")
-        .setDescription("The regex to match against links")
+        .setName("level")
+        .setDescription("The level to assign the role.")
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("link-delete")
-    .setDescription("Set a custom message to be sent when a link is deleted.")
+    .setName("style")
+    .setDescription("Set the style of level/role messages.")
+    .addStringOption((option) =>
+      option
+        .setName("toggle")
+        .setDescription("The style to use.")
+        .addChoices(
+          { name: "text", value: "text" },
+          { name: "embed", value: "embed" }
+        )
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("level-message")
+    .setDescription("Set a custom message to be sent when someone levels up.")
     .addStringOption((option) =>
       option
         .setName("message")
@@ -74,9 +74,9 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("profanity-delete")
+    .setName("role-message")
     .setDescription(
-      "Set a custom message to be sent when profanity is deleted."
+      "Set a custom message to be sent when someone earns a level role."
     )
     .addStringOption((option) =>
       option
@@ -85,26 +85,29 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("antifish")
-    .setDescription("Set the action to take when a phishing link is detected.")
-    .addStringOption((option) =>
+    .setName("starting-xp")
+    .setDescription("Set a value for how much XP a user starts with.")
+    .addIntegerOption((option) =>
       option
-        .setName("message")
-        .setDescription("The message to send.")
+        .setName("points")
+        .setDescription("The XP to award when someone joins.")
         .setRequired(true)
-        .addChoices(
-          { name: "Do nothing when a scam link is detected.", value: "none" },
-          { name: "Mute the user for 24 hours.", value: "mute" },
-          { name: "Kick the user.", value: "kick" },
-          { name: "Ban the user.", value: "ban" }
-        )
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("ignored-channels")
+    .setDescription("Add or remove a channel from the levels ignore list.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel to edit.")
+        .setRequired(true)
     ),
 ];
 
-export const automod: Command = {
+export const levels: Command = {
   data: new SlashCommandBuilder()
-    .setName("automod")
-    .setDescription("Manages the automod config")
+    .setName("levels")
+    .setDescription("Manages the level system for the server.")
     .setDMPermission(false)
     .addSubcommandGroup(
       attachSubcommandsToGroup(
@@ -162,7 +165,7 @@ export const automod: Command = {
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,
-        "automod group command",
+        "welcome group command",
         err,
         interaction.guild?.name,
         undefined,

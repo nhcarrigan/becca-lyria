@@ -1,10 +1,9 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import {
+  PermissionFlagsBits,
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
-} from "@discordjs/builders";
-import { PermissionFlagsBits } from "discord.js";
+} from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
@@ -13,70 +12,33 @@ import { attachSubcommandsToGroup } from "../utils/attachSubcommands";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
-import { handleAutomodAntiphish } from "./subcommands/automod/handleAutomodAntiphish";
-import { handleAutomodReset } from "./subcommands/automod/handleAutomodReset";
-import { handleAutomodSet } from "./subcommands/automod/handleAutomodSet";
-import { handleAutomodView } from "./subcommands/automod/handleAutomodView";
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
 
-const handlers: { [key: string]: CommandHandler } = {
-  set: handleAutomodSet,
-  toggle: handleAutomodSet,
-  reset: handleAutomodReset,
-  view: handleAutomodView,
-  antiphish: handleAutomodAntiphish,
-};
+const handlers: { [key: string]: CommandHandler } = {};
 
 const subcommands = [
   new SlashCommandSubcommandBuilder()
-    .setName("channels")
-    .setDescription("Add or remove a channel from automod.")
+    .setName("welcome-channel")
+    .setDescription("Set the channel where welcome messages are sent.")
     .addChannelOption((option) =>
       option
         .setName("channel")
-        .setDescription("The channel to edit.")
+        .setDescription("The channel to use.")
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("ignored-channels")
-    .setDescription("Add or remove a channel from automod's ignore list.")
+    .setName("goodbye-channel")
+    .setDescription("Set the channel where goodbye messages are sent.")
     .addChannelOption((option) =>
       option
         .setName("channel")
-        .setDescription("The channel to edit.")
+        .setDescription("The channel to use.")
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("exempt")
-    .setDescription("Add or remove a role from the automod exemption list.")
-    .addRoleOption((option) =>
-      option
-        .setName("role")
-        .setDescription("The role to edit.")
-        .setRequired(true)
-    ),
-  new SlashCommandSubcommandBuilder()
-    .setName("allowed-links")
-    .setDescription("Add or remove a regex to test for allowed links.")
-    .addStringOption((option) =>
-      option
-        .setName("regex")
-        .setDescription("The regex to match against links")
-        .setRequired(true)
-    ),
-  new SlashCommandSubcommandBuilder()
-    .setName("link-delete")
-    .setDescription("Set a custom message to be sent when a link is deleted.")
-    .addStringOption((option) =>
-      option
-        .setName("message")
-        .setDescription("The message to send.")
-        .setRequired(true)
-    ),
-  new SlashCommandSubcommandBuilder()
-    .setName("profanity-delete")
+    .setName("welcome-message")
     .setDescription(
-      "Set a custom message to be sent when profanity is deleted."
+      "Set a custom message to be sent when someone joins the server."
     )
     .addStringOption((option) =>
       option
@@ -85,26 +47,31 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("antifish")
-    .setDescription("Set the action to take when a phishing link is detected.")
+    .setName("goodbye-message")
+    .setDescription(
+      "Set a custom message to be sent when someone leaves the server."
+    )
     .addStringOption((option) =>
       option
         .setName("message")
         .setDescription("The message to send.")
         .setRequired(true)
-        .addChoices(
-          { name: "Do nothing when a scam link is detected.", value: "none" },
-          { name: "Mute the user for 24 hours.", value: "mute" },
-          { name: "Kick the user.", value: "kick" },
-          { name: "Ban the user.", value: "ban" }
-        )
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("join-role")
+    .setDescription("Set a role to be assigned when someone joins.")
+    .addRoleOption((option) =>
+      option
+        .setName("role")
+        .setDescription("The role to assign.")
+        .setRequired(true)
     ),
 ];
 
-export const automod: Command = {
+export const welcome: Command = {
   data: new SlashCommandBuilder()
-    .setName("automod")
-    .setDescription("Manages the automod config")
+    .setName("welcome")
+    .setDescription("Manages the welcome system for the server.")
     .setDMPermission(false)
     .addSubcommandGroup(
       attachSubcommandsToGroup(
@@ -162,7 +129,7 @@ export const automod: Command = {
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,
-        "automod group command",
+        "welcome group command",
         err,
         interaction.guild?.name,
         undefined,

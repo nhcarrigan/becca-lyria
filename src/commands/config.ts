@@ -2,6 +2,7 @@
 import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
+  SlashCommandSubcommandGroupBuilder,
 } from "@discordjs/builders";
 import { PermissionFlagsBits } from "discord.js";
 
@@ -12,6 +13,7 @@ import {
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { attachSubcommandsToGroup } from "../utils/attachSubcommands";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
@@ -26,52 +28,96 @@ const handlers: { [key: string]: CommandHandler } = {
   view: handleView,
 };
 
+const subcommands = [
+  new SlashCommandSubcommandBuilder()
+    .setName("suggestion-channel")
+    .setDescription("Set where suggestions should be posted.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel to put suggestions in.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("heart-reacts")
+    .setDescription("Add/remove a user from the list of heart reactions.")
+    .addUserOption((option) =>
+      option
+        .setName("user")
+        .setDescription("The user to toggle.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("block-user")
+    .setDescription(
+      "Add/remove a user from the list of users who cannot interact with Becca"
+    )
+    .addUserOption((option) =>
+      option
+        .setName("user")
+        .setDescription("The user to toggle.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("ban-appeal")
+    .setDescription("Set a link for your server's ban appeal form.")
+    .addStringOption((option) =>
+      option
+        .setName("link")
+        .setDescription("The link to include in ban messages.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("sass-mode")
+    .setDescription("Toggle Becca's sass mode.")
+    .addStringOption((option) =>
+      option
+        .setName("toggle")
+        .setDescription("Turn sass on or off.")
+        .addChoices({ name: "on", value: "on" }, { name: "off", value: "off" })
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("emote-channel")
+    .setDescription("Add/remove a channel on the list of emote-only channels.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel to toggle emote-only mode in.")
+        .setRequired(true)
+    ),
+];
+
 export const config: Command = {
   data: new SlashCommandBuilder()
     .setName("config")
     .setDescription("Modify your server settings.")
     .setDMPermission(false)
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("set")
-        .setDescription("Update a server setting.")
-        .addStringOption((option) =>
-          option
-            .setName("setting")
-            .setDescription("The setting to update")
-            .setRequired(true)
-            .addChoices(...configChoices)
-        )
-        .addStringOption((option) =>
-          option
-            .setName("value")
-            .setDescription("The value to set.")
-            .setRequired(true)
-        )
+    .addSubcommandGroup(
+      attachSubcommandsToGroup(
+        new SlashCommandSubcommandGroupBuilder()
+          .setName("set")
+          .setDescription("Set a specific setting."),
+        subcommands
+      )
     )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("reset")
-        .setDescription("Reset a setting to default.")
-        .addStringOption((option) =>
-          option
-            .setName("setting")
-            .setDescription("The setting to reset")
-            .setRequired(true)
-            .addChoices(...configChoices)
-        )
+    .addSubcommandGroup(
+      attachSubcommandsToGroup(
+        new SlashCommandSubcommandGroupBuilder()
+          .setName("reset")
+          .setDescription("Clear the value of a specific setting."),
+        subcommands,
+        true
+      )
     )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("view")
-        .setDescription("View your settings.")
-        .addStringOption((option) =>
-          option
-            .setName("setting")
-            .setDescription("The setting list to view.")
-            .setRequired(true)
-            .addChoices(...configViewChoices)
-        )
+    .addSubcommandGroup(
+      attachSubcommandsToGroup(
+        new SlashCommandSubcommandGroupBuilder()
+          .setName("view")
+          .setDescription("View your config settings."),
+        subcommands,
+        true
+      )
     ),
   run: async (Becca, interaction, t, serverConfig) => {
     try {

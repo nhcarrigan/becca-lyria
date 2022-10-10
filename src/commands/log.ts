@@ -2,13 +2,14 @@
 import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
+  SlashCommandSubcommandGroupBuilder,
 } from "@discordjs/builders";
 import { PermissionFlagsBits } from "discord.js";
 
-import { logChoices } from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { attachSubcommandsToGroup } from "../utils/attachSubcommands";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
@@ -23,45 +24,84 @@ const handlers: { [key: string]: CommandHandler } = {
   view: handleLogView,
 };
 
+const subcommands = [
+  new SlashCommandSubcommandBuilder()
+    .setName("message-events")
+    .setDescription("Set where message edits/deletes should be logged.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel to log.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("voice-events")
+    .setDescription("Set where voice chat leaves/joins/mutes should be logged.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel to log.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("thread-events")
+    .setDescription("Set where thread create/deletes should be logged.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel to log.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("member-events")
+    .setDescription("Set where member updates should be logged.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel to log.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("moderation-log")
+    .setDescription("Set where moderation actions should be logged.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel to log.")
+        .setRequired(true)
+    ),
+];
+
 export const log: Command = {
   data: new SlashCommandBuilder()
     .setName("log")
     .setDescription("Manages the logging config.")
     .setDMPermission(false)
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("set")
-        .setDescription("Set a channel for a specific logging type")
-        .addStringOption((option) =>
-          option
-            .setName("event")
-            .setDescription("The type of events to log")
-            .addChoices(...logChoices)
-            .setRequired(true)
-        )
-        .addChannelOption((option) =>
-          option
-            .setName("channel")
-            .setDescription("The channel to log the events in.")
-            .setRequired(true)
-        )
+    .addSubcommandGroup(
+      attachSubcommandsToGroup(
+        new SlashCommandSubcommandGroupBuilder()
+          .setName("set")
+          .setDescription("Set a specific log setting."),
+        subcommands
+      )
     )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("reset")
-        .setDescription("Clear the logging option for a specific event.")
-        .addStringOption((option) =>
-          option
-            .setName("event")
-            .setDescription("The type of events to log")
-            .addChoices(...logChoices)
-            .setRequired(true)
-        )
+    .addSubcommandGroup(
+      attachSubcommandsToGroup(
+        new SlashCommandSubcommandGroupBuilder()
+          .setName("reset")
+          .setDescription("Clear the value of a specific setting."),
+        subcommands,
+        true
+      )
     )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("view")
-        .setDescription("View your logging settings.")
+    .addSubcommandGroup(
+      attachSubcommandsToGroup(
+        new SlashCommandSubcommandGroupBuilder()
+          .setName("view")
+          .setDescription("View your logging settings."),
+        subcommands,
+        true
+      )
     ),
   run: async (Becca, interaction, t, config) => {
     try {
