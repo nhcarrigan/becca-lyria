@@ -6,10 +6,6 @@ import {
 } from "@discordjs/builders";
 import { PermissionFlagsBits } from "discord.js";
 
-import {
-  configChoices,
-  configViewChoices,
-} from "../config/commands/settingsChoices";
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
