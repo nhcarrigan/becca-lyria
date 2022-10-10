@@ -26,6 +26,7 @@ export const triggers: Command = {
   data: new SlashCommandBuilder()
     .setName("triggers")
     .setDescription("Manage triggers for your server.")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("add")

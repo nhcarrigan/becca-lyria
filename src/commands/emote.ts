@@ -24,6 +24,7 @@ export const emote: Command = {
   data: new SlashCommandBuilder()
     .setName("emote")
     .setDescription("Emote commands!")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("use")

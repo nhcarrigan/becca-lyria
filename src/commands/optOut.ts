@@ -18,6 +18,7 @@ export const optOut: Command = {
   data: new SlashCommandBuilder()
     .setName("optout")
     .setDescription("Opt out of data collection.")
+    .setDMPermission(false)
     .addStringOption((option) =>
       option
         .setName("data-type")

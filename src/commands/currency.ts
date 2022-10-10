@@ -36,6 +36,7 @@ export const currency: Command = {
   data: new SlashCommandBuilder()
     .setName("currency")
     .setDescription("Handles Becca's economy system.")
+    .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("daily")
