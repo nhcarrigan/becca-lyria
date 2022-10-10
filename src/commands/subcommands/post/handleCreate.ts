@@ -55,7 +55,7 @@ export const handleCreate: CommandHandler = async (Becca, interaction, t) => {
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "post command",
+      "post create command",
       err,
       interaction.guild?.name,
       undefined,

@@ -44,7 +44,7 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
     }
     if (!channel || !("messages" in channel)) {
       await interaction.reply({
-        content: "unknown channel",
+        content: t("commands:post.edit.invalid"),
       });
       return;
     }
@@ -53,7 +53,7 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
 
     if (targetMessage.author !== Becca.user) {
       await interaction.reply({
-        content: "I can't edit that message as it wasn't posted by me.",
+        content: t("commands:post.edit.cant-edit"),
       });
       return;
     }
@@ -76,7 +76,7 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "post command",
+      "post edit command",
       err,
       interaction.guild?.name,
       undefined,

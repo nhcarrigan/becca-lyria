@@ -735,7 +735,14 @@
     },
     "edit": {
       "failure": "I am not able to edit that message at {{- link}}.",
-      "success": "Successfully updated the post at {{- link}}!"
+      "success": "Successfully updated the post at {{- link}}!",
+      "invlid": "Invalid message link entered.",
+      "cant-edit": "I can't edit that message as it wasn't posted by me."
+    },
+    "delete": {
+      "success": "Succesfully deleted post!",
+      "invalid": "Invalid message link entered.",
+      "cant-delete": "I can't delete that message as it wasn't posted by me."
     }
   },
   "reactionrole": {

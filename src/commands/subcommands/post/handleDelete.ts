@@ -1,39 +1,69 @@
 /* eslint-disable jsdoc/require-param */
-import { EmbedBuilder } from "discord.js";
+import { PermissionFlagsBits } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
- * Generates an embed containing CanIUse browser data for the given `feature` argument.
+ * Creates a Modal for text input for the content of post to be updated by the bot.
  */
 export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const feature = interaction.options.getString("feature", true);
+    const { member, guild } = interaction;
 
-    const caniuseEmbed = new EmbedBuilder();
-    caniuseEmbed.setTitle(t("commands:code.caniuse.title", { feature }));
-    caniuseEmbed.setImage(`https://caniuse.bitsofco.de/image/${feature}.webp`);
-    caniuseEmbed.setTimestamp();
-    caniuseEmbed.setColor(Becca.colours.default);
-    caniuseEmbed.setFooter({
-      text: t("defaults:donate"),
-      iconURL: "https://cdn.nhcarrigan.com/profile.png",
-    });
+    if (!guild) {
+      await interaction.reply({
+        content: getRandomValue(t("responses:missingGuild")),
+      });
+      return;
+    }
 
-    await interaction.editReply({ embeds: [caniuseEmbed] });
+    const link = interaction.options.getString("link", true).split("/");
+    const channelId = link[link.length - 2];
+    const messageId = link[link.length - 1];
+
+    const channel = guild.channels.resolve(channelId);
+
+    if (
+      !member ||
+      typeof member.permissions === "string" ||
+      !member.permissions.has(PermissionFlagsBits.ManageGuild)
+    ) {
+      await interaction.reply({
+        content: getRandomValue(t("responses:noPermission")),
+      });
+      return;
+    }
+    if (!channel || !("messages" in channel)) {
+      await interaction.reply({
+        content: t("commands:post.delete.invalid"),
+      });
+      return;
+    }
+
+    const targetMessage = await channel.messages.fetch(messageId);
+
+    if (targetMessage.author !== Becca.user || !targetMessage.deletable) {
+      await interaction.reply({
+        content: t("commands:post.delete.cant-delete"),
+      });
+      return;
+    }
+    targetMessage.delete();
+    await interaction.reply({ content: t("commands:post.delete.success") });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "caniuse command",
+      "post delete command",
       err,
       interaction.guild?.name,
       undefined,
       interaction
     );
-    await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "caniuse", errorId, t)],
+    await interaction.reply({
+      embeds: [errorEmbedGenerator(Becca, "delete", errorId, t)],
     });
   }
 };
