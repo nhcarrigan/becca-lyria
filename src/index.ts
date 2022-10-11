@@ -109,6 +109,7 @@ void (async () => {
     return;
   }
 
+  Becca.timeOuts = {};
   beccaLogHandler.log("debug", "Attaching event listeners...");
   handleEvents(Becca);
 

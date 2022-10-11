@@ -1,14 +1,12 @@
 import { Document } from "mongoose";
 
-export interface RawScheduledEvent {
+export interface ScheduledEvent extends Document {
   member: string;
   time: number;
   targetChannel: string;
   lang: string;
   message: string;
 }
-
-export type ScheduledEvent = RawScheduledEvent & Document;
 
 export const testSchedule: Omit<ScheduledEvent, keyof Document> = {
   member: "716707753090875473",

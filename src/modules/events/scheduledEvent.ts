@@ -1,30 +1,16 @@
-import { randomUUID } from "crypto";
-
-import { ObjectId } from "bson";
 import { ChannelType } from "discord.js";
 import { getFixedT } from "i18next";
+import { Document } from "mongoose";
 
 import ScheduledEventModel from "../../database/models/ScheduledEventModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import {
-  ScheduledEvent,
-  RawScheduledEvent,
-} from "../../interfaces/database/ScheduledEvent";
-
-interface DBEvent extends ScheduledEvent {
-  _id: ObjectId;
-}
-
-const timeOuts: {
-  [uuid: string]: NodeJS.Timeout;
-} = {};
+import { ScheduledEvent } from "../../interfaces/database/ScheduledEvent";
 
 const createTimeout = (
   Becca: BeccaLyria,
-  { member, targetChannel, lang, message, time, _id }: DBEvent
+  { member, targetChannel, lang, message, time, _id }: ScheduledEvent
 ) => {
-  const id = randomUUID();
-  timeOuts[id] = setTimeout(async () => {
+  Becca.timeOuts[_id] = setTimeout(async () => {
     const channel = await Becca.channels.fetch(targetChannel);
     const t = getFixedT(lang);
     if (
@@ -43,16 +29,19 @@ const createTimeout = (
       });
     }
     await ScheduledEventModel.deleteOne({ _id: _id });
-    delete timeOuts[id];
+    delete Becca.timeOuts[_id];
   }, time - Date.now());
 };
 
 /**
  *
  * @param {BeccaLyria} Becca Current running Becca instance.
- * @param {RawScheduledEvent} rawEvent Raw scheduled event data to be placed into the database and the scheduler.
+ * @param {Omit<ScheduledEvent, keyof Document>} rawEvent Raw scheduled event data to be placed into the database and the scheduler.
  */
-const createEvent = async (Becca: BeccaLyria, rawEvent: RawScheduledEvent) => {
+export const createEvent = async (
+  Becca: BeccaLyria,
+  rawEvent: Omit<ScheduledEvent, keyof Document>
+) => {
   const dbEvent = await ScheduledEventModel.create(rawEvent);
   createTimeout(Becca, dbEvent);
 };
@@ -61,7 +50,7 @@ const createEvent = async (Becca: BeccaLyria, rawEvent: RawScheduledEvent) => {
  *
  * @param {BeccaLyria} Becca Current running Becca instance.
  */
-const loadEvents = async (Becca: BeccaLyria) => {
+export const loadEvents = async (Becca: BeccaLyria) => {
   const events = await ScheduledEventModel.find();
   for (const event of events) {
     if (Date.now() > event.time) {
@@ -71,5 +60,3 @@ const loadEvents = async (Becca: BeccaLyria) => {
     }
   }
 };
-
-export { timeOuts, createEvent, loadEvents };

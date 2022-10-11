@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 
 import { ScheduledEvent } from "../../interfaces/database/ScheduledEvent";
 
-export const ScheduledEventSchema = new Schema({
+export const ScheduledEventSchema = new Schema<ScheduledEvent>({
   member: String,
   time: Number,
   targetChannel: String,
