@@ -11,6 +11,7 @@ import ServerConfigModel from "../../src/database/models/ServerConfigModel";
 import StarModel from "../../src/database/models/StarModel";
 import UsageModel from "../../src/database/models/UsageModel";
 import VoterModel from "../../src/database/models/VoterModel";
+import ScheduledEventModel from "../../src/database/models/ScheduledEventModel";
 import { testActivity } from "../../src/interfaces/database/Activity";
 import { testCommandCount } from "../../src/interfaces/database/CommandCount";
 import { testCurrency } from "../../src/interfaces/database/Currency";
@@ -22,6 +23,7 @@ import { testServerConfig } from "../../src/interfaces/database/ServerConfig";
 import { testStar } from "../../src/interfaces/database/Star";
 import { testUsage } from "../../src/interfaces/database/Usage";
 import { testVoter } from "../../src/interfaces/database/Voter";
+import { testSchedule } from "../../src/interfaces/database/ScheduledEvent";
 
 suite("Schema Validation", () => {
   suite("Activity Schema", () => {
@@ -125,6 +127,18 @@ suite("Schema Validation", () => {
     for (const key in testVoter) {
       test(`${key} should be in the Voter schema`, () => {
         assert(key in testModel, `Missing ${key} from the Voter schema.`);
+      });
+    }
+  });
+
+  suite("ScheduledEvent Model", () => {
+    const testModel = new ScheduledEventModel();
+    for (const key in testSchedule) {
+      test(`${key} should be in the ScheduledEvent schema`, () => {
+        assert(
+          key in testModel,
+          `Missing ${key} from the ScheduledEvent schema.`
+        );
       });
     }
   });

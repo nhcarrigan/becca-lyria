@@ -247,7 +247,7 @@
       "post": "{{- id}}, here is your scheduled post:\n{{- message}}",
       "embed": {
         "title": "Message Scheduled",
-        "description": "I will send your message with the following settings. Please note that my memory is not perfect, and if I need to be restarted your scheduled post will be lost.",
+        "description": "I will send your message with the following settings. Please note that I am not perfect, and if I am offline when your event is scheduled to run, it will be discarded.",
         "time": "Time",
         "minutes": "{{time}} minutes",
         "channel": "Target Channel",
