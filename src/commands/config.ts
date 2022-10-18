@@ -7,7 +7,8 @@ import {
 import { PermissionFlagsBits } from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
-import { CommandHandler } from "../interfaces/commands/CommandHandler";
+import { Settings } from "../interfaces/settings/Settings";
+import { SettingsHandler } from "../interfaces/settings/SettingsHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { attachSubcommandsToGroup } from "../utils/attachSubcommands";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
@@ -18,7 +19,7 @@ import { handleSet } from "./subcommands/config/handleSet";
 import { handleView } from "./subcommands/config/handleView";
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
 
-const handlers: { [key: string]: CommandHandler } = {
+const handlers: { [key: string]: SettingsHandler } = {
   set: handleSet,
   reset: handleReset,
   view: handleView,
@@ -138,9 +139,18 @@ export const config: Command = {
         return;
       }
 
-      const action = interaction.options.getSubcommand();
-      const handler = handlers[action] || handleInvalidSubcommand;
-      await handler(Becca, interaction, t, serverConfig);
+      const action = interaction.options.getSubcommandGroup(true);
+      const setting = interaction.options.getSubcommand(true) as Settings;
+      const subcommandData = subcommands.find((el) => el.name === setting);
+      if (!subcommandData) {
+        await handleInvalidSubcommand(Becca, interaction, t, serverConfig);
+        return;
+      }
+      const value = `${
+        interaction.options.get(subcommandData.options[0].name, true).value
+      }`;
+      const handler = handlers[action];
+      await handler(Becca, interaction, t, serverConfig, setting, value);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

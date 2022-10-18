@@ -36,4 +36,5 @@ export type Settings =
   | "initial_xp"
   | "level_style"
   | "level_message"
-  | "role_message";
+  | "role_message"
+  | "triggers";
