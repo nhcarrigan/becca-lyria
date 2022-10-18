@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-returns-check */
 /**
  * Type definitions for leo-profanity version 1.3.0.
  * Project: https://github.com/jojoee/leo-profanity
@@ -6,6 +7,8 @@
 declare module "leo-profanity" {
   /**
    * Return current profanity words.
+   *
+   * @returns {string[]} - Current profanity words.
    */
   function list(): string[];
 
@@ -14,6 +17,7 @@ declare module "leo-profanity" {
    * profanity.
    *
    * @param {string} str The string to check.
+   * @returns {boolean} - True if the string contains profanity.
    */
   function check(str: string): boolean;
 
@@ -23,12 +27,14 @@ declare module "leo-profanity" {
    * @param {string} str The string to replace.
    * @param {string} replaceKey The string to replace with.
    * @param {number} nbLetters The number of letters in `str` to replace.
+   * @returns {string} - The string with the letters replaced.
    */
   function clean(str: string, replaceKey: string, nbLetters: number): string;
   /**
    * Get list of used profane words.
    *
    * @param {string} str The string to check.
+   * @returns {string[]} - List of used profane words.
    */
   function badWordsUsed(str: string): string[];
 
@@ -60,6 +66,7 @@ declare module "leo-profanity" {
    * Return the word list from the dictionary.
    *
    * @param {string} name The name of the dictionary to read.
+   * @returns {string[]} - The word list from the dictionary.
    */
   function getDictionary(name: string): string[];
 
