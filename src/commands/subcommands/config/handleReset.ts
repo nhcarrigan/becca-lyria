@@ -1,6 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
-import { Settings } from "../../../interfaces/settings/Settings";
+import { SettingsHandler } from "../../../interfaces/settings/SettingsHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { resetSetting } from "../../../modules/settings/resetSetting";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -9,11 +8,12 @@ import { getRandomValue } from "../../../utils/getRandomValue";
 /**
  * Resets the given `setting` to the default value.
  */
-export const handleReset: CommandHandler = async (
+export const handleReset: SettingsHandler = async (
   Becca,
   interaction,
   t,
-  config
+  config,
+  setting
 ) => {
   try {
     const { guild } = interaction;
@@ -25,12 +25,11 @@ export const handleReset: CommandHandler = async (
       return;
     }
 
-    const setting = interaction.options.getString("setting");
     const success = await resetSetting(
       Becca,
       guild.id,
       guild.name,
-      setting as Settings,
+      setting,
       config
     );
     await interaction.editReply(

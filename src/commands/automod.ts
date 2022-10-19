@@ -2,117 +2,134 @@
 import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
+  SlashCommandSubcommandGroupBuilder,
 } from "@discordjs/builders";
 import { PermissionFlagsBits } from "discord.js";
 
-import {
-  automodAntiphishChoices,
-  automodChoices,
-  automodToggleChoices,
-  automodViewChoices,
-} from "../config/commands/settingsChoices";
+import { defaultServer } from "../config/database/defaultServer";
 import { Command } from "../interfaces/commands/Command";
-import { CommandHandler } from "../interfaces/commands/CommandHandler";
+import { Settings } from "../interfaces/settings/Settings";
+import { SettingsHandler } from "../interfaces/settings/SettingsHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
+import { attachSubcommandsToGroup } from "../utils/attachSubcommands";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
 
-import { handleAutomodAntiphish } from "./subcommands/automod/handleAutomodAntiphish";
-import { handleAutomodReset } from "./subcommands/automod/handleAutomodReset";
-import { handleAutomodSet } from "./subcommands/automod/handleAutomodSet";
-import { handleAutomodView } from "./subcommands/automod/handleAutomodView";
+import { handleReset } from "./subcommands/config/handleReset";
+import { handleSet } from "./subcommands/config/handleSet";
+import { handleView } from "./subcommands/config/handleView";
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
 
-const handlers: { [key: string]: CommandHandler } = {
-  set: handleAutomodSet,
-  toggle: handleAutomodSet,
-  reset: handleAutomodReset,
-  view: handleAutomodView,
-  antiphish: handleAutomodAntiphish,
+const handlers: { [key: string]: SettingsHandler } = {
+  set: handleSet,
+  reset: handleReset,
+  view: handleView,
 };
+
+const subcommands = [
+  new SlashCommandSubcommandBuilder()
+    .setName("automod_channels")
+    .setDescription("Add or remove a channel from automod.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel to edit.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("no_automod_channels")
+    .setDescription("Add or remove a channel from automod's ignore list.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel to edit.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("automod_roles")
+    .setDescription("Add or remove a role from the automod exemption list.")
+    .addRoleOption((option) =>
+      option
+        .setName("role")
+        .setDescription("The role to edit.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("allowed_links")
+    .setDescription("Add or remove a regex to test for allowed links.")
+    .addStringOption((option) =>
+      option
+        .setName("regex")
+        .setDescription("The regex to match against links")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("link_message")
+    .setDescription("Set a custom message to be sent when a link is deleted.")
+    .addStringOption((option) =>
+      option
+        .setName("message")
+        .setDescription("The message to send.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("profanity_message")
+    .setDescription(
+      "Set a custom message to be sent when profanity is deleted."
+    )
+    .addStringOption((option) =>
+      option
+        .setName("message")
+        .setDescription("The message to send.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("antiphish")
+    .setDescription("Set the action to take when a phishing link is detected.")
+    .addStringOption((option) =>
+      option
+        .setName("message")
+        .setDescription("The message to send.")
+        .setRequired(true)
+        .addChoices(
+          { name: "Do nothing when a scam link is detected.", value: "none" },
+          { name: "Mute the user for 24 hours.", value: "mute" },
+          { name: "Kick the user.", value: "kick" },
+          { name: "Ban the user.", value: "ban" }
+        )
+    ),
+];
 
 export const automod: Command = {
   data: new SlashCommandBuilder()
     .setName("automod")
     .setDescription("Manages the automod config")
     .setDMPermission(false)
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("set")
-        .setDescription("Set a specific automod setting.")
-        .addStringOption((option) =>
-          option
-            .setName("setting")
-            .setDescription("The setting to edit.")
-            .addChoices(...automodChoices)
-            .setRequired(true)
-        )
-        .addStringOption((option) =>
-          option
-            .setName("value")
-            .setDescription("The value to set the setting to.")
-            .setRequired(true)
-        )
+    .addSubcommandGroup(
+      attachSubcommandsToGroup(
+        new SlashCommandSubcommandGroupBuilder()
+          .setName("set")
+          .setDescription("Set a specific automod setting."),
+        subcommands
+      )
     )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("reset")
-        .setDescription("Clear the value of a specific setting.")
-        .addStringOption((option) =>
-          option
-            .setName("setting")
-            .setDescription("The setting to clear the value of.")
-            .addChoices(...automodChoices)
-            .setRequired(true)
-        )
+    .addSubcommandGroup(
+      attachSubcommandsToGroup(
+        new SlashCommandSubcommandGroupBuilder()
+          .setName("reset")
+          .setDescription("Clear the value of a specific setting."),
+        subcommands,
+        true
+      )
     )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("view")
-        .setDescription("View your logging settings.")
-        .addStringOption((option) =>
-          option
-            .setName("setting")
-            .setDescription("The setting to view.")
-            .setRequired(true)
-            .addChoices(...automodViewChoices)
-        )
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("toggle")
-        .setDescription("Toggle an automod feature on or off.")
-        .addStringOption((option) =>
-          option
-            .setName("setting")
-            .setDescription("The setting to toggle.")
-            .setRequired(true)
-            .addChoices(...automodToggleChoices)
-        )
-        .addStringOption((option) =>
-          option
-            .setName("value")
-            .setDescription("Enable/Disable the setting.")
-            .setRequired(true)
-            .addChoices(
-              { name: "Enabled", value: "on" },
-              { name: "Disabled", value: "off" }
-            )
-        )
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("antiphish")
-        .setDescription(
-          "Set the action to take when a fishing link is detected."
-        )
-        .addStringOption((option) =>
-          option
-            .setName("action")
-            .setDescription("The action to take.")
-            .setRequired(true)
-            .addChoices(...automodAntiphishChoices)
-        )
+    .addSubcommandGroup(
+      attachSubcommandsToGroup(
+        new SlashCommandSubcommandGroupBuilder()
+          .setName("view")
+          .setDescription("View your automod settings."),
+        subcommands,
+        true
+      )
     ),
   run: async (Becca, interaction, t, config) => {
     try {
@@ -137,9 +154,19 @@ export const automod: Command = {
         return;
       }
 
-      const action = interaction.options.getSubcommand();
-      const handler = handlers[action] || handleInvalidSubcommand;
-      await handler(Becca, interaction, t, config);
+      const action = interaction.options.getSubcommandGroup(true);
+      const setting = interaction.options.getSubcommand(true) as Settings;
+      const subcommandData = subcommands.find((el) => el.name === setting);
+      if (!subcommandData) {
+        await handleInvalidSubcommand(Becca, interaction, t, config);
+        return;
+      }
+      const value = `${
+        interaction.options.get(subcommandData.options[0].name)?.value ??
+        defaultServer[setting]
+      }`;
+      const handler = handlers[action];
+      await handler(Becca, interaction, t, config, setting, value);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(

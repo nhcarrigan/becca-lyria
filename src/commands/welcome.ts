@@ -1,10 +1,9 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import {
+  PermissionFlagsBits,
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
-} from "@discordjs/builders";
-import { PermissionFlagsBits } from "discord.js";
+} from "discord.js";
 
 import { defaultServer } from "../config/database/defaultServer";
 import { Command } from "../interfaces/commands/Command";
@@ -28,83 +27,66 @@ const handlers: { [key: string]: SettingsHandler } = {
 
 const subcommands = [
   new SlashCommandSubcommandBuilder()
-    .setName("suggestion_channel")
-    .setDescription("Set where suggestions should be posted.")
+    .setName("welcome_channel")
+    .setDescription("Set the channel where welcome messages are sent.")
     .addChannelOption((option) =>
       option
         .setName("channel")
-        .setDescription("The channel to put suggestions in.")
+        .setDescription("The channel to use.")
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("hearts")
-    .setDescription("Add/remove a user from the list of heart reactions.")
-    .addUserOption((option) =>
+    .setName("depart_channel")
+    .setDescription("Set the channel where goodbye messages are sent.")
+    .addChannelOption((option) =>
       option
-        .setName("user")
-        .setDescription("The user to toggle.")
+        .setName("channel")
+        .setDescription("The channel to use.")
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("blocked")
+    .setName("custom_welcome")
     .setDescription(
-      "Add/remove a user from the list of users who cannot interact with Becca"
+      "Set a custom message to be sent when someone joins the server."
     )
-    .addUserOption((option) =>
-      option
-        .setName("user")
-        .setDescription("The user to toggle.")
-        .setRequired(true)
-    ),
-  new SlashCommandSubcommandBuilder()
-    .setName("appeal_link")
-    .setDescription("Set a link for your server's ban appeal form.")
     .addStringOption((option) =>
       option
-        .setName("link")
-        .setDescription("The link to include in ban messages.")
+        .setName("message")
+        .setDescription("The message to send.")
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("sass_mode")
-    .setDescription("Toggle Becca's sass mode.")
+    .setName("leave_message")
+    .setDescription(
+      "Set a custom message to be sent when someone leaves the server."
+    )
     .addStringOption((option) =>
       option
-        .setName("toggle")
-        .setDescription("Turn sass on or off.")
-        .addChoices({ name: "on", value: "on" }, { name: "off", value: "off" })
+        .setName("message")
+        .setDescription("The message to send.")
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("emote_channels")
-    .setDescription("Add/remove a channel on the list of emote-only channels.")
-    .addChannelOption((option) =>
+    .setName("join_role")
+    .setDescription("Set a role to be assigned when someone joins.")
+    .addRoleOption((option) =>
       option
-        .setName("channel")
-        .setDescription("The channel to toggle emote-only mode in.")
-        .setRequired(true)
-    ),
-  new SlashCommandSubcommandBuilder()
-    .setName("report_channel")
-    .setDescription("Set where message reports should be posted.")
-    .addChannelOption((option) =>
-      option
-        .setName("channel")
-        .setDescription("The channel to put reports in.")
+        .setName("role")
+        .setDescription("The role to assign.")
         .setRequired(true)
     ),
 ];
 
-export const config: Command = {
+export const welcome: Command = {
   data: new SlashCommandBuilder()
-    .setName("config")
-    .setDescription("Modify your server settings.")
+    .setName("welcome")
+    .setDescription("Manages the welcome system for the server.")
     .setDMPermission(false)
     .addSubcommandGroup(
       attachSubcommandsToGroup(
         new SlashCommandSubcommandGroupBuilder()
           .setName("set")
-          .setDescription("Set a specific setting."),
+          .setDescription("Set a specific automod setting."),
         subcommands
       )
     )
@@ -121,12 +103,12 @@ export const config: Command = {
       attachSubcommandsToGroup(
         new SlashCommandSubcommandGroupBuilder()
           .setName("view")
-          .setDescription("View your config settings."),
+          .setDescription("View your automod settings."),
         subcommands,
         true
       )
     ),
-  run: async (Becca, interaction, t, serverConfig) => {
+  run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
       const { guild, member } = interaction;
@@ -153,7 +135,7 @@ export const config: Command = {
       const setting = interaction.options.getSubcommand(true) as Settings;
       const subcommandData = subcommands.find((el) => el.name === setting);
       if (!subcommandData) {
-        await handleInvalidSubcommand(Becca, interaction, t, serverConfig);
+        await handleInvalidSubcommand(Becca, interaction, t, config);
         return;
       }
       const value = `${
@@ -161,19 +143,19 @@ export const config: Command = {
         defaultServer[setting]
       }`;
       const handler = handlers[action];
-      await handler(Becca, interaction, t, serverConfig, setting, value);
+      await handler(Becca, interaction, t, config, setting, value);
       Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,
-        "config group command",
+        "welcome group command",
         err,
         interaction.guild?.name,
         undefined,
         interaction
       );
       await interaction.editReply({
-        embeds: [errorEmbedGenerator(Becca, "config group", errorId, t)],
+        embeds: [errorEmbedGenerator(Becca, "automod group", errorId, t)],
       });
     }
   },

@@ -12,6 +12,7 @@ suite("sleep", () => {
     const start = Date.now();
     await sleep(100);
     const end = Date.now();
-    assert.isAtLeast(end - start, 100, "sleep did not resolve in given time");
+    assert.isAtLeast(end - start, 90, "sleep did not resolve in given time");
+    assert.isAtMost(end - start, 110, "sleep did not resolve in given time");
   });
 });

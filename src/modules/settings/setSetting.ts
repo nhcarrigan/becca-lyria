@@ -27,23 +27,12 @@ export const setSetting = async (
   server: ServerConfig
 ): Promise<ServerConfig | null> => {
   try {
-    const parsedValue = value.replace(/\D/g, "");
+    const parsedValue =
+      typeof value === "string" ? value.replace(/\D/g, "") : value;
 
     switch (key) {
       case "automod_channels":
       case "no_automod_channels":
-        if (value === "all") {
-          server[key] = ["all"];
-          break;
-        }
-        if (server[key].includes(parsedValue)) {
-          const index = server[key].indexOf(parsedValue);
-          server[key].splice(index, 1);
-        } else {
-          server[key].push(parsedValue);
-        }
-        server.markModified(key);
-        break;
       case "hearts":
       case "blocked":
       case "automod_roles":
