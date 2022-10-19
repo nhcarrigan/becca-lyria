@@ -26,7 +26,7 @@ const handlers: { [key: string]: SettingsHandler } = {
 
 const subcommands = [
   new SlashCommandSubcommandBuilder()
-    .setName("toggle")
+    .setName("levels")
     .setDescription("Turn the level system on or off.")
     .addStringOption((option) =>
       option
@@ -36,7 +36,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("logs")
+    .setName("level_channel")
     .setDescription("Set where level + role messages should be logged.")
     .addChannelOption((option) =>
       option
@@ -45,7 +45,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("roles")
+    .setName("level_roles")
     .setDescription("Add or remove a level-based role.")
     .addRoleOption((option) =>
       option
@@ -60,7 +60,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("style")
+    .setName("level_style")
     .setDescription("Set the style of level/role messages.")
     .addStringOption((option) =>
       option
@@ -73,7 +73,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("level-message")
+    .setName("level_message")
     .setDescription("Set a custom message to be sent when someone levels up.")
     .addStringOption((option) =>
       option
@@ -82,7 +82,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("role-message")
+    .setName("role_message")
     .setDescription(
       "Set a custom message to be sent when someone earns a level role."
     )
@@ -93,7 +93,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("starting-xp")
+    .setName("initial_xp")
     .setDescription("Set a value for how much XP a user starts with.")
     .addIntegerOption((option) =>
       option
@@ -102,7 +102,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("ignored-channels")
+    .setName("level_ignore")
     .setDescription("Add or remove a channel from the levels ignore list.")
     .addChannelOption((option) =>
       option

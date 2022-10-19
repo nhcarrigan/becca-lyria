@@ -27,7 +27,7 @@ const handlers: { [key: string]: SettingsHandler } = {
 
 const subcommands = [
   new SlashCommandSubcommandBuilder()
-    .setName("suggestion-channel")
+    .setName("suggestion_channel")
     .setDescription("Set where suggestions should be posted.")
     .addChannelOption((option) =>
       option
@@ -36,7 +36,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("heart-reacts")
+    .setName("hearts")
     .setDescription("Add/remove a user from the list of heart reactions.")
     .addUserOption((option) =>
       option
@@ -45,7 +45,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("block-user")
+    .setName("blocked")
     .setDescription(
       "Add/remove a user from the list of users who cannot interact with Becca"
     )
@@ -56,7 +56,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("ban-appeal")
+    .setName("appeal_link")
     .setDescription("Set a link for your server's ban appeal form.")
     .addStringOption((option) =>
       option
@@ -65,7 +65,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("sass-mode")
+    .setName("sass_mode")
     .setDescription("Toggle Becca's sass mode.")
     .addStringOption((option) =>
       option
@@ -75,12 +75,21 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("emote-channel")
+    .setName("emote_channels")
     .setDescription("Add/remove a channel on the list of emote-only channels.")
     .addChannelOption((option) =>
       option
         .setName("channel")
         .setDescription("The channel to toggle emote-only mode in.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("report_channel")
+    .setDescription("Set where message reports should be posted.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel to put reports in.")
         .setRequired(true)
     ),
 ];

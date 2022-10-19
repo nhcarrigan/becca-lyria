@@ -27,7 +27,7 @@ const handlers: { [key: string]: SettingsHandler } = {
 
 const subcommands = [
   new SlashCommandSubcommandBuilder()
-    .setName("message-events")
+    .setName("message_events")
     .setDescription("Set where message edits/deletes should be logged.")
     .addChannelOption((option) =>
       option
@@ -36,7 +36,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("voice-events")
+    .setName("voice_events")
     .setDescription("Set where voice chat leaves/joins/mutes should be logged.")
     .addChannelOption((option) =>
       option
@@ -45,7 +45,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("thread-events")
+    .setName("thread_events")
     .setDescription("Set where thread create/deletes should be logged.")
     .addChannelOption((option) =>
       option
@@ -54,7 +54,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("member-events")
+    .setName("member_events")
     .setDescription("Set where member updates should be logged.")
     .addChannelOption((option) =>
       option
@@ -63,7 +63,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("moderation-log")
+    .setName("moderation_events")
     .setDescription("Set where moderation actions should be logged.")
     .addChannelOption((option) =>
       option

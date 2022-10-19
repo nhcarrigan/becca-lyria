@@ -26,7 +26,7 @@ const handlers: { [key: string]: SettingsHandler } = {
 
 const subcommands = [
   new SlashCommandSubcommandBuilder()
-    .setName("welcome-channel")
+    .setName("welcome_channel")
     .setDescription("Set the channel where welcome messages are sent.")
     .addChannelOption((option) =>
       option
@@ -35,7 +35,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("goodbye-channel")
+    .setName("depart_channel")
     .setDescription("Set the channel where goodbye messages are sent.")
     .addChannelOption((option) =>
       option
@@ -44,7 +44,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("welcome-message")
+    .setName("custom_welcome")
     .setDescription(
       "Set a custom message to be sent when someone joins the server."
     )
@@ -55,7 +55,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("goodbye-message")
+    .setName("leave_message")
     .setDescription(
       "Set a custom message to be sent when someone leaves the server."
     )
@@ -66,7 +66,7 @@ const subcommands = [
         .setRequired(true)
     ),
   new SlashCommandSubcommandBuilder()
-    .setName("join-role")
+    .setName("join_role")
     .setDescription("Set a role to be assigned when someone joins.")
     .addRoleOption((option) =>
       option
