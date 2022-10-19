@@ -23,9 +23,7 @@ import {
   updatesSinceLastRelease,
   nextScheduledRelease,
 } from "../../src/config/commands/updatesData";
-import { defaultServer } from "../../src/config/database/defaultServer";
 import { testEmoteCount } from "../../src/interfaces/database/EmoteCount";
-import { testServerConfig } from "../../src/interfaces/database/ServerConfig";
 
 suite("adventureList", () => {
   test("is defined", () => {

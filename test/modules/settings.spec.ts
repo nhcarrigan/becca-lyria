@@ -4,7 +4,6 @@ import { getSettings } from "../../src/modules/settings/getSettings";
 import { renderSetting } from "../../src/modules/settings/renderSetting";
 import { resetSetting } from "../../src/modules/settings/resetSetting";
 import { setSetting } from "../../src/modules/settings/setSetting";
-import { validateSetting } from "../../src/modules/settings/validateSetting";
 
 suite("getSettings", () => {
   test("is defined", () => {
@@ -31,12 +30,5 @@ suite("setSetting", () => {
   test("is defined", () => {
     assert.isDefined(setSetting, "setSetting is not defined");
     assert.isFunction(setSetting, "setSetting is not a function");
-  });
-});
-
-suite("validateSetting", () => {
-  test("is defined", () => {
-    assert.isDefined(validateSetting, "validateSetting is not defined");
-    assert.isFunction(validateSetting, "validateSetting is not a function");
   });
 });
