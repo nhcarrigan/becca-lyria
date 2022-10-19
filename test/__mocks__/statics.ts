@@ -7,6 +7,7 @@ export const CommandNames = [
   "currency",
   "emote",
   "games",
+  "levels",
   "log",
   "manage",
   "misc",
@@ -15,6 +16,7 @@ export const CommandNames = [
   "reactionrole",
   "triggers",
   "userconfig",
+  "welcome",
 ];
 
 export const ContextNames = ["activity", "bookmark", "report"];
