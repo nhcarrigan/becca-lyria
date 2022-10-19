@@ -6,6 +6,7 @@ import {
 } from "@discordjs/builders";
 import { PermissionFlagsBits } from "discord.js";
 
+import { defaultServer } from "../config/database/defaultServer";
 import { Command } from "../interfaces/commands/Command";
 import { Settings } from "../interfaces/settings/Settings";
 import { SettingsHandler } from "../interfaces/settings/SettingsHandler";
@@ -161,7 +162,8 @@ export const automod: Command = {
         return;
       }
       const value = `${
-        interaction.options.get(subcommandData.options[0].name, true).value
+        interaction.options.get(subcommandData.options[0].name)?.value ??
+        defaultServer[setting]
       }`;
       const handler = handlers[action];
       await handler(Becca, interaction, t, config, setting, value);

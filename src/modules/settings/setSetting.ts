@@ -27,7 +27,8 @@ export const setSetting = async (
   server: ServerConfig
 ): Promise<ServerConfig | null> => {
   try {
-    const parsedValue = value.replace(/\D/g, "");
+    const parsedValue =
+      typeof value === "string" ? value.replace(/\D/g, "") : value;
 
     switch (key) {
       case "automod_channels":

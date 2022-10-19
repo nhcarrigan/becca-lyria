@@ -30,7 +30,7 @@ export const handleView: SettingsHandler = async (
     }
 
     const embed = new EmbedBuilder();
-    embed.setTitle(t("commands:config.view.title", { setting }));
+    embed.setTitle(t("commands:config.view.title", { name: setting }));
     embed.setTimestamp();
     embed.setColor(Becca.colours.default);
     embed.setFooter({

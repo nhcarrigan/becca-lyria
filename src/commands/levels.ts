@@ -5,6 +5,7 @@ import {
   SlashCommandSubcommandGroupBuilder,
 } from "discord.js";
 
+import { defaultServer } from "../config/database/defaultServer";
 import { Command } from "../interfaces/commands/Command";
 import { Settings } from "../interfaces/settings/Settings";
 import { SettingsHandler } from "../interfaces/settings/SettingsHandler";
@@ -173,9 +174,15 @@ export const levels: Command = {
         await handleInvalidSubcommand(Becca, interaction, t, config);
         return;
       }
-      const value = `${
-        interaction.options.get(subcommandData.options[0].name, true).value
-      }`;
+      const value =
+        setting === "level_roles"
+          ? `${interaction.options.getInteger("level", true)} ${
+              interaction.options.getRole("role", true).id
+            }`
+          : `${
+              interaction.options.get(subcommandData.options[0].name)?.value ??
+              defaultServer[setting]
+            }`;
       const handler = handlers[action];
       await handler(Becca, interaction, t, config, setting, value);
       Becca.pm2.metrics.commands.mark();
