@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-param */
-import { EmbedBuilder, TextChannel } from "discord.js";
+import { EmbedBuilder, TextChannel, ForumChannel } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -37,7 +37,7 @@ export const handleSuggest: CommandHandler = async (
 
     const suggestionChannel = guild.channels.cache.find(
       (el) => el.id === config.suggestion_channel
-    ) as TextChannel;
+    ) as TextChannel || ForumChannel ;
 
     if (!suggestionChannel) {
       await interaction.editReply({
