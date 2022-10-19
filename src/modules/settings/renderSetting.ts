@@ -70,6 +70,8 @@ export const renderSetting = (
         return (value as ServerConfig["level_roles"])
           .map((el) => `${el.level} -> <@&${el.role}>`)
           .join(", ");
+      default:
+        return "Something went horribly wrong. Please contact Naomi.";
     }
   } catch (err) {
     void beccaErrorHandler(Becca, "render setting module", err);
