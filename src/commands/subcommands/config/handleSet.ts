@@ -1,7 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder } from "discord.js";
 
-import { Settings } from "../../../interfaces/settings/Settings";
 import { SettingsHandler } from "../../../interfaces/settings/SettingsHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { renderSetting } from "../../../modules/settings/renderSetting";
@@ -35,7 +34,7 @@ export const handleSet: SettingsHandler = async (
       Becca,
       guild.id,
       guild.name,
-      setting as Settings,
+      setting,
       value,
       config
     );
@@ -44,7 +43,7 @@ export const handleSet: SettingsHandler = async (
       await interaction.editReply(t("commands:config.set.failed"));
       return;
     }
-    const newContent = isSet[setting as Settings];
+    const newContent = isSet[setting];
     const parsedContent = renderSetting(Becca, setting, newContent);
     const successEmbed = new EmbedBuilder();
     successEmbed.setTitle(t("commands:config.set.title", { setting }));
