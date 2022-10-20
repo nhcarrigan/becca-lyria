@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { GuildMember, PermissionFlagsBits, TextChannel, ForumChannel } from "discord.js";
+import {
+  GuildMember,
+  PermissionFlagsBits,
+  TextChannel,
+  ForumChannel,
+} from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
