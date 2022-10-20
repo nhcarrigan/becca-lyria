@@ -19,11 +19,11 @@ export const sassThanks: ListenerHandler = async (Becca, message, t) => {
 
       for (const member of members) {
         if (member.id === Becca.user?.id) {
-          replies.push(getRandomValue(t("sass:beccaThanks")));
+          replies.push(getRandomValue(t<string, string[]>("sass:beccaThanks")));
           continue;
         }
         if (member.id === author.id) {
-          replies.push(getRandomValue(t("sass:selfThanks")));
+          replies.push(getRandomValue(t<string, string[]>("sass:selfThanks")));
           continue;
         }
         replies.push(

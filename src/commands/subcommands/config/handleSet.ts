@@ -25,7 +25,7 @@ export const handleSet: SettingsHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -40,18 +40,22 @@ export const handleSet: SettingsHandler = async (
     );
 
     if (!isSet) {
-      await interaction.editReply(t("commands:config.set.failed"));
+      await interaction.editReply(
+        t<string, string>("commands:config.set.failed")
+      );
       return;
     }
     const newContent = isSet[setting];
     const parsedContent = renderSetting(Becca, setting, newContent);
     const successEmbed = new EmbedBuilder();
-    successEmbed.setTitle(t("commands:config.set.title", { setting }));
+    successEmbed.setTitle(
+      t<string, string>("commands:config.set.title", { setting })
+    );
     successEmbed.setDescription(customSubstring(parsedContent, 2000));
     successEmbed.setTimestamp();
     successEmbed.setColor(Becca.colours.default);
     successEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     await interaction.editReply({ embeds: [successEmbed] });

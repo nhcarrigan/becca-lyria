@@ -33,7 +33,7 @@ export const interactionCreate = async (
       );
       if (!target) {
         interaction.reply({
-          content: t("events:interaction.bad", {
+          content: t<string, string>("events:interaction.bad", {
             command: interaction.commandName,
           }),
         });
@@ -41,7 +41,7 @@ export const interactionCreate = async (
       }
       if (!interaction.guildId || !interaction.guild) {
         await interaction.reply({
-          content: t("events:interaction.noDms"),
+          content: t<string, string>("events:interaction.noDms"),
         });
         return;
       }
@@ -52,7 +52,7 @@ export const interactionCreate = async (
       );
       if (!config) {
         await interaction.reply({
-          content: t("events:interaction.noSettings"),
+          content: t<string, string>("events:interaction.noSettings"),
         });
         return;
       }
@@ -68,7 +68,7 @@ export const interactionCreate = async (
       );
       if (!target) {
         interaction.reply({
-          content: t("events:interaction.bad", {
+          content: t<string, string>("events:interaction.bad", {
             command: interaction.commandName,
           }),
         });
@@ -76,7 +76,7 @@ export const interactionCreate = async (
       }
       if (!interaction.guildId || !interaction.guild) {
         await interaction.reply({
-          content: t("events:interaction.noDms"),
+          content: t<string, string>("events:interaction.noDms"),
         });
         return;
       }
@@ -87,7 +87,7 @@ export const interactionCreate = async (
       );
       if (!config) {
         await interaction.reply({
-          content: t("events:interaction.noSettings"),
+          content: t<string, string>("events:interaction.noSettings"),
         });
         return;
       }

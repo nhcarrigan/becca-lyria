@@ -15,17 +15,19 @@ export const handleHttp: CommandHandler = async (Becca, interaction, t) => {
 
     if (!httpStatus.includes(status)) {
       await interaction.editReply({
-        content: t("commands:code.http.invalid"),
+        content: t<string, string>("commands:code.http.invalid"),
       });
       return;
     }
     const httpEmbed = new EmbedBuilder();
-    httpEmbed.setTitle(t("commands:code.http.title", { status }));
+    httpEmbed.setTitle(
+      t<string, string>("commands:code.http.title", { status })
+    );
     httpEmbed.setImage(`https://http.cat/${status}.jpg`);
     httpEmbed.setColor(Becca.colours.default);
     httpEmbed.setTimestamp();
     httpEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

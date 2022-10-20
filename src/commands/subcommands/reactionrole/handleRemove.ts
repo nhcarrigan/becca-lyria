@@ -15,7 +15,7 @@ export const handleRemove: CommandHandler = async (Becca, interaction, t) => {
     // const { guild } = interaction;
 
     // if (!guild) {
-    //   await interaction.editReply({ content: t("responses:missingGuild") });
+    //   await interaction.editReply({ content: t<string, string>("responses:missingGuild") });
     //   return;
     // }
 
@@ -27,7 +27,7 @@ export const handleRemove: CommandHandler = async (Becca, interaction, t) => {
 
     // if (!messageId || !channelId) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.remove.badLink"),
+    //     content: t<string, string>("commands:reactionrole.remove.badLink"),
     //   });
     //   return;
     // }
@@ -38,7 +38,7 @@ export const handleRemove: CommandHandler = async (Becca, interaction, t) => {
 
     // if (!channel || !("messages" in channel)) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.remove.badChannel"),
+    //     content: t<string, string>("commands:reactionrole.remove.badChannel"),
     //   });
     //   return;
     // }
@@ -47,21 +47,21 @@ export const handleRemove: CommandHandler = async (Becca, interaction, t) => {
 
     // if (!message) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.remove.badMessage"),
+    //     content: t<string, string>("commands:reactionrole.remove.badMessage"),
     //   });
     //   return;
     // }
 
     // if (message.author.id !== Becca.user?.id) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.remove.notMine"),
+    //     content: t<string, string>("commands:reactionrole.remove.notMine"),
     //   });
     //   return;
     // }
 
     // if (!message.components.length) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.remove.notReactionRole"),
+    //     content: t<string, string>("commands:reactionrole.remove.notReactionRole"),
     //   });
     //   return;
     // }
@@ -72,7 +72,7 @@ export const handleRemove: CommandHandler = async (Becca, interaction, t) => {
 
     // if (!rowHasRole) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.remove.noRole"),
+    //     content: t<string, string>("commands:reactionrole.remove.noRole"),
     //   });
     //   return;
     // }
@@ -86,7 +86,7 @@ export const handleRemove: CommandHandler = async (Becca, interaction, t) => {
     // await message.edit({ components: message.components });
 
     // await interaction.editReply({
-    //   content: t("commands:reactionrole.remove.success"),
+    //   content: t<string, string>("commands:reactionrole.remove.success"),
     // });
   } catch (err) {
     const errorId = await beccaErrorHandler(

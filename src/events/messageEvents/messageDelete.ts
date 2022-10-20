@@ -28,18 +28,18 @@ export const messageDelete = async (
     const t = getFixedT(lang);
 
     const deleteEmbed = new EmbedBuilder();
-    deleteEmbed.setTitle(t("events:message.delete.title"));
+    deleteEmbed.setTitle(t<string, string>("events:message.delete.title"));
     deleteEmbed.setColor(Becca.colours.default);
-    deleteEmbed.setDescription(t("events:message.delete.desc"));
+    deleteEmbed.setDescription(t<string, string>("events:message.delete.desc"));
     deleteEmbed.addFields([
       {
-        name: t("events:message.delete.chan"),
+        name: t<string, string>("events:message.delete.chan"),
         value: `<#${channel.id}>`,
       },
       {
-        name: t("events:message.delete.cont"),
+        name: t<string, string>("events:message.delete.cont"),
         value: customSubstring(
-          content || t("events:message.delete.nocont"),
+          content || t<string, string>("events:message.delete.nocont"),
           1000
         ),
       },

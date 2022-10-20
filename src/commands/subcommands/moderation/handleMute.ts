@@ -32,21 +32,21 @@ export const handleMute: CommandHandler = async (
 
     if (!durationMilliseconds) {
       await interaction.editReply({
-        content: t("commands:mod.mute.invalid", { duration, durationUnit }),
+        content: t<string, string>("commands:mod.mute.invalid", { duration, durationUnit }),
       });
       return;
     }
 
     if (durationMilliseconds > 2419200000) {
       await interaction.editReply({
-        content: t("commands:mod.mute.long"),
+        content: t<string, string>("commands:mod.mute.long"),
       });
       return;
     }
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -61,20 +61,20 @@ export const handleMute: CommandHandler = async (
       targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)
     ) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noPermission")),
+        content: getRandomValue(t<string, string[]>("responses:noPermission")),
       });
       return;
     }
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noModSelf")),
+        content: getRandomValue(t<string, string[]>("responses:noModSelf")),
       });
       return;
     }
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noModBecca")),
+        content: getRandomValue(t<string, string[]>("responses:noModBecca")),
       });
       return;
     }
@@ -95,22 +95,22 @@ export const handleMute: CommandHandler = async (
     await updateHistory(Becca, "mute", target.id, guild.id);
 
     const muteEmbed = new EmbedBuilder();
-    muteEmbed.setTitle(t("commands:mod.mute.title"));
+    muteEmbed.setTitle(t<string, string>("commands:mod.mute.title"));
     muteEmbed.setDescription(
-      t("commands:mod.mute.description", { user: member.user.username })
+      t<string, string>("commands:mod.mute.description", { user: member.user.username })
     );
     muteEmbed.setColor(Becca.colours.warning);
     muteEmbed.addFields([
       {
-        name: t("commands:mod.mute.reason"),
+        name: t<string, string>("commands:mod.mute.reason"),
         value: customSubstring(reason, 1000),
       },
       {
-        name: t("commands:mod.mute.duration"),
+        name: t<string, string>("commands:mod.mute.duration"),
         value: `${duration} ${durationUnit}`,
       },
       {
-        name: t("commands:mod.mute.notified"),
+        name: t<string, string>("commands:mod.mute.notified"),
         value: String(sentNotice),
       },
     ]);
@@ -124,7 +124,7 @@ export const handleMute: CommandHandler = async (
     await sendLogEmbed(Becca, guild, muteEmbed, "moderation_events");
 
     await interaction.editReply({
-      content: t("commands:mod.mute.success"),
+      content: t<string, string>("commands:mod.mute.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

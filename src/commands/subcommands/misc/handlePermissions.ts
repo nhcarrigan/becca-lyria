@@ -22,7 +22,7 @@ export const handlePermissions: CommandHandler = async (
 
     if (!guild || !member || !channel) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -34,7 +34,7 @@ export const handlePermissions: CommandHandler = async (
       (member as GuildMember).id !== Becca.configs.ownerId
     ) {
       await interaction.reply({
-        content: getRandomValue(t("responses:noPermission")),
+        content: getRandomValue(t<string, string[]>("responses:noPermission")),
       });
       return;
     }
@@ -45,7 +45,7 @@ export const handlePermissions: CommandHandler = async (
 
     if (!BeccaMember) {
       await interaction.editReply({
-        content: t("commands:misc.permissions.missing"),
+        content: t<string, string>("commands:misc.permissions.missing"),
       });
       return;
     }
@@ -66,19 +66,19 @@ export const handlePermissions: CommandHandler = async (
     const areValid = hasChannelPerms && hasGuildPerms;
 
     const descriptionString = areValid
-      ? t("commands:misc.permissions.valid")
-      : t("commands:misc.permissions.invalid");
+      ? t<string, string>("commands:misc.permissions.valid")
+      : t<string, string>("commands:misc.permissions.invalid");
 
     const validEmbed = new EmbedBuilder();
     validEmbed.setTitle(
       areValid
-        ? t("commands:misc.permissions.yes")
-        : t("commands:misc.permissions.no")
+        ? t<string, string>("commands:misc.permissions.yes")
+        : t<string, string>("commands:misc.permissions.no")
     );
     validEmbed.setDescription(descriptionString);
     validEmbed.setColor(areValid ? Becca.colours.success : Becca.colours.error);
     validEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

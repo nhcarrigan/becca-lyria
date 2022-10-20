@@ -27,7 +27,7 @@ export const automodProfanity: ListenerHandler = async (
     ).replace(/\{@username\}/g, `<@!${message.author.id}>`);
 
     const embed = new EmbedBuilder();
-    embed.setTitle(t("listeners:automod.profanity.title"));
+    embed.setTitle(t<string, string>("listeners:automod.profanity.title"));
     embed.setDescription(string);
     embed.setColor(Becca.colours.error);
     embed.setAuthor({
@@ -36,7 +36,7 @@ export const automodProfanity: ListenerHandler = async (
     });
     embed.setTimestamp();
     embed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
@@ -44,28 +44,26 @@ export const automodProfanity: ListenerHandler = async (
     const warning = await message.channel.send({ embeds: [embed] });
 
     const dmEmbed = new EmbedBuilder();
-    dmEmbed.setTitle(t("listeners:automod.profanity.dmTitle"));
+    dmEmbed.setTitle(t<string, string>("listeners:automod.profanity.dmTitle"));
     dmEmbed.setURL(warning.url);
     dmEmbed.setDescription(
-      `${t("listeners:automod.profanity.dmDesc")}\n\`\`\`\n${filter.clean(
-        message.content,
-        "*",
-        2
-      )}\n\`\`\``
+      `${t<string, string>(
+        "listeners:automod.profanity.dmDesc"
+      )}\n\`\`\`\n${filter.clean(message.content, "*", 2)}\n\`\`\``
     );
     dmEmbed.setColor(Becca.colours.error);
     dmEmbed.addFields([
       {
-        name: t("listeners:automod.profanity.reason"),
+        name: t<string, string>("listeners:automod.profanity.reason"),
         value: message.guild?.name || "unknown",
       },
       {
-        name: t("listeners:automod.profanity.channel"),
+        name: t<string, string>("listeners:automod.profanity.channel"),
         value: message.channel.toString(),
       },
       {
-        name: t("listeners:automod.profanity.reason"),
-        value: t("listeners:automod.profanity.profane"),
+        name: t<string, string>("listeners:automod.profanity.reason"),
+        value: t<string, string>("listeners:automod.profanity.profane"),
       },
     ]);
 

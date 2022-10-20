@@ -29,7 +29,7 @@ export const handleLeaderboard: CommandHandler = async (
 
     if (!guildId || !guild) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -42,7 +42,7 @@ export const handleLeaderboard: CommandHandler = async (
 
     if (!serverLevels || !serverLevels.length) {
       await interaction.editReply({
-        content: t("commands:community.leaderboard.disabled"),
+        content: t<string, string>("commands:community.leaderboard.disabled"),
       });
       return;
     }
@@ -76,22 +76,24 @@ export const handleLeaderboard: CommandHandler = async (
 
     const levelEmbed = new EmbedBuilder();
     levelEmbed.setTitle(
-      t("commands:community.leaderboard.title", { name: guild.name })
+      t<string, string>("commands:community.leaderboard.title", {
+        name: guild.name,
+      })
     );
     levelEmbed.setColor(Becca.colours.default);
     levelEmbed.setDescription(
       `\`\`\`\n${formatTextToTable(mapped.slice(page * 10 - 10, page * 10), {
         headers: [
-          t("commands:community.leaderboard.rank"),
-          t("commands:community.leaderboard.user"),
-          t("commands:community.leaderboard.level"),
-          t("commands:community.leaderboard.xp"),
+          t<string, string>("commands:community.leaderboard.rank"),
+          t<string, string>("commands:community.leaderboard.user"),
+          t<string, string>("commands:community.leaderboard.level"),
+          t<string, string>("commands:community.leaderboard.xp"),
         ],
       })}\n\`\`\``
     );
     levelEmbed.setTimestamp();
     levelEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
@@ -136,10 +138,10 @@ export const handleLeaderboard: CommandHandler = async (
       levelEmbed.setDescription(
         `\`\`\`\n${formatTextToTable(mapped.slice(page * 10 - 10, page * 10), {
           headers: [
-            t("commands:community.leaderboard.rank"),
-            t("commands:community.leaderboard.user"),
-            t("commands:community.leaderboard.level"),
-            t("commands:community.leaderboard.xp"),
+            t<string, string>("commands:community.leaderboard.rank"),
+            t<string, string>("commands:community.leaderboard.user"),
+            t<string, string>("commands:community.leaderboard.level"),
+            t<string, string>("commands:community.leaderboard.xp"),
           ],
         })}\n\`\`\``
       );

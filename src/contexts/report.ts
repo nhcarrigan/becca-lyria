@@ -27,7 +27,9 @@ export const report: Context = {
 
       if (!guild || !message || message.channel.type === ChannelType.DM) {
         await interaction.editReply({
-          content: getRandomValue(t("responses:missingGuild")),
+          content: getRandomValue(
+            t<string, string[]>("responses:missingGuild")
+          ),
         });
         return;
       }
@@ -37,14 +39,16 @@ export const report: Context = {
       )) as TextChannel;
 
       if (!reportChannel || !config.report_channel) {
-        await interaction.editReply(t("contexts:report.notEnabled"));
+        await interaction.editReply(
+          t<string, string>("contexts:report.notEnabled")
+        );
         return;
       }
 
       const author = message.author as User;
 
       const reportEmbed = new EmbedBuilder();
-      reportEmbed.setTitle(t("contexts:report.title"));
+      reportEmbed.setTitle(t<string, string>("contexts:report.title"));
       reportEmbed.setDescription(
         `${customSubstring(message.content || "no content found!", 4000)}`
       );
@@ -66,17 +70,17 @@ export const report: Context = {
         },
       ]);
       reportEmbed.setFooter({
-        text: t("defaults:donate"),
+        text: t<string, string>("defaults:donate"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
       await reportChannel.send({
-        content: t("contexts:report.reported", {
+        content: t<string, string>("contexts:report.reported", {
           mention: `<@!${interaction.user.id}>`,
         }),
         embeds: [reportEmbed],
       });
-      await interaction.editReply(t("contexts:report.success"));
+      await interaction.editReply(t<string, string>("contexts:report.success"));
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

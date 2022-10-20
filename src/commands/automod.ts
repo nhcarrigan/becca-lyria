@@ -138,7 +138,9 @@ export const automod: Command = {
 
       if (!guild || !member) {
         await interaction.editReply({
-          content: getRandomValue(t("responses:missingGuild")),
+          content: getRandomValue(
+            t<string, string[]>("responses:missingGuild")
+          ),
         });
         return;
       }
@@ -149,7 +151,9 @@ export const automod: Command = {
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({
-          content: getRandomValue(t("responses:noPermission")),
+          content: getRandomValue(
+            t<string, string[]>("responses:noPermission")
+          ),
         });
         return;
       }

@@ -24,7 +24,7 @@ export const handleWarn: CommandHandler = async (
     const { guild, member } = interaction;
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -42,21 +42,21 @@ export const handleWarn: CommandHandler = async (
       targetMember.permissions.has(PermissionFlagsBits.KickMembers)
     ) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noPermission")),
+        content: getRandomValue(t<string, string[]>("responses:noPermission")),
       });
       return;
     }
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noModSelf")),
+        content: getRandomValue(t<string, string[]>("responses:noModSelf")),
       });
       return;
     }
 
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noModBecca")),
+        content: getRandomValue(t<string, string[]>("responses:noModBecca")),
       });
       return;
     }
@@ -73,18 +73,20 @@ export const handleWarn: CommandHandler = async (
     await updateHistory(Becca, "warn", target.id, guild.id);
 
     const warnEmbed = new EmbedBuilder();
-    warnEmbed.setTitle(t("commands:mod.warn.title"));
+    warnEmbed.setTitle(t<string, string>("commands:mod.warn.title"));
     warnEmbed.setDescription(
-      t("commands:mod.warn.description", { user: member.user.username })
+      t<string, string>("commands:mod.warn.description", {
+        user: member.user.username,
+      })
     );
     warnEmbed.setColor(Becca.colours.warning);
     warnEmbed.addFields([
       {
-        name: t("commands:mod.warn.reason"),
+        name: t<string, string>("commands:mod.warn.reason"),
         value: customSubstring(reason, 1000),
       },
       {
-        name: t("commands:mod.warn.notified"),
+        name: t<string, string>("commands:mod.warn.notified"),
         value: String(sentNotice),
       },
     ]);
@@ -97,7 +99,7 @@ export const handleWarn: CommandHandler = async (
     await sendLogEmbed(Becca, guild, warnEmbed, "moderation_events");
 
     await interaction.editReply({
-      content: t("commands:mod.warn.success"),
+      content: t<string, string>("commands:mod.warn.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

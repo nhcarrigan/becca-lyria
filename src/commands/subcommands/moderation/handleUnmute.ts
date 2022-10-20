@@ -28,7 +28,7 @@ export const handleUnmute: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -42,20 +42,20 @@ export const handleUnmute: CommandHandler = async (
       targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)
     ) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noPermission")),
+        content: getRandomValue(t<string, string[]>("responses:noPermission")),
       });
       return;
     }
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noModSelf")),
+        content: getRandomValue(t<string, string[]>("responses:noModSelf")),
       });
       return;
     }
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noModBecca")),
+        content: getRandomValue(t<string, string[]>("responses:noModBecca")),
       });
       return;
     }
@@ -76,18 +76,18 @@ export const handleUnmute: CommandHandler = async (
     );
 
     const muteEmbed = new EmbedBuilder();
-    muteEmbed.setTitle(t("commands:mod.unmute.title"));
+    muteEmbed.setTitle(t<string, string>("commands:mod.unmute.title"));
     muteEmbed.setDescription(
-      t("commands:mod.unmute.description", { user: member.user.username })
+      t<string, string>("commands:mod.unmute.description", { user: member.user.username })
     );
     muteEmbed.setColor(Becca.colours.success);
     muteEmbed.addFields([
       {
-        name: t("commands:mod.unmute.reason"),
+        name: t<string, string>("commands:mod.unmute.reason"),
         value: customSubstring(reason, 1000),
       },
       {
-        name: t("commands:mod.unmute.notified"),
+        name: t<string, string>("commands:mod.unmute.notified"),
         value: String(sentNotice),
       },
     ]);
@@ -101,7 +101,7 @@ export const handleUnmute: CommandHandler = async (
     await sendLogEmbed(Becca, guild, muteEmbed, "moderation_events");
 
     await interaction.editReply({
-      content: t("commands:mod.unmute.success"),
+      content: t<string, string>("commands:mod.unmute.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

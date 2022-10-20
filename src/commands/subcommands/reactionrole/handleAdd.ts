@@ -23,7 +23,7 @@ export const handleAdd: CommandHandler = async (Becca, interaction, t) => {
     // const { guild } = interaction;
 
     // if (!guild) {
-    //   await interaction.editReply({ content: t("responses:missingGuild") });
+    //   await interaction.editReply({ content: t<string, string>("responses:missingGuild") });
     //   return;
     // }
 
@@ -35,7 +35,7 @@ export const handleAdd: CommandHandler = async (Becca, interaction, t) => {
 
     // if (!messageId || !channelId) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.add.badLink"),
+    //     content: t<string, string>("commands:reactionrole.add.badLink"),
     //   });
     //   return;
     // }
@@ -46,7 +46,7 @@ export const handleAdd: CommandHandler = async (Becca, interaction, t) => {
 
     // if (!channel || !("messages" in channel)) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.add.badChannel"),
+    //     content: t<string, string>("commands:reactionrole.add.badChannel"),
     //   });
     //   return;
     // }
@@ -55,21 +55,21 @@ export const handleAdd: CommandHandler = async (Becca, interaction, t) => {
 
     // if (!message) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.add.badMessage"),
+    //     content: t<string, string>("commands:reactionrole.add.badMessage"),
     //   });
     //   return;
     // }
 
     // if (message.author.id !== Becca.user?.id) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.add.notMine"),
+    //     content: t<string, string>("commands:reactionrole.add.notMine"),
     //   });
     //   return;
     // }
 
     // if (!message.components.length) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.add.notReactionRole"),
+    //     content: t<string, string>("commands:reactionrole.add.notReactionRole"),
     //   });
     //   return;
     // }
@@ -79,7 +79,7 @@ export const handleAdd: CommandHandler = async (Becca, interaction, t) => {
     //   message.components.every((row) => row.components.length === 5)
     // ) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.add.tooManyRoles"),
+    //     content: t<string, string>("commands:reactionrole.add.tooManyRoles"),
     //   });
     //   return;
     // }
@@ -90,7 +90,7 @@ export const handleAdd: CommandHandler = async (Becca, interaction, t) => {
 
     // if (rowHasRole) {
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.add.hasRole"),
+    //     content: t<string, string>("commands:reactionrole.add.hasRole"),
     //   });
     //   return;
     // }
@@ -110,14 +110,14 @@ export const handleAdd: CommandHandler = async (Becca, interaction, t) => {
     //   message.components.push(row);
     //   await message.edit({ components: message.components });
     //   await interaction.editReply({
-    //     content: t("commands:reactionrole.add.success"),
+    //     content: t<string, string>("commands:reactionrole.add.success"),
     //   });
     //   return;
     // }
     // shortRow.addComponents([button]);
     // await message.edit({ components: message.components });
     // await interaction.editReply({
-    //   content: t("commands:reactionrole.add.success"),
+    //   content: t<string, string>("commands:reactionrole.add.success"),
     // });
   } catch (err) {
     const errorId = await beccaErrorHandler(

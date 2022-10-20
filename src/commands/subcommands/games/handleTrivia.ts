@@ -78,7 +78,9 @@ export const handleTrivia: CommandHandler = async (Becca, interaction, t) => {
         inline: true,
       },
     ]);
-    triviaEmbed.setFooter(t("commands:games.trivia.footer"));
+    triviaEmbed.setFooter({
+      text: t<string, string>("commands:games.trivia.footer"),
+    });
 
     const resultEmbed = new EmbedBuilder();
 
@@ -118,13 +120,13 @@ export const handleTrivia: CommandHandler = async (Becca, interaction, t) => {
     answerCollector.on("collect", async (click) => {
       if (answered.includes(click.user.id)) {
         await click.reply({
-          content: t("commands:games.trivia.duplicate"),
+          content: t<string, string>("commands:games.trivia.duplicate"),
           ephemeral: true,
         });
         return;
       }
       await click.reply({
-        content: t("commands:games.trivia.answered", {
+        content: t<string, string>("commands:games.trivia.answered", {
           answer: click.customId,
         }),
         ephemeral: true,
@@ -140,14 +142,16 @@ export const handleTrivia: CommandHandler = async (Becca, interaction, t) => {
       resultEmbed.setTimestamp();
       resultEmbed.setColor(Becca.colours.default);
       resultEmbed.setTitle(
-        t("commands:games.trivia.result", { count: correct.length })
+        t<string, string>("commands:games.trivia.result", {
+          count: correct.length,
+        })
       );
       resultEmbed.setDescription(
         customSubstring(correct.map((el) => `<@!${el}>`).join(", "), 4000)
       );
       resultEmbed.addFields([
         {
-          name: t("commands:games.trivia.correct"),
+          name: t<string, string>("commands:games.trivia.correct"),
           value: `${correctAnswerLetter}: ${replaceHtml(correct_answer)}`,
         },
       ]);
