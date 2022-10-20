@@ -36,9 +36,9 @@ export const handleSuggest: CommandHandler = async (
     }
 
     const suggestionChannel =
-      (guild.channels.cache.find(
+      guild.channels.cache.find(
         (el) => el.id === config.suggestion_channel
-      ) as TextChannel) || ForumChannel;
+       as TextChannel) | ForumChannel;
 
     if (!suggestionChannel) {
       await interaction.editReply({
