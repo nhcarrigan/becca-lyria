@@ -58,7 +58,7 @@ export const handleSuggestion: CommandHandler = async (
     }
 
     const targetSuggestion = await (
-      (suggestionChannel as TextChannel) || ForumChannel
+      suggestionChannel as TextChannel | ForumChannel
     ).messages.fetch(`${BigInt(suggestionId)}`);
 
     if (!targetSuggestion) {
