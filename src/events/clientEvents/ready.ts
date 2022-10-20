@@ -2,6 +2,7 @@ import { EmbedBuilder } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { getCounts } from "../../modules/becca/getCounts";
+import { loadEvents } from "../../modules/events/scheduledEvent";
 import { beccaLogHandler } from "../../utils/beccaLogHandler";
 
 /**
@@ -30,4 +31,7 @@ export const ready = async (Becca: BeccaLyria): Promise<void> => {
 
   beccaLogHandler.log("debug", "Loaded PM2 counts!");
   Becca.pm2.metrics.events.mark();
+
+  await loadEvents(Becca);
+  beccaLogHandler.log("debug", "Loaded scheduled events!");
 };

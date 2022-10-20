@@ -7,7 +7,7 @@ import {
 } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { LogSettings } from "../../interfaces/settings/LogSettings";
+import { Settings } from "../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { getSettings } from "../settings/getSettings";
 
@@ -18,13 +18,13 @@ import { getSettings } from "../settings/getSettings";
  * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {Guild} guild The guild object.
  * @param {EmbedBuilder} content The MessageEmbed to send to the log channel.
- * @param {LogSettings} channel The log channel option to look for.
+ * @param {Settings} channel The log channel option to look for.
  */
 export const sendLogEmbed = async (
   Becca: BeccaLyria,
   guild: Guild,
   content: EmbedBuilder | Embed,
-  channel: LogSettings
+  channel: Settings
 ): Promise<void> => {
   try {
     const guildChannelSetting = (

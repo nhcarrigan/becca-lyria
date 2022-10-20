@@ -1,5 +1,5 @@
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { LevelRole } from "../../interfaces/settings/LevelRole";
+import { ServerConfig } from "../../interfaces/database/ServerConfig";
 import { Settings } from "../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
@@ -9,13 +9,13 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {Settings} key The setting to render.
- * @param {string | LevelRole} value That setting's value.
+ * @param {unknown} value That setting's value.
  * @returns {string} The parsed value.
  */
 export const renderSetting = (
   Becca: BeccaLyria,
   key: Settings,
-  value: string | LevelRole
+  value: unknown
 ): string => {
   try {
     if (!value) {
@@ -24,7 +24,6 @@ export const renderSetting = (
     switch (key) {
       case "levels":
       case "custom_welcome":
-      case "allowed_links":
       case "link_message":
       case "leave_message":
       case "sass_mode":
@@ -37,35 +36,42 @@ export const renderSetting = (
       case "level_style":
       case "level_message":
       case "role_message":
-        return value as string;
+        return `${value}`;
       case "welcome_channel":
       case "depart_channel":
       case "level_channel":
-      case "message_events":
-      case "voice_events":
-      case "moderation_events":
-      case "thread_events":
-      case "member_events":
       case "suggestion_channel":
       case "report_channel":
-      case "level_ignore":
+      case "message_events":
+      case "voice_events":
+      case "thread_events":
+      case "moderation_events":
+      case "member_events":
         return `<#${value}>`;
-      case "hearts":
-      case "blocked":
-        return `<@!${value}>`;
-      case "automod_roles":
       case "join_role":
         return `<@&${value}>`;
+      case "hearts":
+      case "blocked":
+        return (value as string[]).map((v) => `<@!${v}>`).join(", ");
+      case "triggers":
+        return (value as [string, string][])
+          .map((v) => v.join(" -> "))
+          .join(", ");
       case "automod_channels":
       case "no_automod_channels":
+      case "level_ignore":
       case "emote_channels":
-        return value === "all" ? value : `<#${value}>`;
+        return (value as string[]).map((v) => `<#${v}>`).join(", ");
+      case "automod_roles":
+        return (value as string[]).map((v) => `<@&${v}>`).join(", ");
+      case "allowed_links":
+        return (value as string[]).join(", ");
       case "level_roles":
-        return `<@&${(value as LevelRole).role}> at level ${
-          (value as LevelRole).level
-        }`;
+        return (value as ServerConfig["level_roles"])
+          .map((el) => `${el.level} -> <@&${el.role}>`)
+          .join(", ");
       default:
-        return "Something went wrong with rendering this setting.";
+        return "Something went horribly wrong. Please contact Naomi.";
     }
   } catch (err) {
     void beccaErrorHandler(Becca, "render setting module", err);

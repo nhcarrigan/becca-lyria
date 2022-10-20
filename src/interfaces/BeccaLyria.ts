@@ -51,6 +51,9 @@ export interface BeccaLyria extends Client {
   dataCache: {
     orbitData: OrbitMember[];
   };
+  timeOuts: {
+    [uuid: string]: NodeJS.Timeout;
+  };
   pm2: {
     client: typeof io;
     metrics: {

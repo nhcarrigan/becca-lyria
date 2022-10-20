@@ -4,14 +4,14 @@ import {
   EmbedBuilder,
   GuildBasedChannel,
   GuildMember,
-  NewsChannel,
   PermissionFlagsBits,
-  TextChannel,
 } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { createEvent } from "../../../modules/events/scheduledEvent";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { getInteractionLanguage } from "../../../utils/getLangCode";
 
 /**
  * Allows a user to schedule a post to be sent to a specific channel, up to
@@ -27,10 +27,12 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
     const message = interaction.options.getString("message", true);
 
     if (
-      !member ||
-      !(member as GuildMember)
-        ?.permissionsIn(targetChannel as GuildBasedChannel)
-        .has(PermissionFlagsBits.SendMessages)
+      !(
+        member &&
+        (member as GuildMember)
+          ?.permissionsIn(targetChannel as GuildBasedChannel)
+          .has(PermissionFlagsBits.SendMessages)
+      )
     ) {
       await interaction.editReply({
         content: t("commands:community.schedule.permission"),
@@ -55,17 +57,13 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    setTimeout(async () => {
-      await (targetChannel as TextChannel | NewsChannel).send({
-        content: t("commands:community.schedule.post", {
-          id: `<@!${(member as GuildMember).id}`,
-          message,
-        }),
-        allowedMentions: {
-          users: [interaction.user.id],
-        },
-      });
-    }, time * 60000);
+    await createEvent(Becca, {
+      member: member.user.id,
+      time: Date.now() + time * 60000,
+      targetChannel: targetChannel.id,
+      lang: getInteractionLanguage(interaction),
+      message,
+    });
 
     const successEmbed = new EmbedBuilder();
     successEmbed.setTitle(t("commands:community.schedule.embed.title"));
