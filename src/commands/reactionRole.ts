@@ -173,7 +173,9 @@ export const reactionRole: Command = {
 
       if (!guild || !member) {
         await interaction.editReply({
-          content: getRandomValue(t("responses:missingGuild")),
+          content: getRandomValue(
+            t<string, string[]>("responses:missingGuild")
+          ),
         });
         return;
       }
@@ -184,7 +186,9 @@ export const reactionRole: Command = {
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({
-          content: getRandomValue(t("responses:noPermission")),
+          content: getRandomValue(
+            t<string, string[]>("responses:noPermission")
+          ),
         });
         return;
       }

@@ -72,7 +72,9 @@ export const triggers: Command = {
         )
       ) {
         await interaction.editReply({
-          content: getRandomValue(t("responses:noPermission")),
+          content: getRandomValue(
+            t<string, string[]>("responses:noPermission")
+          ),
         });
         return;
       }

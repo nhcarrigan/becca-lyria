@@ -14,7 +14,7 @@ export const sassSorry: ListenerHandler = async (Becca, message, t) => {
       /(i'm|i\s?am)\s?sorry|(my\s?)?apologies|(i\s?)?(apologize|apologise)/i;
 
     if (sorryRegex.test(content) || content.toLowerCase() === "sorry") {
-      await channel.send(getRandomValue(t("sass:sorry")));
+      await channel.send(getRandomValue(t<string, string[]>("sass:sorry")));
     }
   } catch (err) {
     await beccaErrorHandler(

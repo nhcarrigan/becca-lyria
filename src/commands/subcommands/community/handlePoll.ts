@@ -28,7 +28,7 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
     const responses: { userId: string; response: string }[] = [];
 
     const pollEmbed = new EmbedBuilder();
-    pollEmbed.setTitle(t("commands:community.poll.title"));
+    pollEmbed.setTitle(t<string, string>("commands:community.poll.title"));
     pollEmbed.setDescription(question);
     pollEmbed.addFields([
       {
@@ -64,7 +64,7 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
     ]);
     pollEmbed.setColor(Becca.colours.default);
     pollEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
@@ -104,12 +104,16 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
     collector.on("collect", async (click) => {
       await click.deferReply({ ephemeral: true });
       if (responses.find((el) => el.userId === click.user.id)) {
-        await click.editReply(t("commands:community.pull.failed"));
+        await click.editReply(
+          t<string, string>("commands:community.pull.failed")
+        );
         return;
       }
       responses.push({ userId: click.user.id, response: click.customId });
       await click.editReply(
-        t("commands:community.poll.success", { id: click.customId })
+        t<string, string>("commands:community.poll.success", {
+          id: click.customId,
+        })
       );
     });
 
@@ -121,7 +125,7 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
 
       pollEmbed.addFields([
         {
-          name: t("commands:community.poll.results"),
+          name: t<string, string>("commands:community.poll.results"),
           value: `**A:** ${countsA}\n**B:** ${countsB}\n**C:** ${countsC}\n**D:** ${countsD}`,
         },
       ]);

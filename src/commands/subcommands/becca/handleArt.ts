@@ -24,7 +24,10 @@ export const handleArt: CommandHandler = async (Becca, interaction, t) => {
     artEmbed.setTitle(artName);
     artEmbed.setColor(Becca.colours.default);
     artEmbed.setDescription(
-      t("commands:becca.art.description", { artist, url: artistUrl })
+      t<string, string>("commands:becca.art.description", {
+        artist,
+        url: artistUrl,
+      })
     );
     artEmbed.setImage(
       `https://www.beccalyria.com/assets/art/${fileName.replace(/\s/g, "%20")}`
@@ -35,7 +38,7 @@ export const handleArt: CommandHandler = async (Becca, interaction, t) => {
     });
 
     const artButton = new ButtonBuilder()
-      .setLabel(t("commands:becca.art.buttons.more"))
+      .setLabel(t<string, string>("commands:becca.art.buttons.more"))
       .setEmoji("<:BeccaArt:897545793655930910>")
       .setStyle(ButtonStyle.Link)
       .setURL(

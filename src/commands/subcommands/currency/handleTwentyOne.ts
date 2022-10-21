@@ -27,13 +27,15 @@ export const handleTwentyOne: CurrencyHandler = async (
     const wager = interaction.options.getInteger("wager");
 
     if (!wager || wager < 1) {
-      await interaction.editReply(t("commands:currency.twentyone.nowager"));
+      await interaction.editReply(
+        t<string, string>("commands:currency.twentyone.nowager")
+      );
       return;
     }
 
     if (wager > data.currencyTotal) {
       await interaction.editReply(
-        t("commands:currency.twentyone.insufficient")
+        t<string, string>("commands:currency.twentyone.insufficient")
       );
       return;
     }
@@ -44,7 +46,7 @@ export const handleTwentyOne: CurrencyHandler = async (
     if (!canPlay) {
       const cooldown = data.twentyOnePlayed - now + 3600000;
       await interaction.editReply({
-        content: t("commands:currency.twentyone.cooldown", {
+        content: t<string, string>("commands:currency.twentyone.cooldown", {
           time: parseSeconds(Math.ceil(cooldown / 1000)),
         }),
       });
@@ -57,17 +59,19 @@ export const handleTwentyOne: CurrencyHandler = async (
     let player = Math.ceil(Math.random() * 10);
 
     const gameEmbed = new EmbedBuilder();
-    gameEmbed.setTitle(t("commands:currency.twentyone.title"));
-    gameEmbed.setDescription(t("commands:currency.twentyone.description"));
+    gameEmbed.setTitle(t<string, string>("commands:currency.twentyone.title"));
+    gameEmbed.setDescription(
+      t<string, string>("commands:currency.twentyone.description")
+    );
     gameEmbed.setColor(Becca.colours.default);
     gameEmbed.addFields([
       {
-        name: t("commands:currency.twentyone.player"),
+        name: t<string, string>("commands:currency.twentyone.player"),
         value: player.toString(),
         inline: true,
       },
       {
-        name: t("commands:currency.twentyone.becca"),
+        name: t<string, string>("commands:currency.twentyone.becca"),
         value: dealer.toString(),
         inline: true,
       },
@@ -75,12 +79,12 @@ export const handleTwentyOne: CurrencyHandler = async (
     const hitButton = new ButtonBuilder()
       .setCustomId("hit")
       .setEmoji("<:BeccaThumbsup:875129902997860393>")
-      .setLabel(t("commands:currency.twentyone.hit"))
+      .setLabel(t<string, string>("commands:currency.twentyone.hit"))
       .setStyle(ButtonStyle.Success);
     const standButton = new ButtonBuilder()
       .setCustomId("stand")
       .setEmoji("<:BeccaYikes:877278299066347632>")
-      .setLabel(t("commands:currency.twentyone.stand"))
+      .setLabel(t<string, string>("commands:currency.twentyone.stand"))
       .setStyle(ButtonStyle.Primary);
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
@@ -129,12 +133,12 @@ export const handleTwentyOne: CurrencyHandler = async (
       const newHitButton = new ButtonBuilder()
         .setCustomId("hit")
         .setEmoji("<:BeccaThumbsup:875129902997860393>")
-        .setLabel(t("commands:currency.twentyone.hit"))
+        .setLabel(t<string, string>("commands:currency.twentyone.hit"))
         .setStyle(ButtonStyle.Success);
       const newStandButton = new ButtonBuilder()
         .setCustomId("stand")
         .setEmoji("<:BeccaYikes:877278299066347632>")
-        .setLabel(t("commands:currency.twentyone.stand"))
+        .setLabel(t<string, string>("commands:currency.twentyone.stand"))
         .setStyle(ButtonStyle.Primary);
 
       if (gameState.over) {
@@ -144,8 +148,8 @@ export const handleTwentyOne: CurrencyHandler = async (
           player === dealer
             ? "Tie!"
             : gameState.won
-            ? t("commands:currency.twentyone.won")
-            : t("commands:currency.twentyone.lost")
+            ? t<string, string>("commands:currency.twentyone.won")
+            : t<string, string>("commands:currency.twentyone.lost")
         );
         if (player !== dealer) {
           data.currencyTotal = gameState.won
@@ -155,7 +159,9 @@ export const handleTwentyOne: CurrencyHandler = async (
         data.twentyOnePlayed = now;
         await data.save();
         gameEmbed.setDescription(
-          t("commands:currency.twentyone.total", { total: data.currencyTotal })
+          t<string, string>("commands:currency.twentyone.total", {
+            total: data.currencyTotal,
+          })
         );
         await Becca.currencyHook.send(
           `${interaction.user.username} played 21 in ${
@@ -173,12 +179,12 @@ export const handleTwentyOne: CurrencyHandler = async (
 
       gameEmbed.setFields(
         {
-          name: t("commands:currency.twentyone.player"),
+          name: t<string, string>("commands:currency.twentyone.player"),
           value: player.toString(),
           inline: true,
         },
         {
-          name: t("commands:currency.twentyone.becca"),
+          name: t<string, string>("commands:currency.twentyone.becca"),
           value: dealer.toString(),
           inline: true,
         }
@@ -192,7 +198,7 @@ export const handleTwentyOne: CurrencyHandler = async (
 
     collector.on("end", async () => {
       await interaction.editReply({
-        content: t("commands:currency.twentyone.expired"),
+        content: t<string, string>("commands:currency.twentyone.expired"),
         embeds: [],
         components: [],
       });

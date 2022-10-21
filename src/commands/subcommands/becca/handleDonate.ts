@@ -17,19 +17,21 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 export const handleDonate: CommandHandler = async (Becca, interaction, t) => {
   try {
     const sponsorEmbed = new EmbedBuilder();
-    sponsorEmbed.setTitle(t("commands:becca.donate.title"));
+    sponsorEmbed.setTitle(t<string, string>("commands:becca.donate.title"));
     sponsorEmbed.setColor(Becca.colours.default);
-    sponsorEmbed.setDescription(t("commands:becca.donate.description"));
+    sponsorEmbed.setDescription(
+      t<string, string>("commands:becca.donate.description")
+    );
     sponsorEmbed.setFooter({
-      text: t("commands:becca.donate.footer"),
+      text: t<string, string>("commands:becca.donate.footer"),
     });
 
     const githubButton = new ButtonBuilder()
-      .setLabel(t("commands:becca.donate.buttons.github"))
+      .setLabel(t<string, string>("commands:becca.donate.buttons.github"))
       .setStyle(ButtonStyle.Link)
       .setURL("https://github.com/sponsors/nhcarrigan");
     const patreonButton = new ButtonBuilder()
-      .setLabel(t("commands:becca.donate.buttons.patreon"))
+      .setLabel(t<string, string>("commands:becca.donate.buttons.patreon"))
       .setStyle(ButtonStyle.Link)
       .setURL("https://www.patreon.com/nhcarrigan");
     const paypalButton = new ButtonBuilder()

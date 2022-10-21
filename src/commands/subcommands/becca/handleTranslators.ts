@@ -23,25 +23,25 @@ export const handleTranslators: CommandHandler = async (
   try {
     const list = translatorList.length
       ? translatorList.map((el) => `${el.name} - ${el.language}`).join("\n")
-      : t("commands:becca.translators.none");
+      : t<string, string>("commands:becca.translators.none");
     const embed = new EmbedBuilder();
-    embed.setTitle(t("commands:becca.translators.title"));
+    embed.setTitle(t<string, string>("commands:becca.translators.title"));
     embed.setDescription(list);
     embed.setColor(Becca.colours.default);
     embed.addFields([
       {
-        name: t("commands:becca.translators.help"),
-        value: t("commands:becca.translators.join"),
+        name: t<string, string>("commands:becca.translators.help"),
+        value: t<string, string>("commands:becca.translators.join"),
       },
     ]);
     embed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     const button = new ButtonBuilder();
     button.setStyle(ButtonStyle.Link);
-    button.setLabel(t("commands:becca.translators.button"));
+    button.setLabel(t<string, string>("commands:becca.translators.button"));
     button.setURL("https://chat.nhcarrigan.com");
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([button]);

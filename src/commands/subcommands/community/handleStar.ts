@@ -19,7 +19,7 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -30,7 +30,9 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
     const optout = await getOptOutRecord(Becca, targetUser.id);
 
     if (!optout || optout.star) {
-      await interaction.editReply(t("commands:community.star.optout"));
+      await interaction.editReply(
+        t<string, string>("commands:community.star.optout")
+      );
       return;
     }
 
@@ -65,19 +67,25 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
 
     const starEmbed = new EmbedBuilder();
     starEmbed.setTitle(
-      t("commands:community.star.title", { user: targetUser.username })
+      t<string, string>("commands:community.star.title", {
+        user: targetUser.username,
+      })
     );
     starEmbed.setDescription(
-      t("commands:community.star.description", { user: member.user.username })
+      t<string, string>("commands:community.star.description", {
+        user: member.user.username,
+      })
     );
     starEmbed.addFields([
       {
-        name: t("commands:community.star.reason"),
+        name: t<string, string>("commands:community.star.reason"),
         value: customSubstring(reason, 2000),
       },
     ]);
     starEmbed.setFooter({
-      text: t("commands:community.star.total", { total: starTotal }),
+      text: t<string, string>("commands:community.star.total", {
+        total: starTotal,
+      }),
     });
     starEmbed.setColor(Becca.colours.default);
     starEmbed.setTimestamp();

@@ -20,7 +20,7 @@ export const handleResetLevels: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -32,7 +32,7 @@ export const handleResetLevels: CommandHandler = async (
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noPermission")),
+        content: getRandomValue(t<string, string[]>("responses:noPermission")),
       });
       return;
     }
@@ -41,7 +41,7 @@ export const handleResetLevels: CommandHandler = async (
 
     if (!currentLevels || !currentLevels.length) {
       await interaction.editReply({
-        content: t("commands:manage.levels.none"),
+        content: t<string, string>("commands:manage.levels.none"),
       });
       return;
     }
@@ -49,7 +49,7 @@ export const handleResetLevels: CommandHandler = async (
       await level.delete();
     }
     await interaction.editReply({
-      content: t("commands:manage.levels.success"),
+      content: t<string, string>("commands:manage.levels.success"),
     });
     return;
   } catch (err) {

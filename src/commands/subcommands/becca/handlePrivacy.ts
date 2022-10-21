@@ -11,10 +11,12 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 export const handlePrivacy: CommandHandler = async (Becca, interaction, t) => {
   try {
     const privacyEmbed = new EmbedBuilder();
-    privacyEmbed.setTitle(t("commands:becca.privacy.title"));
-    privacyEmbed.setDescription(t("commands:becca.privacy.description"));
+    privacyEmbed.setTitle(t<string, string>("commands:becca.privacy.title"));
+    privacyEmbed.setDescription(
+      t<string, string>("commands:becca.privacy.description")
+    );
     privacyEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

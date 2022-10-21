@@ -22,7 +22,7 @@ export const handleStarCount: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -31,7 +31,7 @@ export const handleStarCount: CommandHandler = async (
 
     if (!starCounts || !starCounts.users.length) {
       await interaction.editReply({
-        content: t("commands:community.starcount.none"),
+        content: t<string, string>("commands:community.starcount.none"),
       });
       return;
     }
@@ -46,12 +46,12 @@ export const handleStarCount: CommandHandler = async (
       .slice(0, 10);
 
     const userRankString = userStars
-      ? t("commands:community.starcount.star", {
+      ? t<string, string>("commands:community.starcount.star", {
           user: member.user.username,
           rank: userRank + 1,
           stars: userStars?.stars || 0,
         })
-      : t("commands:community.starcount.nostar", {
+      : t<string, string>("commands:community.starcount.nostar", {
           user: member.user.username,
         });
 
@@ -63,21 +63,23 @@ export const handleStarCount: CommandHandler = async (
 
     const starEmbed = new EmbedBuilder();
     starEmbed.setTitle(
-      t("commands:community.starcount.embed.title", { guild: guild.name })
+      t<string, string>("commands:community.starcount.embed.title", {
+        guild: guild.name,
+      })
     );
     starEmbed.setColor(Becca.colours.default);
     starEmbed.setDescription(
       `\`\`\`\n${formatTextToTable(topTenArray, {
         headers: [
-          t("commands:community.starcount.embed.rank"),
-          t("commands:community.starcount.embed.user"),
-          t("commands:community.starcount.embed.stars"),
+          t<string, string>("commands:community.starcount.embed.rank"),
+          t<string, string>("commands:community.starcount.embed.user"),
+          t<string, string>("commands:community.starcount.embed.stars"),
         ],
       })}\n\`\`\``
     );
     starEmbed.addFields([
       {
-        name: t("commands:community.starcount.embed.yours"),
+        name: t<string, string>("commands:community.starcount.embed.yours"),
         value: userRankString,
       },
     ]);

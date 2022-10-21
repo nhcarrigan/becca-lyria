@@ -19,7 +19,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
     const { guild, user: author } = interaction;
     if (!guild || !author) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -39,7 +39,9 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       ]);
 
       const commandEmbed = new EmbedBuilder();
-      commandEmbed.setTitle(t("commands:becca.stats.commands.title"));
+      commandEmbed.setTitle(
+        t<string, string>("commands:becca.stats.commands.title")
+      );
       commandEmbed.setTimestamp();
       commandEmbed.setColor(Becca.colours.default);
       commandEmbed.setAuthor({
@@ -49,14 +51,14 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       commandEmbed.setDescription(
         `\`\`\`\n${formatTextToTable(topServersEmbed, {
           headers: [
-            t("commands:becca.stats.commands.rank"),
-            t("commands:becca.stats.commands.name"),
-            t("commands:becca.stats.commands.uses"),
+            t<string, string>("commands:becca.stats.commands.rank"),
+            t<string, string>("commands:becca.stats.commands.name"),
+            t<string, string>("commands:becca.stats.commands.uses"),
           ],
         })}\`\`\``
       );
       commandEmbed.setFooter({
-        text: t("defaults:donate"),
+        text: t<string, string>("defaults:donate"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
@@ -75,7 +77,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       const serverVoteEmbed = topVotes
         .map(
           (el, i) =>
-            `#${i + 1}: ${t("commands:becca.stats.bot.votes", {
+            `#${i + 1}: ${t<string, string>("commands:becca.stats.bot.votes", {
               user: `<@!${el.userId}>`,
               votes: el.serverVotes,
             })}`
@@ -83,7 +85,9 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
         .join("\n");
 
       const serverEmbed = new EmbedBuilder();
-      serverEmbed.setTitle(t("commands:becca.stats.server.title"));
+      serverEmbed.setTitle(
+        t<string, string>("commands:becca.stats.server.title")
+      );
       serverEmbed.setTimestamp();
       serverEmbed.setColor(Becca.colours.default);
       serverEmbed.setAuthor({
@@ -92,17 +96,17 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       });
       serverEmbed.setDescription(serverVoteEmbed);
       serverEmbed.setFooter({
-        text: t("defaults:donate"),
+        text: t<string, string>("defaults:donate"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
       const supportServerButton = new ButtonBuilder()
-        .setLabel(t("commands:becca.stats.buttons.support"))
+        .setLabel(t<string, string>("commands:becca.stats.buttons.support"))
         .setEmoji("<:BeccaHello:867102882791424073>")
         .setStyle(ButtonStyle.Link)
         .setURL("https://chat.nhcarrigan.com");
       const voteServerButton = new ButtonBuilder()
-        .setLabel(t("commands:becca.stats.buttons.server"))
+        .setLabel(t<string, string>("commands:becca.stats.buttons.server"))
         .setEmoji("<:BeccaWoah:877278300949585980>")
         .setStyle(ButtonStyle.Link)
         .setURL("https://top.gg/servers/778130114772598785/vote");
@@ -125,7 +129,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       const botVoteEmbed = topVotes
         .map(
           (el, i) =>
-            `#${i + 1}: ${t("commands:becca.stats.bot.votes", {
+            `#${i + 1}: ${t<string, string>("commands:becca.stats.bot.votes", {
               user: `<@!${el.userId}>`,
               votes: el.botVotes,
             })}`
@@ -133,7 +137,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
         .join("\n");
 
       const botEmbed = new EmbedBuilder();
-      botEmbed.setTitle(t("commands:becca.stats.bot.title"));
+      botEmbed.setTitle(t<string, string>("commands:becca.stats.bot.title"));
       botEmbed.setTimestamp();
       botEmbed.setColor(Becca.colours.default);
       botEmbed.setAuthor({
@@ -142,17 +146,17 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       });
       botEmbed.setDescription(botVoteEmbed);
       botEmbed.setFooter({
-        text: t("defaults:donate"),
+        text: t<string, string>("defaults:donate"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
       const supportServerButton = new ButtonBuilder()
-        .setLabel(t("commands:becca.stats.button.support"))
+        .setLabel(t<string, string>("commands:becca.stats.button.support"))
         .setEmoji("<:BeccaHello:867102882791424073>")
         .setStyle(ButtonStyle.Link)
         .setURL("https://chat.nhcarrigan.com");
       const voteBotButton = new ButtonBuilder()
-        .setLabel(t("commands:becca.stats.buttons.bot"))
+        .setLabel(t<string, string>("commands:becca.stats.buttons.bot"))
         .setEmoji("<:BeccaWoah:877278300949585980>")
         .setStyle(ButtonStyle.Link)
         .setURL("https://top.gg/bot/716707753090875473/vote");
@@ -166,7 +170,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
     }
 
     await interaction.editReply({
-      content: t("commands:becca.stats.invalid"),
+      content: t<string, string>("commands:becca.stats.invalid"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

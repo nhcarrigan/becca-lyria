@@ -18,13 +18,13 @@ export const handleFact: CommandHandler = async (Becca, interaction, t) => {
     );
 
     const factEmbed = new EmbedBuilder();
-    factEmbed.setTitle(t("commands:games.fact.title"));
+    factEmbed.setTitle(t<string, string>("commands:games.fact.title"));
     factEmbed.setColor(Becca.colours.default);
     factEmbed.setDescription(customSubstring(fact.data.text, 4000));
     factEmbed.setURL(fact.data.source_url);
     factEmbed.setTimestamp();
     factEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

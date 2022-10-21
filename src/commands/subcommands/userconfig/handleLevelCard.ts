@@ -19,7 +19,7 @@ export const handleLevelCard: UserConfigCommandHandler = async (
     const { user } = interaction;
     if (!user) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingUser")),
+        content: getRandomValue(t<string, string[]>("responses:missingUser")),
       });
       return;
     }
@@ -31,7 +31,9 @@ export const handleLevelCard: UserConfigCommandHandler = async (
     const hexRegex = /#[a-f\d]{6}/i;
     if (![background, foreground, progress].every((el) => hexRegex.test(el))) {
       await interaction.editReply({
-        content: t("commands:userconfig.levelcard.invalidColour"),
+        content: t<string, string>(
+          "commands:userconfig.levelcard.invalidColour"
+        ),
       });
       return;
     }
@@ -40,25 +42,27 @@ export const handleLevelCard: UserConfigCommandHandler = async (
     await userConfig.save();
 
     const embed = new EmbedBuilder();
-    embed.setTitle(t("commands:userconfig.levelcard.title"));
-    embed.setDescription(t("commands:userconfig.levelcard.description"));
+    embed.setTitle(t<string, string>("commands:userconfig.levelcard.title"));
+    embed.setDescription(
+      t<string, string>("commands:userconfig.levelcard.description")
+    );
     embed.setColor(Becca.colours.default);
     embed.addFields([
       {
-        name: t("commands:userconfig.levelcard.background"),
+        name: t<string, string>("commands:userconfig.levelcard.background"),
         value: background || "Not set.",
       },
       {
-        name: t("commands:userconfig.levelcard.foreground"),
+        name: t<string, string>("commands:userconfig.levelcard.foreground"),
         value: foreground || "Not set.",
       },
       {
-        name: t("commands:userconfig.levelcard.progress"),
+        name: t<string, string>("commands:userconfig.levelcard.progress"),
         value: progress || "Not set.",
       },
     ]);
     embed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

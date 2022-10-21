@@ -22,31 +22,31 @@ export const errorEmbedGenerator = (
 ): EmbedBuilder => {
   const errorEmbed = new EmbedBuilder();
   errorEmbed.setColor(Becca.colours.error);
-  errorEmbed.setTitle(t("defaults:errors.title"));
+  errorEmbed.setTitle(t<string, string>("defaults:errors.title"));
   errorEmbed.setDescription(
-    t("defaults:errors.description", { command: commandName })
+    t<string, string>("defaults:errors.description", { command: commandName })
   );
   errorEmbed.addFields([
     {
-      name: t("defaults:errors.what.title"),
-      value: t("defaults:errors.what.description"),
+      name: t<string, string>("defaults:errors.what.title"),
+      value: t<string, string>("defaults:errors.what.description"),
     },
     {
-      name: t("defaults:errors.wrong.title"),
-      value: t("defaults:errors.wrong.description"),
+      name: t<string, string>("defaults:errors.wrong.title"),
+      value: t<string, string>("defaults:errors.wrong.description"),
     },
     {
-      name: t("defaults:errors.fix.title"),
-      value: t("defaults:errors.fix.description"),
+      name: t<string, string>("defaults:errors.fix.title"),
+      value: t<string, string>("defaults:errors.fix.description"),
     },
     {
-      name: t("defaults:errors.id"),
+      name: t<string, string>("defaults:errors.id"),
       value: errorId.toHexString(),
     },
   ]);
   errorEmbed.setTimestamp();
   errorEmbed.setFooter({
-    text: t("defaults:donate"),
+    text: t<string, string>("defaults:donate"),
     iconURL: "https://cdn.nhcarrigan.com/profile.png",
   });
   return errorEmbed;

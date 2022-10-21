@@ -60,7 +60,9 @@ export const userConfig: Command = {
 
       if (!guild || !user) {
         await interaction.editReply({
-          content: getRandomValue(t("responses:missingGuild")),
+          content: getRandomValue(
+            t<string, string[]>("responses:missingGuild")
+          ),
         });
         return;
       }

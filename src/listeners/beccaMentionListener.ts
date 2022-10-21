@@ -19,7 +19,7 @@ export const beccaMentionListener: Listener = {
       await message
         .react(Becca.configs.think)
         .catch(async () => await message.react("🤔"));
-      await channel.send(t("listeners:becca.response"));
+      await channel.send(t<string, string>("listeners:becca.response"));
     } catch (err) {
       await beccaErrorHandler(
         Becca,

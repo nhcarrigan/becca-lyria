@@ -18,8 +18,10 @@ export const handleProfile: CommandHandler = async (Becca, interaction, t) => {
   try {
     const profileEmbed = new EmbedBuilder();
     profileEmbed.setColor(Becca.colours.default);
-    profileEmbed.setTitle(t("commands:becca.profile.title"));
-    profileEmbed.setDescription(t("commands:becca.profile.description"));
+    profileEmbed.setTitle(t<string, string>("commands:becca.profile.title"));
+    profileEmbed.setDescription(
+      t<string, string>("commands:becca.profile.description")
+    );
     profileEmbed.setThumbnail(Becca.user?.avatarURL() || "");
     profileEmbed.setFooter({
       text: "Like the bot? Donate: https://donate.nhcarrigan.com",
@@ -27,7 +29,7 @@ export const handleProfile: CommandHandler = async (Becca, interaction, t) => {
     });
 
     const profileButton = new ButtonBuilder()
-      .setLabel(t("commands:becca.profile.buttons.view"))
+      .setLabel(t<string, string>("commands:becca.profile.buttons.view"))
       .setEmoji("<:BeccaHello:867102882791424073>")
       .setStyle(ButtonStyle.Link)
       .setURL(
