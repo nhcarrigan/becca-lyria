@@ -33,9 +33,9 @@ export const voiceStateUpdate = async (
       newState.channelId &&
       oldState.channelId !== newState.channelId
     ) {
-      voiceEmbed.setTitle(t("events:voice.move.title"));
+      voiceEmbed.setTitle(t<string, string>("events:voice.move.title"));
       voiceEmbed.setDescription(
-        t("events:voice.move.desc", {
+        t<string, string>("events:voice.move.desc", {
           userId,
           oldId,
           newId,
@@ -45,9 +45,9 @@ export const voiceStateUpdate = async (
     }
 
     if (oldState.channelId && !newState.channelId) {
-      voiceEmbed.setTitle(t("events:voice.leave.title"));
+      voiceEmbed.setTitle(t<string, string>("events:voice.leave.title"));
       voiceEmbed.setDescription(
-        t("events:voice.leave.desc", {
+        t<string, string>("events:voice.leave.desc", {
           userId,
           oldId,
         })
@@ -56,9 +56,9 @@ export const voiceStateUpdate = async (
     }
 
     if (!oldState.channelId && newState.channelId) {
-      voiceEmbed.setTitle(t("events:voice.join.title"));
+      voiceEmbed.setTitle(t<string, string>("events:voice.join.title"));
       voiceEmbed.setDescription(
-        t("events:voice.join.desc", {
+        t<string, string>("events:voice.join.desc", {
           userId,
           newId,
         })
@@ -67,26 +67,34 @@ export const voiceStateUpdate = async (
     }
 
     if (!oldState.mute && newState.mute) {
-      voiceEmbed.setTitle(t("events:voice.mute.title"));
-      voiceEmbed.setDescription(t("events:voice.mute.desc", { userId }));
+      voiceEmbed.setTitle(t<string, string>("events:voice.mute.title"));
+      voiceEmbed.setDescription(
+        t<string, string>("events:voice.mute.desc", { userId })
+      );
       voiceEmbed.setColor(Becca.colours.error);
     }
 
     if (oldState.mute && !newState.mute) {
-      voiceEmbed.setTitle(t("events:voice.unmute.title"));
-      voiceEmbed.setDescription(t("events:voice.unmute.desc", { userId }));
+      voiceEmbed.setTitle(t<string, string>("events:voice.unmute.title"));
+      voiceEmbed.setDescription(
+        t<string, string>("events:voice.unmute.desc", { userId })
+      );
       voiceEmbed.setColor(Becca.colours.success);
     }
 
     if (!oldState.deaf && newState.deaf) {
-      voiceEmbed.setTitle(t("events:voice.deafen.title"));
-      voiceEmbed.setDescription(t("events:voice.deafen.desc", { userId }));
+      voiceEmbed.setTitle(t<string, string>("events:voice.deafen.title"));
+      voiceEmbed.setDescription(
+        t<string, string>("events:voice.deafen.desc", { userId })
+      );
       voiceEmbed.setColor(Becca.colours.error);
     }
 
     if (oldState.deaf && !newState.deaf) {
-      voiceEmbed.setTitle(t("events:voice.undeafen.title"));
-      voiceEmbed.setDescription(t("events:voice.undeafen.desc", { userId }));
+      voiceEmbed.setTitle(t<string, string>("events:voice.undeafen.title"));
+      voiceEmbed.setDescription(
+        t<string, string>("events:voice.undeafen.desc", { userId })
+      );
       voiceEmbed.setColor(Becca.colours.success);
     }
 

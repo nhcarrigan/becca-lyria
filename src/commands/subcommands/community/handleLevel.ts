@@ -19,7 +19,7 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
 
     if (!guildId || !guild) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -33,7 +33,7 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
 
     if (!targetLevel) {
       await interaction.editReply({
-        content: t("commands:community.level.none", {
+        content: t<string, string>("commands:community.level.none", {
           user: `<@!${target.id}>`,
         }),
       });
@@ -46,30 +46,32 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
     const levelEmbed = new EmbedBuilder();
     levelEmbed.setColor(Becca.colours.default);
     levelEmbed.setTitle(
-      t("commands:community.level.title", { user: target.tag })
+      t<string, string>("commands:community.level.title", { user: target.tag })
     );
     levelEmbed.setDescription(
-      t("commands:community.level.description", { name: guild.name })
+      t<string, string>("commands:community.level.description", {
+        name: guild.name,
+      })
     );
     levelEmbed.addFields([
       {
-        name: t("commands:community.level.points"),
+        name: t<string, string>("commands:community.level.points"),
         value: targetLevel.points.toString(),
         inline: true,
       },
       {
-        name: t("commands:community.level.level"),
+        name: t<string, string>("commands:community.level.level"),
         value: targetLevel.level.toString(),
         inline: true,
       },
       {
-        name: t("commands:community.level.seen"),
+        name: t<string, string>("commands:community.level.seen"),
         value: `${new Date(targetLevel.lastSeen).toLocaleDateString()}`,
       },
     ]);
     levelEmbed.setTimestamp();
     levelEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     levelEmbed.setImage("attachment://level.png");

@@ -21,7 +21,9 @@ export const reactionButtonClick = async (
   try {
     const { guild, customId, member } = interaction;
     if (!guild || !member || Array.isArray(member.roles)) {
-      await interaction.editReply(getRandomValue(t("responses:missingGuild")));
+      await interaction.editReply(
+        getRandomValue(t<string, string[]>("responses:missingGuild"))
+      );
       return;
     }
 
@@ -29,7 +31,9 @@ export const reactionButtonClick = async (
     const role = await guild.roles.fetch(roleId);
 
     if (!role) {
-      await interaction.editReply(t("events:interaction.noRole"));
+      await interaction.editReply(
+        t<string, string>("events:interaction.noRole")
+      );
       return;
     }
 
@@ -37,10 +41,10 @@ export const reactionButtonClick = async (
 
     if (member.roles.cache.has(role.id)) {
       await member.roles.remove(role);
-      content = t("events:interaction.removedRole");
+      content = t<string, string>("events:interaction.removedRole");
     } else {
       await member.roles.add(role);
-      content = t("events:interaction.addedRole");
+      content = t<string, string>("events:interaction.addedRole");
     }
     await interaction.editReply({ content });
   } catch (err) {

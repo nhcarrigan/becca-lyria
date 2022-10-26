@@ -14,7 +14,7 @@ export const handleInvalidSubcommand: CommandHandler = async (
 ) => {
   try {
     await interaction.editReply({
-      content: getRandomValue(t("responses:invalidCommand")),
+      content: getRandomValue(t<string, string[]>("responses:invalidCommand")),
     });
   } catch (err) {
     await beccaErrorHandler(

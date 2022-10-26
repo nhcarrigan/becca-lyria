@@ -36,7 +36,7 @@ export const memberUpdate = async (
 
       const welcomeEmbed = new EmbedBuilder();
       welcomeEmbed.setColor(Becca.colours.default);
-      welcomeEmbed.setTitle(t("events:member.join.title"));
+      welcomeEmbed.setTitle(t<string, string>("events:member.join.title"));
       welcomeEmbed.setDescription(welcomeText);
       welcomeEmbed.setAuthor({
         name: user.tag,

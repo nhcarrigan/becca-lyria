@@ -19,9 +19,9 @@ export const threadDelete = async (
     const lang = thread.guild.preferredLocale;
     const t = getFixedT(lang);
     const threadEmbed = new EmbedBuilder();
-    threadEmbed.setTitle(t("events:thread.delete.title"));
+    threadEmbed.setTitle(t<string, string>("events:thread.delete.title"));
     threadEmbed.setDescription(
-      t("events:thread.delete.desc", {
+      t<string, string>("events:thread.delete.desc", {
         name: thread.name,
         parentName: thread.parent?.name,
       })

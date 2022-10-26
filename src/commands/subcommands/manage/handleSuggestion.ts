@@ -23,7 +23,7 @@ export const handleSuggestion: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -32,7 +32,7 @@ export const handleSuggestion: CommandHandler = async (
       !(member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild)
     ) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noPermission")),
+        content: getRandomValue(t<string, string[]>("responses:noPermission")),
       });
       return;
     }
@@ -47,7 +47,7 @@ export const handleSuggestion: CommandHandler = async (
 
     if (!suggestionChannel) {
       await interaction.editReply({
-        content: t("commands:manage.suggestion.lost"),
+        content: t<string, string>("commands:manage.suggestion.lost"),
       });
       return;
     }
@@ -58,7 +58,7 @@ export const handleSuggestion: CommandHandler = async (
 
     if (!targetSuggestion) {
       await interaction.editReply({
-        content: t("commands:manage.suggestion.missing"),
+        content: t<string, string>("commands:manage.suggestion.missing"),
       });
       return;
     }
@@ -67,17 +67,18 @@ export const handleSuggestion: CommandHandler = async (
 
     if (
       !embeddedSuggestion ||
-      embeddedSuggestion.title !== t("commands:community.suggest.title")
+      embeddedSuggestion.title !==
+        t<string, string>("commands:community.suggest.title")
     ) {
       await interaction.editReply({
-        content: t("commands:manage.suggestion.invalid"),
+        content: t<string, string>("commands:manage.suggestion.invalid"),
       });
       return;
     }
 
     if (embeddedSuggestion.fields.length) {
       await interaction.editReply({
-        content: t("commands:manage.suggestion.duplicate"),
+        content: t<string, string>("commands:manage.suggestion.duplicate"),
       });
       return;
     }
@@ -90,12 +91,12 @@ export const handleSuggestion: CommandHandler = async (
             {
               name:
                 action === "approve"
-                  ? t("commands:manage.suggestion.approved")
-                  : t("commands:manage.suggestion.denied"),
+                  ? t<string, string>("commands:manage.suggestion.approved")
+                  : t<string, string>("commands:manage.suggestion.denied"),
               value: `<@!${author.id}>`,
             },
             {
-              name: t("commands:manage.suggestion.reason"),
+              name: t<string, string>("commands:manage.suggestion.reason"),
               value: customSubstring(reason, 1000),
             },
           ],
@@ -106,7 +107,7 @@ export const handleSuggestion: CommandHandler = async (
     });
 
     await interaction.editReply({
-      content: t("commands:manage.suggestion.success"),
+      content: t<string, string>("commands:manage.suggestion.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

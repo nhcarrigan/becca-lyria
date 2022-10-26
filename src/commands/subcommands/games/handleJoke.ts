@@ -23,18 +23,18 @@ export const handleJoke: CommandHandler = async (Becca, interaction, t) => {
 
     if (!joke.data || joke.status !== 200) {
       await interaction.editReply({
-        content: t("commands:games.joke.no"),
+        content: t<string, string>("commands:games.joke.no"),
       });
       return;
     }
 
     const jokeEmbed = new EmbedBuilder();
     jokeEmbed.setColor(Becca.colours.default);
-    jokeEmbed.setTitle(t("commands:games.joke.title"));
+    jokeEmbed.setTitle(t<string, string>("commands:games.joke.title"));
     jokeEmbed.setDescription(joke.data.joke);
     jokeEmbed.setTimestamp();
     jokeEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     await interaction.editReply({ embeds: [jokeEmbed] });

@@ -18,22 +18,22 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 export const handleInvite: CommandHandler = async (Becca, interaction, t) => {
   try {
     const inviteEmbed = new EmbedBuilder();
-    inviteEmbed.setTitle(t("commands:becca.invite.title"));
+    inviteEmbed.setTitle(t<string, string>("commands:becca.invite.title"));
     inviteEmbed.setDescription("");
     inviteEmbed.setColor(Becca.colours.default);
     inviteEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     inviteEmbed.setTimestamp();
 
     const inviteButton = new ButtonBuilder()
-      .setLabel(t("commands:becca.invite.buttons.invite"))
+      .setLabel(t<string, string>("commands:becca.invite.buttons.invite"))
       .setEmoji("<:BeccaHello:867102882791424073>")
       .setStyle(ButtonStyle.Link)
       .setURL("https://invite.beccalyria.com");
     const supportServerButton = new ButtonBuilder()
-      .setLabel(t("commands:becca.invite.buttons.support"))
+      .setLabel(t<string, string>("commands:becca.invite.buttons.support"))
       .setEmoji("<:BeccaHuh:877278300739887134>")
       .setStyle(ButtonStyle.Link)
       .setURL("https://chat.nhcarrigan.com");

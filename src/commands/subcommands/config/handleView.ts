@@ -24,17 +24,19 @@ export const handleView: SettingsHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
 
     const embed = new EmbedBuilder();
-    embed.setTitle(t("commands:config.view.title", { name: setting }));
+    embed.setTitle(
+      t<string, string>("commands:config.view.title", { name: setting })
+    );
     embed.setTimestamp();
     embed.setColor(Becca.colours.default);
     embed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     embed.setDescription(

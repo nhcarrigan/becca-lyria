@@ -17,7 +17,7 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -34,7 +34,7 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
       targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)
     ) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noPermission")),
+        content: getRandomValue(t<string, string[]>("responses:noPermission")),
       });
       return;
     }
@@ -46,39 +46,41 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
 
     if (!targetRecord) {
       await interaction.editReply({
-        content: t("commands:mod.history.clean"),
+        content: t<string, string>("commands:mod.history.clean"),
       });
       return;
     }
 
     const embed = new EmbedBuilder();
-    embed.setTitle(t("commands:mod.history.title", { user: target.tag }));
-    embed.setDescription(t("commands:mod.history.description"));
+    embed.setTitle(
+      t<string, string>("commands:mod.history.title", { user: target.tag })
+    );
+    embed.setDescription(t<string, string>("commands:mod.history.description"));
     embed.setColor(Becca.colours.default);
     embed.setThumbnail(target.displayAvatarURL());
     embed.addFields([
       {
-        name: t("commands:mod.history.ban"),
+        name: t<string, string>("commands:mod.history.ban"),
         value: String(targetRecord.bans),
         inline: true,
       },
       {
-        name: t("commands:mod.history.kick"),
+        name: t<string, string>("commands:mod.history.kick"),
         value: String(targetRecord.kicks),
         inline: true,
       },
       {
-        name: t("commands:mod.history.warn"),
+        name: t<string, string>("commands:mod.history.warn"),
         value: String(targetRecord.warns),
         inline: true,
       },
       {
-        name: t("commands:mod.history.mute"),
+        name: t<string, string>("commands:mod.history.mute"),
         value: String(targetRecord.mutes),
         inline: true,
       },
       {
-        name: t("commands:mod.history.unmute"),
+        name: t<string, string>("commands:mod.history.unmute"),
         value: String(targetRecord.unmutes),
         inline: true,
       },

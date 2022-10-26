@@ -36,8 +36,12 @@ export const memberAdd = async (
       // logic for pending members
       const partialJoinEmbed = new EmbedBuilder();
       partialJoinEmbed.setColor(Becca.colours.warning);
-      partialJoinEmbed.setTitle(t("events:member.pending.title"));
-      partialJoinEmbed.setDescription(t("events:member.pending.desc"));
+      partialJoinEmbed.setTitle(
+        t<string, string>("events:member.pending.title")
+      );
+      partialJoinEmbed.setDescription(
+        t<string, string>("events:member.pending.desc")
+      );
       partialJoinEmbed.setAuthor({
         name: user.tag,
         iconURL: user.displayAvatarURL(),
@@ -54,7 +58,7 @@ export const memberAdd = async (
 
     const welcomeEmbed = new EmbedBuilder();
     welcomeEmbed.setColor(Becca.colours.default);
-    welcomeEmbed.setTitle(t("events:member.join.title"));
+    welcomeEmbed.setTitle(t<string, string>("events:member.join.title"));
     welcomeEmbed.setDescription(welcomeText);
     welcomeEmbed.setAuthor({
       name: user.tag,

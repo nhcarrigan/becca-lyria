@@ -23,18 +23,18 @@ export const handleQuote: CommandHandler = async (Becca, interaction, t) => {
 
     if (!quote.data || quote.status !== 200) {
       await interaction.editReply({
-        content: t("commands:games.quote.no"),
+        content: t<string, string>("commands:games.quote.no"),
       });
       return;
     }
 
     const quoteEmbed = new EmbedBuilder();
     quoteEmbed.setColor(Becca.colours.default);
-    quoteEmbed.setTitle(t("commands:games.quote.title"));
+    quoteEmbed.setTitle(t<string, string>("commands:games.quote.title"));
     quoteEmbed.setDescription(`"${quote.data.quote}"\n-- ${quote.data.author}`);
     quoteEmbed.setTimestamp();
     quoteEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     await interaction.editReply({ embeds: [quoteEmbed] });

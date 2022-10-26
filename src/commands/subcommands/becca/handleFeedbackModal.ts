@@ -26,7 +26,7 @@ export const handleFeedbackModal = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -46,14 +46,14 @@ export const handleFeedbackModal = async (
       iconURL: user.displayAvatarURL(),
     });
     feedbackEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await Becca.feedbackHook.send({ embeds: [feedbackEmbed] });
 
     await interaction.editReply({
-      content: t("commands:becca.feedback.success"),
+      content: t<string, string>("commands:becca.feedback.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

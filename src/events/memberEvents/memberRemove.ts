@@ -35,7 +35,7 @@ export const memberRemove = async (
     const serverConfig = await ServerModel.findOne({ serverID: guild.id });
 
     const goodbyeEmbed = new EmbedBuilder();
-    goodbyeEmbed.setTitle(t("events:member.leave.title"));
+    goodbyeEmbed.setTitle(t<string, string>("events:member.leave.title"));
     goodbyeEmbed.setColor(Becca.colours.default);
     goodbyeEmbed.setDescription(
       (serverConfig?.leave_message || defaultServer.leave_message)
@@ -44,11 +44,11 @@ export const memberRemove = async (
     );
     goodbyeEmbed.addFields([
       {
-        name: t("events:member.leave.name"),
+        name: t<string, string>("events:member.leave.name"),
         value: nickname || user.username,
       },
       {
-        name: t("events:member.leave.roles"),
+        name: t<string, string>("events:member.leave.roles"),
         value: roleList.join("\n"),
       },
     ]);

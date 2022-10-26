@@ -30,8 +30,12 @@ export const handleWeekly: CurrencyHandler = async (
 
     if (!userIsMember) {
       const nopeEmbed = new EmbedBuilder();
-      nopeEmbed.setTitle(t("commands:currency.weekly.no.title"));
-      nopeEmbed.setDescription(t("commands:currency.weekly.no.description"));
+      nopeEmbed.setTitle(
+        t<string, string>("commands:currency.weekly.no.title")
+      );
+      nopeEmbed.setDescription(
+        t<string, string>("commands:currency.weekly.no.description")
+      );
       nopeEmbed.setColor(Becca.colours.error);
       await interaction.editReply({ embeds: [nopeEmbed] });
       return;
@@ -40,7 +44,7 @@ export const handleWeekly: CurrencyHandler = async (
     if (!canClaim) {
       const cooldown = data.weeklyClaimed - now + 604800000;
       await interaction.editReply({
-        content: t("commands:currency.weekly.cooldown", {
+        content: t<string, string>("commands:currency.weekly.cooldown", {
           time: parseSeconds(Math.ceil(cooldown / 1000)),
         }),
       });
@@ -56,15 +60,15 @@ export const handleWeekly: CurrencyHandler = async (
     await scheduleCurrencyReminder(
       Becca,
       604800000,
-      t("commands:currency.weekly.reminder", {
+      t<string, string>("commands:currency.weekly.reminder", {
         user: `<@!${data.userId}>`,
       })
     );
 
     const embed = new EmbedBuilder();
-    embed.setTitle(t("commands:currency.weekly.title"));
+    embed.setTitle(t<string, string>("commands:currency.weekly.title"));
     embed.setDescription(
-      t("commands:currency.weekly.description", {
+      t<string, string>("commands:currency.weekly.description", {
         earned: earnedCurrency,
         total: data.currencyTotal,
       })

@@ -58,7 +58,7 @@ export const automodLinks: ListenerHandler = async (
         await message.delete();
       }
       const linkEmbed = new EmbedBuilder();
-      linkEmbed.setTitle(t("listeners:automod.links.title"));
+      linkEmbed.setTitle(t<string, string>("listeners:automod.links.title"));
       linkEmbed.setDescription(
         (config.link_message || defaultServer.link_message).replace(
           /\{@username\}/g,
@@ -71,7 +71,7 @@ export const automodLinks: ListenerHandler = async (
         iconURL: message.author.displayAvatarURL(),
       });
       linkEmbed.setFooter({
-        text: t("defaults:donate"),
+        text: t<string, string>("defaults:donate"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
       const warning = await message.channel.send({ embeds: [linkEmbed] });
@@ -83,34 +83,35 @@ export const automodLinks: ListenerHandler = async (
       const dmEmbed = new EmbedBuilder();
       dmEmbed.setTitle("Your message has been deleted...");
       dmEmbed.setDescription(
-        `${t("listeners:automod.links.dmTitle")}\n\`\`\`\n${customSubstring(
-          message.content,
-          2000
-        )}\n\`\`\``
+        `${t<string, string>(
+          "listeners:automod.links.dmTitle"
+        )}\n\`\`\`\n${customSubstring(message.content, 2000)}\n\`\`\``
       );
       dmEmbed.setColor(Becca.colours.error);
       dmEmbed.addFields([
         {
-          name: t("listeners:automod.links.server"),
+          name: t<string, string>("listeners:automod.links.server"),
           value: message.guild?.name || "unknown",
         },
         {
-          name: t("listeners:automod.links.channel"),
+          name: t<string, string>("listeners:automod.links.channel"),
           value: message.channel.toString(),
         },
         {
-          name: t("listeners:automod.links.reason"),
-          value: t("listeners:automod.links.blocked"),
+          name: t<string, string>("listeners:automod.links.reason"),
+          value: t<string, string>("listeners:automod.links.blocked"),
         },
         {
-          name: t("listeners:automod.links.links"),
+          name: t<string, string>("listeners:automod.links.links"),
           value:
-            blockedLinkList.join(" ") || t("listeners:automod.links.noBlocked"),
+            blockedLinkList.join(" ") ||
+            t<string, string>("listeners:automod.links.noBlocked"),
         },
         {
-          name: t("listeners:automod.links.allowed"),
+          name: t<string, string>("listeners:automod.links.allowed"),
           value:
-            allowedLinkList.join(" ") || t("listeners:automod.links.noAllowed"),
+            allowedLinkList.join(" ") ||
+            t<string, string>("listeners:automod.links.noAllowed"),
         },
       ]);
 

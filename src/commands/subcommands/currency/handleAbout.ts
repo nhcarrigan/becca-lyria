@@ -12,27 +12,29 @@ export const handleAbout: CurrencyHandler = async (Becca, interaction, t) => {
   try {
     const aboutEmbed = new EmbedBuilder();
     aboutEmbed.setTitle("Currency System");
-    aboutEmbed.setDescription(t("commands:currency.about.description"));
+    aboutEmbed.setDescription(
+      t<string, string>("commands:currency.about.description")
+    );
     aboutEmbed.addFields([
       {
-        name: t("commands:currency.about.modify.title"),
-        value: t("commands:currency.about.modify.description"),
+        name: t<string, string>("commands:currency.about.modify.title"),
+        value: t<string, string>("commands:currency.about.modify.description"),
       },
       {
-        name: t("commands:currency.about.cash.title"),
-        value: t("commands:currency.about.cash.description"),
+        name: t<string, string>("commands:currency.about.cash.title"),
+        value: t<string, string>("commands:currency.about.cash.description"),
       },
       {
-        name: t("commands:currency.about.bots.title"),
-        value: t("commands:currency.about.bots.description"),
+        name: t<string, string>("commands:currency.about.bots.title"),
+        value: t<string, string>("commands:currency.about.bots.description"),
       },
       {
-        name: t("commands:currency.about.refuse.title"),
-        value: t("commands:currency.about.refuse.description"),
+        name: t<string, string>("commands:currency.about.refuse.title"),
+        value: t<string, string>("commands:currency.about.refuse.description"),
       },
     ]);
     aboutEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

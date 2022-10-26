@@ -25,10 +25,12 @@ export const handleEmote: CommandHandler = async (Becca, interaction, t) => {
     emoteEmbed.setColor(Becca.colours.default);
     emoteEmbed.setDescription(description);
     emoteEmbed.setImage(`https://www.beccalyria.com/assets/emotes/${fileName}`);
-    emoteEmbed.setFooter({ text: t("commands:becca.emote.footer") });
+    emoteEmbed.setFooter({
+      text: t<string, string>("commands:becca.emote.footer"),
+    });
 
     const button = new ButtonBuilder()
-      .setLabel(t("commands:becca.emote.buttons.more"))
+      .setLabel(t<string, string>("commands:becca.emote.buttons.more"))
       .setEmoji("<:BeccaArt:897545793655930910>")
       .setStyle(ButtonStyle.Link)
       .setURL(

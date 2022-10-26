@@ -53,9 +53,11 @@ export const generateHabiticaAchievements = async (
 
     // Check if the user achievements data result is not success.
     if (!achievements || !achievements.data || !achievements.data.success) {
-      achievementsEmbed.setTitle(t("commands:games.habitica.noach.title"));
+      achievementsEmbed.setTitle(
+        t<string, string>("commands:games.habitica.noach.title")
+      );
       achievementsEmbed.setDescription(
-        t("commands:games.habitica.noach.description")
+        t<string, string>("commands:games.habitica.noach.description")
       );
       return achievementsEmbed;
     }
@@ -63,27 +65,31 @@ export const generateHabiticaAchievements = async (
     const { basic, onboarding, seasonal, special } = achievements.data.data;
 
     achievementsEmbed.setColor(Becca.colours.default);
-    achievementsEmbed.setTitle(t("commands:games.habitica.achievements.title"));
+    achievementsEmbed.setTitle(
+      t<string, string>("commands:games.habitica.achievements.title")
+    );
     achievementsEmbed.addFields([
       {
-        name: t("commands:games.habitica.achievements.basic"),
+        name: t<string, string>("commands:games.habitica.achievements.basic"),
         value: getAchievementList(Object.values(basic.achievements)),
       },
       {
-        name: t("commands:games.habitica.achievements.onboarding"),
+        name: t<string, string>(
+          "commands:games.habitica.achievements.onboarding"
+        ),
         value: getAchievementList(Object.values(onboarding.achievements)),
       },
       {
-        name: t("commands:games.habitica.achievements.season"),
+        name: t<string, string>("commands:games.habitica.achievements.season"),
         value: getAchievementList(Object.values(seasonal.achievements)),
       },
       {
-        name: t("commands:games.habitica.achievements.special"),
+        name: t<string, string>("commands:games.habitica.achievements.special"),
         value: getAchievementList(Object.values(special.achievements)),
       },
     ]);
     achievementsEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

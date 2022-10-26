@@ -20,7 +20,7 @@ export const handleReset: SettingsHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
@@ -34,8 +34,8 @@ export const handleReset: SettingsHandler = async (
     );
     await interaction.editReply(
       success
-        ? t("commands:config.reset.success", { setting })
-        : t("commands:config.reset.failed")
+        ? t<string, string>("commands:config.reset.success", { setting })
+        : t<string, string>("commands:config.reset.failed")
     );
     return;
   } catch (err) {

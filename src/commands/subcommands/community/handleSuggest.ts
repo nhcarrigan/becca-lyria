@@ -23,14 +23,14 @@ export const handleSuggest: CommandHandler = async (
     const suggestion = interaction.options.getString("suggestion", true);
     if (!guild || !author) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
     }
 
     if (!config.suggestion_channel) {
       await interaction.editReply({
-        content: t("commands:community.suggest.disabled"),
+        content: t<string, string>("commands:community.suggest.disabled"),
       });
       return;
     }
@@ -41,13 +41,15 @@ export const handleSuggest: CommandHandler = async (
 
     if (!suggestionChannel) {
       await interaction.editReply({
-        content: t("commands:community.suggest.lost"),
+        content: t<string, string>("commands:community.suggest.lost"),
       });
       return;
     }
 
     const suggestionEmbed = new EmbedBuilder();
-    suggestionEmbed.setTitle(t("commands:community.suggest.title"));
+    suggestionEmbed.setTitle(
+      t<string, string>("commands:community.suggest.title")
+    );
     suggestionEmbed.setTimestamp();
     suggestionEmbed.setColor(Becca.colours.default);
     suggestionEmbed.setAuthor({
@@ -56,7 +58,7 @@ export const handleSuggest: CommandHandler = async (
     });
     suggestionEmbed.setDescription(customSubstring(suggestion, 2000));
     suggestionEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
@@ -71,7 +73,7 @@ export const handleSuggest: CommandHandler = async (
       .catch(async () => await sentMessage.react("❌"));
 
     await interaction.editReply({
-      content: t("commands:community.suggest.success"),
+      content: t<string, string>("commands:community.suggest.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

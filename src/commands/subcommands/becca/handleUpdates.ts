@@ -22,27 +22,31 @@ export const handleUpdates: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { commitHash: hash } = Becca;
     const updateEmbed = new EmbedBuilder();
-    updateEmbed.setTitle(t("commands:becca.updates.title"));
-    updateEmbed.setDescription(t("commands:becca.updates.description"));
+    updateEmbed.setTitle(t<string, string>("commands:becca.updates.title"));
+    updateEmbed.setDescription(
+      t<string, string>("commands:becca.updates.description")
+    );
     updateEmbed.addFields([
       {
-        name: t("commands:becca.updates.latest"),
+        name: t<string, string>("commands:becca.updates.latest"),
         value: updatesSinceLastRelease.join("\n"),
       },
       {
-        name: t("commands:becca.updates.version"),
+        name: t<string, string>("commands:becca.updates.version"),
         value: process.env.npm_package_version || "0.0.0",
       },
       {
-        name: t("commands:becca.updates.next"),
+        name: t<string, string>("commands:becca.updates.next"),
         value: nextScheduledRelease,
       },
       {
-        name: t("commands:becca.updates.changelog.title"),
-        value: t("commands:becca.updates.changelog.description"),
+        name: t<string, string>("commands:becca.updates.changelog.title"),
+        value: t<string, string>(
+          "commands:becca.updates.changelog.description"
+        ),
       },
       {
-        name: t("commands:becca.updates.commit"),
+        name: t<string, string>("commands:becca.updates.commit"),
         value: `[${hash.slice(
           0,
           7
@@ -51,12 +55,12 @@ export const handleUpdates: CommandHandler = async (Becca, interaction, t) => {
     ]);
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setFooter({
-      text: t("defaults:donate"),
+      text: t<string, string>("defaults:donate"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     const button = new ButtonBuilder()
-      .setLabel(t("commands:becca.updates.buttons.view"))
+      .setLabel(t<string, string>("commands:becca.updates.buttons.view"))
       .setEmoji("<:BeccaNotes:883854700762505287>")
       .setStyle(ButtonStyle.Link)
       .setURL(

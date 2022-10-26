@@ -14,7 +14,7 @@ export const sassGreeting: ListenerHandler = async (Becca, message, t) => {
     const greetingRegex =
       /good\s(morning|afternoon|evening|night|day)|morning\severyone/i;
     if (greetingRegex.test(content) || content.toLowerCase() === "morning") {
-      await channel.send(getRandomValue(t("sass:greeting")));
+      await channel.send(getRandomValue(t<string, string[]>("sass:greeting")));
     }
   } catch (err) {
     await beccaErrorHandler(
