@@ -6,7 +6,7 @@
   "license": "AGPL-3.0-or-later",
   "private": false,
   "engines": {
-    "node": "^16.10.0",
+    "node": "^18.0.0",
     "npm": "^8.0.0"
   },
   "keywords": [
@@ -55,7 +55,7 @@
     "@types/mathjs": "9.4.1",
     "@types/mocha": "10.0.0",
     "@types/mongoose": "5.11.96",
-    "@types/node": "18.0.1",
+    "@types/node": "18.11.6",
     "@typescript-eslint/eslint-plugin": "5.41.0",
     "@typescript-eslint/parser": "5.41.0",
     "chai": "4.3.6",
