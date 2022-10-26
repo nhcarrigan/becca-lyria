@@ -51,8 +51,16 @@ export const handleEditModal = async (
       return;
     }
 
-    const targetMessage = await targetChannel.messages.fetch(targetMessageId);
+    const targetMessage = await targetChannel.messages
+      .fetch(targetMessageId)
+      .catch(() => null);
+
     const contentInput = interaction.fields.getTextInputValue("content-input");
+
+    if (!targetMessage) {
+      await interaction.reply({ content: "That message doesn't exist." });
+      return;
+    }
 
     await targetMessage.edit({
       content: contentInput,

@@ -49,7 +49,14 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const targetMessage = await channel.messages.fetch(messageId);
+    const targetMessage = await channel.messages
+      .fetch(messageId)
+      .catch(() => null);
+
+    if (!targetMessage) {
+      await interaction.reply({ content: "That message doesn't exist." });
+      return;
+    }
 
     if (targetMessage.author !== Becca.user) {
       await interaction.reply({
