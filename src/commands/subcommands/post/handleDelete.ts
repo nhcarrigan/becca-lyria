@@ -48,7 +48,9 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
       .catch(() => null);
 
     if (!targetMessage) {
-      await interaction.reply({ content: "That message doesn't exist." });
+      await interaction.reply({
+        content: t("commands:post.delete.doesnt-exist"),
+      });
       return;
     }
 

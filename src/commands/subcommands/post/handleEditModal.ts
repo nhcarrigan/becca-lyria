@@ -58,7 +58,9 @@ export const handleEditModal = async (
     const contentInput = interaction.fields.getTextInputValue("content-input");
 
     if (!targetMessage) {
-      await interaction.reply({ content: "That message doesn't exist." });
+      await interaction.reply({
+        content: t("commands:post.edit.doesnt-exist"),
+      });
       return;
     }
 
