@@ -6,7 +6,7 @@
   "license": "AGPL-3.0-or-later",
   "private": false,
   "engines": {
-    "node": "^16.10.0",
+    "node": "^18.0.0",
     "npm": "^8.0.0"
   },
   "keywords": [
@@ -55,7 +55,7 @@
     "@types/mathjs": "9.4.1",
     "@types/mocha": "10.0.0",
     "@types/mongoose": "5.11.96",
-    "@types/node": "18.0.1",
+    "@types/node": "18.11.7",
     "@typescript-eslint/eslint-plugin": "5.41.0",
     "@typescript-eslint/parser": "5.41.0",
     "chai": "4.3.6",
@@ -63,7 +63,7 @@
     "eslint": "8.26.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-jsdoc": "39.3.24",
+    "eslint-plugin-jsdoc": "39.3.25",
     "eslint-plugin-prettier": "4.2.1",
     "mocha": "10.1.0",
     "prettier": "2.7.1",
