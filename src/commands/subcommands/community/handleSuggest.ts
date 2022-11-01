@@ -62,19 +62,39 @@ export const handleSuggest: CommandHandler = async (
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
-    const sentMessage = await suggestionChannel.send({
-      embeds: [suggestionEmbed],
-    });
-    await sentMessage
-      .react(Becca.configs.yes)
-      .catch(async () => await sentMessage.react("✅"));
-    await sentMessage
-      .react(Becca.configs.no)
-      .catch(async () => await sentMessage.react("❌"));
+    if (suggestionChannel.type === TextChannel) {
+      const sentMessage = await suggestionChannel.send({
+        embeds: [suggestionEmbed],
+      });
+      await sentMessage
+        .react(Becca.configs.yes)
+        .catch(async () => await sentMessage.react("✅"));
+      await sentMessage
+        .react(Becca.configs.no)
+        .catch(async () => await sentMessage.react("❌"));
 
-    await interaction.editReply({
-      content: t<string, string>("commands:community.suggest.success"),
-    });
+      await interaction.editReply({
+        content: t<string, string>("commands:community.suggest.success"),
+      });
+    } else {
+      // send to forum channel
+      const sentMessage = await suggestionChannel.threads.create({
+        name: t<string, string>("commands:community.suggest.title"),
+        autoArchiveDuration: 60,
+        reason: "Suggestion",
+        type: "GUILD_PUBLIC_THREAD",
+        startMessage: {
+          content: suggestion,
+          embeds: [suggestionEmbed],
+        },
+      });
+      await sentMessage
+        .react(Becca.configs.yes)
+        .catch(async () => await sentMessage.react("✅"));
+      await sentMessage
+        .react(Becca.configs.no)
+        .catch(async () => await sentMessage.react("❌"));
+    }
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
