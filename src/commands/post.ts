@@ -39,7 +39,7 @@ export const post: Command = {
               ChannelType.GuildAnnouncement,
               ChannelType.AnnouncementThread,
               ChannelType.PublicThread,
-              ChannelType.PrivateThread,
+              ChannelType.PrivateThread
             )
             .setRequired(true)
         )
