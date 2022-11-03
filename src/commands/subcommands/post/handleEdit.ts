@@ -22,6 +22,7 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
     if (!guild) {
       await interaction.reply({
         content: getRandomValue(t("responses:missingGuild")),
+        ephemeral: true,
       });
       return;
     }
@@ -39,6 +40,7 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
     ) {
       await interaction.reply({
         content: getRandomValue(t("responses:noPermission")),
+        ephemeral: true,
       });
       return;
     }
@@ -56,6 +58,7 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
     if (!targetMessage) {
       await interaction.reply({
         content: t("commands:post.edit.doesnt-exist"),
+        ephemeral: true,
       });
       return;
     }
@@ -63,6 +66,7 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
     if (targetMessage.author !== Becca.user) {
       await interaction.reply({
         content: t("commands:post.edit.cant-edit"),
+        ephemeral: true,
       });
       return;
     }

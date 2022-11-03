@@ -36,10 +36,10 @@ export const post: Command = {
             .setDescription("The channel to send this message in.")
             .addChannelTypes(
               ChannelType.GuildText,
-              ChannelType.GuildNews,
-              ChannelType.GuildNewsThread,
-              ChannelType.GuildPublicThread,
-              ChannelType.GuildPrivateThread
+              ChannelType.GuildAnnouncement,
+              ChannelType.AnnouncementThread,
+              ChannelType.PublicThread,
+              ChannelType.PrivateThread,
             )
             .setRequired(true)
         )
@@ -59,7 +59,7 @@ export const post: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("delete")
         .setDescription("Command to delete a server post.")
-        .addIntegerOption((option) =>
+        .addStringOption((option) =>
           option
             .setName("link")
             .setDescription("Link to the post that you want to edit.")

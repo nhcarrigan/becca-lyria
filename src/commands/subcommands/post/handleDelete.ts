@@ -11,10 +11,11 @@ import { getRandomValue } from "../../../utils/getRandomValue";
  */
 export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
   try {
+    await interaction.deferReply({ ephemeral: true });
     const { member, guild } = interaction;
 
     if (!guild) {
-      await interaction.reply({
+      await interaction.editReply({
         content: getRandomValue(t("responses:missingGuild")),
       });
       return;
@@ -31,7 +32,7 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
       typeof member.permissions === "string" ||
       !member.permissions.has(PermissionFlagsBits.ManageGuild)
     ) {
-      await interaction.reply({
+      await interaction.editReply({
         content: getRandomValue(t("responses:noPermission")),
       });
       return;
@@ -48,19 +49,19 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
       .catch(() => null);
 
     if (!targetMessage) {
-      await interaction.reply({
+      await interaction.editReply({
         content: t("commands:post.delete.doesnt-exist"),
       });
       return;
     }
 
     if (targetMessage.author !== Becca.user || !targetMessage.deletable) {
-      await interaction.reply({
+      await interaction.editReply({
         content: t("commands:post.delete.cant-delete"),
       });
       return;
     }
-    targetMessage.delete();
+    await targetMessage.delete();
     await interaction.reply({ content: t("commands:post.delete.success") });
   } catch (err) {
     const errorId = await beccaErrorHandler(
