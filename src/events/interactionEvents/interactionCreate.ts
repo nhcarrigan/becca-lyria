@@ -2,6 +2,8 @@ import { Interaction, InteractionType, Message } from "discord.js";
 import { getFixedT } from "i18next";
 
 import { handleFeedbackModal } from "../../commands/subcommands/becca/handleFeedbackModal";
+import { handleCreateModal } from "../../commands/subcommands/post/handleCreateModal";
+import { handleEditModal } from "../../commands/subcommands/post/handleEditModal";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { currencyListener } from "../../listeners/currencyListener";
 import { usageListener } from "../../listeners/usageListener";
@@ -112,6 +114,12 @@ export const interactionCreate = async (
     if (interaction.type === InteractionType.ModalSubmit) {
       if (interaction.customId === "feedback-modal") {
         await handleFeedbackModal(Becca, interaction, t);
+      }
+      if (interaction.customId.startsWith("pc-")) {
+        await handleCreateModal(Becca, interaction, t);
+      }
+      if (interaction.customId.startsWith("pe-")) {
+        await handleEditModal(Becca, interaction, t);
       }
     }
   } catch (err) {

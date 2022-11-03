@@ -727,6 +727,26 @@
     "failure": "You have been opted out, but there was an issue deleting your data. Please contact Naomi.",
     "timeout": "Your request has timed out. Feel free to try again later. **Note that you are still opted in.**"
   },
+  "post": {
+    "create": {
+      "nonTextChannel": "I can't send messages in the <#{{channelId}}> channel as it isn't a text channel.",
+      "noPerms": "I don't have permissions to send messages in the <#{{channelId}}> channel.",
+      "success": "Successfully sent the post in <#{{channelId}}> channel!"
+    },
+    "edit": {
+      "failure": "I am not able to edit that message at {{- link}}.",
+      "success": "Successfully updated the post at {{- link}}!",
+      "invlid": "Invalid message link entered.",
+      "cant-edit": "I can't edit that message as it wasn't posted by me.",
+      "doesnt-exist": "I can't edit that message, as it doesn't exist or is unaccesible."
+    },
+    "delete": {
+      "success": "Succesfully deleted post!",
+      "invalid": "Invalid message link entered.",
+      "cant-delete": "I can't delete that message as it wasn't posted by me.",
+      "doesnt-exist": "I can't delete that message, as it doesn't exist or is unaccesible."
+    }
+  },
   "reactionrole": {
     "create": {
       "channel": "That does not appear to be a valid text channel.",

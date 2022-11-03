@@ -19,7 +19,7 @@ suite("loadCommands", () => {
     const result = await loadCommands({} as BeccaLyria);
     assert.equal(
       result.length,
-      18,
+      CommandNames.length,
       "does not return the expected number of commands"
     );
     const names = result.map((el) => el.data.name);
