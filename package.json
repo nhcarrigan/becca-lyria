@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@discordjs/rest": "^1.0.0",
+    "@j-dogcoder/phish-scanner": "^1.0.2",
     "@pm2/io": "^5.0.0",
     "@sentry/integrations": "^7.4.1",
     "@sentry/node": "^7.4.1",
