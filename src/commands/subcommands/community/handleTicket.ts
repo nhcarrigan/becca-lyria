@@ -54,7 +54,7 @@ export const handleTicket: CommandHandler = async (
       return;
     }
 
-    const options: GuildChannelCreateOptions = {
+    const options = {
       parent: category.id,
       name: `ticket-${interaction.user.tag}`,
       type: ChannelType.GuildText,
@@ -84,8 +84,19 @@ export const handleTicket: CommandHandler = async (
     };
 
     // TODO: logic for ticket role here
+    if (config.ticket_role) {
+      options.permissionOverwrites.push({
+        id: config.ticket_role,
+        allow: [
+          PermissionFlagsBits.ViewChannel,
+          PermissionFlagsBits.SendMessages,
+        ],
+      });
+    }
 
-    const ticketChannel = (await guild.channels.create(options)) as TextChannel;
+    const ticketChannel = (await guild.channels.create(
+      options as GuildChannelCreateOptions
+    )) as TextChannel;
 
     const claimButton = new ButtonBuilder()
       .setCustomId("ticket-claim")

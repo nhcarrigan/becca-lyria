@@ -44,6 +44,7 @@ export interface ServerConfig extends Document {
   welcome_style: "embed" | "text";
   ticket_category: string;
   ticket_log_channel: string;
+  ticket_role: string;
 }
 
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
@@ -87,4 +88,5 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   welcome_style: "embed",
   ticket_category: "",
   ticket_log_channel: "",
+  ticket_role: "",
 };

@@ -52,6 +52,7 @@ export const renderSetting = (
       case "ticket_log_channel":
         return `<#${value}>`;
       case "join_role":
+      case "ticket_role":
         return `<@&${value}>`;
       case "hearts":
       case "blocked":

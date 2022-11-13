@@ -113,6 +113,15 @@ const subcommands = [
         .setRequired(true)
         .addChannelTypes(ChannelType.GuildText)
     ),
+  new SlashCommandSubcommandBuilder()
+    .setName("ticket_role")
+    .setDescription("The role to be added to each new ticket.")
+    .addRoleOption((option) =>
+      option
+        .setName("role")
+        .setDescription("The role to add.")
+        .setRequired(true)
+    ),
 ];
 
 export const config: Command = {

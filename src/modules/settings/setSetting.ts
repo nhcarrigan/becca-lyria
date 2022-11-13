@@ -104,6 +104,7 @@ export const setSetting = async (
       case "report_channel":
       case "ticket_category":
       case "ticket_log_channel":
+      case "ticket_role":
         server[key] = value.replace(/\D/g, "");
         break;
       default:
