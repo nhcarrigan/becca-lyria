@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
 } from "@discordjs/builders";
-import { PermissionFlagsBits } from "discord.js";
+import { ChannelType, PermissionFlagsBits } from "discord.js";
 
 import { defaultServer } from "../config/database/defaultServer";
 import { Command } from "../interfaces/commands/Command";
@@ -92,6 +92,16 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to put reports in.")
         .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("ticket_category")
+    .setDescription("The category where new tickets should be opened.")
+    .addChannelOption((option) =>
+      option
+        .setName("category")
+        .setDescription("The category to open new tickets in.")
+        .setRequired(true)
+        .addChannelTypes(ChannelType.GuildCategory)
     ),
 ];
 

@@ -48,6 +48,7 @@ export const renderSetting = (
       case "thread_events":
       case "moderation_events":
       case "member_events":
+      case "ticket_category":
         return `<#${value}>`;
       case "join_role":
         return `<@&${value}>`;
