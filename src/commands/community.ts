@@ -21,6 +21,7 @@ import { handleServer } from "./subcommands/community/handleServer";
 import { handleStar } from "./subcommands/community/handleStar";
 import { handleStarCount } from "./subcommands/community/handleStarCount";
 import { handleSuggest } from "./subcommands/community/handleSuggest";
+import { handleTicket } from "./subcommands/community/handleTicket";
 import { handleTopic } from "./subcommands/community/handleTopic";
 import { handleUserInfo } from "./subcommands/community/handleUserInfo";
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
@@ -38,6 +39,7 @@ const handlers: { [key: string]: CommandHandler } = {
   server: handleServer,
   suggest: handleSuggest,
   poll: handlePoll,
+  ticket: handleTicket,
 };
 
 export const community: Command = {
@@ -178,6 +180,17 @@ export const community: Command = {
         )
         .addStringOption((option) =>
           option.setName("d").setDescription("Option D").setRequired(true)
+        )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("ticket")
+        .setDescription("Create a support ticket.")
+        .addStringOption((option) =>
+          option
+            .setName("reason")
+            .setDescription("Why are you opening this ticket?")
+            .setRequired(true)
         )
     ),
   run: async (Becca, interaction, t, config) => {
