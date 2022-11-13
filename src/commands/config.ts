@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
 } from "@discordjs/builders";
-import { PermissionFlagsBits } from "discord.js";
+import { ChannelType, PermissionFlagsBits } from "discord.js";
 
 import { defaultServer } from "../config/database/defaultServer";
 import { Command } from "../interfaces/commands/Command";
@@ -91,6 +91,35 @@ const subcommands = [
       option
         .setName("channel")
         .setDescription("The channel to put reports in.")
+        .setRequired(true)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("ticket_category")
+    .setDescription("The category where new tickets should be opened.")
+    .addChannelOption((option) =>
+      option
+        .setName("category")
+        .setDescription("The category to open new tickets in.")
+        .setRequired(true)
+        .addChannelTypes(ChannelType.GuildCategory)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("ticket_log_channel")
+    .setDescription("The channel where closed tickets should be logged.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel where tickets should be logged.")
+        .setRequired(true)
+        .addChannelTypes(ChannelType.GuildText)
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("ticket_role")
+    .setDescription("The role to be added to each new ticket.")
+    .addRoleOption((option) =>
+      option
+        .setName("role")
+        .setDescription("The role to add.")
         .setRequired(true)
     ),
 ];

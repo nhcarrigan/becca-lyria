@@ -59,6 +59,9 @@ export const ServerConfigSchema = new Schema({
     type: String,
     default: "embed",
   },
+  ticket_category: String,
+  ticket_log_channel: String,
+  ticket_role: String,
 });
 
 export default model<ServerConfig>("server", ServerConfigSchema);

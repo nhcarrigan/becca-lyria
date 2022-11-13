@@ -11,6 +11,7 @@ import { sassListener } from "../../listeners/sassListener";
 import { triggerListener } from "../../listeners/triggerListener";
 import { runNaomiCommands } from "../../modules/events/runNaomiCommands";
 import { getSettings } from "../../modules/settings/getSettings";
+import { logTicketMessage } from "../../modules/tickets/logTicketMessage";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { getMessageLanguage } from "../../utils/getLangCode";
 
@@ -42,6 +43,10 @@ export const messageCreate = async (
 
     if (!serverConfig) {
       return;
+    }
+
+    if (channel.name.startsWith("ticket-")) {
+      await logTicketMessage(Becca, guild.id, channel.id, message);
     }
 
     const isScam = await automodPhish(Becca, message, t, serverConfig);

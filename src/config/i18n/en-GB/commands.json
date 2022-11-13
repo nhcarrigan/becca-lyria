@@ -304,6 +304,9 @@
       "title": "Someone had an idea:",
       "success": "Alright, I have posted that. Good luck!"
     },
+    "ticket": {
+      "disabled": "The guild has not enabled the support ticket system yet. Perhaps there is somewhere else you can ask for assistance?"
+    },
     "topic": {
       "title": "Start a Conversation!",
       "footer": "Topics pulled from conversationstartersworld.com"
