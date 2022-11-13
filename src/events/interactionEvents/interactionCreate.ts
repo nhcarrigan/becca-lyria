@@ -9,6 +9,7 @@ import {
   InteractionType,
   Message,
   PermissionFlagsBits,
+  TextBasedChannel,
   TextChannel,
 } from "discord.js";
 import { getFixedT } from "i18next";
@@ -119,8 +120,9 @@ export const interactionCreate = async (
         await reactionButtonClick(Becca, t, interaction);
       }
 
-      if (interaction.customId === "claim-ticket") {
+      if (interaction.customId === "ticket-claim") {
         await interaction.deferReply({ ephemeral: true });
+
         const { guild, message, member } = interaction;
         const { embeds } = message;
 
@@ -143,18 +145,19 @@ export const interactionCreate = async (
 
         const ticketEmbed = embeds[0] as Embed;
         const updatedEmbed = {
-          ...ticketEmbed,
+          title: ticketEmbed.title || "Unknown title",
+          description: ticketEmbed.description || "Unknown reason",
           fields: [{ name: "Claimed by:", value: `<@${member.user.id}>` }],
         };
 
         const claimButton = new ButtonBuilder()
-          .setCustomId("claim")
+          .setCustomId("ticket-claim")
           .setStyle(ButtonStyle.Success)
           .setLabel("Claim this ticket!")
           .setEmoji("✋")
           .setDisabled(true);
         const closeButton = new ButtonBuilder()
-          .setCustomId("close")
+          .setCustomId("ticket-close")
           .setStyle(ButtonStyle.Danger)
           .setLabel("Close this ticket!")
           .setEmoji("🗑️");
@@ -172,7 +175,7 @@ export const interactionCreate = async (
         await interaction.editReply("You have been assigned this ticket.");
       }
 
-      if (interaction.customId === "close-ticket") {
+      if (interaction.customId === "ticket-close") {
         try {
           await interaction.deferReply({ ephemeral: true });
           const { guild, member, channel } = interaction;
@@ -180,6 +183,15 @@ export const interactionCreate = async (
           if (!guild || !member || !channel) {
             await interaction.editReply({
               content: "Error finding the guild!",
+            });
+            return;
+          }
+
+          const config = await getSettings(Becca, guild.id, guild.name);
+
+          if (!config) {
+            await interaction.reply({
+              content: t<string, string>("events:interaction.noSettings"),
             });
             return;
           }
@@ -204,8 +216,30 @@ export const interactionCreate = async (
               "unknown",
           });
 
-          const logFile = await generateLogs(Becca, guild.id, channel.id);
-          // await Becca.logHook.send({ embeds: [logEmbed], files: [logFile] });
+          if (config.ticket_log_channel) {
+            const logEmbed = new EmbedBuilder();
+            logEmbed.setTitle("Ticket Closed");
+            logEmbed.setDescription(`Ticket closed by <@!${member.user.id}>`);
+            logEmbed.addFields({
+              name: "User",
+              value:
+                (channel as TextChannel)?.name.split("-").slice(1).join("-") ||
+                "unknown",
+            });
+
+            const logFile = await generateLogs(Becca, guild.id, channel.id);
+            const logChannel =
+              guild.channels.cache.get(config.ticket_log_channel) ||
+              (await guild.channels.fetch(config.ticket_log_channel));
+
+            if (logChannel) {
+              await (logChannel as TextBasedChannel).send({
+                embeds: [logEmbed],
+                files: [logFile],
+              });
+            }
+          }
+
           await channel.delete();
         } catch (err) {
           await beccaErrorHandler(Becca, "ticket close handler", err);

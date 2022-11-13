@@ -14,7 +14,7 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  * @param {string} channelId The ticket's channel ID.
  * @param {Message} message The message sent in the ticket.
  */
-export const logMessage = async (
+export const logTicketMessage = async (
   Becca: BeccaLyria,
   guildId: string,
   channelId: string,
