@@ -34,18 +34,30 @@ export const memberUpdate = async (
         .replace(/{@username}/gi, user.username)
         .replace(/{@servername}/gi, guild.name);
 
-      const welcomeEmbed = new EmbedBuilder();
-      welcomeEmbed.setColor(Becca.colours.default);
-      welcomeEmbed.setTitle(t<string, string>("events:member.join.title"));
-      welcomeEmbed.setDescription(welcomeText);
-      welcomeEmbed.setAuthor({
-        name: user.tag,
-        iconURL: user.displayAvatarURL(),
-      });
-      welcomeEmbed.setFooter({ text: `ID: ${user.id}` });
-      welcomeEmbed.setTimestamp();
+      if (serverSettings?.welcome_style === "embed") {
+        const welcomeEmbed = new EmbedBuilder();
+        welcomeEmbed.setColor(Becca.colours.default);
+        welcomeEmbed.setTitle(t<string, string>("events:member.join.title"));
+        welcomeEmbed.setDescription(welcomeText);
+        welcomeEmbed.setAuthor({
+          name: user.tag,
+          iconURL: user.displayAvatarURL(),
+        });
+        welcomeEmbed.setFooter({ text: `ID: ${user.id}` });
+        welcomeEmbed.setTimestamp();
 
-      await sendWelcomeEmbed(Becca, guild, "join", welcomeEmbed);
+        await sendWelcomeEmbed(Becca, guild, "join", welcomeEmbed);
+      } else if (serverSettings?.welcome_style === "text") {
+        const channel =
+          guild.channels.cache.get(serverSettings.welcome_channel) ||
+          (await guild.channels.fetch(serverSettings.welcome_channel));
+        if (channel && "send" in channel) {
+          await channel.send({
+            content: welcomeText,
+            allowedMentions: {},
+          });
+        }
+      }
 
       if (serverSettings?.join_role) {
         const joinRole = await guild.roles.fetch(serverSettings.join_role);

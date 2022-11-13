@@ -70,7 +70,6 @@ export const naomiMee6 = async (Becca: BeccaLyria, message: Message) => {
     for (const role of roles) {
       await setSetting(
         Becca,
-        serverId,
         targetGuild.name,
         "level_roles",
         `${role.level} ${role.role.id}`,

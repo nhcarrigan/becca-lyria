@@ -30,14 +30,7 @@ export const handleSet: SettingsHandler = async (
       return;
     }
 
-    const isSet = await setSetting(
-      Becca,
-      guild.id,
-      guild.name,
-      setting,
-      value,
-      config
-    );
+    const isSet = await setSetting(Becca, guild.name, setting, value, config);
 
     if (!isSet) {
       await interaction.editReply(

@@ -11,7 +11,6 @@ import { beccaLogHandler } from "../../utils/beccaLogHandler";
  * as necessary.
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
- * @param {string} serverID The ID of the server to modify settings for.
  * @param {string} serverName The current name of the server.
  * @param {Settings} key The name of the setting to modify.
  * @param {string} value The value to change the setting to.
@@ -20,7 +19,6 @@ import { beccaLogHandler } from "../../utils/beccaLogHandler";
  */
 export const setSetting = async (
   Becca: BeccaLyria,
-  serverID: string,
   serverName: string,
   key: Settings,
   value: string,
@@ -90,6 +88,7 @@ export const setSetting = async (
         server[key] = value as "none" | "mute" | "kick" | "ban";
         break;
       case "level_style":
+      case "welcome_style":
         server[key] = value as "embed" | "text";
         break;
       case "welcome_channel":

@@ -75,6 +75,19 @@ const subcommands = [
         .setDescription("The role to assign.")
         .setRequired(true)
     ),
+  new SlashCommandSubcommandBuilder()
+    .setName("welcome_style")
+    .setDescription("Toggle the style between text or embed.")
+    .addStringOption((option) =>
+      option
+        .setName("style")
+        .setDescription("The style of message to send.")
+        .setRequired(true)
+        .setChoices(
+          { name: "embed", value: "embed" },
+          { name: "text", value: "text" }
+        )
+    ),
 ];
 
 export const welcome: Command = {

@@ -36,6 +36,7 @@ export const renderSetting = (
       case "level_style":
       case "level_message":
       case "role_message":
+      case "welcome_style":
         return `${value}`;
       case "welcome_channel":
       case "depart_channel":

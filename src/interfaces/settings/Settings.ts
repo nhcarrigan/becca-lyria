@@ -37,4 +37,5 @@ export type Settings =
   | "level_style"
   | "level_message"
   | "role_message"
-  | "triggers";
+  | "triggers"
+  | "welcome_style";
