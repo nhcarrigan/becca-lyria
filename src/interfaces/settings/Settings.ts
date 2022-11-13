@@ -39,4 +39,5 @@ export type Settings =
   | "role_message"
   | "triggers"
   | "welcome_style"
-  | "ticket_category";
+  | "ticket_category"
+  | "ticket_log_channel";

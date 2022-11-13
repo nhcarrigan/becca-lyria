@@ -47,4 +47,5 @@ export const defaultServer = {
   role_message: "",
   welcome_style: "embed",
   ticket_category: "",
+  ticket_log_channel: "",
 };

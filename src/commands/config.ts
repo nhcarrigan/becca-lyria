@@ -103,6 +103,16 @@ const subcommands = [
         .setRequired(true)
         .addChannelTypes(ChannelType.GuildCategory)
     ),
+  new SlashCommandSubcommandBuilder()
+    .setName("ticket_log_channel")
+    .setDescription("The channel where closed tickets should be logged.")
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setDescription("The channel where tickets should be logged.")
+        .setRequired(true)
+        .addChannelTypes(ChannelType.GuildText)
+    ),
 ];
 
 export const config: Command = {

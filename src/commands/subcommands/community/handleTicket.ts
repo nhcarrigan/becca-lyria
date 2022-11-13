@@ -34,7 +34,7 @@ export const handleTicket: CommandHandler = async (
       return;
     }
 
-    if (!config.ticket_category) {
+    if (!config.ticket_category || !config.ticket_log_channel) {
       await interaction.editReply({
         content: t<string, string>("commands:community.ticket.disabled"),
       });
