@@ -45,6 +45,9 @@ export interface ServerConfig extends Document {
   ticket_category: string;
   ticket_log_channel: string;
   ticket_role: string;
+  starboard_emote: string;
+  starboard_channel: string;
+  starboard_threshold: string;
 }
 
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
@@ -89,4 +92,7 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   ticket_category: "",
   ticket_log_channel: "",
   ticket_role: "",
+  starboard_emote: "",
+  starboard_channel: "",
+  starboard_threshold: "5",
 };
