@@ -41,6 +41,7 @@ export interface ServerConfig extends Document {
   level_style: "embed" | "text";
   level_message: string;
   role_message: string;
+  welcome_style: "embed" | "text";
 }
 
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
@@ -81,4 +82,5 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   level_message: "",
   level_style: "embed",
   role_message: "",
+  welcome_style: "embed",
 };

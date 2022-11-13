@@ -45,4 +45,5 @@ export const defaultServer = {
   level_style: "embed",
   level_message: "",
   role_message: "",
+  welcome_style: "embed",
 };
