@@ -75,6 +75,17 @@ export const levelListener: Listener = {
         return;
       }
 
+      const decayRate = Number(serverSettings.level_decay);
+
+      if (decayRate) {
+        const days = Math.floor(
+          (Date.now() - user.lastSeen.getMilliseconds()) / 86400000
+        );
+        for (let i = 0; i < days; i++) {
+          user.points -= Math.round(user.points * Math.round(decayRate / 100));
+        }
+      }
+
       user.points += pointsEarned;
       user.lastSeen = new Date(Date.now());
       user.userTag = author.tag;
@@ -117,6 +128,12 @@ export const levelListener: Listener = {
 
       if (serverSettings.level_roles.length) {
         for (const setting of serverSettings.level_roles) {
+          if (user.level < setting.level) {
+            const role = guild.roles.cache.find((r) => r.id === setting.role);
+            if (role && !member?.roles.cache.find((r) => r.id === role.id)) {
+              await member?.roles.remove(role);
+            }
+          }
           if (user.level >= setting.level) {
             const role = guild.roles.cache.find((r) => r.id === setting.role);
             if (role && !member?.roles.cache.find((r) => r.id === role.id)) {
