@@ -2,7 +2,7 @@
   "name": "becca_lyria",
   "author": "Naomi Carrigan",
   "main": "./prod/src/main.js",
-  "version": "20.2.1",
+  "version": "21.0.0",
   "license": "AGPL-3.0-or-later",
   "engines": {
     "node": "^18.0.0",
