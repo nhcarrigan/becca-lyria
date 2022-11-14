@@ -2,7 +2,7 @@ import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
-import { PermissionFlagsBits } from "discord.js";
+import { ChannelType, PermissionFlagsBits } from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
@@ -35,6 +35,12 @@ export const reactionRole: Command = {
             .setName("channel")
             .setDescription("Channel to create the post in.")
             .setRequired(true)
+            .addChannelTypes(
+              ChannelType.GuildText,
+              ChannelType.GuildAnnouncement,
+              ChannelType.PublicThread,
+              ChannelType.GuildForum
+            )
         )
         .addStringOption((option) =>
           option

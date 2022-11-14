@@ -1,4 +1,5 @@
 import {
+  ChannelType,
   PermissionFlagsBits,
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
@@ -34,6 +35,12 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to use.")
         .setRequired(true)
+        .addChannelTypes(
+          ChannelType.GuildText,
+          ChannelType.GuildAnnouncement,
+          ChannelType.PublicThread,
+          ChannelType.GuildForum
+        )
     ),
   new SlashCommandSubcommandBuilder()
     .setName("depart_channel")
@@ -43,6 +50,12 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to use.")
         .setRequired(true)
+        .addChannelTypes(
+          ChannelType.GuildText,
+          ChannelType.GuildAnnouncement,
+          ChannelType.PublicThread,
+          ChannelType.GuildForum
+        )
     ),
   new SlashCommandSubcommandBuilder()
     .setName("custom_welcome")

@@ -1,4 +1,5 @@
 import {
+  ChannelType,
   PermissionFlagsBits,
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
@@ -44,6 +45,12 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to log.")
         .setRequired(true)
+        .addChannelTypes(
+          ChannelType.GuildText,
+          ChannelType.GuildAnnouncement,
+          ChannelType.PublicThread,
+          ChannelType.GuildForum
+        )
     ),
   new SlashCommandSubcommandBuilder()
     .setName("level_roles")
@@ -110,6 +117,14 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to edit.")
         .setRequired(true)
+        .addChannelTypes(
+          ChannelType.GuildText,
+          ChannelType.GuildAnnouncement,
+          ChannelType.PublicThread,
+          ChannelType.GuildForum,
+          ChannelType.GuildVoice,
+          ChannelType.GuildStageVoice
+        )
     ),
   new SlashCommandSubcommandBuilder()
     .setName("level_decay")

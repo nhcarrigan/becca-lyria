@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
 } from "@discordjs/builders";
-import { PermissionFlagsBits } from "discord.js";
+import { ChannelType, PermissionFlagsBits } from "discord.js";
 
 import { defaultServer } from "../config/database/defaultServer";
 import { Command } from "../interfaces/commands/Command";
@@ -35,6 +35,14 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to edit.")
         .setRequired(true)
+        .addChannelTypes(
+          ChannelType.GuildText,
+          ChannelType.GuildAnnouncement,
+          ChannelType.PublicThread,
+          ChannelType.GuildForum,
+          ChannelType.GuildVoice,
+          ChannelType.GuildStageVoice
+        )
     ),
   new SlashCommandSubcommandBuilder()
     .setName("no_automod_channels")
@@ -44,6 +52,14 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to edit.")
         .setRequired(true)
+        .addChannelTypes(
+          ChannelType.GuildText,
+          ChannelType.GuildAnnouncement,
+          ChannelType.PublicThread,
+          ChannelType.GuildForum,
+          ChannelType.GuildVoice,
+          ChannelType.GuildStageVoice
+        )
     ),
   new SlashCommandSubcommandBuilder()
     .setName("automod_roles")

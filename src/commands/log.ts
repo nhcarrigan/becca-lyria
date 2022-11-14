@@ -4,7 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
 } from "@discordjs/builders";
-import { PermissionFlagsBits } from "discord.js";
+import { ChannelType, PermissionFlagsBits } from "discord.js";
 
 import { defaultServer } from "../config/database/defaultServer";
 import { Command } from "../interfaces/commands/Command";
@@ -35,6 +35,7 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to log.")
         .setRequired(true)
+        .addChannelTypes(ChannelType.GuildText, ChannelType.PublicThread)
     ),
   new SlashCommandSubcommandBuilder()
     .setName("voice_events")
@@ -44,6 +45,7 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to log.")
         .setRequired(true)
+        .addChannelTypes(ChannelType.GuildText, ChannelType.PublicThread)
     ),
   new SlashCommandSubcommandBuilder()
     .setName("thread_events")
@@ -53,6 +55,7 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to log.")
         .setRequired(true)
+        .addChannelTypes(ChannelType.GuildText, ChannelType.PublicThread)
     ),
   new SlashCommandSubcommandBuilder()
     .setName("member_events")
@@ -62,6 +65,7 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to log.")
         .setRequired(true)
+        .addChannelTypes(ChannelType.GuildText, ChannelType.PublicThread)
     ),
   new SlashCommandSubcommandBuilder()
     .setName("moderation_events")
@@ -71,6 +75,7 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to log.")
         .setRequired(true)
+        .addChannelTypes(ChannelType.GuildText, ChannelType.PublicThread)
     ),
 ];
 

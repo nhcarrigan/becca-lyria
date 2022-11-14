@@ -5,6 +5,7 @@ import {
   SlashCommandSubcommandBuilder,
   SlashCommandUserOption,
 } from "@discordjs/builders";
+import { ChannelType } from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
@@ -98,6 +99,12 @@ export const community: Command = {
             .setName("channel")
             .setDescription("The channel to send the notification in.")
             .setRequired(true)
+            .addChannelTypes(
+              ChannelType.GuildText,
+              ChannelType.GuildAnnouncement,
+              ChannelType.PublicThread,
+              ChannelType.GuildForum
+            )
         )
         .addStringOption((option) =>
           option
