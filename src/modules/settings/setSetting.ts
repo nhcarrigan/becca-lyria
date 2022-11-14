@@ -84,6 +84,7 @@ export const setSetting = async (
       case "role_message":
       case "starboard_emote":
       case "starboard_threshold":
+      case "level_decay":
         server[key] = value;
         break;
       case "antiphish":

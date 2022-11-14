@@ -44,4 +44,5 @@ export type Settings =
   | "ticket_role"
   | "starboard_emote"
   | "starboard_channel"
-  | "starboard_threshold";
+  | "starboard_threshold"
+  | "level_decay";

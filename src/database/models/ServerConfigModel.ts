@@ -65,6 +65,10 @@ export const ServerConfigSchema = new Schema({
   starboard_emote: String,
   starboard_channel: String,
   starboard_threshold: String,
+  level_decay: {
+    type: String,
+    default: "0",
+  },
 });
 
 export default model<ServerConfig>("server", ServerConfigSchema);

@@ -111,6 +111,19 @@ const subcommands = [
         .setDescription("The channel to edit.")
         .setRequired(true)
     ),
+  new SlashCommandSubcommandBuilder()
+    .setName("level_decay")
+    .setDescription(
+      "Set the percentage at which experience should reduce every day."
+    )
+    .addNumberOption((option) =>
+      option
+        .setName("percent")
+        .setDescription("The daily decay percentage.")
+        .setMinValue(0)
+        .setMaxValue(100)
+        .setRequired(true)
+    ),
 ];
 
 export const levels: Command = {
