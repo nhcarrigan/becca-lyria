@@ -1,7 +1,7 @@
 /* eslint-disable jsdoc/require-param */
-import { PhishScanner } from "@j-dogcoder/phish-scanner";
 import axios from "axios";
 import { EmbedBuilder } from "discord.js";
+import { PhishScanner } from "phish-scanner";
 
 import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
