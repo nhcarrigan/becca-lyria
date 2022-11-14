@@ -79,10 +79,11 @@ export const levelListener: Listener = {
 
       if (decayRate) {
         const days = Math.floor(
-          (Date.now() - user.lastSeen.getMilliseconds()) / 86400000
+          (Date.now() - user.lastSeen.getTime()) / 86400000
         );
-        for (let i = 0; i < days; i++) {
-          user.points -= Math.round(user.points * Math.round(decayRate / 100));
+        for (let i = 1; i <= days; i++) {
+          user.points =
+            user.points - Math.ceil(user.points * (decayRate / 100));
         }
       }
 
