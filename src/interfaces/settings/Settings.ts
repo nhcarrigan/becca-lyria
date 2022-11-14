@@ -41,4 +41,7 @@ export type Settings =
   | "welcome_style"
   | "ticket_category"
   | "ticket_log_channel"
-  | "ticket_role";
+  | "ticket_role"
+  | "starboard_emote"
+  | "starboard_channel"
+  | "starboard_threshold";

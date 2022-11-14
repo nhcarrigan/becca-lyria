@@ -82,6 +82,8 @@ export const setSetting = async (
       case "initial_xp":
       case "level_message":
       case "role_message":
+      case "starboard_emote":
+      case "starboard_threshold":
         server[key] = value;
         break;
       case "antiphish":
@@ -105,6 +107,7 @@ export const setSetting = async (
       case "ticket_category":
       case "ticket_log_channel":
       case "ticket_role":
+      case "starboard_channel":
         server[key] = value.replace(/\D/g, "");
         break;
       default:

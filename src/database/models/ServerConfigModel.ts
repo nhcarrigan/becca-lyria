@@ -62,6 +62,9 @@ export const ServerConfigSchema = new Schema({
   ticket_category: String,
   ticket_log_channel: String,
   ticket_role: String,
+  starboard_emote: String,
+  starboard_channel: String,
+  starboard_threshold: String,
 });
 
 export default model<ServerConfig>("server", ServerConfigSchema);

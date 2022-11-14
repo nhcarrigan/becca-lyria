@@ -37,6 +37,8 @@ export const renderSetting = (
       case "level_message":
       case "role_message":
       case "welcome_style":
+      case "starboard_emote":
+      case "starboard_threshold":
         return `${value}`;
       case "welcome_channel":
       case "depart_channel":
@@ -50,6 +52,7 @@ export const renderSetting = (
       case "member_events":
       case "ticket_category":
       case "ticket_log_channel":
+      case "starboard_channel":
         return `<#${value}>`;
       case "join_role":
       case "ticket_role":
