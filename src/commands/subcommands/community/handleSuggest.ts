@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { EmbedBuilder, TextChannel, ForumChannel } from "discord.js";
+import {
+  EmbedBuilder,
+  TextChannel,
+  ForumChannel,
+  ChannelType,
+} from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -62,7 +67,29 @@ export const handleSuggest: CommandHandler = async (
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
-    if (suggestionChannel.type === TextChannel) {
+    if (suggestionChannel.type === ChannelType.GuildForum) {
+      // send to forum channel
+      const newThread = await suggestionChannel.threads.create({
+        name: t<string, string>("commands:community.suggest.title"),
+        autoArchiveDuration: 60,
+        reason: "Suggestion",
+        message: {
+          embeds: [suggestionEmbed],
+        },
+      });
+      const sentMessage = await newThread.fetchStarterMessage();
+
+      if (!sentMessage) {
+        return;
+      }
+      await sentMessage
+        .react(Becca.configs.yes)
+        .catch(async () => await sentMessage.react("✅"));
+      await sentMessage
+        .react(Becca.configs.no)
+        .catch(async () => await sentMessage.react("❌"));
+      return;
+    } else {
       const sentMessage = await suggestionChannel.send({
         embeds: [suggestionEmbed],
       });
@@ -76,24 +103,6 @@ export const handleSuggest: CommandHandler = async (
       await interaction.editReply({
         content: t<string, string>("commands:community.suggest.success"),
       });
-    } else {
-      // send to forum channel
-      const sentMessage = await suggestionChannel.threads.create({
-        name: t<string, string>("commands:community.suggest.title"),
-        autoArchiveDuration: 60,
-        reason: "Suggestion",
-        type: "GUILD_PUBLIC_THREAD",
-        startMessage: {
-          content: suggestion,
-          embeds: [suggestionEmbed],
-        },
-      });
-      await sentMessage
-        .react(Becca.configs.yes)
-        .catch(async () => await sentMessage.react("✅"));
-      await sentMessage
-        .react(Becca.configs.no)
-        .catch(async () => await sentMessage.react("❌"));
     }
   } catch (err) {
     const errorId = await beccaErrorHandler(
