@@ -35,6 +35,12 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to put suggestions in.")
         .setRequired(true)
+        .addChannelTypes(
+          ChannelType.GuildText,
+          ChannelType.GuildAnnouncement,
+          ChannelType.PublicThread,
+          ChannelType.GuildForum
+        )
     ),
   new SlashCommandSubcommandBuilder()
     .setName("hearts")
@@ -83,6 +89,7 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to toggle emote-only mode in.")
         .setRequired(true)
+        .addChannelTypes(ChannelType.GuildText, ChannelType.PublicThread)
     ),
   new SlashCommandSubcommandBuilder()
     .setName("report_channel")
@@ -92,6 +99,7 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to put reports in.")
         .setRequired(true)
+        .addChannelTypes(ChannelType.GuildText, ChannelType.PublicThread)
     ),
   new SlashCommandSubcommandBuilder()
     .setName("ticket_category")
@@ -111,7 +119,7 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel where tickets should be logged.")
         .setRequired(true)
-        .addChannelTypes(ChannelType.GuildText)
+        .addChannelTypes(ChannelType.GuildText, ChannelType.PublicThread)
     ),
   new SlashCommandSubcommandBuilder()
     .setName("ticket_role")
@@ -139,7 +147,11 @@ const subcommands = [
         .setName("channel")
         .setDescription("The channel to post in.")
         .setRequired(true)
-        .addChannelTypes(ChannelType.GuildText, ChannelType.GuildAnnouncement)
+        .addChannelTypes(
+          ChannelType.GuildText,
+          ChannelType.GuildAnnouncement,
+          ChannelType.PublicThread
+        )
     ),
   new SlashCommandSubcommandBuilder()
     .setName("starboard_threshold")
