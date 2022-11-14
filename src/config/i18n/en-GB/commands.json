@@ -173,7 +173,7 @@
     },
     "updates": {
       "title": "Update Information",
-      "description": "Becca's updates are deployed every Sunday around 8AM Pacific Time. This is important information to know, as these deployments clear the cache. This results in any outstanding cache-reliant features, such as polls, trivia games, or scheduled posts, to be lost. Please plan your interactions around this schedule.",
+      "description": "Becca's updates are deployed every Sunday around 10AM Pacific Time.",
       "latest": "Latest Updates",
       "version": "Current Version",
       "next": "Next Scheduled Update",
