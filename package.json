@@ -4,7 +4,6 @@
   "main": "./prod/src/main.js",
   "version": "20.2.1",
   "license": "AGPL-3.0-or-later",
-  "private": false,
   "engines": {
     "node": "^18.0.0",
     "npm": "^9.0.0"

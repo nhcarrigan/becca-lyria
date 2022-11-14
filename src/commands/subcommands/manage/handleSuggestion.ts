@@ -1,5 +1,10 @@
 /* eslint-disable jsdoc/require-param */
-import { GuildMember, PermissionFlagsBits, TextChannel } from "discord.js";
+import {
+  GuildMember,
+  PermissionFlagsBits,
+  TextChannel,
+  ForumChannel,
+} from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -53,7 +58,7 @@ export const handleSuggestion: CommandHandler = async (
     }
 
     const targetSuggestion = await (
-      suggestionChannel as TextChannel
+      suggestionChannel as TextChannel | ForumChannel
     ).messages.fetch(`${BigInt(suggestionId)}`);
 
     if (!targetSuggestion) {
