@@ -45,7 +45,10 @@ export const messageCreate = async (
       return;
     }
 
-    if (channel.name.startsWith("ticket-")) {
+    if (
+      channel.name.startsWith("ticket-") &&
+      channel.parent?.id === serverConfig.ticket_category
+    ) {
       await logTicketMessage(Becca, guild.id, channel.id, message);
     }
 
