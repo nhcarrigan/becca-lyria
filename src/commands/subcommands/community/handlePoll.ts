@@ -4,12 +4,14 @@ import {
   ButtonBuilder,
   ButtonStyle,
   EmbedBuilder,
-  Message,
 } from "discord.js";
 
+import PollModel from "../../../database/models/PollModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { calculateMilliseconds } from "../../../utils/calculateMilliseconds";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Creates an embed containing the `question` as the description, the `a`, `b`,
@@ -19,18 +21,36 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  */
 export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
   try {
+    const { guild, channel } = interaction;
+
+    if (!guild || !channel) {
+      await interaction.editReply({
+        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+      });
+      return;
+    }
+    const duration = interaction.options.getInteger("duration", true);
+    const durationUnit = interaction.options.getString("unit", true);
     const question = interaction.options.getString("question", true);
     const optionA = interaction.options.getString("a", true);
     const optionB = interaction.options.getString("b", true);
     const optionC = interaction.options.getString("c", true);
     const optionD = interaction.options.getString("d", true);
 
-    const responses: { userId: string; response: string }[] = [];
+    const millisecondDuration = calculateMilliseconds(duration, durationUnit);
+
+    const endsAt = `<t:${Math.floor(
+      (Date.now() + millisecondDuration) / 1000
+    )}:R>`;
 
     const pollEmbed = new EmbedBuilder();
     pollEmbed.setTitle(t<string, string>("commands:community.poll.title"));
     pollEmbed.setDescription(question);
     pollEmbed.addFields([
+      {
+        name: "Poll Ends:",
+        value: endsAt,
+      },
       {
         name: "A",
         value: optionA,
@@ -70,19 +90,19 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
 
     const buttonA = new ButtonBuilder()
       .setEmoji("🇦")
-      .setCustomId("a")
+      .setCustomId("poll-a")
       .setStyle(ButtonStyle.Primary);
     const buttonB = new ButtonBuilder()
       .setEmoji("🇧")
-      .setCustomId("b")
+      .setCustomId("poll-b")
       .setStyle(ButtonStyle.Primary);
     const buttonC = new ButtonBuilder()
       .setEmoji("🇨")
-      .setCustomId("c")
+      .setCustomId("poll-c")
       .setStyle(ButtonStyle.Primary);
     const buttonD = new ButtonBuilder()
       .setEmoji("🇩")
-      .setCustomId("d")
+      .setCustomId("poll-d")
       .setStyle(ButtonStyle.Primary);
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
@@ -92,57 +112,23 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
       buttonD,
     ]);
 
-    const message = (await interaction.editReply({
+    const pollMessage = await interaction.editReply({
       embeds: [pollEmbed],
       components: [row],
-    })) as Message;
-
-    const collector = message.createMessageComponentCollector({
-      time: 1800000,
     });
 
-    collector.on("collect", async (click) => {
-      await click.deferReply({ ephemeral: true });
-      if (responses.find((el) => el.userId === click.user.id)) {
-        await click.editReply(
-          t<string, string>("commands:community.pull.failed")
-        );
-        return;
-      }
-      responses.push({ userId: click.user.id, response: click.customId });
-      await click.editReply(
-        t<string, string>("commands:community.poll.success", {
-          id: click.customId,
-        })
-      );
-    });
-
-    collector.on("end", async () => {
-      const countsA = responses.filter((el) => el.response === "a").length;
-      const countsB = responses.filter((el) => el.response === "b").length;
-      const countsC = responses.filter((el) => el.response === "c").length;
-      const countsD = responses.filter((el) => el.response === "d").length;
-
-      pollEmbed.addFields([
-        {
-          name: t<string, string>("commands:community.poll.results"),
-          value: `**A:** ${countsA}\n**B:** ${countsB}\n**C:** ${countsC}\n**D:** ${countsD}`,
-        },
-      ]);
-
-      buttonA.setDisabled(true);
-      buttonB.setDisabled(true);
-      buttonC.setDisabled(true);
-      buttonD.setDisabled(true);
-
-      const disabledRow = new ActionRowBuilder<ButtonBuilder>().addComponents([
-        buttonA,
-        buttonB,
-        buttonC,
-        buttonD,
-      ]);
-
-      await message.edit({ embeds: [pollEmbed], components: [disabledRow] });
+    await PollModel.create({
+      serverId: guild.id,
+      channelId: channel.id,
+      messageId: pollMessage.id,
+      results: {
+        a: 0,
+        b: 0,
+        c: 0,
+        d: 0,
+      },
+      responses: [],
+      endsAt: Date.now() + millisecondDuration,
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

@@ -163,6 +163,24 @@ export const community: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("poll")
         .setDescription("Create a poll.")
+        .addIntegerOption((option) =>
+          option
+            .setName("duration")
+            .setDescription("The length of time to mute the user.")
+            .setRequired(true)
+        )
+        .addStringOption((option) =>
+          option
+            .setName("unit")
+            .setDescription("The unit of time for the duration.")
+            .setRequired(true)
+            .addChoices(
+              { name: "Minutes", value: "minutes" },
+              { name: "Hours", value: "hours" },
+              { name: "Days", value: "days" },
+              { name: "Weeks", value: "weeks" }
+            )
+        )
         .addStringOption((option) =>
           option
             .setName("question")
