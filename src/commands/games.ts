@@ -11,9 +11,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 import { handleFact } from "./subcommands/games/handleFact";
 import { handleHabitica } from "./subcommands/games/handleHabitica";
-import { handleJoke } from "./subcommands/games/handleJoke";
 import { handleMtg } from "./subcommands/games/handleMtg";
-import { handleQuote } from "./subcommands/games/handleQuote";
 import { handleSlime } from "./subcommands/games/handleSlime";
 import { handleSus } from "./subcommands/games/handleSus";
 import { handleTrivia } from "./subcommands/games/handleTrivia";
@@ -21,8 +19,6 @@ import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
 
 const handlers: { [key: string]: CommandHandler } = {
   fact: handleFact,
-  joke: handleJoke,
-  quote: handleQuote,
   mtg: handleMtg,
   sus: handleSus,
   trivia: handleTrivia,
@@ -39,16 +35,6 @@ export const games: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("fact")
         .setDescription("Provides a random fun fact.")
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("joke")
-        .setDescription("Tells a random joke.")
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("quote")
-        .setDescription("Gives a random quote.")
     )
     .addSubcommand(
       new SlashCommandSubcommandBuilder()

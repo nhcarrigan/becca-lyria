@@ -1,6 +1,7 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
 import { EmbedBuilder } from "discord.js";
+import { PhishScanner } from "phish-scanner";
 
 import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
@@ -50,38 +51,12 @@ export const automodPhish: ListenerHandler = async (
       const encodedLink = encodeURI(
         link.replace(/https?:\/\//, "").split("/")[0]
       );
-      const checkHeptagramAPI = await axios
-        .get<{ scamDetected: boolean; native: boolean }>(
-          `https://api.heptagrambotproject.com/v4/scam/links/check?url=${encodedLink}`,
-          {
-            // send authentication header
-            headers: {
-              Authorization: "Bearer " + Becca.configs.heptagramApiToken,
-            },
-          }
-        )
-        .catch(async (err) => {
-          await Becca.debugHook.send({
-            embeds: [
-              {
-                title: "Heptagram Api Error",
-                description: JSON.stringify(err, null, 2),
-                fields: [
-                  {
-                    name: "Link Detected",
-                    value: link,
-                  },
-                ],
-              },
-            ],
-          });
-          return { data: { scamDetected: false } };
-        });
+      const checkHeptagramAPI = await PhishScanner(encodedLink);
 
-      if (checkHeptagramAPI.data.scamDetected) {
+      if (checkHeptagramAPI) {
         scamDetected = true;
         scamLink = link;
-        scamSource = "Heptagram";
+        scamSource = "Heptagram API";
         break;
       }
 

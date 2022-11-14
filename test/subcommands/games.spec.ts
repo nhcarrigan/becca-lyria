@@ -2,9 +2,7 @@ import { assert } from "chai";
 
 import { handleFact } from "../../src/commands/subcommands/games/handleFact";
 import { handleHabitica } from "../../src/commands/subcommands/games/handleHabitica";
-import { handleJoke } from "../../src/commands/subcommands/games/handleJoke";
 import { handleMtg } from "../../src/commands/subcommands/games/handleMtg";
-import { handleQuote } from "../../src/commands/subcommands/games/handleQuote";
 import { handleSlime } from "../../src/commands/subcommands/games/handleSlime";
 import { handleSus } from "../../src/commands/subcommands/games/handleSus";
 import { handleTrivia } from "../../src/commands/subcommands/games/handleTrivia";
@@ -23,24 +21,10 @@ suite("handleHabitica", () => {
   });
 });
 
-suite("handleJoke", () => {
-  test("is defined", () => {
-    assert.isDefined(handleJoke, "handleJoke is not defined");
-    assert.isFunction(handleJoke, "handleJoke is not a function");
-  });
-});
-
 suite("handleMtg", () => {
   test("is defined", () => {
     assert.isDefined(handleMtg, "handleMtg is not defined");
     assert.isFunction(handleMtg, "handleMtg is not a function");
-  });
-});
-
-suite("handleQuote", () => {
-  test("is defined", () => {
-    assert.isDefined(handleQuote, "handleQuote is not defined");
-    assert.isFunction(handleQuote, "handleQuote is not a function");
   });
 });
 
