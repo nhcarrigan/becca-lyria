@@ -48,6 +48,7 @@ export interface ServerConfig extends Document {
   starboard_emote: string;
   starboard_channel: string;
   starboard_threshold: string;
+  level_decay: string;
 }
 
 export const testServerConfig: Omit<ServerConfig, keyof Document> = {
@@ -95,4 +96,5 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   starboard_emote: "",
   starboard_channel: "",
   starboard_threshold: "5",
+  level_decay: "0",
 };

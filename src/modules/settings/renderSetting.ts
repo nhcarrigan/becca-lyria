@@ -39,6 +39,7 @@ export const renderSetting = (
       case "welcome_style":
       case "starboard_emote":
       case "starboard_threshold":
+      case "level_decay":
         return `${value}`;
       case "welcome_channel":
       case "depart_channel":

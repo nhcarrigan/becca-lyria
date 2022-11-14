@@ -52,4 +52,5 @@ export const defaultServer = {
   starboard_emote: "",
   starboard_channel: "",
   starboard_threshold: 5,
+  level_decay: 0,
 };
