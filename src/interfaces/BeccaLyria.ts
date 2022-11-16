@@ -38,7 +38,6 @@ export interface BeccaLyria extends Client {
     voteChannel: string;
     habiticaKey: string;
     orbitKey: string;
-    heptagramApiToken: string;
   };
   colours: {
     default: number;

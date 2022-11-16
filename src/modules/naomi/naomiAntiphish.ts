@@ -20,23 +20,9 @@ export const naomiAntiphish = async (Becca: BeccaLyria, message: Message) => {
       { domain: link }
     );
 
-    const heptagramResult = await axios.post<boolean>(
-      `http://api.heptagrambotproject.com/scam/link/report?url=${link}`,
-      {
-        headers: {
-          Authorization: "Bearer " + Becca.configs.heptagramApiToken,
-        },
-        body: {
-          link: link,
-          reportedby: `${message.author.id} || Becca Lyria`,
-        },
-      }
-    );
-
     await message.reply(
       `I have reported that domain! Here's the result:\n${JSON.stringify({
         walshy: walshyResult.data.message,
-        heptagram: heptagramResult.data,
       })}`
     );
   } catch (err) {
