@@ -1,7 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import axios from "axios";
 import { EmbedBuilder } from "discord.js";
-import { PhishScanner } from "phish-scanner";
 
 import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
@@ -51,14 +50,6 @@ export const automodPhish: ListenerHandler = async (
       const encodedLink = encodeURI(
         link.replace(/https?:\/\//, "").split("/")[0]
       );
-      const checkHeptagramAPI = await PhishScanner(encodedLink);
-
-      if (checkHeptagramAPI) {
-        scamDetected = true;
-        scamLink = link;
-        scamSource = "Heptagram API";
-        break;
-      }
 
       const checkWalshyAPI = await axios
         .post<{
