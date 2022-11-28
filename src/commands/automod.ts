@@ -114,6 +114,32 @@ const subcommands = [
           { name: "Ban the user.", value: "ban" }
         )
     ),
+  new SlashCommandSubcommandBuilder()
+    .setName("links")
+    .setDescription("Toggle Link Detection")
+    .addStringOption((option) =>
+      option
+        .setName("value")
+        .setDescription("Enable/Disable the setting.")
+        .setRequired(true)
+        .addChoices(
+          { name: "Enabled", value: "on" },
+          { name: "Disabled", value: "off" }
+        )
+    ),
+  new SlashCommandSubcommandBuilder()
+    .setName("profanity")
+    .setDescription("Toggle Profanity Detection")
+    .addStringOption((option) =>
+      option
+        .setName("value")
+        .setDescription("Enable/Disable the setting.")
+        .setRequired(true)
+        .addChoices(
+          { name: "Enabled", value: "on" },
+          { name: "Disabled", value: "off" }
+        )
+    ),
 ];
 
 export const automod: Command = {
