@@ -21,8 +21,8 @@ export const automodLinks: ListenerHandler = async (
       ""
     );
 
-    const allowedLinkList: RegExpMatchArray = [];
-    const blockedLinkList: RegExpMatchArray = [];
+    const allowedLinkList: string[] = [];
+    const blockedLinkList: string[] = [];
 
     if (config.allowed_links.length) {
       for (const str of config.allowed_links) {
