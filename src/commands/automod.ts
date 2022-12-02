@@ -119,26 +119,20 @@ const subcommands = [
     .setDescription("Toggle Link Detection")
     .addStringOption((option) =>
       option
-        .setName("value")
+        .setName("toggle")
         .setDescription("Enable/Disable the setting.")
         .setRequired(true)
-        .addChoices(
-          { name: "Enabled", value: "on" },
-          { name: "Disabled", value: "off" }
-        )
+        .addChoices({ name: "on", value: "on" }, { name: "off", value: "off" })
     ),
   new SlashCommandSubcommandBuilder()
     .setName("profanity")
     .setDescription("Toggle Profanity Detection")
     .addStringOption((option) =>
       option
-        .setName("value")
+        .setName("toggle")
         .setDescription("Enable/Disable the setting.")
         .setRequired(true)
-        .addChoices(
-          { name: "Enabled", value: "on" },
-          { name: "Disabled", value: "off" }
-        )
+        .addChoices({ name: "on", value: "on" }, { name: "off", value: "off" })
     ),
 ];
 
