@@ -49,16 +49,12 @@ export const handleCreate: CommandHandler = async (Becca, interaction, t) => {
 
     const components: ActionRowBuilder<ButtonBuilder>[] = [];
     for (const roleBlock of dividedRoles) {
-      const buttons = roleBlock.map((el) => {
-        const button = new ButtonBuilder()
+      const buttons = roleBlock.map((el) =>
+        new ButtonBuilder()
           .setLabel(el.name)
           .setCustomId(`rr-${el.id}`)
-          .setStyle(ButtonStyle.Secondary);
-        if (el.icon) {
-          button.setEmoji(el.icon);
-        }
-        return button;
-      });
+          .setStyle(ButtonStyle.Secondary)
+      );
       const row = new ActionRowBuilder<ButtonBuilder>().addComponents(buttons);
       components.push(row);
     }
