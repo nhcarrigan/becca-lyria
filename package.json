@@ -50,7 +50,7 @@
     "@types/chai": "4.3.4",
     "@types/cors": "2.8.13",
     "@types/diff": "5.0.2",
-    "@types/express": "4.17.15",
+    "@types/express": "4.17.16",
     "@types/mathjs": "9.4.1",
     "@types/mocha": "10.0.1",
     "@types/mongoose": "5.11.96",
