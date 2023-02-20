@@ -63,7 +63,7 @@ export const handleSuggest: CommandHandler = async (
     });
     suggestionEmbed.setDescription(customSubstring(suggestion, 2000));
     suggestionEmbed.setFooter({
-      text: t<string, string>("defaults:donate"),
+      text: t<string, string>("defaults.footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

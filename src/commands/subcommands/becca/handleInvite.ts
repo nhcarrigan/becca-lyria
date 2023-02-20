@@ -22,7 +22,7 @@ export const handleInvite: CommandHandler = async (Becca, interaction, t) => {
     inviteEmbed.setDescription("");
     inviteEmbed.setColor(Becca.colours.default);
     inviteEmbed.setFooter({
-      text: t<string, string>("defaults:donate"),
+      text: t<string, string>("defaults.footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     inviteEmbed.setTimestamp();

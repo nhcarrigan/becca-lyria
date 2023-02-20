@@ -24,7 +24,7 @@ export const handleSus: CommandHandler = async (Becca, interaction, t) => {
     susEmbed.setColor(susData.colour);
     susEmbed.setTimestamp();
     susEmbed.setFooter({
-      text: t<string, string>("defaults:donate"),
+      text: t<string, string>("defaults.footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

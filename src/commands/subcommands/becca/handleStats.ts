@@ -58,7 +58,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
         })}\`\`\``
       );
       commandEmbed.setFooter({
-        text: t<string, string>("defaults:donate"),
+        text: t<string, string>("defaults.footer"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
@@ -96,7 +96,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       });
       serverEmbed.setDescription(serverVoteEmbed);
       serverEmbed.setFooter({
-        text: t<string, string>("defaults:donate"),
+        text: t<string, string>("defaults.footer"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
@@ -146,7 +146,7 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
       });
       botEmbed.setDescription(botVoteEmbed);
       botEmbed.setFooter({
-        text: t<string, string>("defaults:donate"),
+        text: t<string, string>("defaults.footer"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
