@@ -92,7 +92,7 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
       },
     ]);
     successEmbed.setFooter({
-      text: t<string, string>("defaults:donate"),
+      text: t<string, string>("defaults.footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile-transparent",
     });
     await interaction.editReply({ embeds: [successEmbed] });

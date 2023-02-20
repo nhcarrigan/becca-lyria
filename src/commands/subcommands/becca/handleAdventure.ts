@@ -40,7 +40,7 @@ export const handleAdventure: CommandHandler = async (
       )}`
     );
     adventureEmbed.setFooter({
-      text: t<string, string>("defaults:donate"),
+      text: t<string, string>("defaults.footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
