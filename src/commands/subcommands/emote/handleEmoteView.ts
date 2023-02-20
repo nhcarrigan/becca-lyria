@@ -81,7 +81,7 @@ export const handleEmoteView: CommandHandler = async (
       },
     ]);
     emoteEmbed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile-transparent",
     });
 

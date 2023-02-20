@@ -20,7 +20,7 @@ export const handleCanIUse: CommandHandler = async (Becca, interaction, t) => {
     caniuseEmbed.setTimestamp();
     caniuseEmbed.setColor(Becca.colours.default);
     caniuseEmbed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

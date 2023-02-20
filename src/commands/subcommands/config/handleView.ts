@@ -36,7 +36,7 @@ export const handleView: SettingsHandler = async (
     embed.setTimestamp();
     embed.setColor(Becca.colours.default);
     embed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     embed.setDescription(

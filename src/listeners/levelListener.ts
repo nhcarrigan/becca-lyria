@@ -118,7 +118,7 @@ export const levelListener: Listener = {
             iconURL: author.displayAvatarURL(),
           });
           levelEmbed.setFooter({
-            text: t<string, string>("defaults.footer"),
+            text: t<string, string>("defaults:footer"),
             iconURL: "https://cdn.nhcarrigan.com/profile.png",
           });
           await targetChannel.send({ embeds: [levelEmbed] });
@@ -157,7 +157,7 @@ export const levelListener: Listener = {
                   iconURL: author.displayAvatarURL(),
                 });
                 roleEmbed.setFooter({
-                  text: t<string, string>("defaults.footer"),
+                  text: t<string, string>("defaults:footer"),
                   iconURL: "https://cdn.nhcarrigan.com/profile.png",
                 });
                 await targetChannel.send({ embeds: [roleEmbed] });

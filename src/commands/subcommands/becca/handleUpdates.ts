@@ -55,7 +55,7 @@ export const handleUpdates: CommandHandler = async (Becca, interaction, t) => {
     ]);
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

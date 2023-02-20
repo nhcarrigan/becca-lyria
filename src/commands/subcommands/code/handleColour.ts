@@ -32,7 +32,7 @@ export const handleColour: CommandHandler = async (Becca, interaction, t) => {
     colourEmbed.setImage(`https://www.colorhexa.com/${parsedColour}.png`);
     colourEmbed.setTimestamp();
     colourEmbed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

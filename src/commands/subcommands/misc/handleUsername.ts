@@ -43,7 +43,7 @@ export const handleUsername: CommandHandler = async (Becca, interaction, t) => {
       },
     ]);
     usernameEmbed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

@@ -24,7 +24,7 @@ export const handleFact: CommandHandler = async (Becca, interaction, t) => {
     factEmbed.setURL(fact.data.source_url);
     factEmbed.setTimestamp();
     factEmbed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

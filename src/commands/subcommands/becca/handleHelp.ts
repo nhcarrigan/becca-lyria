@@ -44,7 +44,7 @@ export const handleHelp: CommandHandler = async (Becca, interaction, t) => {
       },
     ]);
     helpEmbed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

@@ -40,7 +40,7 @@ export const handleOrbit: CommandHandler = async (Becca, interaction, t) => {
     orbitEmbed.setColor(Becca.colours.default);
     orbitEmbed.setTimestamp();
     orbitEmbed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

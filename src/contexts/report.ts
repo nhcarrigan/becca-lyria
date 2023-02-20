@@ -70,7 +70,7 @@ export const report: Context = {
         },
       ]);
       reportEmbed.setFooter({
-        text: t<string, string>("defaults.footer"),
+        text: t<string, string>("defaults:footer"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 

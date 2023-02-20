@@ -27,7 +27,7 @@ export const handleHttp: CommandHandler = async (Becca, interaction, t) => {
     httpEmbed.setColor(Becca.colours.default);
     httpEmbed.setTimestamp();
     httpEmbed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

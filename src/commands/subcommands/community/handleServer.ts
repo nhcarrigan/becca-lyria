@@ -154,7 +154,7 @@ export const handleServer: CommandHandler = async (Becca, interaction, t) => {
       },
     ]);
     serverEmbed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

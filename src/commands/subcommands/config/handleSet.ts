@@ -48,7 +48,7 @@ export const handleSet: SettingsHandler = async (
     successEmbed.setTimestamp();
     successEmbed.setColor(Becca.colours.default);
     successEmbed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     await interaction.editReply({ embeds: [successEmbed] });

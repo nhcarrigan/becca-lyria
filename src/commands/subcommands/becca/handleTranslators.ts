@@ -35,7 +35,7 @@ export const handleTranslators: CommandHandler = async (
       },
     ]);
     embed.setFooter({
-      text: t<string, string>("defaults.footer"),
+      text: t<string, string>("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

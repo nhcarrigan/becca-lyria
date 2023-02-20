@@ -71,7 +71,7 @@ export const automodLinks: ListenerHandler = async (
         iconURL: message.author.displayAvatarURL(),
       });
       linkEmbed.setFooter({
-        text: t<string, string>("defaults.footer"),
+        text: t<string, string>("defaults:footer"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
       const warning = await message.channel.send({ embeds: [linkEmbed] });
