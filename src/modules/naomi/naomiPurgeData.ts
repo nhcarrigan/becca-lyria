@@ -25,7 +25,7 @@ export const naomiPurgeData = async (Becca: BeccaLyria, message: Message) => {
     if (data === "levels") {
       const levels = await LevelModel.find({ userID: target });
       for (const datum of levels) {
-        await datum.delete();
+        await LevelModel.deleteOne({ _id: datum._id });
         name = datum.userTag;
       }
       await message.reply(`I have cleared the level data for ${name}.`);
@@ -35,7 +35,7 @@ export const naomiPurgeData = async (Becca: BeccaLyria, message: Message) => {
     if (data === "activity") {
       const activity = await ActivityModel.findOne({ userId: target });
       if (activity) {
-        await activity.delete();
+        await ActivityModel.deleteOne({ _id: activity._id });
         name = activity.userId;
       }
       await message.reply(`I have cleared the activity data for ${name}.`);
@@ -61,7 +61,7 @@ export const naomiPurgeData = async (Becca: BeccaLyria, message: Message) => {
       const currency = await CurrencyModel.findOne({ userId: target });
       if (currency) {
         name = currency.userId;
-        await currency.delete();
+        await CurrencyModel.deleteOne({ _id: currency._id });
       }
       await message.reply(`I have cleared the currency data for ${name}.`);
       return;
@@ -71,7 +71,7 @@ export const naomiPurgeData = async (Becca: BeccaLyria, message: Message) => {
       const votes = await VoterModel.findOne({ userId: target });
       if (votes) {
         name = votes.userId;
-        await votes.delete();
+        await VoterModel.deleteOne({ _id: votes._id });
       }
       await message.reply(`I have cleared the vote data for ${name}.`);
       return;
@@ -81,7 +81,7 @@ export const naomiPurgeData = async (Becca: BeccaLyria, message: Message) => {
       const commands = await CommandCountModel.findOne({ serverId: target });
       if (commands) {
         name = commands.serverName;
-        await commands.delete();
+        await CommandCountModel.deleteOne({ _id: commands._id });
       }
       await message.reply(`I have cleared the command data for ${name}.`);
       return;
@@ -91,7 +91,7 @@ export const naomiPurgeData = async (Becca: BeccaLyria, message: Message) => {
       const emotes = await EmoteCountModel.findOne({ userId: target });
       if (emotes) {
         name = emotes.userName;
-        await emotes.delete();
+        await EmoteCountModel.deleteOne({ _id: emotes._id });
       }
       await message.reply(`I have cleared the emote data for ${name}.`);
       return;

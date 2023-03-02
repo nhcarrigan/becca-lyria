@@ -23,7 +23,7 @@ export const memberRemoveCleanup = async (
     });
 
     if (levelData) {
-      await levelData.delete();
+      await LevelModel.deleteOne({ _id: levelData._id });
     }
 
     const starData = await StarModel.findOne({ serverID: guildId });

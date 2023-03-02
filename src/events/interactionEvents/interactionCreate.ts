@@ -174,7 +174,7 @@ export const interactionCreate = async (
             components: [],
           });
           await interaction.editReply({ content: "That poll has ended!" });
-          await pollRecord.delete();
+          await PollModel.deleteOne({ _id: pollRecord._id });
           return;
         }
 
