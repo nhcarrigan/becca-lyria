@@ -1,6 +1,3 @@
-import io from "@pm2/io";
-import Gauge from "@pm2/io/build/main/utils/metrics/gauge";
-import Meter from "@pm2/io/build/main/utils/metrics/meter";
 import { Client, WebhookClient } from "discord.js";
 
 import { Command } from "./commands/Command";

@@ -1,7 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { getCounts } from "../../modules/becca/getCounts";
 import { loadEvents } from "../../modules/events/scheduledEvent";
 import { beccaLogHandler } from "../../utils/beccaLogHandler";
 
