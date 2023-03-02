@@ -32,7 +32,10 @@ export const handleMute: CommandHandler = async (
 
     if (!durationMilliseconds) {
       await interaction.editReply({
-        content: t<string, string>("commands:mod.mute.invalid", { duration, durationUnit }),
+        content: t<string, string>("commands:mod.mute.invalid", {
+          duration,
+          durationUnit,
+        }),
       });
       return;
     }
@@ -90,14 +93,22 @@ export const handleMute: CommandHandler = async (
       reason
     );
 
-    await targetUser.timeout(durationMilliseconds, reason);
+    await targetUser.timeout(
+      durationMilliseconds,
+      customSubstring(
+        `Moderator: ${interaction.user.tag}\n\nReason: ${reason}`,
+        512
+      )
+    );
 
     await updateHistory(Becca, "mute", target.id, guild.id);
 
     const muteEmbed = new EmbedBuilder();
     muteEmbed.setTitle(t<string, string>("commands:mod.mute.title"));
     muteEmbed.setDescription(
-      t<string, string>("commands:mod.mute.description", { user: member.user.username })
+      t<string, string>("commands:mod.mute.description", {
+        user: member.user.username,
+      })
     );
     muteEmbed.setColor(Becca.colours.warning);
     muteEmbed.addFields([

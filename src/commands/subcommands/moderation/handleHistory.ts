@@ -21,17 +21,17 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
       });
       return;
     }
-    const targetMember = await guild.members.fetch(target.id);
+    const targetMember = await guild.members.fetch(target.id).catch(() => null);
 
     if (
       typeof member.permissions === "string" ||
       (!member.permissions.has(PermissionFlagsBits.KickMembers) &&
         !member.permissions.has(PermissionFlagsBits.BanMembers) &&
         !member.permissions.has(PermissionFlagsBits.ModerateMembers)) ||
-      !targetMember ||
-      targetMember.permissions.has(PermissionFlagsBits.KickMembers) ||
-      targetMember.permissions.has(PermissionFlagsBits.BanMembers) ||
-      targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)
+      (targetMember &&
+        (targetMember.permissions.has(PermissionFlagsBits.KickMembers) ||
+          targetMember.permissions.has(PermissionFlagsBits.BanMembers) ||
+          targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)))
     ) {
       await interaction.editReply({
         content: getRandomValue(t<string, string[]>("responses:noPermission")),
@@ -62,6 +62,11 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
       {
         name: t<string, string>("commands:mod.history.ban"),
         value: String(targetRecord.bans),
+        inline: true,
+      },
+      {
+        name: t<string, string>("commands:mod.history.unban"),
+        value: String(targetRecord.unbans),
         inline: true,
       },
       {

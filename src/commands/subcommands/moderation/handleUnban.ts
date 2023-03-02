@@ -8,18 +8,11 @@ import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
 import { getRandomValue } from "../../../utils/getRandomValue";
-import { sendModerationDm } from "../../../utils/sendModerationDm";
 
 /**
- * Provided the caller has permission, kicks the `target` user from the guild
- * for the given `reason`.
+ * Unbans the `target` user for the provided `reason`, assuming the caller has permissions.
  */
-export const handleKick: CommandHandler = async (
-  Becca,
-  interaction,
-  t,
-  config
-) => {
+export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
@@ -32,14 +25,12 @@ export const handleKick: CommandHandler = async (
       return;
     }
 
-    const targetMember = await guild.members.fetch(target.id).catch(() => null);
+    const bannedMember = await guild.bans.fetch(target.id).catch(() => null);
 
     if (
       !member ||
       typeof member.permissions === "string" ||
-      !member.permissions.has(PermissionFlagsBits.KickMembers) ||
-      (targetMember &&
-        targetMember.permissions.has(PermissionFlagsBits.KickMembers))
+      !member.permissions.has(PermissionFlagsBits.BanMembers)
     ) {
       await interaction.editReply({
         content: getRandomValue(t<string, string[]>("responses:noPermission")),
@@ -47,91 +38,72 @@ export const handleKick: CommandHandler = async (
       return;
     }
 
-    if (!targetMember) {
+    if (!bannedMember) {
       await interaction.editReply({
-        content: "That user appears to have left the guild.",
+        content: `Cannot find a ban for ${target.tag}`,
       });
       return;
     }
 
-    if (target.id === member.user.id) {
+    if (bannedMember.user.id === member.user.id) {
       await interaction.editReply({
         content: getRandomValue(t<string, string[]>("responses:noModSelf")),
       });
       return;
     }
-    if (target.id === Becca.user?.id) {
+    if (bannedMember.user.id === Becca.user?.id) {
       await interaction.editReply({
         content: getRandomValue(t<string, string[]>("responses:noModBecca")),
       });
       return;
     }
 
-    if (!targetMember.kickable) {
-      await interaction.editReply({
-        content: t<string, string>("commands:mod.kick.invalid"),
-      });
-      return;
-    }
-
-    const sentNotice = await sendModerationDm(
-      Becca,
-      config,
-      t,
-      "kick",
-      target,
-      reason
-    );
-
-    await targetMember.kick(
+    await guild.bans.remove(
+      bannedMember.user.id,
       customSubstring(
         `Moderator: ${interaction.user.tag}\n\nReason: ${reason}`,
         512
       )
     );
 
-    await updateHistory(Becca, "kick", target.id, guild.id);
+    await updateHistory(Becca, "unban", target.id, guild.id);
 
-    const kickLogEmbed = new EmbedBuilder();
-    kickLogEmbed.setColor(Becca.colours.error);
-    kickLogEmbed.setTitle(t<string, string>("commands:mod.kick.title"));
-    kickLogEmbed.setDescription(
-      t<string, string>("commands:mod.kick.description", {
+    const banLogEmbed = new EmbedBuilder();
+    banLogEmbed.setColor(Becca.colours.error);
+    banLogEmbed.setTitle(t<string, string>("commands:mod.unban.title"));
+    banLogEmbed.setDescription(
+      t<string, string>("commands:mod.unban.description", {
         user: member.user.username,
       })
     );
-    kickLogEmbed.addFields([
+    banLogEmbed.addFields([
       {
-        name: t<string, string>("commands:mod.kick.reason"),
+        name: t<string, string>("commands:mod.unban.reason"),
         value: customSubstring(reason, 1000),
       },
-      {
-        name: t<string, string>("commands:mod.kick.notified"),
-        value: String(sentNotice),
-      },
     ]);
-    kickLogEmbed.setTimestamp();
-    kickLogEmbed.setAuthor({
-      name: target.tag,
-      iconURL: target.displayAvatarURL(),
+    banLogEmbed.setTimestamp();
+    banLogEmbed.setAuthor({
+      name: bannedMember.user.tag,
+      iconURL: bannedMember.user.displayAvatarURL(),
     });
-    kickLogEmbed.setFooter({ text: `ID: ${targetMember.id}` });
+    banLogEmbed.setFooter({ text: `ID: ${bannedMember.user.id}` });
 
-    await sendLogEmbed(Becca, guild, kickLogEmbed, "moderation_events");
+    await sendLogEmbed(Becca, guild, banLogEmbed, "moderation_events");
     await interaction.editReply({
-      content: t<string, string>("commands:mod.kick.success"),
+      content: t<string, string>("commands:mod.unban.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
-      "kick command",
+      "unban command",
       err,
       interaction.guild?.name,
       undefined,
       interaction
     );
     await interaction.editReply({
-      embeds: [errorEmbedGenerator(Becca, "kick", errorId, t)],
+      embeds: [errorEmbedGenerator(Becca, "unban", errorId, t)],
     });
   }
 };
