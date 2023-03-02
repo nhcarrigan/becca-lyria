@@ -71,7 +71,6 @@ export const messageCreate = async (
     ) {
       await runNaomiCommands(Becca, message);
     }
-    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
       Becca,

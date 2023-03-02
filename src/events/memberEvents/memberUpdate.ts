@@ -154,8 +154,6 @@ export const memberUpdate = async (
 
       await logChannel.send({ embeds: [embed] });
     }
-
-    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
       Becca,

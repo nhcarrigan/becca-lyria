@@ -41,7 +41,6 @@ export const interactionCreate = async (
   interaction: Interaction
 ): Promise<void> => {
   try {
-    Becca.pm2.metrics.events.mark();
     const lang = getInteractionLanguage(interaction);
     const t = getFixedT(lang);
     if (interaction.isChatInputCommand()) {

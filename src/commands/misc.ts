@@ -100,7 +100,6 @@ export const misc: Command = {
       const subCommand = interaction.options.getSubcommand();
       const handler = handlers[subCommand] || handleInvalidSubcommand;
       await handler(Becca, interaction, t, config);
-      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

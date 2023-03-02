@@ -8,7 +8,6 @@ import { IntentOptions } from "./config/IntentOptions";
 import { connectDatabase } from "./database/connectDatabase";
 import { handleEvents } from "./events/handleEvents";
 import { BeccaLyria } from "./interfaces/BeccaLyria";
-import { loadPM2 } from "./modules/loadPM2";
 import { validateEnv } from "./modules/validateEnv";
 import { createServer } from "./server/serve";
 import { beccaErrorHandler } from "./utils/beccaErrorHandler";
@@ -49,11 +48,6 @@ void (async () => {
   const validatedEnvironment = validateEnv(Becca);
   if (!validatedEnvironment.valid) {
     beccaLogHandler.log("error", validatedEnvironment.message);
-    return;
-  }
-  const loadedPM2 = loadPM2(Becca);
-  if (!loadedPM2) {
-    beccaLogHandler.log("error", "Unable to load Grafana metrics");
     return;
   }
 

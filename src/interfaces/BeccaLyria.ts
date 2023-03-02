@@ -53,14 +53,4 @@ export interface BeccaLyria extends Client {
   timeOuts: {
     [uuid: string]: NodeJS.Timeout;
   };
-  pm2: {
-    client: typeof io;
-    metrics: {
-      events: Meter;
-      commands: Meter;
-      errors: Meter;
-      guilds: Gauge;
-      users: Gauge;
-    };
-  };
 }

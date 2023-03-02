@@ -18,5 +18,4 @@ export const disconnect = async (Becca: BeccaLyria): Promise<void> => {
   disconnectEmbed.setTimestamp();
   disconnectEmbed.setColor(Becca.colours.error);
   await Becca.debugHook.send({ embeds: [disconnectEmbed] });
-  Becca.pm2.metrics.events.mark();
 };

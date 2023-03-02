@@ -46,7 +46,4 @@ export const guildCreate = async (
   guildCreateEmbed.setTimestamp();
 
   await Becca.debugHook.send({ embeds: [guildCreateEmbed] });
-
-  Becca.pm2.metrics.guilds.set(Becca.pm2.metrics.guilds.val() + 1);
-  Becca.pm2.metrics.events.mark();
 };

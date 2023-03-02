@@ -101,7 +101,6 @@ export const voiceStateUpdate = async (
     if (voiceEmbed.data.description) {
       await sendLogEmbed(Becca, oldState.guild, voiceEmbed, "voice_events");
     }
-    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(Becca, "voice state update listener", err);
   }

@@ -150,7 +150,6 @@ export const currency: Command = {
       const subcommand = interaction.options.getSubcommand();
       const handler = handlers[subcommand] || handleInvalidSubcommand;
       await handler(Becca, interaction, t, userData);
-      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

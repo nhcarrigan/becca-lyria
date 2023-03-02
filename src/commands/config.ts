@@ -238,7 +238,6 @@ export const config: Command = {
       }`;
       const handler = handlers[action];
       await handler(Becca, interaction, t, serverConfig, setting, value);
-      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

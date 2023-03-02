@@ -68,7 +68,6 @@ export const messageDelete = async (
         sendLogEmbed(Becca, guild, embed, "message_events")
       );
     }
-    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
       Becca,

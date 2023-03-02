@@ -110,8 +110,6 @@ export const userUpdate = async (
         await logChannel.send({ embeds: [embed] });
       }
     }
-
-    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(Becca, "member remove event", err);
   }
