@@ -29,6 +29,7 @@ export const updateHistory = async (
         bans: 0,
         kicks: 0,
         mutes: 0,
+        unbans: 0,
         unmutes: 0,
         warns: 0,
       }));
@@ -42,6 +43,9 @@ export const updateHistory = async (
         break;
       case "mute":
         userRecord.mutes++;
+        break;
+      case "unban":
+        userRecord.unbans++;
         break;
       case "unmute":
         userRecord.unmutes++;

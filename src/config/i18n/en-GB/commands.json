@@ -685,7 +685,8 @@
       "kick": "Kicks",
       "warn": "Warnings",
       "mute": "Mutes",
-      "unmute": "Unmutes"
+      "unmute": "Unmutes",
+      "unban": "Unbans"
     },
     "kick": {
       "invalid": "I am afraid they are too important for me to remove.",
@@ -704,6 +705,12 @@
       "duration": "Duration",
       "notified": "User Notified?",
       "success": "That user has been cursed with silence."
+    },
+    "unban": {
+      "title": "A user has been unbanned!",
+      "description": "The ban was lifted by {{user}}",
+      "reason": "Reason",
+      "success": "That user may rejoin our guild."
     },
     "unmute": {
       "title": "A user is no longer silenced!",

@@ -8,6 +8,10 @@ export const HistorySchema = new Schema({
   bans: Number,
   kicks: Number,
   mutes: Number,
+  unbans: {
+    type: Number,
+    default: 0,
+  },
   unmutes: Number,
   warns: Number,
 });

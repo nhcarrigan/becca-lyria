@@ -14,6 +14,7 @@ import { handleBan } from "./subcommands/moderation/handleBan";
 import { handleHistory } from "./subcommands/moderation/handleHistory";
 import { handleKick } from "./subcommands/moderation/handleKick";
 import { handleMute } from "./subcommands/moderation/handleMute";
+import { handleUnban } from "./subcommands/moderation/handleUnban";
 import { handleUnmute } from "./subcommands/moderation/handleUnmute";
 import { handleWarn } from "./subcommands/moderation/handleWarn";
 
@@ -24,6 +25,7 @@ const handlers: { [key: string]: CommandHandler } = {
   kick: handleKick,
   ban: handleBan,
   history: handleHistory,
+  unban: handleUnban,
 };
 
 export const mod: Command = {
@@ -124,7 +126,7 @@ export const mod: Command = {
         .addUserOption((option) =>
           option
             .setName("target")
-            .setDescription("The user to kick.")
+            .setDescription("The user to ban.")
             .setRequired(true)
         )
         .addNumberOption((option) =>
@@ -136,6 +138,23 @@ export const mod: Command = {
             .setRequired(true)
             .setMinValue(0)
             .setMaxValue(7)
+        )
+        .addStringOption((option) =>
+          option
+            .setName("reason")
+            .setDescription("The reason for banning the user.")
+            .setRequired(true)
+        )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("unban")
+        .setDescription("Unbans a user from the server.")
+        .addUserOption((option) =>
+          option
+            .setName("target")
+            .setDescription("The user to unban.")
+            .setRequired(true)
         )
         .addStringOption((option) =>
           option

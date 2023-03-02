@@ -6,6 +6,7 @@ export interface History extends Document {
   bans: number;
   kicks: number;
   mutes: number;
+  unbans: number;
   unmutes: number;
   warns: number;
 }
@@ -16,6 +17,7 @@ export const testHistory: Omit<History, keyof Document> = {
   bans: 0,
   kicks: 0,
   mutes: 0,
+  unbans: 0,
   unmutes: 0,
   warns: 0,
 };
