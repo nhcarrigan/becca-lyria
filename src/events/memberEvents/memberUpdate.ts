@@ -1,4 +1,9 @@
-import { GuildMember, EmbedBuilder, PartialGuildMember } from "discord.js";
+import {
+  GuildMember,
+  EmbedBuilder,
+  PartialGuildMember,
+  PermissionFlagsBits,
+} from "discord.js";
 import { getFixedT } from "i18next";
 
 import { defaultServer } from "../../config/database/defaultServer";
@@ -24,17 +29,21 @@ export const memberUpdate = async (
     const { guild, user } = newMember;
     const lang = guild.preferredLocale;
     const t = getFixedT(lang);
+    const serverSettings = await getSettings(Becca, guild.id, guild.name);
+
+    if (!serverSettings) {
+      return;
+    }
 
     // passes membership screening
     if (oldMember.pending && !newMember.pending) {
-      const serverSettings = await getSettings(Becca, guild.id, guild.name);
       const welcomeText = (
-        serverSettings?.custom_welcome || defaultServer.custom_welcome
+        serverSettings.custom_welcome || defaultServer.custom_welcome
       )
         .replace(/{@username}/gi, user.username)
         .replace(/{@servername}/gi, guild.name);
 
-      if (serverSettings?.welcome_style === "embed") {
+      if (serverSettings.welcome_style === "embed") {
         const welcomeEmbed = new EmbedBuilder();
         welcomeEmbed.setColor(Becca.colours.default);
         welcomeEmbed.setTitle(t<string, string>("events:member.join.title"));
@@ -47,7 +56,7 @@ export const memberUpdate = async (
         welcomeEmbed.setTimestamp();
 
         await sendWelcomeEmbed(Becca, guild, "join", welcomeEmbed);
-      } else if (serverSettings?.welcome_style === "text") {
+      } else if (serverSettings.welcome_style === "text") {
         const channel =
           guild.channels.cache.get(serverSettings.welcome_channel) ||
           (await guild.channels.fetch(serverSettings.welcome_channel));
@@ -66,11 +75,139 @@ export const memberUpdate = async (
         }
       }
     }
+
+    if (!serverSettings.member_events) {
+      return;
+    }
+
+    const logChannel = await guild.channels.fetch(serverSettings.member_events);
+    const beccaMember = guild.members.cache.get(Becca.user?.id || "");
+
+    if (
+      !logChannel ||
+      !("send" in logChannel) ||
+      !beccaMember
+        ?.permissionsIn(logChannel)
+        .has(PermissionFlagsBits.SendMessages)
+    ) {
+      return;
+    }
+
+    const embed = new EmbedBuilder();
+    embed.setColor(Becca.colours.default);
+    embed.setTitle(t<string, string>("events:member.update.title"));
+    embed.setAuthor({
+      name: user.tag,
+      iconURL: user.displayAvatarURL(),
+    });
+    embed.setFooter({ text: `ID: ${user.id}` });
+    embed.setTimestamp();
+
+    if (oldMember.nickname !== newMember.nickname) {
+      embed.setDescription(
+        t<string, string>("events:member.update.description", {
+          key: "nickname",
+        })
+      );
+      embed.addFields([
+        {
+          name: t<string, string>("events:member.update.old"),
+          value: oldMember.nickname || oldMember.user.username,
+          inline: true,
+        },
+        {
+          name: t<string, string>("events:member.update.new"),
+          value: newMember.nickname || newMember.user.username,
+          inline: true,
+        },
+      ]);
+
+      await logChannel.send({ embeds: [embed] });
+    }
+
+    if (oldMember.roles.cache.size !== newMember.roles.cache.size) {
+      embed.setDescription(
+        t<string, string>("events:member.update.description", {
+          key: "roles",
+        })
+      );
+
+      const addedRoles = newMember.roles.cache
+        .filter((role) => !oldMember.roles.cache.has(role.id))
+        .map((role) => `<@&${role.id}>`);
+      const removedRoles = oldMember.roles.cache
+        .filter((role) => !newMember.roles.cache.has(role.id))
+        .map((role) => `<@&${role.id}>`);
+
+      embed.addFields([
+        {
+          name: t<string, string>("events:member.update.old"),
+          value: removedRoles.join(", ") || "No roles removed.",
+          inline: true,
+        },
+        {
+          name: t<string, string>("events:member.update.new"),
+          value: addedRoles.join(", ") || "No roles added.",
+          inline: true,
+        },
+      ]);
+
+      await logChannel.send({ embeds: [embed] });
+    }
+
+    if (oldMember.user.tag !== newMember.user.tag) {
+      embed.setDescription(
+        t<string, string>("events:member.update.description", {
+          key: "username",
+        })
+      );
+      embed.addFields([
+        {
+          name: t<string, string>("events:member.update.old"),
+          value: oldMember.user.tag,
+          inline: true,
+        },
+        {
+          name: t<string, string>("events:member.update.new"),
+          value: newMember.user.tag,
+          inline: true,
+        },
+      ]);
+
+      await logChannel.send({ embeds: [embed] });
+    }
+
+    if (oldMember.avatar !== newMember.avatar) {
+      embed.setDescription(
+        t<string, string>("events:member.update.description", {
+          key: "avatar",
+        })
+      );
+      embed.addFields([
+        {
+          name: t<string, string>("events:member.update.old"),
+          value:
+            `[Old Avatar](${oldMember.user.displayAvatarURL()})` ||
+            "No avatar.",
+          inline: true,
+        },
+        {
+          name: t<string, string>("events:member.update.new"),
+          value:
+            `[New Avatar](${newMember.user.displayAvatarURL()})` ||
+            "No avatar.",
+          inline: true,
+        },
+      ]);
+
+      await logChannel.send({ embeds: [embed] });
+    }
+
     Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
       Becca,
-      "member remove event",
+      "member update event",
       err,
       newMember.guild.name
     );

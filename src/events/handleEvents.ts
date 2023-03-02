@@ -17,6 +17,7 @@ import { shardReady } from "./shardEvents/shardReady";
 import { threadCreate } from "./threadEvents/threadCreate";
 import { threadDelete } from "./threadEvents/threadDelete";
 import { threadUpdate } from "./threadEvents/threadUpdate";
+import { userUpdate } from "./userEvents/userUpdate";
 import { voiceStateUpdate } from "./voiceEvents/voiceStateUpdate";
 
 /**
@@ -58,6 +59,9 @@ export const handleEvents = (Becca: BeccaLyria): void => {
   });
   Becca.on("guildMemberUpdate", async (oldMember, newMember) => {
     await memberUpdate(Becca, oldMember, newMember);
+  });
+  Becca.on("userUpdate", async (oldUser, newUser) => {
+    await userUpdate(Becca, oldUser, newUser);
   });
 
   Becca.on("ready", async () => {

@@ -19,6 +19,12 @@
       "title": "A member has abandoned our guild!",
       "name": "Name",
       "roles": "Roles"
+    },
+    "update": {
+      "title": "A member has updated their profile!",
+      "description": "They have changed their {{- key}}.",
+      "old": "Old Value",
+      "new": "New Value"
     }
   },
   "message": {
