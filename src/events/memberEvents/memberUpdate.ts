@@ -155,54 +155,6 @@ export const memberUpdate = async (
       await logChannel.send({ embeds: [embed] });
     }
 
-    if (oldMember.user.tag !== newMember.user.tag) {
-      embed.setDescription(
-        t<string, string>("events:member.update.description", {
-          key: "username",
-        })
-      );
-      embed.addFields([
-        {
-          name: t<string, string>("events:member.update.old"),
-          value: oldMember.user.tag,
-          inline: true,
-        },
-        {
-          name: t<string, string>("events:member.update.new"),
-          value: newMember.user.tag,
-          inline: true,
-        },
-      ]);
-
-      await logChannel.send({ embeds: [embed] });
-    }
-
-    if (oldMember.avatar !== newMember.avatar) {
-      embed.setDescription(
-        t<string, string>("events:member.update.description", {
-          key: "avatar",
-        })
-      );
-      embed.addFields([
-        {
-          name: t<string, string>("events:member.update.old"),
-          value:
-            `[Old Avatar](${oldMember.user.displayAvatarURL()})` ||
-            "No avatar.",
-          inline: true,
-        },
-        {
-          name: t<string, string>("events:member.update.new"),
-          value:
-            `[New Avatar](${newMember.user.displayAvatarURL()})` ||
-            "No avatar.",
-          inline: true,
-        },
-      ]);
-
-      await logChannel.send({ embeds: [embed] });
-    }
-
     Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
