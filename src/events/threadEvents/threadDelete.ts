@@ -31,7 +31,6 @@ export const threadDelete = async (
     threadEmbed.setTimestamp();
 
     await sendLogEmbed(Becca, thread.guild, threadEmbed, "thread_events");
-    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(Becca, "thread delete event", err);
   }

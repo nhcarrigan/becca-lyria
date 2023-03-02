@@ -34,9 +34,6 @@ export const beccaErrorHandler = async (
   message?: Message,
   interaction?: CommandInteraction | ContextMenuCommandInteraction
 ): Promise<Types.ObjectId> => {
-  if (Becca.pm2.metrics.errors) {
-    Becca.pm2.metrics.errors.mark();
-  }
   const error = err as Error;
   beccaLogHandler.log("error", `There was an error in the ${context}:`);
   beccaLogHandler.log(

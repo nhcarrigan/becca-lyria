@@ -59,7 +59,4 @@ export const guildDelete = async (
   await StarModel.findOneAndDelete({ serverID: guild.id });
   await CommandCountModel.findOneAndDelete({ serverId: guild.id });
   await HistoryModel.deleteMany({ serverId: guild.id });
-
-  Becca.pm2.metrics.guilds.set(Becca.pm2.metrics.guilds.val() - 1);
-  Becca.pm2.metrics.events.mark();
 };

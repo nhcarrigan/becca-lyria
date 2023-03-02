@@ -21,5 +21,4 @@ export const shardReady = async (
   shardEmbed.setColor(Becca.colours.success);
 
   await Becca.debugHook.send({ embeds: [shardEmbed] });
-  Becca.pm2.metrics.events.mark();
 };

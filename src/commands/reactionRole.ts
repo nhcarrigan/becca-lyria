@@ -202,7 +202,6 @@ export const reactionRole: Command = {
       const action = interaction.options.getSubcommand();
       const handler = handlers[action] || handleInvalidSubcommand;
       await handler(Becca, interaction, t, config);
-      Becca.pm2.metrics.commands.mark();
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

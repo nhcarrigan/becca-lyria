@@ -64,9 +64,6 @@ export const memberRemove = async (
       : await sendWelcomeEmbed(Becca, guild, "leave", goodbyeEmbed);
 
     await memberRemoveCleanup(Becca, member.id, guild.id);
-
-    Becca.pm2.metrics.users.set(Becca.pm2.metrics.users.val() - 1);
-    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
       Becca,

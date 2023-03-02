@@ -1,6 +1,3 @@
-import io from "@pm2/io";
-import Gauge from "@pm2/io/build/main/utils/metrics/gauge";
-import Meter from "@pm2/io/build/main/utils/metrics/meter";
 import { Client, WebhookClient } from "discord.js";
 
 import { Command } from "./commands/Command";
@@ -52,15 +49,5 @@ export interface BeccaLyria extends Client {
   };
   timeOuts: {
     [uuid: string]: NodeJS.Timeout;
-  };
-  pm2: {
-    client: typeof io;
-    metrics: {
-      events: Meter;
-      commands: Meter;
-      errors: Meter;
-      guilds: Gauge;
-      users: Gauge;
-    };
   };
 }

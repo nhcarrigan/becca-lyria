@@ -84,7 +84,6 @@ export const messageUpdate = async (
     await automodListener.run(Becca, message, t, serverConfig);
     await triggerListener.run(Becca, message, t, serverConfig);
     await emoteListener.run(Becca, message, t, serverConfig);
-    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(
       Becca,

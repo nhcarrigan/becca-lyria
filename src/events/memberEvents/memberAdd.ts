@@ -118,9 +118,6 @@ export const memberAdd = async (
       userRecord.points += parseInt(serverSettings.initial_xp);
       await userRecord.save();
     }
-
-    Becca.pm2.metrics.users.set(Becca.pm2.metrics.users.val() + 1);
-    Becca.pm2.metrics.events.mark();
   } catch (err) {
     await beccaErrorHandler(Becca, "member add event", err, member.guild.name);
   }
