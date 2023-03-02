@@ -83,7 +83,12 @@ export const handleKick: CommandHandler = async (
       reason
     );
 
-    await targetMember.kick(customSubstring(reason, 1000));
+    await targetMember.kick(
+      customSubstring(
+        `Moderator: ${interaction.user.tag}\n\nReason: ${reason}`,
+        512
+      )
+    );
 
     await updateHistory(Becca, "kick", target.id, guild.id);
 

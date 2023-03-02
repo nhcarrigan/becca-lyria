@@ -62,7 +62,13 @@ export const handleUnmute: CommandHandler = async (
 
     const targetUser = await guild.members.fetch(target.id);
 
-    await targetUser.timeout(null, reason);
+    await targetUser.timeout(
+      null,
+      customSubstring(
+        `Moderator: ${interaction.user.tag}\n\nReason: ${reason}`,
+        512
+      )
+    );
 
     await updateHistory(Becca, "unmute", target.id, guild.id);
 
@@ -78,7 +84,9 @@ export const handleUnmute: CommandHandler = async (
     const muteEmbed = new EmbedBuilder();
     muteEmbed.setTitle(t<string, string>("commands:mod.unmute.title"));
     muteEmbed.setDescription(
-      t<string, string>("commands:mod.unmute.description", { user: member.user.username })
+      t<string, string>("commands:mod.unmute.description", {
+        user: member.user.username,
+      })
     );
     muteEmbed.setColor(Becca.colours.success);
     muteEmbed.addFields([
