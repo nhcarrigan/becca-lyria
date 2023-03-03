@@ -6,10 +6,7 @@ import {
   EmbedBuilder,
 } from "discord.js";
 
-import {
-  nextScheduledRelease,
-  updatesSinceLastRelease,
-} from "../../../config/commands/updatesData";
+import { updatesSinceLastRelease } from "../../../config/commands/updatesData";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -23,21 +20,11 @@ export const handleUpdates: CommandHandler = async (Becca, interaction, t) => {
     const { commitHash: hash } = Becca;
     const updateEmbed = new EmbedBuilder();
     updateEmbed.setTitle(t<string, string>("commands:becca.updates.title"));
-    updateEmbed.setDescription(
-      t<string, string>("commands:becca.updates.description")
-    );
+    updateEmbed.setDescription(updatesSinceLastRelease.join("\n"));
     updateEmbed.addFields([
-      {
-        name: t<string, string>("commands:becca.updates.latest"),
-        value: updatesSinceLastRelease.join("\n"),
-      },
       {
         name: t<string, string>("commands:becca.updates.version"),
         value: process.env.npm_package_version || "0.0.0",
-      },
-      {
-        name: t<string, string>("commands:becca.updates.next"),
-        value: nextScheduledRelease,
       },
       {
         name: t<string, string>("commands:becca.updates.changelog.title"),

@@ -173,8 +173,6 @@
     },
     "updates": {
       "title": "Update Information",
-      "description": "Becca's updates are deployed every Sunday around 10AM Pacific Time.",
-      "latest": "Latest Updates",
       "version": "Current Version",
       "next": "Next Scheduled Update",
       "changelog": {
