@@ -25,7 +25,7 @@ export const userUpdate = async (
   try {
     const guilds = Becca.guilds.cache.values();
     for (const guild of guilds) {
-      const member = await guild.members.fetch(newUser.id);
+      const member = await guild.members.fetch(newUser.id).catch(() => null);
 
       if (!member) {
         continue;
@@ -111,6 +111,6 @@ export const userUpdate = async (
       }
     }
   } catch (err) {
-    await beccaErrorHandler(Becca, "member remove event", err);
+    await beccaErrorHandler(Becca, "user update event", err);
   }
 };
