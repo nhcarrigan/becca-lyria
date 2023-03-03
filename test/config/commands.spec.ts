@@ -19,10 +19,7 @@ import { slotsList } from "../../src/config/commands/slotsList";
 import { SusList } from "../../src/config/commands/susList";
 import { topicList } from "../../src/config/commands/topicList";
 import { translatorList } from "../../src/config/commands/translatorList";
-import {
-  updatesSinceLastRelease,
-  nextScheduledRelease,
-} from "../../src/config/commands/updatesData";
+import { updatesSinceLastRelease } from "../../src/config/commands/updatesData";
 import { testEmoteCount } from "../../src/interfaces/database/EmoteCount";
 
 suite("adventureList", () => {
@@ -143,14 +140,6 @@ suite("updatesData", () => {
       updatesSinceLastRelease.join("\n").length,
       1024,
       "Update list is too long for an embed field."
-    );
-    assert.isDefined(
-      nextScheduledRelease,
-      "nextScheduledRelease is not defined"
-    );
-    assert.isString(
-      nextScheduledRelease,
-      "nextScheduledRelease is not a string"
     );
   });
 });
