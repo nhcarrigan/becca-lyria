@@ -18,7 +18,8 @@
     "leave": {
       "title": "A member has abandoned our guild!",
       "name": "Name",
-      "roles": "Roles"
+      "roles": "Roles",
+      "count": "Messages Sent"
     },
     "update": {
       "title": "A member has updated their profile!",
