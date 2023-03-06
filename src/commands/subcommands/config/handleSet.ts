@@ -1,6 +1,7 @@
 /* eslint-disable jsdoc/require-param */
-import { EmbedBuilder } from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
+import { SettingsPermissions } from "../../../config/commands/settingsPermissions";
 import { SettingsHandler } from "../../../interfaces/settings/SettingsHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { renderSetting } from "../../../modules/settings/renderSetting";
@@ -28,6 +29,52 @@ export const handleSet: SettingsHandler = async (
         content: getRandomValue(t<string, string[]>("responses:missingGuild")),
       });
       return;
+    }
+
+    const needsPerms = SettingsPermissions[setting];
+    const isNotChannel = needsPerms?.includes("ManageRoles");
+    const beccaUser = await guild.members.fetchMe();
+
+    if (
+      isNotChannel &&
+      needsPerms &&
+      !needsPerms.every((perm) =>
+        beccaUser.permissions.has(PermissionFlagsBits[perm])
+      )
+    ) {
+      await interaction.editReply({
+        content: t<string, string>("commands:config.set.noPerms", {
+          permission: needsPerms.join(", "),
+        }),
+      });
+      return;
+    }
+
+    if (needsPerms) {
+      const channel = await guild.channels.fetch(value).catch(() => null);
+      if (!channel) {
+        await interaction.editReply({
+          content: t<string, string>("commands:config.set.invalid", {
+            setting,
+            value,
+          }),
+        });
+        return;
+      }
+
+      if (
+        !needsPerms.every((perm) =>
+          beccaUser.permissionsIn(channel).has(PermissionFlagsBits[perm])
+        )
+      ) {
+        await interaction.editReply({
+          content: t<string, string>("commands:config.set.noChannelPerms", {
+            permission: needsPerms.join(", "),
+            channel: channel.name,
+          }),
+        });
+        return;
+      }
     }
 
     const isSet = await setSetting(Becca, guild.name, setting, value, config);
