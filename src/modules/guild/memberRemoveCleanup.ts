@@ -1,4 +1,5 @@
 import LevelModel from "../../database/models/LevelModel";
+import MessageCountModel from "../../database/models/MessageCountModel";
 import StarModel from "../../database/models/StarModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
@@ -35,6 +36,15 @@ export const memberRemoveCleanup = async (
         starData.markModified("users");
         await starData.save();
       }
+    }
+
+    const messageData = await MessageCountModel.findOne({
+      serverId: guildId,
+      userId: userId,
+    });
+
+    if (messageData) {
+      await MessageCountModel.deleteOne({ _id: messageData._id });
     }
   } catch (error) {
     await beccaErrorHandler(Becca, "member cleanup helper", error);

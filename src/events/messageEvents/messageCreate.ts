@@ -7,6 +7,7 @@ import { automodListener } from "../../listeners/automodListener";
 import { emoteListener } from "../../listeners/emoteListener";
 import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
+import { messageCountListener } from "../../listeners/messageCountListener";
 import { sassListener } from "../../listeners/sassListener";
 import { triggerListener } from "../../listeners/triggerListener";
 import { runNaomiCommands } from "../../modules/events/runNaomiCommands";
@@ -64,6 +65,7 @@ export const messageCreate = async (
     await sassListener.run(Becca, message, t, serverConfig);
     await triggerListener.run(Becca, message, t, serverConfig);
     await emoteListener.run(Becca, message, t, serverConfig);
+    await messageCountListener.run(Becca, message, t, serverConfig);
 
     if (
       message.author.id === Becca.configs.ownerId &&
