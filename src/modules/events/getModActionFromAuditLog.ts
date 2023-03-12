@@ -11,6 +11,9 @@ import { ModerationActions } from "../../interfaces/commands/moderation/Moderati
 export const getModActionFromAuditLog = (
   log: GuildAuditLogsEntry
 ): ModerationActions | null => {
+  const muteChange = log.changes.find(
+    (change) => change.key === "communication_disabled_until"
+  );
   switch (log.action) {
     case AuditLogEvent.MemberBanAdd:
       return "ban";
@@ -19,10 +22,6 @@ export const getModActionFromAuditLog = (
     case AuditLogEvent.MemberKick:
       return "kick";
     case AuditLogEvent.MemberUpdate:
-      // eslint-disable-next-line no-case-declarations
-      const muteChange = log.changes.find(
-        (change) => change.key === "communication_disabled_until"
-      );
       if (!muteChange) {
         return null;
       }
