@@ -85,7 +85,6 @@ export const handleTicket: CommandHandler = async (
       ],
     };
 
-    // TODO: logic for ticket role here
     if (config.ticket_role) {
       options.permissionOverwrites.push({
         id: config.ticket_role,
