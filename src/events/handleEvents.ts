@@ -1,5 +1,6 @@
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 
+import { autoModerationActionExecution } from "./automodEvents/autoModerationActionExecution";
 import { disconnect } from "./clientEvents/disconnect";
 import { ready } from "./clientEvents/ready";
 import { guildAuditLogEntryCreate } from "./guildEvents/guildAuditLogEntryCreate";
@@ -96,5 +97,8 @@ export const handleEvents = (Becca: BeccaLyria): void => {
 
   Becca.on("guildAuditLogEntryCreate", async (entry, guild) => {
     await guildAuditLogEntryCreate(Becca, entry, guild);
+  });
+  Becca.on("autoModerationActionExecution", async (action) => {
+    await autoModerationActionExecution(Becca, action);
   });
 };
