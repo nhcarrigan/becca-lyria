@@ -29,14 +29,14 @@ export const automodPhish: ListenerHandler = async (
       return false;
     }
     const contentWithoutCode = message.content.replace(
-      /`{3}([\S]+)?\n((?!`{3})((?!```)[\s\S])+)\n`{3}/gi,
+      /`{3}(\S+)?\n((?!`{3})((?!```)[\s\S])+)\n`{3}/gi,
       ""
     );
 
     const blockedLinkList: string[] = [];
 
     const linkRegex =
-      /(https?:\/\/(([a-z0-9-]+\.)+([a-z]{2,})))(:[\d]{1,5})?[^\s]*/gi;
+      /(https?:\/\/(([a-z0-9-]+\.)+([a-z]{2,})))(:\d{1,5})?[^\s]*/gi;
 
     const blockedMatches = contentWithoutCode.match(linkRegex);
     if (blockedMatches) {

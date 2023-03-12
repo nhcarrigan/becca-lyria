@@ -20,7 +20,7 @@ export const handleSpace: CommandHandler = async (Becca, interaction, t) => {
     let url = `https://api.nasa.gov/planetary/apod?api_key=${Becca.configs.nasaKey}`;
 
     if (date) {
-      if (!/[\d]{4}-[\d]{2}-[\d]{2}/.test(date)) {
+      if (!/\d{4}-\d{2}-\d{2}/.test(date)) {
         interaction.editReply({
           content: t("commands:misc.space.invalid", { date }),
         });
