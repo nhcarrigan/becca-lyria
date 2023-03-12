@@ -2,6 +2,7 @@ import { BeccaLyria } from "../interfaces/BeccaLyria";
 
 import { disconnect } from "./clientEvents/disconnect";
 import { ready } from "./clientEvents/ready";
+import { guildAuditLogEntryCreate } from "./guildEvents/guildAuditLogEntryCreate";
 import { guildCreate } from "./guildEvents/guildCreate";
 import { guildDelete } from "./guildEvents/guildDelete";
 import { interactionCreate } from "./interactionEvents/interactionCreate";
@@ -91,5 +92,9 @@ export const handleEvents = (Becca: BeccaLyria): void => {
 
   Becca.on("messageReactionAdd", async (reaction) => {
     await reactionAdd(Becca, reaction);
+  });
+
+  Becca.on("guildAuditLogEntryCreate", async (entry, guild) => {
+    await guildAuditLogEntryCreate(Becca, entry, guild);
   });
 };
