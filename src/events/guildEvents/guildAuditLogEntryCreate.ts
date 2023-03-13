@@ -71,6 +71,16 @@ export const guildAuditLogEntryCreate = async (
     embed.setDescription(
       `The user <@!${targetId}>'s history has been updated. For detailed logs, please use my \`/mod\` commands to action users.`
     );
+    embed.addFields(
+      {
+        name: "Moderator",
+        value: `<@!${executorId}>`,
+      },
+      {
+        name: "Reason",
+        value: auditLogEntry.reason || "No reason provided.",
+      }
+    );
     await channel.send({ embeds: [embed] });
   } catch (err) {
     await beccaErrorHandler(Becca, "guild audit log entry create event", err);
