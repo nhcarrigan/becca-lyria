@@ -27,7 +27,6 @@
     "test": "ts-mocha -u tdd --file test/root.ts test/**/*.spec.ts --recursive --exit --timeout 10000"
   },
   "dependencies": {
-    "@discordjs/rest": "1.0.0",
     "@sentry/integrations": "7.4.1",
     "@sentry/node": "7.4.1",
     "@sentry/tracing": "7.4.1",
