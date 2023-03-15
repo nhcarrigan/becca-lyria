@@ -1,6 +1,5 @@
-import { REST } from "@discordjs/rest";
-import { Routes } from "discord-api-types/v9";
-import { EmbedBuilder, Message } from "discord.js";
+import { Routes } from "discord-api-types/v10";
+import { EmbedBuilder, Message, REST } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { CommandData } from "../../interfaces/commands/CommandData";
@@ -27,7 +26,7 @@ export const naomiUnregisterCommand = async (
       return;
     }
 
-    const rest = new REST({ version: "9" }).setToken(Becca.configs.token);
+    const rest = new REST({ version: "10" }).setToken(Becca.configs.token);
 
     const commands: CommandData[] = (await rest.get(
       Routes.applicationCommands(Becca.configs.id)
