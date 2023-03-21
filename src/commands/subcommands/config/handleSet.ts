@@ -50,7 +50,7 @@ export const handleSet: SettingsHandler = async (
       return;
     }
 
-    if (needsPerms) {
+    if (needsPerms && !isNotChannel) {
       const channel = await guild.channels.fetch(value).catch(() => null);
       if (!channel) {
         await interaction.editReply({
@@ -91,7 +91,9 @@ export const handleSet: SettingsHandler = async (
     successEmbed.setTitle(
       t<string, string>("commands:config.set.title", { setting })
     );
-    successEmbed.setDescription(customSubstring(parsedContent, 2000));
+    successEmbed.setDescription(
+      customSubstring(parsedContent, 2000) || "no setting found"
+    );
     successEmbed.setTimestamp();
     successEmbed.setColor(Becca.colours.default);
     successEmbed.setFooter({
