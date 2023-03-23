@@ -1,9 +1,9 @@
 import {
+  REST,
   RESTPostAPIApplicationCommandsJSONBody,
   RESTPostAPIChatInputApplicationCommandsJSONBody,
   Routes,
-} from "discord-api-types/v10";
-import { REST } from "discord.js";
+} from "discord.js";
 
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 

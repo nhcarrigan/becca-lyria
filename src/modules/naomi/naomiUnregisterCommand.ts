@@ -1,5 +1,4 @@
-import { Routes } from "discord-api-types/v10";
-import { EmbedBuilder, Message, REST } from "discord.js";
+import { EmbedBuilder, Message, REST, Routes } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { CommandData } from "../../interfaces/commands/CommandData";
