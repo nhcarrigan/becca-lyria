@@ -100,16 +100,15 @@ export const handleOrbit: CommandHandler = async (Becca, interaction, t) => {
       .setEmoji("<:github:904209263717658624>")
       .setURL("https://github.com/nhcarrigan")
       .setLabel(t<string, string>("commands:misc.orbit.buttons.github"));
-    const twitterBtn = new ButtonBuilder()
+    const mastodonBtn = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
-      .setEmoji("<:twitter:904209263642177556>")
-      .setURL("https://twitter.com/becca_lyria")
-      .setLabel(t<string, string>("commands:misc.orbit.buttons.twitter"));
+      .setURL("https://mastodon.naomi.lgbt/@becca")
+      .setLabel(t<string, string>("commands:misc.orbit.buttons.mastodon"));
 
     const buttons = new ActionRowBuilder<ButtonBuilder>().addComponents([
       discordBtn,
       githubBtn,
-      twitterBtn,
+      mastodonBtn,
     ]);
 
     await interaction.editReply({

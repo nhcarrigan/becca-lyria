@@ -62,7 +62,7 @@
       "content": "Here are the options for getting in touch with us:",
       "buttons": {
         "support": "Join our support server",
-        "twitter": "Follow us on Twitter",
+        "mastodon": "Follow us on Mastodon",
         "github": "Create an issue on GitHub"
       }
     },
@@ -612,7 +612,7 @@
       "buttons": {
         "discord": "Join our server!",
         "github": "Contribute on GitHub!",
-        "twitter": "Follow us on Twitter!"
+        "mastodon": "Follow us on Mastodon!"
       }
     },
     "permissions": {

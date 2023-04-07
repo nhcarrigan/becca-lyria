@@ -14,10 +14,10 @@ export const handleContact: CommandHandler = async (Becca, interaction, t) => {
       .setStyle(ButtonStyle.Link)
       .setLabel(t<string, string>("commands:becca.contact.buttons.support"))
       .setURL("https://chat.nhcarrigan.com");
-    const twitterButton = new ButtonBuilder()
+    const mastodonButton = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
-      .setLabel(t<string, string>("commands:becca.contact.buttons.twitter"))
-      .setURL("https://twitter.com/becca_lyria");
+      .setLabel(t<string, string>("commands:becca.contact.buttons.mastodon"))
+      .setURL("https://mastodon.naomi.lgbt/@becca");
     const githubButton = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
       .setLabel(t<string, string>("commands:becca.contact.buttons.github"))
@@ -25,7 +25,7 @@ export const handleContact: CommandHandler = async (Becca, interaction, t) => {
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
       discordButton,
-      twitterButton,
+      mastodonButton,
       githubButton,
     ]);
     await interaction.editReply({
