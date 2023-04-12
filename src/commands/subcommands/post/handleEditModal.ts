@@ -1,5 +1,5 @@
 import { ModalSubmitInteraction, PermissionFlagsBits } from "discord.js";
-import { TFunction } from "i18next";
+import { DefaultTFuncReturn, TFunction } from "i18next";
 
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -24,7 +24,9 @@ export const handleEditModal = async (
 
     if (!guild || !guild.members.me) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -44,7 +46,7 @@ export const handleEditModal = async (
         ])
     ) {
       await interaction.editReply(
-        t("commands:post.edit.failure", {
+        t<string, string>("commands:post.edit.failure", {
           link: `<https://discord.com/channels/${guild.id}/${targetChannelId}/${targetMessageId}>`,
         })
       );
@@ -59,7 +61,7 @@ export const handleEditModal = async (
 
     if (!targetMessage) {
       await interaction.reply({
-        content: t("commands:post.edit.doesnt-exist"),
+        content: t<string, string>("commands:post.edit.doesnt-exist"),
       });
       return;
     }
@@ -68,7 +70,7 @@ export const handleEditModal = async (
       content: contentInput,
     });
     await interaction.editReply({
-      content: t("commands:post.edit.success", {
+      content: t<string, string>("commands:post.edit.success", {
         link: `<https://discord.com/channels/${guild.id}/${targetChannelId}/${targetMessageId}>`,
       }),
     });

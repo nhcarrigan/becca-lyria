@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import levelScale from "../../../config/listeners/levelScale";
 import LevelModel from "../../../database/models/LevelModel";
@@ -28,7 +29,9 @@ export const handleXpModify: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -40,7 +43,9 @@ export const handleXpModify: CommandHandler = async (
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }
@@ -54,14 +59,18 @@ export const handleXpModify: CommandHandler = async (
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noSelfXP")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noSelfXP")
+        ),
       });
       return;
     }
 
     if (target.bot) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noBotXP")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noBotXP")
+        ),
       });
       return;
     }
@@ -93,7 +102,9 @@ export const handleXpModify: CommandHandler = async (
 
     if (!targetMember || targetMember.id !== target.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }

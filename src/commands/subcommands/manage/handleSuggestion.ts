@@ -5,6 +5,7 @@ import {
   TextChannel,
   ForumChannel,
 } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -28,7 +29,9 @@ export const handleSuggestion: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -37,7 +40,9 @@ export const handleSuggestion: CommandHandler = async (
       !(member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild)
     ) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }

@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import HistoryModel from "../../../database/models/HistoryModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -17,7 +18,9 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -34,7 +37,9 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
           targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)))
     ) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }

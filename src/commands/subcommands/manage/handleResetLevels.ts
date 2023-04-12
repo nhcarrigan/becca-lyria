@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { GuildMember, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -20,7 +21,9 @@ export const handleResetLevels: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -32,7 +35,9 @@ export const handleResetLevels: CommandHandler = async (
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }

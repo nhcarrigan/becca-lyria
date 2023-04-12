@@ -12,7 +12,7 @@ import {
   TextBasedChannel,
   TextChannel,
 } from "discord.js";
-import { getFixedT } from "i18next";
+import { DefaultTFuncReturn, getFixedT } from "i18next";
 
 import { handleFeedbackModal } from "../../commands/subcommands/becca/handleFeedbackModal";
 import { handleCreateModal } from "../../commands/subcommands/post/handleCreateModal";
@@ -127,7 +127,7 @@ export const interactionCreate = async (
         if (!guild || !channel || !message) {
           await interaction.editReply({
             content: getRandomValue(
-              t<string, string[]>("responses:missingGuild")
+              t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
             ),
           });
           return;

@@ -1,4 +1,5 @@
 /* eslint-disable jsdoc/require-param */
+import { DefaultTFuncReturn } from "i18next";
 
 import { ListenerHandler } from "../../../interfaces/listeners/ListenerHandler";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -19,11 +20,19 @@ export const sassThanks: ListenerHandler = async (Becca, message, t) => {
 
       for (const member of members) {
         if (member.id === Becca.user?.id) {
-          replies.push(getRandomValue(t<string, string[]>("sass:beccaThanks")));
+          replies.push(
+            getRandomValue(
+              t<string, DefaultTFuncReturn & string[]>("sass:beccaThanks")
+            )
+          );
           continue;
         }
         if (member.id === author.id) {
-          replies.push(getRandomValue(t<string, string[]>("sass:selfThanks")));
+          replies.push(
+            getRandomValue(
+              t<string, DefaultTFuncReturn & string[]>("sass:selfThanks")
+            )
+          );
           continue;
         }
         replies.push(

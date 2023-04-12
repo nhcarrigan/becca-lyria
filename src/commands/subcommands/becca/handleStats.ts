@@ -5,6 +5,7 @@ import {
   ButtonStyle,
   EmbedBuilder,
 } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import CommandCountModel from "../../../database/models/CommandCountModel";
 import VoterModel from "../../../database/models/VoterModel";
@@ -19,7 +20,9 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
     const { guild, user: author } = interaction;
     if (!guild || !author) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }

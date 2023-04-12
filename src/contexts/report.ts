@@ -1,12 +1,13 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { User } from "@sentry/types";
 import {
   ChannelType,
   EmbedBuilder,
   Guild,
   Message,
   TextChannel,
+  User,
 } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
@@ -28,7 +29,7 @@ export const report: Context = {
       if (!guild || !message || message.channel.type === ChannelType.DM) {
         await interaction.editReply({
           content: getRandomValue(
-            t<string, string[]>("responses:missingGuild")
+            t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
           ),
         });
         return;

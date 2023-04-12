@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -15,7 +16,9 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
     const { user, guild } = interaction;
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }

@@ -10,6 +10,7 @@ import { sendModerationDm } from "../../../utils/sendModerationDm";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
 import { updateHistory } from "../../../modules/commands/moderation/updateHistory";
+import { DefaultTFuncReturn } from "i18next";
 
 /**
  * If the server has configured a muted role, removes it from the `target` for the
@@ -28,7 +29,9 @@ export const handleUnmute: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -42,20 +45,26 @@ export const handleUnmute: CommandHandler = async (
       targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)
     ) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noModSelf")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noModSelf")
+        ),
       });
       return;
     }
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noModBecca")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noModBecca")
+        ),
       });
       return;
     }

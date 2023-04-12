@@ -5,6 +5,7 @@ import {
   ForumChannel,
   ChannelType,
 } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -28,7 +29,9 @@ export const handleSuggest: CommandHandler = async (
     const suggestion = interaction.options.getString("suggestion", true);
     if (!guild || !author) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }

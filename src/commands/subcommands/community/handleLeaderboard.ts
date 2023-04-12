@@ -6,6 +6,7 @@ import {
   ComponentType,
   EmbedBuilder,
 } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -29,7 +30,9 @@ export const handleLeaderboard: CommandHandler = async (
 
     if (!guildId || !guild) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }

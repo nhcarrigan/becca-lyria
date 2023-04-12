@@ -1,5 +1,5 @@
 import { ModalSubmitInteraction, PermissionFlagsBits } from "discord.js";
-import { TFunction } from "i18next";
+import { DefaultTFuncReturn, TFunction } from "i18next";
 
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -24,7 +24,9 @@ export const handleCreateModal = async (
 
     if (!guild || !guild.members.me) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -34,7 +36,9 @@ export const handleCreateModal = async (
 
     if (!targetChannel || !targetChannel.isTextBased()) {
       await interaction.editReply(
-        t("commands:post.create.nonTextChannel", { channelId: targetChannelId })
+        t<string, string>("commands:post.create.nonTextChannel", {
+          channelId: targetChannelId,
+        })
       );
       return;
     }
@@ -48,7 +52,9 @@ export const handleCreateModal = async (
         ])
     ) {
       await interaction.editReply(
-        t("commands:post.create.noPerms", { channelId: targetChannelId })
+        t<string, string>("commands:post.create.noPerms", {
+          channelId: targetChannelId,
+        })
       );
       return;
     }

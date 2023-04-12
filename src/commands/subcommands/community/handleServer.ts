@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { ChannelType, EmbedBuilder } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import {
   accountVerificationMap,
@@ -19,7 +20,9 @@ export const handleServer: CommandHandler = async (Becca, interaction, t) => {
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }

@@ -1,16 +1,16 @@
 /* eslint-disable jsdoc/require-param */
-/* eslint-disable */
 import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { updateHistory } from "../../../modules/commands/moderation/updateHistory";
+import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { calculateMilliseconds } from "../../../utils/calculateMilliseconds";
 import { customSubstring } from "../../../utils/customSubstring";
 import { getRandomValue } from "../../../utils/getRandomValue";
 import { sendModerationDm } from "../../../utils/sendModerationDm";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
-import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
-import { updateHistory } from "../../../modules/commands/moderation/updateHistory";
 
 /**
  * If the server has configured a muted role, applies that role to the `target`
@@ -49,7 +49,9 @@ export const handleMute: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -64,20 +66,26 @@ export const handleMute: CommandHandler = async (
       targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)
     ) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noModSelf")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noModSelf")
+        ),
       });
       return;
     }
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noModBecca")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noModBecca")
+        ),
       });
       return;
     }

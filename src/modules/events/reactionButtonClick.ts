@@ -1,5 +1,5 @@
 import { ButtonInteraction } from "discord.js";
-import { TFunction } from "i18next";
+import { DefaultTFuncReturn, TFunction } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
@@ -22,7 +22,9 @@ export const reactionButtonClick = async (
     const { guild, customId, member } = interaction;
     if (!guild || !member || Array.isArray(member.roles)) {
       await interaction.editReply(
-        getRandomValue(t<string, string[]>("responses:missingGuild"))
+        getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        )
       );
       return;
     }

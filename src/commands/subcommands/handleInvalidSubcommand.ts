@@ -1,4 +1,5 @@
 /* eslint-disable jsdoc/require-param */
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
@@ -14,7 +15,9 @@ export const handleInvalidSubcommand: CommandHandler = async (
 ) => {
   try {
     await interaction.editReply({
-      content: getRandomValue(t<string, string[]>("responses:invalidCommand")),
+      content: getRandomValue(
+        t<string, DefaultTFuncReturn & string[]>("responses:invalidCommand")
+      ),
     });
   } catch (err) {
     await beccaErrorHandler(

@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { UserConfigCommandHandler } from "../../../interfaces/commands/UserConfigCommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -19,7 +20,9 @@ export const handleLevelCard: UserConfigCommandHandler = async (
     const { user } = interaction;
     if (!user) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingUser")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingUser")
+        ),
       });
       return;
     }

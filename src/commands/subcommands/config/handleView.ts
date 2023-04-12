@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { SettingsHandler } from "../../../interfaces/settings/SettingsHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -24,7 +25,9 @@ export const handleView: SettingsHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }

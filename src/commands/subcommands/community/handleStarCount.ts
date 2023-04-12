@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import StarModel from "../../../database/models/StarModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -22,7 +23,9 @@ export const handleStarCount: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }

@@ -2,6 +2,7 @@ import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
+import { DefaultTFuncReturn } from "i18next";
 
 import UserConfigModel from "../database/models/UserConfigModel";
 import { Command } from "../interfaces/commands/Command";
@@ -61,7 +62,7 @@ export const userConfig: Command = {
       if (!guild || !user) {
         await interaction.editReply({
           content: getRandomValue(
-            t<string, string[]>("responses:missingGuild")
+            t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
           ),
         });
         return;

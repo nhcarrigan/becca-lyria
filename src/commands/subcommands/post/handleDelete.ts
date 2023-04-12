@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -16,7 +17,9 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -33,13 +36,15 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
       !member.permissions.has(PermissionFlagsBits.ManageGuild)
     ) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }
     if (!channel || !("messages" in channel)) {
       await interaction.reply({
-        content: t("commands:post.delete.invalid"),
+        content: t<string, string>("commands:post.delete.invalid"),
       });
       return;
     }
@@ -50,7 +55,7 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
 
     if (!targetMessage) {
       await interaction.editReply({
-        content: t("commands:post.delete.doesnt-exist"),
+        content: t<string, string>("commands:post.delete.doesnt-exist"),
       });
       return;
     }
@@ -62,7 +67,9 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
     await targetMessage.delete();
-    await interaction.reply({ content: t("commands:post.delete.success") });
+    await interaction.reply({
+      content: t<string, string>("commands:post.delete.success"),
+    });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

@@ -4,6 +4,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 import { GuildMember, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
@@ -73,7 +74,7 @@ export const triggers: Command = {
       ) {
         await interaction.editReply({
           content: getRandomValue(
-            t<string, string[]>("responses:noPermission")
+            t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
           ),
         });
         return;

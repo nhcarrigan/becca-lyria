@@ -5,6 +5,7 @@ import {
   ButtonStyle,
   EmbedBuilder,
 } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import PollModel from "../../../database/models/PollModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -25,7 +26,9 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
 
     if (!guild || !channel) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }

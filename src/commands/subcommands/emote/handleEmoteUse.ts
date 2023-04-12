@@ -1,4 +1,6 @@
 /* eslint-disable jsdoc/require-param */
+import { DefaultTFuncReturn } from "i18next";
+
 import {
   EmoteAction,
   smackList,
@@ -30,14 +32,18 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
 
     if (target.id === interaction.user.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noEmoteSelf")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noEmoteSelf")
+        ),
       });
       return;
     }
 
     if (target.id === Becca.configs.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noEmoteBecca")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noEmoteBecca")
+        ),
       });
       return;
     }

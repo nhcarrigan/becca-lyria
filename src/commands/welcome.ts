@@ -5,6 +5,7 @@ import {
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
 } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { defaultServer } from "../config/database/defaultServer";
 import { Command } from "../interfaces/commands/Command";
@@ -142,7 +143,7 @@ export const welcome: Command = {
       if (!guild || !member) {
         await interaction.editReply({
           content: getRandomValue(
-            t<string, string[]>("responses:missingGuild")
+            t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
           ),
         });
         return;
@@ -155,7 +156,7 @@ export const welcome: Command = {
       ) {
         await interaction.editReply({
           content: getRandomValue(
-            t<string, string[]>("responses:noPermission")
+            t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
           ),
         });
         return;

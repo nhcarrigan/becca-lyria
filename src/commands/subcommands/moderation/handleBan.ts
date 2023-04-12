@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -28,7 +29,9 @@ export const handleBan: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -43,7 +46,9 @@ export const handleBan: CommandHandler = async (
         targetMember.permissions.has(PermissionFlagsBits.BanMembers))
     ) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }
@@ -58,13 +63,17 @@ export const handleBan: CommandHandler = async (
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noModSelf")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noModSelf")
+        ),
       });
       return;
     }
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noModBecca")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noModBecca")
+        ),
       });
       return;
     }
