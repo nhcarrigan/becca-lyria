@@ -21,7 +21,7 @@ export const handleMtg: CommandHandler = async (Becca, interaction, t) => {
 
     if (!cards.data || !cards.data.cards.length) {
       await interaction.editReply({
-        content: t<string, string>("commands:games.mtg.no"),
+        content: t("commands:games.mtg.no"),
       });
       return;
     }
@@ -34,25 +34,23 @@ export const handleMtg: CommandHandler = async (Becca, interaction, t) => {
     cardEmbed.setImage(
       card.imageUrl || "https://cdn.nhcarrigan.com/content/projects/mtg.jpg"
     );
-    cardEmbed.setDescription(
-      card.flavor || t<string, string>("commands:games.mtg.flavour")
-    );
+    cardEmbed.setDescription(card.flavor || t("commands:games.mtg.flavour"));
     cardEmbed.addFields([
       {
-        name: t<string, string>("commands:games.mtg.types"),
+        name: t("commands:games.mtg.types"),
         value: card.types.join(", "),
       },
       {
-        name: t<string, string>("commands:games.mtg.cost"),
+        name: t("commands:games.mtg.cost"),
         value: card.manaCost,
       },
       {
-        name: t<string, string>("commands:games.mtg.abilities"),
-        value: card.text || t<string, string>("commands:games.mtg.ability"),
+        name: t("commands:games.mtg.abilities"),
+        value: card.text || t("commands:games.mtg.ability"),
       },
     ]);
     cardEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

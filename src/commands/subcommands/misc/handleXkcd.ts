@@ -27,7 +27,7 @@ export const handleXkcd: CommandHandler = async (Becca, interaction, t) => {
     xkcdEmbed.setImage(xkcd.data.img);
     xkcdEmbed.setDescription(xkcd.data.alt);
     xkcdEmbed.setFooter({
-      text: t<string, string>("commands:misc.xkcd.footer", {
+      text: t("commands:misc.xkcd.footer", {
         num: xkcd.data.num,
       }),
     });

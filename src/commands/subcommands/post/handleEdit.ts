@@ -51,7 +51,7 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
     }
     if (!channel || !("messages" in channel)) {
       await interaction.reply({
-        content: t<string, string>("commands:post.edit.invalid"),
+        content: t("commands:post.edit.invalid"),
       });
       return;
     }
@@ -62,7 +62,7 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
 
     if (!targetMessage) {
       await interaction.reply({
-        content: t<string, string>("commands:post.edit.doesnt-exist"),
+        content: t("commands:post.edit.doesnt-exist"),
         ephemeral: true,
       });
       return;
@@ -70,7 +70,7 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
 
     if (targetMessage.author !== Becca.user) {
       await interaction.reply({
-        content: t<string, string>("commands:post.edit.cant-edit"),
+        content: t("commands:post.edit.cant-edit"),
         ephemeral: true,
       });
       return;

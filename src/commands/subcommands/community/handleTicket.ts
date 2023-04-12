@@ -39,7 +39,7 @@ export const handleTicket: CommandHandler = async (
 
     if (!config.ticket_category || !config.ticket_log_channel) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.ticket.disabled"),
+        content: t("commands:community.ticket.disabled"),
       });
       return;
     }
@@ -52,7 +52,7 @@ export const handleTicket: CommandHandler = async (
 
     if (!category || category.type !== ChannelType.GuildCategory) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.ticket.disabled"),
+        content: t("commands:community.ticket.disabled"),
       });
       return;
     }

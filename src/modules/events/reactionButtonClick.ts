@@ -33,9 +33,7 @@ export const reactionButtonClick = async (
     const role = await guild.roles.fetch(roleId);
 
     if (!role) {
-      await interaction.editReply(
-        t<string, string>("events:interaction.noRole")
-      );
+      await interaction.editReply(t("events:interaction.noRole"));
       return;
     }
 
@@ -43,10 +41,10 @@ export const reactionButtonClick = async (
 
     if (member.roles.cache.has(role.id)) {
       await member.roles.remove(role);
-      content = t<string, string>("events:interaction.removedRole");
+      content = t("events:interaction.removedRole");
     } else {
       await member.roles.add(role);
-      content = t<string, string>("events:interaction.addedRole");
+      content = t("events:interaction.addedRole");
     }
     await interaction.editReply({ content });
   } catch (err) {

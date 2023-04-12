@@ -47,7 +47,7 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
     )}:R>`;
 
     const pollEmbed = new EmbedBuilder();
-    pollEmbed.setTitle(t<string, string>("commands:community.poll.title"));
+    pollEmbed.setTitle(t("commands:community.poll.title"));
     pollEmbed.setDescription(question);
     pollEmbed.addFields([
       {
@@ -87,7 +87,7 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
     ]);
     pollEmbed.setColor(Becca.colours.default);
     pollEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

@@ -30,14 +30,10 @@ export const handleSlime: CommandHandler = async (Becca, interaction, t) => {
     await member
       .setNickname(`${noun}slime`)
       .then(async () => {
-        await interaction.editReply(
-          t<string, string>("commands:games.slime.success")
-        );
+        await interaction.editReply(t("commands:games.slime.success"));
       })
       .catch(async () => {
-        await interaction.editReply(
-          t<string, string>("commands:games.slime.failure")
-        );
+        await interaction.editReply(t("commands:games.slime.failure"));
       });
   } catch (err) {
     const errorId = await beccaErrorHandler(

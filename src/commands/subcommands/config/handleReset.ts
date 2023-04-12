@@ -38,8 +38,8 @@ export const handleReset: SettingsHandler = async (
     );
     await interaction.editReply(
       success
-        ? t<string, string>("commands:config.reset.success", { setting })
-        : t<string, string>("commands:config.reset.failed")
+        ? t("commands:config.reset.success", { setting })
+        : t("commands:config.reset.failed")
     );
     return;
   } catch (err) {

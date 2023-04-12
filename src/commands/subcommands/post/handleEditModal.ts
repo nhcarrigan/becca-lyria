@@ -46,7 +46,7 @@ export const handleEditModal = async (
         ])
     ) {
       await interaction.editReply(
-        t<string, string>("commands:post.edit.failure", {
+        t("commands:post.edit.failure", {
           link: `<https://discord.com/channels/${guild.id}/${targetChannelId}/${targetMessageId}>`,
         })
       );
@@ -61,7 +61,7 @@ export const handleEditModal = async (
 
     if (!targetMessage) {
       await interaction.reply({
-        content: t<string, string>("commands:post.edit.doesnt-exist"),
+        content: t("commands:post.edit.doesnt-exist"),
       });
       return;
     }
@@ -70,7 +70,7 @@ export const handleEditModal = async (
       content: contentInput,
     });
     await interaction.editReply({
-      content: t<string, string>("commands:post.edit.success", {
+      content: t("commands:post.edit.success", {
         link: `<https://discord.com/channels/${guild.id}/${targetChannelId}/${targetMessageId}>`,
       }),
     });

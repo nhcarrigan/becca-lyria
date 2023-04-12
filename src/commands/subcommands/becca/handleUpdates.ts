@@ -19,21 +19,19 @@ export const handleUpdates: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { commitHash: hash } = Becca;
     const updateEmbed = new EmbedBuilder();
-    updateEmbed.setTitle(t<string, string>("commands:becca.updates.title"));
+    updateEmbed.setTitle(t("commands:becca.updates.title"));
     updateEmbed.setDescription(updatesSinceLastRelease.join("\n"));
     updateEmbed.addFields([
       {
-        name: t<string, string>("commands:becca.updates.version"),
+        name: t("commands:becca.updates.version"),
         value: process.env.npm_package_version || "0.0.0",
       },
       {
-        name: t<string, string>("commands:becca.updates.changelog.title"),
-        value: t<string, string>(
-          "commands:becca.updates.changelog.description"
-        ),
+        name: t("commands:becca.updates.changelog.title"),
+        value: t("commands:becca.updates.changelog.description"),
       },
       {
-        name: t<string, string>("commands:becca.updates.commit"),
+        name: t("commands:becca.updates.commit"),
         value: `[${hash.slice(
           0,
           7
@@ -42,12 +40,12 @@ export const handleUpdates: CommandHandler = async (Becca, interaction, t) => {
     ]);
     updateEmbed.setColor(Becca.colours.default);
     updateEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     const button = new ButtonBuilder()
-      .setLabel(t<string, string>("commands:becca.updates.buttons.view"))
+      .setLabel(t("commands:becca.updates.buttons.view"))
       .setEmoji("<:BeccaNotes:883854700762505287>")
       .setStyle(ButtonStyle.Link)
       .setURL(

@@ -38,7 +38,7 @@ export const handleSuggest: CommandHandler = async (
 
     if (!config.suggestion_channel) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.suggest.disabled"),
+        content: t("commands:community.suggest.disabled"),
       });
       return;
     }
@@ -49,15 +49,13 @@ export const handleSuggest: CommandHandler = async (
 
     if (!suggestionChannel) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.suggest.lost"),
+        content: t("commands:community.suggest.lost"),
       });
       return;
     }
 
     const suggestionEmbed = new EmbedBuilder();
-    suggestionEmbed.setTitle(
-      t<string, string>("commands:community.suggest.title")
-    );
+    suggestionEmbed.setTitle(t("commands:community.suggest.title"));
     suggestionEmbed.setTimestamp();
     suggestionEmbed.setColor(Becca.colours.default);
     suggestionEmbed.setAuthor({
@@ -66,14 +64,14 @@ export const handleSuggest: CommandHandler = async (
     });
     suggestionEmbed.setDescription(customSubstring(suggestion, 2000));
     suggestionEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     if (suggestionChannel.type === ChannelType.GuildForum) {
       // send to forum channel
       const newThread = await suggestionChannel.threads.create({
-        name: t<string, string>("commands:community.suggest.title"),
+        name: t("commands:community.suggest.title"),
         autoArchiveDuration: 60,
         reason: "Suggestion",
         message: {
@@ -104,7 +102,7 @@ export const handleSuggest: CommandHandler = async (
         .catch(async () => await sentMessage.react("❌"));
 
       await interaction.editReply({
-        content: t<string, string>("commands:community.suggest.success"),
+        content: t("commands:community.suggest.success"),
       });
     }
   } catch (err) {

@@ -34,7 +34,7 @@ export const handleStarCount: CommandHandler = async (
 
     if (!starCounts || !starCounts.users.length) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.starcount.none"),
+        content: t("commands:community.starcount.none"),
       });
       return;
     }
@@ -49,12 +49,12 @@ export const handleStarCount: CommandHandler = async (
       .slice(0, 10);
 
     const userRankString = userStars
-      ? t<string, string>("commands:community.starcount.star", {
+      ? t("commands:community.starcount.star", {
           user: member.user.username,
           rank: userRank + 1,
           stars: userStars?.stars || 0,
         })
-      : t<string, string>("commands:community.starcount.nostar", {
+      : t("commands:community.starcount.nostar", {
           user: member.user.username,
         });
 
@@ -66,7 +66,7 @@ export const handleStarCount: CommandHandler = async (
 
     const starEmbed = new EmbedBuilder();
     starEmbed.setTitle(
-      t<string, string>("commands:community.starcount.embed.title", {
+      t("commands:community.starcount.embed.title", {
         guild: guild.name,
       })
     );
@@ -74,15 +74,15 @@ export const handleStarCount: CommandHandler = async (
     starEmbed.setDescription(
       `\`\`\`\n${formatTextToTable(topTenArray, {
         headers: [
-          t<string, string>("commands:community.starcount.embed.rank"),
-          t<string, string>("commands:community.starcount.embed.user"),
-          t<string, string>("commands:community.starcount.embed.stars"),
+          t("commands:community.starcount.embed.rank"),
+          t("commands:community.starcount.embed.user"),
+          t("commands:community.starcount.embed.stars"),
         ],
       })}\n\`\`\``
     );
     starEmbed.addFields([
       {
-        name: t<string, string>("commands:community.starcount.embed.yours"),
+        name: t("commands:community.starcount.embed.yours"),
         value: userRankString,
       },
     ]);

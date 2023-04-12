@@ -33,13 +33,11 @@ export const handleView: SettingsHandler = async (
     }
 
     const embed = new EmbedBuilder();
-    embed.setTitle(
-      t<string, string>("commands:config.view.title", { name: setting })
-    );
+    embed.setTitle(t("commands:config.view.title", { name: setting }));
     embed.setTimestamp();
     embed.setColor(Becca.colours.default);
     embed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     embed.setDescription(

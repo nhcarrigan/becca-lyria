@@ -82,20 +82,20 @@ export const handleWarn: CommandHandler = async (
     await updateHistory(Becca, "warn", target.id, guild.id);
 
     const warnEmbed = new EmbedBuilder();
-    warnEmbed.setTitle(t<string, string>("commands:mod.warn.title"));
+    warnEmbed.setTitle(t("commands:mod.warn.title"));
     warnEmbed.setDescription(
-      t<string, string>("commands:mod.warn.description", {
+      t("commands:mod.warn.description", {
         user: member.user.username,
       })
     );
     warnEmbed.setColor(Becca.colours.warning);
     warnEmbed.addFields([
       {
-        name: t<string, string>("commands:mod.warn.reason"),
+        name: t("commands:mod.warn.reason"),
         value: customSubstring(reason, 1000),
       },
       {
-        name: t<string, string>("commands:mod.warn.notified"),
+        name: t("commands:mod.warn.notified"),
         value: String(sentNotice),
       },
     ]);
@@ -108,7 +108,7 @@ export const handleWarn: CommandHandler = async (
     await sendLogEmbed(Becca, guild, warnEmbed, "moderation_events");
 
     await interaction.editReply({
-      content: t<string, string>("commands:mod.warn.success"),
+      content: t("commands:mod.warn.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

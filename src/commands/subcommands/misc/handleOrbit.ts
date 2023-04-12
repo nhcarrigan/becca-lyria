@@ -33,24 +33,19 @@ export const handleOrbit: CommandHandler = async (Becca, interaction, t) => {
       .slice(0, 20);
 
     const orbitEmbed = new EmbedBuilder();
-    orbitEmbed.setTitle(t<string, string>("commands:misc.orbit.title"));
-    orbitEmbed.setDescription(
-      t<string, string>("commands:misc.orbit.description")
-    );
+    orbitEmbed.setTitle(t("commands:misc.orbit.title"));
+    orbitEmbed.setDescription(t("commands:misc.orbit.description"));
     orbitEmbed.setColor(Becca.colours.default);
     orbitEmbed.setTimestamp();
     orbitEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     orbitEmbed.addFields(
       parsed.map((user) => ({
         name: user.attributes.name,
-        value:
-          user.attributes.love +
-          " " +
-          t<string, string>("commands:misc.orbit.points"),
+        value: user.attributes.love + " " + t("commands:misc.orbit.points"),
         inline: true,
       }))
     );
@@ -67,43 +62,43 @@ export const handleOrbit: CommandHandler = async (Becca, interaction, t) => {
     );
 
     const authorString = authorData.data.data
-      ? t<string, string>("commands:misc.orbit.record", {
+      ? t("commands:misc.orbit.record", {
           user: author.username,
           points: authorData.data.data.attributes.love,
         })
-      : t<string, string>("commands:misc.orbit.norecord", {
+      : t("commands:misc.orbit.norecord", {
           user: author.username,
         });
 
     orbitEmbed.addFields([
       {
-        name: t<string, string>("commands:misc.orbit.rank"),
+        name: t("commands:misc.orbit.rank"),
         value: authorString,
       },
       {
-        name: t<string, string>("commands:misc.orbit.cache"),
+        name: t("commands:misc.orbit.cache"),
         value: String(cached),
       },
     ]);
 
     orbitEmbed.setFooter({
-      text: t<string, string>("commands:misc.orbit.footer"),
+      text: t("commands:misc.orbit.footer"),
     });
 
     const discordBtn = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
       .setEmoji("<:discord:904209263738642482>")
       .setURL("https://chat.nhcarrigan.com")
-      .setLabel(t<string, string>("commands:misc.orbit.buttons.discord"));
+      .setLabel(t("commands:misc.orbit.buttons.discord"));
     const githubBtn = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
       .setEmoji("<:github:904209263717658624>")
       .setURL("https://github.com/nhcarrigan")
-      .setLabel(t<string, string>("commands:misc.orbit.buttons.github"));
+      .setLabel(t("commands:misc.orbit.buttons.github"));
     const mastodonBtn = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
       .setURL("https://mastodon.naomi.lgbt/@becca")
-      .setLabel(t<string, string>("commands:misc.orbit.buttons.mastodon"));
+      .setLabel(t("commands:misc.orbit.buttons.mastodon"));
 
     const buttons = new ActionRowBuilder<ButtonBuilder>().addComponents([
       discordBtn,

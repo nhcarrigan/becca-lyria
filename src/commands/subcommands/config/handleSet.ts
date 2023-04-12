@@ -46,7 +46,7 @@ export const handleSet: SettingsHandler = async (
       )
     ) {
       await interaction.editReply({
-        content: t<string, string>("commands:config.set.noPerms", {
+        content: t("commands:config.set.noPerms", {
           permission: needsPerms.join(", "),
         }),
       });
@@ -57,7 +57,7 @@ export const handleSet: SettingsHandler = async (
       const channel = await guild.channels.fetch(value).catch(() => null);
       if (!channel) {
         await interaction.editReply({
-          content: t<string, string>("commands:config.set.invalid", {
+          content: t("commands:config.set.invalid", {
             setting,
             value,
           }),
@@ -71,7 +71,7 @@ export const handleSet: SettingsHandler = async (
         )
       ) {
         await interaction.editReply({
-          content: t<string, string>("commands:config.set.noChannelPerms", {
+          content: t("commands:config.set.noChannelPerms", {
             permission: needsPerms.join(", "),
             channel: channel.name,
           }),
@@ -83,24 +83,20 @@ export const handleSet: SettingsHandler = async (
     const isSet = await setSetting(Becca, guild.name, setting, value, config);
 
     if (!isSet) {
-      await interaction.editReply(
-        t<string, string>("commands:config.set.failed")
-      );
+      await interaction.editReply(t("commands:config.set.failed"));
       return;
     }
     const newContent = isSet[setting];
     const parsedContent = renderSetting(Becca, setting, newContent);
     const successEmbed = new EmbedBuilder();
-    successEmbed.setTitle(
-      t<string, string>("commands:config.set.title", { setting })
-    );
+    successEmbed.setTitle(t("commands:config.set.title", { setting }));
     successEmbed.setDescription(
       customSubstring(parsedContent, 2000) || "no setting found"
     );
     successEmbed.setTimestamp();
     successEmbed.setColor(Becca.colours.default);
     successEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     await interaction.editReply({ embeds: [successEmbed] });

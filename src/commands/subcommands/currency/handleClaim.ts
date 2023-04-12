@@ -37,7 +37,7 @@ export const handleClaim: CurrencyHandler = async (
       case "monarch-colour":
         if (data.currencyTotal < 2500) {
           await interaction.editReply(
-            t<string, string>("commands:currency.claim.price", {
+            t("commands:currency.claim.price", {
               price: 2500,
               total: data.currencyTotal,
             })
@@ -48,15 +48,15 @@ export const handleClaim: CurrencyHandler = async (
         await data.save();
         claimEmbed.addFields([
           {
-            name: t<string, string>("commands:currency.claim.details"),
-            value: t<string, string>("commands:currency.claim.monarch-colour"),
+            name: t("commands:currency.claim.details"),
+            value: t("commands:currency.claim.monarch-colour"),
           },
         ]);
         break;
       case "monarch":
         if (data.currencyTotal < 5000) {
           await interaction.editReply(
-            t<string, string>("commands:currency.claim.price", {
+            t("commands:currency.claim.price", {
               price: 5000,
               total: data.currencyTotal,
             })
@@ -67,15 +67,15 @@ export const handleClaim: CurrencyHandler = async (
         await data.save();
         claimEmbed.addFields([
           {
-            name: t<string, string>("commands:currency.claim.details"),
-            value: t<string, string>("commands:currency.claim.monarch"),
+            name: t("commands:currency.claim.details"),
+            value: t("commands:currency.claim.monarch"),
           },
         ]);
         break;
       case "wealthy-colour":
         if (data.currencyTotal < 7500) {
           await interaction.editReply(
-            t<string, string>("commands:currency.claim.price", {
+            t("commands:currency.claim.price", {
               price: 7500,
               total: data.currencyTotal,
             })
@@ -86,15 +86,15 @@ export const handleClaim: CurrencyHandler = async (
         await data.save();
         claimEmbed.addFields([
           {
-            name: t<string, string>("commands:currency.claim.details"),
-            value: t<string, string>("commands:currency.claim.wealthy-colour"),
+            name: t("commands:currency.claim.details"),
+            value: t("commands:currency.claim.wealthy-colour"),
           },
         ]);
         break;
       case "wealthy":
         if (data.currencyTotal < 10000) {
           await interaction.editReply(
-            t<string, string>("commands:currency.claim.price", {
+            t("commands:currency.claim.price", {
               price: 10000,
               total: data.currencyTotal,
             })
@@ -105,20 +105,18 @@ export const handleClaim: CurrencyHandler = async (
         await data.save();
         claimEmbed.addFields([
           {
-            name: t<string, string>("commands:currency.claim.details"),
-            value: t<string, string>("commands:currency.claim.wealthy"),
+            name: t("commands:currency.claim.details"),
+            value: t("commands:currency.claim.wealthy"),
           },
         ]);
         break;
       case "default":
-        await interaction.editReply(
-          t<string, string>("commands:currency.claim.invalid")
-        );
+        await interaction.editReply(t("commands:currency.claim.invalid"));
         return;
     }
 
     const supportServerButton = new ButtonBuilder()
-      .setLabel(t<string, string>("commands:currency.claim.buttons"))
+      .setLabel(t("commands:currency.claim.buttons"))
       .setEmoji("<:BeccaHuh:877278300739887134>")
       .setStyle(ButtonStyle.Link)
       .setURL("https://chat.nhcarrigan.com");

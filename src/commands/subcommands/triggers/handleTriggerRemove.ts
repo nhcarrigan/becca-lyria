@@ -21,7 +21,7 @@ export const handleTriggerRemove: CommandHandler = async (
 
     if (triggerIndex === -1) {
       await interaction.editReply({
-        content: t<string, string>("commands:triggers.remove.missing"),
+        content: t("commands:triggers.remove.missing"),
       });
       return;
     }
@@ -31,9 +31,9 @@ export const handleTriggerRemove: CommandHandler = async (
     await config.save();
 
     const success = new EmbedBuilder();
-    success.setTitle(t<string, string>("commands:triggers.remove.title"));
+    success.setTitle(t("commands:triggers.remove.title"));
     success.setDescription(
-      t<string, string>("commands:triggers.remove.description", { trigger })
+      t("commands:triggers.remove.description", { trigger })
     );
     success.setColor(Becca.colours.default);
     success.setAuthor({
@@ -42,7 +42,7 @@ export const handleTriggerRemove: CommandHandler = async (
     });
     success.setTimestamp();
     success.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

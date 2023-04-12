@@ -26,9 +26,9 @@ export const threadCreate = async (
 
     const threadEmbed = new EmbedBuilder();
 
-    threadEmbed.setTitle(t<string, string>("events:thread.create.title"));
+    threadEmbed.setTitle(t("events:thread.create.title"));
     threadEmbed.setDescription(
-      t<string, string>("events:thread.create.desc", { id: `<#${thread.id}>` })
+      t("events:thread.create.desc", { id: `<#${thread.id}>` })
     );
     threadEmbed.setColor(Becca.colours.success);
     threadEmbed.setTimestamp();

@@ -19,7 +19,7 @@ export const handleEmoteView: CommandHandler = async (
 
     if (!data) {
       await interaction.editReply({
-        content: t<string, string>("commands:emote.view.none"),
+        content: t("commands:emote.view.none"),
       });
       return;
     }
@@ -34,54 +34,52 @@ export const handleEmoteView: CommandHandler = async (
       data.uwu;
 
     const emoteEmbed = new EmbedBuilder();
-    emoteEmbed.setTitle(t<string, string>("commands:emote.view.title"));
+    emoteEmbed.setTitle(t("commands:emote.view.title"));
     emoteEmbed.setAuthor({
       name: interaction.user.tag,
       iconURL: interaction.user.displayAvatarURL(),
     });
     emoteEmbed.setColor(Becca.colours.default);
-    emoteEmbed.setDescription(
-      t<string, string>("commands:emote.view.description", { total })
-    );
+    emoteEmbed.setDescription(t("commands:emote.view.description", { total }));
     emoteEmbed.addFields([
       {
-        name: t<string, string>("commands:emote.view.hugs"),
+        name: t("commands:emote.view.hugs"),
         value: data.hug.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:emote.view.kisses"),
+        name: t("commands:emote.view.kisses"),
         value: data.kiss.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:emote.view.pats"),
+        name: t("commands:emote.view.pats"),
         value: data.pat.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:emote.view.boops"),
+        name: t("commands:emote.view.boops"),
         value: data.boop.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:emote.view.throws"),
+        name: t("commands:emote.view.throws"),
         value: data.throw.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:emote.view.smacks"),
+        name: t("commands:emote.view.smacks"),
         value: data.smack.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:emote.view.uwus"),
+        name: t("commands:emote.view.uwus"),
         value: data.uwu.toString(),
         inline: true,
       },
     ]);
     emoteEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile-transparent",
     });
 

@@ -24,9 +24,7 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
     const optout = await getOptOutRecord(Becca, interaction.user.id);
 
     if (!optout || optout.emote) {
-      await interaction.editReply(
-        t<string, string>("commands:emote.use.optout")
-      );
+      await interaction.editReply(t("commands:emote.use.optout"));
       return;
     }
 
@@ -63,41 +61,41 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
         uwu: 0,
       }));
 
-    let result = t<string, string>("commands:emote.use.null");
+    let result = t("commands:emote.use.null");
     const user = `<@!${target.id}>`;
 
     switch (action) {
       case "hug":
         targetData.hug++;
-        result = t<string, string>("commands:emote.use.hug", {
+        result = t("commands:emote.use.hug", {
           user,
           count: targetData.hug,
         });
         break;
       case "kiss":
         targetData.kiss++;
-        result = t<string, string>("commands:emote.use.kiss", {
+        result = t("commands:emote.use.kiss", {
           user,
           total: targetData.kiss,
         });
         break;
       case "pat":
         targetData.pat++;
-        result = t<string, string>("commands:emote.use.pat", {
+        result = t("commands:emote.use.pat", {
           user,
           total: targetData.pat,
         });
         break;
       case "boop":
         targetData.boop++;
-        result = t<string, string>("commands:emote.use.boop", {
+        result = t("commands:emote.use.boop", {
           user,
           total: targetData.boop,
         });
         break;
       case "smack":
         targetData.smack++;
-        result = t<string, string>("commands:emote.use.smack", {
+        result = t("commands:emote.use.smack", {
           user,
           total: targetData.smack,
           item: getRandomValue(smackList),
@@ -105,7 +103,7 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
         break;
       case "throw":
         targetData.throw++;
-        result = t<string, string>("commands:emote.use.throw", {
+        result = t("commands:emote.use.throw", {
           user,
           total: targetData.throw,
           item: getRandomValue(throwList),
@@ -113,7 +111,7 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
         break;
       case "uwu":
         targetData.uwu++;
-        result = t<string, string>("commands:emote.use.uwu", {
+        result = t("commands:emote.use.uwu", {
           user,
           total: targetData.uwu,
         });

@@ -13,14 +13,12 @@ export const handleCanIUse: CommandHandler = async (Becca, interaction, t) => {
     const feature = interaction.options.getString("feature", true);
 
     const caniuseEmbed = new EmbedBuilder();
-    caniuseEmbed.setTitle(
-      t<string, string>("commands:code.caniuse.title", { feature })
-    );
+    caniuseEmbed.setTitle(t("commands:code.caniuse.title", { feature }));
     caniuseEmbed.setImage(`https://caniuse.bitsofco.de/image/${feature}.webp`);
     caniuseEmbed.setTimestamp();
     caniuseEmbed.setColor(Becca.colours.default);
     caniuseEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

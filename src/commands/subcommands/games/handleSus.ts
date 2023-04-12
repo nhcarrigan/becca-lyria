@@ -15,16 +15,16 @@ export const handleSus: CommandHandler = async (Becca, interaction, t) => {
   try {
     const susData = getRandomValue(SusList);
     const susEmbed = new EmbedBuilder();
-    susEmbed.setTitle(t<string, string>("commands:games.sus.title"));
+    susEmbed.setTitle(t("commands:games.sus.title"));
     susEmbed.setDescription(
-      t<string, string>("commands:games.sus.description", {
+      t("commands:games.sus.description", {
         color: susData.name,
       })
     );
     susEmbed.setColor(susData.colour);
     susEmbed.setTimestamp();
     susEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

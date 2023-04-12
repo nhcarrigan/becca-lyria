@@ -104,13 +104,13 @@ export const levelListener: Listener = {
       if (levelUp) {
         const content = serverSettings.level_message
           ? generateLevelText(serverSettings.level_message, author, user.level)
-          : t<string, string>("listeners:level.desc", {
+          : t("listeners:level.desc", {
               user: `<@!${author.id}>`,
               level: user.level,
             });
         if (serverSettings.level_style === "embed") {
           const levelEmbed = new EmbedBuilder();
-          levelEmbed.setTitle(t<string, string>("listeners:level.title"));
+          levelEmbed.setTitle(t("listeners:level.title"));
           levelEmbed.setDescription(content);
           levelEmbed.setColor(Becca.colours.default);
           levelEmbed.setAuthor({
@@ -118,7 +118,7 @@ export const levelListener: Listener = {
             iconURL: author.displayAvatarURL(),
           });
           levelEmbed.setFooter({
-            text: t<string, string>("defaults:footer"),
+            text: t("defaults:footer"),
             iconURL: "https://cdn.nhcarrigan.com/profile.png",
           });
           await targetChannel.send({ embeds: [levelEmbed] });
@@ -141,15 +141,13 @@ export const levelListener: Listener = {
               await member?.roles.add(role);
               const content = serverSettings.role_message
                 ? generateRoleText(serverSettings.role_message, author, role)
-                : t<string, string>("listeners:level.roleDesc", {
+                : t("listeners:level.roleDesc", {
                     user: `<@!${author.id}>`,
                     role: `<@&${role.id}>`,
                   });
               if (serverSettings.level_style === "embed") {
                 const roleEmbed = new EmbedBuilder();
-                roleEmbed.setTitle(
-                  t<string, string>("listeners:level.roleTitle")
-                );
+                roleEmbed.setTitle(t("listeners:level.roleTitle"));
                 roleEmbed.setDescription(content);
                 roleEmbed.setColor(Becca.colours.default);
                 roleEmbed.setAuthor({
@@ -157,7 +155,7 @@ export const levelListener: Listener = {
                   iconURL: author.displayAvatarURL(),
                 });
                 roleEmbed.setFooter({
-                  text: t<string, string>("defaults:footer"),
+                  text: t("defaults:footer"),
                   iconURL: "https://cdn.nhcarrigan.com/profile.png",
                 });
                 await targetChannel.send({ embeds: [roleEmbed] });

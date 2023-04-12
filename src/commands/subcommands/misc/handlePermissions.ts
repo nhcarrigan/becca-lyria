@@ -50,7 +50,7 @@ export const handlePermissions: CommandHandler = async (
 
     if (!BeccaMember) {
       await interaction.editReply({
-        content: t<string, string>("commands:misc.permissions.missing"),
+        content: t("commands:misc.permissions.missing"),
       });
       return;
     }
@@ -71,19 +71,19 @@ export const handlePermissions: CommandHandler = async (
     const areValid = hasChannelPerms && hasGuildPerms;
 
     const descriptionString = areValid
-      ? t<string, string>("commands:misc.permissions.valid")
-      : t<string, string>("commands:misc.permissions.invalid");
+      ? t("commands:misc.permissions.valid")
+      : t("commands:misc.permissions.invalid");
 
     const validEmbed = new EmbedBuilder();
     validEmbed.setTitle(
       areValid
-        ? t<string, string>("commands:misc.permissions.yes")
-        : t<string, string>("commands:misc.permissions.no")
+        ? t("commands:misc.permissions.yes")
+        : t("commands:misc.permissions.no")
     );
     validEmbed.setDescription(descriptionString);
     validEmbed.setColor(areValid ? Becca.colours.success : Becca.colours.error);
     validEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

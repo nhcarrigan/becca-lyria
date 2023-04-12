@@ -23,7 +23,7 @@ export const handleTriggerView: CommandHandler = async (
   try {
     if (!config.triggers.length) {
       await interaction.editReply({
-        content: t<string, string>("commands:triggers.view.none"),
+        content: t("commands:triggers.view.none"),
       });
       return;
     }
@@ -36,10 +36,10 @@ export const handleTriggerView: CommandHandler = async (
     const lastPage = Math.ceil(config.triggers.length / 10);
 
     const embed = new EmbedBuilder();
-    embed.setTitle(t<string, string>("commands:triggers.view.title"));
+    embed.setTitle(t("commands:triggers.view.title"));
     embed.setFields(triggerList.slice(page * 10 - 10, page * 10));
     embed.setFooter({
-      text: t<string, string>("commands:triggers.view.footer", {
+      text: t("commands:triggers.view.footer", {
         page,
         last: lastPage,
       }),
@@ -96,7 +96,7 @@ export const handleTriggerView: CommandHandler = async (
 
       embed.setFields(triggerList.slice(page * 10 - 10, page * 10));
       embed.setFooter({
-        text: t<string, string>("commands:triggers.view.footer", {
+        text: t("commands:triggers.view.footer", {
           page,
           last: lastPage,
         }),

@@ -44,7 +44,7 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
     }
     if (!channel || !("messages" in channel)) {
       await interaction.reply({
-        content: t<string, string>("commands:post.delete.invalid"),
+        content: t("commands:post.delete.invalid"),
       });
       return;
     }
@@ -55,7 +55,7 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
 
     if (!targetMessage) {
       await interaction.editReply({
-        content: t<string, string>("commands:post.delete.doesnt-exist"),
+        content: t("commands:post.delete.doesnt-exist"),
       });
       return;
     }
@@ -68,7 +68,7 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
     }
     await targetMessage.delete();
     await interaction.reply({
-      content: t<string, string>("commands:post.delete.success"),
+      content: t("commands:post.delete.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

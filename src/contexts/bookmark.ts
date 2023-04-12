@@ -27,16 +27,14 @@ export const bookmark: Context = {
       const guild = interaction.guild?.name;
 
       if (!message || !channel || !guild) {
-        await interaction.editReply(
-          t<string, string>("contexts:bookmark.failed")
-        );
+        await interaction.editReply(t("contexts:bookmark.failed"));
         return;
       }
 
       const author = message.author as User;
 
       const bookmarkEmbed = new EmbedBuilder();
-      bookmarkEmbed.setTitle(t<string, string>("contexts:bookmark.title"));
+      bookmarkEmbed.setTitle(t("contexts:bookmark.title"));
       bookmarkEmbed.setDescription(message.url);
       bookmarkEmbed.setAuthor({
         name: author.tag,
@@ -56,13 +54,13 @@ export const bookmark: Context = {
         },
       ]);
       bookmarkEmbed.setFooter({
-        text: t<string, string>("defaults:footer"),
+        text: t("defaults:footer"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
       const deleteButton = new ButtonBuilder()
         .setCustomId("delete-bookmark")
-        .setLabel(t<string, string>("contexts:bookmark.deleteLabel"))
+        .setLabel(t("contexts:bookmark.deleteLabel"))
         .setStyle(ButtonStyle.Danger);
 
       const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
@@ -72,14 +70,10 @@ export const bookmark: Context = {
       await interaction.user
         .send({ embeds: [bookmarkEmbed], components: [row] })
         .then(async () => {
-          await interaction.editReply(
-            t<string, string>("contexts:bookmark.success")
-          );
+          await interaction.editReply(t("contexts:bookmark.success"));
         })
         .catch(async () => {
-          await interaction.editReply(
-            t<string, string>("contexts:bookmark.noDm")
-          );
+          await interaction.editReply(t("contexts:bookmark.noDm"));
         });
     } catch (err) {
       const errorId = await beccaErrorHandler(

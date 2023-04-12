@@ -46,7 +46,7 @@ export const handleResetLevels: CommandHandler = async (
 
     if (!currentLevels || !currentLevels.length) {
       await interaction.editReply({
-        content: t<string, string>("commands:manage.levels.none"),
+        content: t("commands:manage.levels.none"),
       });
       return;
     }
@@ -54,7 +54,7 @@ export const handleResetLevels: CommandHandler = async (
       await LevelModel.deleteOne({ _id: level._id });
     }
     await interaction.editReply({
-      content: t<string, string>("commands:manage.levels.success"),
+      content: t("commands:manage.levels.success"),
     });
     return;
   } catch (err) {

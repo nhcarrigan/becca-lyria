@@ -36,7 +36,7 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
 
     if (!targetLevel) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.level.none", {
+        content: t("commands:community.level.none", {
           user: `<@!${target.id}>`,
         }),
       });
@@ -49,32 +49,32 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
     const levelEmbed = new EmbedBuilder();
     levelEmbed.setColor(Becca.colours.default);
     levelEmbed.setTitle(
-      t<string, string>("commands:community.level.title", { user: target.tag })
+      t("commands:community.level.title", { user: target.tag })
     );
     levelEmbed.setDescription(
-      t<string, string>("commands:community.level.description", {
+      t("commands:community.level.description", {
         name: guild.name,
       })
     );
     levelEmbed.addFields([
       {
-        name: t<string, string>("commands:community.level.points"),
+        name: t("commands:community.level.points"),
         value: targetLevel.points.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.level.level"),
+        name: t("commands:community.level.level"),
         value: targetLevel.level.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.level.seen"),
+        name: t("commands:community.level.seen"),
         value: `${new Date(targetLevel.lastSeen).toLocaleDateString()}`,
       },
     ]);
     levelEmbed.setTimestamp();
     levelEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     levelEmbed.setImage("attachment://level.png");

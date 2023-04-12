@@ -17,30 +17,24 @@ export const handleUserConfigView: UserConfigCommandHandler = async (
   try {
     const embed = new EmbedBuilder();
     embed.setColor(Becca.colours.default);
-    embed.setTitle(t<string, string>("commands:userconfig.view.title"));
-    embed.setDescription(
-      t<string, string>("commands:userconfig.view.description")
-    );
+    embed.setTitle(t("commands:userconfig.view.title"));
+    embed.setDescription(t("commands:userconfig.view.description"));
     embed.addFields([
       {
-        name: t<string, string>(
-          "commands:userconfig.view.levelcard.background"
-        ),
+        name: t("commands:userconfig.view.levelcard.background"),
         value: userConfig.levelcard.background || "Not set.",
       },
       {
-        name: t<string, string>(
-          "commands:userconfig.view.levelcard.foreground"
-        ),
+        name: t("commands:userconfig.view.levelcard.foreground"),
         value: userConfig.levelcard.foreground || "Not set.",
       },
       {
-        name: t<string, string>("commands:userconfig.view.levelcard.progress"),
+        name: t("commands:userconfig.view.levelcard.progress"),
         value: userConfig.levelcard.progress || "Not set.",
       },
     ]);
     embed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

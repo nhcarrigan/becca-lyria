@@ -80,14 +80,14 @@ export const handleBan: CommandHandler = async (
 
     if (prune < 0 || prune > 7) {
       await interaction.editReply({
-        content: t<string, string>("commands:mod.ban.prune"),
+        content: t("commands:mod.ban.prune"),
       });
       return;
     }
 
     if (!targetMember.bannable) {
       await interaction.editReply({
-        content: t<string, string>("commands:mod.ban.invalid"),
+        content: t("commands:mod.ban.invalid"),
       });
       return;
     }
@@ -113,19 +113,19 @@ export const handleBan: CommandHandler = async (
 
     const banLogEmbed = new EmbedBuilder();
     banLogEmbed.setColor(Becca.colours.error);
-    banLogEmbed.setTitle(t<string, string>("commands:mod.ban.title"));
+    banLogEmbed.setTitle(t("commands:mod.ban.title"));
     banLogEmbed.setDescription(
-      t<string, string>("commands:mod.ban.description", {
+      t("commands:mod.ban.description", {
         user: member.user.username,
       })
     );
     banLogEmbed.addFields([
       {
-        name: t<string, string>("commands:mod.ban.reason"),
+        name: t("commands:mod.ban.reason"),
         value: customSubstring(reason, 1000),
       },
       {
-        name: t<string, string>("commands:mod.ban.notified"),
+        name: t("commands:mod.ban.notified"),
         value: String(sentNotice),
       },
     ]);
@@ -138,7 +138,7 @@ export const handleBan: CommandHandler = async (
 
     await sendLogEmbed(Becca, guild, banLogEmbed, "moderation_events");
     await interaction.editReply({
-      content: t<string, string>("commands:mod.ban.success"),
+      content: t("commands:mod.ban.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

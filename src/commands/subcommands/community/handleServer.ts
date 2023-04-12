@@ -33,49 +33,48 @@ export const handleServer: CommandHandler = async (Becca, interaction, t) => {
     const guildChannels = guild.channels.cache;
     const guildEmojis = guild.emojis.cache;
     const guildMfa = guild.mfaLevel
-      ? t<string, string>("commands:community.server.mfa")
-      : t<string, string>("commands:community.server.nomfa");
+      ? t("commands:community.server.mfa")
+      : t("commands:community.server.nomfa");
 
     const serverEmbed = new EmbedBuilder();
     serverEmbed.setColor(Becca.colours.default);
     serverEmbed.setTitle(guild.name);
     serverEmbed.setDescription(
-      guild.description ||
-        t<string, string>("commands:community.server.description")
+      guild.description || t("commands:community.server.description")
     );
     serverEmbed.setThumbnail(guild.iconURL() || "");
     serverEmbed.addFields([
       {
-        name: t<string, string>("commands:community.server.creation"),
+        name: t("commands:community.server.creation"),
         value: new Date(guild.createdTimestamp).toLocaleDateString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.owner"),
+        name: t("commands:community.server.owner"),
         value: guildOwner.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.members"),
+        name: t("commands:community.server.members"),
         value: guild.memberCount.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.living"),
+        name: t("commands:community.server.living"),
         value: guildMembers
           .filter((member) => !member.user.bot)
           .length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.bot"),
+        name: t("commands:community.server.bot"),
         value: guildMembers
           .filter((member) => member.user.bot)
           .length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.ban"),
+        name: t("commands:community.server.ban"),
         value: guildBans.size.toString(),
         inline: true,
       },
@@ -85,70 +84,70 @@ export const handleServer: CommandHandler = async (Becca, interaction, t) => {
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.titles"),
+        name: t("commands:community.server.titles"),
         value: guild.roles.cache.size.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.channels"),
+        name: t("commands:community.server.channels"),
         value: guildChannels.size.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.text"),
+        name: t("commands:community.server.text"),
         value: guildChannels
           .filter((chan) => chan.type === ChannelType.GuildText)
           .size.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.voice"),
+        name: t("commands:community.server.voice"),
         value: guildChannels
           .filter((chan) => chan.type === ChannelType.GuildVoice)
           .size.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.boost"),
+        name: t("commands:community.server.boost"),
         value: `Level ${guild.premiumTier} with ${guild.premiumSubscriptionCount} boosts.`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.semote"),
+        name: t("commands:community.server.semote"),
         value: guildEmojis.filter((emote) => !emote.animated).size.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.aemote"),
+        name: t("commands:community.server.aemote"),
         value: guildEmojis.filter((emote) => !!emote.animated).size.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.content"),
+        name: t("commands:community.server.content"),
         value: contentFilterMap[guild.explicitContentFilter],
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.auth"),
+        name: t("commands:community.server.auth"),
         value: guildMfa,
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.account"),
+        name: t("commands:community.server.account"),
         value: accountVerificationMap[guild.verificationLevel],
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.status"),
-        value: t<string, string>("commands:community.server.statuses", {
+        name: t("commands:community.server.status"),
+        value: t("commands:community.server.statuses", {
           partnered: guild.partnered,
           verified: guild.verified,
         }),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.server.special"),
-        value: t<string, string>("commands:community.server.schannels", {
+        name: t("commands:community.server.special"),
+        value: t("commands:community.server.schannels", {
           system: guild.systemChannel?.name || "null",
           rules: guild.rulesChannel?.name || "null",
           public: guild.publicUpdatesChannel?.name || "null",
@@ -157,7 +156,7 @@ export const handleServer: CommandHandler = async (Becca, interaction, t) => {
       },
     ]);
     serverEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

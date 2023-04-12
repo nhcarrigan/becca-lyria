@@ -36,7 +36,7 @@ export const handleCreateModal = async (
 
     if (!targetChannel || !targetChannel.isTextBased()) {
       await interaction.editReply(
-        t<string, string>("commands:post.create.nonTextChannel", {
+        t("commands:post.create.nonTextChannel", {
           channelId: targetChannelId,
         })
       );
@@ -52,7 +52,7 @@ export const handleCreateModal = async (
         ])
     ) {
       await interaction.editReply(
-        t<string, string>("commands:post.create.noPerms", {
+        t("commands:post.create.noPerms", {
           channelId: targetChannelId,
         })
       );

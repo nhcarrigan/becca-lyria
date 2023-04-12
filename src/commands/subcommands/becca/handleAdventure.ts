@@ -28,7 +28,7 @@ export const handleAdventure: CommandHandler = async (
     adventureEmbed.setTitle(gameName);
     adventureEmbed.setColor(Becca.colours.default);
     adventureEmbed.setDescription(
-      t<string, string>("commands:becca.adventure.description", {
+      t("commands:becca.adventure.description", {
         name: gameName,
         url: gameUrl,
       })
@@ -40,12 +40,12 @@ export const handleAdventure: CommandHandler = async (
       )}`
     );
     adventureEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     const artButton = new ButtonBuilder()
-      .setLabel(t<string, string>("commands:becca.adventure.buttons.more"))
+      .setLabel(t("commands:becca.adventure.buttons.more"))
       .setEmoji("<:BeccaWork:883854701416833024>")
       .setStyle(ButtonStyle.Link)
       .setURL(

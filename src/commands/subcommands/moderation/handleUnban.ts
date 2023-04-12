@@ -79,15 +79,15 @@ export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
 
     const banLogEmbed = new EmbedBuilder();
     banLogEmbed.setColor(Becca.colours.error);
-    banLogEmbed.setTitle(t<string, string>("commands:mod.unban.title"));
+    banLogEmbed.setTitle(t("commands:mod.unban.title"));
     banLogEmbed.setDescription(
-      t<string, string>("commands:mod.unban.description", {
+      t("commands:mod.unban.description", {
         user: member.user.username,
       })
     );
     banLogEmbed.addFields([
       {
-        name: t<string, string>("commands:mod.unban.reason"),
+        name: t("commands:mod.unban.reason"),
         value: customSubstring(reason, 1000),
       },
     ]);
@@ -100,7 +100,7 @@ export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
 
     await sendLogEmbed(Becca, guild, banLogEmbed, "moderation_events");
     await interaction.editReply({
-      content: t<string, string>("commands:mod.unban.success"),
+      content: t("commands:mod.unban.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

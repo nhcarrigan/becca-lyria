@@ -51,10 +51,10 @@ export const messageUpdate = async (
     const diffContent =
       oldContent && newContent
         ? generateDiff(oldContent, newContent)
-        : t<string, string>("events:message.edit.nocont");
+        : t("events:message.edit.nocont");
 
     const updateEmbed = new EmbedBuilder();
-    updateEmbed.setTitle(t<string, string>("events:message.edit.title"));
+    updateEmbed.setTitle(t("events:message.edit.title"));
     updateEmbed.setAuthor({
       name: author.tag,
       iconURL: author.displayAvatarURL(),
@@ -67,11 +67,11 @@ export const messageUpdate = async (
     updateEmbed.setTimestamp();
     updateEmbed.addFields([
       {
-        name: t<string, string>("events:message.edit.chan"),
+        name: t("events:message.edit.chan"),
         value: `<#${newMessage.channel.id}>`,
       },
       {
-        name: t<string, string>("events:message.edit.link"),
+        name: t("events:message.edit.link"),
         value: newMessage.url,
       },
     ]);

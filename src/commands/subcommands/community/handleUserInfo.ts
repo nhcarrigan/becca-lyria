@@ -29,7 +29,7 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
 
     if (!target) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.userinfo.nouser"),
+        content: t("commands:community.userinfo.nouser"),
       });
       return;
     }
@@ -39,30 +39,30 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
     userEmbed.setTitle(target.displayName);
     userEmbed.setThumbnail(target.user.displayAvatarURL());
     userEmbed.setDescription(
-      t<string, string>("commands:community.userinfo.description", {
+      t("commands:community.userinfo.description", {
         user: `<@!${target.id}>`,
       })
     );
     userEmbed.addFields([
       {
-        name: t<string, string>("commands:community.userinfo.create"),
+        name: t("commands:community.userinfo.create"),
         value: new Date(target.user.createdTimestamp).toLocaleDateString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.userinfo.join"),
+        name: t("commands:community.userinfo.join"),
         value: new Date(
           target.joinedTimestamp || Date.now()
         ).toLocaleDateString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.userinfo.username"),
+        name: t("commands:community.userinfo.username"),
         value: target.user.tag,
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.userinfo.roles"),
+        name: t("commands:community.userinfo.roles"),
         value: customSubstring(
           target.roles.cache
             .filter((role) => role.id !== guild.id)
@@ -72,12 +72,12 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
         ),
       },
       {
-        name: t<string, string>("commands:community.userinfo.colour"),
+        name: t("commands:community.userinfo.colour"),
         value: target.displayHexColor,
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.userinfo.nitro"),
+        name: t("commands:community.userinfo.nitro"),
         value: target.premiumSinceTimestamp
           ? `Since ${new Date(
               target.premiumSinceTimestamp
@@ -87,7 +87,7 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
       },
     ]);
     userEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

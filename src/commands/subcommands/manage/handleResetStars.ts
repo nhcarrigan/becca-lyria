@@ -43,7 +43,7 @@ export const handleResetStars: CommandHandler = async (
 
     if (!starData) {
       await interaction.editReply({
-        content: t<string, string>("commands:manage.stars.none"),
+        content: t("commands:manage.stars.none"),
       });
       return;
     }
@@ -52,7 +52,7 @@ export const handleResetStars: CommandHandler = async (
     starData.markModified("users");
     await starData.save();
     await interaction.editReply({
-      content: t<string, string>("commands:manage.stars.success"),
+      content: t("commands:manage.stars.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

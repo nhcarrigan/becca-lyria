@@ -32,7 +32,7 @@ export const handleMute: CommandHandler = async (
 
     if (!durationMilliseconds) {
       await interaction.editReply({
-        content: t<string, string>("commands:mod.mute.invalid", {
+        content: t("commands:mod.mute.invalid", {
           duration,
           durationUnit,
         }),
@@ -42,7 +42,7 @@ export const handleMute: CommandHandler = async (
 
     if (durationMilliseconds > 2419200000) {
       await interaction.editReply({
-        content: t<string, string>("commands:mod.mute.long"),
+        content: t("commands:mod.mute.long"),
       });
       return;
     }
@@ -112,24 +112,24 @@ export const handleMute: CommandHandler = async (
     await updateHistory(Becca, "mute", target.id, guild.id);
 
     const muteEmbed = new EmbedBuilder();
-    muteEmbed.setTitle(t<string, string>("commands:mod.mute.title"));
+    muteEmbed.setTitle(t("commands:mod.mute.title"));
     muteEmbed.setDescription(
-      t<string, string>("commands:mod.mute.description", {
+      t("commands:mod.mute.description", {
         user: member.user.username,
       })
     );
     muteEmbed.setColor(Becca.colours.warning);
     muteEmbed.addFields([
       {
-        name: t<string, string>("commands:mod.mute.reason"),
+        name: t("commands:mod.mute.reason"),
         value: customSubstring(reason, 1000),
       },
       {
-        name: t<string, string>("commands:mod.mute.duration"),
+        name: t("commands:mod.mute.duration"),
         value: `${duration} ${durationUnit}`,
       },
       {
-        name: t<string, string>("commands:mod.mute.notified"),
+        name: t("commands:mod.mute.notified"),
         value: String(sentNotice),
       },
     ]);
@@ -143,7 +143,7 @@ export const handleMute: CommandHandler = async (
     await sendLogEmbed(Becca, guild, muteEmbed, "moderation_events");
 
     await interaction.editReply({
-      content: t<string, string>("commands:mod.mute.success"),
+      content: t("commands:mod.mute.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

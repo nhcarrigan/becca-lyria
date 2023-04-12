@@ -19,12 +19,12 @@ export const handleTopic: CommandHandler = async (Becca, interaction, t) => {
     const randomTopic = getRandomValue(topicArray);
 
     const topicEmbed = new EmbedBuilder();
-    topicEmbed.setTitle(t<string, string>("commands:community.topic.title"));
+    topicEmbed.setTitle(t("commands:community.topic.title"));
     topicEmbed.setDescription(randomTopic);
     topicEmbed.setColor(Becca.colours.default);
     topicEmbed.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() });
     topicEmbed.setFooter({
-      text: t<string, string>("commands:community.topic.footer"),
+      text: t("commands:community.topic.footer"),
     });
 
     await interaction.editReply({ embeds: [topicEmbed] });

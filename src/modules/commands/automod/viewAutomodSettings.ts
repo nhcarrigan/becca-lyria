@@ -27,22 +27,20 @@ export const viewAutomodSettings = async (
     const settingsEmbed = new EmbedBuilder();
     settingsEmbed.setTitle(`${guild.name} Automod Settings`);
     settingsEmbed.setColor(Becca.colours.default);
-    settingsEmbed.setDescription(
-      t<string, string>("commands:automod.view.embed.title")
-    );
+    settingsEmbed.setDescription(t("commands:automod.view.embed.title"));
     settingsEmbed.addFields([
       {
-        name: t<string, string>("commands:automod.view.embed.link"),
+        name: t("commands:automod.view.embed.link"),
         value: config.links || "off",
         inline: true,
       },
       {
-        name: t<string, string>("commands:automod.view.embed.profanity"),
+        name: t("commands:automod.view.embed.profanity"),
         value: config.profanity || "off",
         inline: true,
       },
       {
-        name: t<string, string>("commands:automod.view.embed.linkRemoval"),
+        name: t("commands:automod.view.embed.linkRemoval"),
         value: customSubstring(
           config.link_message || defaultServer.link_message,
           1000
@@ -50,7 +48,7 @@ export const viewAutomodSettings = async (
         inline: true,
       },
       {
-        name: t<string, string>("commands:automod.view.embed.profanityRemoval"),
+        name: t("commands:automod.view.embed.profanityRemoval"),
         value: customSubstring(
           config.profanity_message || defaultServer.profanity_message,
           1000
@@ -58,27 +56,27 @@ export const viewAutomodSettings = async (
         inline: true,
       },
       {
-        name: t<string, string>("commands:automod.view.embed.channels"),
+        name: t("commands:automod.view.embed.channels"),
         value: config.automod_channels.length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:automod.view.embed.nonChannels"),
+        name: t("commands:automod.view.embed.nonChannels"),
         value: config.no_automod_channels.length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:automod.view.embed.exempt"),
+        name: t("commands:automod.view.embed.exempt"),
         value: config.automod_roles.length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:automod.view.embed.allowed"),
+        name: t("commands:automod.view.embed.allowed"),
         value: config.allowed_links.length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:automod.view.embed.antiphish"),
+        name: t("commands:automod.view.embed.antiphish"),
         value: config.antiphish || "none",
         inline: true,
       },

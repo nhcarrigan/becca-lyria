@@ -48,14 +48,14 @@ export const handleFeedbackModal = async (
       iconURL: user.displayAvatarURL(),
     });
     feedbackEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
     await Becca.feedbackHook.send({ embeds: [feedbackEmbed] });
 
     await interaction.editReply({
-      content: t<string, string>("commands:becca.feedback.success"),
+      content: t("commands:becca.feedback.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

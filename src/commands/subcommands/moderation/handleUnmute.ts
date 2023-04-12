@@ -91,20 +91,20 @@ export const handleUnmute: CommandHandler = async (
     );
 
     const muteEmbed = new EmbedBuilder();
-    muteEmbed.setTitle(t<string, string>("commands:mod.unmute.title"));
+    muteEmbed.setTitle(t("commands:mod.unmute.title"));
     muteEmbed.setDescription(
-      t<string, string>("commands:mod.unmute.description", {
+      t("commands:mod.unmute.description", {
         user: member.user.username,
       })
     );
     muteEmbed.setColor(Becca.colours.success);
     muteEmbed.addFields([
       {
-        name: t<string, string>("commands:mod.unmute.reason"),
+        name: t("commands:mod.unmute.reason"),
         value: customSubstring(reason, 1000),
       },
       {
-        name: t<string, string>("commands:mod.unmute.notified"),
+        name: t("commands:mod.unmute.notified"),
         value: String(sentNotice),
       },
     ]);
@@ -118,7 +118,7 @@ export const handleUnmute: CommandHandler = async (
     await sendLogEmbed(Becca, guild, muteEmbed, "moderation_events");
 
     await interaction.editReply({
-      content: t<string, string>("commands:mod.unmute.success"),
+      content: t("commands:mod.unmute.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(
