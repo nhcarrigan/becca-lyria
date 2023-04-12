@@ -75,90 +75,88 @@ export const validateChannelPerms = async (
     );
 
     const permissionEmbed = new EmbedBuilder();
-    permissionEmbed.setTitle(
-      t<string, string>("commands:misc.permissions.channel.title")
-    );
+    permissionEmbed.setTitle(t("commands:misc.permissions.channel.title"));
     permissionEmbed.setDescription(
-      t<string, string>("commands:misc.permissions.channel.description")
+      t("commands:misc.permissions.channel.description")
     );
     permissionEmbed.addFields([
       {
-        name: t<string, string>("commands:misc.permissions.names.server"),
+        name: t("commands:misc.permissions.names.server"),
         value: `${manageServer}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.roles"),
+        name: t("commands:misc.permissions.names.roles"),
         value: `${manageRoles}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.channels"),
+        name: t("commands:misc.permissions.names.channels"),
         value: `${manageChannels}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.kick"),
+        name: t("commands:misc.permissions.names.kick"),
         value: `${kickMembers}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.ban"),
+        name: t("commands:misc.permissions.names.ban"),
         value: `${banMembers}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.send"),
+        name: t("commands:misc.permissions.names.send"),
         value: `${sendMessages}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.message"),
+        name: t("commands:misc.permissions.names.message"),
         value: `${manageMessages}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.embed"),
+        name: t("commands:misc.permissions.names.embed"),
         value: `${embedLinks}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.attach"),
+        name: t("commands:misc.permissions.names.attach"),
         value: `${attachFiles}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.history"),
+        name: t("commands:misc.permissions.names.history"),
         value: `${readMessageHistory}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.react"),
+        name: t("commands:misc.permissions.names.react"),
         value: `${addReactions}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.emote"),
+        name: t("commands:misc.permissions.names.emote"),
         value: `${useEmotes}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.nick"),
+        name: t("commands:misc.permissions.names.nick"),
         value: `${manageNicknames}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.mod"),
+        name: t("commands:misc.permissions.names.mod"),
         value: `${moderateMembers}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.view"),
+        name: t("commands:misc.permissions.names.view"),
         value: `${viewChannel}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.permissions.names.read"),
+        name: t("commands:misc.permissions.names.read"),
         value: `${readMessages}`,
         inline: true,
       },

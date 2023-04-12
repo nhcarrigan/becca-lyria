@@ -13,18 +13,16 @@ export const handleLanguage: CommandHandler = async (Becca, interaction, t) => {
     const userLang = interaction.locale;
     const guildLang = interaction.guildLocale;
     const langEmbed = new EmbedBuilder();
-    langEmbed.setTitle(t<string, string>("commands:misc.language.title"));
-    langEmbed.setDescription(
-      t<string, string>("commands:misc.language.description")
-    );
+    langEmbed.setTitle(t("commands:misc.language.title"));
+    langEmbed.setDescription(t("commands:misc.language.description"));
     langEmbed.addFields([
       {
-        name: t<string, string>("commands:misc.language.yours"),
+        name: t("commands:misc.language.yours"),
         value: userLang,
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.language.server"),
+        name: t("commands:misc.language.server"),
         value: guildLang || "unset",
         inline: true,
       },

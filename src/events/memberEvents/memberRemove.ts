@@ -40,7 +40,7 @@ export const memberRemove = async (
     });
 
     const goodbyeEmbed = new EmbedBuilder();
-    goodbyeEmbed.setTitle(t<string, string>("events:member.leave.title"));
+    goodbyeEmbed.setTitle(t("events:member.leave.title"));
     goodbyeEmbed.setColor(Becca.colours.default);
     goodbyeEmbed.setDescription(
       (serverConfig?.leave_message || defaultServer.leave_message)
@@ -49,15 +49,15 @@ export const memberRemove = async (
     );
     goodbyeEmbed.addFields([
       {
-        name: t<string, string>("events:member.leave.name"),
+        name: t("events:member.leave.name"),
         value: nickname || user.username,
       },
       {
-        name: t<string, string>("events:member.leave.roles"),
+        name: t("events:member.leave.roles"),
         value: roleList.join("\n"),
       },
       {
-        name: t<string, string>("events:member.leave.count"),
+        name: t("events:member.leave.count"),
         value: String(messageCount?.messages || 0),
       },
     ]);

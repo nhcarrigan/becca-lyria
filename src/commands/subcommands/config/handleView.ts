@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { SettingsHandler } from "../../../interfaces/settings/SettingsHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -24,19 +25,19 @@ export const handleView: SettingsHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
 
     const embed = new EmbedBuilder();
-    embed.setTitle(
-      t<string, string>("commands:config.view.title", { name: setting })
-    );
+    embed.setTitle(t("commands:config.view.title", { name: setting }));
     embed.setTimestamp();
     embed.setColor(Becca.colours.default);
     embed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     embed.setDescription(

@@ -3,6 +3,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 import { ChannelType, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
@@ -180,7 +181,7 @@ export const reactionRole: Command = {
       if (!guild || !member) {
         await interaction.editReply({
           content: getRandomValue(
-            t<string, string[]>("responses:missingGuild")
+            t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
           ),
         });
         return;
@@ -193,7 +194,7 @@ export const reactionRole: Command = {
       ) {
         await interaction.editReply({
           content: getRandomValue(
-            t<string, string[]>("responses:noPermission")
+            t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
           ),
         });
         return;

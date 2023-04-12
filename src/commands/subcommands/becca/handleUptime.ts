@@ -21,35 +21,33 @@ export const handleUptime: CommandHandler = async (Becca, interaction, t) => {
     const secondsRemain = seconds - days * 86400 - hours * 3600 - minutes * 60;
 
     const uptimeEmbed = new EmbedBuilder();
-    uptimeEmbed.setTitle(t<string, string>("commands:becca.uptime.title"));
+    uptimeEmbed.setTitle(t("commands:becca.uptime.title"));
     uptimeEmbed.setColor(Becca.colours.default);
-    uptimeEmbed.setDescription(
-      t<string, string>("commands:becca.uptime.description")
-    );
+    uptimeEmbed.setDescription(t("commands:becca.uptime.description"));
     uptimeEmbed.addFields([
       {
-        name: t<string, string>("commands:becca.uptime.days"),
+        name: t("commands:becca.uptime.days"),
         value: days.toString(),
       },
       {
-        name: t<string, string>("commands:becca.uptime.hours"),
+        name: t("commands:becca.uptime.hours"),
         value: hours.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:becca.uptime.minutes"),
+        name: t("commands:becca.uptime.minutes"),
         value: minutes.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:becca.uptime.seconds"),
+        name: t("commands:becca.uptime.seconds"),
         value: secondsRemain.toString(),
         inline: true,
       },
     ]);
     uptimeEmbed.setTimestamp();
     uptimeEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

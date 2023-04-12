@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import levelScale from "../../../config/listeners/levelScale";
 import LevelModel from "../../../database/models/LevelModel";
@@ -28,7 +29,9 @@ export const handleXpModify: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -40,28 +43,34 @@ export const handleXpModify: CommandHandler = async (
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }
 
     if (config.levels !== "on") {
       await interaction.editReply({
-        content: t<string, string>("commands:manage.xp.disabled"),
+        content: t("commands:manage.xp.disabled"),
       });
       return;
     }
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noSelfXP")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noSelfXP")
+        ),
       });
       return;
     }
 
     if (target.bot) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noBotXP")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noBotXP")
+        ),
       });
       return;
     }
@@ -70,7 +79,7 @@ export const handleXpModify: CommandHandler = async (
 
     if (!optout || optout.level) {
       await interaction.editReply({
-        content: t<string, string>("commands:manage.xp.optout"),
+        content: t("commands:manage.xp.optout"),
       });
       return;
     }
@@ -93,7 +102,9 @@ export const handleXpModify: CommandHandler = async (
 
     if (!targetMember || targetMember.id !== target.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -101,7 +112,7 @@ export const handleXpModify: CommandHandler = async (
     if (action === "add") {
       if (user.level >= 100) {
         await interaction.editReply({
-          content: t<string, string>("commands:manage.xp.max"),
+          content: t("commands:manage.xp.max"),
         });
         return;
       }
@@ -112,7 +123,7 @@ export const handleXpModify: CommandHandler = async (
     } else {
       if (user.points - amount <= 0) {
         await interaction.editReply({
-          content: t<string, string>("commands:manage.xp.min"),
+          content: t("commands:manage.xp.min"),
         });
         return;
       }
@@ -153,13 +164,9 @@ export const handleXpModify: CommandHandler = async (
     const xpmodifyEmbed = new EmbedBuilder();
     xpmodifyEmbed.setTitle("XP Modified");
     if (action === "add") {
-      xpmodifyEmbed.setDescription(
-        t<string, string>("commands:manage.ex.added", transVars)
-      );
+      xpmodifyEmbed.setDescription(t("commands:manage.xp.added", transVars));
     } else {
-      xpmodifyEmbed.setDescription(
-        t<string, string>("commands:manage.xp.removed", transVars)
-      );
+      xpmodifyEmbed.setDescription(t("commands:manage.xp.removed", transVars));
     }
     xpmodifyEmbed.setColor(Becca.colours.default);
     await interaction.editReply({

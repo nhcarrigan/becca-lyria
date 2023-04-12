@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -20,7 +21,9 @@ export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -33,7 +36,9 @@ export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
       !member.permissions.has(PermissionFlagsBits.BanMembers)
     ) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }
@@ -47,13 +52,17 @@ export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
 
     if (bannedMember.user.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noModSelf")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noModSelf")
+        ),
       });
       return;
     }
     if (bannedMember.user.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noModBecca")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noModBecca")
+        ),
       });
       return;
     }
@@ -70,15 +79,15 @@ export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
 
     const banLogEmbed = new EmbedBuilder();
     banLogEmbed.setColor(Becca.colours.error);
-    banLogEmbed.setTitle(t<string, string>("commands:mod.unban.title"));
+    banLogEmbed.setTitle(t("commands:mod.unban.title"));
     banLogEmbed.setDescription(
-      t<string, string>("commands:mod.unban.description", {
+      t("commands:mod.unban.description", {
         user: member.user.username,
       })
     );
     banLogEmbed.addFields([
       {
-        name: t<string, string>("commands:mod.unban.reason"),
+        name: t("commands:mod.unban.reason"),
         value: customSubstring(reason, 1000),
       },
     ]);
@@ -91,7 +100,7 @@ export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
 
     await sendLogEmbed(Becca, guild, banLogEmbed, "moderation_events");
     await interaction.editReply({
-      content: t<string, string>("commands:mod.unban.success"),
+      content: t("commands:mod.unban.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { UserConfigCommandHandler } from "../../../interfaces/commands/UserConfigCommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -19,7 +20,9 @@ export const handleLevelCard: UserConfigCommandHandler = async (
     const { user } = interaction;
     if (!user) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingUser")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingUser")
+        ),
       });
       return;
     }
@@ -31,9 +34,7 @@ export const handleLevelCard: UserConfigCommandHandler = async (
     const hexRegex = /#[a-f\d]{6}/i;
     if (![background, foreground, progress].every((el) => hexRegex.test(el))) {
       await interaction.editReply({
-        content: t<string, string>(
-          "commands:userconfig.levelcard.invalidColour"
-        ),
+        content: t("commands:userconfig.levelcard.invalidColour"),
       });
       return;
     }
@@ -42,27 +43,25 @@ export const handleLevelCard: UserConfigCommandHandler = async (
     await userConfig.save();
 
     const embed = new EmbedBuilder();
-    embed.setTitle(t<string, string>("commands:userconfig.levelcard.title"));
-    embed.setDescription(
-      t<string, string>("commands:userconfig.levelcard.description")
-    );
+    embed.setTitle(t("commands:userconfig.levelcard.title"));
+    embed.setDescription(t("commands:userconfig.levelcard.description"));
     embed.setColor(Becca.colours.default);
     embed.addFields([
       {
-        name: t<string, string>("commands:userconfig.levelcard.background"),
+        name: t("commands:userconfig.levelcard.background"),
         value: background || "Not set.",
       },
       {
-        name: t<string, string>("commands:userconfig.levelcard.foreground"),
+        name: t("commands:userconfig.levelcard.foreground"),
         value: foreground || "Not set.",
       },
       {
-        name: t<string, string>("commands:userconfig.levelcard.progress"),
+        name: t("commands:userconfig.levelcard.progress"),
         value: progress || "Not set.",
       },
     ]);
     embed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

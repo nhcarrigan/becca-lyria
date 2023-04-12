@@ -23,7 +23,7 @@ export const handleSpace: CommandHandler = async (Becca, interaction, t) => {
     if (date) {
       if (!/[\d]{4}-[\d]{2}-[\d]{2}/.test(date)) {
         interaction.editReply({
-          content: t<string, string>("commands:misc.space.invalid", { date }),
+          content: t("commands:misc.space.invalid", { date }),
         });
         return;
       }
@@ -35,16 +35,14 @@ export const handleSpace: CommandHandler = async (Becca, interaction, t) => {
 
     const space = await axios.get<Space>(url, { validateStatus: null });
     if (!space.data || space.status !== 200) {
-      spaceEmbed.setTitle(t<string, string>("commands:misc.space.error.title"));
-      spaceEmbed.setDescription(
-        t<string, string>("commands:misc.space.error.description")
-      );
+      spaceEmbed.setTitle(t("commands:misc.space.error.title"));
+      spaceEmbed.setDescription(t("commands:misc.space.error.description"));
       spaceEmbed.setColor(Becca.colours.error);
       await interaction.editReply({ embeds: [spaceEmbed] });
     }
 
     spaceEmbed.setTitle(
-      t<string, string>("commands:misc.space.title", {
+      t("commands:misc.space.title", {
         date: date || space.data.date,
         title: space.data.title,
       })
@@ -53,9 +51,7 @@ export const handleSpace: CommandHandler = async (Becca, interaction, t) => {
     spaceEmbed.setDescription(customSubstring(space.data.explanation, 2000));
     spaceEmbed.setImage(space.data.hdurl);
     spaceEmbed.setFooter({
-      text: `© ${
-        space.data.copyright || t<string, string>("commands:misc.space.copy")
-      }`,
+      text: `© ${space.data.copyright || t("commands:misc.space.copy")}`,
     });
     interaction.editReply({ embeds: [spaceEmbed] });
   } catch (err) {

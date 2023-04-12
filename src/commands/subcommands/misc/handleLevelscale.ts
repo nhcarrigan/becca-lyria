@@ -16,7 +16,7 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 const formatLevels = (page: number, t: TFunction) => {
   let formattedText = "";
   for (let i = page * 10 - 9; i <= page * 10; i++) {
-    formattedText += t<string, string>("commands:misc.level.format", {
+    formattedText += t("commands:misc.level.format", {
       level: i,
       xp: levelScale[i],
     });
@@ -37,19 +37,19 @@ export const handleLevelscale: CommandHandler = async (
     const lastPage = Math.ceil((Object.keys(levelScale).length - 1) / 10);
 
     const embed = new EmbedBuilder();
-    embed.setTitle(t<string, string>("commands:misc.level.title"));
+    embed.setTitle(t("commands:misc.level.title"));
     embed.setURL(
       "https://docs.beccalyria.com/#/level-scale?utm_source=discord&utm_medium=levelscale-command"
     );
     embed.setDescription(
-      t<string, string>("commands:misc.level.description", {
+      t("commands:misc.level.description", {
         levels: formatLevels(1, t),
       })
     );
     embed.setColor(Becca.colours.default);
     embed.setTimestamp();
     embed.setFooter({
-      text: t<string, string>("commands:misc.level.footer", {
+      text: t("commands:misc.level.footer", {
         page,
         pages: lastPage,
       }),
@@ -102,12 +102,12 @@ export const handleLevelscale: CommandHandler = async (
       }
 
       embed.setDescription(
-        t<string, string>("commands:misc.level.description", {
+        t("commands:misc.level.description", {
           levels: formatLevels(page, t),
         })
       );
       embed.setFooter({
-        text: t<string, string>("commands:misc.level.footer", {
+        text: t("commands:misc.level.footer", {
           page,
           pages: lastPage,
         }),

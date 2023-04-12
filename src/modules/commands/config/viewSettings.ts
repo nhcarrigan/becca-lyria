@@ -27,40 +27,38 @@ export const viewSettings = async (
   try {
     const settingsEmbed = new EmbedBuilder();
     settingsEmbed.setTitle(
-      t<string, string>("commands:config.view.title", { name: guild.name })
+      t("commands:config.view.title", { name: guild.name })
     );
     settingsEmbed.setColor(Becca.colours.default);
-    settingsEmbed.setDescription(
-      t<string, string>("commands:config.view.description")
-    );
+    settingsEmbed.setDescription(t("commands:config.view.description"));
     settingsEmbed.addFields([
       {
-        name: t<string, string>("commands:config.view.levels"),
+        name: t("commands:config.view.levels"),
         value: config.levels || "off",
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.sass"),
+        name: t("commands:config.view.sass"),
         value: config.sass_mode || "off",
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.welcome"),
+        name: t("commands:config.view.welcome"),
         value: renderSetting(Becca, "welcome_channel", config.welcome_channel),
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.leave"),
+        name: t("commands:config.view.leave"),
         value: renderSetting(Becca, "depart_channel", config.depart_channel),
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.levellog"),
+        name: t("commands:config.view.levellog"),
         value: renderSetting(Becca, "level_channel", config.level_channel),
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.suggestion"),
+        name: t("commands:config.view.suggestion"),
         value: renderSetting(
           Becca,
           "suggestion_channel",
@@ -69,27 +67,27 @@ export const viewSettings = async (
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.report"),
+        name: t("commands:config.view.report"),
         value: renderSetting(Becca, "report_channel", config.report_channel),
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.join"),
+        name: t("commands:config.view.join"),
         value: renderSetting(Becca, "join_role", config.join_role),
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.levelrole"),
+        name: t("commands:config.view.levelrole"),
         value: config.level_roles.length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.nolevel"),
+        name: t("commands:config.view.nolevel"),
         value: config.level_ignore.length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.wmessage"),
+        name: t("commands:config.view.wmessage"),
         value: customSubstring(
           config.custom_welcome || defaultServer.custom_welcome,
           1000
@@ -97,7 +95,7 @@ export const viewSettings = async (
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.lmessage"),
+        name: t("commands:config.view.lmessage"),
         value: customSubstring(
           config.leave_message || defaultServer.leave_message,
           2000
@@ -105,40 +103,40 @@ export const viewSettings = async (
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.hearts"),
+        name: t("commands:config.view.hearts"),
         value: config.hearts.length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.blocked"),
+        name: t("commands:config.view.blocked"),
         value: config.blocked.length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.emote"),
+        name: t("commands:config.view.emote"),
         value: config.emote_channels.length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.ban"),
+        name: t("commands:config.view.ban"),
         value: config.appeal_link || "not set",
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.initialXp"),
+        name: t("commands:config.view.initialXp"),
         value: config.initial_xp,
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.levelStyle"),
+        name: t("commands:config.view.levelStyle"),
         value: config.level_style,
         inline: true,
       },
       {
-        name: t<string, string>("commands:config.view.levelMessage"),
+        name: t("commands:config.view.levelMessage"),
         value: customSubstring(
           config.level_message ||
-            t<string, string>("listeners:level.desc", {
+            t("listeners:level.desc", {
               user: "{@user}",
               level: "{level}",
             }),
@@ -146,10 +144,10 @@ export const viewSettings = async (
         ),
       },
       {
-        name: t<string, string>("commands:config.view.roleMessage"),
+        name: t("commands:config.view.roleMessage"),
         value: customSubstring(
           config.role_message ||
-            t<string, string>("listeners:level.roleDesc", {
+            t("listeners:level.roleDesc", {
               user: "{@user}",
               role: "{@role}",
             }),
@@ -159,7 +157,7 @@ export const viewSettings = async (
       },
     ]);
     settingsEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
     return settingsEmbed;

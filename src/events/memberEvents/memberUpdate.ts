@@ -46,7 +46,7 @@ export const memberUpdate = async (
       if (serverSettings.welcome_style === "embed") {
         const welcomeEmbed = new EmbedBuilder();
         welcomeEmbed.setColor(Becca.colours.default);
-        welcomeEmbed.setTitle(t<string, string>("events:member.join.title"));
+        welcomeEmbed.setTitle(t("events:member.join.title"));
         welcomeEmbed.setDescription(welcomeText);
         welcomeEmbed.setAuthor({
           name: user.tag,
@@ -95,7 +95,7 @@ export const memberUpdate = async (
 
     const embed = new EmbedBuilder();
     embed.setColor(Becca.colours.default);
-    embed.setTitle(t<string, string>("events:member.update.title"));
+    embed.setTitle(t("events:member.update.title"));
     embed.setAuthor({
       name: user.tag,
       iconURL: user.displayAvatarURL(),
@@ -105,18 +105,18 @@ export const memberUpdate = async (
 
     if (oldMember.nickname !== newMember.nickname) {
       embed.setDescription(
-        t<string, string>("events:member.update.description", {
+        t("events:member.update.description", {
           key: "nickname",
         })
       );
       embed.addFields([
         {
-          name: t<string, string>("events:member.update.old"),
+          name: t("events:member.update.old"),
           value: oldMember.nickname || oldMember.user.username,
           inline: true,
         },
         {
-          name: t<string, string>("events:member.update.new"),
+          name: t("events:member.update.new"),
           value: newMember.nickname || newMember.user.username,
           inline: true,
         },
@@ -127,7 +127,7 @@ export const memberUpdate = async (
 
     if (oldMember.roles.cache.size !== newMember.roles.cache.size) {
       embed.setDescription(
-        t<string, string>("events:member.update.description", {
+        t("events:member.update.description", {
           key: "roles",
         })
       );
@@ -141,12 +141,12 @@ export const memberUpdate = async (
 
       embed.addFields([
         {
-          name: t<string, string>("events:member.update.old"),
+          name: t("events:member.update.old"),
           value: removedRoles.join(", ") || "No roles removed.",
           inline: true,
         },
         {
-          name: t<string, string>("events:member.update.new"),
+          name: t("events:member.update.new"),
           value: addedRoles.join(", ") || "No roles added.",
           inline: true,
         },

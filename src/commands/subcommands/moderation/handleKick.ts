@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -27,7 +28,9 @@ export const handleKick: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -42,7 +45,9 @@ export const handleKick: CommandHandler = async (
         targetMember.permissions.has(PermissionFlagsBits.KickMembers))
     ) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }
@@ -56,20 +61,24 @@ export const handleKick: CommandHandler = async (
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noModSelf")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noModSelf")
+        ),
       });
       return;
     }
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noModBecca")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noModBecca")
+        ),
       });
       return;
     }
 
     if (!targetMember.kickable) {
       await interaction.editReply({
-        content: t<string, string>("commands:mod.kick.invalid"),
+        content: t("commands:mod.kick.invalid"),
       });
       return;
     }
@@ -94,19 +103,19 @@ export const handleKick: CommandHandler = async (
 
     const kickLogEmbed = new EmbedBuilder();
     kickLogEmbed.setColor(Becca.colours.error);
-    kickLogEmbed.setTitle(t<string, string>("commands:mod.kick.title"));
+    kickLogEmbed.setTitle(t("commands:mod.kick.title"));
     kickLogEmbed.setDescription(
-      t<string, string>("commands:mod.kick.description", {
+      t("commands:mod.kick.description", {
         user: member.user.username,
       })
     );
     kickLogEmbed.addFields([
       {
-        name: t<string, string>("commands:mod.kick.reason"),
+        name: t("commands:mod.kick.reason"),
         value: customSubstring(reason, 1000),
       },
       {
-        name: t<string, string>("commands:mod.kick.notified"),
+        name: t("commands:mod.kick.notified"),
         value: String(sentNotice),
       },
     ]);
@@ -119,7 +128,7 @@ export const handleKick: CommandHandler = async (
 
     await sendLogEmbed(Becca, guild, kickLogEmbed, "moderation_events");
     await interaction.editReply({
-      content: t<string, string>("commands:mod.kick.success"),
+      content: t("commands:mod.kick.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

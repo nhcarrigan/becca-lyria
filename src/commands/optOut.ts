@@ -34,7 +34,7 @@ export const optOut: Command = {
 
       if (!record) {
         await interaction.editReply({
-          content: t<string, string>("commands:optOut.noRecord"),
+          content: t("commands:optOut.noRecord"),
         });
         return;
       }
@@ -46,7 +46,7 @@ export const optOut: Command = {
 
       if (!(unconfirmedType in record)) {
         await interaction.editReply({
-          content: t<string, string>("commands:optOut.invalidType"),
+          content: t("commands:optOut.invalidType"),
         });
         return;
       }
@@ -57,7 +57,7 @@ export const optOut: Command = {
         record[type] = false;
         await record.save();
         await interaction.editReply({
-          content: t<string, string>("commands:optOut.optIn", { type }),
+          content: t("commands:optOut.optIn", { type }),
         });
         return;
       }
@@ -78,7 +78,7 @@ export const optOut: Command = {
       ]);
 
       const confirmMessage = await interaction.editReply({
-        content: t<string, string>("commands:optOut.confirm", { type }),
+        content: t("commands:optOut.confirm", { type }),
         components: [row],
       });
 
@@ -92,7 +92,7 @@ export const optOut: Command = {
       collector.on("collect", async (click) => {
         if (click.customId === "cancel") {
           await interaction.editReply({
-            content: t<string, string>("commands:optOut.cancelled"),
+            content: t("commands:optOut.cancelled"),
             components: [],
           });
           return;
@@ -105,8 +105,8 @@ export const optOut: Command = {
 
         await interaction.editReply({
           content: deleted
-            ? t<string, string>("commands:optOut.success")
-            : t<string, string>("commands:optOut.failure"),
+            ? t("commands:optOut.success")
+            : t("commands:optOut.failure"),
           components: [],
         });
       });
@@ -114,7 +114,7 @@ export const optOut: Command = {
       collector.on("end", async (clicks) => {
         if (clicks.size === 0) {
           await interaction.editReply({
-            content: t<string, string>("commands:optOut.timeout"),
+            content: t("commands:optOut.timeout"),
             components: [],
           });
         }

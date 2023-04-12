@@ -24,13 +24,13 @@ export const handleView: CurrencyHandler = async (
     viewEmbed.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() });
     viewEmbed.setColor(Becca.colours.default);
     viewEmbed.setDescription(
-      t<string, string>("commands:currency.view.total", {
+      t("commands:currency.view.total", {
         total: data.currencyTotal,
       })
     );
     viewEmbed.addFields([
       {
-        name: t<string, string>("commands:currency.view.daily"),
+        name: t("commands:currency.view.daily"),
         value:
           data.dailyClaimed + 86400000 < now
             ? "now!"
@@ -38,7 +38,7 @@ export const handleView: CurrencyHandler = async (
         inline: true,
       },
       {
-        name: t<string, string>("commands:currency.view.weekly"),
+        name: t("commands:currency.view.weekly"),
         value:
           data.weeklyClaimed + 604800000 < now
             ? "now!"
@@ -47,7 +47,7 @@ export const handleView: CurrencyHandler = async (
       },
     ]);
     viewEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

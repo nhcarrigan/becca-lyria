@@ -14,9 +14,7 @@ export const handleCreate: CommandHandler = async (Becca, interaction, t) => {
     const title = interaction.options.getString("header", true);
 
     if (!("send" in channel)) {
-      await interaction.editReply(
-        t<string, string>("commands:reactionrole.create.channel")
-      );
+      await interaction.editReply(t("commands:reactionrole.create.channel"));
       return;
     }
     const roleArray = [
@@ -64,9 +62,7 @@ export const handleCreate: CommandHandler = async (Becca, interaction, t) => {
       components,
     });
 
-    await interaction.editReply(
-      t<string, string>("commands:reactionrole.create.success")
-    );
+    await interaction.editReply(t("commands:reactionrole.create.success"));
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,

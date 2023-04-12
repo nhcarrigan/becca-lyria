@@ -1,5 +1,5 @@
 import { ModalSubmitInteraction, PermissionFlagsBits } from "discord.js";
-import { TFunction } from "i18next";
+import { DefaultTFuncReturn, TFunction } from "i18next";
 
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -24,7 +24,9 @@ export const handleEditModal = async (
 
     if (!guild || !guild.members.me) {
       await interaction.editReply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }

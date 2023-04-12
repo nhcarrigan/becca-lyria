@@ -6,6 +6,7 @@ import {
   ActionRowBuilder,
   PermissionFlagsBits,
 } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -21,7 +22,9 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
 
     if (!guild) {
       await interaction.reply({
-        content: getRandomValue(t("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
         ephemeral: true,
       });
       return;
@@ -39,7 +42,9 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
       !member.permissions.has(PermissionFlagsBits.ManageGuild)
     ) {
       await interaction.reply({
-        content: getRandomValue(t("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
         ephemeral: true,
       });
       return;

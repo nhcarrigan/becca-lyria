@@ -28,23 +28,21 @@ export const handlePing: CommandHandler = async (
       discordLatency > 100 || websocketLatency > 100 || databaseLatency > 100;
 
     const pingEmbed = new EmbedBuilder();
-    pingEmbed.setTitle(t<string, string>("commands:becca.ping.title"));
-    pingEmbed.setDescription(
-      t<string, string>("commands:becca.ping.description")
-    );
+    pingEmbed.setTitle(t("commands:becca.ping.title"));
+    pingEmbed.setDescription(t("commands:becca.ping.description"));
     pingEmbed.addFields([
       {
-        name: t<string, string>("commands:becca.ping.interaction"),
+        name: t("commands:becca.ping.interaction"),
         value: `${discordLatency} ms`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:becca.ping.websocket"),
+        name: t("commands:becca.ping.websocket"),
         value: `${websocketLatency} ms`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:becca.ping.databaase"),
+        name: t("commands:becca.ping.databaase"),
         value: `${databaseLatency} ms`,
         inline: true,
       },

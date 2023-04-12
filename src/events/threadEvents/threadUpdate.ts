@@ -26,9 +26,9 @@ export const threadUpdate = async (
     threadEmbed.setColor(Becca.colours.warning);
 
     if (!oldThread.archived && newThread.archived) {
-      threadEmbed.setTitle(t<string, string>("events:thread.archive.title"));
+      threadEmbed.setTitle(t("events:thread.archive.title"));
       threadEmbed.setDescription(
-        t<string, string>("events:thread.archive.desc", {
+        t("events:thread.archive.desc", {
           name: newThread.name,
           parentName: newThread.parent?.name,
         })
@@ -38,9 +38,9 @@ export const threadUpdate = async (
     }
 
     if (oldThread.archived && !newThread.archived) {
-      threadEmbed.setTitle(t<string, string>("events:thread.unarchive.title"));
+      threadEmbed.setTitle(t("events:thread.unarchive.title"));
       threadEmbed.setDescription(
-        t<string, string>("events:thread.unarchive.desc", {
+        t("events:thread.unarchive.desc", {
           name: newThread.name,
           parentName: newThread.parent?.name,
         })

@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { GuildMember } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { slimeList } from "../../../config/commands/slimeList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -17,7 +18,9 @@ export const handleSlime: CommandHandler = async (Becca, interaction, t) => {
 
     if (!member) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -27,14 +30,10 @@ export const handleSlime: CommandHandler = async (Becca, interaction, t) => {
     await member
       .setNickname(`${noun}slime`)
       .then(async () => {
-        await interaction.editReply(
-          t<string, string>("commands:games.slime.success")
-        );
+        await interaction.editReply(t("commands:games.slime.success"));
       })
       .catch(async () => {
-        await interaction.editReply(
-          t<string, string>("commands:games.slime.failure")
-        );
+        await interaction.editReply(t("commands:games.slime.failure"));
       });
   } catch (err) {
     const errorId = await beccaErrorHandler(

@@ -24,7 +24,7 @@ export const handleDaily: CurrencyHandler = async (
     if (!canClaim) {
       const cooldown = data.dailyClaimed - now + 86400000;
       await interaction.editReply({
-        content: t<string, string>("commands:currency.daily.cooldown", {
+        content: t("commands:currency.daily.cooldown", {
           time: parseSeconds(Math.ceil(cooldown / 1000)),
         }),
       });
@@ -40,22 +40,22 @@ export const handleDaily: CurrencyHandler = async (
     await scheduleCurrencyReminder(
       Becca,
       86400000,
-      t<string, string>("commands:currency.daily.reminder", {
+      t("commands:currency.daily.reminder", {
         user: `<@!${data.userId}>`,
       })
     );
 
     const embed = new EmbedBuilder();
-    embed.setTitle(t<string, string>("commands:currency.daily.title"));
+    embed.setTitle(t("commands:currency.daily.title"));
     embed.setDescription(
-      t<string, string>("commands:currency.daily.description", {
+      t("commands:currency.daily.description", {
         earned: earnedCurrency,
         total: data.currencyTotal,
       })
     );
     embed.setColor(Becca.colours.default);
     embed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

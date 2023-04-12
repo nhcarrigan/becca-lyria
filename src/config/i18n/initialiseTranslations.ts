@@ -8,6 +8,18 @@ import enGbListeners from "./en-GB/listeners.json";
 import enGbResponses from "./en-GB/responses.json";
 import enGbSass from "./en-GB/sass.json";
 
+export const resources = {
+  "en-GB": {
+    commands: enGbCommands,
+    contexts: enGbContexts,
+    defaults: enGbDefaults,
+    events: enGbEvents,
+    listeners: enGbListeners,
+    responses: enGbResponses,
+    sass: enGbSass,
+  },
+};
+
 /**
  * Function to initialise the i18n plugin, loading the responses.
  */
@@ -24,16 +36,7 @@ export const initialiseTranslations = async (): Promise<void> => {
       "commands",
     ],
     returnObjects: true,
-    resources: {
-      "en-GB": {
-        commands: enGbCommands,
-        contexts: enGbContexts,
-        defaults: enGbDefaults,
-        events: enGbEvents,
-        listeners: enGbListeners,
-        responses: enGbResponses,
-        sass: enGbSass,
-      },
-    },
+    returnNull: false,
+    resources,
   });
 };

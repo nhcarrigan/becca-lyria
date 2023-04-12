@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import StarModel from "../../../database/models/StarModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -19,7 +20,9 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -30,9 +33,7 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
     const optout = await getOptOutRecord(Becca, targetUser.id);
 
     if (!optout || optout.star) {
-      await interaction.editReply(
-        t<string, string>("commands:community.star.optout")
-      );
+      await interaction.editReply(t("commands:community.star.optout"));
       return;
     }
 
@@ -67,23 +68,23 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
 
     const starEmbed = new EmbedBuilder();
     starEmbed.setTitle(
-      t<string, string>("commands:community.star.title", {
+      t("commands:community.star.title", {
         user: targetUser.username,
       })
     );
     starEmbed.setDescription(
-      t<string, string>("commands:community.star.description", {
+      t("commands:community.star.description", {
         user: member.user.username,
       })
     );
     starEmbed.addFields([
       {
-        name: t<string, string>("commands:community.star.reason"),
+        name: t("commands:community.star.reason"),
         value: customSubstring(reason, 2000),
       },
     ]);
     starEmbed.setFooter({
-      text: t<string, string>("commands:community.star.total", {
+      text: t("commands:community.star.total", {
         total: starTotal,
       }),
     });

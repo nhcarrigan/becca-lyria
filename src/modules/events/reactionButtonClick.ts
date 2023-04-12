@@ -1,5 +1,5 @@
 import { ButtonInteraction } from "discord.js";
-import { TFunction } from "i18next";
+import { DefaultTFuncReturn, TFunction } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
@@ -22,7 +22,9 @@ export const reactionButtonClick = async (
     const { guild, customId, member } = interaction;
     if (!guild || !member || Array.isArray(member.roles)) {
       await interaction.editReply(
-        getRandomValue(t<string, string[]>("responses:missingGuild"))
+        getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        )
       );
       return;
     }
@@ -31,9 +33,7 @@ export const reactionButtonClick = async (
     const role = await guild.roles.fetch(roleId);
 
     if (!role) {
-      await interaction.editReply(
-        t<string, string>("events:interaction.noRole")
-      );
+      await interaction.editReply(t("events:interaction.noRole"));
       return;
     }
 
@@ -41,10 +41,10 @@ export const reactionButtonClick = async (
 
     if (member.roles.cache.has(role.id)) {
       await member.roles.remove(role);
-      content = t<string, string>("events:interaction.removedRole");
+      content = t("events:interaction.removedRole");
     } else {
       await member.roles.add(role);
-      content = t<string, string>("events:interaction.addedRole");
+      content = t("events:interaction.addedRole");
     }
     await interaction.editReply({ content });
   } catch (err) {

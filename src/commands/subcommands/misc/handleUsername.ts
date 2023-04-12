@@ -23,27 +23,25 @@ export const handleUsername: CommandHandler = async (Becca, interaction, t) => {
       name: user.tag,
       iconURL: user.displayAvatarURL(),
     });
-    usernameEmbed.setDescription(
-      t<string, string>("commands:misc.username.description")
-    );
+    usernameEmbed.setDescription(t("commands:misc.username.description"));
     usernameEmbed.addFields([
       {
-        name: t<string, string>("commands:misc.username.user"),
+        name: t("commands:misc.username.user"),
         value: username,
       },
       {
-        name: t<string, string>("commands:misc.username.gen"),
+        name: t("commands:misc.username.gen"),
         value: username.length.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:misc.username.max"),
+        name: t("commands:misc.username.max"),
         value: length.toString(),
         inline: true,
       },
     ]);
     usernameEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

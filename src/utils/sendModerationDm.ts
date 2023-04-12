@@ -29,9 +29,9 @@ export const sendModerationDm = async (
 ): Promise<boolean> => {
   try {
     const embed = new EmbedBuilder();
-    embed.setTitle(t<string, string>("defaults:moderation.title", { action }));
+    embed.setTitle(t("defaults:moderation.title", { action }));
     embed.setDescription(
-      `${t<string, string>("defaults:moderation.desc", {
+      `${t("defaults:moderation.desc", {
         action,
         name: config.serverName,
       })}\n\n${customSubstring(reason, 2000)}`
@@ -40,7 +40,7 @@ export const sendModerationDm = async (
     if (action === "ban" && config.appeal_link?.length) {
       embed.addFields([
         {
-          name: t<string, string>("defaults:moderation.appeal"),
+          name: t("defaults:moderation.appeal"),
           value: config.appeal_link,
         },
       ]);

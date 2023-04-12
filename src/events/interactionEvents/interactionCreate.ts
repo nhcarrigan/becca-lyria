@@ -12,7 +12,7 @@ import {
   TextBasedChannel,
   TextChannel,
 } from "discord.js";
-import { getFixedT } from "i18next";
+import { DefaultTFuncReturn, getFixedT } from "i18next";
 
 import { handleFeedbackModal } from "../../commands/subcommands/becca/handleFeedbackModal";
 import { handleCreateModal } from "../../commands/subcommands/post/handleCreateModal";
@@ -50,7 +50,7 @@ export const interactionCreate = async (
       );
       if (!target) {
         interaction.reply({
-          content: t<string, string>("events:interaction.bad", {
+          content: t("events:interaction.bad", {
             command: interaction.commandName,
           }),
         });
@@ -58,7 +58,7 @@ export const interactionCreate = async (
       }
       if (!interaction.guildId || !interaction.guild) {
         await interaction.reply({
-          content: t<string, string>("events:interaction.noDms"),
+          content: t("events:interaction.noDms"),
         });
         return;
       }
@@ -69,7 +69,7 @@ export const interactionCreate = async (
       );
       if (!config) {
         await interaction.reply({
-          content: t<string, string>("events:interaction.noSettings"),
+          content: t("events:interaction.noSettings"),
         });
         return;
       }
@@ -85,7 +85,7 @@ export const interactionCreate = async (
       );
       if (!target) {
         interaction.reply({
-          content: t<string, string>("events:interaction.bad", {
+          content: t("events:interaction.bad", {
             command: interaction.commandName,
           }),
         });
@@ -93,7 +93,7 @@ export const interactionCreate = async (
       }
       if (!interaction.guildId || !interaction.guild) {
         await interaction.reply({
-          content: t<string, string>("events:interaction.noDms"),
+          content: t("events:interaction.noDms"),
         });
         return;
       }
@@ -104,7 +104,7 @@ export const interactionCreate = async (
       );
       if (!config) {
         await interaction.reply({
-          content: t<string, string>("events:interaction.noSettings"),
+          content: t("events:interaction.noSettings"),
         });
         return;
       }
@@ -127,7 +127,7 @@ export const interactionCreate = async (
         if (!guild || !channel || !message) {
           await interaction.editReply({
             content: getRandomValue(
-              t<string, string[]>("responses:missingGuild")
+              t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
             ),
           });
           return;
@@ -265,7 +265,7 @@ export const interactionCreate = async (
 
           if (!config) {
             await interaction.reply({
-              content: t<string, string>("events:interaction.noSettings"),
+              content: t("events:interaction.noSettings"),
             });
             return;
           }

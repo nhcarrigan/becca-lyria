@@ -12,15 +12,15 @@ export const handleContact: CommandHandler = async (Becca, interaction, t) => {
   try {
     const discordButton = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
-      .setLabel(t<string, string>("commands:becca.contact.buttons.support"))
+      .setLabel(t("commands:becca.contact.buttons.support"))
       .setURL("https://chat.nhcarrigan.com");
     const mastodonButton = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
-      .setLabel(t<string, string>("commands:becca.contact.buttons.mastodon"))
+      .setLabel(t("commands:becca.contact.buttons.mastodon"))
       .setURL("https://mastodon.naomi.lgbt/@becca");
     const githubButton = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
-      .setLabel(t<string, string>("commands:becca.contact.buttons.github"))
+      .setLabel(t("commands:becca.contact.buttons.github"))
       .setURL("https://github.com/BeccaLyria/discord-bot");
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
@@ -29,7 +29,7 @@ export const handleContact: CommandHandler = async (Becca, interaction, t) => {
       githubButton,
     ]);
     await interaction.editReply({
-      content: t<string, string>("commands:becca.contact.content"),
+      content: t("commands:becca.contact.content"),
       components: [row],
     });
   } catch (err) {

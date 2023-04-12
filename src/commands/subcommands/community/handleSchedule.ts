@@ -35,7 +35,7 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
       )
     ) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.schedule.permission"),
+        content: t("commands:community.schedule.permission"),
       });
       return;
     }
@@ -45,14 +45,14 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
       targetChannel.type !== ChannelType.GuildNews
     ) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.schedule.notext"),
+        content: t("commands:community.schedule.notext"),
       });
       return;
     }
 
     if (time < 1 || time > 1440) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.schedule.badtime"),
+        content: t("commands:community.schedule.badtime"),
       });
       return;
     }
@@ -66,33 +66,31 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
     });
 
     const successEmbed = new EmbedBuilder();
-    successEmbed.setTitle(
-      t<string, string>("commands:community.schedule.embed.title")
-    );
+    successEmbed.setTitle(t("commands:community.schedule.embed.title"));
     successEmbed.setDescription(
-      t<string, string>("commands:community.schedule.embed.description")
+      t("commands:community.schedule.embed.description")
     );
     successEmbed.setColor(Becca.colours.default);
     successEmbed.addFields([
       {
-        name: t<string, string>("commands:community.schedule.embed.time"),
-        value: t<string, string>("commands:community.schedule.embed.minutes", {
+        name: t("commands:community.schedule.embed.time"),
+        value: t("commands:community.schedule.embed.minutes", {
           time,
         }),
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.schedule.embed.channel"),
+        name: t("commands:community.schedule.embed.channel"),
         value: `<#${targetChannel.id}>`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:community.schedule.embed.message"),
+        name: t("commands:community.schedule.embed.message"),
         value: message,
       },
     ]);
     successEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile-transparent",
     });
     await interaction.editReply({ embeds: [successEmbed] });

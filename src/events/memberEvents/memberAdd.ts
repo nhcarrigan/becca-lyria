@@ -37,12 +37,8 @@ export const memberAdd = async (
       if (serverSettings?.welcome_style === "embed") {
         const partialJoinEmbed = new EmbedBuilder();
         partialJoinEmbed.setColor(Becca.colours.warning);
-        partialJoinEmbed.setTitle(
-          t<string, string>("events:member.pending.title")
-        );
-        partialJoinEmbed.setDescription(
-          t<string, string>("events:member.pending.desc")
-        );
+        partialJoinEmbed.setTitle(t("events:member.pending.title"));
+        partialJoinEmbed.setDescription(t("events:member.pending.desc"));
         partialJoinEmbed.setAuthor({
           name: user.tag,
           iconURL: user.displayAvatarURL(),
@@ -56,7 +52,7 @@ export const memberAdd = async (
           (await guild.channels.fetch(serverSettings.welcome_channel));
         if (channel && "send" in channel) {
           await channel.send({
-            content: t<string, string>("events:member.pending.desc"),
+            content: t("events:member.pending.desc"),
           });
         }
       }
@@ -71,7 +67,7 @@ export const memberAdd = async (
     if (serverSettings?.welcome_style === "embed") {
       const welcomeEmbed = new EmbedBuilder();
       welcomeEmbed.setColor(Becca.colours.default);
-      welcomeEmbed.setTitle(t<string, string>("events:member.join.title"));
+      welcomeEmbed.setTitle(t("events:member.join.title"));
       welcomeEmbed.setDescription(welcomeText);
       welcomeEmbed.setAuthor({
         name: user.tag,

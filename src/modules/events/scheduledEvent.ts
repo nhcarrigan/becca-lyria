@@ -19,7 +19,7 @@ const createTimeout = (
         channel.type === ChannelType.GuildNews)
     ) {
       await channel.send({
-        content: t<string, string>("commands:community.schedule.post", {
+        content: t("commands:community.schedule.post", {
           id: `<@${member}>`,
           message,
         }),

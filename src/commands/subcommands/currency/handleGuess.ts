@@ -20,9 +20,7 @@ export const handleGuess: CurrencyHandler = async (
     const guess = interaction.options.getInteger("guess", true);
 
     if (wager > data.currencyTotal) {
-      await interaction.editReply(
-        t<string, string>("commands:currency.guess.insufficient")
-      );
+      await interaction.editReply(t("commands:currency.guess.insufficient"));
       return;
     }
 
@@ -39,30 +37,28 @@ export const handleGuess: CurrencyHandler = async (
 
     const embed = new EmbedBuilder();
     embed.setTitle(
-      won
-        ? t<string, string>("commands:currency.guess.won")
-        : t<string, string>("commands:currency.guess.lost")
+      won ? t("commands:currency.guess.won") : t("commands:currency.guess.lost")
     );
     embed.setColor(won ? Becca.colours.success : Becca.colours.error);
     embed.setDescription(
-      t<string, string>("commands:currency.guess.total", {
+      t("commands:currency.guess.total", {
         total: data.currencyTotal,
       })
     );
     embed.addFields([
       {
-        name: t<string, string>("commands:currency.guess.guess"),
+        name: t("commands:currency.guess.guess"),
         value: guess.toString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:currency.guess.becca"),
+        name: t("commands:currency.guess.becca"),
         value: becca.toString(),
         inline: true,
       },
     ]);
     embed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

@@ -9,6 +9,7 @@ import {
   PermissionFlagsBits,
   TextChannel,
 } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { createLogFile } from "../../../modules/tickets/createLogFile";
@@ -29,14 +30,16 @@ export const handleTicket: CommandHandler = async (
 
     if (!guild) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
 
     if (!config.ticket_category || !config.ticket_log_channel) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.ticket.disabled"),
+        content: t("commands:community.ticket.disabled"),
       });
       return;
     }
@@ -49,7 +52,7 @@ export const handleTicket: CommandHandler = async (
 
     if (!category || category.type !== ChannelType.GuildCategory) {
       await interaction.editReply({
-        content: t<string, string>("commands:community.ticket.disabled"),
+        content: t("commands:community.ticket.disabled"),
       });
       return;
     }

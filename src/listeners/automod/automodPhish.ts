@@ -128,10 +128,10 @@ export const automodPhish: ListenerHandler = async (
       t,
       config.antiphish,
       message.author,
-      t<string, string>("listeners:automod.antiphish.dm")
+      t("listeners:automod.antiphish.dm")
     );
 
-    const reason = t<string, string>("listeners:automod.antiphish.reason");
+    const reason = t("listeners:automod.antiphish.reason");
 
     switch (config.antiphish) {
       case "mute":
@@ -148,28 +148,26 @@ export const automodPhish: ListenerHandler = async (
     }
 
     const logEmbed = new EmbedBuilder();
-    logEmbed.setTitle(t<string, string>("listeners:automod.antiphish.title"));
-    logEmbed.setDescription(
-      t<string, string>("listeners:automod.antiphish.description")
-    );
+    logEmbed.setTitle(t("listeners:automod.antiphish.title"));
+    logEmbed.setDescription(t("listeners:automod.antiphish.description"));
     logEmbed.addFields([
       {
-        name: t<string, string>("listeners:automod.antiphish.user"),
+        name: t("listeners:automod.antiphish.user"),
         value: message.author.tag,
         inline: true,
       },
       {
-        name: t<string, string>("listeners:automod.antiphish.link"),
+        name: t("listeners:automod.antiphish.link"),
         value: scamLink,
         inline: true,
       },
       {
-        name: t<string, string>("listeners:automod.antiphish.action"),
+        name: t("listeners:automod.antiphish.action"),
         value: config.antiphish,
         inline: true,
       },
       {
-        name: t<string, string>("listeners:automod.antiphish.source"),
+        name: t("listeners:automod.antiphish.source"),
         value: scamSource,
         inline: true,
       },

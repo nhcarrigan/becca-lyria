@@ -22,14 +22,14 @@ export const handleTriggerAdd: CommandHandler = async (
 
     if (hasTrigger) {
       await interaction.editReply({
-        content: t<string, string>("commands:triggers.add.duplicate"),
+        content: t("commands:triggers.add.duplicate"),
       });
       return;
     }
 
     if (config.triggers.length >= 50) {
       await interaction.editReply({
-        content: t<string, string>("commands:triggers.add.max"),
+        content: t("commands:triggers.add.max"),
       });
       return;
     }
@@ -39,18 +39,16 @@ export const handleTriggerAdd: CommandHandler = async (
     await config.save();
 
     const success = new EmbedBuilder();
-    success.setTitle(t<string, string>("commands:triggers.add.title"));
-    success.setDescription(
-      t<string, string>("commands:triggers.add.description", { trigger })
-    );
+    success.setTitle(t("commands:triggers.add.title"));
+    success.setDescription(t("commands:triggers.add.description", { trigger }));
     success.setColor(Becca.colours.default);
     success.addFields([
       {
-        name: t<string, string>("commands:triggers.add.trigger"),
+        name: t("commands:triggers.add.trigger"),
         value: trigger,
       },
       {
-        name: t<string, string>("commands:triggers.add.response"),
+        name: t("commands:triggers.add.response"),
         value: response,
       },
     ]);
@@ -60,7 +58,7 @@ export const handleTriggerAdd: CommandHandler = async (
     });
     success.setTimestamp();
     success.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

@@ -23,16 +23,12 @@ export const handleSlots: CurrencyHandler = async (
     const wager = interaction.options.getInteger("wager");
 
     if (!wager || wager < 1) {
-      await interaction.editReply(
-        t<string, string>("commands:currency.slots.nowager")
-      );
+      await interaction.editReply(t("commands:currency.slots.nowager"));
       return;
     }
 
     if (wager > data.currencyTotal) {
-      await interaction.editReply(
-        t<string, string>("commands:currency.slots.insufficient")
-      );
+      await interaction.editReply(t("commands:currency.slots.insufficient"));
       return;
     }
 
@@ -42,7 +38,7 @@ export const handleSlots: CurrencyHandler = async (
     if (!canPlay) {
       const cooldown = data.slotsPlayed - now + 3600000;
       await interaction.editReply({
-        content: t<string, string>("commands:currency.slots.cooldown", {
+        content: t("commands:currency.slots.cooldown", {
           time: parseSeconds(Math.ceil(cooldown / 1000)),
         }),
       });
@@ -71,19 +67,19 @@ export const handleSlots: CurrencyHandler = async (
     const slotEmbed = new EmbedBuilder();
     slotEmbed.setTitle(
       didWin || partialWin
-        ? t<string, string>("commands:currency.slots.won")
-        : t<string, string>("commands:currency.slots.lost")
+        ? t("commands:currency.slots.won")
+        : t("commands:currency.slots.lost")
     );
     slotEmbed.setColor(
       didWin || partialWin ? Becca.colours.success : Becca.colours.error
     );
     slotEmbed.setDescription(
-      t<string, string>("commands:currency.slots.total", {
+      t("commands:currency.slots.total", {
         total: data.currencyTotal,
       })
     );
     slotEmbed.setFooter({
-      text: t<string, string>("commands:currency.slots.footer"),
+      text: t("commands:currency.slots.footer"),
     });
 
     await interaction.editReply({

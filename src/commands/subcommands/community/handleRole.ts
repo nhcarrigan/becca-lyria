@@ -16,7 +16,7 @@ export const handleRole: CommandHandler = async (
 ): Promise<void> => {
   try {
     await interaction.editReply({
-      content: t<string, string>("commands:community.role.deprecated"),
+      content: t("commands:community.role.deprecated"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { GuildMember, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import StarModel from "../../../database/models/StarModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -20,7 +21,9 @@ export const handleResetStars: CommandHandler = async (
 
     if (!guild || !member) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -29,7 +32,9 @@ export const handleResetStars: CommandHandler = async (
       !(member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild)
     ) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:noPermission")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
+        ),
       });
       return;
     }
@@ -38,7 +43,7 @@ export const handleResetStars: CommandHandler = async (
 
     if (!starData) {
       await interaction.editReply({
-        content: t<string, string>("commands:manage.stars.none"),
+        content: t("commands:manage.stars.none"),
       });
       return;
     }
@@ -47,7 +52,7 @@ export const handleResetStars: CommandHandler = async (
     starData.markModified("users");
     await starData.save();
     await interaction.editReply({
-      content: t<string, string>("commands:manage.stars.success"),
+      content: t("commands:manage.stars.success"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

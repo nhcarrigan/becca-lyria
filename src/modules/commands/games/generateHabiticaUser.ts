@@ -36,12 +36,8 @@ export const generateHabiticaUser = async (
     const userEmbed = new EmbedBuilder();
 
     if (!user || !user.data || !user.data.success) {
-      userEmbed.setTitle(
-        t<string, string>("commands:games.habitica.nouser.title")
-      );
-      userEmbed.setDescription(
-        t<string, string>("commands:games.habitica.nouser.description")
-      );
+      userEmbed.setTitle(t("commands:games.habitica.nouser.title"));
+      userEmbed.setDescription(t("commands:games.habitica.nouser.description"));
       return userEmbed;
     }
 
@@ -50,35 +46,35 @@ export const generateHabiticaUser = async (
 
     userEmbed.setColor(Becca.colours.default);
     userEmbed.setTitle(
-      t<string, string>("commands:games.habitica.user.title", {
+      t("commands:games.habitica.user.title", {
         user: profile.name,
       })
     );
     userEmbed.setURL(url);
     userEmbed.setDescription(
-      t<string, string>("commands:games.habitica.user.description", {
+      t("commands:games.habitica.user.description", {
         user: auth.local.username,
       })
     );
     userEmbed.addFields([
       {
-        name: t<string, string>("commands:games.habitica.user.class"),
+        name: t("commands:games.habitica.user.class"),
         value: stats.class,
         inline: true,
       },
       {
-        name: t<string, string>("commands:games.habitica.user.hp"),
+        name: t("commands:games.habitica.user.hp"),
         value: `${~~stats.hp}/${stats.maxHealth}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:games.habitica.user.mp"),
+        name: t("commands:games.habitica.user.mp"),
         value: `${stats.mp}/${stats.maxMP}`,
         inline: true,
       },
       {
-        name: t<string, string>("commands:games.habitica.user.stats"),
-        value: t<string, string>("commands:games.habitica.user.values", {
+        name: t("commands:games.habitica.user.stats"),
+        value: t("commands:games.habitica.user.values", {
           str: stats.str,
           con: stats.con,
           int: stats.int,
@@ -86,25 +82,25 @@ export const generateHabiticaUser = async (
         }),
       },
       {
-        name: t<string, string>("commands:games.habitica.user.exp"),
-        value: t<string, string>("commands:games.habitica.user.total", {
+        name: t("commands:games.habitica.user.exp"),
+        value: t("commands:games.habitica.user.total", {
           exp: stats.exp,
           next: stats.toNextLevel,
         }),
       },
       {
-        name: t<string, string>("commands:games.habitica.user.join"),
+        name: t("commands:games.habitica.user.join"),
         value: new Date(auth.timestamps.created).toLocaleDateString(),
         inline: true,
       },
       {
-        name: t<string, string>("commands:games.habitica.user.last"),
+        name: t("commands:games.habitica.user.last"),
         value: new Date(auth.timestamps.loggedin).toLocaleDateString(),
         inline: true,
       },
     ]);
     userEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

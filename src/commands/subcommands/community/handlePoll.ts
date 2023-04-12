@@ -5,6 +5,7 @@ import {
   ButtonStyle,
   EmbedBuilder,
 } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import PollModel from "../../../database/models/PollModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -25,7 +26,9 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
 
     if (!guild || !channel) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
@@ -44,7 +47,7 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
     )}:R>`;
 
     const pollEmbed = new EmbedBuilder();
-    pollEmbed.setTitle(t<string, string>("commands:community.poll.title"));
+    pollEmbed.setTitle(t("commands:community.poll.title"));
     pollEmbed.setDescription(question);
     pollEmbed.addFields([
       {
@@ -84,7 +87,7 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
     ]);
     pollEmbed.setColor(Becca.colours.default);
     pollEmbed.setFooter({
-      text: t<string, string>("defaults:footer"),
+      text: t("defaults:footer"),
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 

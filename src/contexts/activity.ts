@@ -25,25 +25,25 @@ export const activity: Context = {
       }
 
       const activityEmbed = new EmbedBuilder();
-      activityEmbed.setTitle(t<string, string>("contexts:activity.title"));
+      activityEmbed.setTitle(t("contexts:activity.title"));
       activityEmbed.addFields([
         {
-          name: t<string, string>("contexts:activity.buttons"),
+          name: t("contexts:activity.buttons"),
           value: data.buttons.toString(),
           inline: true,
         },
         {
-          name: t<string, string>("contexts:activity.commands"),
+          name: t("contexts:activity.commands"),
           value: data.commands.toString(),
           inline: true,
         },
         {
-          name: t<string, string>("contexts:activity.selects"),
+          name: t("contexts:activity.selects"),
           value: data.selects.toString(),
           inline: true,
         },
         {
-          name: t<string, string>("contexts:activity.contexts"),
+          name: t("contexts:activity.contexts"),
           value: data.contexts.toString(),
           inline: true,
         },
@@ -54,7 +54,7 @@ export const activity: Context = {
         iconURL: target.displayAvatarURL(),
       });
       activityEmbed.setFooter({
-        text: t<string, string>("defaults:footer"),
+        text: t("defaults:footer"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 

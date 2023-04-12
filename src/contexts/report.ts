@@ -1,12 +1,13 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { User } from "@sentry/types";
 import {
   ChannelType,
   EmbedBuilder,
   Guild,
   Message,
   TextChannel,
+  User,
 } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
@@ -28,7 +29,7 @@ export const report: Context = {
       if (!guild || !message || message.channel.type === ChannelType.DM) {
         await interaction.editReply({
           content: getRandomValue(
-            t<string, string[]>("responses:missingGuild")
+            t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
           ),
         });
         return;
@@ -39,16 +40,14 @@ export const report: Context = {
       )) as TextChannel;
 
       if (!reportChannel || !config.report_channel) {
-        await interaction.editReply(
-          t<string, string>("contexts:report.notEnabled")
-        );
+        await interaction.editReply(t("contexts:report.notEnabled"));
         return;
       }
 
       const author = message.author as User;
 
       const reportEmbed = new EmbedBuilder();
-      reportEmbed.setTitle(t<string, string>("contexts:report.title"));
+      reportEmbed.setTitle(t("contexts:report.title"));
       reportEmbed.setDescription(
         `${customSubstring(message.content || "no content found!", 4000)}`
       );
@@ -70,17 +69,17 @@ export const report: Context = {
         },
       ]);
       reportEmbed.setFooter({
-        text: t<string, string>("defaults:footer"),
+        text: t("defaults:footer"),
         iconURL: "https://cdn.nhcarrigan.com/profile.png",
       });
 
       await reportChannel.send({
-        content: t<string, string>("contexts:report.reported", {
+        content: t("contexts:report.reported", {
           mention: `<@!${interaction.user.id}>`,
         }),
         embeds: [reportEmbed],
       });
-      await interaction.editReply(t<string, string>("contexts:report.success"));
+      await interaction.editReply(t("contexts:report.success"));
     } catch (err) {
       const errorId = await beccaErrorHandler(
         Becca,

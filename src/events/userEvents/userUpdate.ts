@@ -56,7 +56,7 @@ export const userUpdate = async (
 
       const embed = new EmbedBuilder();
       embed.setColor(Becca.colours.default);
-      embed.setTitle(t<string, string>("events:member.update.title"));
+      embed.setTitle(t("events:member.update.title"));
       embed.setAuthor({
         name: newUser.tag,
         iconURL: newUser.displayAvatarURL(),
@@ -66,18 +66,18 @@ export const userUpdate = async (
 
       if (oldUser.tag !== newUser.tag) {
         embed.setDescription(
-          t<string, string>("events:member.update.description", {
+          t("events:member.update.description", {
             key: "username",
           })
         );
         embed.addFields([
           {
-            name: t<string, string>("events:member.update.old"),
+            name: t("events:member.update.old"),
             value: oldUser.tag || "unknown",
             inline: true,
           },
           {
-            name: t<string, string>("events:member.update.new"),
+            name: t("events:member.update.new"),
             value: newUser.tag,
             inline: true,
           },
@@ -88,19 +88,19 @@ export const userUpdate = async (
 
       if (oldUser.avatar !== newUser.avatar) {
         embed.setDescription(
-          t<string, string>("events:member.update.description", {
+          t("events:member.update.description", {
             key: "avatar",
           })
         );
         embed.addFields([
           {
-            name: t<string, string>("events:member.update.old"),
+            name: t("events:member.update.old"),
             value:
               `[Old Avatar](${oldUser.displayAvatarURL()})` || "No avatar.",
             inline: true,
           },
           {
-            name: t<string, string>("events:member.update.new"),
+            name: t("events:member.update.new"),
             value:
               `[New Avatar](${newUser.displayAvatarURL()})` || "No avatar.",
             inline: true,
