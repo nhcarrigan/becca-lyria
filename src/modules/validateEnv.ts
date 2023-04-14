@@ -68,11 +68,11 @@ export const validateEnv = (
     }
 
     if (!process.env.HABITICA_KEY) {
-      return { valid: false, message: "Missing Habitica API key" };
+      beccaLogHandler.log("warn", "Missing Habitica API key");
     }
 
     if (!process.env.ORBIT_KEY) {
-      return { valid: false, message: "Missing Orbit API key" };
+      beccaLogHandler.log("warn", "Missing Orbit API key");
     }
 
     Becca.commitHash = child.execSync("git rev-parse HEAD").toString().trim();
@@ -96,8 +96,8 @@ export const validateEnv = (
       topGGToken: process.env.TOPGG_TOKEN || "",
       topGG: process.env.TOPGG_PASSWORD,
       voteChannel: process.env.VOTE_CHANNEL_ID,
-      habiticaKey: process.env.HABITICA_KEY,
-      orbitKey: process.env.ORBIT_KEY,
+      habiticaKey: process.env.HABITICA_KEY || "",
+      orbitKey: process.env.ORBIT_KEY || "",
     };
 
     Becca.configs = configs;
