@@ -31,8 +31,6 @@ export const emoteListener: Listener = {
         )
         .replace(/\s/g, "");
 
-      console.log(newContent);
-
       if (newContent?.length) {
         await message.delete();
         return;
