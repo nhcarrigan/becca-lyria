@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@nhcarrigan/eslint-config": "1.0.0",
+    "@nhcarrigan/prettier-config": "1.0.0",
     "@types/chai": "4.3.4",
     "@types/cors": "2.8.13",
     "@types/diff": "5.0.3",
