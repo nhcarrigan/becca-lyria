@@ -8,6 +8,7 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  *
  * @param {BeccaLyria} Becca Becca's bot instance.
  * @param {string} userId The user's ID.
+ * @returns {Promise<OptOut | null>} The opt-out record, or null if an error occurred.
  */
 export const getOptOutRecord = async (
   Becca: BeccaLyria,
