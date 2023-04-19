@@ -69,7 +69,7 @@ export const messageCreate = async (
 
     if (
       message.author.id === Becca.configs.ownerId &&
-      message.content.startsWith("Naomi")
+      message.content.startsWith("~Naomi")
     ) {
       await runNaomiCommands(Becca, message);
     }
