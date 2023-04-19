@@ -1,12 +1,11 @@
 /* eslint-disable jsdoc/require-param */
-import { EmbedBuilder } from "discord.js";
+import { EmbedBuilder, time, TimestampStyles } from "discord.js";
 
 import { slotsList } from "../../../config/commands/slotsList";
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
-import { parseSeconds } from "../../../utils/parseSeconds";
 
 /**
  * Confirms that the user has not used this command within the last hour, then
@@ -37,10 +36,13 @@ export const handleSlots: CurrencyHandler = async (
 
     if (!canPlay) {
       const cooldown = data.slotsPlayed - now + 3600000;
+      const cooldownDate = new Date(data.slotsPlayed + cooldown);
+      const remainingTimeDesc = t("commands:currency.slots.cooldown", {
+        time: time(cooldownDate, TimestampStyles.RelativeTime),
+        interpolation: { escapeValue: false },
+      });
       await interaction.editReply({
-        content: t("commands:currency.slots.cooldown", {
-          time: parseSeconds(Math.ceil(cooldown / 1000)),
-        }),
+        content: remainingTimeDesc,
       });
       return;
     }

@@ -1,10 +1,9 @@
 /* eslint-disable jsdoc/require-param */
-import { EmbedBuilder } from "discord.js";
+import { EmbedBuilder, TimestampStyles, time } from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { parseSeconds } from "../../../utils/parseSeconds";
 import { scheduleCurrencyReminder } from "../../../utils/scheduleCurrencyReminder";
 
 /**
@@ -39,10 +38,13 @@ export const handleWeekly: CurrencyHandler = async (
 
     if (!canClaim) {
       const cooldown = data.weeklyClaimed - now + 604800000;
+      const cooldownDate = new Date(data.weeklyClaimed + cooldown);
+      const remainingTimeDesc = t("commands:currency.weekly.cooldown", {
+        time: time(cooldownDate, TimestampStyles.RelativeTime),
+        interpolation: { escapeValue: false },
+      });
       await interaction.editReply({
-        content: t("commands:currency.weekly.cooldown", {
-          time: parseSeconds(Math.ceil(cooldown / 1000)),
-        }),
+        content: remainingTimeDesc,
       });
       return;
     }
