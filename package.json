@@ -3,7 +3,7 @@
   "author": "Naomi Carrigan",
   "main": "./prod/src/main.js",
   "version": "21.2.1",
-  "license": "AGPL-3.0-or-later",
+  "license": "MOZ-2.0",
   "engines": {
     "node": "18.16.0",
     "npm": "9.6.4"
