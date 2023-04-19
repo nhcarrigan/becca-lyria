@@ -44,7 +44,7 @@ export const handleTwentyOne: CurrencyHandler = async (
 
     if (!canPlay) {
       const cooldown = data.twentyOnePlayed - now + 3600000;
-      const cooldownDate = new Date(data.slotsPlayed + cooldown);
+      const cooldownDate = new Date(data.twentyOnePlayed + cooldown);
       const remainingTimeDesc = t("commands:currency.twentyone.cooldown", {
         time: time(cooldownDate, TimestampStyles.RelativeTime),
         interpolation: { escapeValue: false },
