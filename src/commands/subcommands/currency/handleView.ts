@@ -34,7 +34,10 @@ export const handleView: CurrencyHandler = async (
         value:
           data.dailyClaimed + 86400000 < now
             ? "now!"
-            : time(Math.round((data.dailyClaimed + 86400000) / 1000), TimestampStyles.RelativeTime),
+            : time(
+                Math.round((data.dailyClaimed + 86400000) / 1000),
+                TimestampStyles.RelativeTime
+              ),
         inline: true,
       },
       {
@@ -42,7 +45,10 @@ export const handleView: CurrencyHandler = async (
         value:
           data.weeklyClaimed + 604800000 < now
             ? "now!"
-            : time(Math.round((data.weeklyClaimed + 604800000) / 1000), TimestampStyles.RelativeTime),
+            : time(
+                Math.round((data.weeklyClaimed + 604800000) / 1000),
+                TimestampStyles.RelativeTime
+              ),
         inline: true,
       },
     ]);

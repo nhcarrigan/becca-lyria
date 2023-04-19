@@ -5,7 +5,7 @@ import {
   ButtonStyle,
   EmbedBuilder,
   time,
-  TimestampStyles
+  TimestampStyles,
 } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
@@ -44,8 +44,10 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
 
     const millisecondDuration = calculateMilliseconds(duration, durationUnit);
 
-    const endsAt = time(Math.floor(
-      (Date.now() + millisecondDuration) / 1000), TimestampStyles.RelativeTime);
+    const endsAt = time(
+      Math.floor((Date.now() + millisecondDuration) / 1000),
+      TimestampStyles.RelativeTime
+    );
 
     const pollEmbed = new EmbedBuilder();
     pollEmbed.setTitle(t("commands:community.poll.title"));
