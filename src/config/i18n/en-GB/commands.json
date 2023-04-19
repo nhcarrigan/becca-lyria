@@ -396,7 +396,7 @@
       "button": "Join our server to redeem your rewards!"
     },
     "daily": {
-      "cooldown": "You have already claimed your daily. Come back in: {{time}}",
+      "cooldown": "You have already claimed your daily. Come back {{time}}",
       "title": "Daily Reward!",
       "description": "You've earned {{earned}} BeccaCoin! You now have {{total}} BeccaCoin!",
       "reminder": "{{- user}}, you can claim your daily BeccaCoin now!"
@@ -412,7 +412,7 @@
     "slots": {
       "nowager": "You must wager at least one BeccaCoin.",
       "insufficient": "You cannot wager more coin than you have!",
-      "cooldown": "You cannot play slots that often! Come back in: {{time}}",
+      "cooldown": "You cannot play slots that often! Come back {{time}}",
       "won": "You won!",
       "lost": "You lost...",
       "total": "Your BeccaCoin: {{total}}",
@@ -421,7 +421,7 @@
     "twentyone": {
       "nowager": "You must wager at least one BeccaCoin.",
       "insufficient": "You cannot wager more coin than you have!",
-      "cooldown": "You cannot play 21 that often! Come back in: {{time}}",
+      "cooldown": "You cannot play 21 that often! Come back {{time}}",
       "title": "Twenty One!",
       "description": "Get your score higher than Becca without going over 21! Press `hit` to increase your score, and `stand` to stop playing and let Becca finish her turns.",
       "player": "Your Score",
