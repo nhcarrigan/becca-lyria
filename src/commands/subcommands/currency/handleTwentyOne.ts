@@ -5,12 +5,13 @@ import {
   ButtonStyle,
   EmbedBuilder,
   Message,
+  time,
+  TimestampStyles,
 } from "discord.js";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { parseSeconds } from "../../../utils/parseSeconds";
 
 /**
  * Allows a user to play a game of 21 with Becca, similar to Blackjack. If the user
@@ -43,10 +44,13 @@ export const handleTwentyOne: CurrencyHandler = async (
 
     if (!canPlay) {
       const cooldown = data.twentyOnePlayed - now + 3600000;
+      const cooldownDate = new Date(data.slotsPlayed + cooldown);
+      const remainingTimeDesc = t("commands:currency.twentyone.cooldown", {
+        time: time(cooldownDate, TimestampStyles.RelativeTime),
+        interpolation: { escapeValue: false },
+      });
       await interaction.editReply({
-        content: t("commands:currency.twentyone.cooldown", {
-          time: parseSeconds(Math.ceil(cooldown / 1000)),
-        }),
+        content: remainingTimeDesc,
       });
       return;
     }
