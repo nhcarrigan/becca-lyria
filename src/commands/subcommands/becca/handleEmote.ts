@@ -24,7 +24,7 @@ export const handleEmote: CommandHandler = async (Becca, interaction, t) => {
     emoteEmbed.setTitle(emoteName);
     emoteEmbed.setColor(Becca.colours.default);
     emoteEmbed.setDescription(description);
-    emoteEmbed.setImage(`https://www.beccalyria.com/assets/emotes/${fileName}`);
+    emoteEmbed.setImage(`https://cdn.naomi.lgbt/becca/emotes/${fileName}`);
     emoteEmbed.setFooter({
       text: t("commands:becca.emote.footer"),
     });
