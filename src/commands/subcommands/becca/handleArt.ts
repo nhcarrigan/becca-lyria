@@ -30,7 +30,7 @@ export const handleArt: CommandHandler = async (Becca, interaction, t) => {
       })
     );
     artEmbed.setImage(
-      `https://www.beccalyria.com/assets/art/${fileName.replace(/\s/g, "%20")}`
+      `https://cdn.naomi.lgbt/becca/art/${fileName.replace(/\s/g, "%20")}`
     );
     artEmbed.setFooter({
       text: "Like the bot? Donate: https://donate.nhcarrigan.com",

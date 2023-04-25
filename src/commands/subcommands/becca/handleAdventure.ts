@@ -34,10 +34,7 @@ export const handleAdventure: CommandHandler = async (
       })
     );
     adventureEmbed.setImage(
-      `https://www.beccalyria.com/assets/games/${fileName.replace(
-        /\s/g,
-        "%20"
-      )}`
+      `https://cdn.naomi.lgbt/becca/games/${fileName.replace(/\s/g, "%20")}`
     );
     adventureEmbed.setFooter({
       text: t("defaults:footer"),
