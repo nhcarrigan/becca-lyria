@@ -2,7 +2,6 @@ import { Message } from "discord.js";
 import mee6 from "mee6-levels-api";
 
 import levelScale from "../../config/listeners/levelScale";
-import LevelModel from "../../database/models/LevelModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { getSettings } from "../settings/getSettings";
@@ -36,16 +35,18 @@ export const naomiMee6 = async (Becca: BeccaLyria, message: Message) => {
         await message.reply(`Loaded ${i} users out of ${len}!`);
       }
       const user = leaderboard[i];
-      await LevelModel.create({
-        serverID: serverId,
-        serverName: targetGuild.name,
-        userID: user.id,
-        userTag: `${user.username}#${user.discriminator}`,
-        avatar: user.avatarUrl,
-        points: user.level <= 100 ? levelScale[user.level] : 505000,
-        level: user.level <= 100 ? user.level : 100,
-        lastSeen: new Date(),
-        cooldown: 0,
+      await Becca.db.newlevels.create({
+        data: {
+          serverID: serverId,
+          serverName: targetGuild.name,
+          userID: user.id,
+          userTag: `${user.username}#${user.discriminator}`,
+          avatar: user.avatarUrl,
+          points: user.level <= 100 ? levelScale[user.level] : 505000,
+          level: user.level <= 100 ? user.level : 100,
+          lastSeen: new Date(),
+          cooldown: 0,
+        },
       });
     }
 
