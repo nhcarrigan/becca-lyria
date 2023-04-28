@@ -1,4 +1,3 @@
-import HistoryModel from "../../../database/models/HistoryModel";
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { ModerationActions } from "../../../interfaces/commands/moderation/ModerationActions";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -18,12 +17,15 @@ export const updateHistory = async (
   guildId: string
 ) => {
   try {
-    const userRecord =
-      (await HistoryModel.findOne({
-        serverId: guildId,
-        userId: userId,
-      })) ||
-      (await HistoryModel.create({
+    const userRecord = await Becca.db.histories.upsert({
+      where: {
+        serverId_userId: {
+          serverId: guildId,
+          userId: userId,
+        },
+      },
+      update: {},
+      create: {
         serverId: guildId,
         userId: userId,
         bans: 0,
@@ -32,7 +34,8 @@ export const updateHistory = async (
         unbans: 0,
         unmutes: 0,
         warns: 0,
-      }));
+      },
+    });
 
     switch (action) {
       case "kick":
@@ -57,7 +60,15 @@ export const updateHistory = async (
         break;
     }
 
-    await userRecord.save();
+    await Becca.db.histories.update({
+      where: {
+        serverId_userId: {
+          serverId: guildId,
+          userId: userId,
+        },
+      },
+      data: userRecord,
+    });
   } catch (err) {
     await beccaErrorHandler(Becca, "update moderation history", err, guildId);
   }
