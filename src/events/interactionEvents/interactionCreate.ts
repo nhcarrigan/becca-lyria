@@ -6,7 +6,6 @@ import {
   EmbedBuilder,
   GuildMember,
   Interaction,
-  InteractionType,
   Message,
   PermissionFlagsBits,
   TextBasedChannel,
@@ -321,11 +320,11 @@ export const interactionCreate = async (
       }
     }
 
-    if (interaction.isSelectMenu()) {
+    if (interaction.isStringSelectMenu()) {
       await logActivity(Becca, interaction.user.id, "select");
     }
 
-    if (interaction.type === InteractionType.ModalSubmit) {
+    if (interaction.isModalSubmit()) {
       if (interaction.customId === "feedback-modal") {
         await handleFeedbackModal(Becca, interaction, t);
       }
