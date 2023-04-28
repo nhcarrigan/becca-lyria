@@ -201,7 +201,7 @@ model servers {
   member_events       String              @default("")
   message_events      String              @default("")
   moderation_events   String              @default("")
-  new_triggers        Trigger[]
+  new_triggers        Trigger[]           @map("newTriggers")
   no_automod_channels String[]            @default([])
   profanity           String              @default("off")
   profanity_message   String              @default("{@username}, your message appears to have been inappropriate. I removed it.")
