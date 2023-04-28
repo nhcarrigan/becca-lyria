@@ -39,3 +39,27 @@ export const isEmoteAction = (emote: string): emote is EmoteAction => {
   };
   return Object.keys(actions).includes(emote);
 };
+
+/**
+ * Confirms that a string is a valid antiphish setting.
+ *
+ * @param {string} setting The setting to validate.
+ * @returns {boolean} If setting is one of "none" | "mute" | "kick" | "ban".
+ */
+export const isAntiphishSetting = (
+  setting: string
+): setting is "none" | "mute" | "kick" | "ban" => {
+  return ["none", "mute", "kick", "ban"].includes(setting);
+};
+
+/**
+ * Confirms that a string is a valid style setting.
+ *
+ * @param {string} setting The setting to validate.
+ * @returns {boolean} If setting is one of "embed" | "text".
+ */
+export const isStyleSetting = (
+  setting: string
+): setting is "embed" | "text" => {
+  return ["embed", "text"].includes(setting);
+};

@@ -3,46 +3,65 @@
  * settings are added or removed.
  */
 export type Settings =
-  | "levels"
-  | "welcome_channel"
-  | "depart_channel"
-  | "level_channel"
-  | "suggestion_channel"
-  | "custom_welcome"
+  | ArrayOfIdSettings
+  | ArrayOfStringSettings
+  | ArrayOfLevelRoleSettings
+  | ArrayOfTriggerSettings
+  | StringSettings
+  | NumberSettings
+  | AntiphishSettings
+  | StyleSettings
+  | IdSettings;
+
+export type ArrayOfIdSettings =
+  | "automod_channels"
+  | "automod_roles"
+  | "emote_channels"
+  | "level_ignore"
   | "hearts"
   | "blocked"
-  | "automod_channels"
-  | "no_automod_channels"
-  | "automod_roles"
-  | "allowed_links"
+  | "no_automod_channels";
+
+export type ArrayOfStringSettings = "allowed_links";
+
+export type ArrayOfLevelRoleSettings = "level_roles";
+
+export type ArrayOfTriggerSettings = "new_triggers";
+
+export type StringSettings =
+  | "custom_welcome"
+  | "levels"
   | "link_message"
-  | "level_roles"
-  | "join_role"
   | "leave_message"
-  | "report_channel"
-  | "level_ignore"
   | "sass_mode"
+  | "links"
+  | "profanity"
+  | "profanity_message"
+  | "appeal_link"
+  | "initial_xp"
+  | "level_message"
+  | "role_message"
+  | "starboard_emote";
+
+export type NumberSettings = "starboard_threshold" | "level_decay";
+
+export type AntiphishSettings = "antiphish";
+
+export type StyleSettings = "level_style" | "welcome_style";
+
+export type IdSettings =
+  | "welcome_channel"
+  | "depart_channel"
   | "message_events"
   | "voice_events"
   | "thread_events"
   | "moderation_events"
   | "member_events"
-  | "links"
-  | "profanity"
-  | "profanity_message"
-  | "emote_channels"
-  | "appeal_link"
-  | "antiphish"
-  | "initial_xp"
-  | "level_style"
-  | "level_message"
-  | "role_message"
-  | "welcome_style"
+  | "level_channel"
+  | "suggestion_channel"
+  | "join_role"
+  | "report_channel"
   | "ticket_category"
   | "ticket_log_channel"
   | "ticket_role"
-  | "starboard_emote"
-  | "starboard_channel"
-  | "starboard_threshold"
-  | "level_decay"
-  | "new_triggers";
+  | "starboard_channel";
