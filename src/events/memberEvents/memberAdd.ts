@@ -2,7 +2,6 @@ import { GuildMember, EmbedBuilder, PartialGuildMember } from "discord.js";
 import { getFixedT } from "i18next";
 
 import { defaultServer } from "../../config/database/defaultServer";
-import LevelModel from "../../database/models/LevelModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { sendWelcomeEmbed } from "../../modules/guild/sendWelcomeEmbed";
@@ -97,9 +96,15 @@ export const memberAdd = async (
     }
 
     if (serverSettings?.initial_xp && serverSettings?.levels === "on") {
-      const userRecord =
-        (await LevelModel.findOne({ serverID: guild.id, userID: member.id })) ||
-        (await LevelModel.create({
+      const userRecord = await Becca.db.newlevels.upsert({
+        where: {
+          serverID_userID: {
+            serverID: guild.id,
+            userID: member.id,
+          },
+        },
+        update: {},
+        create: {
           serverID: guild.id,
           serverName: guild.name,
           userID: member.id,
@@ -109,10 +114,21 @@ export const memberAdd = async (
           level: 0,
           lastSeen: new Date(Date.now()),
           cooldown: 0,
-        }));
+        },
+      });
 
       userRecord.points += parseInt(serverSettings.initial_xp);
-      await userRecord.save();
+      await Becca.db.newlevels.update({
+        where: {
+          serverID_userID: {
+            serverID: guild.id,
+            userID: member.id,
+          },
+        },
+        data: {
+          points: userRecord.points,
+        },
+      });
     }
   } catch (err) {
     await beccaErrorHandler(Becca, "member add event", err, member.guild.name);
