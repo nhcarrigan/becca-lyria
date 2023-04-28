@@ -1,8 +1,8 @@
+import { voters } from "@prisma/client";
 import { WebhookPayload } from "@top-gg/sdk";
 import { ChannelType } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { Voter } from "../../interfaces/database/Voter";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
@@ -10,13 +10,13 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {WebhookPayload} payload The vote payload from Top.gg.
- * @param {Voter} voter The user's database record.
+ * @param {voters} voter The user's database record.
  * @param {string} type The type of vote - either "bot" or "server".
  */
 export const sendVoteMessage = async (
   Becca: BeccaLyria,
   payload: WebhookPayload,
-  voter: Voter,
+  voter: voters,
   type: "bot" | "server" | "unknown"
 ): Promise<void> => {
   try {
