@@ -1,8 +1,8 @@
+import { currencies } from "@prisma/client";
 import { ChatInputCommandInteraction } from "discord.js";
 import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../BeccaLyria";
-import { Currency } from "../database/Currency";
 
 /**
  * Handles the logic for the currency commands.
@@ -16,5 +16,5 @@ export type CurrencyHandler = (
   Becca: BeccaLyria,
   interaction: ChatInputCommandInteraction,
   t: TFunction,
-  data: Currency
+  data: currencies
 ) => Promise<void>;
