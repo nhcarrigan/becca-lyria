@@ -2,7 +2,7 @@ import { ChatInputCommandInteraction } from "discord.js";
 import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../BeccaLyria";
-import { UserConfig } from "../database/UserConfig";
+import { userconfigs } from "@prisma/client";
 
 /**
  * Handles the logic execution for a sub-command.
@@ -16,5 +16,5 @@ export type UserConfigCommandHandler = (
   Becca: BeccaLyria,
   interaction: ChatInputCommandInteraction,
   t: TFunction,
-  config: UserConfig
+  config: userconfigs
 ) => Promise<void>;
