@@ -6,7 +6,6 @@ import {
   smackList,
   throwList,
 } from "../../../config/commands/emoteData";
-import EmoteCountModel from "../../../database/models/EmoteCountModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
@@ -46,9 +45,12 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const targetData =
-      (await EmoteCountModel.findOne({ userId: target.id })) ||
-      (await EmoteCountModel.create({
+    const targetData = await Becca.db.emotecounts.upsert({
+      where: {
+        userId: target.id,
+      },
+      update: {},
+      create: {
         userId: target.id,
         userName: target.username,
         avatar: target.displayAvatarURL(),
@@ -59,7 +61,8 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
         smack: 0,
         throw: 0,
         uwu: 0,
-      }));
+      },
+    });
 
     let result = t("commands:emote.use.null");
     const user = `<@!${target.id}>`;
@@ -120,7 +123,12 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
 
     targetData.userName = target.username;
     targetData.avatar = target.displayAvatarURL();
-    await targetData.save();
+    await Becca.db.emotecounts.update({
+      where: {
+        userId: target.id,
+      },
+      data: targetData,
+    });
 
     await interaction.editReply({ content: result });
   } catch (err) {
