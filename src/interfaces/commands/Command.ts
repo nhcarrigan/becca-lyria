@@ -1,9 +1,9 @@
 import { servers } from "@prisma/client";
 import {
+  ChatInputCommandInteraction,
   SlashCommandBuilder,
   SlashCommandSubcommandsOnlyBuilder,
 } from "discord.js";
-import { ChatInputCommandInteraction } from "discord.js";
 import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../BeccaLyria";

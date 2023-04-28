@@ -58,7 +58,7 @@ export const guildDelete = async (
     where: {
       serverID: guild.id,
     },
-  })
+  });
   await Becca.db.starcounts.delete({
     where: {
       serverID: guild.id,

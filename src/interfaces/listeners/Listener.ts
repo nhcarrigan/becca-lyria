@@ -13,7 +13,7 @@ export interface Listener {
    * @param {BeccaLyria} Becca Becca's Discord instance.
    * @param {Message} message The message that triggered the listener.
    * @param {TFunction} t The i18n function.
-   * @param {ServerConfig} config The server settings from the database.
+   * @param {servers} config The server settings from the database.
    */
   run: (
     Becca: BeccaLyria,

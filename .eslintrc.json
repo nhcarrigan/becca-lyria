@@ -9,7 +9,8 @@
           "serverId_userId",
           "serverId_channelId_messageId",
           "command_subcommand",
-          "member_targetChannel"
+          "member_targetChannel",
+          "new_triggers"
         ]
       }
     ]
