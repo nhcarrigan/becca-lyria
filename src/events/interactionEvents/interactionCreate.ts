@@ -16,7 +16,6 @@ import { DefaultTFuncReturn, getFixedT } from "i18next";
 import { handleFeedbackModal } from "../../commands/subcommands/becca/handleFeedbackModal";
 import { handleCreateModal } from "../../commands/subcommands/post/handleCreateModal";
 import { handleEditModal } from "../../commands/subcommands/post/handleEditModal";
-import PollModel from "../../database/models/PollModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { currencyListener } from "../../listeners/currencyListener";
 import { usageListener } from "../../listeners/usageListener";
@@ -131,10 +130,14 @@ export const interactionCreate = async (
           });
           return;
         }
-        const pollRecord = await PollModel.findOne({
-          serverId: guild.id,
-          channelId: channel.id,
-          messageId: message.id,
+        const pollRecord = await Becca.db.polls.findUnique({
+          where: {
+            serverId_channelId_messageId: {
+              serverId: guild.id,
+              channelId: channel.id,
+              messageId: message.id,
+            },
+          },
         });
 
         if (!pollRecord) {
@@ -172,7 +175,15 @@ export const interactionCreate = async (
             components: [],
           });
           await interaction.editReply({ content: "That poll has ended!" });
-          await PollModel.deleteOne({ _id: pollRecord._id });
+          await Becca.db.polls.delete({
+            where: {
+              serverId_channelId_messageId: {
+                serverId: guild.id,
+                channelId: channel.id,
+                messageId: message.id,
+              },
+            },
+          });
           return;
         }
 
@@ -185,9 +196,20 @@ export const interactionCreate = async (
 
         pollRecord.results[letter as "a" | "b" | "c" | "d"]++;
         pollRecord.responses.push(interaction.user.id);
-        pollRecord.markModified("responses");
-        pollRecord.markModified("results");
-        await pollRecord.save();
+
+        await Becca.db.polls.update({
+          where: {
+            serverId_channelId_messageId: {
+              serverId: guild.id,
+              channelId: channel.id,
+              messageId: message.id,
+            },
+          },
+          data: {
+            responses: pollRecord.responses,
+            results: pollRecord.results,
+          },
+        });
         await interaction.editReply({
           content: "Your response has been recorded.",
         });
