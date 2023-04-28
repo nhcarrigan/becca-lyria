@@ -2,7 +2,6 @@
 import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
-import HistoryModel from "../../../database/models/HistoryModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -44,9 +43,13 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const targetRecord = await HistoryModel.findOne({
-      serverId: guild.id,
-      userId: target.id,
+    const targetRecord = await Becca.db.histories.findUnique({
+      where: {
+        serverId_userId: {
+          serverId: guild.id,
+          userId: target.id,
+        },
+      },
     });
 
     if (!targetRecord) {
