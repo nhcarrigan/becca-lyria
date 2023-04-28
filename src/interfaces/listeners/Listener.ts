@@ -1,8 +1,8 @@
+import { servers } from "@prisma/client";
 import { Message } from "discord.js";
 import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../BeccaLyria";
-import { ServerConfig } from "../database/ServerConfig";
 
 export interface Listener {
   name: string;
@@ -19,6 +19,6 @@ export interface Listener {
     Becca: BeccaLyria,
     message: Message,
     t: TFunction,
-    config: ServerConfig
+    config: servers
   ) => Promise<void>;
 }
