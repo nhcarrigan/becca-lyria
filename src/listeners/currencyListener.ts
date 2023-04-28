@@ -1,7 +1,6 @@
 /*eslint-disable jsdoc/require-jsdoc*/
 import { CommandInteraction } from "discord.js";
 
-import CurrencyModel from "../database/models/CurrencyModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { getOptOutRecord } from "../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
@@ -27,20 +26,30 @@ export const currencyListener = {
         return;
       }
 
-      const data =
-        (await CurrencyModel.findOne({ discordId: target })) ||
-        (await CurrencyModel.create({
+      const data = await Becca.db.currencies.upsert({
+        where: {
+          userId: target,
+        },
+        update: {},
+        create: {
           userId: interaction.user.id,
           currencyTotal: 0,
           dailyClaimed: 0,
           weeklyClaimed: 0,
           monthlyClaimed: 0,
-        }));
+        },
+      });
 
       const earned = Math.floor(Math.random() * 5);
 
       data.currencyTotal += earned;
-      await data.save();
+
+      await Becca.db.currencies.update({
+        where: {
+          userId: target,
+        },
+        data,
+      });
     } catch (err) {
       await beccaErrorHandler(
         Becca,

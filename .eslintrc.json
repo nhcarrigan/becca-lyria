@@ -4,7 +4,12 @@
     "camelcase": [
       "error",
       {
-        "allow": ["serverID_userID"]
+        "allow": [
+          "serverID_userID",
+          "serverId_userId",
+          "serverId_channelId_messageId",
+          "command_subcommand"
+        ]
       }
     ]
   }

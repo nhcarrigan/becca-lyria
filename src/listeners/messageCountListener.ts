@@ -1,4 +1,3 @@
-import MessageCountModel from "../database/models/MessageCountModel";
 import { Listener } from "../interfaces/listeners/Listener";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
@@ -13,19 +12,32 @@ export const messageCountListener: Listener = {
         return;
       }
 
-      const record =
-        (await MessageCountModel.findOne({
-          serverId: guild.id,
-          userId: author.id,
-        })) ||
-        (await MessageCountModel.create({
+      const record = await Becca.db.messagecounts.upsert({
+        where: {
+          serverId_userId: {
+            serverId: guild.id,
+            userId: author.id,
+          },
+        },
+        update: {},
+        create: {
           serverId: guild.id,
           userId: author.id,
           messages: 0,
-        }));
+        },
+      });
 
       record.messages += 1;
-      await record.save();
+
+      await Becca.db.messagecounts.update({
+        where: {
+          serverId_userId: {
+            serverId: guild.id,
+            userId: author.id,
+          },
+        },
+        data: record,
+      });
     } catch (err) {
       await beccaErrorHandler(
         Becca,
