@@ -46,7 +46,7 @@ model activities {
   selects  Int    @default(0)
   userId   String
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
 
 model commands {
@@ -57,7 +57,7 @@ model commands {
   serverAvatar String @default("")
   commandUses  Int    @default(0)
 
-  @@index([serverId], map: "serverId_1")
+  @@unique([serverId], map: "serverId_1")
 }
 
 model currencies {
@@ -71,7 +71,7 @@ model currencies {
   userId          String
   weeklyClaimed   Int    @default(0)
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
 
 model emotecounts {
@@ -88,7 +88,7 @@ model emotecounts {
   userName String @default("")
   uwu      Int    @default(0)
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
 
 model histories {
@@ -103,7 +103,7 @@ model histories {
   userId   String
   warns    Int    @default(0)
 
-  @@index([serverId, userId], map: "serverId_1_userId_1")
+  @@unique([serverId, userId], map: "serverId_1_userId_1")
 }
 
 model messagecounts {
@@ -113,7 +113,7 @@ model messagecounts {
   serverId String
   userId   String
 
-  @@index([serverId, userId], map: "serverId_1_userId_1")
+  @@unique([serverId, userId], map: "serverId_1_userId_1")
 }
 
 model newlevels {
@@ -129,7 +129,7 @@ model newlevels {
   userID     String
   userTag    String   @default("")
 
-  @@index([serverID, userID], map: "serverID_1_userID_1")
+  @@unique([serverID, userID], map: "serverID_1_userID_1")
 }
 
 model optouts {
@@ -143,7 +143,7 @@ model optouts {
   userId   String
   vote     Boolean @default(false)
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
 
 model polls {
@@ -156,7 +156,7 @@ model polls {
   results   PollsResults
   serverId  String
 
-  @@index([serverId, channelId, messageId], map: "serverId_1_channelId_1_messageId_1")
+  @@unique([serverId, channelId, messageId], map: "serverId_1_channelId_1_messageId_1")
 }
 
 model scheduledevents {
@@ -168,7 +168,7 @@ model scheduledevents {
   lang          String
   message       String
 
-  @@index([member, targetChannel], map: "member_1_targetChannel_1")
+  @@unique([member, targetChannel], map: "member_1_targetChannel_1")
 }
 
 model servers {
@@ -222,7 +222,7 @@ model servers {
   welcome_channel     String              @default("")
   welcome_style       String              @default("embed")
 
-  @@index([serverID], map: "serverID_1")
+  @@unique([serverID], map: "serverID_1")
 }
 
 model starcounts {
@@ -232,7 +232,7 @@ model starcounts {
   serverName String            @default("")
   users      StarcountsUsers[]
 
-  @@index([serverID], map: "serverID_1")
+  @@unique([serverID], map: "serverID_1")
 }
 
 model usages {
@@ -242,7 +242,7 @@ model usages {
   subcommand String
   uses       Int    @default(0)
 
-  @@index([command, subcommand], map: "command_1_subcommand_1")
+  @@unique([command, subcommand], map: "command_1_subcommand_1")
 }
 
 model userconfigs {
@@ -251,7 +251,7 @@ model userconfigs {
   levelcard UserconfigsLevelcard
   userId    String
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
 
 model voters {
@@ -263,5 +263,5 @@ model voters {
   serverVotes  Int    @default(0)
   userId       String
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
