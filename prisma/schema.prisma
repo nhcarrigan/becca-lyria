@@ -218,8 +218,6 @@ model servers {
   ticket_category     String              @default("")
   ticket_log_channel  String              @default("")
   ticket_role         String              @default("")
-  // TODO: remove after migration
-  triggers            Json
   voice_events        String              @default("")
   welcome_channel     String              @default("")
   welcome_style       String              @default("embed")
