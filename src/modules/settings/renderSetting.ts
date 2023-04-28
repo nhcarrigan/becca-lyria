@@ -1,5 +1,6 @@
+import { servers } from "@prisma/client";
+
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { ServerConfig } from "../../interfaces/database/ServerConfig";
 import { Settings } from "../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
@@ -75,7 +76,7 @@ export const renderSetting = (
       case "allowed_links":
         return (value as string[]).join(", ");
       case "level_roles":
-        return (value as ServerConfig["level_roles"])
+        return (value as servers["level_roles"])
           .map((el) => `${el.level} -> <@&${el.role}>`)
           .join(", ");
       default:
