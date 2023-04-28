@@ -39,7 +39,7 @@ type UserconfigsLevelcard {
 
 model activities {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int    @map("__v")
+  v        Int?   @map("__v") @ignore
   buttons  Int    @default(0)
   commands Int    @default(0)
   contexts Int    @default(0)
@@ -62,7 +62,7 @@ model commands {
 
 model currencies {
   id              String @id @default(auto()) @map("_id") @db.ObjectId
-  v               Int    @map("__v")
+  v               Int?   @map("__v") @ignore
   currencyTotal   Int    @default(0)
   dailyClaimed    Int    @default(0)
   monthlyClaimed  Int    @default(0)
@@ -76,7 +76,7 @@ model currencies {
 
 model emotecounts {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int    @map("__v")
+  v        Int?   @map("__v") @ignore
   avatar   String @default("")
   boop     Int    @default(0)
   hug      Int    @default(0)
@@ -93,7 +93,7 @@ model emotecounts {
 
 model histories {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int    @map("__v")
+  v        Int?   @map("__v") @ignore
   bans     Int    @default(0)
   kicks    Int    @default(0)
   mutes    Int    @default(0)
@@ -108,7 +108,7 @@ model histories {
 
 model messagecounts {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int    @map("__v")
+  v        Int?   @map("__v") @ignore
   messages Int    @default(0)
   serverId String
   userId   String
@@ -118,7 +118,7 @@ model messagecounts {
 
 model newlevels {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  v          Int      @map("__v")
+  v          Int?     @map("__v") @ignore
   avatar     String   @default("")
   cooldown   Int      @default(0)
   lastSeen   DateTime @db.Date
@@ -134,7 +134,7 @@ model newlevels {
 
 model optouts {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int     @map("__v")
+  v        Int?    @map("__v") @ignore
   activity Boolean @default(false)
   currency Boolean @default(false)
   emote    Boolean @default(false)
@@ -148,7 +148,7 @@ model optouts {
 
 model polls {
   id        String       @id @default(auto()) @map("_id") @db.ObjectId
-  v         Int          @map("__v")
+  v         Int?         @map("__v") @ignore
   channelId String
   endsAt    Int          @default(0)
   messageId String
@@ -161,7 +161,7 @@ model polls {
 
 model scheduledevents {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
-  v             Int    @map("__v")
+  v             Int?   @map("__v") @ignore
   member        String
   time          Int
   targetChannel String
@@ -173,7 +173,7 @@ model scheduledevents {
 
 model servers {
   id                  String              @id @default(auto()) @map("_id") @db.ObjectId
-  v                   Int                 @map("__v")
+  v                   Int?                @map("__v") @ignore
   allowed_links       String[]            @default([])
   anti_links          String[]            @default([])
   antiphish           String              @default("none")
@@ -227,7 +227,7 @@ model servers {
 
 model starcounts {
   id         String            @id @default(auto()) @map("_id") @db.ObjectId
-  v          Int               @map("__v")
+  v          Int?              @map("__v") @ignore
   serverID   String
   serverName String            @default("")
   users      StarcountsUsers[]
@@ -237,7 +237,7 @@ model starcounts {
 
 model usages {
   id         String @id @default(auto()) @map("_id") @db.ObjectId
-  v          Int    @map("__v")
+  v          Int?   @map("__v") @ignore
   command    String
   subcommand String
   uses       Int    @default(0)
@@ -247,7 +247,7 @@ model usages {
 
 model userconfigs {
   id        String               @id @default(auto()) @map("_id") @db.ObjectId
-  v         Int                  @map("__v")
+  v         Int?                 @map("__v") @ignore
   levelcard UserconfigsLevelcard
   userId    String
 
@@ -256,7 +256,7 @@ model userconfigs {
 
 model voters {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
-  v            Int    @map("__v")
+  v            Int?   @map("__v") @ignore
   activeMonth  Int    @default(0)
   botVotes     Int    @default(0)
   monthlyVotes Int    @default(0)
