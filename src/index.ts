@@ -6,6 +6,7 @@ import { ActivityType, Client, WebhookClient } from "discord.js";
 import { initialiseTranslations } from "./config/i18n/initialiseTranslations";
 import { IntentOptions } from "./config/IntentOptions";
 import { connectDatabase } from "./database/connectDatabase";
+// import { connectPrisma } from "./database/connectPrisma";
 import { handleEvents } from "./events/handleEvents";
 import { BeccaLyria } from "./interfaces/BeccaLyria";
 import { validateEnv } from "./modules/validateEnv";
@@ -98,6 +99,8 @@ void (async () => {
 
   beccaLogHandler.log("debug", "Initialising database...");
   const databaseConnection = await connectDatabase(Becca);
+  // TODO: Uncomment when migration is complete, or for local testing.
+  // const databaseConnection = await connectPrisma(Becca);
   if (!databaseConnection) {
     beccaLogHandler.log("error", "failed to connect to database.");
     return;

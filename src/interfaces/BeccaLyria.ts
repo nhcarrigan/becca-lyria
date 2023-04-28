@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { Client, WebhookClient } from "discord.js";
 
 import { Command } from "./commands/Command";
@@ -50,4 +51,5 @@ export interface BeccaLyria extends Client {
   timeOuts: {
     [uuid: string]: NodeJS.Timeout;
   };
+  db: PrismaClient;
 }
