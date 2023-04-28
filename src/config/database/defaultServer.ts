@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { LevelRole } from "../../interfaces/settings/LevelRole";
 import { Trigger } from "../../interfaces/settings/Trigger";
 

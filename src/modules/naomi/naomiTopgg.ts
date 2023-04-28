@@ -20,7 +20,6 @@ export const naomiTopgg = async (Becca: BeccaLyria, message: Message) => {
 
     const response = await axios.post(
       endpoint,
-      // eslint-disable-next-line camelcase
       { server_count: guilds },
       { headers }
     );

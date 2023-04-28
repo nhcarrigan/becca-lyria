@@ -1,16 +1,14 @@
-/* eslint-disable jsdoc/require-param */
-/* eslint-disable */
 import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
+import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { updateHistory } from "../../../modules/commands/moderation/updateHistory";
+import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
 import { getRandomValue } from "../../../utils/getRandomValue";
 import { sendModerationDm } from "../../../utils/sendModerationDm";
-import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
-import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
-import { updateHistory } from "../../../modules/commands/moderation/updateHistory";
-import { DefaultTFuncReturn } from "i18next";
 
 /**
  * If the server has configured a muted role, removes it from the `target` for the

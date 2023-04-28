@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-returns-check */
 /**
  * Type definitions for leo-profanity version 1.3.0.
  * Project: https://github.com/jojoee/leo-profanity

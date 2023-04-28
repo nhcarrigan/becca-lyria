@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import axios from "axios";
 import {
   ActionRowBuilder,

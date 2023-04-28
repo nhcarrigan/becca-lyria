@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import { EmbedBuilder } from "discord.js";
 
 import { Context } from "../interfaces/contexts/Context";

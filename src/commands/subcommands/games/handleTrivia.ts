@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-/* eslint-disable jsdoc/require-param */
 import axios from "axios";
 import {
   ActionRowBuilder,
@@ -29,15 +27,19 @@ export const handleTrivia: CommandHandler = async (Becca, interaction, t) => {
       "https://opentdb.com/api.php?amount=1&type=multiple"
     );
 
-    const { category, correct_answer, incorrect_answers, question } =
-      data.data.results[0];
+    const {
+      category,
+      correct_answer: correctAnswer,
+      incorrect_answers: incorrectAnswers,
+      question,
+    } = data.data.results[0];
 
-    const answers = incorrect_answers.map((el) => replaceHtml(el));
-    answers.push(replaceHtml(correct_answer));
+    const answers = incorrectAnswers.map((el) => replaceHtml(el));
+    answers.push(replaceHtml(correctAnswer));
     answers.sort();
 
     const correctAnswerLetter =
-      letters[answers.indexOf(replaceHtml(correct_answer))];
+      letters[answers.indexOf(replaceHtml(correctAnswer))];
 
     const answered: string[] = [];
     const correct: string[] = [];
@@ -152,7 +154,7 @@ export const handleTrivia: CommandHandler = async (Becca, interaction, t) => {
       resultEmbed.addFields([
         {
           name: t("commands:games.trivia.correct"),
-          value: `${correctAnswerLetter}: ${replaceHtml(correct_answer)}`,
+          value: `${correctAnswerLetter}: ${replaceHtml(correctAnswer)}`,
         },
       ]);
 

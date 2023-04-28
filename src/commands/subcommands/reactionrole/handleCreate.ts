@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Role } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";

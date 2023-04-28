@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import { ChannelType, EmbedBuilder } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 

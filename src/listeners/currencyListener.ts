@@ -1,4 +1,3 @@
-/*eslint-disable jsdoc/require-jsdoc*/
 import { CommandInteraction } from "discord.js";
 
 import { BeccaLyria } from "../interfaces/BeccaLyria";

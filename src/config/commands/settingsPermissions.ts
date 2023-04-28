@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { PermissionFlagsBits } from "discord.js";
 
 import { Settings } from "../../interfaces/settings/Settings";
