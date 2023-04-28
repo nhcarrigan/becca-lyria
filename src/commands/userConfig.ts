@@ -4,7 +4,6 @@ import {
 } from "@discordjs/builders";
 import { DefaultTFuncReturn } from "i18next";
 
-import UserConfigModel from "../database/models/UserConfigModel";
 import { Command } from "../interfaces/commands/Command";
 import { UserConfigCommandHandler } from "../interfaces/commands/UserConfigCommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
@@ -68,16 +67,20 @@ export const userConfig: Command = {
         return;
       }
 
-      const userConfig =
-        (await UserConfigModel.findOne({ userId: user.id })) ||
-        (await UserConfigModel.create({
+      const userConfig = await Becca.db.userconfigs.upsert({
+        where: {
+          userId: user.id,
+        },
+        update: {},
+        create: {
           userId: user.id,
           levelcard: {
-            background: "",
-            foreground: "",
-            progress: "",
+            background: "#3a3240",
+            foreground: "#aea8de",
+            progress: "#ffffff",
           },
-        }));
+        },
+      });
 
       const handler = handlers[subcommand] || handleInvalidSubcommand;
       await handler(Becca, interaction, t, userConfig);
