@@ -63,8 +63,16 @@ export const handleSlots: CurrencyHandler = async (
     }
 
     data.currencyTotal = data.currencyTotal + change;
-    data.slotsPlayed = now;
-    await data.save();
+
+    await Becca.db.currencies.update({
+      where: {
+        userId: data.userId,
+      },
+      data: {
+        currencyTotal: data.currencyTotal,
+        slotsPlayed: now,
+      },
+    });
 
     const slotEmbed = new EmbedBuilder();
     slotEmbed.setTitle(

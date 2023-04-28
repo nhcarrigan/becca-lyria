@@ -40,7 +40,7 @@ export const SettingsPermissions: {
   level_style: null,
   level_message: null,
   role_message: null,
-  triggers: null,
+  new_triggers: null,
   welcome_style: null,
   ticket_category: ["ManageChannels"],
   ticket_log_channel: ["ViewChannel", "SendMessages", "EmbedLinks"],

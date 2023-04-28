@@ -29,13 +29,7 @@ export const handleReset: SettingsHandler = async (
       return;
     }
 
-    const success = await resetSetting(
-      Becca,
-      guild.id,
-      guild.name,
-      setting,
-      config
-    );
+    const success = await resetSetting(Becca, guild.id, guild.name, setting);
     await interaction.editReply(
       success
         ? t("commands:config.reset.success", { setting })

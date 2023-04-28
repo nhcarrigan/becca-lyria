@@ -46,7 +46,7 @@ export const reactionAdd = async (
       return;
     }
 
-    if (count !== parseInt(config.starboard_threshold)) {
+    if (count !== config.starboard_threshold) {
       return;
     }
 

@@ -46,7 +46,7 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const levelCardHtml = await generateLevelHtml(target, targetLevel);
+    const levelCardHtml = await generateLevelHtml(Becca, target, targetLevel);
     const levelCardImage = await generateLevelImage(levelCardHtml);
 
     const levelEmbed = new EmbedBuilder();

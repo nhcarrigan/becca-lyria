@@ -54,8 +54,14 @@ export const optOut: Command = {
       const type = unconfirmedType as OptOutSettings;
 
       if (record[type]) {
-        record[type] = false;
-        await record.save();
+        await Becca.db.optouts.update({
+          where: {
+            userId: interaction.user.id,
+          },
+          data: {
+            [type]: false,
+          },
+        });
         await interaction.editReply({
           content: t("commands:optOut.optIn", { type }),
         });
@@ -98,8 +104,14 @@ export const optOut: Command = {
           return;
         }
 
-        record[type] = true;
-        await record.save();
+        await Becca.db.optouts.update({
+          where: {
+            userId: interaction.user.id,
+          },
+          data: {
+            [type]: true,
+          },
+        });
 
         const deleted = await deleteUserData(Becca, interaction.user.id, type);
 

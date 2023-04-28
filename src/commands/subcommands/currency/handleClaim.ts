@@ -33,6 +33,8 @@ export const handleClaim: CurrencyHandler = async (
       iconURL: "https://cdn.nhcarrigan.com/profile.png",
     });
 
+    let change = 0;
+
     switch (reward) {
       case "monarch-colour":
         if (data.currencyTotal < 2500) {
@@ -44,8 +46,7 @@ export const handleClaim: CurrencyHandler = async (
           );
           return;
         }
-        data.currencyTotal -= 2500;
-        await data.save();
+        change = 2500;
         claimEmbed.addFields([
           {
             name: t("commands:currency.claim.details"),
@@ -63,8 +64,7 @@ export const handleClaim: CurrencyHandler = async (
           );
           return;
         }
-        data.currencyTotal -= 5000;
-        await data.save();
+        change = 5000;
         claimEmbed.addFields([
           {
             name: t("commands:currency.claim.details"),
@@ -82,8 +82,7 @@ export const handleClaim: CurrencyHandler = async (
           );
           return;
         }
-        data.currencyTotal -= 7500;
-        await data.save();
+        change = 7500;
         claimEmbed.addFields([
           {
             name: t("commands:currency.claim.details"),
@@ -101,8 +100,7 @@ export const handleClaim: CurrencyHandler = async (
           );
           return;
         }
-        data.currencyTotal -= 10000;
-        await data.save();
+        change = 10000;
         claimEmbed.addFields([
           {
             name: t("commands:currency.claim.details"),
@@ -113,6 +111,19 @@ export const handleClaim: CurrencyHandler = async (
       case "default":
         await interaction.editReply(t("commands:currency.claim.invalid"));
         return;
+    }
+
+    if (change) {
+      await Becca.db.currencies.update({
+        where: {
+          userId: data.userId,
+        },
+        data: {
+          currencyTotal: {
+            decrement: change,
+          },
+        },
+      });
     }
 
     const supportServerButton = new ButtonBuilder()

@@ -37,7 +37,6 @@ export type Settings =
   | "level_style"
   | "level_message"
   | "role_message"
-  | "triggers"
   | "welcome_style"
   | "ticket_category"
   | "ticket_log_channel"
@@ -45,4 +44,5 @@ export type Settings =
   | "starboard_emote"
   | "starboard_channel"
   | "starboard_threshold"
-  | "level_decay";
+  | "level_decay"
+  | "new_triggers";

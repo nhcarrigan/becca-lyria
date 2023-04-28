@@ -45,7 +45,7 @@ const createTimeout = (
  */
 export const createEvent = async (
   Becca: BeccaLyria,
-  rawEvent: scheduledevents
+  rawEvent: Omit<scheduledevents, "id">
 ) => {
   const dbEvent = await Becca.db.scheduledevents.create({
     data: rawEvent,

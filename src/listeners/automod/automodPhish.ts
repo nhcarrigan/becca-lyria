@@ -6,6 +6,7 @@ import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { sendModerationDm } from "../../utils/sendModerationDm";
+import { isModerationAction } from "../../utils/typeGuards";
 
 /**
  * Handles phishing links.
@@ -22,6 +23,7 @@ export const automodPhish: ListenerHandler = async (
     if (
       !config.antiphish ||
       config.antiphish === "none" ||
+      !isModerationAction(config.antiphish) ||
       !message.member ||
       !message.guild
     ) {

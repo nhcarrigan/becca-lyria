@@ -33,7 +33,14 @@ export const handleGuess: CurrencyHandler = async (
       data.currencyTotal -= wager;
     }
 
-    await data.save();
+    await Becca.db.currencies.update({
+      where: {
+        userId: data.userId,
+      },
+      data: {
+        currencyTotal: data.currencyTotal,
+      },
+    });
 
     const embed = new EmbedBuilder();
     embed.setTitle(
