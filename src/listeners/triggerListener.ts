@@ -7,11 +7,11 @@ export const triggerListener: Listener = {
   description: "Handles the logic for a server's triggers.",
   run: async (Becca, message, t, config) => {
     try {
-      if (!config.triggers?.length) {
+      if (!config.newTriggers?.length) {
         return;
       }
 
-      for (const [trigger, response] of config.triggers) {
+      for (const { trigger, response } of config.newTriggers) {
         if (message.content === trigger) {
           await message.channel.send(response);
           break;

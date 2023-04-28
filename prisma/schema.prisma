@@ -26,6 +26,11 @@ type StarcountsUsers {
   userTag String @default("")
 }
 
+type Trigger {
+  trigger  String
+  response String
+}
+
 type UserconfigsLevelcard {
   background String @default("#3a3240")
   foreground String @default("#aea8de")
@@ -196,6 +201,7 @@ model servers {
   member_events       String              @default("")
   message_events      String              @default("")
   moderation_events   String              @default("")
+  new_triggers        Trigger[]
   no_automod_channels String[]            @default([])
   profanity           String              @default("off")
   profanity_message   String              @default("{@username}, your message appears to have been inappropriate. I removed it.")
@@ -212,7 +218,7 @@ model servers {
   ticket_category     String              @default("")
   ticket_log_channel  String              @default("")
   ticket_role         String              @default("")
-  // TODO: migrate this from an array to an object, define it in production
+  // TODO: remove after migration
   triggers            Json
   voice_events        String              @default("")
   welcome_channel     String              @default("")

@@ -2,6 +2,7 @@
 import { Document } from "mongoose";
 
 import { LevelRole } from "../settings/LevelRole";
+import { Trigger } from "../settings/Trigger";
 
 export interface ServerConfig extends Document {
   serverID: string;
@@ -15,6 +16,7 @@ export interface ServerConfig extends Document {
   hearts: string[];
   blocked: string[];
   triggers: [string, string][];
+  newTriggers: Trigger[];
   automod_channels: string[];
   no_automod_channels: string[];
   automod_roles: string[];
@@ -63,6 +65,7 @@ export const testServerConfig: Omit<ServerConfig, keyof Document> = {
   hearts: [],
   blocked: [],
   triggers: [],
+  newTriggers: [],
   automod_channels: [],
   no_automod_channels: [],
   automod_roles: [],
