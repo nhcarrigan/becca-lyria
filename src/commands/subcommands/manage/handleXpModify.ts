@@ -3,7 +3,6 @@ import { EmbedBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
 import levelScale from "../../../config/listeners/levelScale";
-import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
@@ -84,19 +83,26 @@ export const handleXpModify: CommandHandler = async (
       return;
     }
 
-    const user =
-      (await LevelModel.findOne({ serverID: guild.id, userID: target.id })) ||
-      (await LevelModel.create({
+    const user = await Becca.db.newlevels.upsert({
+      where: {
+        serverID_userID: {
+          serverID: guild.id,
+          userID: target.id,
+        },
+      },
+      update: {},
+      create: {
         serverID: guild.id,
         serverName: guild.name,
         userID: target?.id,
-        userTaf: target?.tag,
+        userTag: target?.tag,
         avatar: target?.displayAvatarURL(),
         points: 0,
         level: 0,
         lastSeen: new Date(Date.now()),
         cooldown: 0,
-      }));
+      },
+    });
 
     const targetMember = await guild.members.fetch(target.id);
 
@@ -133,10 +139,20 @@ export const handleXpModify: CommandHandler = async (
       }
     }
 
-    user.userTag = target.tag;
-    user.avatar = target.displayAvatarURL();
-
-    await user.save();
+    await Becca.db.newlevels.update({
+      where: {
+        serverID_userID: {
+          serverID: guild.id,
+          userID: target.id,
+        },
+      },
+      data: {
+        points: user.points,
+        level: user.level,
+        userTag: target.tag,
+        avatar: target.displayAvatarURL(),
+      },
+    });
 
     if (config.level_roles.length) {
       for (const setting of config.level_roles) {
