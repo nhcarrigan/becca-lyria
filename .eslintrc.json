@@ -8,7 +8,8 @@
           "serverID_userID",
           "serverId_userId",
           "serverId_channelId_messageId",
-          "command_subcommand"
+          "command_subcommand",
+          "member_targetChannel"
         ]
       }
     ]
