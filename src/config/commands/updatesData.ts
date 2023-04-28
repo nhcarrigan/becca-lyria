@@ -1,4 +1,5 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Replaced our Twitter link with our Mastodon link",
-  "- Updated currency commands to use Discord native timestamps",
+  "- Prepared for migration from mongoose to Prisma",
+  "- Changed structure of server triggers in database",
+  "- Added prefix to owner commands to prevent erroneous triggering",
 ];
