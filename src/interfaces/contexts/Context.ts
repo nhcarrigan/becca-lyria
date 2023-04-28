@@ -2,7 +2,7 @@ import { ContextMenuCommandInteraction } from "discord.js";
 import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../BeccaLyria";
-import { ServerConfig } from "../database/ServerConfig";
+import { servers } from "@prisma/client";
 
 export interface Context {
   data: {
@@ -21,6 +21,6 @@ export interface Context {
     Becca: BeccaLyria,
     interaction: ContextMenuCommandInteraction,
     t: TFunction,
-    config: ServerConfig
+    config: servers
   ) => Promise<void>;
 }
