@@ -1,9 +1,9 @@
+import { servers } from "@prisma/client";
 import { EmbedBuilder, User } from "discord.js";
 import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { ModerationActions } from "../interfaces/commands/moderation/ModerationActions";
-import { ServerConfig } from "../interfaces/database/ServerConfig";
 
 import { beccaErrorHandler } from "./beccaErrorHandler";
 import { customSubstring } from "./customSubstring";
@@ -12,7 +12,7 @@ import { customSubstring } from "./customSubstring";
  * Generates a moderation embed notice and sends it to the user.
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
- * @param {ServerConfig} config The settings for the server where this function was triggered.
+ * @param {servers} config The settings for the server where this function was triggered.
  * @param {TFunction} t The i18n function.
  * @param {ModerationActions} action The moderation action taken.
  * @param {User} user The Discord user being moderated.
@@ -21,7 +21,7 @@ import { customSubstring } from "./customSubstring";
  */
 export const sendModerationDm = async (
   Becca: BeccaLyria,
-  config: ServerConfig,
+  config: servers,
   t: TFunction,
   action: ModerationActions,
   user: User,
