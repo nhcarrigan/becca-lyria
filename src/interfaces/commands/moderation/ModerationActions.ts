@@ -5,3 +5,11 @@ export type ModerationActions =
   | "unban"
   | "unmute"
   | "warn";
+
+export type ModerationActionsPlural =
+  | "bans"
+  | "kicks"
+  | "mutes"
+  | "unbans"
+  | "unmutes"
+  | "warns";

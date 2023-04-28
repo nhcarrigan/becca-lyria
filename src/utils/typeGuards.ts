@@ -1,3 +1,4 @@
+import { EmoteAction } from "../config/commands/emoteData";
 import { ModerationActions } from "../interfaces/commands/moderation/ModerationActions";
 
 /**
@@ -18,4 +19,23 @@ export const isModerationAction = (
     warn: "warn",
   };
   return Object.keys(actions).includes(action);
+};
+
+/**
+ * Confirms that az string is a valid emote action.
+ *
+ * @param {string} emote The string to test.
+ * @returns {boolean} If the string matches the EmoteAction type.
+ */
+export const isEmoteAction = (emote: string): emote is EmoteAction => {
+  const actions: { [key in EmoteAction]: string } = {
+    hug: "hug",
+    kiss: "kiss",
+    smack: "smack",
+    boop: "boop",
+    throw: "throw",
+    pat: "pat",
+    uwu: "uwu",
+  };
+  return Object.keys(actions).includes(emote);
 };

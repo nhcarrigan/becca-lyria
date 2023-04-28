@@ -1,6 +1,7 @@
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { ModerationActions } from "../../../interfaces/commands/moderation/ModerationActions";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { modActionToPlural } from "../../../utils/typeConversions";
 
 /**
  * Saves a count of the user's moderation actions.
@@ -17,57 +18,30 @@ export const updateHistory = async (
   guildId: string
 ) => {
   try {
-    const userRecord = await Becca.db.histories.upsert({
+    const createData = {
+      serverId: guildId,
+      userId: userId,
+      bans: 0,
+      kicks: 0,
+      mutes: 0,
+      unbans: 0,
+      unmutes: 0,
+      warns: 0,
+    };
+    createData[modActionToPlural(action)] = 1;
+    await Becca.db.histories.upsert({
       where: {
         serverId_userId: {
           serverId: guildId,
           userId: userId,
         },
       },
-      update: {},
-      create: {
-        serverId: guildId,
-        userId: userId,
-        bans: 0,
-        kicks: 0,
-        mutes: 0,
-        unbans: 0,
-        unmutes: 0,
-        warns: 0,
-      },
-    });
-
-    switch (action) {
-      case "kick":
-        userRecord.kicks++;
-        break;
-      case "ban":
-        userRecord.bans++;
-        break;
-      case "mute":
-        userRecord.mutes++;
-        break;
-      case "unban":
-        userRecord.unbans++;
-        break;
-      case "unmute":
-        userRecord.unmutes++;
-        break;
-      case "warn":
-        userRecord.warns++;
-        break;
-      default:
-        break;
-    }
-
-    await Becca.db.histories.update({
-      where: {
-        serverId_userId: {
-          serverId: guildId,
-          userId: userId,
+      update: {
+        [modActionToPlural(action)]: {
+          increment: 1,
         },
       },
-      data: userRecord,
+      create: createData,
     });
   } catch (err) {
     await beccaErrorHandler(Becca, "update moderation history", err, guildId);

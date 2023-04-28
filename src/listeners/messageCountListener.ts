@@ -12,31 +12,23 @@ export const messageCountListener: Listener = {
         return;
       }
 
-      const record = await Becca.db.messagecounts.upsert({
+      await Becca.db.messagecounts.upsert({
         where: {
           serverId_userId: {
             serverId: guild.id,
             userId: author.id,
           },
         },
-        update: {},
+        update: {
+          messages: {
+            increment: 1,
+          },
+        },
         create: {
           serverId: guild.id,
           userId: author.id,
-          messages: 0,
+          messages: 1,
         },
-      });
-
-      record.messages += 1;
-
-      await Becca.db.messagecounts.update({
-        where: {
-          serverId_userId: {
-            serverId: guild.id,
-            userId: author.id,
-          },
-        },
-        data: record,
       });
     } catch (err) {
       await beccaErrorHandler(

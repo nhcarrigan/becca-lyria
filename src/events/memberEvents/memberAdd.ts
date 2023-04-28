@@ -96,7 +96,7 @@ export const memberAdd = async (
     }
 
     if (serverSettings?.initial_xp && serverSettings?.levels === "on") {
-      const userRecord = await Becca.db.newlevels.upsert({
+      await Becca.db.newlevels.upsert({
         where: {
           serverID_userID: {
             serverID: guild.id,
@@ -110,23 +110,10 @@ export const memberAdd = async (
           userID: member.id,
           userTag: user.tag,
           avatar: user.displayAvatarURL(),
-          points: 0,
+          points: parseInt(serverSettings.initial_xp),
           level: 0,
           lastSeen: new Date(Date.now()),
           cooldown: 0,
-        },
-      });
-
-      userRecord.points += parseInt(serverSettings.initial_xp);
-      await Becca.db.newlevels.update({
-        where: {
-          serverID_userID: {
-            serverID: guild.id,
-            userID: member.id,
-          },
-        },
-        data: {
-          points: userRecord.points,
         },
       });
     }
