@@ -1,9 +1,9 @@
+import { servers } from "@prisma/client";
 import { Guild, EmbedBuilder } from "discord.js";
 import { TFunction } from "i18next";
 
 import { defaultServer } from "../../../config/database/defaultServer";
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
-import { ServerConfig } from "../../../interfaces/database/ServerConfig";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
 import { renderSetting } from "../../settings/renderSetting";
@@ -15,14 +15,14 @@ import { renderSetting } from "../../settings/renderSetting";
  * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {TFunction} t The i18n function.
  * @param {Guild} guild The server to parse the settings for.
- * @param {ServerConfig} config The server's configuration object from the database.
+ * @param {servers} config The server's configuration object from the database.
  * @returns {EmbedBuilder | null} A message embed or null on error.
  */
 export const viewSettings = async (
   Becca: BeccaLyria,
   t: TFunction,
   guild: Guild,
-  config: ServerConfig
+  config: servers
 ): Promise<EmbedBuilder | null> => {
   try {
     const settingsEmbed = new EmbedBuilder();
