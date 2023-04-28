@@ -9,7 +9,6 @@ import {
 } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
-import PollModel from "../../../database/models/PollModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -123,18 +122,20 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
       components: [row],
     });
 
-    await PollModel.create({
-      serverId: guild.id,
-      channelId: channel.id,
-      messageId: pollMessage.id,
-      results: {
-        a: 0,
-        b: 0,
-        c: 0,
-        d: 0,
+    await Becca.db.polls.create({
+      data: {
+        serverId: guild.id,
+        channelId: channel.id,
+        messageId: pollMessage.id,
+        results: {
+          a: 0,
+          b: 0,
+          c: 0,
+          d: 0,
+        },
+        responses: [],
+        endsAt: Date.now() + millisecondDuration,
       },
-      responses: [],
-      endsAt: Date.now() + millisecondDuration,
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

@@ -2,7 +2,6 @@
 import { EmbedBuilder } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
-import StarModel from "../../../database/models/StarModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
@@ -38,11 +37,17 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
     }
 
     const starData =
-      (await StarModel.findOne({ serverID: guild.id })) ||
-      (await StarModel.create({
-        serverID: guild.id,
-        serverName: guild.name,
-        users: [],
+      (await Becca.db.starcounts.findFirst({
+        where: {
+          serverID: guild.id,
+        },
+      })) ||
+      (await Becca.db.starcounts.create({
+        data: {
+          serverID: guild.id,
+          serverName: guild.name,
+          users: [],
+        },
       }));
 
     const targetUserStars = starData.users.find(
@@ -61,8 +66,15 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
       targetUserStars.avatar = targetUser.displayAvatarURL();
     }
 
-    starData.markModified("users");
-    await starData.save();
+    await Becca.db.starcounts.update({
+      where: {
+        serverID: guild.id,
+      },
+      data: {
+        users: starData.users,
+        serverName: guild.name,
+      },
+    });
 
     const starTotal = targetUserStars?.stars || 1;
 
