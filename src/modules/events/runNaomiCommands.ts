@@ -4,6 +4,7 @@ import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { registerCommands } from "../../utils/registerCommands";
 import { naomiAntiphish } from "../naomi/naomiAntiphish";
 import { naomiMee6 } from "../naomi/naomiMee6";
+import { naomiMigrate } from "../naomi/naomiMigrate";
 import { naomiPurgeData } from "../naomi/naomiPurgeData";
 import { naomiTopgg } from "../naomi/naomiTopgg";
 import { naomiUnregisterCommand } from "../naomi/naomiUnregisterCommand";
@@ -41,6 +42,9 @@ export const runNaomiCommands = async (Becca: BeccaLyria, message: Message) => {
       break;
     case "topgg":
       await naomiTopgg(Becca, message);
+      break;
+    case "migrate":
+      await naomiMigrate(Becca, message);
       break;
     default:
       await message.reply("Hope you are well!");
