@@ -6,9 +6,6 @@ import * as Topgg from "@top-gg/sdk";
 import cors from "cors";
 import express from "express";
 
-import CommandCountModel from "../database/models/CommandCountModel";
-import UsageModel from "../database/models/UsageModel";
-import VoterModel from "../database/models/VoterModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { getCounts } from "../modules/becca/getCounts";
 import { getOptOutRecord } from "../modules/listeners/getOptOutRecord";
@@ -58,41 +55,55 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
 
         const currentMonth = new Date(Date.now()).getMonth();
         let voteType: "bot" | "server" | "unknown" = "unknown";
-        const voteRecord =
-          (await VoterModel.findOne({ userId: payload.user })) ||
-          (await VoterModel.create({
+        const voteRecord = await Becca.db.voters.upsert({
+          where: {
+            userId: payload.user,
+          },
+          update: {},
+          create: {
             userId: payload.user,
             serverVotes: 0,
             botVotes: 0,
             activeMonth: new Date(Date.now()).getMonth(),
             monthlyVotes: 0,
-          }));
+          },
+        });
+
+        const updateData = {
+          serverVotes: voteRecord.serverVotes,
+          botVotes: voteRecord.botVotes,
+          monthlyVotes: voteRecord.monthlyVotes,
+          activeMonth: voteRecord.activeMonth,
+        };
 
         if (voteRecord.activeMonth !== currentMonth) {
           if (voteRecord.monthlyVotes > 60) {
             await sendVoteReward(Becca, voteRecord);
           }
-          /* eslint-disable require-atomic-updates */
-          voteRecord.activeMonth = currentMonth;
-          voteRecord.monthlyVotes = 0;
-          /* eslint-enable require-atomic-updates */
+          updateData.activeMonth = currentMonth;
+          updateData.monthlyVotes = 0;
         }
         voteRecord.monthlyVotes = (voteRecord.monthlyVotes || 0) + 1;
 
         if (payload.bot === Becca.configs.id) {
-          voteRecord.botVotes = voteRecord.botVotes + 1;
+          updateData.botVotes = voteRecord.botVotes + 1;
           voteType = "bot";
         }
         if (payload.bot === Becca.configs.id && payload.isWeekend) {
-          voteRecord.botVotes = voteRecord.botVotes + 1;
+          updateData.botVotes = voteRecord.botVotes + 1;
           voteType = "bot";
         }
         if (payload.guild === Becca.configs.homeGuild) {
-          voteRecord.serverVotes = voteRecord.serverVotes + 1;
+          updateData.serverVotes = voteRecord.serverVotes + 1;
           voteType = "server";
         }
 
-        await voteRecord.save();
+        await Becca.db.voters.update({
+          where: {
+            userId: payload.user,
+          },
+          data: updateData,
+        });
 
         await sendVoteMessage(Becca, payload, voteRecord, voteType);
         setTimeout(
@@ -107,9 +118,11 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
       switch (req.params.stat) {
         case "commands":
           // eslint-disable-next-line no-case-declarations
-          const data = await CommandCountModel.find({})
-            .sort({ commandUses: -1 })
-            .lean();
+          const data = await Becca.db.commands.findMany({
+            orderBy: {
+              commandUses: "desc",
+            },
+          });
           res.json(data);
           break;
         default:
@@ -118,7 +131,7 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
     });
 
     HTTPEndpoint.use("/commands", async (_, res) => {
-      const data = await UsageModel.find();
+      const data = await Becca.db.usages.findMany();
       res.json(data);
     });
 
