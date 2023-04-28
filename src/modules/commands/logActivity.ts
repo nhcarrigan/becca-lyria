@@ -1,4 +1,3 @@
-import ActivityModel from "../../database/models/ActivityModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { getOptOutRecord } from "../listeners/getOptOutRecord";
@@ -24,15 +23,19 @@ export const logActivity = async (
       return;
     }
 
-    const userActivity =
-      (await ActivityModel.findOne({ userId: user })) ||
-      (await ActivityModel.create({
+    const userActivity = await Becca.db.activities.upsert({
+      where: {
+        userId: user,
+      },
+      update: {},
+      create: {
         userId: user,
         buttons: 0,
         commands: 0,
         selects: 0,
         contexts: 0,
-      }));
+      },
+    });
 
     switch (activity) {
       case "button":
@@ -51,7 +54,12 @@ export const logActivity = async (
         break;
     }
 
-    await userActivity.save();
+    await Becca.db.activities.update({
+      where: {
+        userId: user,
+      },
+      data: userActivity,
+    });
   } catch (err) {
     await beccaErrorHandler(Becca, "activity logger", err);
   }
