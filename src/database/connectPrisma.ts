@@ -7,7 +7,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
  * Connects Prisma and mounts it to Becca's instance.
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
- * @returns {Boolean} Whether the connection was successful or not.
+ * @returns {boolean} Whether the connection was successful or not.
  */
 export const connectPrisma = async (Becca: BeccaLyria) => {
   try {
