@@ -17,7 +17,7 @@ export const handleTriggerRemove: CommandHandler = async (
   try {
     const trigger = interaction.options.getString("trigger", true);
 
-    const triggerIndex = config.newTriggers.findIndex(
+    const triggerIndex = config.new_triggers.findIndex(
       (el) => el.trigger === trigger
     );
 
@@ -28,9 +28,16 @@ export const handleTriggerRemove: CommandHandler = async (
       return;
     }
 
-    config.newTriggers.splice(triggerIndex, 1);
-    config.markModified("newTriggers");
-    await config.save();
+    config.new_triggers.splice(triggerIndex, 1);
+
+    await Becca.db.servers.update({
+      where: {
+        serverID: config.serverID,
+      },
+      data: {
+        new_triggers: config.new_triggers,
+      },
+    });
 
     const success = new EmbedBuilder();
     success.setTitle(t("commands:triggers.remove.title"));
