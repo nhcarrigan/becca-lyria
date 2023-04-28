@@ -1,6 +1,7 @@
 /* eslint-disable no-case-declarations */
+import { servers } from "@prisma/client";
+
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { ServerConfig } from "../../interfaces/database/ServerConfig";
 import { Settings } from "../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { beccaLogHandler } from "../../utils/beccaLogHandler";
@@ -14,16 +15,16 @@ import { beccaLogHandler } from "../../utils/beccaLogHandler";
  * @param {string} serverName The current name of the server.
  * @param {Settings} key The name of the setting to modify.
  * @param {string} value The value to change the setting to.
- * @param {ServerConfig} server The server config entry in the database.
- * @returns {ServerConfig | null} ServerModel on success and null on error.
+ * @param {servers} server The server config entry in the database.
+ * @returns {servers | null} ServerModel on success and null on error.
  */
 export const setSetting = async (
   Becca: BeccaLyria,
   serverName: string,
-  key: Settings,
+  key: keyof servers,
   value: string,
-  server: ServerConfig
-): Promise<ServerConfig | null> => {
+  server: servers
+): Promise<servers | null> => {
   try {
     const parsedValue =
       typeof value === "string" ? value.replace(/\D/g, "") : value;
@@ -42,7 +43,6 @@ export const setSetting = async (
         } else {
           server[key].push(parsedValue);
         }
-        server.markModified(key);
         break;
       case "allowed_links":
         if (server[key].includes(value)) {
@@ -51,7 +51,6 @@ export const setSetting = async (
         } else {
           server[key].push(value);
         }
-        server.markModified(key);
         break;
       case "level_roles":
         const [level, role] = value.split(" ");
@@ -68,7 +67,6 @@ export const setSetting = async (
         } else {
           server[key].splice(hasSetting, 1);
         }
-        server.markModified(key);
         break;
       case "custom_welcome":
       case "levels":
@@ -83,9 +81,11 @@ export const setSetting = async (
       case "level_message":
       case "role_message":
       case "starboard_emote":
+        server[key] = value;
+        break;
       case "starboard_threshold":
       case "level_decay":
-        server[key] = value;
+        server[key] = parseInt(value, 10);
         break;
       case "antiphish":
         server[key] = value as "none" | "mute" | "kick" | "ban";
@@ -115,7 +115,6 @@ export const setSetting = async (
         beccaLogHandler.log("error", "the setSettings logic broke horribly.");
     }
 
-    await server.save();
     return server;
   } catch (err) {
     await beccaErrorHandler(Becca, "set setting module", err, serverName);

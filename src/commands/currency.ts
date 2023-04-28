@@ -4,7 +4,6 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 
-import CurrencyModel from "../database/models/CurrencyModel";
 import { Command } from "../interfaces/commands/Command";
 import { CurrencyHandler } from "../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
@@ -135,9 +134,12 @@ export const currency: Command = {
         return;
       }
 
-      const userData =
-        (await CurrencyModel.findOne({ userId: interaction.user.id })) ||
-        (await CurrencyModel.create({
+      const userData = await Becca.db.currencies.upsert({
+        where: {
+          userId: interaction.user.id,
+        },
+        update: {},
+        create: {
           userId: interaction.user.id,
           currencyTotal: 0,
           dailyClaimed: 0,
@@ -145,7 +147,8 @@ export const currency: Command = {
           monthlyClaimed: 0,
           slotsPlayed: 0,
           twentyOnePlayed: 0,
-        }));
+        },
+      });
 
       const subcommand = interaction.options.getSubcommand();
       const handler = handlers[subcommand] || handleInvalidSubcommand;

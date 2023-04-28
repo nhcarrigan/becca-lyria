@@ -2,7 +2,6 @@
 import { GuildMember, PermissionFlagsBits } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
-import StarModel from "../../../database/models/StarModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -39,7 +38,11 @@ export const handleResetStars: CommandHandler = async (
       return;
     }
 
-    const starData = await StarModel.findOne({ serverID: guild.id });
+    const starData = await Becca.db.starcounts.findUnique({
+      where: {
+        serverID: guild.id,
+      },
+    });
 
     if (!starData) {
       await interaction.editReply({
@@ -48,9 +51,14 @@ export const handleResetStars: CommandHandler = async (
       return;
     }
 
-    starData.users = [];
-    starData.markModified("users");
-    await starData.save();
+    await Becca.db.starcounts.update({
+      where: {
+        serverID: guild.id,
+      },
+      data: {
+        users: [],
+      },
+    });
     await interaction.editReply({
       content: t("commands:manage.stars.success"),
     });

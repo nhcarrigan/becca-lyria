@@ -1,16 +1,14 @@
+import { scheduledevents } from "@prisma/client";
 import { ChannelType } from "discord.js";
 import { getFixedT } from "i18next";
-import { Document } from "mongoose";
 
-import ScheduledEventModel from "../../database/models/ScheduledEventModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { ScheduledEvent } from "../../interfaces/database/ScheduledEvent";
 
 const createTimeout = (
   Becca: BeccaLyria,
-  { member, targetChannel, lang, message, time, _id }: ScheduledEvent
+  { member, targetChannel, lang, message, time, id }: scheduledevents
 ) => {
-  Becca.timeOuts[_id] = setTimeout(async () => {
+  Becca.timeOuts[id] = setTimeout(async () => {
     const channel = await Becca.channels.fetch(targetChannel);
     const t = getFixedT(lang);
     if (
@@ -28,21 +26,30 @@ const createTimeout = (
         },
       });
     }
-    await ScheduledEventModel.deleteOne({ _id: _id });
-    delete Becca.timeOuts[_id];
+    await Becca.db.scheduledevents.delete({
+      where: {
+        member_targetChannel: {
+          member: member,
+          targetChannel: targetChannel,
+        },
+      },
+    });
+    delete Becca.timeOuts[id];
   }, time - Date.now());
 };
 
 /**
  *
  * @param {BeccaLyria} Becca Current running Becca instance.
- * @param {Omit<ScheduledEvent, keyof Document>} rawEvent Raw scheduled event data to be placed into the database and the scheduler.
+ * @param {scheduledevents} rawEvent Raw scheduled event data to be placed into the database and the scheduler.
  */
 export const createEvent = async (
   Becca: BeccaLyria,
-  rawEvent: Omit<ScheduledEvent, keyof Document>
+  rawEvent: Omit<scheduledevents, "id">
 ) => {
-  const dbEvent = await ScheduledEventModel.create(rawEvent);
+  const dbEvent = await Becca.db.scheduledevents.create({
+    data: rawEvent,
+  });
   createTimeout(Becca, dbEvent);
 };
 
@@ -51,10 +58,17 @@ export const createEvent = async (
  * @param {BeccaLyria} Becca Current running Becca instance.
  */
 export const loadEvents = async (Becca: BeccaLyria) => {
-  const events = await ScheduledEventModel.find();
+  const events = await Becca.db.scheduledevents.findMany();
   for (const event of events) {
     if (Date.now() > event.time) {
-      await ScheduledEventModel.deleteOne({ _id: event._id });
+      await Becca.db.scheduledevents.delete({
+        where: {
+          member_targetChannel: {
+            member: event.member,
+            targetChannel: event.targetChannel,
+          },
+        },
+      });
     } else {
       createTimeout(Becca, event);
     }

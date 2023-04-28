@@ -1,12 +1,5 @@
 import { Message } from "discord.js";
 
-import ActivityModel from "../../database/models/ActivityModel";
-import CommandCountModel from "../../database/models/CommandCountModel";
-import CurrencyModel from "../../database/models/CurrencyModel";
-import EmoteCountModel from "../../database/models/EmoteCountModel";
-import LevelModel from "../../database/models/LevelModel";
-import StarModel from "../../database/models/StarModel";
-import VoterModel from "../../database/models/VoterModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
@@ -20,80 +13,81 @@ export const naomiPurgeData = async (Becca: BeccaLyria, message: Message) => {
   try {
     // Naomi purge <data> <id>
     const [, , data, target] = message.content.split(" ");
-    let name = "No data found!";
 
     if (data === "levels") {
-      const levels = await LevelModel.find({ userID: target });
-      for (const datum of levels) {
-        await LevelModel.deleteOne({ _id: datum._id });
-        name = datum.userTag;
-      }
-      await message.reply(`I have cleared the level data for ${name}.`);
+      await Becca.db.newlevels.deleteMany({
+        where: { userID: target },
+      });
+
+      await message.reply(`I have cleared the level data for ${target}.`);
       return;
     }
 
     if (data === "activity") {
-      const activity = await ActivityModel.findOne({ userId: target });
-      if (activity) {
-        await ActivityModel.deleteOne({ _id: activity._id });
-        name = activity.userId;
-      }
-      await message.reply(`I have cleared the activity data for ${name}.`);
+      await Becca.db.activities.delete({
+        where: { userId: target },
+      });
+      await message.reply(`I have cleared the activity data for ${target}.`);
       return;
     }
 
     if (data === "stars") {
-      const stars = await StarModel.find({});
+      const stars = await Becca.db.starcounts.findMany();
       for (const datum of stars) {
         const index = datum.users.findIndex((u) => u.userID === target);
         if (index !== -1) {
-          name = datum.users[index].userTag;
           datum.users.splice(index, 1);
-          datum.markModified("users");
-          await datum.save();
+          await Becca.db.starcounts.update({
+            where: {
+              serverID: datum.serverID,
+            },
+            data: {
+              users: datum.users,
+            },
+          });
         }
       }
-      await message.reply(`I have cleared the star data for ${name}.`);
+      await message.reply(`I have cleared the star data for ${target}.`);
       return;
     }
 
     if (data === "currency") {
-      const currency = await CurrencyModel.findOne({ userId: target });
-      if (currency) {
-        name = currency.userId;
-        await CurrencyModel.deleteOne({ _id: currency._id });
-      }
-      await message.reply(`I have cleared the currency data for ${name}.`);
+      await Becca.db.currencies.delete({
+        where: {
+          userId: target,
+        },
+      });
+      await message.reply(`I have cleared the currency data for ${target}.`);
       return;
     }
 
     if (data === "votes") {
-      const votes = await VoterModel.findOne({ userId: target });
-      if (votes) {
-        name = votes.userId;
-        await VoterModel.deleteOne({ _id: votes._id });
-      }
-      await message.reply(`I have cleared the vote data for ${name}.`);
+      await Becca.db.voters.delete({
+        where: {
+          userId: target,
+        },
+      });
+      await message.reply(`I have cleared the vote data for ${target}.`);
       return;
     }
 
     if (data === "commands") {
-      const commands = await CommandCountModel.findOne({ serverId: target });
-      if (commands) {
-        name = commands.serverName;
-        await CommandCountModel.deleteOne({ _id: commands._id });
-      }
-      await message.reply(`I have cleared the command data for ${name}.`);
+      await Becca.db.commands.delete({
+        where: {
+          serverId: target,
+        },
+      });
+      await message.reply(`I have cleared the command data for ${target}.`);
       return;
     }
 
     if (data === "emotes") {
-      const emotes = await EmoteCountModel.findOne({ userId: target });
-      if (emotes) {
-        name = emotes.userName;
-        await EmoteCountModel.deleteOne({ _id: emotes._id });
-      }
-      await message.reply(`I have cleared the emote data for ${name}.`);
+      await Becca.db.emotecounts.delete({
+        where: {
+          userId: target,
+        },
+      });
+      await message.reply(`I have cleared the emote data for ${target}.`);
       return;
     }
 

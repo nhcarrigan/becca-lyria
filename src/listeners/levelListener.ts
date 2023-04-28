@@ -2,7 +2,6 @@
 import { ChannelType, EmbedBuilder, TextChannel } from "discord.js";
 
 import levelScale from "../config/listeners/levelScale";
-import LevelModel from "../database/models/LevelModel";
 import { Listener } from "../interfaces/listeners/Listener";
 import { generateLevelText } from "../modules/listeners/generateLevelText";
 import { generateRoleText } from "../modules/listeners/generateRoleText";
@@ -57,9 +56,15 @@ export const levelListener: Listener = {
 
       const bonus = Math.floor(content.length / 10);
       const pointsEarned = Math.floor(Math.random() * (20 + bonus)) + 5;
-      const user =
-        (await LevelModel.findOne({ serverID: guild.id, userID: author.id })) ||
-        (await LevelModel.create({
+      const user = await Becca.db.newlevels.upsert({
+        where: {
+          serverID_userID: {
+            serverID: guild.id,
+            userID: author.id,
+          },
+        },
+        update: {},
+        create: {
           serverID: guild.id,
           serverName: guild.name,
           userID: author.id,
@@ -69,7 +74,8 @@ export const levelListener: Listener = {
           level: 0,
           lastSeen: new Date(Date.now()),
           cooldown: 0,
-        }));
+        },
+      });
 
       if (Date.now() - user.cooldown < 60000 || user.level >= 100) {
         return;
@@ -99,7 +105,22 @@ export const levelListener: Listener = {
         levelUp = true;
       }
 
-      await user.save();
+      await Becca.db.newlevels.update({
+        where: {
+          serverID_userID: {
+            serverID: guild.id,
+            userID: author.id,
+          },
+        },
+        data: {
+          points: user.points,
+          level: user.level,
+          lastSeen: user.lastSeen,
+          userTag: user.userTag,
+          avatar: user.avatar,
+          cooldown: user.cooldown,
+        },
+      });
 
       if (levelUp) {
         const content = serverSettings.level_message

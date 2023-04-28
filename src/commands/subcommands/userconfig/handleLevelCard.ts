@@ -40,7 +40,15 @@ export const handleLevelCard: UserConfigCommandHandler = async (
     }
 
     userConfig.levelcard = { background, foreground, progress };
-    await userConfig.save();
+
+    await Becca.db.userconfigs.update({
+      where: {
+        userId: user.id,
+      },
+      data: {
+        levelcard: userConfig.levelcard,
+      },
+    });
 
     const embed = new EmbedBuilder();
     embed.setTitle(t("commands:userconfig.levelcard.title"));

@@ -157,7 +157,15 @@ export const handleTwentyOne: CurrencyHandler = async (
             : data.currencyTotal - wager;
         }
         data.twentyOnePlayed = now;
-        await data.save();
+        await Becca.db.currencies.update({
+          where: {
+            userId: data.userId,
+          },
+          data: {
+            currencyTotal: data.currencyTotal,
+            twentyOnePlayed: data.twentyOnePlayed,
+          },
+        });
         gameEmbed.setDescription(
           t("commands:currency.twentyone.total", {
             total: data.currencyTotal,
@@ -206,7 +214,15 @@ export const handleTwentyOne: CurrencyHandler = async (
       if (!gameState.over) {
         data.currencyTotal -= wager;
         data.twentyOnePlayed = now;
-        await data.save();
+        await Becca.db.currencies.update({
+          where: {
+            userId: data.userId,
+          },
+          data: {
+            currencyTotal: data.currencyTotal,
+            twentyOnePlayed: data.twentyOnePlayed,
+          },
+        });
         await Becca.currencyHook.send(
           `${interaction.user.username} played 21 in ${interaction.guild?.name}! They timed out and lost ${wager} BeccaCoin.`
         );

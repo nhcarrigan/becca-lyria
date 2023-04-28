@@ -2,7 +2,6 @@
 import { GuildMember, PermissionFlagsBits } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
-import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -42,7 +41,11 @@ export const handleResetLevels: CommandHandler = async (
       return;
     }
 
-    const currentLevels = await LevelModel.find({ serverID: guild.id });
+    const currentLevels = await Becca.db.newlevels.findMany({
+      where: {
+        serverID: guild.id,
+      },
+    });
 
     if (!currentLevels || !currentLevels.length) {
       await interaction.editReply({
@@ -51,7 +54,14 @@ export const handleResetLevels: CommandHandler = async (
       return;
     }
     for (const level of currentLevels) {
-      await LevelModel.deleteOne({ _id: level._id });
+      await Becca.db.newlevels.delete({
+        where: {
+          serverID_userID: {
+            serverID: level.serverID,
+            userID: level.userID,
+          },
+        },
+      });
     }
     await interaction.editReply({
       content: t("commands:manage.levels.success"),

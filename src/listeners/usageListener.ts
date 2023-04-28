@@ -1,7 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import { ChatInputCommandInteraction } from "discord.js";
 
-import UsageModel from "../database/models/UsageModel";
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
@@ -21,12 +20,24 @@ export const usageListener = {
       const subcommand =
         interaction.options.getSubcommand(false) || "no subcommand";
 
-      const data =
-        (await UsageModel.findOne({ command, subcommand })) ||
-        (await UsageModel.create({ command, subcommand, uses: 0 }));
-
-      data.uses++;
-      await data.save();
+      await Becca.db.usages.upsert({
+        where: {
+          command_subcommand: {
+            command,
+            subcommand,
+          },
+        },
+        update: {
+          uses: {
+            increment: 1,
+          },
+        },
+        create: {
+          command,
+          subcommand,
+          uses: 0,
+        },
+      });
     } catch (err) {
       await beccaErrorHandler(
         Becca,

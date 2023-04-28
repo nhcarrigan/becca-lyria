@@ -2,7 +2,6 @@
 import { EmbedBuilder } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
-import StarModel from "../../../database/models/StarModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -30,7 +29,11 @@ export const handleStarCount: CommandHandler = async (
       return;
     }
 
-    const starCounts = await StarModel.findOne({ serverID: guild.id });
+    const starCounts = await Becca.db.starcounts.findUnique({
+      where: {
+        serverID: guild.id,
+      },
+    });
 
     if (!starCounts || !starCounts.users.length) {
       await interaction.editReply({

@@ -1,18 +1,25 @@
+import { newlevels } from "@prisma/client";
 import { User } from "discord.js";
 
 import levelScale from "../../../config/listeners/levelScale";
-import UserConfigModel from "../../../database/models/UserConfigModel";
-import { Level } from "../../../interfaces/database/Level";
+import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 
 /**
  * Module to generate HTML for a user's level card.
  *
+ * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {User} user The user's record from Discord.
- * @param {Level} levelData The user's level data.
+ * @param {newlevels} levelData The user's level data.
  * @returns {string} An HTML string for the user's level card.
  */
-export const generateLevelHtml = async (user: User, levelData: Level) => {
-  const levelConfig = await UserConfigModel.findOne({ userId: user.id });
+export const generateLevelHtml = async (
+  Becca: BeccaLyria,
+  user: User,
+  levelData: newlevels
+) => {
+  const levelConfig = await Becca.db.userconfigs.findUnique({
+    where: { userId: user.id },
+  });
   const colours = {
     background: levelConfig?.levelcard?.background || "#3a3240",
     foreground: levelConfig?.levelcard?.foreground || "#aea8de",

@@ -2,7 +2,6 @@
 import { EmbedBuilder } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
-import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { generateLevelHtml } from "../../../modules/commands/community/generateLevelHtml";
 import { generateLevelImage } from "../../../modules/commands/community/generateLevelImage";
@@ -29,9 +28,13 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
 
     const target = interaction.options.getUser("user-level") || user;
 
-    const targetLevel = await LevelModel.findOne({
-      serverID: guildId,
-      userID: target.id,
+    const targetLevel = await Becca.db.newlevels.findUnique({
+      where: {
+        serverID_userID: {
+          serverID: guildId,
+          userID: target.id,
+        },
+      },
     });
 
     if (!targetLevel) {
@@ -43,7 +46,7 @@ export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const levelCardHtml = await generateLevelHtml(target, targetLevel);
+    const levelCardHtml = await generateLevelHtml(Becca, target, targetLevel);
     const levelCardImage = await generateLevelImage(levelCardHtml);
 
     const levelEmbed = new EmbedBuilder();

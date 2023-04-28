@@ -1,6 +1,8 @@
+import { servers } from "@prisma/client";
+
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { ServerConfig } from "../../interfaces/database/ServerConfig";
 import { Settings } from "../../interfaces/settings/Settings";
+import { Trigger } from "../../interfaces/settings/Trigger";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
@@ -61,9 +63,9 @@ export const renderSetting = (
       case "hearts":
       case "blocked":
         return (value as string[]).map((v) => `<@!${v}>`).join(", ");
-      case "triggers":
-        return (value as [string, string][])
-          .map((v) => v.join(" -> "))
+      case "new_triggers":
+        return (value as Trigger[])
+          .map((v) => `${v.trigger} -> ${v.response}`)
           .join(", ");
       case "automod_channels":
       case "no_automod_channels":
@@ -75,7 +77,7 @@ export const renderSetting = (
       case "allowed_links":
         return (value as string[]).join(", ");
       case "level_roles":
-        return (value as ServerConfig["level_roles"])
+        return (value as servers["level_roles"])
           .map((el) => `${el.level} -> <@&${el.role}>`)
           .join(", ");
       default:

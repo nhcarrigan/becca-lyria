@@ -18,7 +18,7 @@ export const handleTriggerAdd: CommandHandler = async (
     const trigger = interaction.options.getString("trigger", true);
     const response = interaction.options.getString("response", true);
 
-    const hasTrigger = config.newTriggers.find((el) => el.trigger === trigger);
+    const hasTrigger = config.new_triggers.find((el) => el.trigger === trigger);
 
     if (hasTrigger) {
       await interaction.editReply({
@@ -27,16 +27,23 @@ export const handleTriggerAdd: CommandHandler = async (
       return;
     }
 
-    if (config.newTriggers.length >= 50) {
+    if (config.new_triggers.length >= 50) {
       await interaction.editReply({
         content: t("commands:triggers.add.max"),
       });
       return;
     }
 
-    config.newTriggers.push({ trigger, response });
-    config.markModified("newTriggers");
-    await config.save();
+    config.new_triggers.push({ trigger, response });
+
+    await Becca.db.servers.update({
+      where: {
+        serverID: config.serverID,
+      },
+      data: {
+        new_triggers: config.new_triggers,
+      },
+    });
 
     const success = new EmbedBuilder();
     success.setTitle(t("commands:triggers.add.title"));

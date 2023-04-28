@@ -1,6 +1,6 @@
-import OptOutModel from "../../database/models/OptOutModel";
+import { optouts } from "@prisma/client";
+
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { OptOut } from "../../interfaces/database/OptOut";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
@@ -8,16 +8,19 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  *
  * @param {BeccaLyria} Becca Becca's bot instance.
  * @param {string} userId The user's ID.
- * @returns {Promise<OptOut | null>} The opt-out record, or null if an error occurred.
+ * @returns {Promise<optouts | null>} The opt-out record, or null if an error occurred.
  */
 export const getOptOutRecord = async (
   Becca: BeccaLyria,
   userId: string
-): Promise<OptOut | null> => {
+): Promise<optouts | null> => {
   try {
-    const record =
-      (await OptOutModel.findOne({ userId })) ||
-      (await OptOutModel.create({
+    const record = await Becca.db.optouts.upsert({
+      where: {
+        userId,
+      },
+      update: {},
+      create: {
         userId,
         activity: false,
         currency: false,
@@ -25,7 +28,8 @@ export const getOptOutRecord = async (
         level: false,
         star: false,
         vote: false,
-      }));
+      },
+    });
     return record;
   } catch (err) {
     await beccaErrorHandler(Becca, "get opt out record module", err);

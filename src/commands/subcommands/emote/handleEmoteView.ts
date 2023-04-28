@@ -1,7 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import { EmbedBuilder } from "discord.js";
 
-import EmoteCountModel from "../../../database/models/EmoteCountModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -15,7 +14,11 @@ export const handleEmoteView: CommandHandler = async (
   t
 ) => {
   try {
-    const data = await EmoteCountModel.findOne({ userId: interaction.user.id });
+    const data = await Becca.db.emotecounts.findUnique({
+      where: {
+        userId: interaction.user.id,
+      },
+    });
 
     if (!data) {
       await interaction.editReply({

@@ -6,12 +6,12 @@ import {
   smackList,
   throwList,
 } from "../../../config/commands/emoteData";
-import EmoteCountModel from "../../../database/models/EmoteCountModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
+import { isEmoteAction } from "../../../utils/typeGuards";
 
 /**
  * Handles the logic for using an emote.
@@ -46,81 +46,53 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const targetData =
-      (await EmoteCountModel.findOne({ userId: target.id })) ||
-      (await EmoteCountModel.create({
-        userId: target.id,
-        userName: target.username,
-        avatar: target.displayAvatarURL(),
-        hug: 0,
-        kiss: 0,
-        pat: 0,
-        boop: 0,
-        smack: 0,
-        throw: 0,
-        uwu: 0,
-      }));
-
-    let result = t("commands:emote.use.null");
-    const user = `<@!${target.id}>`;
-
-    switch (action) {
-      case "hug":
-        targetData.hug++;
-        result = t("commands:emote.use.hug", {
-          user,
-          count: targetData.hug,
-        });
-        break;
-      case "kiss":
-        targetData.kiss++;
-        result = t("commands:emote.use.kiss", {
-          user,
-          total: targetData.kiss,
-        });
-        break;
-      case "pat":
-        targetData.pat++;
-        result = t("commands:emote.use.pat", {
-          user,
-          total: targetData.pat,
-        });
-        break;
-      case "boop":
-        targetData.boop++;
-        result = t("commands:emote.use.boop", {
-          user,
-          total: targetData.boop,
-        });
-        break;
-      case "smack":
-        targetData.smack++;
-        result = t("commands:emote.use.smack", {
-          user,
-          total: targetData.smack,
-          item: getRandomValue(smackList),
-        });
-        break;
-      case "throw":
-        targetData.throw++;
-        result = t("commands:emote.use.throw", {
-          user,
-          total: targetData.throw,
-          item: getRandomValue(throwList),
-        });
-        break;
-      case "uwu":
-        targetData.uwu++;
-        result = t("commands:emote.use.uwu", {
-          user,
-          total: targetData.uwu,
-        });
-        break;
+    if (!isEmoteAction(action)) {
+      await interaction.editReply({
+        content: t("commands:emote.use.null"),
+      });
+      return;
     }
 
-    targetData.userName = target.username;
-    targetData.avatar = target.displayAvatarURL();
-    await targetData.save();
+    const createData = {
+      userId: target.id,
+      userName: target.username,
+      avatar: target.displayAvatarURL(),
+      hug: 0,
+      kiss: 0,
+      pat: 0,
+      boop: 0,
+      smack: 0,
+      throw: 0,
+      uwu: 0,
+    };
+    createData[action] = 1;
+
+    const targetData = await Becca.db.emotecounts.upsert({
+      where: {
+        userId: target.id,
+      },
+      update: {
+        userName: target.username,
+        avatar: target.displayAvatarURL(),
+        [action]: {
+          increment: 1,
+        },
+      },
+      create: createData,
+    });
+
+    const tVariables = {
+      user: `<@!${target.id}>`,
+      count: targetData[action],
+      item: "",
+    };
+    if (action === "smack") {
+      tVariables.item = getRandomValue(smackList);
+    }
+    if (action === "throw") {
+      tVariables.item = getRandomValue(throwList);
+    }
+    const result = t(`commands:emote.use.${action}`, tVariables);
 
     await interaction.editReply({ content: result });
   } catch (err) {

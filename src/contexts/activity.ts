@@ -1,7 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import { EmbedBuilder } from "discord.js";
 
-import ActivityModel from "../database/models/ActivityModel";
 import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
@@ -16,7 +15,11 @@ export const activity: Context = {
       await interaction.deferReply();
       const target = interaction.options.getUser("user", true);
 
-      const data = await ActivityModel.findOne({ userId: target.id });
+      const data = await Becca.db.activities.findUnique({
+        where: {
+          userId: target.id,
+        },
+      });
       if (!data) {
         await interaction.editReply(
           "That user has not interacted with me yet..."

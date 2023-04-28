@@ -1,7 +1,7 @@
+import { voters } from "@prisma/client";
 import { ChannelType } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { Voter } from "../../interfaces/database/Voter";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 
 /**
@@ -9,11 +9,11 @@ import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
  * they have qualified for the vote reward.
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
- * @param {Voter} voter The user's database record.
+ * @param {voters} voter The user's database record.
  */
 export const sendVoteReward = async (
   Becca: BeccaLyria,
-  voter: Voter
+  voter: voters
 ): Promise<void> => {
   try {
     const guild = await Becca.guilds.fetch(Becca.configs.homeGuild);

@@ -1,9 +1,3 @@
-import ActivityModel from "../../../database/models/ActivityModel";
-import CurrencyModel from "../../../database/models/CurrencyModel";
-import EmoteCountModel from "../../../database/models/EmoteCountModel";
-import LevelModel from "../../../database/models/LevelModel";
-import StarModel from "../../../database/models/StarModel";
-import VoterModel from "../../../database/models/VoterModel";
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { OptOutSettings } from "../../../interfaces/settings/OptOutSettings";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -24,33 +18,57 @@ export const deleteUserData = async (
   try {
     switch (type) {
       case "activity":
-        await ActivityModel.deleteMany({ userId });
+        await Becca.db.activities.deleteMany({
+          where: {
+            userId,
+          },
+        });
         break;
       case "currency":
-        await CurrencyModel.deleteMany({ userId });
+        await Becca.db.currencies.deleteMany({
+          where: {
+            userId,
+          },
+        });
         break;
       case "emote":
-        await EmoteCountModel.deleteMany({ userId });
+        await Becca.db.emotecounts.deleteMany({
+          where: {
+            userId,
+          },
+        });
         break;
       case "level":
-        await LevelModel.deleteMany({ userID: userId });
+        await Becca.db.newlevels.deleteMany({
+          where: {
+            userID: userId,
+          },
+        });
         break;
       case "star":
         // eslint-disable-next-line no-case-declarations
-        const stars = await StarModel.find({});
+        const stars = await Becca.db.starcounts.findMany();
         for (const star of stars) {
           const userIndex = star.users.findIndex(
             (obj) => obj.userID === userId
           );
           if (userIndex !== -1) {
             star.users.splice(userIndex, 1);
-            star.markModified("users");
-            await star.save();
+            await Becca.db.starcounts.update({
+              where: {
+                serverID: star.serverID,
+              },
+              data: star,
+            });
           }
         }
         break;
       case "vote":
-        await VoterModel.deleteMany({ userId });
+        await Becca.db.voters.deleteMany({
+          where: {
+            userId,
+          },
+        });
         break;
       default:
         return false;

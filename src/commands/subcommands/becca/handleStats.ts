@@ -7,8 +7,6 @@ import {
 } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
-import CommandCountModel from "../../../database/models/CommandCountModel";
-import VoterModel from "../../../database/models/VoterModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -30,10 +28,12 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
     const view = interaction.options.getString("view");
 
     if (view === "commands") {
-      const topServers = await CommandCountModel.find()
-        .sort({ commandUses: -1 })
-        .limit(10)
-        .lean();
+      const topServers = await Becca.db.commands.findMany({
+        take: 10,
+        orderBy: {
+          commandUses: "desc",
+        },
+      });
 
       const topServersEmbed = topServers.map((server, index) => [
         index + 1,
@@ -70,10 +70,12 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
     }
 
     if (view === "svotes") {
-      const topVotes = await VoterModel.find()
-        .sort({ serverVotes: -1 })
-        .limit(10)
-        .lean();
+      const topVotes = await Becca.db.voters.findMany({
+        take: 10,
+        orderBy: {
+          serverVotes: "desc",
+        },
+      });
 
       const serverVoteEmbed = topVotes
         .map(
@@ -120,10 +122,12 @@ export const handleStats: CommandHandler = async (Becca, interaction, t) => {
     }
 
     if (view === "bvotes") {
-      const topVotes = await VoterModel.find()
-        .sort({ botVotes: -1 })
-        .limit(10)
-        .lean();
+      const topVotes = await Becca.db.voters.findMany({
+        take: 10,
+        orderBy: {
+          botVotes: "desc",
+        },
+      });
 
       const botVoteEmbed = topVotes
         .map(

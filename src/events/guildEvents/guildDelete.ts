@@ -1,10 +1,5 @@
 import { Guild, EmbedBuilder } from "discord.js";
 
-import CommandCountModel from "../../database/models/CommandCountModel";
-import HistoryModel from "../../database/models/HistoryModel";
-import LevelModel from "../../database/models/LevelModel";
-import ServerModel from "../../database/models/ServerConfigModel";
-import StarModel from "../../database/models/StarModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 
 /**
@@ -54,9 +49,29 @@ export const guildDelete = async (
 
   await Becca.debugHook.send({ embeds: [guildDeleteEmbed] });
 
-  await ServerModel.findOneAndDelete({ serverID: guild.id });
-  await LevelModel.deleteMany({ serverID: guild.id });
-  await StarModel.findOneAndDelete({ serverID: guild.id });
-  await CommandCountModel.findOneAndDelete({ serverId: guild.id });
-  await HistoryModel.deleteMany({ serverId: guild.id });
+  await Becca.db.servers.delete({
+    where: {
+      serverID: guild.id,
+    },
+  });
+  await Becca.db.newlevels.deleteMany({
+    where: {
+      serverID: guild.id,
+    },
+  });
+  await Becca.db.starcounts.delete({
+    where: {
+      serverID: guild.id,
+    },
+  });
+  await Becca.db.commands.delete({
+    where: {
+      serverId: guild.id,
+    },
+  });
+  await Becca.db.histories.deleteMany({
+    where: {
+      serverId: guild.id,
+    },
+  });
 };

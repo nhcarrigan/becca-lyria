@@ -2,8 +2,6 @@ import { GuildMember, EmbedBuilder, PartialGuildMember } from "discord.js";
 import { getFixedT } from "i18next";
 
 import { defaultServer } from "../../config/database/defaultServer";
-import MessageCountModel from "../../database/models/MessageCountModel";
-import ServerModel from "../../database/models/ServerConfigModel";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { memberRemoveCleanup } from "../../modules/guild/memberRemoveCleanup";
 import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
@@ -33,10 +31,16 @@ export const memberRemove = async (
 
     const roleList = roles.cache.map((el) => el);
 
-    const serverConfig = await ServerModel.findOne({ serverID: guild.id });
-    const messageCount = await MessageCountModel.findOne({
-      serverId: guild.id,
-      userId: user.id,
+    const serverConfig = await Becca.db.servers.findUnique({
+      where: { serverID: guild.id },
+    });
+    const messageCount = await Becca.db.messagecounts.findUnique({
+      where: {
+        serverId_userId: {
+          serverId: guild.id,
+          userId: user.id,
+        },
+      },
     });
 
     const goodbyeEmbed = new EmbedBuilder();

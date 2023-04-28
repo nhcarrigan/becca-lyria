@@ -8,7 +8,6 @@ import {
 } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
-import LevelModel from "../../../database/models/LevelModel";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -36,12 +35,14 @@ export const handleLeaderboard: CommandHandler = async (
       });
       return;
     }
-    const serverLevels = await LevelModel.find({
-      serverID: guildId,
-    })
-      .sort({ points: -1 })
-      .lean()
-      .exec();
+    const serverLevels = await Becca.db.newlevels.findMany({
+      where: {
+        serverID: guildId,
+      },
+      orderBy: {
+        points: "desc",
+      },
+    });
 
     if (!serverLevels || !serverLevels.length) {
       await interaction.editReply({

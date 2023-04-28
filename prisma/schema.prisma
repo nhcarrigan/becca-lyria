@@ -39,14 +39,14 @@ type UserconfigsLevelcard {
 
 model activities {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int    @map("__v")
+  v        Int?   @map("__v") @ignore
   buttons  Int    @default(0)
   commands Int    @default(0)
   contexts Int    @default(0)
   selects  Int    @default(0)
   userId   String
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
 
 model commands {
@@ -57,12 +57,12 @@ model commands {
   serverAvatar String @default("")
   commandUses  Int    @default(0)
 
-  @@index([serverId], map: "serverId_1")
+  @@unique([serverId], map: "serverId_1")
 }
 
 model currencies {
   id              String @id @default(auto()) @map("_id") @db.ObjectId
-  v               Int    @map("__v")
+  v               Int?   @map("__v") @ignore
   currencyTotal   Int    @default(0)
   dailyClaimed    Int    @default(0)
   monthlyClaimed  Int    @default(0)
@@ -71,12 +71,12 @@ model currencies {
   userId          String
   weeklyClaimed   Int    @default(0)
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
 
 model emotecounts {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int    @map("__v")
+  v        Int?   @map("__v") @ignore
   avatar   String @default("")
   boop     Int    @default(0)
   hug      Int    @default(0)
@@ -88,12 +88,12 @@ model emotecounts {
   userName String @default("")
   uwu      Int    @default(0)
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
 
 model histories {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int    @map("__v")
+  v        Int?   @map("__v") @ignore
   bans     Int    @default(0)
   kicks    Int    @default(0)
   mutes    Int    @default(0)
@@ -103,22 +103,22 @@ model histories {
   userId   String
   warns    Int    @default(0)
 
-  @@index([serverId, userId], map: "serverId_1_userId_1")
+  @@unique([serverId, userId], map: "serverId_1_userId_1")
 }
 
 model messagecounts {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int    @map("__v")
+  v        Int?   @map("__v") @ignore
   messages Int    @default(0)
   serverId String
   userId   String
 
-  @@index([serverId, userId], map: "serverId_1_userId_1")
+  @@unique([serverId, userId], map: "serverId_1_userId_1")
 }
 
 model newlevels {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  v          Int      @map("__v")
+  v          Int?     @map("__v") @ignore
   avatar     String   @default("")
   cooldown   Int      @default(0)
   lastSeen   DateTime @db.Date
@@ -129,12 +129,12 @@ model newlevels {
   userID     String
   userTag    String   @default("")
 
-  @@index([serverID, userID], map: "serverID_1_userID_1")
+  @@unique([serverID, userID], map: "serverID_1_userID_1")
 }
 
 model optouts {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int     @map("__v")
+  v        Int?    @map("__v") @ignore
   activity Boolean @default(false)
   currency Boolean @default(false)
   emote    Boolean @default(false)
@@ -143,12 +143,12 @@ model optouts {
   userId   String
   vote     Boolean @default(false)
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
 
 model polls {
   id        String       @id @default(auto()) @map("_id") @db.ObjectId
-  v         Int          @map("__v")
+  v         Int?         @map("__v") @ignore
   channelId String
   endsAt    Int          @default(0)
   messageId String
@@ -156,24 +156,24 @@ model polls {
   results   PollsResults
   serverId  String
 
-  @@index([serverId, channelId, messageId], map: "serverId_1_channelId_1_messageId_1")
+  @@unique([serverId, channelId, messageId], map: "serverId_1_channelId_1_messageId_1")
 }
 
 model scheduledevents {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
-  v             Int    @map("__v")
+  v             Int?   @map("__v") @ignore
   member        String
   time          Int
   targetChannel String
   lang          String
   message       String
 
-  @@index([member, targetChannel], map: "member_1_targetChannel_1")
+  @@unique([member, targetChannel], map: "member_1_targetChannel_1")
 }
 
 model servers {
   id                  String              @id @default(auto()) @map("_id") @db.ObjectId
-  v                   Int                 @map("__v")
+  v                   Int?                @map("__v") @ignore
   allowed_links       String[]            @default([])
   anti_links          String[]            @default([])
   antiphish           String              @default("none")
@@ -201,7 +201,7 @@ model servers {
   member_events       String              @default("")
   message_events      String              @default("")
   moderation_events   String              @default("")
-  new_triggers        Trigger[]
+  new_triggers        Trigger[]           @map("newTriggers")
   no_automod_channels String[]            @default([])
   profanity           String              @default("off")
   profanity_message   String              @default("{@username}, your message appears to have been inappropriate. I removed it.")
@@ -222,46 +222,46 @@ model servers {
   welcome_channel     String              @default("")
   welcome_style       String              @default("embed")
 
-  @@index([serverID], map: "serverID_1")
+  @@unique([serverID], map: "serverID_1")
 }
 
 model starcounts {
   id         String            @id @default(auto()) @map("_id") @db.ObjectId
-  v          Int               @map("__v")
+  v          Int?              @map("__v") @ignore
   serverID   String
   serverName String            @default("")
   users      StarcountsUsers[]
 
-  @@index([serverID], map: "serverID_1")
+  @@unique([serverID], map: "serverID_1")
 }
 
 model usages {
   id         String @id @default(auto()) @map("_id") @db.ObjectId
-  v          Int    @map("__v")
+  v          Int?   @map("__v") @ignore
   command    String
   subcommand String
   uses       Int    @default(0)
 
-  @@index([command, subcommand], map: "command_1_subcommand_1")
+  @@unique([command, subcommand], map: "command_1_subcommand_1")
 }
 
 model userconfigs {
   id        String               @id @default(auto()) @map("_id") @db.ObjectId
-  v         Int                  @map("__v")
+  v         Int?                 @map("__v") @ignore
   levelcard UserconfigsLevelcard
   userId    String
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
 
 model voters {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
-  v            Int    @map("__v")
+  v            Int?   @map("__v") @ignore
   activeMonth  Int    @default(0)
   botVotes     Int    @default(0)
   monthlyVotes Int    @default(0)
   serverVotes  Int    @default(0)
   userId       String
 
-  @@index([userId], map: "userId_1")
+  @@unique([userId], map: "userId_1")
 }
