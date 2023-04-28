@@ -17,7 +17,9 @@ export const handleTriggerRemove: CommandHandler = async (
   try {
     const trigger = interaction.options.getString("trigger", true);
 
-    const triggerIndex = config.triggers.findIndex((el) => el[0] === trigger);
+    const triggerIndex = config.newTriggers.findIndex(
+      (el) => el.trigger === trigger
+    );
 
     if (triggerIndex === -1) {
       await interaction.editReply({
@@ -26,8 +28,8 @@ export const handleTriggerRemove: CommandHandler = async (
       return;
     }
 
-    config.triggers.splice(triggerIndex, 1);
-    config.markModified("triggers");
+    config.newTriggers.splice(triggerIndex, 1);
+    config.markModified("newTriggers");
     await config.save();
 
     const success = new EmbedBuilder();

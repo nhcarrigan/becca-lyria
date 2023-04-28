@@ -21,7 +21,7 @@ export const handleTriggerView: CommandHandler = async (
   config
 ) => {
   try {
-    if (!config.triggers.length) {
+    if (!config.newTriggers.length) {
       await interaction.editReply({
         content: t("commands:triggers.view.none"),
       });
@@ -29,11 +29,11 @@ export const handleTriggerView: CommandHandler = async (
     }
 
     let page = 1;
-    const triggerList = config.triggers.map((el) => ({
-      name: el[0],
-      value: el[1],
+    const triggerList = config.newTriggers.map((el) => ({
+      name: el.trigger,
+      value: el.response,
     }));
-    const lastPage = Math.ceil(config.triggers.length / 10);
+    const lastPage = Math.ceil(config.newTriggers.length / 10);
 
     const embed = new EmbedBuilder();
     embed.setTitle(t("commands:triggers.view.title"));

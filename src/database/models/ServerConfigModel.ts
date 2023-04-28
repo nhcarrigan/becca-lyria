@@ -24,6 +24,10 @@ export const ServerConfigSchema = new Schema({
   level_ignore: [String],
   sass_mode: String,
   triggers: Array,
+  newTriggers: {
+    type: Array,
+    default: [],
+  },
   emote_channels: Array,
   appeal_link: String,
   // automod

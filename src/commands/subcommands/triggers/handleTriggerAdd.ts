@@ -18,7 +18,7 @@ export const handleTriggerAdd: CommandHandler = async (
     const trigger = interaction.options.getString("trigger", true);
     const response = interaction.options.getString("response", true);
 
-    const hasTrigger = config.triggers.find((el) => el[0] === trigger);
+    const hasTrigger = config.newTriggers.find((el) => el.trigger === trigger);
 
     if (hasTrigger) {
       await interaction.editReply({
@@ -27,15 +27,15 @@ export const handleTriggerAdd: CommandHandler = async (
       return;
     }
 
-    if (config.triggers.length >= 50) {
+    if (config.newTriggers.length >= 50) {
       await interaction.editReply({
         content: t("commands:triggers.add.max"),
       });
       return;
     }
 
-    config.triggers.push([trigger, response]);
-    config.markModified("triggers");
+    config.newTriggers.push({ trigger, response });
+    config.markModified("newTriggers");
     await config.save();
 
     const success = new EmbedBuilder();

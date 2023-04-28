@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { LevelRole } from "../../interfaces/settings/LevelRole";
+import { Trigger } from "../../interfaces/settings/Trigger";
 
 /**
  * This config maps the default values for the ServerModel document. Useful
@@ -16,6 +17,7 @@ export const defaultServer = {
   hearts: [] as string[],
   blocked: [] as string[],
   triggers: [] as [string, string][],
+  newTriggers: [] as Trigger[],
   automod_channels: [] as string[],
   no_automod_channels: [] as string[],
   automod_roles: [] as string[],
