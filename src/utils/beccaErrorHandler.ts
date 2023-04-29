@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/no-undefined-types */
 import * as Sentry from "@sentry/node";
 import {
   CommandInteraction,
@@ -23,7 +22,7 @@ import { customSubstring } from "./customSubstring";
  * @param {unknown} err The standard error object (generated in a catch statement).
  * @param {string | undefined} guild The name of the guild that triggered the issue.
  * @param {Message | undefined} message Optional message that triggered the issue.
- * @param { CommandInteraction | ContextMenuInteraction | undefined } interaction Optional interaction that triggered the issue.
+ * @param { CommandInteraction | ContextMenuCommandInteraction | undefined } interaction Optional interaction that triggered the issue.
  * @returns {Types.ObjectId} A unique ID for the error.
  */
 export const beccaErrorHandler = async (

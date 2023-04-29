@@ -1,4 +1,3 @@
-/* eslint-disable require-atomic-updates */
 import { RewriteFrames } from "@sentry/integrations";
 import * as Sentry from "@sentry/node";
 import { ActivityType, Client, WebhookClient } from "discord.js";
@@ -57,6 +56,7 @@ void (async () => {
     url: Becca.configs.currencyReminderUrl,
   });
   Becca.feedbackHook = new WebhookClient({ url: Becca.configs.feedbackUrl });
+  Becca.timeOuts = {};
 
   /**
    * Fallthrough error handlers. These fire in rare cases where something throws
@@ -80,9 +80,7 @@ void (async () => {
   beccaLogHandler.log("debug", "Importing commands...");
   const commands = await loadCommands(Becca);
   const contexts = await loadContexts(Becca);
-  Becca.commands = commands;
-  Becca.contexts = contexts;
-  if (!commands.length || !contexts.length) {
+  if (!commands || !contexts) {
     beccaLogHandler.log("error", "failed to import commands.");
     return;
   }
@@ -103,7 +101,6 @@ void (async () => {
     return;
   }
 
-  Becca.timeOuts = {};
   beccaLogHandler.log("debug", "Attaching event listeners...");
   handleEvents(Becca);
 

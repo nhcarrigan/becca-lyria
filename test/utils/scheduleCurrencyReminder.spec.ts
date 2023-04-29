@@ -20,8 +20,8 @@ suite("scheduleCurrencyReminder", () => {
     const messages: string[] = [];
     const mockBecca = {
       currencyReminderHook: {
-        // eslint-disable-next-line require-await
-        send: async (message: string) => messages.push(message),
+        send: async (message: string) =>
+          await new Promise(() => messages.push(message)),
       },
     } as unknown;
     await scheduleCurrencyReminder(mockBecca as BeccaLyria, 100, "test");

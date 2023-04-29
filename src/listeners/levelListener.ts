@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import { ChannelType, EmbedBuilder, TextChannel } from "discord.js";
 
 import levelScale from "../config/listeners/levelScale";

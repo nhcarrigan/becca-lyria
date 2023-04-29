@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import { AxiosHeaders } from "axios";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";

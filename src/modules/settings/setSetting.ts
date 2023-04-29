@@ -1,10 +1,10 @@
-/* eslint-disable no-case-declarations */
 import { servers } from "@prisma/client";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
-import { Settings } from "../../interfaces/settings/Settings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { beccaLogHandler } from "../../utils/beccaLogHandler";
+
+import { settingsSetters } from "./settingsSetters";
 
 /**
  * This handles all of the logic for setting a server's config. Depending on
@@ -13,7 +13,7 @@ import { beccaLogHandler } from "../../utils/beccaLogHandler";
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {string} serverName The current name of the server.
- * @param {Settings} key The name of the setting to modify.
+ * @param {keyof servers} key The name of the setting to modify.
  * @param {string} value The value to change the setting to.
  * @param {servers} server The server config entry in the database.
  * @returns {servers | null} ServerModel on success and null on error.
@@ -26,9 +26,6 @@ export const setSetting = async (
   server: servers
 ): Promise<servers | null> => {
   try {
-    const parsedValue =
-      typeof value === "string" ? value.replace(/\D/g, "") : value;
-
     switch (key) {
       case "automod_channels":
       case "no_automod_channels":
@@ -37,36 +34,13 @@ export const setSetting = async (
       case "automod_roles":
       case "level_ignore":
       case "emote_channels":
-        if (server[key].includes(parsedValue)) {
-          const index = server[key].indexOf(parsedValue);
-          server[key].splice(index, 1);
-        } else {
-          server[key].push(parsedValue);
-        }
+        settingsSetters.setArrayOfIdSetting(server, key, value);
         break;
       case "allowed_links":
-        if (server[key].includes(value)) {
-          const index = server[key].indexOf(value);
-          server[key].splice(index, 1);
-        } else {
-          server[key].push(value);
-        }
+        settingsSetters.setArrayOfStringSetting(server, key, value);
         break;
       case "level_roles":
-        const [level, role] = value.split(" ");
-        const hasSetting = server[key].findIndex(
-          (el) =>
-            el.role === role.replace(/\D/g, "") &&
-            el.level === parseInt(level, 10)
-        );
-        if (hasSetting === -1) {
-          server[key].push({
-            level: parseInt(level, 10),
-            role: role.replace(/\D/g, ""),
-          });
-        } else {
-          server[key].splice(hasSetting, 1);
-        }
+        settingsSetters.setArrayOfLevelRoleSetting(server, key, value);
         break;
       case "custom_welcome":
       case "levels":
@@ -81,18 +55,18 @@ export const setSetting = async (
       case "level_message":
       case "role_message":
       case "starboard_emote":
-        server[key] = value;
+        settingsSetters.setStringSetting(server, key, value);
         break;
       case "starboard_threshold":
       case "level_decay":
-        server[key] = parseInt(value, 10);
+        settingsSetters.setNumberSetting(server, key, value);
         break;
       case "antiphish":
-        server[key] = value as "none" | "mute" | "kick" | "ban";
+        settingsSetters.setAntiphishSetting(server, key, value);
         break;
       case "level_style":
       case "welcome_style":
-        server[key] = value as "embed" | "text";
+        settingsSetters.setStyleSetting(server, key, value);
         break;
       case "welcome_channel":
       case "depart_channel":
@@ -109,12 +83,11 @@ export const setSetting = async (
       case "ticket_log_channel":
       case "ticket_role":
       case "starboard_channel":
-        server[key] = value.replace(/\D/g, "");
+        settingsSetters.setIdSetting(server, key, value);
         break;
       default:
         beccaLogHandler.log("error", "the setSettings logic broke horribly.");
     }
-
     return server;
   } catch (err) {
     await beccaErrorHandler(Becca, "set setting module", err, serverName);

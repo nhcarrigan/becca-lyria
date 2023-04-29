@@ -115,19 +115,17 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
     );
 
     HTTPEndpoint.use("/stats/:stat", async (req, res) => {
-      switch (req.params.stat) {
-        case "commands":
-          // eslint-disable-next-line no-case-declarations
-          const data = await Becca.db.commands.findMany({
-            orderBy: {
-              commandUses: "desc",
-            },
-          });
-          res.json(data);
-          break;
-        default:
-          res.status(404).send("Invalid stat view!");
+      const stat = req.params.stat;
+      if (stat === "commands") {
+        const data = await Becca.db.commands.findMany({
+          orderBy: {
+            commandUses: "desc",
+          },
+        });
+        res.json(data);
+        return;
       }
+      res.status(404).send("Invalid stat view!");
     });
 
     HTTPEndpoint.use("/commands", async (_, res) => {

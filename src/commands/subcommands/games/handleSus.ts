@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import { EmbedBuilder } from "discord.js";
 
 import { SusList } from "../../../config/commands/susList";

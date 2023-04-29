@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import axios from "axios";
 import {
   ActionRowBuilder,
@@ -24,6 +23,8 @@ export const handleOrbit: CommandHandler = async (Becca, interaction, t) => {
     if (!Becca.dataCache.orbitData.length) {
       cached = false;
       const data = await getOrbitData(Becca);
+      // TODO: This will go away when the orbit command is removed.
+      // Ref: https://github.com/BeccaLyria/discord-bot/issues/1662
       // eslint-disable-next-line require-atomic-updates
       Becca.dataCache.orbitData = data;
     }

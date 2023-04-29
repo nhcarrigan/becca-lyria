@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import { DefaultTFuncReturn } from "i18next";
 
 import { ListenerHandler } from "../../../interfaces/listeners/ListenerHandler";

@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import { Listener } from "../interfaces/listeners/Listener";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 

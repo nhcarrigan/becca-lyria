@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import { GuildMember, PermissionFlagsBits } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 

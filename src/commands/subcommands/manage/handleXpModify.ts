@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import { EmbedBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
