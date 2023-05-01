@@ -97,7 +97,6 @@ export const validateEnv = (
       topGG: process.env.TOPGG_PASSWORD,
       voteChannel: process.env.VOTE_CHANNEL_ID,
       habiticaKey: process.env.HABITICA_KEY || "",
-      orbitKey: process.env.ORBIT_KEY || "",
     };
 
     Becca.configs = configs;
@@ -107,11 +106,6 @@ export const validateEnv = (
       warning: 0xc27c0e,
       error: 0x992d22,
     };
-
-    Becca.dataCache = {
-      orbitData: [],
-    };
-
     return { valid: true, message: "Environment variables validated!" };
   } catch (err) {
     beccaLogHandler.log("error", err);
