@@ -67,10 +67,6 @@ export const validateEnv = (
       return { valid: false, message: "Missing Bot's Vote Channel ID" };
     }
 
-    if (!process.env.HABITICA_KEY) {
-      beccaLogHandler.log("warn", "Missing Habitica API key");
-    }
-
     if (!process.env.ORBIT_KEY) {
       beccaLogHandler.log("warn", "Missing Orbit API key");
     }
@@ -96,7 +92,6 @@ export const validateEnv = (
       topGGToken: process.env.TOPGG_TOKEN || "",
       topGG: process.env.TOPGG_PASSWORD,
       voteChannel: process.env.VOTE_CHANNEL_ID,
-      habiticaKey: process.env.HABITICA_KEY || "",
       orbitKey: process.env.ORBIT_KEY || "",
     };
 
