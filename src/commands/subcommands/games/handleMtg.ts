@@ -18,7 +18,7 @@ export const handleMtg: CommandHandler = async (Becca, interaction, t) => {
       `https://api.magicthegathering.io/v1/cards?name=${query}&pageSize=1`
     );
 
-    if (!cards.data || !cards.data.cards.length) {
+    if (!cards?.data?.cards?.length) {
       await interaction.editReply({
         content: t("commands:games.mtg.no"),
       });

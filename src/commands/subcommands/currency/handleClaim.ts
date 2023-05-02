@@ -107,7 +107,7 @@ export const handleClaim: CurrencyHandler = async (
           },
         ]);
         break;
-      case "default":
+      default:
         await interaction.editReply(t("commands:currency.claim.invalid"));
         return;
     }

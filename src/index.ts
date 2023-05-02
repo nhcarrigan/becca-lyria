@@ -1,5 +1,5 @@
 import { RewriteFrames } from "@sentry/integrations";
-import * as Sentry from "@sentry/node";
+import { init } from "@sentry/node";
 import { ActivityType, Client, WebhookClient } from "discord.js";
 
 import { initialiseTranslations } from "./config/i18n/initialiseTranslations";
@@ -15,7 +15,7 @@ import { loadCommands } from "./utils/loadCommands";
 import { loadContexts } from "./utils/loadContexts";
 import { registerCommands } from "./utils/registerCommands";
 
-Sentry.init({
+init({
   dsn: process.env.SENTRY_DSN,
   tracesSampleRate: 1.0,
   integrations: [

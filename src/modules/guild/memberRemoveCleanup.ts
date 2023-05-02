@@ -49,7 +49,7 @@ export const memberRemoveCleanup = async (
       where: {
         serverId_userId: {
           serverId: guildId,
-          userId: userId,
+          userId,
         },
       },
     });

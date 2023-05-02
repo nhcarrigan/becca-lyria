@@ -21,13 +21,7 @@ export const emoteListener: Listener = {
       }
 
       const newContent = message.content
-        // Discord emote syntax
-        ?.replace(/:[^:\s]+:|<:[^:\s]+:\d+>|<a:[^:\s]+:\d+>/g, "")
-        // standard emotes
-        .replace(
-          /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]|\ufe0f)/g,
-          ""
-        )
+        ?.replace(/<a?:.+?:\d{18}>|\p{Extended_Pictographic}/gu, "")
         .replace(/\s/g, "");
 
       if (newContent?.length) {

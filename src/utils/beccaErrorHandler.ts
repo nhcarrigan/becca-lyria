@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/node";
+import { captureException } from "@sentry/node";
 import {
   CommandInteraction,
   ContextMenuCommandInteraction,
@@ -40,12 +40,12 @@ export const beccaErrorHandler = async (
     JSON.stringify({ errorMessage: error.message, errorStack: error.stack })
   );
 
-  Sentry.captureException(error);
+  captureException(error);
 
   const errorId = new Types.ObjectId();
   const errorEmbed = new EmbedBuilder();
   errorEmbed.setTitle(
-    `${context} error ${guild ? "in " + guild : "from an unknown source"}.`
+    `${context} error ${guild ? `in ${guild}` : "from an unknown source"}.`
   );
   errorEmbed.setColor(Becca.colours.error);
   errorEmbed.setDescription(customSubstring(error.message, 2000));

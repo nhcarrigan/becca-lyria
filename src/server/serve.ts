@@ -2,7 +2,7 @@ import { readFile } from "fs/promises";
 import http from "http";
 import https from "https";
 
-import * as Topgg from "@top-gg/sdk";
+import { Webhook } from "@top-gg/sdk";
 import cors from "cors";
 import express from "express";
 
@@ -24,7 +24,7 @@ import { beccaLogHandler } from "../utils/beccaLogHandler";
 export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
   try {
     const HTTPEndpoint = express();
-    const topgg = new Topgg.Webhook(Becca.configs.topGG, {});
+    const topgg = new Webhook(Becca.configs.topGG, {});
     HTTPEndpoint.disable("x-powered-by");
 
     const allowedOrigins = [
@@ -106,11 +106,10 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
         });
 
         await sendVoteMessage(Becca, payload, voteRecord, voteType);
-        setTimeout(
-          async () =>
-            await sendVoteReminder(Becca, payload, voteRecord, voteType),
-          1000 * 60 * 60 * 12
-        );
+        setTimeout(async () => {
+          await sendVoteReminder(Becca, payload, voteRecord, voteType),
+            1000 * 60 * 60 * 12;
+        });
       })
     );
 
@@ -167,7 +166,7 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
       const credentials = {
         key: privateKey,
         cert: certificate,
-        ca: ca,
+        ca,
       };
 
       const httpsServer = https.createServer(credentials, HTTPEndpoint);

@@ -23,7 +23,7 @@ export const handleStarCount: CommandHandler = async (
       },
     });
 
-    if (!starCounts || !starCounts.users.length) {
+    if (!starCounts?.users.length) {
       await interaction.editReply({
         content: t("commands:community.starcount.none"),
       });

@@ -162,6 +162,9 @@ export const handleTwentyOne: CurrencyHandler = async (
           while (dealer <= 16) {
             dealer += Math.ceil(Math.random() * 10);
           }
+          break;
+        default:
+          break;
       }
       const { over, won, tied } = getGameState(player, dealer, click.customId);
       gameState.over = over;

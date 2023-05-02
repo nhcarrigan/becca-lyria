@@ -14,9 +14,9 @@ export const heartsListener: Listener = {
     try {
       const { author } = message;
       if (config.hearts.includes(author.id)) {
-        await message
-          .react(Becca.configs.love)
-          .catch(async () => await message.react("💜"));
+        await message.react(Becca.configs.love).catch(async () => {
+          await message.react("💜");
+        });
       }
     } catch (err) {
       await beccaErrorHandler(

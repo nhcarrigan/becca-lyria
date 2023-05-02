@@ -107,7 +107,9 @@ export const handleServer: CommandHandler = async (Becca, interaction, t) => {
       },
       {
         name: t("commands:community.server.aemote"),
-        value: guildEmojis.filter((emote) => !!emote.animated).size.toString(),
+        value: guildEmojis
+          .filter((emote) => Boolean(emote.animated))
+          .size.toString(),
         inline: true,
       },
       {

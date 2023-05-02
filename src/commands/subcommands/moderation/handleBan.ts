@@ -29,8 +29,7 @@ export const handleBan: CommandHandler = async (
 
     if (
       !member.permissions.has(PermissionFlagsBits.BanMembers) ||
-      (targetMember &&
-        targetMember.permissions.has(PermissionFlagsBits.BanMembers))
+      targetMember?.permissions.has(PermissionFlagsBits.BanMembers)
     ) {
       await interaction.editReply({
         content: tFunctionArrayWrapper(t, "responses:noPermission"),

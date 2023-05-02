@@ -33,7 +33,7 @@ export const handleLeaderboard: CommandHandler = async (
       },
     });
 
-    if (!serverLevels || !serverLevels.length) {
+    if (!serverLevels?.length) {
       await interaction.editReply({
         content: t("commands:community.leaderboard.disabled"),
       });

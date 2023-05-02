@@ -28,8 +28,7 @@ export const handleKick: CommandHandler = async (
 
     if (
       !member.permissions.has(PermissionFlagsBits.KickMembers) ||
-      (targetMember &&
-        targetMember.permissions.has(PermissionFlagsBits.KickMembers))
+      targetMember?.permissions.has(PermissionFlagsBits.KickMembers)
     ) {
       await interaction.editReply({
         content: tFunctionArrayWrapper(t, "responses:noPermission"),

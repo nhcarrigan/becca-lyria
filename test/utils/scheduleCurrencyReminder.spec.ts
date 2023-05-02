@@ -20,8 +20,9 @@ suite("scheduleCurrencyReminder", () => {
     const messages: string[] = [];
     const mockBecca = {
       currencyReminderHook: {
-        send: async (message: string) =>
-          await new Promise(() => messages.push(message)),
+        send: async (message: string) => {
+          await new Promise(() => messages.push(message));
+        },
       },
     } as unknown;
     await scheduleCurrencyReminder(mockBecca as BeccaLyria, 100, "test");

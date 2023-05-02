@@ -185,5 +185,6 @@ export const automodPhish: ListenerHandler = async (
       message.guild?.name,
       message
     );
+    return false;
   }
 };

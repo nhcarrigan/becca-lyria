@@ -32,7 +32,7 @@ export const handleResetLevels: CommandHandler = async (
       },
     });
 
-    if (!currentLevels || !currentLevels.length) {
+    if (!currentLevels?.length) {
       await interaction.editReply({
         content: t("commands:manage.levels.none"),
       });

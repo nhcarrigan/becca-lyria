@@ -1,5 +1,5 @@
 import { EmbedBuilder } from "discord.js";
-import * as filter from "leo-profanity";
+import { check, clean } from "leo-profanity";
 
 import { defaultServer } from "../../config/database/defaultServer";
 import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
@@ -16,7 +16,7 @@ export const automodProfanity: ListenerHandler = async (
   config
 ) => {
   try {
-    if (!filter.check(message.content)) {
+    if (!check(message.content)) {
       return;
     }
 
@@ -46,7 +46,7 @@ export const automodProfanity: ListenerHandler = async (
     dmEmbed.setTitle(t("listeners:automod.profanity.dmTitle"));
     dmEmbed.setURL(warning.url);
     dmEmbed.setDescription(
-      `${t("listeners:automod.profanity.dmDesc")}\n\`\`\`\n${filter.clean(
+      `${t("listeners:automod.profanity.dmDesc")}\n\`\`\`\n${clean(
         message.content,
         "*",
         2

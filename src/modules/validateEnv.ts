@@ -1,4 +1,4 @@
-import * as child from "child_process";
+import { execSync } from "child_process";
 
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 import { beccaLogHandler } from "../utils/beccaLogHandler";
@@ -71,9 +71,9 @@ export const validateEnv = (
       beccaLogHandler.log("warn", "Missing Orbit API key");
     }
 
-    Becca.commitHash = child.execSync("git rev-parse HEAD").toString().trim();
+    Becca.commitHash = execSync("git rev-parse HEAD").toString().trim();
 
-    const configs: BeccaLyria["configs"] = {
+    Becca.configs = {
       token: process.env.DISCORD_TOKEN,
       dbToken: process.env.MONGODB,
       whUrl: process.env.WH_URL,
@@ -95,7 +95,6 @@ export const validateEnv = (
       orbitKey: process.env.ORBIT_KEY || "",
     };
 
-    Becca.configs = configs;
     Becca.colours = {
       default: 0x8b4283,
       success: 0x1f8b4c,
