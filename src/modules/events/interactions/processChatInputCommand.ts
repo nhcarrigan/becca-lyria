@@ -5,6 +5,8 @@ import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { currencyListener } from "../../../listeners/currencyListener";
 import { usageListener } from "../../../listeners/usageListener";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
+import { chatInputCommandHasNecessaryProperties } from "../../../utils/typeGuards";
 import { logActivity } from "../../commands/logActivity";
 import { getSettings } from "../../settings/getSettings";
 
@@ -33,9 +35,9 @@ export const processChatInputCommand = async (
       });
       return;
     }
-    if (!interaction.guildId || !interaction.guild) {
+    if (!chatInputCommandHasNecessaryProperties(interaction)) {
       await interaction.reply({
-        content: t<string, string>("events:interaction.noDms"),
+        content: tFunctionArrayWrapper(t, "responses:missingGuild"),
       });
       return;
     }

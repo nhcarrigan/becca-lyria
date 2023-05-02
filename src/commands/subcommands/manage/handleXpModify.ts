@@ -1,4 +1,4 @@
-import { EmbedBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
 import levelScale from "../../../config/listeners/levelScale";
@@ -25,19 +25,8 @@ export const handleXpModify: CommandHandler = async (
     const target = interaction.options.getUser("user", true);
     const amount = interaction.options.getNumber("adjustment", true);
 
-    if (!guild || !member) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     if (
-      !(member as GuildMember).permissions.has(
-        PermissionFlagsBits.ManageGuild
-      ) &&
+      !member.permissions.has(PermissionFlagsBits.ManageGuild) &&
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({

@@ -2,7 +2,7 @@ import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
-import { GuildMember, PermissionFlagsBits } from "discord.js";
+import { PermissionFlagsBits } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
 import { Command } from "../interfaces/commands/Command";
@@ -67,9 +67,7 @@ export const triggers: Command = {
       const subcommand = interaction.options.getSubcommand();
 
       if (
-        !(interaction.member as GuildMember).permissions.has(
-          PermissionFlagsBits.ManageGuild
-        )
+        !interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)
       ) {
         await interaction.editReply({
           content: getRandomValue(

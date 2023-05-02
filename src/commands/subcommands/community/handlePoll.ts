@@ -6,13 +6,11 @@ import {
   time,
   TimestampStyles,
 } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { calculateMilliseconds } from "../../../utils/calculateMilliseconds";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Creates an embed containing the `question` as the description, the `a`, `b`,
@@ -24,14 +22,6 @@ export const handlePoll: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guild, channel } = interaction;
 
-    if (!guild || !channel) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
     const duration = interaction.options.getInteger("duration", true);
     const durationUnit = interaction.options.getString("unit", true);
     const question = interaction.options.getString("question", true);

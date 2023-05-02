@@ -1,10 +1,8 @@
 import { EmbedBuilder } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { UserConfigCommandHandler } from "../../../interfaces/commands/UserConfigCommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Handles setting a user's levelcard configuration.
@@ -17,14 +15,6 @@ export const handleLevelCard: UserConfigCommandHandler = async (
 ) => {
   try {
     const { user } = interaction;
-    if (!user) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingUser")
-        ),
-      });
-      return;
-    }
 
     const background = interaction.options.getString("background", true);
     const foreground = interaction.options.getString("foreground", true);

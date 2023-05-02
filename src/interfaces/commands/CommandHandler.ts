@@ -3,6 +3,7 @@ import { ChatInputCommandInteraction } from "discord.js";
 import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../BeccaLyria";
+import { ValidatedChatInputCommandInteraction } from "../discord/ValidatedChatInputCommandInteraction";
 
 /**
  * Handles the logic execution for a sub-command.
@@ -14,7 +15,7 @@ import { BeccaLyria } from "../BeccaLyria";
  */
 export type CommandHandler = (
   Becca: BeccaLyria,
-  interaction: ChatInputCommandInteraction,
+  interaction: ValidatedChatInputCommandInteraction,
   t: TFunction,
   config: servers
 ) => Promise<void>;

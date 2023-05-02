@@ -5,13 +5,11 @@ import {
   ComponentType,
   EmbedBuilder,
 } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { formatTextToTable } from "../../../utils/formatText";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * If the server has enabled the level system, this generates an embed
@@ -26,14 +24,6 @@ export const handleLeaderboard: CommandHandler = async (
   try {
     const { guildId, guild } = interaction;
 
-    if (!guildId || !guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
     const serverLevels = await Becca.db.newlevels.findMany({
       where: {
         serverID: guildId,

@@ -25,20 +25,9 @@ export const handleKick: CommandHandler = async (
     const target = interaction.options.getUser("target", true);
     const reason = interaction.options.getString("reason", true);
 
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     const targetMember = await guild.members.fetch(target.id).catch(() => null);
 
     if (
-      !member ||
-      typeof member.permissions === "string" ||
       !member.permissions.has(PermissionFlagsBits.KickMembers) ||
       (targetMember &&
         targetMember.permissions.has(PermissionFlagsBits.KickMembers))

@@ -3,6 +3,7 @@ import { ChatInputCommandInteraction } from "discord.js";
 import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../BeccaLyria";
+import { ValidatedChatInputCommandInteraction } from "../discord/ValidatedChatInputCommandInteraction";
 
 import { Settings } from "./Settings";
 
@@ -18,7 +19,7 @@ import { Settings } from "./Settings";
  */
 export type SettingsHandler = (
   Becca: BeccaLyria,
-  interaction: ChatInputCommandInteraction,
+  interaction: ValidatedChatInputCommandInteraction,
   t: TFunction,
   config: servers,
   setting: Settings,

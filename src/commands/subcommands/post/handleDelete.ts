@@ -13,27 +13,13 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
   try {
     await interaction.deferReply({ ephemeral: true });
     const { member, guild } = interaction;
-
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     const link = interaction.options.getString("link", true).split("/");
     const channelId = link[link.length - 2];
     const messageId = link[link.length - 1];
 
     const channel = guild.channels.resolve(channelId);
 
-    if (
-      !member ||
-      typeof member.permissions === "string" ||
-      !member.permissions.has(PermissionFlagsBits.ManageGuild)
-    ) {
+    if (!member.permissions.has(PermissionFlagsBits.ManageGuild)) {
       await interaction.editReply({
         content: getRandomValue(
           t<string, DefaultTFuncReturn & string[]>("responses:noPermission")

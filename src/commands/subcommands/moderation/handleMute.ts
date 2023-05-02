@@ -46,20 +46,9 @@ export const handleMute: CommandHandler = async (
       return;
     }
 
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     const targetMember = await guild.members.fetch(target.id);
 
     if (
-      !member ||
-      typeof member.permissions === "string" ||
       !member.permissions.has(PermissionFlagsBits.ModerateMembers) ||
       !targetMember ||
       targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)

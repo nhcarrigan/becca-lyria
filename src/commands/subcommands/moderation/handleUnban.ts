@@ -17,23 +17,9 @@ export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
     const reason = interaction.options.getString("reason", true);
-
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     const bannedMember = await guild.bans.fetch(target.id).catch(() => null);
 
-    if (
-      !member ||
-      typeof member.permissions === "string" ||
-      !member.permissions.has(PermissionFlagsBits.BanMembers)
-    ) {
+    if (!member.permissions.has(PermissionFlagsBits.BanMembers)) {
       await interaction.editReply({
         content: getRandomValue(
           t<string, DefaultTFuncReturn & string[]>("responses:noPermission")

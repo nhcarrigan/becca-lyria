@@ -176,20 +176,10 @@ export const levels: Command = {
   run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
-      const { guild, member } = interaction;
-
-      if (!guild || !member) {
-        await interaction.editReply({
-          content: getRandomValue(
-            t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-          ),
-        });
-        return;
-      }
+      const { member } = interaction;
 
       if (
-        (typeof member.permissions === "string" ||
-          !member.permissions.has(PermissionFlagsBits.ManageGuild)) &&
+        !member.permissions.has(PermissionFlagsBits.ManageGuild) &&
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({

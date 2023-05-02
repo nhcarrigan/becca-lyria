@@ -1,9 +1,4 @@
-import {
-  GuildMember,
-  PermissionFlagsBits,
-  TextChannel,
-  ForumChannel,
-} from "discord.js";
+import { PermissionFlagsBits, TextChannel, ForumChannel } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -26,18 +21,7 @@ export const handleSuggestion: CommandHandler = async (
   try {
     const { user: author, guild, member } = interaction;
 
-    if (!guild || !member) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
-    if (
-      !(member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild)
-    ) {
+    if (!member.permissions.has(PermissionFlagsBits.ManageGuild)) {
       await interaction.editReply({
         content: getRandomValue(
           t<string, DefaultTFuncReturn & string[]>("responses:noPermission")

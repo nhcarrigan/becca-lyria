@@ -1,4 +1,4 @@
-import { GuildMember, PermissionFlagsBits } from "discord.js";
+import { PermissionFlagsBits } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -17,18 +17,7 @@ export const handleResetStars: CommandHandler = async (
   try {
     const { member, guild } = interaction;
 
-    if (!guild || !member) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
-    if (
-      !(member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild)
-    ) {
+    if (!member.permissions.has(PermissionFlagsBits.ManageGuild)) {
       await interaction.editReply({
         content: getRandomValue(
           t<string, DefaultTFuncReturn & string[]>("responses:noPermission")

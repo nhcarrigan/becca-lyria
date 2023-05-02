@@ -1,3 +1,4 @@
+import { ChatInputCommandInteraction } from "discord.js";
 import { EmoteAction } from "../config/commands/emoteData";
 import { ModerationActions } from "../interfaces/commands/moderation/ModerationActions";
 import {
@@ -14,6 +15,23 @@ import {
   StringSettings,
   StyleSettings,
 } from "../interfaces/settings/Settings";
+import { ValidatedChatInputCommandInteraction } from "../interfaces/discord/ValidatedChatInputCommandInteraction";
+
+// ! Command Input Validation
+
+export const chatInputCommandHasNecessaryProperties = (
+  interaction: ChatInputCommandInteraction
+): interaction is ValidatedChatInputCommandInteraction => {
+  return (
+    interaction.guild !== null &&
+    interaction.member !== null &&
+    interaction.guildId !== null &&
+    interaction.channel !== null &&
+    typeof interaction.member.permissions !== "string"
+  );
+};
+
+// ! Settings Validation
 
 /**
  * Confirms that a string is a valid moderation action.

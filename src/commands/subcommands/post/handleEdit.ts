@@ -18,28 +18,13 @@ import { getRandomValue } from "../../../utils/getRandomValue";
 export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { member, guild } = interaction;
-
-    if (!guild) {
-      await interaction.reply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-        ephemeral: true,
-      });
-      return;
-    }
-
     const link = interaction.options.getString("link", true).split("/");
     const channelId = link[link.length - 2];
     const messageId = link[link.length - 1];
 
     const channel = guild.channels.resolve(channelId);
 
-    if (
-      !member ||
-      typeof member.permissions === "string" ||
-      !member.permissions.has(PermissionFlagsBits.ManageGuild)
-    ) {
+    if (!member.permissions.has(PermissionFlagsBits.ManageGuild)) {
       await interaction.reply({
         content: getRandomValue(
           t<string, DefaultTFuncReturn & string[]>("responses:noPermission")

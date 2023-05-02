@@ -2,7 +2,6 @@ import {
   ChannelType,
   EmbedBuilder,
   GuildBasedChannel,
-  GuildMember,
   PermissionFlagsBits,
 } from "discord.js";
 
@@ -26,12 +25,9 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
     const message = interaction.options.getString("message", true);
 
     if (
-      !(
-        member &&
-        (member as GuildMember)
-          ?.permissionsIn(targetChannel as GuildBasedChannel)
-          .has(PermissionFlagsBits.SendMessages)
-      )
+      !member
+        .permissionsIn(targetChannel as GuildBasedChannel)
+        .has(PermissionFlagsBits.SendMessages)
     ) {
       await interaction.editReply({
         content: t("commands:community.schedule.permission"),
@@ -41,7 +37,7 @@ export const handleSchedule: CommandHandler = async (Becca, interaction, t) => {
 
     if (
       targetChannel.type !== ChannelType.GuildText &&
-      targetChannel.type !== ChannelType.GuildNews
+      targetChannel.type !== ChannelType.GuildAnnouncement
     ) {
       await interaction.editReply({
         content: t("commands:community.schedule.notext"),

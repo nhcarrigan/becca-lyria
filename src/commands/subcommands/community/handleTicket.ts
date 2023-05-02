@@ -8,12 +8,10 @@ import {
   PermissionFlagsBits,
   TextChannel,
 } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { createLogFile } from "../../../modules/tickets/createLogFile";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Handles the ticket creation flow.
@@ -26,15 +24,6 @@ export const handleTicket: CommandHandler = async (
 ) => {
   try {
     const { guild } = interaction;
-
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
 
     if (!config.ticket_category || !config.ticket_log_channel) {
       await interaction.editReply({

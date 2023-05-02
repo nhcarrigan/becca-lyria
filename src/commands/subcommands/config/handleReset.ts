@@ -1,10 +1,7 @@
-import { DefaultTFuncReturn } from "i18next";
-
 import { SettingsHandler } from "../../../interfaces/settings/SettingsHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { resetSetting } from "../../../modules/settings/resetSetting";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Resets the given `setting` to the default value.
@@ -18,15 +15,6 @@ export const handleReset: SettingsHandler = async (
 ) => {
   try {
     const { guild } = interaction;
-
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
 
     const success = await resetSetting(Becca, guild.id, guild.name, setting);
     await interaction.editReply(

@@ -19,11 +19,7 @@ export const handleCreate: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { member } = interaction;
 
-    if (
-      !member ||
-      typeof member.permissions === "string" ||
-      !member.permissions.has(PermissionFlagsBits.ManageGuild)
-    ) {
+    if (!member.permissions.has(PermissionFlagsBits.ManageGuild)) {
       await interaction.reply({
         content: getRandomValue(
           t<string, DefaultTFuncReturn & string[]>("responses:noPermission")

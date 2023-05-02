@@ -7,6 +7,7 @@ import {
 import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../BeccaLyria";
+import { ValidatedChatInputCommandInteraction } from "../discord/ValidatedChatInputCommandInteraction";
 
 export interface Command {
   data:
@@ -22,7 +23,7 @@ export interface Command {
    */
   run: (
     Becca: BeccaLyria,
-    interaction: ChatInputCommandInteraction,
+    interaction: ValidatedChatInputCommandInteraction,
     t: TFunction,
     config: servers
   ) => Promise<void>;

@@ -13,19 +13,9 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
-
-    if (!guild || !member) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
     const targetMember = await guild.members.fetch(target.id).catch(() => null);
 
     if (
-      typeof member.permissions === "string" ||
       (!member.permissions.has(PermissionFlagsBits.KickMembers) &&
         !member.permissions.has(PermissionFlagsBits.BanMembers) &&
         !member.permissions.has(PermissionFlagsBits.ModerateMembers)) ||

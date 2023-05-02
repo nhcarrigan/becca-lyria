@@ -24,20 +24,9 @@ export const handleUnmute: CommandHandler = async (
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
     const reason = interaction.options.getString("reason", true);
-
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
     const targetMember = await guild.members.fetch(target.id);
 
     if (
-      !member ||
-      typeof member.permissions === "string" ||
       !member.permissions.has(PermissionFlagsBits.ModerateMembers) ||
       !targetMember ||
       targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)

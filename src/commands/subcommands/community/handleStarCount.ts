@@ -1,11 +1,9 @@
 import { EmbedBuilder } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { formatTextToTable } from "../../../utils/formatText";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Generates an embed listing the top ten users with the most stars received in the
@@ -18,15 +16,6 @@ export const handleStarCount: CommandHandler = async (
 ) => {
   try {
     const { member, guild } = interaction;
-
-    if (!guild || !member) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
 
     const starCounts = await Becca.db.starcounts.findUnique({
       where: {

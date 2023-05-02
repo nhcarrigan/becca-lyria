@@ -1,5 +1,4 @@
 import { ChannelType, EmbedBuilder } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import {
   accountVerificationMap,
@@ -8,7 +7,6 @@ import {
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Generates an embed listing the various Discord settings for the specific server.
@@ -16,15 +14,6 @@ import { getRandomValue } from "../../../utils/getRandomValue";
 export const handleServer: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guild } = interaction;
-
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
 
     const guildOwner = await guild.members.fetch(guild.ownerId);
     const guildMembers = (await guild.members.fetch()).map((u) => u);

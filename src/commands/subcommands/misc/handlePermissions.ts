@@ -1,4 +1,4 @@
-import { EmbedBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
@@ -20,20 +20,9 @@ export const handlePermissions: CommandHandler = async (
   try {
     const { channel, guild, member } = interaction;
 
-    if (!guild || !member || !channel) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     if (
-      !(member as GuildMember).permissions.has(
-        PermissionFlagsBits.ManageGuild
-      ) &&
-      (member as GuildMember).id !== Becca.configs.ownerId
+      !member.permissions.has(PermissionFlagsBits.ManageGuild) &&
+      member.id !== Becca.configs.ownerId
     ) {
       await interaction.reply({
         content: getRandomValue(

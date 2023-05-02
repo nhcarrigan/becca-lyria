@@ -4,25 +4,15 @@ import {
   ButtonStyle,
   EmbedBuilder,
 } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { formatTextToTable } from "../../../utils/formatText";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 export const handleStats: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const { guild, user: author } = interaction;
-    if (!guild || !author) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
+    const { user: author } = interaction;
 
     const view = interaction.options.getString("view");
 

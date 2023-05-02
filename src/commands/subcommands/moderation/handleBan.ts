@@ -26,20 +26,9 @@ export const handleBan: CommandHandler = async (
     const prune = interaction.options.getNumber("prune", true);
     const reason = interaction.options.getString("reason", true);
 
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     const targetMember = await guild.members.fetch(target.id).catch(() => null);
 
     if (
-      !member ||
-      typeof member.permissions === "string" ||
       !member.permissions.has(PermissionFlagsBits.BanMembers) ||
       (targetMember &&
         targetMember.permissions.has(PermissionFlagsBits.BanMembers))

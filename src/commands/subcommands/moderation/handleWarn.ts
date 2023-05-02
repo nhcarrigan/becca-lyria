@@ -22,23 +22,11 @@ export const handleWarn: CommandHandler = async (
 ) => {
   try {
     const { guild, member } = interaction;
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     const target = interaction.options.getUser("target", true);
     const reason = interaction.options.getString("reason", true);
-
     const targetMember = await guild.members.fetch(target.id);
 
     if (
-      !member ||
-      typeof member.permissions === "string" ||
       !member.permissions.has(PermissionFlagsBits.KickMembers) ||
       !targetMember ||
       targetMember.permissions.has(PermissionFlagsBits.KickMembers)
