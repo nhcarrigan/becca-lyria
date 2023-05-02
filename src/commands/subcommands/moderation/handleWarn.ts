@@ -103,6 +103,9 @@ export const handleWarn: CommandHandler = async (
       name: target.tag,
       iconURL: target.displayAvatarURL(),
     });
+    warnEmbed.setFooter({
+      text: `ID: ${target.id}`,
+    });
 
     await sendLogEmbed(Becca, guild, warnEmbed, "moderation_events");
 

@@ -1,7 +1,6 @@
 import { assert } from "chai";
 
 import { handleFact } from "../../src/commands/subcommands/games/handleFact";
-import { handleHabitica } from "../../src/commands/subcommands/games/handleHabitica";
 import { handleMtg } from "../../src/commands/subcommands/games/handleMtg";
 import { handleSlime } from "../../src/commands/subcommands/games/handleSlime";
 import { handleSus } from "../../src/commands/subcommands/games/handleSus";
@@ -11,13 +10,6 @@ suite("handleFact", () => {
   test("is defined", () => {
     assert.isDefined(handleFact, "handleFact is not defined");
     assert.isFunction(handleFact, "handleFact is not a function");
-  });
-});
-
-suite("handleHabitica", () => {
-  test("is defined", () => {
-    assert.isDefined(handleHabitica, "handleHabitica is not defined");
-    assert.isFunction(handleHabitica, "handleHabitica is not a function");
   });
 });
 
