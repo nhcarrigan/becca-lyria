@@ -1,37 +1,23 @@
 import {
   ActionRowBuilder,
   ButtonBuilder,
-  ButtonInteraction,
   ButtonStyle,
   GuildMember,
   PermissionFlagsBits,
 } from "discord.js";
 
-import { BeccaLyria } from "../../../../interfaces/BeccaLyria";
+import { ButtonHandler } from "../../../../interfaces/buttons/ButtonHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 
-/**
- * For the claim ticket button.
- *
- * @param {BeccaLyria} Becca Becca's Discord instance.
- * @param {ButtonInteraction} interaction The interaction payload from Discord.
- */
-export const buttonIsTicketClaim = async (
-  Becca: BeccaLyria,
-  interaction: ButtonInteraction
+export const buttonIsTicketClaim: ButtonHandler = async (
+  Becca,
+  interaction
 ) => {
   try {
     await interaction.deferReply({ ephemeral: true });
 
-    const { guild, message, member } = interaction;
+    const { message, member } = interaction;
     const { embeds } = message;
-
-    if (!guild || !member) {
-      await interaction.editReply({
-        content: "Error finding the guild!",
-      });
-      return;
-    }
 
     const isStaff = (member as GuildMember).permissions.has(
       PermissionFlagsBits.ManageMessages

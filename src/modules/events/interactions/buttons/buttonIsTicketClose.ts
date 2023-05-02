@@ -1,37 +1,28 @@
 import {
-  ButtonInteraction,
   EmbedBuilder,
-  GuildMember,
   PermissionFlagsBits,
   TextBasedChannel,
   TextChannel,
 } from "discord.js";
-import { TFunction } from "i18next";
 
-import { BeccaLyria } from "../../../../interfaces/BeccaLyria";
+import { ButtonHandler } from "../../../../interfaces/buttons/ButtonHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { tFunctionArrayWrapper } from "../../../../utils/tFunctionWrapper";
 import { getSettings } from "../../../settings/getSettings";
 import { generateLogs } from "../../../tickets/generateTicketLog";
 
-/**
- * For the close ticket button.
- *
- * @param {BeccaLyria} Becca Becca's Discord instance.
- * @param {ButtonInteraction} interaction The interaction payload from Discord.
- * @param {TFunction} t Translation function.
- */
-export const buttonIsTicketClose = async (
-  Becca: BeccaLyria,
-  interaction: ButtonInteraction,
-  t: TFunction
+export const buttonIsTicketClose: ButtonHandler = async (
+  Becca,
+  interaction,
+  t
 ) => {
   try {
     await interaction.deferReply({ ephemeral: true });
     const { guild, member, channel } = interaction;
 
-    if (!guild || !member || !channel) {
+    if (!channel) {
       await interaction.editReply({
-        content: "Error finding the guild!",
+        content: tFunctionArrayWrapper(t, "responses:missingGuild"),
       });
       return;
     }
@@ -45,9 +36,7 @@ export const buttonIsTicketClose = async (
       return;
     }
 
-    const isStaff = (member as GuildMember).permissions.has(
-      PermissionFlagsBits.ManageMessages
-    );
+    const isStaff = member.permissions.has(PermissionFlagsBits.ManageMessages);
     if (!isStaff) {
       await interaction.editReply({
         content: "Only staff members can claim a ticket.",

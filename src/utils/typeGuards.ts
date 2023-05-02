@@ -1,4 +1,5 @@
 import {
+  ButtonInteraction,
   ChatInputCommandInteraction,
   ContextMenuCommandInteraction,
   ModalSubmitInteraction,
@@ -6,6 +7,7 @@ import {
 
 import { EmoteAction } from "../config/commands/emoteData";
 import { ModerationActions } from "../interfaces/commands/moderation/ModerationActions";
+import { ValidatedButtonInteraction } from "../interfaces/discord/ValidatedButtonInteraction";
 import { ValidatedChatInputCommandInteraction } from "../interfaces/discord/ValidatedChatInputCommandInteraction";
 import { ValidatedContextMenuCommandInteraction } from "../interfaces/discord/ValidatedContextMenuCommand";
 import { ValidatedModalSubmitInteraction } from "../interfaces/discord/ValidatedModalSubmitInteraction";
@@ -66,6 +68,22 @@ export const contextCommandHasNecessaryProperties = (
   interaction: ContextMenuCommandInteraction
 ): interaction is ValidatedContextMenuCommandInteraction => {
   return interaction.guild !== null && interaction.guildId !== null;
+};
+
+/**
+ * Confirms that button interaction has a guild.
+ *
+ * @param {ButtonInteraction} interaction The interaction payload from Discord.
+ * @returns {boolean} If the interaction has the necessary properties.
+ */
+export const buttonInteractionHasNecessaryProperties = (
+  interaction: ButtonInteraction
+): interaction is ValidatedButtonInteraction => {
+  return (
+    interaction.guild !== null &&
+    interaction.member !== null &&
+    typeof interaction.member.permissions !== "string"
+  );
 };
 
 // ! Settings Validation

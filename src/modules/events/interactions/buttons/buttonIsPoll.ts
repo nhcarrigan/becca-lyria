@@ -1,30 +1,14 @@
-import { ButtonInteraction } from "discord.js";
-import { DefaultTFuncReturn, TFunction } from "i18next";
-
-import { BeccaLyria } from "../../../../interfaces/BeccaLyria";
+import { ButtonHandler } from "../../../../interfaces/buttons/ButtonHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../../utils/tFunctionWrapper";
 
-/**
- * For the poll buttons.
- *
- * @param {BeccaLyria} Becca Becca's Discord instance.
- * @param {ButtonInteraction} interaction The interaction payload from Discord.
- * @param {TFunction} t Translation function.
- */
-export const buttonIsPoll = async (
-  Becca: BeccaLyria,
-  interaction: ButtonInteraction,
-  t: TFunction
-) => {
+export const buttonIsPoll: ButtonHandler = async (Becca, interaction, t) => {
   try {
     await interaction.deferReply({ ephemeral: true });
     const { guild, channel, message } = interaction;
-    if (!guild || !channel || !message) {
+    if (!channel || !message) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:missingGuild"),
       });
       return;
     }

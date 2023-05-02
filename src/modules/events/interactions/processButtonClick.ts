@@ -3,10 +3,11 @@ import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { buttonInteractionHasNecessaryProperties } from "../../../utils/typeGuards";
 import { logActivity } from "../../commands/logActivity";
-import { reactionButtonClick } from "../reactionButtonClick";
 
 import { buttonIsPoll } from "./buttons/buttonIsPoll";
+import { buttonIsReaction } from "./buttons/buttonIsReaction";
 import { buttonIsTicketClaim } from "./buttons/buttonIsTicketClaim";
 import { buttonIsTicketClose } from "./buttons/buttonIsTicketClose";
 
@@ -27,9 +28,16 @@ export const processButtonClick = async (
     if (interaction.customId === "delete-bookmark") {
       await (interaction.message as Message).delete();
     }
+
+    if (!buttonInteractionHasNecessaryProperties(interaction)) {
+      await interaction.reply({
+        content: t<string, string>("events:interaction.noDms"),
+      });
+      return;
+    }
     if (interaction.customId.startsWith("rr-")) {
       await interaction.deferReply({ ephemeral: true });
-      await reactionButtonClick(Becca, t, interaction);
+      await buttonIsReaction(Becca, interaction, t);
     }
 
     if (interaction.customId.startsWith("poll-")) {
@@ -37,7 +45,7 @@ export const processButtonClick = async (
     }
 
     if (interaction.customId === "ticket-claim") {
-      await buttonIsTicketClaim(Becca, interaction);
+      await buttonIsTicketClaim(Becca, interaction, t);
     }
 
     if (interaction.customId === "ticket-close") {

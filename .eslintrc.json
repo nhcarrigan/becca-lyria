@@ -63,7 +63,8 @@
       "files": [
         "src/commands/**/*.ts",
         "src/listeners/automod/*.ts",
-        "src/modules/listeners/sass/*.ts"
+        "src/modules/listeners/sass/*.ts",
+        "src/modules/events/interactions/buttons/*.ts"
       ],
       "rules": {
         "jsdoc/require-jsdoc": "off",
