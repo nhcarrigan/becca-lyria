@@ -28,10 +28,6 @@ export const levelListener: Listener = {
         return;
       }
 
-      if (!guild) {
-        return;
-      }
-
       if (serverSettings?.levels !== "on") {
         return;
       }

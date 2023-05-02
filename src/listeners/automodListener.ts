@@ -36,7 +36,7 @@ export const automodListener: Listener = {
         return;
       }
 
-      if (message.member?.permissions.has(PermissionFlagsBits.ManageMessages)) {
+      if (message.member.permissions.has(PermissionFlagsBits.ManageMessages)) {
         return;
       }
 

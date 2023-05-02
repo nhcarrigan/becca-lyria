@@ -2,6 +2,7 @@ import {
   ButtonInteraction,
   ChatInputCommandInteraction,
   ContextMenuCommandInteraction,
+  Message,
   ModalSubmitInteraction,
 } from "discord.js";
 
@@ -10,6 +11,7 @@ import { ModerationActions } from "../interfaces/commands/moderation/ModerationA
 import { ValidatedButtonInteraction } from "../interfaces/discord/ValidatedButtonInteraction";
 import { ValidatedChatInputCommandInteraction } from "../interfaces/discord/ValidatedChatInputCommandInteraction";
 import { ValidatedContextMenuCommandInteraction } from "../interfaces/discord/ValidatedContextMenuCommand";
+import { ValidatedMessage } from "../interfaces/discord/ValidatedMessage";
 import { ValidatedModalSubmitInteraction } from "../interfaces/discord/ValidatedModalSubmitInteraction";
 import {
   AntiphishSettings,
@@ -83,6 +85,22 @@ export const buttonInteractionHasNecessaryProperties = (
     interaction.guild !== null &&
     interaction.member !== null &&
     typeof interaction.member.permissions !== "string"
+  );
+};
+
+/**
+ * Confirms that a message has a guild and member.
+ *
+ * @param {Message} message The message payload from Discord.
+ * @returns {boolean} If the message has the necessary properties.
+ */
+export const messageHasNecessaryProperties = (
+  message: Message
+): message is ValidatedMessage => {
+  return (
+    message.guild !== null &&
+    message.member !== null &&
+    typeof message.member.permissions !== "string"
   );
 };
 

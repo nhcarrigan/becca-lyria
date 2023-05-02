@@ -8,10 +8,6 @@ export const messageCountListener: Listener = {
     try {
       const { author, guild } = message;
 
-      if (!guild) {
-        return;
-      }
-
       await Becca.db.messagecounts.upsert({
         where: {
           serverId_userId: {
