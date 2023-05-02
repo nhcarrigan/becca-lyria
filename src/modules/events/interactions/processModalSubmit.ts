@@ -6,6 +6,8 @@ import { handleCreateModal } from "../../../commands/subcommands/post/handleCrea
 import { handleEditModal } from "../../../commands/subcommands/post/handleEditModal";
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
+import { modalSubmitHasNecessaryProperties } from "../../../utils/typeGuards";
 
 /**
  * Handles the logic for modal submissions.
@@ -20,6 +22,12 @@ export const processModalSubmit = async (
   t: TFunction
 ) => {
   try {
+    if (!modalSubmitHasNecessaryProperties(interaction)) {
+      await interaction.reply({
+        content: tFunctionArrayWrapper(t, "responses:missingGuild"),
+      });
+      return;
+    }
     if (interaction.customId === "feedback-modal") {
       await handleFeedbackModal(Becca, interaction, t);
     }

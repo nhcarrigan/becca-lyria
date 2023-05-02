@@ -1,6 +1,12 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  ModalSubmitInteraction,
+} from "discord.js";
+
 import { EmoteAction } from "../config/commands/emoteData";
 import { ModerationActions } from "../interfaces/commands/moderation/ModerationActions";
+import { ValidatedChatInputCommandInteraction } from "../interfaces/discord/ValidatedChatInputCommandInteraction";
+import { ValidatedModalSubmitInteraction } from "../interfaces/discord/ValidatedModalSubmitInteraction";
 import {
   AntiphishSettings,
   ArrayOfChannelIdSettings,
@@ -15,9 +21,8 @@ import {
   StringSettings,
   StyleSettings,
 } from "../interfaces/settings/Settings";
-import { ValidatedChatInputCommandInteraction } from "../interfaces/discord/ValidatedChatInputCommandInteraction";
 
-// ! Command Input Validation
+// ! Interaction Validation
 
 export const chatInputCommandHasNecessaryProperties = (
   interaction: ChatInputCommandInteraction
@@ -29,6 +34,12 @@ export const chatInputCommandHasNecessaryProperties = (
     interaction.channel !== null &&
     typeof interaction.member.permissions !== "string"
   );
+};
+
+export const modalSubmitHasNecessaryProperties = (
+  interaction: ModalSubmitInteraction
+): interaction is ValidatedModalSubmitInteraction => {
+  return interaction.guild !== null;
 };
 
 // ! Settings Validation

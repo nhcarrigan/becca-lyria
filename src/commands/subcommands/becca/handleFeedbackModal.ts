@@ -1,38 +1,19 @@
-import { EmbedBuilder, ModalSubmitInteraction } from "discord.js";
-import { DefaultTFuncReturn, TFunction } from "i18next";
+import { EmbedBuilder } from "discord.js";
 
-import { BeccaLyria } from "../../../interfaces/BeccaLyria";
+import { ModalHandler } from "../../../interfaces/modals/ModalHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
-/**
- * Handles the submit event for the feedback modal.
- *
- * @param {BeccaLyria} Becca Becca's Discord instance.
- * @param {ModalSubmitInteraction} interaction The interaction payload from Discord.
- * @param {TFunction} t Our tranlsation function.
- */
-export const handleFeedbackModal = async (
-  Becca: BeccaLyria,
-  interaction: ModalSubmitInteraction,
-  t: TFunction
+export const handleFeedbackModal: ModalHandler = async (
+  Becca,
+  interaction,
+  t
 ) => {
   try {
     await interaction.deferReply({ ephemeral: true });
     const { guild, user } = interaction;
     const feedback = interaction.fields.getTextInputValue("feedback");
-
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     const feedbackEmbed = new EmbedBuilder();
     feedbackEmbed.setTitle("Feedback Received!");
     feedbackEmbed.setDescription(customSubstring(feedback, 4000));
