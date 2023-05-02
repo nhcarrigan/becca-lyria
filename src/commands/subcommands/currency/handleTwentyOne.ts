@@ -7,10 +7,52 @@ import {
   time,
   TimestampStyles,
 } from "discord.js";
+import { TFunction } from "i18next";
 
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+
+const playerLost = (player: number, dealer: number, action: "hit" | "stand") =>
+  player > 21 || (action === "stand" && dealer > player);
+const playerWon = (player: number, dealer: number) =>
+  dealer > 21 || (dealer > 16 && player > dealer && player <= 21);
+const playerTied = (player: number, dealer: number, action: "hit" | "stand") =>
+  player === dealer && action === "stand";
+
+const getGameState = (
+  player: number,
+  dealer: number,
+  action: "hit" | "stand"
+) => {
+  if (playerLost(player, dealer, action)) {
+    return { won: false, over: true, tied: false };
+  }
+  if (playerWon(player, dealer)) {
+    return { won: true, over: true, tied: false };
+  }
+  if (playerTied(player, dealer, action)) {
+    return { won: false, over: true, tied: true };
+  }
+  return { won: false, over: false, tied: false };
+};
+
+const parseTitle = (
+  { won, tied }: { won: boolean; tied: boolean },
+  t: TFunction
+) => {
+  if (tied) {
+    return "Tie!";
+  }
+  return won
+    ? t("commands:currency.twentyone.won")
+    : t("commands:currency.twentyone.lost");
+};
+
+const parseWebhook = (
+  { won, tied }: { won: boolean; tied: boolean },
+  wager: number
+) => `They ${tied ? "tied" : won ? "won" : "lost"} ${wager} BeccaCoin.`;
 
 /**
  * Allows a user to play a game of 21 with Becca, similar to Blackjack. If the user
@@ -54,7 +96,7 @@ export const handleTwentyOne: CurrencyHandler = async (
       return;
     }
 
-    const gameState = { won: false, over: false };
+    const gameState = { won: false, over: false, tied: false };
 
     let dealer = Math.ceil(Math.random() * 10);
     let player = Math.ceil(Math.random() * 10);
@@ -103,6 +145,9 @@ export const handleTwentyOne: CurrencyHandler = async (
 
     collector.on("collect", async (click) => {
       await click.deferUpdate();
+      if (click.customId !== "hit" && click.customId !== "stand") {
+        return;
+      }
       switch (click.customId) {
         case "hit":
           player += Math.ceil(Math.random() * 10);
@@ -118,17 +163,10 @@ export const handleTwentyOne: CurrencyHandler = async (
             dealer += Math.ceil(Math.random() * 10);
           }
       }
-      if (player > 21 || (click.customId === "stand" && dealer > player)) {
-        gameState.over = true;
-        gameState.won = false;
-      }
-      if (dealer > 21 || (dealer > 16 && player > dealer && player <= 21)) {
-        gameState.over = true;
-        gameState.won = true;
-      }
-      if (player === dealer && click.customId === "stand") {
-        gameState.over = true;
-      }
+      const { over, won, tied } = getGameState(player, dealer, click.customId);
+      gameState.over = over;
+      gameState.won = won;
+      gameState.tied = tied;
       const newHitButton = new ButtonBuilder()
         .setCustomId("hit")
         .setEmoji("<:BeccaThumbsup:875129902997860393>")
@@ -143,13 +181,7 @@ export const handleTwentyOne: CurrencyHandler = async (
       if (gameState.over) {
         newHitButton.setDisabled(true);
         newStandButton.setDisabled(true);
-        gameEmbed.setTitle(
-          player === dealer
-            ? "Tie!"
-            : gameState.won
-            ? t("commands:currency.twentyone.won")
-            : t("commands:currency.twentyone.lost")
-        );
+        gameEmbed.setTitle(parseTitle(gameState, t));
         if (player !== dealer) {
           data.currencyTotal = gameState.won
             ? data.currencyTotal + wager
@@ -173,9 +205,7 @@ export const handleTwentyOne: CurrencyHandler = async (
         await Becca.currencyHook.send(
           `${interaction.user.username} played 21 in ${
             interaction.guild?.name
-          }! They ${
-            player === dealer ? "tied" : gameState.won ? "won" : "lost"
-          } ${wager} BeccaCoin.`
+          }! ${parseWebhook(gameState, wager)}`
         );
       }
 
