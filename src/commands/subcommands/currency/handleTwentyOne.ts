@@ -49,10 +49,20 @@ const parseTitle = (
     : t("commands:currency.twentyone.lost");
 };
 
+const tiedOrWonToString = ({ won, tied }: { won: boolean; tied: boolean }) => {
+  if (tied) {
+    return "tied";
+  }
+  if (won) {
+    return "won";
+  }
+  return "lost";
+};
+
 const parseWebhook = (
   { won, tied }: { won: boolean; tied: boolean },
   wager: number
-) => `They ${tied ? "tied" : won ? "won" : "lost"} ${wager} BeccaCoin.`;
+) => `They ${tiedOrWonToString({ won, tied })} ${wager} BeccaCoin.`;
 
 /**
  * Allows a user to play a game of 21 with Becca, similar to Blackjack. If the user

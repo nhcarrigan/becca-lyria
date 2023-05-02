@@ -26,7 +26,7 @@ export const automodPhish: ListenerHandler = async (
       !message.member ||
       !message.guild
     ) {
-    return false;
+      return false;
     }
     const contentWithoutCode = message.content.replace(
       /`{3}(\S+)?\n((?!`{3})((?!```)[\s\S])+)\n`{3}/gi,

@@ -107,9 +107,8 @@ export const createServer = async (Becca: BeccaLyria): Promise<boolean> => {
 
         await sendVoteMessage(Becca, payload, voteRecord, voteType);
         setTimeout(async () => {
-          await sendVoteReminder(Becca, payload, voteRecord, voteType),
-            1000 * 60 * 60 * 12;
-        });
+          await sendVoteReminder(Becca, payload, voteRecord, voteType);
+        }, 1000 * 60 * 60 * 12);
       })
     );
 
