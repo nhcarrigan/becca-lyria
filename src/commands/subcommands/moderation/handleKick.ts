@@ -1,5 +1,4 @@
 import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -7,8 +6,8 @@ import { updateHistory } from "../../../modules/commands/moderation/updateHistor
 import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
-import { getRandomValue } from "../../../utils/getRandomValue";
 import { sendModerationDm } from "../../../utils/sendModerationDm";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Provided the caller has permission, kicks the `target` user from the guild
@@ -33,9 +32,7 @@ export const handleKick: CommandHandler = async (
         targetMember.permissions.has(PermissionFlagsBits.KickMembers))
     ) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noPermission"),
       });
       return;
     }
@@ -49,17 +46,13 @@ export const handleKick: CommandHandler = async (
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noModSelf")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noModSelf"),
       });
       return;
     }
     if (target.id === Becca.user?.id) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noModBecca")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noModBecca"),
       });
       return;
     }

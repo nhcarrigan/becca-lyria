@@ -1,6 +1,3 @@
-import { GuildMember } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
-
 import { slimeList } from "../../../config/commands/slimeList";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -13,17 +10,7 @@ import { getRandomValue } from "../../../utils/getRandomValue";
  */
 export const handleSlime: CommandHandler = async (Becca, interaction, t) => {
   try {
-    const member = interaction.member as GuildMember;
-
-    if (!member) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
+    const member = interaction.member;
     const noun = getRandomValue(slimeList);
 
     await member

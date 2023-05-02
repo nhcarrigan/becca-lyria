@@ -1,10 +1,9 @@
 import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Fetches a user's moderation history from the database and parses it for display.
@@ -25,9 +24,7 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
           targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)))
     ) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noPermission"),
       });
       return;
     }

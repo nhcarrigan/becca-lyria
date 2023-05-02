@@ -1,12 +1,11 @@
 import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import levelScale from "../../../config/listeners/levelScale";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Modifies the xp of a `user` depending on the `action` taken
@@ -30,9 +29,7 @@ export const handleXpModify: CommandHandler = async (
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noPermission"),
       });
       return;
     }
@@ -46,18 +43,14 @@ export const handleXpModify: CommandHandler = async (
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noSelfXP")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noSelfXP"),
       });
       return;
     }
 
     if (target.bot) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noBotXP")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noBotXP"),
       });
       return;
     }
@@ -92,13 +85,11 @@ export const handleXpModify: CommandHandler = async (
       },
     });
 
-    const targetMember = await guild.members.fetch(target.id);
+    const targetMember = await guild.members.fetch(target.id).catch(() => null);
 
     if (!targetMember || targetMember.id !== target.id) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:missingMember"),
       });
       return;
     }

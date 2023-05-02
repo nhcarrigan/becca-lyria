@@ -1,8 +1,6 @@
-import { DefaultTFuncReturn } from "i18next";
-
 import { ListenerHandler } from "../../../interfaces/listeners/ListenerHandler";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Submodule for sorry comebacks.
@@ -19,19 +17,11 @@ export const sassThanks: ListenerHandler = async (Becca, message, t) => {
 
       for (const member of members) {
         if (member.id === Becca.user?.id) {
-          replies.push(
-            getRandomValue(
-              t<string, DefaultTFuncReturn & string[]>("sass:beccaThanks")
-            )
-          );
+          replies.push(tFunctionArrayWrapper(t, "sass:beccaThanks"));
           continue;
         }
         if (member.id === author.id) {
-          replies.push(
-            getRandomValue(
-              t<string, DefaultTFuncReturn & string[]>("sass:selfThanks")
-            )
-          );
+          replies.push(tFunctionArrayWrapper(t, "sass:selfThanks"));
           continue;
         }
         replies.push(

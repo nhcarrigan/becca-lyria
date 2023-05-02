@@ -1,8 +1,6 @@
-import { DefaultTFuncReturn } from "i18next";
-
 import { CommandHandler } from "../../interfaces/commands/CommandHandler";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../utils/tFunctionWrapper";
 
 /**
  * This handles a case where a proper subcommand handler isn't found.
@@ -14,9 +12,7 @@ export const handleInvalidSubcommand: CommandHandler = async (
 ) => {
   try {
     await interaction.editReply({
-      content: getRandomValue(
-        t<string, DefaultTFuncReturn & string[]>("responses:invalidCommand")
-      ),
+      content: tFunctionArrayWrapper(t, "responses:invalidSubcommand"),
     });
   } catch (err) {
     await beccaErrorHandler(

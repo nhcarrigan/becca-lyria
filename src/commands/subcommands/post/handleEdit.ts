@@ -5,12 +5,11 @@ import {
   ActionRowBuilder,
   PermissionFlagsBits,
 } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Creates a Modal for text input for the content of post to be updated by the bot.
@@ -26,9 +25,7 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
 
     if (!member.permissions.has(PermissionFlagsBits.ManageGuild)) {
       await interaction.reply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noPermission"),
         ephemeral: true,
       });
       return;
