@@ -27,7 +27,7 @@ export const memberAdd = async (
       return;
     }
     const lang = guild.preferredLocale;
-    const tFunc = getFixedT(lang);
+    const t = getFixedT(lang);
 
     const serverSettings = await getSettings(Becca, guild.id, guild.name);
 
@@ -36,8 +36,8 @@ export const memberAdd = async (
       if (serverSettings?.welcome_style === "embed") {
         const partialJoinEmbed = new EmbedBuilder();
         partialJoinEmbed.setColor(Becca.colours.warning);
-        partialJoinEmbed.setTitle(tFunc("events:member.pending.title"));
-        partialJoinEmbed.setDescription(tFunc("events:member.pending.desc"));
+        partialJoinEmbed.setTitle(t("events:member.pending.title"));
+        partialJoinEmbed.setDescription(t("events:member.pending.desc"));
         partialJoinEmbed.setAuthor({
           name: user.tag,
           iconURL: user.displayAvatarURL(),
@@ -51,7 +51,7 @@ export const memberAdd = async (
           (await guild.channels.fetch(serverSettings.welcome_channel));
         if (channel && "send" in channel) {
           await channel.send({
-            content: tFunc("events:member.pending.desc"),
+            content: t("events:member.pending.desc"),
           });
         }
       }
