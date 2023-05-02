@@ -15,6 +15,7 @@ import { getSettings } from "../../modules/settings/getSettings";
 import { logTicketMessage } from "../../modules/tickets/logTicketMessage";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { getMessageLanguage } from "../../utils/getLangCode";
+import { messageHasNecessaryProperties } from "../../utils/typeGuards";
 
 /**
  * Handles the onMessage event. Validates that the message did not come from
@@ -28,15 +29,17 @@ export const messageCreate = async (
   message: Message
 ): Promise<void> => {
   try {
-    const { author, channel, guild } = message;
-
-    if (author.bot) {
+    if (message.author.bot) {
       return;
     }
 
-    if (!guild || channel.type === ChannelType.DM) {
+    if (
+      !messageHasNecessaryProperties(message) ||
+      message.channel.type === ChannelType.DM
+    ) {
       return;
     }
+    const { channel, guild } = message;
     const lang = getMessageLanguage(message);
     const t = getFixedT(lang);
 
