@@ -1,7 +1,6 @@
 import { ButtonInteraction } from "discord.js";
-import { TFunction } from "i18next";
+import { DefaultTFuncReturn, TFunction } from "i18next";
 
-import PollModel from "../../../../database/models/PollModel";
 import { BeccaLyria } from "../../../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../../utils/getRandomValue";
@@ -23,14 +22,20 @@ export const buttonIsPoll = async (
     const { guild, channel, message } = interaction;
     if (!guild || !channel || !message) {
       await interaction.editReply({
-        content: getRandomValue(t<string, string[]>("responses:missingGuild")),
+        content: getRandomValue(
+          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
+        ),
       });
       return;
     }
-    const pollRecord = await PollModel.findOne({
-      serverId: guild.id,
-      channelId: channel.id,
-      messageId: message.id,
+    const pollRecord = await Becca.db.polls.findUnique({
+      where: {
+        serverId_channelId_messageId: {
+          serverId: guild.id,
+          channelId: channel.id,
+          messageId: message.id,
+        },
+      },
     });
 
     if (!pollRecord) {
@@ -68,7 +73,15 @@ export const buttonIsPoll = async (
         components: [],
       });
       await interaction.editReply({ content: "That poll has ended!" });
-      await PollModel.deleteOne({ _id: pollRecord._id });
+      await Becca.db.polls.delete({
+        where: {
+          serverId_channelId_messageId: {
+            serverId: guild.id,
+            channelId: channel.id,
+            messageId: message.id,
+          },
+        },
+      });
       return;
     }
 
@@ -81,9 +94,19 @@ export const buttonIsPoll = async (
 
     pollRecord.results[letter as "a" | "b" | "c" | "d"]++;
     pollRecord.responses.push(interaction.user.id);
-    pollRecord.markModified("responses");
-    pollRecord.markModified("results");
-    await pollRecord.save();
+    await Becca.db.polls.update({
+      where: {
+        serverId_channelId_messageId: {
+          serverId: guild.id,
+          channelId: channel.id,
+          messageId: message.id,
+        },
+      },
+      data: {
+        responses: pollRecord.responses,
+        results: pollRecord.results,
+      },
+    });
     await interaction.editReply({
       content: "Your response has been recorded.",
     });
