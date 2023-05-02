@@ -1,11 +1,13 @@
 import {
   ChatInputCommandInteraction,
+  ContextMenuCommandInteraction,
   ModalSubmitInteraction,
 } from "discord.js";
 
 import { EmoteAction } from "../config/commands/emoteData";
 import { ModerationActions } from "../interfaces/commands/moderation/ModerationActions";
 import { ValidatedChatInputCommandInteraction } from "../interfaces/discord/ValidatedChatInputCommandInteraction";
+import { ValidatedContextMenuCommandInteraction } from "../interfaces/discord/ValidatedContextMenuCommand";
 import { ValidatedModalSubmitInteraction } from "../interfaces/discord/ValidatedModalSubmitInteraction";
 import {
   AntiphishSettings,
@@ -24,6 +26,12 @@ import {
 
 // ! Interaction Validation
 
+/**
+ * Confirms that the chat input interaction has a guild, member, and channel.
+ *
+ * @param {ChatInputCommandInteraction} interaction The interaction payload from Discord.
+ * @returns {boolean} If the interaction has the necessary properties.
+ */
 export const chatInputCommandHasNecessaryProperties = (
   interaction: ChatInputCommandInteraction
 ): interaction is ValidatedChatInputCommandInteraction => {
@@ -36,10 +44,28 @@ export const chatInputCommandHasNecessaryProperties = (
   );
 };
 
+/**
+ * Confirms that the modal interaction has a guild.
+ *
+ * @param {ModalSubmitInteraction} interaction The interaction payload from Discord.
+ * @returns {boolean} If the interaction has the necessary properties.
+ */
 export const modalSubmitHasNecessaryProperties = (
   interaction: ModalSubmitInteraction
 ): interaction is ValidatedModalSubmitInteraction => {
   return interaction.guild !== null;
+};
+
+/**
+ * Confirms that the context menu interaction has a guild and guildID.
+ *
+ * @param {ContextMenuCommandInteraction} interaction The interaction payload from Discord.
+ * @returns {boolean} If the interaction has the necessary properties.
+ */
+export const contextCommandHasNecessaryProperties = (
+  interaction: ContextMenuCommandInteraction
+): interaction is ValidatedContextMenuCommandInteraction => {
+  return interaction.guild !== null && interaction.guildId !== null;
 };
 
 // ! Settings Validation

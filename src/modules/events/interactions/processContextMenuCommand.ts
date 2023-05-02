@@ -3,6 +3,7 @@ import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { contextCommandHasNecessaryProperties } from "../../../utils/typeGuards";
 import { logActivity } from "../../commands/logActivity";
 import { getSettings } from "../../settings/getSettings";
 
@@ -31,7 +32,7 @@ export const processContextMenuCommand = async (
       });
       return;
     }
-    if (!interaction.guildId || !interaction.guild) {
+    if (!contextCommandHasNecessaryProperties(interaction)) {
       await interaction.reply({
         content: t<string, string>("events:interaction.noDms"),
       });
