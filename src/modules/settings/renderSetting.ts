@@ -5,12 +5,14 @@ import { Settings } from "../../interfaces/settings/Settings";
 import { Trigger } from "../../interfaces/settings/Trigger";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import {
+  isAntiphishSetting,
   isChannelIdArraySetting,
   isChannelIdSetting,
   isLevelRoleArraySetting,
   isRoleIdArraySetting,
   isRoleIdSetting,
   isStringSetting,
+  isStyleSetting,
   isTriggerArraySetting,
   isUserIdArraySetting,
 } from "../../utils/typeGuards";
@@ -33,7 +35,11 @@ export const renderSetting = (
     if (!value) {
       return "No value set.";
     }
-    if (isStringSetting(key)) {
+    if (
+      isStringSetting(key) ||
+      isStyleSetting(key) ||
+      isAntiphishSetting(key)
+    ) {
       return `${value}`;
     }
     if (isChannelIdSetting(key)) {

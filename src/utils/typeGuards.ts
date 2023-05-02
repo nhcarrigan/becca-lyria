@@ -1,14 +1,18 @@
 import { EmoteAction } from "../config/commands/emoteData";
 import { ModerationActions } from "../interfaces/commands/moderation/ModerationActions";
 import {
+  AntiphishSettings,
   ArrayOfChannelIdSettings,
   ArrayOfLevelRoleSettings,
   ArrayOfRoleIdSettings,
+  ArrayOfStringSettings,
   ArrayOfTriggerSettings,
   ArrayOfUserIdSettings,
   ChannelIdSettings,
+  NumberSettings,
   RoleIdSettings,
   StringSettings,
+  StyleSettings,
 } from "../interfaces/settings/Settings";
 
 /**
@@ -51,24 +55,24 @@ export const isEmoteAction = (emote: string): emote is EmoteAction => {
 };
 
 /**
- * Confirms that a string is a valid antiphish setting.
+ * Confirms that a string is a valid antiphish setting value.
  *
  * @param {string} setting The setting to validate.
  * @returns {boolean} If setting is one of "none" | "mute" | "kick" | "ban".
  */
-export const isAntiphishSetting = (
+export const isAntiphishSettingValue = (
   setting: string
 ): setting is "none" | "mute" | "kick" | "ban" => {
   return ["none", "mute", "kick", "ban"].includes(setting);
 };
 
 /**
- * Confirms that a string is a valid style setting.
+ * Confirms that a string is a valid style setting value.
  *
  * @param {string} setting The setting to validate.
  * @returns {boolean} If setting is one of "embed" | "text".
  */
-export const isStyleSetting = (
+export const isStyleSettingValue = (
   setting: string
 ): setting is "embed" | "text" => {
   return ["embed", "text"].includes(setting);
@@ -93,10 +97,8 @@ export const isStringSetting = (setting: string): setting is StringSettings => {
     profanity_message: "profanity_message",
     appeal_link: "appeal_link",
     initial_xp: "initial_xp",
-    level_style: "level_style",
     level_message: "level_message",
     role_message: "role_message",
-    welcome_style: "welcome_style",
     starboard_emote: "starboard_emote",
   };
   return Object.keys(obj).includes(setting);
@@ -218,6 +220,64 @@ export const isTriggerArraySetting = (
 ): setting is ArrayOfTriggerSettings => {
   const obj: { [key in ArrayOfTriggerSettings]: string } = {
     new_triggers: "new_triggers",
+  };
+  return Object.keys(obj).includes(setting);
+};
+
+/**
+ * Confirms that a string is a valid string array value setting.
+ *
+ * @param {string} setting The setting to validate.
+ * @returns {boolean} If setting is a string array value in the database.
+ */
+export const isStringArraySetting = (
+  setting: string
+): setting is ArrayOfStringSettings => {
+  const obj: { [key in ArrayOfStringSettings]: string } = {
+    allowed_links: "allowed_links",
+  };
+  return Object.keys(obj).includes(setting);
+};
+
+/**
+ * Confirms that a string is a valid number value setting.
+ *
+ * @param {string} setting The setting to validate.
+ * @returns {boolean} If setting is a number value in the database.
+ */
+export const isNumberSetting = (setting: string): setting is NumberSettings => {
+  const obj: { [key in NumberSettings]: string } = {
+    starboard_threshold: "starboard_threshold",
+    level_decay: "level_decay",
+  };
+  return Object.keys(obj).includes(setting);
+};
+
+/**
+ * Confirms that a string is a valid antiphish value setting.
+ *
+ * @param {string} setting The setting to validate.
+ * @returns {boolean} If setting is an antiphish value in the database.
+ */
+export const isAntiphishSetting = (
+  setting: string
+): setting is AntiphishSettings => {
+  const obj: { [key in AntiphishSettings]: string } = {
+    antiphish: "antiphish",
+  };
+  return Object.keys(obj).includes(setting);
+};
+
+/**
+ * Confirms that a string is a valid style value setting.
+ *
+ * @param {string} setting The setting to validate.
+ * @returns {boolean} If setting is a style value in the database.
+ */
+export const isStyleSetting = (setting: string): setting is StyleSettings => {
+  const obj: { [key in StyleSettings]: string } = {
+    level_style: "level_style",
+    welcome_style: "welcome_style",
   };
   return Object.keys(obj).includes(setting);
 };

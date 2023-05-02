@@ -42,8 +42,7 @@ export type StringSettings =
   | "initial_xp"
   | "level_message"
   | "role_message"
-  | "starboard_emote"
-  | StyleSettings;
+  | "starboard_emote";
 
 export type NumberSettings = "starboard_threshold" | "level_decay";
 
