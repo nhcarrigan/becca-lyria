@@ -11,7 +11,6 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
 import { handleLanguage } from "./subcommands/misc/handleLanguage";
 import { handleLevelscale } from "./subcommands/misc/handleLevelscale";
-import { handleOrbit } from "./subcommands/misc/handleOrbit";
 import { handlePermissions } from "./subcommands/misc/handlePermissions";
 import { handleSpace } from "./subcommands/misc/handleSpace";
 import { handleUsername } from "./subcommands/misc/handleUsername";
@@ -23,7 +22,6 @@ const handlers: { [key: string]: CommandHandler } = {
   xkcd: handleXkcd,
   permissions: handlePermissions,
   levelscale: handleLevelscale,
-  orbit: handleOrbit,
   language: handleLanguage,
 };
 
@@ -76,13 +74,6 @@ export const misc: Command = {
         .setName("levelscale")
         .setDescription(
           "Returns a map of the level scale used by Becca's levelling system"
-        )
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("orbit")
-        .setDescription(
-          "Provides a leaderboard for global activity within nhcommunity."
         )
     )
     .addSubcommand(

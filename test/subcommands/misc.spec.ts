@@ -2,7 +2,6 @@ import { assert } from "chai";
 
 import { handleLanguage } from "../../src/commands/subcommands/misc/handleLanguage";
 import { handleLevelscale } from "../../src/commands/subcommands/misc/handleLevelscale";
-import { handleOrbit } from "../../src/commands/subcommands/misc/handleOrbit";
 import { handlePermissions } from "../../src/commands/subcommands/misc/handlePermissions";
 import { handleSpace } from "../../src/commands/subcommands/misc/handleSpace";
 import { handleUsername } from "../../src/commands/subcommands/misc/handleUsername";
@@ -19,13 +18,6 @@ suite("handleLevelscale", () => {
   test("is defined", () => {
     assert.isDefined(handleLevelscale, "handleLevelscale is not defined");
     assert.isFunction(handleLevelscale, "handleLevelscale is not a function");
-  });
-});
-
-suite("handleOrbit", () => {
-  test("is defined", () => {
-    assert.isDefined(handleOrbit, "handleOrbit is not defined");
-    assert.isFunction(handleOrbit, "handleOrbit is not a function");
   });
 });
 
