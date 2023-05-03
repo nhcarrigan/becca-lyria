@@ -24,7 +24,7 @@ export const handleCreateModal: ModalHandler = async (
     const targetChannelId = interaction.customId.split("-")[1];
     const targetChannel = guild.channels.resolve(targetChannelId);
 
-    if (!targetChannel || !targetChannel.isTextBased()) {
+    if (!targetChannel?.isTextBased()) {
       await interaction.editReply(
         t("commands:post.create.nonTextChannel", {
           channelId: targetChannelId,
