@@ -9,7 +9,6 @@ import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 import { handleFact } from "./subcommands/games/handleFact";
-import { handleHabitica } from "./subcommands/games/handleHabitica";
 import { handleMtg } from "./subcommands/games/handleMtg";
 import { handleSlime } from "./subcommands/games/handleSlime";
 import { handleSus } from "./subcommands/games/handleSus";
@@ -22,7 +21,6 @@ const handlers: { [key: string]: CommandHandler } = {
   sus: handleSus,
   trivia: handleTrivia,
   slime: handleSlime,
-  habitica: handleHabitica,
 };
 
 export const games: Command = {
@@ -62,17 +60,6 @@ export const games: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("slime")
         .setDescription("Gives you a slime name!")
-    )
-    .addSubcommand(
-      new SlashCommandSubcommandBuilder()
-        .setName("habitica")
-        .setDescription("Returns information on a Habitica user.")
-        .addStringOption((option) =>
-          option
-            .setName("id")
-            .setDescription("Example: 285a3335-33b9-473f-8d80-085c04f207bc")
-            .setRequired(true)
-        )
     ),
   run: async (Becca, interaction, t, config) => {
     try {

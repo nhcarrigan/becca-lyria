@@ -2,7 +2,6 @@ import { PrismaClient } from "@prisma/client";
 import { Client, WebhookClient } from "discord.js";
 
 import { Command } from "./commands/Command";
-import { OrbitMember } from "./commands/misc/Orbit";
 import { Context } from "./contexts/Context";
 
 /**
@@ -34,8 +33,6 @@ export interface BeccaLyria extends Client {
     topGGToken: string;
     topGG: string;
     voteChannel: string;
-    habiticaKey: string;
-    orbitKey: string;
   };
   colours: {
     default: number;
@@ -45,9 +42,6 @@ export interface BeccaLyria extends Client {
   };
   commands: Command[];
   contexts: Context[];
-  dataCache: {
-    orbitData: OrbitMember[];
-  };
   timeOuts: {
     [uuid: string]: NodeJS.Timeout;
   };
