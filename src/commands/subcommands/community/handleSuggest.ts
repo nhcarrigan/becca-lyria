@@ -4,13 +4,11 @@ import {
   ForumChannel,
   ChannelType,
 } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * If the server has configured a suggestion channel, this generates an embed
@@ -26,14 +24,6 @@ export const handleSuggest: CommandHandler = async (
   try {
     const { guild, user: author } = interaction;
     const suggestion = interaction.options.getString("suggestion", true);
-    if (!guild || !author) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
 
     if (!config.suggestion_channel) {
       await interaction.editReply({
@@ -82,23 +72,23 @@ export const handleSuggest: CommandHandler = async (
       if (!sentMessage) {
         return;
       }
-      await sentMessage
-        .react(Becca.configs.yes)
-        .catch(async () => await sentMessage.react("✅"));
-      await sentMessage
-        .react(Becca.configs.no)
-        .catch(async () => await sentMessage.react("❌"));
+      await sentMessage.react(Becca.configs.yes).catch(async () => {
+        await sentMessage.react("✅");
+      });
+      await sentMessage.react(Becca.configs.no).catch(async () => {
+        await sentMessage.react("❌");
+      });
       return;
     } else {
       const sentMessage = await suggestionChannel.send({
         embeds: [suggestionEmbed],
       });
-      await sentMessage
-        .react(Becca.configs.yes)
-        .catch(async () => await sentMessage.react("✅"));
-      await sentMessage
-        .react(Becca.configs.no)
-        .catch(async () => await sentMessage.react("❌"));
+      await sentMessage.react(Becca.configs.yes).catch(async () => {
+        await sentMessage.react("✅");
+      });
+      await sentMessage.react(Becca.configs.no).catch(async () => {
+        await sentMessage.react("❌");
+      });
 
       await interaction.editReply({
         content: t("commands:community.suggest.success"),

@@ -10,7 +10,10 @@ import {
   StringSettings,
   StyleSettings,
 } from "../../interfaces/settings/Settings";
-import { isAntiphishSetting, isStyleSetting } from "../../utils/typeGuards";
+import {
+  isAntiphishSettingValue,
+  isStyleSettingValue,
+} from "../../utils/typeGuards";
 
 const setArrayOfIdSetting = (
   server: servers,
@@ -80,7 +83,7 @@ const setAntiphishSetting = (
   key: AntiphishSettings,
   value: string
 ) => {
-  if (!isAntiphishSetting(value)) {
+  if (!isAntiphishSettingValue(value)) {
     server[key] = "none";
     return;
   }
@@ -92,7 +95,7 @@ const setStyleSetting = (
   key: StyleSettings,
   value: string
 ) => {
-  if (!isStyleSetting(value)) {
+  if (!isStyleSettingValue(value)) {
     server[key] = "embed";
     return;
   }

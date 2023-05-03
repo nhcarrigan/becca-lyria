@@ -3,13 +3,12 @@ import {
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
 import { ChannelType, PermissionFlagsBits } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../utils/tFunctionWrapper";
 
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
 import { handleAdd } from "./subcommands/reactionrole/handleAdd";
@@ -176,26 +175,14 @@ export const reactionRole: Command = {
   run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
-      const { guild, member } = interaction;
-
-      if (!guild || !member) {
-        await interaction.editReply({
-          content: getRandomValue(
-            t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-          ),
-        });
-        return;
-      }
+      const { member } = interaction;
 
       if (
-        (typeof member.permissions === "string" ||
-          !member.permissions.has(PermissionFlagsBits.ManageGuild)) &&
+        !member.permissions.has(PermissionFlagsBits.ManageGuild) &&
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({
-          content: getRandomValue(
-            t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
-          ),
+          content: tFunctionArrayWrapper(t, "responses:noPermission"),
         });
         return;
       }

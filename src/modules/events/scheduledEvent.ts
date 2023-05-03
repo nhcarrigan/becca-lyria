@@ -29,8 +29,8 @@ const createTimeout = (
     await Becca.db.scheduledevents.delete({
       where: {
         member_targetChannel: {
-          member: member,
-          targetChannel: targetChannel,
+          member,
+          targetChannel,
         },
       },
     });

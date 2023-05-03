@@ -1,5 +1,3 @@
-import { DefaultTFuncReturn } from "i18next";
-
 import {
   EmoteAction,
   smackList,
@@ -10,6 +8,7 @@ import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerat
 import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { getRandomValue } from "../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 import { isEmoteAction } from "../../../utils/typeGuards";
 
 /**
@@ -29,18 +28,14 @@ export const handleEmoteUse: CommandHandler = async (Becca, interaction, t) => {
 
     if (target.id === interaction.user.id) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noEmoteSelf")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noEmoteSelf"),
       });
       return;
     }
 
     if (target.id === Becca.configs.id) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noEmoteBecca")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noEmoteBecca"),
       });
       return;
     }

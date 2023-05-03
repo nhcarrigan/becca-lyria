@@ -1,32 +1,22 @@
-import { ModalSubmitInteraction, PermissionFlagsBits } from "discord.js";
-import { DefaultTFuncReturn, TFunction } from "i18next";
+import { PermissionFlagsBits } from "discord.js";
 
-import { BeccaLyria } from "../../../interfaces/BeccaLyria";
+import { ModalHandler } from "../../../interfaces/modals/ModalHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
-/**
- * Handles the submit event for the content input modal.
- *
- * @param {BeccaLyria} Becca Becca's Discord instance.
- * @param {ModalSubmitInteraction} interaction The interaction payload from Discord.
- * @param {TFunction} t Our tranlsation function.
- */
-export const handleCreateModal = async (
-  Becca: BeccaLyria,
-  interaction: ModalSubmitInteraction,
-  t: TFunction
+export const handleCreateModal: ModalHandler = async (
+  Becca,
+  interaction,
+  t
 ) => {
   try {
     await interaction.deferReply({ ephemeral: true });
     const { guild } = interaction;
 
-    if (!guild || !guild.members.me) {
+    if (!guild.members.me) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:missingGuild"),
       });
       return;
     }
@@ -34,7 +24,7 @@ export const handleCreateModal = async (
     const targetChannelId = interaction.customId.split("-")[1];
     const targetChannel = guild.channels.resolve(targetChannelId);
 
-    if (!targetChannel || !targetChannel.isTextBased()) {
+    if (!targetChannel?.isTextBased()) {
       await interaction.editReply(
         t("commands:post.create.nonTextChannel", {
           channelId: targetChannelId,

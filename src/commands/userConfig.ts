@@ -2,13 +2,11 @@ import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
-import { DefaultTFuncReturn } from "i18next";
 
 import { Command } from "../interfaces/commands/Command";
 import { UserConfigCommandHandler } from "../interfaces/commands/UserConfigCommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
 
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
 import { handleLevelCard } from "./subcommands/userconfig/handleLevelCard";
@@ -55,17 +53,8 @@ export const userConfig: Command = {
   run: async (Becca, interaction, t) => {
     try {
       await interaction.deferReply();
-      const { guild, user } = interaction;
+      const { user } = interaction;
       const subcommand = interaction.options.getSubcommand();
-
-      if (!guild || !user) {
-        await interaction.editReply({
-          content: getRandomValue(
-            t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-          ),
-        });
-        return;
-      }
 
       const userConfig = await Becca.db.userconfigs.upsert({
         where: {

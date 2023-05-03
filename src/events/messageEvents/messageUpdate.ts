@@ -10,6 +10,7 @@ import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { generateDiff } from "../../utils/generateDiff";
+import { messageHasNecessaryProperties } from "../../utils/typeGuards";
 
 /**
  * Handles the messageUpdate event. Validates that the content in the message
@@ -25,12 +26,15 @@ export const messageUpdate = async (
   newMessage: Message | PartialMessage
 ): Promise<void> => {
   try {
-    const { author, guild, content: newContent } = newMessage;
-    const { content: oldContent } = oldMessage;
-
-    if (!guild || newMessage.channel.type === ChannelType.DM) {
+    const message = newMessage.partial ? await newMessage.fetch() : newMessage;
+    if (
+      !messageHasNecessaryProperties(message) ||
+      message.channel.type === ChannelType.DM
+    ) {
       return;
     }
+    const { author, guild, content: newContent } = message;
+    const { content: oldContent } = oldMessage;
     const lang = guild.preferredLocale;
     const t = getFixedT(lang);
 
@@ -77,8 +81,6 @@ export const messageUpdate = async (
     ]);
 
     await sendLogEmbed(Becca, guild, updateEmbed, "message_events");
-
-    const message = await newMessage.fetch();
 
     await sassListener.run(Becca, message, t, serverConfig);
     await automodListener.run(Becca, message, t, serverConfig);

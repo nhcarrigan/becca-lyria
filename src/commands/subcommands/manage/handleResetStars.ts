@@ -1,10 +1,9 @@
-import { GuildMember, PermissionFlagsBits } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
+import { PermissionFlagsBits } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Deletes the server's star counts, resetting everyone's progress.
@@ -17,22 +16,9 @@ export const handleResetStars: CommandHandler = async (
   try {
     const { member, guild } = interaction;
 
-    if (!guild || !member) {
+    if (!member.permissions.has(PermissionFlagsBits.ManageGuild)) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
-    if (
-      !(member as GuildMember).permissions.has(PermissionFlagsBits.ManageGuild)
-    ) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noPermission"),
       });
       return;
     }

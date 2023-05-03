@@ -20,7 +20,7 @@ export const updateHistory = async (
   try {
     const createData = {
       serverId: guildId,
-      userId: userId,
+      userId,
       bans: 0,
       kicks: 0,
       mutes: 0,
@@ -33,7 +33,7 @@ export const updateHistory = async (
       where: {
         serverId_userId: {
           serverId: guildId,
-          userId: userId,
+          userId,
         },
       },
       update: {

@@ -2,7 +2,7 @@ import { assert } from "chai";
 
 import { BeccaLyria } from "../../src/interfaces/BeccaLyria";
 import { scheduleCurrencyReminder } from "../../src/utils/scheduleCurrencyReminder";
-import { sleep } from "../../src/utils/sleep";
+import { sleep } from "../__mocks__/sleep";
 
 suite("scheduleCurrencyReminder", () => {
   test("is defined", () => {
@@ -20,8 +20,9 @@ suite("scheduleCurrencyReminder", () => {
     const messages: string[] = [];
     const mockBecca = {
       currencyReminderHook: {
-        send: async (message: string) =>
-          await new Promise(() => messages.push(message)),
+        send: async (message: string) => {
+          await new Promise(() => messages.push(message));
+        },
       },
     } as unknown;
     await scheduleCurrencyReminder(mockBecca as BeccaLyria, 100, "test");

@@ -20,7 +20,7 @@ export const getSettings = async (
   serverName: string
 ): Promise<servers | null> => {
   try {
-    return await Becca.db.servers.upsert({
+    return Becca.db.servers.upsert({
       where: {
         serverID,
       },

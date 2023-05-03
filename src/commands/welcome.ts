@@ -5,7 +5,6 @@ import {
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
 } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { defaultServer } from "../config/database/defaultServer";
 import { Command } from "../interfaces/commands/Command";
@@ -14,7 +13,7 @@ import { SettingsHandler } from "../interfaces/settings/SettingsHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { attachSubcommandsToGroup } from "../utils/attachSubcommands";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../utils/tFunctionWrapper";
 
 import { handleReset } from "./subcommands/config/handleReset";
 import { handleSet } from "./subcommands/config/handleSet";
@@ -138,26 +137,14 @@ export const welcome: Command = {
   run: async (Becca, interaction, t, config) => {
     try {
       await interaction.deferReply();
-      const { guild, member } = interaction;
-
-      if (!guild || !member) {
-        await interaction.editReply({
-          content: getRandomValue(
-            t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-          ),
-        });
-        return;
-      }
+      const { member } = interaction;
 
       if (
-        (typeof member.permissions === "string" ||
-          !member.permissions.has(PermissionFlagsBits.ManageGuild)) &&
+        !member.permissions.has(PermissionFlagsBits.ManageGuild) &&
         member.user.id !== Becca.configs.ownerId
       ) {
         await interaction.editReply({
-          content: getRandomValue(
-            t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
-          ),
+          content: tFunctionArrayWrapper(t, "responses:noPermission"),
         });
         return;
       }

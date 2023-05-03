@@ -1,11 +1,9 @@
 import { EmbedBuilder } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { SettingsHandler } from "../../../interfaces/settings/SettingsHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { renderSetting } from "../../../modules/settings/renderSetting";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Generates an embed showing the current server `setting` values. If `setting` is global,
@@ -20,17 +18,6 @@ export const handleView: SettingsHandler = async (
   value
 ) => {
   try {
-    const { guild } = interaction;
-
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     const embed = new EmbedBuilder();
     embed.setTitle(t("commands:config.view.title", { name: setting }));
     embed.setTimestamp();

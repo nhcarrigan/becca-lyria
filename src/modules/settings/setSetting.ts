@@ -3,6 +3,19 @@ import { servers } from "@prisma/client";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { beccaLogHandler } from "../../utils/beccaLogHandler";
+import {
+  isAntiphishSetting,
+  isChannelIdArraySetting,
+  isChannelIdSetting,
+  isLevelRoleArraySetting,
+  isNumberSetting,
+  isRoleIdArraySetting,
+  isRoleIdSetting,
+  isStringArraySetting,
+  isStringSetting,
+  isStyleSetting,
+  isUserIdArraySetting,
+} from "../../utils/typeGuards";
 
 import { settingsSetters } from "./settingsSetters";
 
@@ -26,68 +39,43 @@ export const setSetting = async (
   server: servers
 ): Promise<servers | null> => {
   try {
-    switch (key) {
-      case "automod_channels":
-      case "no_automod_channels":
-      case "hearts":
-      case "blocked":
-      case "automod_roles":
-      case "level_ignore":
-      case "emote_channels":
-        settingsSetters.setArrayOfIdSetting(server, key, value);
-        break;
-      case "allowed_links":
-        settingsSetters.setArrayOfStringSetting(server, key, value);
-        break;
-      case "level_roles":
-        settingsSetters.setArrayOfLevelRoleSetting(server, key, value);
-        break;
-      case "custom_welcome":
-      case "levels":
-      case "link_message":
-      case "leave_message":
-      case "sass_mode":
-      case "links":
-      case "profanity":
-      case "profanity_message":
-      case "appeal_link":
-      case "initial_xp":
-      case "level_message":
-      case "role_message":
-      case "starboard_emote":
-        settingsSetters.setStringSetting(server, key, value);
-        break;
-      case "starboard_threshold":
-      case "level_decay":
-        settingsSetters.setNumberSetting(server, key, value);
-        break;
-      case "antiphish":
-        settingsSetters.setAntiphishSetting(server, key, value);
-        break;
-      case "level_style":
-      case "welcome_style":
-        settingsSetters.setStyleSetting(server, key, value);
-        break;
-      case "welcome_channel":
-      case "depart_channel":
-      case "message_events":
-      case "voice_events":
-      case "thread_events":
-      case "moderation_events":
-      case "member_events":
-      case "level_channel":
-      case "suggestion_channel":
-      case "join_role":
-      case "report_channel":
-      case "ticket_category":
-      case "ticket_log_channel":
-      case "ticket_role":
-      case "starboard_channel":
-        settingsSetters.setIdSetting(server, key, value);
-        break;
-      default:
-        beccaLogHandler.log("error", "the setSettings logic broke horribly.");
+    if (
+      isUserIdArraySetting(key) ||
+      isChannelIdArraySetting(key) ||
+      isRoleIdArraySetting(key)
+    ) {
+      settingsSetters.setArrayOfIdSetting(server, key, value);
+      return server;
     }
+    if (isStyleSetting(key)) {
+      settingsSetters.setStyleSetting(server, key, value);
+      return server;
+    }
+    if (isStringArraySetting(key)) {
+      settingsSetters.setArrayOfStringSetting(server, key, value);
+      return server;
+    }
+    if (isLevelRoleArraySetting(key)) {
+      settingsSetters.setArrayOfLevelRoleSetting(server, key, value);
+      return server;
+    }
+    if (isStringSetting(key)) {
+      settingsSetters.setStringSetting(server, key, value);
+      return server;
+    }
+    if (isNumberSetting(key)) {
+      settingsSetters.setNumberSetting(server, key, value);
+      return server;
+    }
+    if (isAntiphishSetting(key)) {
+      settingsSetters.setAntiphishSetting(server, key, value);
+      return server;
+    }
+    if (isChannelIdSetting(key) || isRoleIdSetting(key)) {
+      settingsSetters.setIdSetting(server, key, value);
+      return server;
+    }
+    beccaLogHandler.log("error", "The settings set logic broke horribly.");
     return server;
   } catch (err) {
     await beccaErrorHandler(Becca, "set setting module", err, serverName);

@@ -1,12 +1,10 @@
 import { EmbedBuilder } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { generateLevelHtml } from "../../../modules/commands/community/generateLevelHtml";
 import { generateLevelImage } from "../../../modules/commands/community/generateLevelImage";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Returns the current level ranking information for the given `user-level` or the author.
@@ -15,15 +13,6 @@ import { getRandomValue } from "../../../utils/getRandomValue";
 export const handleLevel: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guildId, guild, user } = interaction;
-
-    if (!guildId || !guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
 
     const target = interaction.options.getUser("user-level") || user;
 

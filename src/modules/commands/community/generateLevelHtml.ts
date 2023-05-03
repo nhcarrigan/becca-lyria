@@ -37,7 +37,7 @@ export const generateLevelHtml = async (
     : 100;
   const progressString = pointsForNextLevel
     ? `${levelData.points.toLocaleString()}/${pointsForNextLevel?.toLocaleString()}`
-    : `MAX LEVEL`;
+    : "MAX LEVEL";
   const html = `
 <div class="user">
   <img

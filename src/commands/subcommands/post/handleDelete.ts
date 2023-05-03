@@ -1,10 +1,9 @@
 import { PermissionFlagsBits } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Creates a Modal for text input for the content of post to be updated by the bot.
@@ -13,31 +12,15 @@ export const handleDelete: CommandHandler = async (Becca, interaction, t) => {
   try {
     await interaction.deferReply({ ephemeral: true });
     const { member, guild } = interaction;
-
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     const link = interaction.options.getString("link", true).split("/");
     const channelId = link[link.length - 2];
     const messageId = link[link.length - 1];
 
     const channel = guild.channels.resolve(channelId);
 
-    if (
-      !member ||
-      typeof member.permissions === "string" ||
-      !member.permissions.has(PermissionFlagsBits.ManageGuild)
-    ) {
+    if (!member.permissions.has(PermissionFlagsBits.ManageGuild)) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noPermission"),
       });
       return;
     }

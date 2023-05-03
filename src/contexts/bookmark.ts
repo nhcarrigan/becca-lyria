@@ -23,9 +23,9 @@ export const bookmark: Context = {
 
       const message = interaction.options.getMessage("message") as Message;
       const channel = interaction.channel as TextChannel;
-      const guild = interaction.guild?.name;
+      const guild = interaction.guild.name;
 
-      if (!message || !channel || !guild) {
+      if (!message || !channel) {
         await interaction.editReply(t("contexts:bookmark.failed"));
         return;
       }

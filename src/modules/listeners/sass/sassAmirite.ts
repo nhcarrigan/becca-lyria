@@ -1,8 +1,6 @@
-import { DefaultTFuncReturn } from "i18next";
-
 import { ListenerHandler } from "../../../interfaces/listeners/ListenerHandler";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Submodule for amirite comebacks.
@@ -15,9 +13,7 @@ export const sassAmirite: ListenerHandler = async (Becca, message, t) => {
       /(am|was)\s?i\sright\??|(i\sam|i'm|i\swas)\s?right|amirite/i;
 
     if (amiriteRegex.test(content)) {
-      await channel.send(
-        getRandomValue(t<string, DefaultTFuncReturn & string[]>("sass:amIRite"))
-      );
+      await channel.send(tFunctionArrayWrapper(t, "sass:amIRite"));
     }
   } catch (err) {
     await beccaErrorHandler(

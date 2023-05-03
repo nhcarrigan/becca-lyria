@@ -1,12 +1,10 @@
 import { EmbedBuilder } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Generates an embed to give the `user` a gold star for the given `reason`. If the user
@@ -15,15 +13,6 @@ import { getRandomValue } from "../../../utils/getRandomValue";
 export const handleStar: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { member, guild } = interaction;
-
-    if (!guild || !member) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
 
     const targetUser = interaction.options.getUser("user", true);
     const reason = interaction.options.getString("reason", true);

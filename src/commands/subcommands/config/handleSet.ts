@@ -1,5 +1,4 @@
 import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
 
 import { SettingsPermissions } from "../../../config/commands/settingsPermissions";
 import { SettingsHandler } from "../../../interfaces/settings/SettingsHandler";
@@ -8,7 +7,6 @@ import { renderSetting } from "../../../modules/settings/renderSetting";
 import { setSetting } from "../../../modules/settings/setSetting";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
-import { getRandomValue } from "../../../utils/getRandomValue";
 
 /**
  * Provided the `value` is valid, sets the given `setting` to that `value`.
@@ -23,15 +21,6 @@ export const handleSet: SettingsHandler = async (
 ) => {
   try {
     const { guild } = interaction;
-
-    if (!guild) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
 
     const needsPerms = SettingsPermissions[setting];
     const isNotChannel = needsPerms?.includes("ManageRoles");

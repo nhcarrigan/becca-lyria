@@ -2,14 +2,13 @@ import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
-import { GuildMember, PermissionFlagsBits } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
+import { PermissionFlagsBits } from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
-import { getRandomValue } from "../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../utils/tFunctionWrapper";
 
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
 import { handleTriggerAdd } from "./subcommands/triggers/handleTriggerAdd";
@@ -67,14 +66,10 @@ export const triggers: Command = {
       const subcommand = interaction.options.getSubcommand();
 
       if (
-        !(interaction.member as GuildMember).permissions.has(
-          PermissionFlagsBits.ManageGuild
-        )
+        !interaction.member.permissions.has(PermissionFlagsBits.ManageGuild)
       ) {
         await interaction.editReply({
-          content: getRandomValue(
-            t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
-          ),
+          content: tFunctionArrayWrapper(t, "responses:noPermission"),
         });
         return;
       }

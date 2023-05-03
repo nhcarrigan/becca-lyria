@@ -1,12 +1,11 @@
-import { EmbedBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { validateChannelPerms } from "../../../modules/commands/server/validateChannelPerms";
 import { validateServerPerms } from "../../../modules/commands/server/validateServerPerms";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Validates that Becca has the correct permissions in the server and the
@@ -20,25 +19,12 @@ export const handlePermissions: CommandHandler = async (
   try {
     const { channel, guild, member } = interaction;
 
-    if (!guild || !member || !channel) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     if (
-      !(member as GuildMember).permissions.has(
-        PermissionFlagsBits.ManageGuild
-      ) &&
-      (member as GuildMember).id !== Becca.configs.ownerId
+      !member.permissions.has(PermissionFlagsBits.ManageGuild) &&
+      member.id !== Becca.configs.ownerId
     ) {
       await interaction.reply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noPermission"),
       });
       return;
     }

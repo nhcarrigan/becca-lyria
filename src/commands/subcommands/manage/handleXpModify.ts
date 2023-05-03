@@ -1,12 +1,13 @@
-import { EmbedBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
-import { DefaultTFuncReturn } from "i18next";
+import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 
-import levelScale from "../../../config/listeners/levelScale";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
+import { xpModifyAdd } from "../../../modules/commands/manage/xpModifyAdd";
+import { xpModifyRemove } from "../../../modules/commands/manage/xpModifyRemove";
+import { xpModifyUpdateRoles } from "../../../modules/commands/manage/xpModifyUpdateRoles";
 import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { getRandomValue } from "../../../utils/getRandomValue";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Modifies the xp of a `user` depending on the `action` taken
@@ -25,25 +26,12 @@ export const handleXpModify: CommandHandler = async (
     const target = interaction.options.getUser("user", true);
     const amount = interaction.options.getNumber("adjustment", true);
 
-    if (!guild || !member) {
-      await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
-      });
-      return;
-    }
-
     if (
-      !(member as GuildMember).permissions.has(
-        PermissionFlagsBits.ManageGuild
-      ) &&
+      !member.permissions.has(PermissionFlagsBits.ManageGuild) &&
       member.user.id !== Becca.configs.ownerId
     ) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noPermission")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noPermission"),
       });
       return;
     }
@@ -57,18 +45,14 @@ export const handleXpModify: CommandHandler = async (
 
     if (target.id === member.user.id) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noSelfXP")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noSelfXP"),
       });
       return;
     }
 
     if (target.bot) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:noBotXP")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:noBotXP"),
       });
       return;
     }
@@ -103,39 +87,19 @@ export const handleXpModify: CommandHandler = async (
       },
     });
 
-    const targetMember = await guild.members.fetch(target.id);
+    const targetMember = await guild.members.fetch(target.id).catch(() => null);
 
     if (!targetMember || targetMember.id !== target.id) {
       await interaction.editReply({
-        content: getRandomValue(
-          t<string, DefaultTFuncReturn & string[]>("responses:missingGuild")
-        ),
+        content: tFunctionArrayWrapper(t, "responses:missingMember"),
       });
       return;
     }
 
     if (action === "add") {
-      if (user.level >= 100) {
-        await interaction.editReply({
-          content: t("commands:manage.xp.max"),
-        });
-        return;
-      }
-      user.points += amount;
-      while (user.points > levelScale[user.level + 1]) {
-        user.level++;
-      }
+      await xpModifyAdd(Becca, interaction, t, user, amount);
     } else {
-      if (user.points - amount <= 0) {
-        await interaction.editReply({
-          content: t("commands:manage.xp.min"),
-        });
-        return;
-      }
-      user.points -= amount;
-      while (user.points <= levelScale[user.level]) {
-        user.level--;
-      }
+      await xpModifyRemove(Becca, interaction, t, user, amount);
     }
 
     await Becca.db.newlevels.update({
@@ -154,20 +118,15 @@ export const handleXpModify: CommandHandler = async (
     });
 
     if (config.level_roles.length) {
-      for (const setting of config.level_roles) {
-        if (action === "add" && user.level >= setting.level) {
-          const role = guild.roles.cache.find((r) => r.id === setting.role);
-          if (role && !targetMember.roles.cache.find((r) => r.id === role.id)) {
-            await targetMember.roles.add(role);
-          }
-        }
-        if (action === "remove" && user.level <= setting.level) {
-          const role = guild.roles.cache.find((r) => r.id === setting.role);
-          if (role && targetMember.roles.cache.find((r) => r.id === role.id)) {
-            await targetMember.roles.remove(role);
-          }
-        }
-      }
+      await xpModifyUpdateRoles(
+        Becca,
+        interaction,
+        t,
+        user,
+        action,
+        config,
+        targetMember
+      );
     }
 
     const transVars = {

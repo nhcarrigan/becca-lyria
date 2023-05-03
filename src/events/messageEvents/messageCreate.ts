@@ -4,6 +4,7 @@ import { getFixedT } from "i18next";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { automodPhish } from "../../listeners/automod/automodPhish";
 import { automodListener } from "../../listeners/automodListener";
+import { beccaMentionListener } from "../../listeners/beccaMentionListener";
 import { emoteListener } from "../../listeners/emoteListener";
 import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
@@ -15,6 +16,7 @@ import { getSettings } from "../../modules/settings/getSettings";
 import { logTicketMessage } from "../../modules/tickets/logTicketMessage";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import { getMessageLanguage } from "../../utils/getLangCode";
+import { messageHasNecessaryProperties } from "../../utils/typeGuards";
 
 /**
  * Handles the onMessage event. Validates that the message did not come from
@@ -28,15 +30,17 @@ export const messageCreate = async (
   message: Message
 ): Promise<void> => {
   try {
-    const { author, channel, guild } = message;
-
-    if (author.bot) {
+    if (message.author.bot) {
       return;
     }
 
-    if (!guild || channel.type === ChannelType.DM) {
+    if (
+      !messageHasNecessaryProperties(message) ||
+      message.channel.type === ChannelType.DM
+    ) {
       return;
     }
+    const { channel, guild } = message;
     const lang = getMessageLanguage(message);
     const t = getFixedT(lang);
 
@@ -66,6 +70,7 @@ export const messageCreate = async (
     await triggerListener.run(Becca, message, t, serverConfig);
     await emoteListener.run(Becca, message, t, serverConfig);
     await messageCountListener.run(Becca, message, t, serverConfig);
+    await beccaMentionListener.run(Becca, message, t, serverConfig);
 
     if (
       message.author.id === Becca.configs.ownerId &&

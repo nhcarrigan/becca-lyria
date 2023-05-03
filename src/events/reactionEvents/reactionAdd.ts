@@ -27,10 +27,9 @@ export const reactionAdd = async (
     const config = await getSettings(Becca, guild.id, guild.name);
 
     if (
-      !config ||
-      !config.starboard_channel ||
-      !config.starboard_emote ||
-      !config.starboard_threshold
+      !config?.starboard_channel ||
+      !config?.starboard_emote ||
+      !config?.starboard_threshold
     ) {
       return;
     }
