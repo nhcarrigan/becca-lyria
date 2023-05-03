@@ -1,13 +1,13 @@
 import { RewriteFrames } from "@sentry/integrations";
 import { init } from "@sentry/node";
-import { ActivityType, Client, WebhookClient } from "discord.js";
+import { ActivityType, Client } from "discord.js";
 
 import { initialiseTranslations } from "./config/i18n/initialiseTranslations";
 import { IntentOptions } from "./config/IntentOptions";
 import { connectPrisma } from "./database/connectPrisma";
 import { handleEvents } from "./events/handleEvents";
 import { BeccaLyria } from "./interfaces/BeccaLyria";
-import { validateEnv } from "./modules/validateEnv";
+import { prepareBecca } from "./modules/prepareBecca";
 import { createServer } from "./server/serve";
 import { beccaErrorHandler } from "./utils/beccaErrorHandler";
 import { beccaLogHandler } from "./utils/beccaLogHandler";
@@ -44,19 +44,7 @@ void (async () => {
   }) as BeccaLyria;
 
   beccaLogHandler.log("debug", "Validating environment variables...");
-  const validatedEnvironment = validateEnv(Becca);
-  if (!validatedEnvironment.valid) {
-    beccaLogHandler.log("error", validatedEnvironment.message);
-    return;
-  }
-
-  Becca.debugHook = new WebhookClient({ url: Becca.configs.whUrl });
-  Becca.currencyHook = new WebhookClient({ url: Becca.configs.currencyUrl });
-  Becca.currencyReminderHook = new WebhookClient({
-    url: Becca.configs.currencyReminderUrl,
-  });
-  Becca.feedbackHook = new WebhookClient({ url: Becca.configs.feedbackUrl });
-  Becca.timeOuts = {};
+  prepareBecca(Becca);
 
   /**
    * Fallthrough error handlers. These fire in rare cases where something throws

@@ -3,8 +3,8 @@ import { ChannelType, EmbedBuilder, TextChannel } from "discord.js";
 import levelScale from "../config/listeners/levelScale";
 import { Listener } from "../interfaces/listeners/Listener";
 import { generateLevelText } from "../modules/listeners/generateLevelText";
-import { generateRoleText } from "../modules/listeners/generateRoleText";
 import { getOptOutRecord } from "../modules/listeners/getOptOutRecord";
+import { processLevelRoles } from "../modules/listeners/processLevelRoles";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 /**
@@ -20,7 +20,7 @@ export const levelListener: Listener = {
   description: "Grants experience based on message activity in the server.",
   run: async (Becca, message, t, serverSettings) => {
     try {
-      const { author, content, guild, member } = message;
+      const { author, content, guild } = message;
 
       const optout = await getOptOutRecord(Becca, author.id);
 
@@ -144,43 +144,14 @@ export const levelListener: Listener = {
       }
 
       if (serverSettings.level_roles.length) {
-        for (const setting of serverSettings.level_roles) {
-          if (user.level < setting.level) {
-            const role = guild.roles.cache.find((r) => r.id === setting.role);
-            if (role && !member?.roles.cache.find((r) => r.id === role.id)) {
-              await member?.roles.remove(role);
-            }
-          }
-          if (user.level >= setting.level) {
-            const role = guild.roles.cache.find((r) => r.id === setting.role);
-            if (role && !member?.roles.cache.find((r) => r.id === role.id)) {
-              await member?.roles.add(role);
-              const content = serverSettings.role_message
-                ? generateRoleText(serverSettings.role_message, author, role)
-                : t("listeners:level.roleDesc", {
-                    user: `<@!${author.id}>`,
-                    role: `<@&${role.id}>`,
-                  });
-              if (serverSettings.level_style === "embed") {
-                const roleEmbed = new EmbedBuilder();
-                roleEmbed.setTitle(t("listeners:level.roleTitle"));
-                roleEmbed.setDescription(content);
-                roleEmbed.setColor(Becca.colours.default);
-                roleEmbed.setAuthor({
-                  name: author.tag,
-                  iconURL: author.displayAvatarURL(),
-                });
-                roleEmbed.setFooter({
-                  text: t("defaults:footer"),
-                  iconURL: "https://cdn.nhcarrigan.com/profile.png",
-                });
-                await targetChannel.send({ embeds: [roleEmbed] });
-              } else {
-                await targetChannel.send({ content, allowedMentions: {} });
-              }
-            }
-          }
-        }
+        await processLevelRoles(
+          Becca,
+          user,
+          serverSettings,
+          message,
+          targetChannel,
+          t
+        );
       }
     } catch (err) {
       await beccaErrorHandler(
