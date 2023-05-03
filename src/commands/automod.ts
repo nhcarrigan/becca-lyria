@@ -103,8 +103,8 @@ const subcommands = [
     .setDescription("Set the action to take when a phishing link is detected.")
     .addStringOption((option) =>
       option
-        .setName("message")
-        .setDescription("The message to send.")
+        .setName("action")
+        .setDescription("The action to take.")
         .setRequired(true)
         .addChoices(
           { name: "Do nothing when a scam link is detected.", value: "none" },
