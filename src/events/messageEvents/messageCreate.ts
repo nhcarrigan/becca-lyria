@@ -4,6 +4,7 @@ import { getFixedT } from "i18next";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { automodPhish } from "../../listeners/automod/automodPhish";
 import { automodListener } from "../../listeners/automodListener";
+import { beccaMentionListener } from "../../listeners/beccaMentionListener";
 import { emoteListener } from "../../listeners/emoteListener";
 import { heartsListener } from "../../listeners/heartsListener";
 import { levelListener } from "../../listeners/levelListener";
@@ -69,6 +70,7 @@ export const messageCreate = async (
     await triggerListener.run(Becca, message, t, serverConfig);
     await emoteListener.run(Becca, message, t, serverConfig);
     await messageCountListener.run(Becca, message, t, serverConfig);
+    await beccaMentionListener.run(Becca, message, t, serverConfig);
 
     if (
       message.author.id === Becca.configs.ownerId &&

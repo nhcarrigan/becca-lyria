@@ -2,7 +2,7 @@ import { assert } from "chai";
 
 import { BeccaLyria } from "../../src/interfaces/BeccaLyria";
 import { scheduleCurrencyReminder } from "../../src/utils/scheduleCurrencyReminder";
-import { sleep } from "../../src/utils/sleep";
+import { sleep } from "../__mocks__/sleep";
 
 suite("scheduleCurrencyReminder", () => {
   test("is defined", () => {
