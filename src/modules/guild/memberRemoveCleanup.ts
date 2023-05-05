@@ -15,14 +15,16 @@ export const memberRemoveCleanup = async (
   guildId: string
 ): Promise<void> => {
   try {
-    await Becca.db.newlevels.delete({
-      where: {
-        serverID_userID: {
-          userID: userId,
-          serverID: guildId,
+    await Becca.db.newlevels
+      .delete({
+        where: {
+          serverID_userID: {
+            userID: userId,
+            serverID: guildId,
+          },
         },
-      },
-    });
+      })
+      .catch(() => null);
 
     const starData = await Becca.db.starcounts.findUnique({
       where: {
@@ -45,14 +47,16 @@ export const memberRemoveCleanup = async (
       }
     }
 
-    await Becca.db.messagecounts.delete({
-      where: {
-        serverId_userId: {
-          serverId: guildId,
-          userId,
+    await Becca.db.messagecounts
+      .delete({
+        where: {
+          serverId_userId: {
+            serverId: guildId,
+            userId,
+          },
         },
-      },
-    });
+      })
+      .catch(() => null);
   } catch (error) {
     await beccaErrorHandler(Becca, "member cleanup helper", error);
   }
