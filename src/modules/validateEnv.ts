@@ -57,6 +57,11 @@ export const validateEnv = (): BeccaLyria["configs"] => {
     process.exit(1);
   }
 
+  if (!process.env.ANALYTICS_SECRET) {
+    beccaLogHandler.log("error", "Missing Analytics Secret");
+    process.exit(1);
+  }
+
   return {
     token: process.env.DISCORD_TOKEN,
     dbToken: process.env.MONGODB,
@@ -76,5 +81,6 @@ export const validateEnv = (): BeccaLyria["configs"] => {
     topGGToken: process.env.TOPGG_TOKEN || "",
     topGG: process.env.TOPGG_PASSWORD || "",
     voteChannel: process.env.VOTE_CHANNEL_ID || "",
+    analyticsSecret: process.env.ANALYTICS_SECRET,
   };
 };

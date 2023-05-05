@@ -19,6 +19,7 @@ export const voiceStateUpdate = async (
   newState: VoiceState
 ): Promise<void> => {
   try {
+    await Becca.analytics.updateEventCount("voiceStateUpdate");
     const lang = oldState.guild.preferredLocale;
     const t = getFixedT(lang);
     const voiceEmbed = new EmbedBuilder();

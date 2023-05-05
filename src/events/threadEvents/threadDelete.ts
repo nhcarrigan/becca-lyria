@@ -16,6 +16,7 @@ export const threadDelete = async (
   thread: ThreadChannel
 ): Promise<void> => {
   try {
+    await Becca.analytics.updateEventCount("threadDelete");
     const lang = thread.guild.preferredLocale;
     const t = getFixedT(lang);
     const threadEmbed = new EmbedBuilder();

@@ -33,6 +33,7 @@ export const messageUpdate = async (
     ) {
       return;
     }
+    await Becca.analytics.updateEventCount("messageUpdate");
     const { author, guild, content: newContent } = message;
     const { content: oldContent } = oldMessage;
     const lang = guild.preferredLocale;

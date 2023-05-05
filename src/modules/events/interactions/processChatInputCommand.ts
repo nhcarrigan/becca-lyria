@@ -41,6 +41,11 @@ export const processChatInputCommand = async (
       });
       return;
     }
+    await Becca.analytics.updateCommandCount(
+      interaction.commandName,
+      interaction.options.getSubcommandGroup(false),
+      interaction.options.getSubcommand(false)
+    );
     const config = await getSettings(
       Becca,
       interaction.guildId,

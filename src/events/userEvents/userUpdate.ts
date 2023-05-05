@@ -23,6 +23,7 @@ export const userUpdate = async (
   newUser: User
 ): Promise<void> => {
   try {
+    await Becca.analytics.updateEventCount("userUpdate");
     const guilds = Becca.guilds.cache.values();
     for (const guild of guilds) {
       const member = await guild.members.fetch(newUser.id).catch(() => null);
@@ -35,7 +36,7 @@ export const userUpdate = async (
       const t = getFixedT(lang);
       const serverSettings = await getSettings(Becca, guild.id, guild.name);
 
-      if (!serverSettings || !serverSettings.member_events) {
+      if (!serverSettings?.member_events) {
         continue;
       }
 

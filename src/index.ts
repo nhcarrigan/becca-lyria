@@ -31,6 +31,7 @@ init({
  * This is the entry point for Becca's process. This will log the boot process,
  * call the necessary helpers to prepare Becca, and then log in to Discord.
  */
+// skipcq: JS-0098
 void (async () => {
   beccaLogHandler.log("debug", "Starting process...");
 
@@ -51,11 +52,27 @@ void (async () => {
    * in a way that our standard catch block cannot see it.
    */
   process.on("unhandledRejection", async (error: Error) => {
-    await beccaErrorHandler(Becca, "Unhandled Rejection Error", error);
+    await beccaErrorHandler(
+      Becca,
+      "Unhandled Rejection Error",
+      error,
+      undefined,
+      undefined,
+      undefined,
+      true
+    );
   });
 
   process.on("uncaughtException", async (error) => {
-    await beccaErrorHandler(Becca, "Uncaught Exception Error", error);
+    await beccaErrorHandler(
+      Becca,
+      "Uncaught Exception Error",
+      error,
+      undefined,
+      undefined,
+      undefined,
+      true
+    );
   });
 
   beccaLogHandler.log("debug", "Initialising web server...");

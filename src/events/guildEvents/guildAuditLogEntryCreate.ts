@@ -45,6 +45,7 @@ export const guildAuditLogEntryCreate = async (
     ) {
       return;
     }
+    await Becca.analytics.updateEventCount("guildAuditLog");
 
     const modAction = getModActionFromAuditLog(auditLogEntry);
 
@@ -56,7 +57,7 @@ export const guildAuditLogEntryCreate = async (
 
     const settings = await getSettings(Becca, guild.id, guild.name);
 
-    if (!settings || !settings.moderation_events) {
+    if (!settings?.moderation_events) {
       return;
     }
 

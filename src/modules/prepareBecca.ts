@@ -4,6 +4,7 @@ import { WebhookClient } from "discord.js";
 
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 
+import { Analytics } from "./Analytics";
 import { validateEnv } from "./validateEnv";
 
 /**
@@ -29,4 +30,8 @@ export const prepareBecca = (Becca: BeccaLyria): void => {
   });
   Becca.feedbackHook = new WebhookClient({ url: Becca.configs.feedbackUrl });
   Becca.timeOuts = {};
+  Becca.analytics = new Analytics(
+    Becca.configs.analyticsSecret,
+    Becca.debugHook
+  );
 };

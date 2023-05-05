@@ -12,6 +12,7 @@ export const guildCreate = async (
   Becca: BeccaLyria,
   guild: Guild
 ): Promise<void> => {
+  await Becca.analytics.updateEventCount("guildCreate");
   const owner = await guild.members.fetch(guild.ownerId);
   const guildCreateEmbed = new EmbedBuilder();
   guildCreateEmbed.setTitle(

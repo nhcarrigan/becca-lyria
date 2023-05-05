@@ -13,6 +13,7 @@ export const shardReady = async (
   Becca: BeccaLyria,
   shard: number
 ): Promise<void> => {
+  await Becca.analytics.updateEventCount("shardReady");
   const shardEmbed = new EmbedBuilder();
   shardEmbed.setTitle("Shard Online!");
   shardEmbed.setDescription("Becca has brought a new shard online!");
