@@ -40,6 +40,7 @@ export const messageCreate = async (
     ) {
       return;
     }
+    await Becca.analytics.updateEventCount("messageCreate");
     const { channel, guild } = message;
     const lang = getMessageLanguage(message);
     const t = getFixedT(lang);

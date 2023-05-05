@@ -13,6 +13,7 @@ export const guildDelete = async (
   Becca: BeccaLyria,
   guild: Guild
 ): Promise<void> => {
+  await Becca.analytics.updateEventCount("guildDelete");
   const owner = await guild.members.fetch(guild.ownerId).catch(() => null);
   const guildDeleteEmbed = new EmbedBuilder();
   guildDeleteEmbed.setTitle(

@@ -23,6 +23,7 @@ export const messageDelete = async (
     if (!guild) {
       return;
     }
+    await Becca.analytics.updateEventCount("messageDelete");
 
     const lang = guild.preferredLocale;
     const t = getFixedT(lang);

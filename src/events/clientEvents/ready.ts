@@ -13,6 +13,7 @@ import { beccaLogHandler } from "../../utils/beccaLogHandler";
  * @param {BeccaLyria} Becca Becca's Client instance.
  */
 export const ready = async (Becca: BeccaLyria): Promise<void> => {
+  await Becca.analytics.updateEventCount("clientReady");
   beccaLogHandler.log("debug", "Fetching reaction role data...");
   const readyEmbed = new EmbedBuilder();
   readyEmbed.setTitle("Becca is online");

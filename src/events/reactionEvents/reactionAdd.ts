@@ -23,6 +23,7 @@ export const reactionAdd = async (
     if (!guild) {
       return;
     }
+    await Becca.analytics.updateEventCount("reactionAdd");
 
     const config = await getSettings(Becca, guild.id, guild.name);
 

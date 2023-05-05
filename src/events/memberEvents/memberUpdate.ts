@@ -27,6 +27,7 @@ export const memberUpdate = async (
   newMember: GuildMember
 ): Promise<void> => {
   try {
+    await Becca.analytics.updateEventCount("memberUpdate");
     const { guild, user } = newMember;
     const lang = guild.preferredLocale;
     const t = getFixedT(lang);

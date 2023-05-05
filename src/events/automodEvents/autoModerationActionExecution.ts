@@ -23,6 +23,7 @@ export const autoModerationActionExecution = async (
     if (action.action.type !== AutoModerationActionType.Timeout) {
       return;
     }
+    await Becca.analytics.updateEventCount("automodAction");
 
     await updateHistory(Becca, "mute", action.userId, action.guild.id);
 
