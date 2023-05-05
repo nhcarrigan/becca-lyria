@@ -1,6 +1,8 @@
 import { EmbedBuilder } from "discord.js";
+import { scheduleJob } from "node-schedule";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { postDailyAnalytics } from "../../modules/analytics/postDailyAnalytics";
 import { loadEvents } from "../../modules/events/scheduledEvent";
 import { beccaLogHandler } from "../../utils/beccaLogHandler";
 
@@ -26,4 +28,9 @@ export const ready = async (Becca: BeccaLyria): Promise<void> => {
 
   await loadEvents(Becca);
   beccaLogHandler.log("debug", "Loaded scheduled events!");
+
+  await postDailyAnalytics(Becca);
+  // daily at midnight
+  scheduleJob("0 0 * * *", async () => await postDailyAnalytics(Becca));
+  beccaLogHandler.log("debug", "Loaded daily analytics!");
 };
