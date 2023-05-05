@@ -32,6 +32,8 @@ export const ready = async (Becca: BeccaLyria): Promise<void> => {
 
   await postDailyAnalytics(Becca);
   // daily at midnight
-  scheduleJob("0 0 * * *", async () => await postDailyAnalytics(Becca));
+  scheduleJob("0 0 * * *", async () => {
+    await postDailyAnalytics(Becca);
+  });
   beccaLogHandler.log("debug", "Loaded daily analytics!");
 };

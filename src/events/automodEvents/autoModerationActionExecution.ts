@@ -33,7 +33,7 @@ export const autoModerationActionExecution = async (
       action.guild.name
     );
 
-    if (!settings || !settings.moderation_events) {
+    if (!settings?.moderation_events) {
       return;
     }
 
@@ -46,7 +46,7 @@ export const autoModerationActionExecution = async (
     }
 
     const embed = new EmbedBuilder();
-    embed.setTitle(`Automod mute detected`);
+    embed.setTitle("Automod mute detected");
     embed.setDescription(
       `The user <@!${action.userId}>'s history has been updated.`
     );

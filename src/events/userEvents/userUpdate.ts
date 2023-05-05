@@ -36,7 +36,7 @@ export const userUpdate = async (
       const t = getFixedT(lang);
       const serverSettings = await getSettings(Becca, guild.id, guild.name);
 
-      if (!serverSettings || !serverSettings.member_events) {
+      if (!serverSettings?.member_events) {
         continue;
       }
 
