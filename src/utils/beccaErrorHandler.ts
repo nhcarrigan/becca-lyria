@@ -23,6 +23,7 @@ import { customSubstring } from "./customSubstring";
  * @param {string | undefined} guild The name of the guild that triggered the issue.
  * @param {Message | undefined} message Optional message that triggered the issue.
  * @param { CommandInteraction | ContextMenuCommandInteraction | undefined } interaction Optional interaction that triggered the issue.
+ * @param {true | undefined} fromUncaughtError Optional flag to indicate if this error was thrown from an uncaught error handler.
  * @returns {Types.ObjectId} A unique ID for the error.
  */
 export const beccaErrorHandler = async (
@@ -31,8 +32,10 @@ export const beccaErrorHandler = async (
   err: unknown,
   guild?: string,
   message?: Message,
-  interaction?: CommandInteraction | ContextMenuCommandInteraction
+  interaction?: CommandInteraction | ContextMenuCommandInteraction,
+  fromUncaughtError?: true
 ): Promise<Types.ObjectId> => {
+  await Becca.analytics.updateErrorCount(!fromUncaughtError);
   const error = err as Error;
   beccaLogHandler.log("error", `There was an error in the ${context}:`);
   beccaLogHandler.log(
