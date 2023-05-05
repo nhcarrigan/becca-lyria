@@ -6,9 +6,9 @@ import { WebhookClient } from "discord.js";
  * @class
  */
 export class Analytics {
-  private _secret: string;
-  private _url = "https://analytics.beccalyria.com";
-  private _errorHook: WebhookClient;
+  private readonly _secret: string;
+  private readonly _url = "https://analytics.beccalyria.com";
+  private readonly _errorHook: WebhookClient;
 
   /**
    * @param {string} secret The endpoint auth secret.
