@@ -32,6 +32,8 @@ export const prepareBecca = (Becca: BeccaLyria): void => {
   Becca.timeOuts = {};
   Becca.analytics = new Analytics(
     Becca.configs.analyticsSecret,
+    Becca.configs.analyticsUrl,
+    process.env.ANALYTICS_ENABLED === "true",
     Becca.debugHook
   );
 };
