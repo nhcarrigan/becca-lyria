@@ -1,5 +1,7 @@
 import { WebhookClient } from "discord.js";
 
+import { beccaLogHandler } from "../utils/beccaLogHandler";
+
 /**
  * Handles processing all of Becca's analytics.
  *
@@ -7,16 +9,26 @@ import { WebhookClient } from "discord.js";
  */
 export class Analytics {
   private readonly _secret: string;
-  private readonly _url = "https://analytics.beccalyria.com";
+  private readonly _url: string;
+  private readonly _sendRequests: boolean;
   private readonly _errorHook: WebhookClient;
 
   /**
    * @param {string} secret The endpoint auth secret.
+   * @param {string} url The analytics server URL.
+   * @param {boolean} sendRequests If requests should be sent.
    * @param {WebhookClient} errors The error webhook.
    * @public
    */
-  constructor(secret: string, errors: WebhookClient) {
+  constructor(
+    secret: string,
+    url: string,
+    sendRequests: boolean,
+    errors: WebhookClient
+  ) {
     this._secret = secret;
+    this._url = url;
+    this._sendRequests = sendRequests;
     this._errorHook = errors;
   }
 
@@ -29,6 +41,10 @@ export class Analytics {
    * @async
    */
   private async makeRequest(endpoint: string, body: object): Promise<void> {
+    if (!this._sendRequests) {
+      beccaLogHandler.log("debug", `Analytics call to ${endpoint} suppressed.`);
+      return;
+    }
     const result = await fetch(`${this._url}/${endpoint}`, {
       method: "POST",
       headers: {
