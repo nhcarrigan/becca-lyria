@@ -18,6 +18,8 @@ export const handleSlots: CurrencyHandler = async (
   data
 ) => {
   try {
+    const hourInMillseconds = 3600000;
+
     const wager = interaction.options.getInteger("wager");
 
     if (!wager || wager < 1) {
@@ -31,10 +33,10 @@ export const handleSlots: CurrencyHandler = async (
     }
 
     const now = Date.now();
-    const canPlay = now - 3600000 > data.slotsPlayed;
+    const canPlay = now - hourInMillseconds > data.slotsPlayed;
 
     if (!canPlay) {
-      const cooldown = data.slotsPlayed - now + 3600000;
+      const cooldown = data.slotsPlayed + hourInMillseconds;
       const cooldownDate = new Date(data.slotsPlayed + cooldown);
       const remainingTimeDesc = t("commands:currency.slots.cooldown", {
         time: time(cooldownDate, TimestampStyles.RelativeTime),

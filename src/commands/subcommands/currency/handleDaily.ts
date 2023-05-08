@@ -16,11 +16,14 @@ export const handleDaily: CurrencyHandler = async (
   data
 ) => {
   try {
+    const dayInMilliseconds = 86400000;
     const now = Date.now();
-    const canClaim = now - 86400000 > data.dailyClaimed;
+    //Has it been more than a day since they last claimed.
+    const canClaim = now - dayInMilliseconds > data.dailyClaimed;
 
     if (!canClaim) {
-      const cooldown = data.dailyClaimed - now + 86400000;
+      // Determine what day it'll be when they can claim again
+      const cooldown = data.dailyClaimed + dayInMilliseconds;
       const cooldownDate = new Date(data.dailyClaimed + cooldown);
       const remainingTimeDesc = t("commands:currency.daily.cooldown", {
         time: time(cooldownDate, TimestampStyles.RelativeTime),
@@ -48,7 +51,7 @@ export const handleDaily: CurrencyHandler = async (
 
     await scheduleCurrencyReminder(
       Becca,
-      86400000,
+      dayInMilliseconds,
       t("commands:currency.daily.reminder", {
         user: `<@!${data.userId}>`,
       })
