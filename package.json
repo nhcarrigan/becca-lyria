@@ -28,7 +28,7 @@
     "test": "ts-mocha -u tdd test/**/*.spec.ts --recursive --exit --timeout 10000"
   },
   "dependencies": {
-    "@prisma/client": "4.13.0",
+    "@prisma/client": "4.14.0",
     "@sentry/integrations": "7.51.2",
     "@sentry/node": "7.51.2",
     "@sentry/tracing": "7.51.2",
@@ -63,7 +63,7 @@
     "eslint": "8.40.0",
     "mocha": "10.2.0",
     "prettier": "2.8.8",
-    "prisma": "4.13.0",
+    "prisma": "4.14.0",
     "rimraf": "4.4.1",
     "ts-mocha": "10.0.0",
     "typescript": "5.0.4"
