@@ -36,6 +36,7 @@ export interface BeccaLyria extends Client {
     topGG: string;
     voteChannel: string;
     analyticsSecret: string;
+    analyticsUrl: string;
   };
   colours: {
     default: number;
