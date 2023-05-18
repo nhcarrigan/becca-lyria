@@ -32,6 +32,7 @@ export interface BeccaLyria extends Client {
     version: string;
     id: string;
     homeGuild: string;
+    announcementChannel: string;
     topGGToken: string;
     topGG: string;
     voteChannel: string;
