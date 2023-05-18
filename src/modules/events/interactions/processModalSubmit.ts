@@ -1,7 +1,6 @@
 import { ModalSubmitInteraction } from "discord.js";
 import { TFunction } from "i18next";
 
-import { handleFeedbackModal } from "../../../commands/subcommands/becca/handleFeedbackModal";
 import { handleCreateModal } from "../../../commands/subcommands/post/handleCreateModal";
 import { handleEditModal } from "../../../commands/subcommands/post/handleEditModal";
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
@@ -27,9 +26,6 @@ export const processModalSubmit = async (
         content: tFunctionArrayWrapper(t, "responses:missingGuild"),
       });
       return;
-    }
-    if (interaction.customId === "feedback-modal") {
-      await handleFeedbackModal(Becca, interaction, t);
     }
     if (interaction.customId.startsWith("pc-")) {
       await handleCreateModal(Becca, interaction, t);
