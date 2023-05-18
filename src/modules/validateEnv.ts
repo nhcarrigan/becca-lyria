@@ -8,7 +8,10 @@ import { beccaLogHandler } from "../utils/beccaLogHandler";
  *
  * @returns {BeccaLyria["configs"]} Becca's config object.
  */
+// skipcq: JS-0044
 export const validateEnv = (): BeccaLyria["configs"] => {
+  /* We skip the cyclomatic complexity check as the complexity
+ is needed for the detailed error messages. */
   if (!process.env.DISCORD_TOKEN) {
     beccaLogHandler.log("error", "Missing Discord token");
     process.exit(1);

@@ -24,10 +24,7 @@ export const handleAnnouncements: CommandHandler = async (
       .fetch(Becca.user?.id || "oopsie")
       .catch(() => null);
 
-    if (
-      !me ||
-      !me.permissionsIn(target).has(PermissionFlagsBits.ManageWebhooks)
-    ) {
+    if (!me?.permissionsIn(target).has(PermissionFlagsBits.ManageWebhooks)) {
       await interaction.editReply({
         content: t("commands:becca.announcements.noPerms"),
       });
