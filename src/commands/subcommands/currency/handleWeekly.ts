@@ -50,7 +50,7 @@ export const handleWeekly: CurrencyHandler = async (
 
     const earnedCurrency = Math.ceil(Math.random() * 100 + 100);
 
-    Becca.db.currencies.update({
+    await Becca.db.currencies.update({
       where: {
         userId: data.userId,
       },
