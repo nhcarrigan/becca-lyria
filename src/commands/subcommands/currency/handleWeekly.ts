@@ -19,10 +19,10 @@ export const handleWeekly: CurrencyHandler = async (
     const now = Date.now();
     const canClaim = now - 604800000 > data.weeklyClaimed;
 
-    const homeServer = await interaction.client.guilds.fetch(
-      Becca.configs.homeGuild
-    );
-    const userIsMember = await homeServer.members
+    const homeServer = await interaction.client.guilds
+      .fetch(Becca.configs.homeGuild)
+      .catch(() => null);
+    const userIsMember = await homeServer?.members
       .fetch(interaction.user.id)
       .catch(() => null);
 

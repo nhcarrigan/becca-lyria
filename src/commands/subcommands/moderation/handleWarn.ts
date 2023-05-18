@@ -23,15 +23,21 @@ export const handleWarn: CommandHandler = async (
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
     const reason = interaction.options.getString("reason", true);
-    const targetMember = await guild.members.fetch(target.id);
+    const targetMember = await guild.members.fetch(target.id).catch(() => null);
 
     if (
       !member.permissions.has(PermissionFlagsBits.KickMembers) ||
-      !targetMember ||
-      targetMember.permissions.has(PermissionFlagsBits.KickMembers)
+      targetMember?.permissions.has(PermissionFlagsBits.KickMembers)
     ) {
       await interaction.editReply({
         content: tFunctionArrayWrapper(t, "responses:noPermission"),
+      });
+      return;
+    }
+
+    if (!targetMember) {
+      await interaction.editReply({
+        content: t("commands:mod.user.left"),
       });
       return;
     }

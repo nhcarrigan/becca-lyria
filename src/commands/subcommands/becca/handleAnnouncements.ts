@@ -19,8 +19,8 @@ export const handleAnnouncements: CommandHandler = async (
 
     const home =
       Becca.guilds.cache.get(Becca.configs.homeGuild) ||
-      (await Becca.guilds.fetch(Becca.configs.homeGuild));
-    const me = await home.members
+      (await Becca.guilds.fetch(Becca.configs.homeGuild).catch(() => null));
+    const me = await home?.members
       .fetch(Becca.user?.id || "oopsie")
       .catch(() => null);
 
@@ -32,8 +32,10 @@ export const handleAnnouncements: CommandHandler = async (
     }
 
     const announcementChannel =
-      home.channels.cache.get(Becca.configs.announcementChannel) ||
-      (await home.channels.fetch(Becca.configs.announcementChannel));
+      home?.channels.cache.get(Becca.configs.announcementChannel) ||
+      (await home?.channels
+        .fetch(Becca.configs.announcementChannel)
+        .catch(() => null));
 
     if (announcementChannel?.type !== ChannelType.GuildAnnouncement) {
       await interaction.editReply({

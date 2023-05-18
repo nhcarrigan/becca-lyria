@@ -46,7 +46,9 @@ export const memberUpdate = async (
       return;
     }
 
-    const logChannel = await guild.channels.fetch(serverSettings.member_events);
+    const logChannel = await guild.channels
+      .fetch(serverSettings.member_events)
+      .catch(() => null);
     const beccaMember = guild.members.cache.get(Becca.user?.id || "");
 
     if (

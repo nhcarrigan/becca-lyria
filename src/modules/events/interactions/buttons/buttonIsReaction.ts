@@ -10,7 +10,7 @@ export const buttonIsReaction: ButtonHandler = async (
   try {
     const { guild, customId, member } = interaction;
     const roleId = customId.split("-")[1];
-    const role = await guild.roles.fetch(roleId);
+    const role = await guild.roles.fetch(roleId).catch(() => null);
 
     if (!role) {
       await interaction.editReply(t("events:interaction.noRole"));

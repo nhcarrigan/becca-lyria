@@ -31,7 +31,7 @@ export const handlePermissions: CommandHandler = async (
 
     const BeccaMember =
       guild.members.cache.get(Becca.user?.id || "oops") ||
-      (await guild.members.fetch(Becca.user?.id || "oops"));
+      (await guild.members.fetch(Becca.user?.id || "oops").catch(() => null));
 
     if (!BeccaMember) {
       await interaction.editReply({

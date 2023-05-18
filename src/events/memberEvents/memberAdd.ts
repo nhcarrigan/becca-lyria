@@ -49,7 +49,9 @@ export const memberAdd = async (
       if (serverSettings?.welcome_style === "text") {
         const channel =
           guild.channels.cache.get(serverSettings.welcome_channel) ||
-          (await guild.channels.fetch(serverSettings.welcome_channel));
+          (await guild.channels
+            .fetch(serverSettings.welcome_channel)
+            .catch(() => null));
         if (channel && "send" in channel) {
           await channel.send({
             content: t("events:member.pending.desc"),
@@ -80,7 +82,9 @@ export const memberAdd = async (
     } else if (serverSettings?.welcome_style === "text") {
       const channel =
         guild.channels.cache.get(serverSettings.welcome_channel) ||
-        (await guild.channels.fetch(serverSettings.welcome_channel));
+        (await guild.channels
+          .fetch(serverSettings.welcome_channel)
+          .catch(() => null));
       if (channel && "send" in channel) {
         await channel.send({
           content: welcomeText,
@@ -90,7 +94,9 @@ export const memberAdd = async (
     }
 
     if (serverSettings?.join_role) {
-      const joinRole = await guild.roles.fetch(serverSettings.join_role);
+      const joinRole = await guild.roles
+        .fetch(serverSettings.join_role)
+        .catch(() => null);
       if (joinRole) {
         await member.roles.add(joinRole);
       }

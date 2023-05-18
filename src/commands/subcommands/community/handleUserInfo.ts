@@ -14,7 +14,9 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
 
     const mentioned = interaction.options.getUser("user");
 
-    const target = await guild.members.fetch(mentioned?.id || user.id);
+    const target = await guild.members
+      .fetch(mentioned?.id || user.id)
+      .catch(() => null);
 
     if (!target) {
       await interaction.editReply({

@@ -68,7 +68,9 @@ export const buttonIsTicketClose: ButtonHandler = async (
       const logFile = await generateLogs(Becca, guild.id, channel.id);
       const logChannel =
         guild.channels.cache.get(config.ticket_log_channel) ||
-        (await guild.channels.fetch(config.ticket_log_channel));
+        (await guild.channels
+          .fetch(config.ticket_log_channel)
+          .catch(() => null));
 
       if (logChannel) {
         await (logChannel as TextBasedChannel).send({

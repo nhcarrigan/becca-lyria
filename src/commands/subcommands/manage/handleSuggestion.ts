@@ -44,7 +44,9 @@ export const handleSuggestion: CommandHandler = async (
 
     const targetSuggestion = await (
       suggestionChannel as TextChannel | ForumChannel
-    ).messages.fetch(`${BigInt(suggestionId)}`);
+    ).messages
+      .fetch(suggestionId)
+      .catch(() => null);
 
     if (!targetSuggestion) {
       await interaction.editReply({

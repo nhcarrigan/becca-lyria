@@ -26,8 +26,11 @@ export const messageUpdate = async (
   newMessage: Message | PartialMessage
 ): Promise<void> => {
   try {
-    const message = newMessage.partial ? await newMessage.fetch() : newMessage;
+    const message = newMessage.partial
+      ? await newMessage.fetch().catch(() => null)
+      : newMessage;
     if (
+      !message ||
       !messageHasNecessaryProperties(message) ||
       message.channel.type === ChannelType.DM
     ) {

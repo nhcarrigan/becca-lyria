@@ -16,8 +16,12 @@ export const sendVoteReward = async (
   voter: voters
 ): Promise<void> => {
   try {
-    const guild = await Becca.guilds.fetch(Becca.configs.homeGuild);
-    const channel = await guild.channels.fetch(Becca.configs.voteChannel);
+    const guild = await Becca.guilds
+      .fetch(Becca.configs.homeGuild)
+      .catch(() => null);
+    const channel = await guild?.channels
+      .fetch(Becca.configs.voteChannel)
+      .catch(() => null);
 
     if (channel?.type !== ChannelType.GuildText) {
       return;

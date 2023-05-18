@@ -13,7 +13,7 @@ export const guildCreate = async (
   guild: Guild
 ): Promise<void> => {
   await Becca.analytics.updateEventCount("guildCreate");
-  const owner = await guild.members.fetch(guild.ownerId);
+  const owner = await guild.members.fetch(guild.ownerId).catch(() => null);
   const guildCreateEmbed = new EmbedBuilder();
   guildCreateEmbed.setTitle(
     `${Becca.user?.username || "Becca Lyria"} has been enlisted in a new guild!`
@@ -29,7 +29,7 @@ export const guildCreate = async (
     },
     {
       name: "Guild Owner",
-      value: owner.user.username || "No owner data available.",
+      value: owner?.user.username || "No owner data available.",
       inline: true,
     },
     {
@@ -39,7 +39,7 @@ export const guildCreate = async (
     },
     {
       name: "Guild Owner ID",
-      value: owner.id || "No owner data available",
+      value: guild.ownerId || "No owner data available",
       inline: true,
     },
   ]);

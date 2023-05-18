@@ -61,7 +61,9 @@ export const guildAuditLogEntryCreate = async (
       return;
     }
 
-    const channel = await guild.channels.fetch(settings.moderation_events);
+    const channel = await guild.channels
+      .fetch(settings.moderation_events)
+      .catch(() => null);
 
     if (!channel || !("send" in channel)) {
       return;

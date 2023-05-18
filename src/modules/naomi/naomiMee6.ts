@@ -18,7 +18,7 @@ export const naomiMee6 = async (Becca: BeccaLyria, message: Message) => {
     // Naomi Mee6 <id>
     const [, , serverId] = message.content.split(" ");
 
-    const targetGuild = await Becca.guilds.fetch(serverId);
+    const targetGuild = await Becca.guilds.fetch(serverId).catch(() => null);
 
     if (!targetGuild) {
       await message.reply(`Guild ${serverId} not found.`);

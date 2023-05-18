@@ -23,8 +23,12 @@ export const sendVoteReminder = async (
     if (type === "unknown") {
       return;
     }
-    const guild = await Becca.guilds.fetch(Becca.configs.homeGuild);
-    const channel = await guild.channels.fetch(Becca.configs.voteChannel);
+    const guild = await Becca.guilds
+      .fetch(Becca.configs.homeGuild)
+      .catch(() => null);
+    const channel = await guild?.channels
+      .fetch(Becca.configs.voteChannel)
+      .catch(() => null);
 
     if (channel?.type !== ChannelType.GuildText) {
       return;

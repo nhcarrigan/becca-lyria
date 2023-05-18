@@ -1,4 +1,4 @@
-import { ChannelType, EmbedBuilder, Message, TextChannel } from "discord.js";
+import { ChannelType, EmbedBuilder, Message } from "discord.js";
 
 import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
@@ -24,11 +24,15 @@ export const report: Context = {
         return;
       }
 
-      const reportChannel = (await guild.channels.fetch(
-        config.report_channel
-      )) as TextChannel;
+      const reportChannel = await guild.channels
+        .fetch(config.report_channel)
+        .catch(() => null);
 
-      if (!reportChannel || !config.report_channel) {
+      if (
+        !reportChannel ||
+        !config.report_channel ||
+        !("send" in reportChannel)
+      ) {
         await interaction.editReply(t("contexts:report.notEnabled"));
         return;
       }

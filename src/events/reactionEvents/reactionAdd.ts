@@ -52,7 +52,7 @@ export const reactionAdd = async (
 
     const channel =
       guild.channels.cache.get(config.starboard_channel) ||
-      (await guild.channels.fetch(config.starboard_channel));
+      (await guild.channels.fetch(config.starboard_channel).catch(() => null));
 
     if (!channel || !("send" in channel)) {
       return;

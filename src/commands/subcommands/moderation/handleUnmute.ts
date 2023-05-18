@@ -23,12 +23,11 @@ export const handleUnmute: CommandHandler = async (
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
     const reason = interaction.options.getString("reason", true);
-    const targetMember = await guild.members.fetch(target.id);
+    const targetMember = await guild.members.fetch(target.id).catch(() => null);
 
     if (
       !member.permissions.has(PermissionFlagsBits.ModerateMembers) ||
-      !targetMember ||
-      targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)
+      targetMember?.permissions.has(PermissionFlagsBits.ModerateMembers)
     ) {
       await interaction.editReply({
         content: tFunctionArrayWrapper(t, "responses:noPermission"),
@@ -49,7 +48,14 @@ export const handleUnmute: CommandHandler = async (
       return;
     }
 
-    const targetUser = await guild.members.fetch(target.id);
+    const targetUser = await guild.members.fetch(target.id).catch(() => null);
+
+    if (!targetUser) {
+      await interaction.editReply({
+        content: t("commands:mod.mute.left"),
+      });
+      return;
+    }
 
     await targetUser.timeout(
       null,

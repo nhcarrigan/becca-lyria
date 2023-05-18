@@ -46,7 +46,9 @@ export const memberPassedScreening = async (
     } else if (settings.welcome_style === "text") {
       const channel =
         guild.channels.cache.get(settings.welcome_channel) ||
-        (await guild.channels.fetch(settings.welcome_channel));
+        (await guild.channels
+          .fetch(settings.welcome_channel)
+          .catch(() => null));
       if (channel && "send" in channel) {
         await channel.send({
           content: welcomeText,
@@ -56,7 +58,9 @@ export const memberPassedScreening = async (
     }
 
     if (settings?.join_role) {
-      const joinRole = await guild.roles.fetch(settings.join_role);
+      const joinRole = await guild.roles
+        .fetch(settings.join_role)
+        .catch(() => null);
       if (joinRole) {
         await member.roles.add(joinRole);
       }

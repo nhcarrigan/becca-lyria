@@ -37,9 +37,9 @@ export const autoModerationActionExecution = async (
       return;
     }
 
-    const channel = await action.guild.channels.fetch(
-      settings.moderation_events
-    );
+    const channel = await action.guild.channels
+      .fetch(settings.moderation_events)
+      .catch(() => null);
 
     if (!channel || !("send" in channel)) {
       return;

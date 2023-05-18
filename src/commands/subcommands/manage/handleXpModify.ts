@@ -89,7 +89,7 @@ export const handleXpModify: CommandHandler = async (
 
     const targetMember = await guild.members.fetch(target.id).catch(() => null);
 
-    if (!targetMember || targetMember.id !== target.id) {
+    if (targetMember?.id !== target.id) {
       await interaction.editReply({
         content: tFunctionArrayWrapper(t, "responses:missingMember"),
       });

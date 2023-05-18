@@ -36,9 +36,9 @@ export const handleTicket: CommandHandler = async (
 
     const category =
       guild.channels.cache.get(config.ticket_category) ||
-      (await guild.channels.fetch(config.ticket_category));
+      (await guild.channels.fetch(config.ticket_category).catch(() => null));
 
-    if (!category || category.type !== ChannelType.GuildCategory) {
+    if (category?.type !== ChannelType.GuildCategory) {
       await interaction.editReply({
         content: t("commands:community.ticket.disabled"),
       });

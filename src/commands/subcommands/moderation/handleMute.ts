@@ -45,12 +45,11 @@ export const handleMute: CommandHandler = async (
       return;
     }
 
-    const targetMember = await guild.members.fetch(target.id);
+    const targetMember = await guild.members.fetch(target.id).catch(() => null);
 
     if (
       !member.permissions.has(PermissionFlagsBits.ModerateMembers) ||
-      !targetMember ||
-      targetMember.permissions.has(PermissionFlagsBits.ModerateMembers)
+      targetMember?.permissions.has(PermissionFlagsBits.ModerateMembers)
     ) {
       await interaction.editReply({
         content: tFunctionArrayWrapper(t, "responses:noPermission"),
@@ -71,7 +70,14 @@ export const handleMute: CommandHandler = async (
       return;
     }
 
-    const targetUser = await guild.members.fetch(target.id);
+    const targetUser = await guild.members.fetch(target.id).catch(() => null);
+
+    if (!targetUser) {
+      await interaction.editReply({
+        content: t("commands:mod.mute.left"),
+      });
+      return;
+    }
 
     const sentNotice = await sendModerationDm(
       Becca,
