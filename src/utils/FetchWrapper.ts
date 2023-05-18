@@ -12,7 +12,7 @@ import { BeccaLyria } from "../interfaces/BeccaLyria";
 /**
  * Wraps Discord fetch calls to handle errors.
  */
-export class FetchWrapper {
+export const FetchWrapper = {
   /**
    * Fetches a guild from Becca's guilds.
    *
@@ -21,15 +21,12 @@ export class FetchWrapper {
    * @returns {Promise<Guild | null>} The guild, or null on error.
    * @async
    */
-  public static async guild(
-    Becca: BeccaLyria,
-    guildId: string
-  ): Promise<Guild | null> {
+  async guild(Becca: BeccaLyria, guildId: string): Promise<Guild | null> {
     const guild =
       Becca.guilds.cache.get(guildId) ||
       (await Becca.guilds.fetch(guildId).catch(() => null));
     return guild;
-  }
+  },
 
   /**
    * Fetches a channel from a guild.
@@ -39,7 +36,7 @@ export class FetchWrapper {
    * @returns {Promise<GuildBasedChannel | null>} The channel, or null on error.
    * @async
    */
-  public static async channel(
+  async channel(
     guild: Guild | null,
     channelId: string
   ): Promise<GuildBasedChannel | null> {
@@ -48,7 +45,7 @@ export class FetchWrapper {
       (await guild?.channels.fetch(channelId).catch(() => null)) ||
       null;
     return channel;
-  }
+  },
 
   /**
    * Fetches a member from the guild.
@@ -58,7 +55,7 @@ export class FetchWrapper {
    * @returns {Promise<GuildMember | null>} The member, or null on error.
    * @async
    */
-  public static async member(
+  async member(
     guild: Guild | null,
     memberId: string
   ): Promise<GuildMember | null> {
@@ -67,7 +64,7 @@ export class FetchWrapper {
       (await guild?.members.fetch(memberId).catch(() => null)) ||
       null;
     return member;
-  }
+  },
 
   /**
    * Fetches Becca from the guild.
@@ -77,7 +74,7 @@ export class FetchWrapper {
    * @returns {Promise<GuildMember | null>} The guild, or null on error.
    * @async
    */
-  public static async becca(
+  async becca(
     Becca: BeccaLyria,
     guild: Guild | null
   ): Promise<GuildMember | null> {
@@ -89,7 +86,7 @@ export class FetchWrapper {
       (await guild?.members.fetch(Becca.user.id).catch(() => null)) ||
       null;
     return me;
-  }
+  },
 
   /**
    * Fetches a message from a channel.
@@ -99,7 +96,7 @@ export class FetchWrapper {
    * @returns {Promise<Message | null>} The message, or null on error.
    * @async
    */
-  public static async message(
+  async message(
     channel: TextBasedChannel | null,
     messageId: string
   ): Promise<Message | null> {
@@ -108,7 +105,7 @@ export class FetchWrapper {
       (await channel?.messages.fetch(messageId).catch(() => null)) ||
       null;
     return message;
-  }
+  },
 
   /**
    * Fetches a role from a guild.
@@ -118,14 +115,11 @@ export class FetchWrapper {
    * @returns {Promise<Role | null>} The role, or null on error.
    * @async
    */
-  public static async role(
-    guild: Guild | null,
-    roleId: string
-  ): Promise<Role | null> {
+  async role(guild: Guild | null, roleId: string): Promise<Role | null> {
     const role =
       guild?.roles.cache.get(roleId) ||
       (await guild?.roles.fetch(roleId).catch(() => null)) ||
       null;
     return role;
-  }
-}
+  },
+};
