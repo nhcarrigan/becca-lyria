@@ -45,34 +45,42 @@ export const setSetting = async (
       isRoleIdArraySetting(key)
     ) {
       settingsSetters.setArrayOfIdSetting(server, key, value);
+      await settingsSetters.updateDatabase(Becca, server, key);
       return server;
     }
     if (isStyleSetting(key)) {
       settingsSetters.setStyleSetting(server, key, value);
+      await settingsSetters.updateDatabase(Becca, server, key);
       return server;
     }
     if (isStringArraySetting(key)) {
       settingsSetters.setArrayOfStringSetting(server, key, value);
+      await settingsSetters.updateDatabase(Becca, server, key);
       return server;
     }
     if (isLevelRoleArraySetting(key)) {
       settingsSetters.setArrayOfLevelRoleSetting(server, key, value);
+      await settingsSetters.updateDatabase(Becca, server, key);
       return server;
     }
     if (isStringSetting(key)) {
       settingsSetters.setStringSetting(server, key, value);
+      await settingsSetters.updateDatabase(Becca, server, key);
       return server;
     }
     if (isNumberSetting(key)) {
       settingsSetters.setNumberSetting(server, key, value);
+      await settingsSetters.updateDatabase(Becca, server, key);
       return server;
     }
     if (isAntiphishSetting(key)) {
       settingsSetters.setAntiphishSetting(server, key, value);
+      await settingsSetters.updateDatabase(Becca, server, key);
       return server;
     }
     if (isChannelIdSetting(key) || isRoleIdSetting(key)) {
       settingsSetters.setIdSetting(server, key, value);
+      await settingsSetters.updateDatabase(Becca, server, key);
       return server;
     }
     beccaLogHandler.log("error", "The settings set logic broke horribly.");
