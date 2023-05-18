@@ -20,11 +20,15 @@ export const buttonIsReaction: ButtonHandler = async (
     let content = "";
 
     if (member.roles.cache.has(role.id)) {
-      await member.roles.remove(role);
-      content = t("events:interaction.removedRole");
+      const success = await member.roles.remove(role).catch(() => false);
+      content = success
+        ? t("events:interaction.removedRole")
+        : t("events:interaction.failedRole");
     } else {
-      await member.roles.add(role);
-      content = t("events:interaction.addedRole");
+      const success = await member.roles.add(role).catch(() => false);
+      content = success
+        ? t("events:interaction.addedRole")
+        : t("events:interaction.failedRole");
     }
     await interaction.editReply({ content });
   } catch (err) {
