@@ -1,7 +1,11 @@
 export const updatesSinceLastRelease: string[] = [
-  "- Migrated our database from Mongoose to Prisma",
-  "- Deprecated the `/games habitica` and `/games orbit` commands",
-  "- Cleanup and refactor of much of the logic",
-  "- Added custom analytics package",
-  "- Updated our privacy policy to reflect new analytics",
+  "- Added option to disable analytics for local development",
+  "- Tweaked error handling for some of the Prisma calls",
+  "- Updated feedback command to point to new site",
+  "- Added announcements command to start receiving Becca's announcements in your server",
+  "- Replaced the profanity library - previous one broke",
+  "- Fixed error where settings were not being saved to the DB",
+  "- Improved responses when Becca fails to fetch something from Discord",
+  "- Fixed currency reminder timestamps",
+  "- Notify user when a level role cannot be assigned",
 ];
