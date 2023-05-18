@@ -4,6 +4,7 @@ import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { FetchWrapper } from "../../../utils/FetchWrapper";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Adds Becca's announcement channel to a channel.
@@ -14,9 +15,17 @@ export const handleAnnouncements: CommandHandler = async (
   t
 ) => {
   try {
+    const { member } = interaction;
     const target = interaction.options.getChannel("channel", true, [
       ChannelType.GuildText,
     ]);
+
+    if (!member?.permissions.has(PermissionFlagsBits.ManageGuild)) {
+      await interaction.editReply({
+        content: tFunctionArrayWrapper(t, "responses:noPermission"),
+      });
+      return;
+    }
 
     const home = await FetchWrapper.guild(Becca, Becca.configs.homeGuild);
     const me = await FetchWrapper.becca(Becca, home);
