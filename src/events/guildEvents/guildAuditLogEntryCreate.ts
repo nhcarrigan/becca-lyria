@@ -10,6 +10,7 @@ import { updateHistory } from "../../modules/commands/moderation/updateHistory";
 import { getModActionFromAuditLog } from "../../modules/events/getModActionFromAuditLog";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../utils/FetchWrapper";
 
 /**
  * Handles the audit log entry create event.
@@ -61,9 +62,12 @@ export const guildAuditLogEntryCreate = async (
       return;
     }
 
-    const channel = await guild.channels.fetch(settings.moderation_events);
+    const channel = await FetchWrapper.channel(
+      guild,
+      settings.moderation_events
+    );
 
-    if (!channel || !("send" in channel)) {
+    if (!channel?.isTextBased()) {
       return;
     }
 

@@ -1,9 +1,10 @@
-import { ChannelType, EmbedBuilder, Message, TextChannel } from "discord.js";
+import { ChannelType, EmbedBuilder, Message } from "discord.js";
 
 import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { customSubstring } from "../utils/customSubstring";
+import { FetchWrapper } from "../utils/FetchWrapper";
 import { tFunctionArrayWrapper } from "../utils/tFunctionWrapper";
 
 export const report: Context = {
@@ -24,11 +25,12 @@ export const report: Context = {
         return;
       }
 
-      const reportChannel = (await guild.channels.fetch(
+      const reportChannel = await FetchWrapper.channel(
+        guild,
         config.report_channel
-      )) as TextChannel;
+      );
 
-      if (!reportChannel || !config.report_channel) {
+      if (!reportChannel?.isTextBased() || !config.report_channel) {
         await interaction.editReply(t("contexts:report.notEnabled"));
         return;
       }

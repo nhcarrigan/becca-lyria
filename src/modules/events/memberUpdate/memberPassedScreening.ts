@@ -5,6 +5,7 @@ import { TFunction } from "i18next";
 import { defaultServer } from "../../../config/database/defaultServer";
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 import { sendWelcomeEmbed } from "../../guild/sendWelcomeEmbed";
 
 /**
@@ -44,10 +45,11 @@ export const memberPassedScreening = async (
 
       await sendWelcomeEmbed(Becca, guild, "join", welcomeEmbed);
     } else if (settings.welcome_style === "text") {
-      const channel =
-        guild.channels.cache.get(settings.welcome_channel) ||
-        (await guild.channels.fetch(settings.welcome_channel));
-      if (channel && "send" in channel) {
+      const channel = await FetchWrapper.channel(
+        guild,
+        settings.welcome_channel
+      );
+      if (channel?.isTextBased()) {
         await channel.send({
           content: welcomeText,
           allowedMentions: {},
@@ -56,7 +58,7 @@ export const memberPassedScreening = async (
     }
 
     if (settings?.join_role) {
-      const joinRole = await guild.roles.fetch(settings.join_role);
+      const joinRole = await FetchWrapper.role(guild, settings.join_role);
       if (joinRole) {
         await member.roles.add(joinRole);
       }

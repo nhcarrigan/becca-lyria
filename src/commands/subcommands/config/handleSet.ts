@@ -7,6 +7,7 @@ import { renderSetting } from "../../../modules/settings/renderSetting";
 import { setSetting } from "../../../modules/settings/setSetting";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 
 /**
  * Provided the `value` is valid, sets the given `setting` to that `value`.
@@ -42,7 +43,7 @@ export const handleSet: SettingsHandler = async (
     }
 
     if (needsPerms && !isNotChannel) {
-      const channel = await guild.channels.fetch(value).catch(() => null);
+      const channel = await FetchWrapper.channel(guild, value);
       if (!channel) {
         await interaction.editReply({
           content: t("commands:config.set.invalid", {

@@ -7,6 +7,7 @@ import {
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 
 /**
  * Generates an embed listing the various Discord settings for the specific server.
@@ -15,7 +16,7 @@ export const handleServer: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guild } = interaction;
 
-    const guildOwner = await guild.members.fetch(guild.ownerId);
+    const guildOwner = await FetchWrapper.member(guild, guild.ownerId);
     const guildMembers = (await guild.members.fetch()).map((u) => u);
     const guildBans = await guild.bans.fetch();
     const guildChannels = guild.channels.cache;
@@ -39,7 +40,7 @@ export const handleServer: CommandHandler = async (Becca, interaction, t) => {
       },
       {
         name: t("commands:community.server.owner"),
-        value: guildOwner.toString(),
+        value: guildOwner?.toString() || "unknown",
         inline: true,
       },
       {

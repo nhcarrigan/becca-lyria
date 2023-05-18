@@ -9,12 +9,11 @@ const createTimeout = (
   { member, targetChannel, lang, message, time, id }: scheduledevents
 ) => {
   Becca.timeOuts[id] = setTimeout(async () => {
-    const channel = await Becca.channels.fetch(targetChannel);
+    const channel = await Becca.channels.fetch(targetChannel).catch(() => null);
     const t = getFixedT(lang);
     if (
-      channel &&
-      (channel.type === ChannelType.GuildText ||
-        channel.type === ChannelType.GuildNews)
+      channel?.type === ChannelType.GuildText ||
+      channel?.type === ChannelType.GuildAnnouncement
     ) {
       await channel.send({
         content: t("commands:community.schedule.post", {

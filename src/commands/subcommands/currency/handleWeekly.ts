@@ -3,6 +3,7 @@ import { EmbedBuilder, TimestampStyles, time } from "discord.js";
 import { CurrencyHandler } from "../../../interfaces/commands/CurrencyHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 import { scheduleCurrencyReminder } from "../../../utils/scheduleCurrencyReminder";
 
 /**
@@ -19,12 +20,11 @@ export const handleWeekly: CurrencyHandler = async (
     const now = Date.now();
     const canClaim = now - 604800000 > data.weeklyClaimed;
 
-    const homeServer = await interaction.client.guilds.fetch(
-      Becca.configs.homeGuild
+    const homeServer = await FetchWrapper.guild(Becca, Becca.configs.homeGuild);
+    const userIsMember = await FetchWrapper.member(
+      homeServer,
+      interaction.user.id
     );
-    const userIsMember = await homeServer.members
-      .fetch(interaction.user.id)
-      .catch(() => null);
 
     if (!userIsMember) {
       const nopeEmbed = new EmbedBuilder();

@@ -1,6 +1,7 @@
 import { Guild, EmbedBuilder } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { FetchWrapper } from "../../utils/FetchWrapper";
 
 /**
  * Generates an embed when Becca joins a guild and sends it to the debug hook.
@@ -13,7 +14,7 @@ export const guildCreate = async (
   guild: Guild
 ): Promise<void> => {
   await Becca.analytics.updateEventCount("guildCreate");
-  const owner = await guild.members.fetch(guild.ownerId);
+  const owner = await FetchWrapper.member(guild, guild.ownerId);
   const guildCreateEmbed = new EmbedBuilder();
   guildCreateEmbed.setTitle(
     `${Becca.user?.username || "Becca Lyria"} has been enlisted in a new guild!`
@@ -29,7 +30,7 @@ export const guildCreate = async (
     },
     {
       name: "Guild Owner",
-      value: owner.user.username || "No owner data available.",
+      value: owner?.user.username || "No owner data available.",
       inline: true,
     },
     {
@@ -39,7 +40,7 @@ export const guildCreate = async (
     },
     {
       name: "Guild Owner ID",
-      value: owner.id || "No owner data available",
+      value: guild.ownerId || "No owner data available",
       inline: true,
     },
   ]);

@@ -9,6 +9,7 @@ import { getFixedT } from "i18next";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../utils/FetchWrapper";
 
 /**
  * Handles the userUpdate event. Necessary for avatar and username changes.
@@ -26,7 +27,7 @@ export const userUpdate = async (
     await Becca.analytics.updateEventCount("userUpdate");
     const guilds = Becca.guilds.cache.values();
     for (const guild of guilds) {
-      const member = await guild.members.fetch(newUser.id).catch(() => null);
+      const member = await FetchWrapper.member(guild, newUser.id);
 
       if (!member) {
         continue;
@@ -40,14 +41,14 @@ export const userUpdate = async (
         continue;
       }
 
-      const logChannel = await guild.channels.fetch(
+      const logChannel = await FetchWrapper.channel(
+        guild,
         serverSettings.member_events
       );
-      const beccaMember = guild.members.cache.get(Becca.user?.id || "");
+      const beccaMember = await FetchWrapper.becca(Becca, guild);
 
       if (
-        !logChannel ||
-        !("send" in logChannel) ||
+        !logChannel?.isTextBased() ||
         !beccaMember
           ?.permissionsIn(logChannel)
           .has(PermissionFlagsBits.SendMessages)

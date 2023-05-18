@@ -710,7 +710,8 @@
       "reason": "Reason",
       "duration": "Duration",
       "notified": "User Notified?",
-      "success": "That user has been cursed with silence."
+      "success": "That user has been cursed with silence.",
+      "left": "I cannot find that member. Is it possible they left the guild?"
     },
     "unban": {
       "title": "A user has been unbanned!",

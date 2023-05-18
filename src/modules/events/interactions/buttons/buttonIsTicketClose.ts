@@ -1,12 +1,8 @@
-import {
-  EmbedBuilder,
-  PermissionFlagsBits,
-  TextBasedChannel,
-  TextChannel,
-} from "discord.js";
+import { EmbedBuilder, PermissionFlagsBits, TextChannel } from "discord.js";
 
 import { ButtonHandler } from "../../../../interfaces/buttons/ButtonHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../../utils/FetchWrapper";
 import { tFunctionArrayWrapper } from "../../../../utils/tFunctionWrapper";
 import { getSettings } from "../../../settings/getSettings";
 import { generateLogs } from "../../../tickets/generateTicketLog";
@@ -66,12 +62,13 @@ export const buttonIsTicketClose: ButtonHandler = async (
       });
 
       const logFile = await generateLogs(Becca, guild.id, channel.id);
-      const logChannel =
-        guild.channels.cache.get(config.ticket_log_channel) ||
-        (await guild.channels.fetch(config.ticket_log_channel));
+      const logChannel = await FetchWrapper.channel(
+        guild,
+        config.ticket_log_channel
+      );
 
-      if (logChannel) {
-        await (logChannel as TextBasedChannel).send({
+      if (logChannel?.isTextBased()) {
+        await logChannel.send({
           embeds: [logEmbed],
           files: [logFile],
         });

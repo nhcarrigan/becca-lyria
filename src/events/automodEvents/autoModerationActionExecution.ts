@@ -8,6 +8,7 @@ import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { updateHistory } from "../../modules/commands/moderation/updateHistory";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../utils/FetchWrapper";
 
 /**
  * Handles automod execution events.
@@ -37,11 +38,12 @@ export const autoModerationActionExecution = async (
       return;
     }
 
-    const channel = await action.guild.channels.fetch(
+    const channel = await FetchWrapper.channel(
+      action.guild,
       settings.moderation_events
     );
 
-    if (!channel || !("send" in channel)) {
+    if (!channel?.isTextBased()) {
       return;
     }
 

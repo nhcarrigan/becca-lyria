@@ -1,9 +1,9 @@
 import { voters } from "@prisma/client";
 import { WebhookPayload } from "@top-gg/sdk";
-import { ChannelType } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../utils/FetchWrapper";
 
 /**
  * A module to send a vote reminder message to a given channel.
@@ -23,10 +23,13 @@ export const sendVoteReminder = async (
     if (type === "unknown") {
       return;
     }
-    const guild = await Becca.guilds.fetch(Becca.configs.homeGuild);
-    const channel = await guild.channels.fetch(Becca.configs.voteChannel);
+    const guild = await FetchWrapper.guild(Becca, Becca.configs.homeGuild);
+    const channel = await FetchWrapper.channel(
+      guild,
+      Becca.configs.voteChannel
+    );
 
-    if (channel?.type !== ChannelType.GuildText) {
+    if (!channel?.isTextBased()) {
       return;
     }
 

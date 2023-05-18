@@ -6,6 +6,7 @@ import { updateHistory } from "../../../modules/commands/moderation/updateHistor
 import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 import { sendModerationDm } from "../../../utils/sendModerationDm";
 import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
@@ -25,7 +26,7 @@ export const handleBan: CommandHandler = async (
     const prune = interaction.options.getNumber("prune", true);
     const reason = interaction.options.getString("reason", true);
 
-    const targetMember = await guild.members.fetch(target.id).catch(() => null);
+    const targetMember = await FetchWrapper.member(guild, target.id);
 
     if (
       !member.permissions.has(PermissionFlagsBits.BanMembers) ||

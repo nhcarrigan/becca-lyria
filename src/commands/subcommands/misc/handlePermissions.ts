@@ -5,6 +5,7 @@ import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerat
 import { validateChannelPerms } from "../../../modules/commands/server/validateChannelPerms";
 import { validateServerPerms } from "../../../modules/commands/server/validateServerPerms";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
@@ -29,9 +30,7 @@ export const handlePermissions: CommandHandler = async (
       return;
     }
 
-    const BeccaMember =
-      guild.members.cache.get(Becca.user?.id || "oops") ||
-      (await guild.members.fetch(Becca.user?.id || "oops"));
+    const BeccaMember = await FetchWrapper.becca(Becca, guild);
 
     if (!BeccaMember) {
       await interaction.editReply({

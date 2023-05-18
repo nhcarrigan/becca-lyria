@@ -4,6 +4,7 @@ import mee6 from "mee6-levels-api";
 import levelScale from "../../config/listeners/levelScale";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../utils/FetchWrapper";
 import { getSettings } from "../settings/getSettings";
 import { setSetting } from "../settings/setSetting";
 
@@ -18,7 +19,7 @@ export const naomiMee6 = async (Becca: BeccaLyria, message: Message) => {
     // Naomi Mee6 <id>
     const [, , serverId] = message.content.split(" ");
 
-    const targetGuild = await Becca.guilds.fetch(serverId);
+    const targetGuild = await FetchWrapper.guild(Becca, serverId);
 
     if (!targetGuild) {
       await message.reply(`Guild ${serverId} not found.`);
