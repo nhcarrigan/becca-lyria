@@ -39,7 +39,7 @@ export const handleWeekly: CurrencyHandler = async (
 
     if (!canClaim) {
       const cooldown = data.weeklyClaimed + weekInMillseconds;
-      const cooldownDate = new Date(data.weeklyClaimed + cooldown);
+      const cooldownDate = new Date(cooldown);
       const remainingTimeDesc = t("commands:currency.weekly.cooldown", {
         time: time(cooldownDate, TimestampStyles.RelativeTime),
         interpolation: { escapeValue: false },

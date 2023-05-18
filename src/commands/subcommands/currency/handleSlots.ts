@@ -37,7 +37,7 @@ export const handleSlots: CurrencyHandler = async (
 
     if (!canPlay) {
       const cooldown = data.slotsPlayed + hourInMillseconds;
-      const cooldownDate = new Date(data.slotsPlayed + cooldown);
+      const cooldownDate = new Date(cooldown);
       const remainingTimeDesc = t("commands:currency.slots.cooldown", {
         time: time(cooldownDate, TimestampStyles.RelativeTime),
         interpolation: { escapeValue: false },

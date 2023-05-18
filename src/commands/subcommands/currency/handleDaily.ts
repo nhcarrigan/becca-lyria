@@ -24,7 +24,7 @@ export const handleDaily: CurrencyHandler = async (
     if (!canClaim) {
       // Determine what day it'll be when they can claim again
       const cooldown = data.dailyClaimed + dayInMilliseconds;
-      const cooldownDate = new Date(data.dailyClaimed + cooldown);
+      const cooldownDate = new Date(cooldown);
       const remainingTimeDesc = t("commands:currency.daily.cooldown", {
         time: time(cooldownDate, TimestampStyles.RelativeTime),
         interpolation: { escapeValue: false },
