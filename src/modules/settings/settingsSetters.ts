@@ -1,5 +1,6 @@
 import { servers } from "@prisma/client";
 
+import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import {
   AntiphishSettings,
   ArrayOfIdSettings,
@@ -7,13 +8,41 @@ import {
   ArrayOfStringSettings,
   IdSettings,
   NumberSettings,
+  Settings,
   StringSettings,
   StyleSettings,
 } from "../../interfaces/settings/Settings";
+import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
 import {
   isAntiphishSettingValue,
   isStyleSettingValue,
 } from "../../utils/typeGuards";
+
+/**
+ * Updates a setting in the database.
+ *
+ * @param {BeccaLyria} Becca Becca's Discord instance.
+ * @param {servers} server The new settings record.
+ * @param {Settings} key The name of the setting to modify.
+ */
+const updateDatabase = async (
+  Becca: BeccaLyria,
+  server: servers,
+  key: Settings
+) => {
+  try {
+    await Becca.db.servers.update({
+      where: {
+        serverID: server.serverID,
+      },
+      data: {
+        [key]: server[key],
+      },
+    });
+  } catch (err) {
+    await beccaErrorHandler(Becca, "update database settings", err);
+  }
+};
 
 const setArrayOfIdSetting = (
   server: servers,
@@ -116,4 +145,5 @@ export const settingsSetters = {
   setAntiphishSetting,
   setStyleSetting,
   setIdSetting,
+  updateDatabase,
 };
