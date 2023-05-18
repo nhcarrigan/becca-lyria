@@ -83,7 +83,8 @@
       }
     },
     "feedback": {
-      "success": "Thanks! That feedback has been sent to our community! Be sure to join our [support server](https://chat.nhcarrigan.com) to see and participate in the discussion."
+      "title": "Give us feedback!",
+      "description": "Have a suggestion for a way I can improve? Want to share your experience with me? You can do so here: https://feedback.beccalyria.com\n\nPlease note that this is not to be used for support queries."
     },
     "help": {
       "title": "How to Interact with Becca",
