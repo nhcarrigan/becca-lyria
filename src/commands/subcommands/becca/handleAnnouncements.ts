@@ -1,4 +1,4 @@
-import { ChannelType, PermissionFlagsBits, TextChannel } from "discord.js";
+import { ChannelType, PermissionFlagsBits } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
