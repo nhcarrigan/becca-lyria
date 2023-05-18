@@ -38,7 +38,11 @@ export const processLevelRoles = async (
       if (user.level >= setting.level) {
         const role = guild.roles.cache.find((r) => r.id === setting.role);
         if (role && !member?.roles.cache.find((r) => r.id === role.id)) {
-          await member?.roles.add(role);
+          await member?.roles.add(role).catch(async () => {
+            await targetChannel.send({
+              content: `I should have given you the ${role.name} role, but I don't have permission to do so. Please ask a server admin to give you the role.`,
+            });
+          });
           const content = settings.role_message
             ? generateRoleText(settings.role_message, author, role)
             : t("listeners:level.roleDesc", {
