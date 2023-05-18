@@ -3,6 +3,7 @@ import { ChannelType, PermissionFlagsBits } from "discord.js";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 
 /**
  * Adds Becca's announcement channel to a channel.
@@ -17,12 +18,8 @@ export const handleAnnouncements: CommandHandler = async (
       ChannelType.GuildText,
     ]);
 
-    const home =
-      Becca.guilds.cache.get(Becca.configs.homeGuild) ||
-      (await Becca.guilds.fetch(Becca.configs.homeGuild).catch(() => null));
-    const me = await home?.members
-      .fetch(Becca.user?.id || "oopsie")
-      .catch(() => null);
+    const home = await FetchWrapper.guild(Becca, Becca.configs.homeGuild);
+    const me = await FetchWrapper.becca(Becca, home);
 
     if (!me?.permissionsIn(target).has(PermissionFlagsBits.ManageWebhooks)) {
       await interaction.editReply({
@@ -31,11 +28,10 @@ export const handleAnnouncements: CommandHandler = async (
       return;
     }
 
-    const announcementChannel =
-      home?.channels.cache.get(Becca.configs.announcementChannel) ||
-      (await home?.channels
-        .fetch(Becca.configs.announcementChannel)
-        .catch(() => null));
+    const announcementChannel = await FetchWrapper.channel(
+      home,
+      Becca.configs.announcementChannel
+    );
 
     if (announcementChannel?.type !== ChannelType.GuildAnnouncement) {
       await interaction.editReply({

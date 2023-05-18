@@ -7,6 +7,7 @@ import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { calculateMilliseconds } from "../../../utils/calculateMilliseconds";
 import { customSubstring } from "../../../utils/customSubstring";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 import { sendModerationDm } from "../../../utils/sendModerationDm";
 import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
@@ -45,7 +46,14 @@ export const handleMute: CommandHandler = async (
       return;
     }
 
-    const targetMember = await guild.members.fetch(target.id).catch(() => null);
+    const targetMember = await FetchWrapper.member(guild, target.id);
+
+    if (!targetMember) {
+      await interaction.editReply({
+        content: t("commands:mod.mute.left"),
+      });
+      return;
+    }
 
     if (
       !member.permissions.has(PermissionFlagsBits.ModerateMembers) ||
@@ -70,15 +78,6 @@ export const handleMute: CommandHandler = async (
       return;
     }
 
-    const targetUser = await guild.members.fetch(target.id).catch(() => null);
-
-    if (!targetUser) {
-      await interaction.editReply({
-        content: t("commands:mod.mute.left"),
-      });
-      return;
-    }
-
     const sentNotice = await sendModerationDm(
       Becca,
       config,
@@ -88,7 +87,7 @@ export const handleMute: CommandHandler = async (
       reason
     );
 
-    await targetUser.timeout(
+    await targetMember.timeout(
       durationMilliseconds,
       customSubstring(
         `Moderator: ${interaction.user.tag}\n\nReason: ${reason}`,
@@ -120,7 +119,7 @@ export const handleMute: CommandHandler = async (
         value: String(sentNotice),
       },
     ]);
-    muteEmbed.setFooter({ text: `ID: ${targetUser.id}` });
+    muteEmbed.setFooter({ text: `ID: ${targetMember.id}` });
     muteEmbed.setTimestamp();
     muteEmbed.setAuthor({
       name: target.tag,

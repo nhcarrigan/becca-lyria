@@ -4,6 +4,7 @@ import { MessageReaction, PartialMessageReaction } from "discord.js";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../utils/FetchWrapper";
 
 /**
  * Handles the reaction create event from Discord.
@@ -50,11 +51,9 @@ export const reactionAdd = async (
       return;
     }
 
-    const channel =
-      guild.channels.cache.get(config.starboard_channel) ||
-      (await guild.channels.fetch(config.starboard_channel).catch(() => null));
+    const channel = await FetchWrapper.channel(guild, config.starboard_channel);
 
-    if (!channel || !("send" in channel)) {
+    if (!channel?.isTextBased()) {
       return;
     }
 

@@ -7,6 +7,7 @@ import { xpModifyRemove } from "../../../modules/commands/manage/xpModifyRemove"
 import { xpModifyUpdateRoles } from "../../../modules/commands/manage/xpModifyUpdateRoles";
 import { getOptOutRecord } from "../../../modules/listeners/getOptOutRecord";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
@@ -87,7 +88,7 @@ export const handleXpModify: CommandHandler = async (
       },
     });
 
-    const targetMember = await guild.members.fetch(target.id).catch(() => null);
+    const targetMember = await FetchWrapper.member(guild, target.id);
 
     if (targetMember?.id !== target.id) {
       await interaction.editReply({

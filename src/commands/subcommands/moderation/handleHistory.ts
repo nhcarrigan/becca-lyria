@@ -3,6 +3,7 @@ import { EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
@@ -12,7 +13,7 @@ export const handleHistory: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
-    const targetMember = await guild.members.fetch(target.id).catch(() => null);
+    const targetMember = await FetchWrapper.member(guild, target.id);
 
     if (
       (!member.permissions.has(PermissionFlagsBits.KickMembers) &&

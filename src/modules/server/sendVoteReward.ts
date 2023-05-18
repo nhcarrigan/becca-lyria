@@ -1,8 +1,8 @@
 import { voters } from "@prisma/client";
-import { ChannelType } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../utils/FetchWrapper";
 
 /**
  * A module to send a notification to the provided channel to let the user know
@@ -16,14 +16,13 @@ export const sendVoteReward = async (
   voter: voters
 ): Promise<void> => {
   try {
-    const guild = await Becca.guilds
-      .fetch(Becca.configs.homeGuild)
-      .catch(() => null);
-    const channel = await guild?.channels
-      .fetch(Becca.configs.voteChannel)
-      .catch(() => null);
+    const guild = await FetchWrapper.guild(Becca, Becca.configs.homeGuild);
+    const channel = await FetchWrapper.channel(
+      guild,
+      Becca.configs.voteChannel
+    );
 
-    if (channel?.type !== ChannelType.GuildText) {
+    if (!channel?.isTextBased()) {
       return;
     }
 

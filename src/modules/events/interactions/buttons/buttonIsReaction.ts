@@ -1,5 +1,6 @@
 import { ButtonHandler } from "../../../../interfaces/buttons/ButtonHandler";
 import { beccaErrorHandler } from "../../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../../utils/FetchWrapper";
 import { errorEmbedGenerator } from "../../../commands/errorEmbedGenerator";
 
 export const buttonIsReaction: ButtonHandler = async (
@@ -10,7 +11,7 @@ export const buttonIsReaction: ButtonHandler = async (
   try {
     const { guild, customId, member } = interaction;
     const roleId = customId.split("-")[1];
-    const role = await guild.roles.fetch(roleId).catch(() => null);
+    const role = await FetchWrapper.role(guild, roleId);
 
     if (!role) {
       await interaction.editReply(t("events:interaction.noRole"));

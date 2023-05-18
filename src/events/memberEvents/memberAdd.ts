@@ -7,6 +7,7 @@ import { sendLogEmbed } from "../../modules/guild/sendLogEmbed";
 import { sendWelcomeEmbed } from "../../modules/guild/sendWelcomeEmbed";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../utils/FetchWrapper";
 
 /**
  * Handles the guildMemberAdd event. Checks if the member has passed screening,
@@ -47,12 +48,11 @@ export const memberAdd = async (
         return;
       }
       if (serverSettings?.welcome_style === "text") {
-        const channel =
-          guild.channels.cache.get(serverSettings.welcome_channel) ||
-          (await guild.channels
-            .fetch(serverSettings.welcome_channel)
-            .catch(() => null));
-        if (channel && "send" in channel) {
+        const channel = await FetchWrapper.channel(
+          guild,
+          serverSettings.welcome_channel
+        );
+        if (channel?.isTextBased()) {
           await channel.send({
             content: t("events:member.pending.desc"),
           });
@@ -80,12 +80,11 @@ export const memberAdd = async (
 
       await sendWelcomeEmbed(Becca, guild, "join", welcomeEmbed);
     } else if (serverSettings?.welcome_style === "text") {
-      const channel =
-        guild.channels.cache.get(serverSettings.welcome_channel) ||
-        (await guild.channels
-          .fetch(serverSettings.welcome_channel)
-          .catch(() => null));
-      if (channel && "send" in channel) {
+      const channel = await FetchWrapper.channel(
+        guild,
+        serverSettings.welcome_channel
+      );
+      if (channel?.isTextBased()) {
         await channel.send({
           content: welcomeText,
           allowedMentions: {},
@@ -94,9 +93,7 @@ export const memberAdd = async (
     }
 
     if (serverSettings?.join_role) {
-      const joinRole = await guild.roles
-        .fetch(serverSettings.join_role)
-        .catch(() => null);
+      const joinRole = await FetchWrapper.role(guild, serverSettings.join_role);
       if (joinRole) {
         await member.roles.add(joinRole);
       }

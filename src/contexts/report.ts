@@ -4,6 +4,7 @@ import { Context } from "../interfaces/contexts/Context";
 import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 import { customSubstring } from "../utils/customSubstring";
+import { FetchWrapper } from "../utils/FetchWrapper";
 import { tFunctionArrayWrapper } from "../utils/tFunctionWrapper";
 
 export const report: Context = {
@@ -24,15 +25,12 @@ export const report: Context = {
         return;
       }
 
-      const reportChannel = await guild.channels
-        .fetch(config.report_channel)
-        .catch(() => null);
+      const reportChannel = await FetchWrapper.channel(
+        guild,
+        config.report_channel
+      );
 
-      if (
-        !reportChannel ||
-        !config.report_channel ||
-        !("send" in reportChannel)
-      ) {
+      if (!reportChannel?.isTextBased() || !config.report_channel) {
         await interaction.editReply(t("contexts:report.notEnabled"));
         return;
       }

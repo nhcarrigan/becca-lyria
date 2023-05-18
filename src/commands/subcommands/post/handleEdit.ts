@@ -9,6 +9,7 @@ import {
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
@@ -30,16 +31,14 @@ export const handleEdit: CommandHandler = async (Becca, interaction, t) => {
       });
       return;
     }
-    if (!channel || !("messages" in channel)) {
+    if (!channel?.isTextBased()) {
       await interaction.reply({
         content: t("commands:post.edit.invalid"),
       });
       return;
     }
 
-    const targetMessage = await channel.messages
-      .fetch(messageId)
-      .catch(() => null);
+    const targetMessage = await FetchWrapper.message(channel, messageId);
 
     if (!targetMessage) {
       await interaction.reply({

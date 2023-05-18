@@ -3,6 +3,7 @@ import { PermissionFlagsBits } from "discord.js";
 import { ModalHandler } from "../../../interfaces/modals/ModalHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 export const handleEditModal: ModalHandler = async (Becca, interaction, t) => {
@@ -22,8 +23,7 @@ export const handleEditModal: ModalHandler = async (Becca, interaction, t) => {
     const targetChannel = guild.channels.resolve(targetChannelId);
 
     if (
-      !targetChannel ||
-      !("messages" in targetChannel) ||
+      !targetChannel?.isTextBased() ||
       !targetChannel
         .permissionsFor(guild.members.me)
         .has([
@@ -39,9 +39,10 @@ export const handleEditModal: ModalHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    const targetMessage = await targetChannel.messages
-      .fetch(targetMessageId)
-      .catch(() => null);
+    const targetMessage = await FetchWrapper.message(
+      targetChannel,
+      targetMessageId
+    );
 
     const contentInput = interaction.fields.getTextInputValue("content-input");
 

@@ -1,6 +1,7 @@
 import { Guild, EmbedBuilder } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
+import { FetchWrapper } from "../../utils/FetchWrapper";
 
 /**
  * Sends a notification to the debug hook when Becca leaves a server. Also cleans up
@@ -14,7 +15,7 @@ export const guildDelete = async (
   guild: Guild
 ): Promise<void> => {
   await Becca.analytics.updateEventCount("guildDelete");
-  const owner = await guild.members.fetch(guild.ownerId).catch(() => null);
+  const owner = await FetchWrapper.member(guild, guild.ownerId);
   const guildDeleteEmbed = new EmbedBuilder();
   guildDeleteEmbed.setTitle(
     `${Becca.user?.username || "Becca Lyria"} has been dismissed from a guild!`

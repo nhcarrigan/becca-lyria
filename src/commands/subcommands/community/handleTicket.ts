@@ -12,6 +12,7 @@ import {
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { createLogFile } from "../../../modules/tickets/createLogFile";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../../utils/FetchWrapper";
 
 /**
  * Handles the ticket creation flow.
@@ -34,9 +35,7 @@ export const handleTicket: CommandHandler = async (
 
     const reason = interaction.options.getString("reason", true);
 
-    const category =
-      guild.channels.cache.get(config.ticket_category) ||
-      (await guild.channels.fetch(config.ticket_category).catch(() => null));
+    const category = await FetchWrapper.channel(guild, config.ticket_category);
 
     if (category?.type !== ChannelType.GuildCategory) {
       await interaction.editReply({

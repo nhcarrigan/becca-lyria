@@ -12,6 +12,7 @@ import { memberPassedScreening } from "../../modules/events/memberUpdate/memberP
 import { memberRolesChange } from "../../modules/events/memberUpdate/memberRolesChange";
 import { getSettings } from "../../modules/settings/getSettings";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { FetchWrapper } from "../../utils/FetchWrapper";
 
 /**
  * Handles the memberUpdate event. Currently checks to see if
@@ -46,14 +47,14 @@ export const memberUpdate = async (
       return;
     }
 
-    const logChannel = await guild.channels
-      .fetch(serverSettings.member_events)
-      .catch(() => null);
-    const beccaMember = guild.members.cache.get(Becca.user?.id || "");
+    const logChannel = await FetchWrapper.channel(
+      guild,
+      serverSettings.member_events
+    );
+    const beccaMember = await FetchWrapper.becca(Becca, guild);
 
     if (
-      !logChannel ||
-      !("send" in logChannel) ||
+      !logChannel?.isTextBased() ||
       !beccaMember
         ?.permissionsIn(logChannel)
         .has(PermissionFlagsBits.SendMessages)
