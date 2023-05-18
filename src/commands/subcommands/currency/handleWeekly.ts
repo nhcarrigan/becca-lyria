@@ -17,8 +17,10 @@ export const handleWeekly: CurrencyHandler = async (
   data
 ) => {
   try {
+    const weekInMillseconds = 604800000;
+
     const now = Date.now();
-    const canClaim = now - 604800000 > data.weeklyClaimed;
+    const canClaim = now - weekInMillseconds > data.weeklyClaimed;
 
     const homeServer = await FetchWrapper.guild(Becca, Becca.configs.homeGuild);
     const userIsMember = await FetchWrapper.member(
@@ -36,8 +38,8 @@ export const handleWeekly: CurrencyHandler = async (
     }
 
     if (!canClaim) {
-      const cooldown = data.weeklyClaimed - now + 604800000;
-      const cooldownDate = new Date(data.weeklyClaimed + cooldown);
+      const cooldown = data.weeklyClaimed + weekInMillseconds;
+      const cooldownDate = new Date(cooldown);
       const remainingTimeDesc = t("commands:currency.weekly.cooldown", {
         time: time(cooldownDate, TimestampStyles.RelativeTime),
         interpolation: { escapeValue: false },
@@ -64,7 +66,7 @@ export const handleWeekly: CurrencyHandler = async (
 
     await scheduleCurrencyReminder(
       Becca,
-      604800000,
+      weekInMillseconds,
       t("commands:currency.weekly.reminder", {
         user: `<@!${data.userId}>`,
       })

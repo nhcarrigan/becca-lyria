@@ -76,6 +76,8 @@ export const handleTwentyOne: CurrencyHandler = async (
   data
 ) => {
   try {
+    const hourInMillseconds = 3600000;
+
     const wager = interaction.options.getInteger("wager");
 
     if (!wager || wager < 1) {
@@ -91,11 +93,11 @@ export const handleTwentyOne: CurrencyHandler = async (
     }
 
     const now = Date.now();
-    const canPlay = now - 3600000 > data.twentyOnePlayed;
+    const canPlay = now - hourInMillseconds > data.twentyOnePlayed;
 
     if (!canPlay) {
-      const cooldown = data.twentyOnePlayed - now + 3600000;
-      const cooldownDate = new Date(data.twentyOnePlayed + cooldown);
+      const cooldown = data.twentyOnePlayed + hourInMillseconds;
+      const cooldownDate = new Date(cooldown);
       const remainingTimeDesc = t("commands:currency.twentyone.cooldown", {
         time: time(cooldownDate, TimestampStyles.RelativeTime),
         interpolation: { escapeValue: false },
