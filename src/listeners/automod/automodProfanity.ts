@@ -1,5 +1,5 @@
+import Filter from "bad-words";
 import { EmbedBuilder } from "discord.js";
-import { check, clean } from "leo-profanity";
 
 import { defaultServer } from "../../config/database/defaultServer";
 import { ListenerHandler } from "../../interfaces/listeners/ListenerHandler";
@@ -16,7 +16,8 @@ export const automodProfanity: ListenerHandler = async (
   config
 ) => {
   try {
-    if (!check(message.content)) {
+    const filter = new Filter();
+    if (!filter.isProfane(message.content)) {
       return;
     }
 
@@ -46,10 +47,8 @@ export const automodProfanity: ListenerHandler = async (
     dmEmbed.setTitle(t("listeners:automod.profanity.dmTitle"));
     dmEmbed.setURL(warning.url);
     dmEmbed.setDescription(
-      `${t("listeners:automod.profanity.dmDesc")}\n\`\`\`\n${clean(
-        message.content,
-        "*",
-        2
+      `${t("listeners:automod.profanity.dmDesc")}\n\`\`\`\n${filter.clean(
+        message.content
       )}\n\`\`\``
     );
     dmEmbed.setColor(Becca.colours.error);
