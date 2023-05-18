@@ -52,6 +52,11 @@
         "more": "View more adventures!"
       }
     },
+    "announcements": {
+      "noAnnouncements": "It appears my announcement channel is misconfigured. Please let us know at https://chat.naomi.lgbt",
+      "noPerms": "I am missing the `Manage Webhooks` powers to do that.",
+      "success": "You will now receive announcements in {{- channel}}!"
+    },
     "art": {
       "description": "This portrait of me was done by [{{artist}}]({{url}})",
       "buttons": {

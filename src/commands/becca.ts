@@ -2,6 +2,7 @@ import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "@discordjs/builders";
+import { ChannelType } from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";
@@ -10,6 +11,7 @@ import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 import { handleAbout } from "./subcommands/becca/handleAbout";
 import { handleAdventure } from "./subcommands/becca/handleAdventure";
+import { handleAnnouncements } from "./subcommands/becca/handleAnnouncements";
 import { handleArt } from "./subcommands/becca/handleArt";
 import { handleContact } from "./subcommands/becca/handleContact";
 import { handleDonate } from "./subcommands/becca/handleDonate";
@@ -43,6 +45,7 @@ const handlers: { [key: string]: CommandHandler } = {
   contact: handleContact,
   translators: handleTranslators,
   feedback: handleFeedback,
+  announcements: handleAnnouncements,
 };
 
 export const becca: Command = {
@@ -148,13 +151,25 @@ export const becca: Command = {
         .setDescription(
           "Provide feedback on Becca - request features, report bugs, or share your thoughts!"
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("announcements")
+        .setDescription(
+          "Subscribe to Becca's announcements directly in your server."
+        )
+        .addChannelOption((option) =>
+          option
+            .setName("channel")
+            .setDescription("The channel you want announcements posted in.")
+            .addChannelTypes(ChannelType.GuildText)
+            .setRequired(true)
+        )
     ),
   run: async (Becca, interaction, t, config) => {
     try {
       const subCommand = interaction.options.getSubcommand();
-      if (subCommand !== "feedback") {
-        await interaction.deferReply();
-      }
+      await interaction.deferReply();
 
       const handler = handlers[subCommand] || handleInvalidSubcommand;
       await handler(Becca, interaction, t, config);
