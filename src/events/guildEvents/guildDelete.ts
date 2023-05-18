@@ -51,29 +51,39 @@ export const guildDelete = async (
 
   await Becca.debugHook.send({ embeds: [guildDeleteEmbed] });
 
-  await Becca.db.servers.delete({
-    where: {
-      serverID: guild.id,
-    },
-  });
-  await Becca.db.newlevels.deleteMany({
-    where: {
-      serverID: guild.id,
-    },
-  });
-  await Becca.db.starcounts.delete({
-    where: {
-      serverID: guild.id,
-    },
-  });
-  await Becca.db.commands.delete({
-    where: {
-      serverId: guild.id,
-    },
-  });
-  await Becca.db.histories.deleteMany({
-    where: {
-      serverId: guild.id,
-    },
-  });
+  await Becca.db.servers
+    .delete({
+      where: {
+        serverID: guild.id,
+      },
+    })
+    .catch(() => null);
+  await Becca.db.newlevels
+    .deleteMany({
+      where: {
+        serverID: guild.id,
+      },
+    })
+    .catch(() => null);
+  await Becca.db.starcounts
+    .delete({
+      where: {
+        serverID: guild.id,
+      },
+    })
+    .catch(() => null);
+  await Becca.db.commands
+    .delete({
+      where: {
+        serverId: guild.id,
+      },
+    })
+    .catch(() => null);
+  await Becca.db.histories
+    .deleteMany({
+      where: {
+        serverId: guild.id,
+      },
+    })
+    .catch(() => null);
 };
