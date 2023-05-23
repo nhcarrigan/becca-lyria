@@ -69,6 +69,19 @@ export const handleSet: SettingsHandler = async (
       }
     }
 
+    if (
+      setting === "level_roles" &&
+      interaction.options.getRole("role", true).permissions >
+        beccaUser.permissions
+    ) {
+      await interaction.editReply({
+        content: t("commands:config.set.roleNotManagable", {
+          role: value.split(" ")[1],
+        }),
+      });
+      return;
+    }
+
     const isSet = await setSetting(Becca, guild.name, setting, value, config);
 
     if (!isSet) {

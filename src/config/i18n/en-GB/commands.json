@@ -337,7 +337,8 @@
       "failed": "I am having trouble updating your settings. Please try again later.",
       "title": "{{setting}} Updated",
       "noPerms": "I am missing the {{permission}} powers to do that.",
-      "noChannelPerms": "I am missing the {{permission}} powers in {{- channel}} to do that."
+      "noChannelPerms": "I am missing the {{permission}} powers in {{- channel}} to do that.",
+      "roleNotManagable": "I am missing the powers to alter the {{role}} role"
     },
     "view": {
       "none": "I am unable to locate your settings",
