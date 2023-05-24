@@ -71,7 +71,7 @@ export const handleSet: SettingsHandler = async (
 
     if (
       setting === "level_roles" &&
-      interaction.options.getRole("role", true).position <
+      interaction.options.getRole("role", true).position >
         beccaUser.roles.highest.position
     ) {
       await interaction.editReply({
