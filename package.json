@@ -25,7 +25,8 @@
     "build": "tsc",
     "lint": "eslint src test --max-warnings 0",
     "start": "node -r dotenv/config ./prod/index.js",
-    "test": "ts-mocha -u tdd test/**/*.spec.ts --recursive --exit --timeout 10000"
+    "test": "ts-mocha -u tdd test/**/*.spec.ts --recursive --exit --timeout 10000",
+    "clean": "knip"
   },
   "dependencies": {
     "@prisma/client": "4.15.0",
@@ -62,6 +63,7 @@
     "chai": "4.3.7",
     "dotenv": "16.1.4",
     "eslint": "8.42.0",
+    "knip": "2.13.0",
     "mocha": "10.2.0",
     "prettier": "2.8.8",
     "prisma": "4.15.0",
