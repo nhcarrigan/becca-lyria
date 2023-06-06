@@ -27,6 +27,7 @@
     "start": "node -r dotenv/config ./prod/index.js",
     "test": "ts-mocha -u tdd test/**/*.spec.ts --recursive --exit --timeout 10000",
     "test:coverage": "nyc --check-coverage ts-mocha -u tdd test/**/*.spec.ts --recursive --exit --timeout 10000",
+    "test:generate": "nyc ts-mocha -u tdd test/**/*.spec.ts --recursive --exit --timeout 10000",
     "clean": "knip"
   },
   "dependencies": {
