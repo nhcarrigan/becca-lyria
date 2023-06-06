@@ -8,6 +8,12 @@ import enGbListeners from "./en-GB/listeners.json";
 import enGbResponses from "./en-GB/responses.json";
 import enGbSass from "./en-GB/sass.json";
 
+/**
+ * This is only exported to be used in the type declaration file.
+ * Knip doesn't like that, so here's a JSDoc tag to fix it.
+ *
+ * @public
+ */
 export const resources = {
   "en-GB": {
     commands: enGbCommands,
