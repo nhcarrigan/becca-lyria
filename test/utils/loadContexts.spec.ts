@@ -3,7 +3,7 @@ import { assert } from "chai";
 import { BeccaLyria } from "../../src/interfaces/BeccaLyria";
 import { Context } from "../../src/interfaces/contexts/Context";
 import { loadContexts } from "../../src/utils/loadContexts";
-import { ContextNames } from "../__mocks__/statics";
+import { ContextNames } from "../__fixtures__/statics";
 
 suite("loadContexts", () => {
   test("is defined", () => {
