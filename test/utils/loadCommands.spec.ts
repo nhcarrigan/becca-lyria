@@ -3,7 +3,7 @@ import { assert } from "chai";
 import { BeccaLyria } from "../../src/interfaces/BeccaLyria";
 import { Command } from "../../src/interfaces/commands/Command";
 import { loadCommands } from "../../src/utils/loadCommands";
-import { CommandNames } from "../__mocks__/statics";
+import { CommandNames } from "../__fixtures__/statics";
 
 suite("loadCommands", () => {
   test("is defined", () => {
