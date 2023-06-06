@@ -36,9 +36,10 @@ jobs:
         run: |
           shopt -s extglob
           git checkout --orphan gh-pages
-          rm -rfv (!"coverage")
+          rm -rfv !("coverage")
           mv coverage/** ./
           rm -r coverage
+          echo "coverage.beccalyria.com" > CNAME
           git add .
           git commit -m "feat: update coverage report"
           git push -f origin gh-pages
