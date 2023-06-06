@@ -2,8 +2,11 @@
 .env
 config.json
 /prod/
-/.nyc_output/
 /logs/*.txt
+
+# Test Coverage
+/.nyc_output/
+/coverage/
 
 # Local eval command for debugging, should NEVER make it to production
 src/commands/bot/exec.ts
