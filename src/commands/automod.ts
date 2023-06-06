@@ -2,8 +2,9 @@ import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
-} from "@discordjs/builders";
-import { ChannelType, PermissionFlagsBits } from "discord.js";
+  ChannelType,
+  PermissionFlagsBits,
+} from "discord.js";
 
 import { defaultServer } from "../config/database/defaultServer";
 import { Command } from "../interfaces/commands/Command";

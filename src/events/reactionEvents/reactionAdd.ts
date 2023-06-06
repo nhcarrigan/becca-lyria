@@ -1,5 +1,8 @@
-import { EmbedBuilder } from "@discordjs/builders";
-import { MessageReaction, PartialMessageReaction } from "discord.js";
+import {
+  EmbedBuilder,
+  MessageReaction,
+  PartialMessageReaction,
+} from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { getSettings } from "../../modules/settings/getSettings";

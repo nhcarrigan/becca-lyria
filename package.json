@@ -6,7 +6,7 @@
   "license": "MPL-2.0",
   "engines": {
     "node": "18.16.0",
-    "npm": "9.6.7"
+    "pnpm": "8.6.1"
   },
   "keywords": [
     "DiscordJS",
