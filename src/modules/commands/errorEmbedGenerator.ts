@@ -1,6 +1,5 @@
 import { EmbedBuilder } from "discord.js";
 import { TFunction } from "i18next";
-import { Types } from "mongoose";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 
@@ -10,14 +9,14 @@ import { BeccaLyria } from "../../interfaces/BeccaLyria";
  *
  * @param {BeccaLyria} Becca Becca's Discord instance.
  * @param {string} commandName The name of the command that generated the error.
- * @param {Types.ObjectId} errorId The unique ID for the error.
+ * @param {string} errorId The unique ID for the error.
  * @param {TFunction} t The i18n function.
  * @returns {EmbedBuilder} The Discord embed containing the information.
  */
 export const errorEmbedGenerator = (
   Becca: BeccaLyria,
   commandName: string,
-  errorId: Types.ObjectId,
+  errorId: string,
   t: TFunction
 ): EmbedBuilder => {
   const errorEmbed = new EmbedBuilder();
@@ -41,7 +40,7 @@ export const errorEmbedGenerator = (
     },
     {
       name: t("defaults:errors.id"),
-      value: errorId.toHexString(),
+      value: errorId,
     },
   ]);
   errorEmbed.setTimestamp();

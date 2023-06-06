@@ -1,5 +1,4 @@
 import { EmbedBuilder } from "discord.js";
-import { connection } from "mongoose";
 
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
@@ -20,7 +19,7 @@ export const handlePing: CommandHandler = async (
     const discordLatency = receivedInteraction - createdTimestamp;
     const websocketLatency = Becca.ws.ping;
 
-    await connection.db.admin().ping();
+    await Becca.db.$runCommandRaw({ ping: 1 });
     const databaseLatency = Date.now() - receivedInteraction;
 
     const isSlow =

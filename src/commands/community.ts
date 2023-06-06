@@ -3,8 +3,8 @@ import {
   SlashCommandRoleOption,
   SlashCommandSubcommandBuilder,
   SlashCommandUserOption,
-} from "@discordjs/builders";
-import { ChannelType } from "discord.js";
+  ChannelType,
+} from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";

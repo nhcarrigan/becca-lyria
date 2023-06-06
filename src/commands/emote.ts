@@ -1,7 +1,4 @@
-import {
-  SlashCommandBuilder,
-  SlashCommandSubcommandBuilder,
-} from "@discordjs/builders";
+import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from "discord.js";
 
 import { emoteChoices } from "../config/commands/emoteData";
 import { Command } from "../interfaces/commands/Command";

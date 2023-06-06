@@ -4,8 +4,8 @@ import {
   ContextMenuCommandInteraction,
   EmbedBuilder,
   Message,
+  SnowflakeUtil,
 } from "discord.js";
-import { Types } from "mongoose";
 
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 
@@ -24,7 +24,7 @@ import { customSubstring } from "./customSubstring";
  * @param {Message | undefined} message Optional message that triggered the issue.
  * @param { CommandInteraction | ContextMenuCommandInteraction | undefined } interaction Optional interaction that triggered the issue.
  * @param {true | undefined} fromUncaughtError Optional flag to indicate if this error was thrown from an uncaught error handler.
- * @returns {Types.ObjectId} A unique ID for the error.
+ * @returns {string} A unique ID for the error.
  */
 export const beccaErrorHandler = async (
   Becca: BeccaLyria,
@@ -34,7 +34,7 @@ export const beccaErrorHandler = async (
   message?: Message,
   interaction?: CommandInteraction | ContextMenuCommandInteraction,
   fromUncaughtError?: true
-): Promise<Types.ObjectId> => {
+): Promise<string> => {
   await Becca.analytics.updateErrorCount(!fromUncaughtError);
   const error = err as Error;
   beccaLogHandler.log("error", `There was an error in the ${context}:`);
@@ -45,7 +45,7 @@ export const beccaErrorHandler = async (
 
   captureException(error);
 
-  const errorId = new Types.ObjectId();
+  const errorId = SnowflakeUtil.generate({ timestamp: Date.now() }).toString();
   const errorEmbed = new EmbedBuilder();
   errorEmbed.setTitle(
     `${context} error ${guild ? `in ${guild}` : "from an unknown source"}.`
@@ -57,7 +57,7 @@ export const beccaErrorHandler = async (
       name: "Stack Trace:",
       value: `\`\`\`\n${customSubstring(error.stack || "null", 1000)}\n\`\`\``,
     },
-    { name: "Error ID:", value: errorId.toHexString() },
+    { name: "Error ID:", value: errorId },
   ]);
   errorEmbed.setTimestamp();
   if (message) {

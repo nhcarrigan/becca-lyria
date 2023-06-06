@@ -1,8 +1,8 @@
 import {
+  PermissionFlagsBits,
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
-} from "@discordjs/builders";
-import { PermissionFlagsBits } from "discord.js";
+} from "discord.js";
 
 import { Command } from "../interfaces/commands/Command";
 import { CommandHandler } from "../interfaces/commands/CommandHandler";

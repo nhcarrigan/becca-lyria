@@ -1,7 +1,7 @@
-import { EmbedBuilder } from "@discordjs/builders";
 import {
   AutoModerationActionExecution,
   AutoModerationActionType,
+  EmbedBuilder,
 } from "discord.js";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
