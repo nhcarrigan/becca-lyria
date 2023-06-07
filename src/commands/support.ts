@@ -37,7 +37,7 @@ export const support: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("server")
         .setDescription("Get the invite link for the support server.")
-  )
+    )
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("ids")
