@@ -7,6 +7,7 @@ import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { customSubstring } from "../../../utils/customSubstring";
 import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
+import { debugLogger } from "../../../utils/debugLogger";
 
 /**
  * Unbans the `target` user for the provided `reason`, assuming the caller has permissions.
@@ -16,7 +17,15 @@ export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
     const { guild, member } = interaction;
     const target = interaction.options.getUser("target", true);
     const reason = interaction.options.getString("reason", true);
-    const bannedMember = await guild.bans.fetch(target.id).catch(() => null);
+    const bannedMember = await guild.bans
+      .fetch(target.id)
+      .catch((err) =>
+        debugLogger(
+          "handle unban",
+          err.message,
+          `target id ${target.id} in guild id ${guild.id}`
+        )
+      );
 
     if (!member.permissions.has(PermissionFlagsBits.BanMembers)) {
       await interaction.editReply({

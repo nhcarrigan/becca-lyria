@@ -6,6 +6,7 @@ import { generateLevelText } from "../modules/listeners/generateLevelText";
 import { getOptOutRecord } from "../modules/listeners/getOptOutRecord";
 import { processLevelRoles } from "../modules/listeners/processLevelRoles";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
+import { debugLogger } from "../utils/debugLogger";
 
 /**
  * Confirms the server has enabled the level system, then awards
@@ -137,11 +138,25 @@ export const levelListener: Listener = {
             text: t("defaults:footer"),
             iconURL: "https://cdn.nhcarrigan.com/profile.png",
           });
-          await targetChannel.send({ embeds: [levelEmbed] }).catch(() => null);
+          await targetChannel
+            .send({ embeds: [levelEmbed] })
+            .catch((err) =>
+              debugLogger(
+                "level listener",
+                err.message,
+                `channel id ${targetChannel.id} in guild id ${guild.id}`
+              )
+            );
         } else {
           await targetChannel
             .send({ content, allowedMentions: {} })
-            .catch(() => null);
+            .catch((err) =>
+              debugLogger(
+                "level listener",
+                err.message,
+                `channel id ${targetChannel.id} in guild id ${guild.id}`
+              )
+            );
         }
       }
 
