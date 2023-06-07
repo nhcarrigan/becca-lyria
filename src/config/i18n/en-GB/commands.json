@@ -39,7 +39,11 @@
       "members": "Members",
       "commands": "Available Spells",
       "colour": "Favourite Colour",
-      "purple": "Purple",
+      "language": "Code Language",
+      "typescript": "TypeScript",
+      "files": "File Count",
+      "lines": "Lines of Code",
+      "coverage": "Test Coverage",
       "buttons": {
         "join": "Join our support server",
         "invite": "Add Becca to your server!",

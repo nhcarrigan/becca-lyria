@@ -1,3 +1,8 @@
+import { exec } from "child_process";
+import { readFile } from "fs/promises";
+import { join } from "path";
+import { promisify } from "util";
+
 import {
   ActionRowBuilder,
   ButtonBuilder,
@@ -10,12 +15,33 @@ import { getCounts } from "../../../modules/becca/getCounts";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
+const asyncExec = promisify(exec);
+
 /**
  * Generates an embed containing information about Becca.
  */
 export const handleAbout: CommandHandler = async (Becca, interaction, t) => {
   try {
+    const { commitHash: hash } = Becca;
     const { guilds, members, commands } = getCounts(Becca);
+
+    const { stdout } = await asyncExec("cloc --csv --quiet src");
+    const lines = stdout.split("\n").slice(1);
+    const typescript = lines.find((line) => line.includes("TypeScript"));
+    const [files, code] = typescript
+      ? [typescript.split(",")[0], typescript.split(",")[4]]
+      : ["unknown", "unknown"];
+    const coverageFile = await readFile(
+      join(process.cwd(), "coverage", "index.html"),
+      "utf-8"
+    );
+    const coverageTotals = coverageFile.match(
+      /<div class='fl pad1y space-right2'>((?!div).)*<\/div>/gs
+    );
+    const lineTotals = coverageTotals
+      ? coverageTotals[3].match(/[\d.]+%/)?.[0] || "0%"
+      : "0%";
+
     const aboutEmbed = new EmbedBuilder();
     aboutEmbed.setColor(Becca.colours.default);
     aboutEmbed.setTitle(t("commands:becca.about.title"));
@@ -23,7 +49,12 @@ export const handleAbout: CommandHandler = async (Becca, interaction, t) => {
     aboutEmbed.addFields([
       {
         name: t("commands:becca.about.version"),
-        value: process.env.npm_package_version || "unknown version",
+        value: `${
+          process.env.npm_package_version || "unknown version"
+        } - [${hash.slice(
+          0,
+          7
+        )}](https://github.com/beccalyria/discord-bot/commit/${hash})`,
         inline: true,
       },
       {
@@ -47,8 +78,23 @@ export const handleAbout: CommandHandler = async (Becca, interaction, t) => {
         inline: true,
       },
       {
-        name: t("commands:becca.about.colour"),
-        value: t("commands:becca.about.purple"),
+        name: t("commands:becca.about.language"),
+        value: t("commands:becca.about.typescript"),
+        inline: true,
+      },
+      {
+        name: t("commands:becca.about.files"),
+        value: files,
+        inline: true,
+      },
+      {
+        name: t("commands:becca.about.lines"),
+        value: code,
+        inline: true,
+      },
+      {
+        name: t("commands:becca.about.coverage"),
+        value: lineTotals,
         inline: true,
       },
     ]);
