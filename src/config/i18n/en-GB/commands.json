@@ -802,6 +802,9 @@
       "notStaff": "You must be a member of our support staff to use this command.",
       "invalidId": "{{- id}} is not a valid guild ID.",
       "logs": "Here are the available logs for your guild:"
+    },
+    "ids": {
+      "message": "Here is the relevant ids for support links. User ID: {{userId}} \n Channel ID: {{channelId}} \n Guild ID: {{guildId}}"
     }
   },
   "triggers": {
