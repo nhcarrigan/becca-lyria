@@ -38,7 +38,7 @@ jobs:
         run: |
           shopt -s extglob
           git checkout --orphan gh-pages
-          rm -rfv !("coverage")
+          rm -rfv !("coverage") > /dev/null
           mv coverage/** ./
           rm -r coverage
           echo "coverage.beccalyria.com" > CNAME
