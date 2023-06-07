@@ -12,7 +12,9 @@ export const handleIds: CommandHandler = async (Becca, interaction, t) => {
   try {
     await interaction.editReply({
       content: t("commands:support.ids.message", {
-        userId, channelId, guildId,
+        userId,
+        channelId,
+        guildId,
       }),
     });
   } catch (err) {
