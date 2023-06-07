@@ -28,6 +28,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
+      - name: Build
+        run: pnpm run build
+
       - name: Generate Coverage
         run: "pnpm run test:generate"
 
@@ -38,7 +41,7 @@ jobs:
         run: |
           shopt -s extglob
           git checkout --orphan gh-pages
-          rm -rfv !("coverage")
+          rm -rfv !("coverage") > /dev/null
           mv coverage/** ./
           rm -r coverage
           echo "coverage.beccalyria.com" > CNAME
