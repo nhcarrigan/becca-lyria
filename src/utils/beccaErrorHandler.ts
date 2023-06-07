@@ -11,6 +11,7 @@ import { BeccaLyria } from "../interfaces/BeccaLyria";
 
 import { beccaLogHandler } from "./beccaLogHandler";
 import { customSubstring } from "./customSubstring";
+import { debugLogger } from "./debugLogger";
 
 /**
  * Takes the error object generated within the code, passes it to Sentry and logs the
@@ -94,6 +95,10 @@ export const beccaErrorHandler = async (
     ]);
   }
   await Becca.debugHook.send({ embeds: [errorEmbed] });
+
+  if (guild) {
+    debugLogger(context, error.message, guild);
+  }
 
   return errorId;
 };

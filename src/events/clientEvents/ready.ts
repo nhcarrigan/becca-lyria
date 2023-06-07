@@ -36,4 +36,5 @@ export const ready = async (Becca: BeccaLyria): Promise<void> => {
     await postDailyAnalytics(Becca);
   });
   beccaLogHandler.log("debug", "Loaded daily analytics!");
+  await Becca.debugHook.send("Boot Process Complete~!");
 };
