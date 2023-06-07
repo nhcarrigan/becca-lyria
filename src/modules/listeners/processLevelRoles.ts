@@ -5,6 +5,7 @@ import { TFunction } from "i18next";
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { ValidatedMessage } from "../../interfaces/discord/ValidatedMessage";
 import { beccaErrorHandler } from "../../utils/beccaErrorHandler";
+import { debugLogger } from "../../utils/debugLogger";
 
 import { generateRoleText } from "./generateRoleText";
 
@@ -39,9 +40,17 @@ export const processLevelRoles = async (
         const role = guild.roles.cache.find((r) => r.id === setting.role);
         if (role && !member?.roles.cache.find((r) => r.id === role.id)) {
           await member?.roles.add(role).catch(async () => {
-            await targetChannel.send({
-              content: `I should have given you the ${role.name} role, but I don't have permission to do so. Please ask a server admin to give you the role.`,
-            });
+            await targetChannel
+              .send({
+                content: `I should have given you the ${role.name} role, but I don't have permission to do so. Please ask a server admin to give you the role.`,
+              })
+              .catch((err) =>
+                debugLogger(
+                  "level listener",
+                  err.message,
+                  `channel id ${targetChannel.id} in guild id ${guild.id}`
+                )
+              );
           });
           const content = settings.role_message
             ? generateRoleText(settings.role_message, author, role)
@@ -62,9 +71,25 @@ export const processLevelRoles = async (
               text: t("defaults:footer"),
               iconURL: "https://cdn.nhcarrigan.com/profile.png",
             });
-            await targetChannel.send({ embeds: [roleEmbed] });
+            await targetChannel
+              .send({ embeds: [roleEmbed] })
+              .catch((err) =>
+                debugLogger(
+                  "level listener",
+                  err.message,
+                  `channel id ${targetChannel.id} in guild id ${guild.id}`
+                )
+              );
           } else {
-            await targetChannel.send({ content, allowedMentions: {} });
+            await targetChannel
+              .send({ content, allowedMentions: {} })
+              .catch((err) =>
+                debugLogger(
+                  "level listener",
+                  err.message,
+                  `channel id ${targetChannel.id} in guild id ${guild.id}`
+                )
+              );
           }
         }
       }

@@ -38,6 +38,7 @@ export interface BeccaLyria extends Client {
     voteChannel: string;
     analyticsSecret: string;
     analyticsUrl: string;
+    supportRole: string;
   };
   colours: {
     default: number;

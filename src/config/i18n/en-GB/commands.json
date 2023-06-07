@@ -794,6 +794,16 @@
       "success": "I have removed that role from the post!"
     }
   },
+  "support": {
+    "server": {
+      "response": "You can use this link to join our support server. Make sure you select the `I need help with Naomi's projects` role to access the support channels.\n\nhttps://discord.gg/BvbqenYYpP"
+    },
+    "logs": {
+      "notStaff": "You must be a member of our support staff to use this command.",
+      "invalidId": "{{- id}} is not a valid guild ID.",
+      "logs": "Here are the available logs for your guild:"
+    }
+  },
   "triggers": {
     "add": {
       "duplicate": "That trigger is already present.",

@@ -15,6 +15,7 @@ export const CommandNames = [
   "optout",
   "post",
   "reactionrole",
+  "support",
   "triggers",
   "userconfig",
   "welcome",

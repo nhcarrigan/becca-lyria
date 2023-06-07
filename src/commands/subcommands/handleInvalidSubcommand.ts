@@ -12,7 +12,7 @@ export const handleInvalidSubcommand: CommandHandler = async (
 ) => {
   try {
     await interaction.editReply({
-      content: tFunctionArrayWrapper(t, "responses:invalidSubcommand"),
+      content: tFunctionArrayWrapper(t, "responses:invalidCommand"),
     });
   } catch (err) {
     await beccaErrorHandler(

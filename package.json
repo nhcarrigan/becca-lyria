@@ -24,6 +24,7 @@
     "prebuild": "rimraf ./prod",
     "build": "tsc",
     "lint": "eslint src test --max-warnings 0 && prettier src test --check",
+    "lint:fix": "eslint src test --max-warnings 0 --fix && prettier src test --write",
     "start": "node -r dotenv/config ./prod/index.js",
     "test": "ts-mocha -u tdd test/**/*.spec.ts --recursive --exit --timeout 10000",
     "test:coverage": "nyc --check-coverage ts-mocha -u tdd test/**/*.spec.ts --recursive --exit --timeout 10000",

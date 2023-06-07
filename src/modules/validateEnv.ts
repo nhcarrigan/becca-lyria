@@ -60,6 +60,11 @@ export const validateEnv = (): BeccaLyria["configs"] => {
     process.exit(1);
   }
 
+  if (!process.env.SUPPORT_ROLE_ID) {
+    beccaLogHandler.log("error", "Missing Support Role ID");
+    process.exit(1);
+  }
+
   return {
     token: process.env.DISCORD_TOKEN,
     dbToken: process.env.MONGODB,
@@ -76,6 +81,7 @@ export const validateEnv = (): BeccaLyria["configs"] => {
     version: process.env.npm_package_version || "null",
     id: process.env.CLIENT_ID,
     homeGuild: process.env.HOME_GUILD_ID,
+    supportRole: process.env.SUPPORT_ROLE_ID,
     announcementChannel: process.env.ANNOUNCEMENT_CHANNEL_ID || "",
     topGGToken: process.env.TOPGG_TOKEN || "",
     topGG: process.env.TOPGG_PASSWORD || "",

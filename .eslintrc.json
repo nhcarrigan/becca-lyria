@@ -70,6 +70,15 @@
         "jsdoc/require-jsdoc": "off",
         "jsdoc/require-param": "off"
       }
+    },
+    {
+      "files": [
+        // This is specifically due to the need for parsing PM2s logs.
+        "src/commands/subcommands/support/handleLogs.ts"
+      ],
+      "rules": {
+        "no-control-regex": "off"
+      }
     }
   ]
 }
