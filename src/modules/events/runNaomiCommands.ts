@@ -23,7 +23,7 @@ export const runNaomiCommands = async (Becca: BeccaLyria, message: Message) => {
 
   switch (command) {
     case "register":
-      await registerCommands(Becca);
+      await registerCommands(Becca, message);
       break;
     case "unregister":
       await naomiUnregisterCommand(Becca, message);
