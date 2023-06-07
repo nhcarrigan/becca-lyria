@@ -7,6 +7,7 @@ import { sendLogEmbed } from "../../../modules/guild/sendLogEmbed";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { calculateMilliseconds } from "../../../utils/calculateMilliseconds";
 import { customSubstring } from "../../../utils/customSubstring";
+import { debugLogger } from "../../../utils/debugLogger";
 import { FetchWrapper } from "../../../utils/FetchWrapper";
 import { sendModerationDm } from "../../../utils/sendModerationDm";
 import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
@@ -87,13 +88,28 @@ export const handleMute: CommandHandler = async (
       reason
     );
 
-    await targetMember.timeout(
-      durationMilliseconds,
-      customSubstring(
-        `Moderator: ${interaction.user.tag}\n\nReason: ${reason}`,
-        512
+    const success = await targetMember
+      .timeout(
+        durationMilliseconds,
+        customSubstring(
+          `Moderator: ${interaction.user.tag}\n\nReason: ${reason}`,
+          512
+        )
       )
-    );
+      .catch((err) =>
+        debugLogger(
+          "mute command",
+          err.message,
+          `member id ${targetMember.id} in guild id ${guild.id}`
+        )
+      );
+
+    if (!success) {
+      await interaction.editReply({
+        content: `Failed to mute ${targetMember.user.username}.`,
+      });
+      return;
+    }
 
     await updateHistory(Becca, "mute", target.id, guild.id);
 
