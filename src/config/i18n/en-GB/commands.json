@@ -804,7 +804,7 @@
       "logs": "Here are the available logs for your guild:"
     },
     "ids": {
-      "message": "Here is the relevant ids for support links. User ID: {{userId}} \n Channel ID: {{channelId}} \n Guild ID: {{guildId}}"
+      "message": "Here are the relevant IDs. These are safe to share with our support team.\n\nUser ID: {{userId}} \n Channel ID: {{channelId}} \n Guild ID: {{guildId}}"
     }
   },
   "triggers": {
