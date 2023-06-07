@@ -46,9 +46,9 @@ export const handleLogs: CommandHandler = async (Becca, interaction, t) => {
     const { stdout: logs } = await asyncExec(command);
 
     const attachment = new AttachmentBuilder(
-      /* PM2 appends control characters to the logs, we remove them for readability.
-      skipcq JS-W1035 */
-      Buffer.from(logs.replace(/\x1b\[2K\x1b\[1A\x1b\[2K\x1b\[G/g, "")),
+      // PM2 appends control characters to the logs, we remove them for readability.
+      // skipcq: JS-W1035
+      Buffer.from(logs.replace(/\x1b\[2K\x1b\[1A\x1b\[2K\x1b\[G/gu, "")),
       {
         name: `${guildId}.log`,
       }
