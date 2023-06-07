@@ -9,6 +9,8 @@ import {
 
 import { BeccaLyria } from "../interfaces/BeccaLyria";
 
+import { debugLogger } from "./debugLogger";
+
 /**
  * Wraps Discord fetch calls to handle errors.
  */
@@ -24,7 +26,11 @@ export const FetchWrapper = {
   async guild(Becca: BeccaLyria, guildId: string): Promise<Guild | null> {
     const guild =
       Becca.guilds.cache.get(guildId) ||
-      (await Becca.guilds.fetch(guildId).catch(() => null));
+      (await Becca.guilds
+        .fetch(guildId)
+        .catch((err) =>
+          debugLogger("fetch guild", err.message, `guild id ${guildId}`)
+        ));
     return guild;
   },
 
@@ -42,7 +48,15 @@ export const FetchWrapper = {
   ): Promise<GuildBasedChannel | null> {
     const channel =
       guild?.channels.cache.get(channelId) ||
-      (await guild?.channels.fetch(channelId).catch(() => null)) ||
+      (await guild?.channels
+        .fetch(channelId)
+        .catch((err) =>
+          debugLogger(
+            "fetch channel",
+            err.message,
+            `channel id ${channelId} in guild ${guild.id}`
+          )
+        )) ||
       null;
     return channel;
   },
@@ -61,7 +75,15 @@ export const FetchWrapper = {
   ): Promise<GuildMember | null> {
     const member =
       guild?.members.cache.get(memberId) ||
-      (await guild?.members.fetch(memberId).catch(() => null)) ||
+      (await guild?.members
+        .fetch(memberId)
+        .catch((err) =>
+          debugLogger(
+            "fetch member",
+            err.message,
+            `member id ${memberId} in guild ${guild.id}`
+          )
+        )) ||
       null;
     return member;
   },
@@ -83,7 +105,11 @@ export const FetchWrapper = {
     }
     const me =
       guild?.members.cache.get(Becca.user.id) ||
-      (await guild?.members.fetch(Becca.user.id).catch(() => null)) ||
+      (await guild?.members
+        .fetch(Becca.user.id)
+        .catch((err) =>
+          debugLogger("fetch becca", err.message, `guild id ${guild.id}`)
+        )) ||
       null;
     return me;
   },
@@ -102,7 +128,17 @@ export const FetchWrapper = {
   ): Promise<Message | null> {
     const message =
       channel?.messages.cache.get(messageId) ||
-      (await channel?.messages.fetch(messageId).catch(() => null)) ||
+      (await channel?.messages
+        .fetch(messageId)
+        .catch((err) =>
+          debugLogger(
+            "fetch message",
+            err.message,
+            `message id ${messageId} in guild id ${
+              "guild" in channel ? channel.guild.id : "unknown"
+            }`
+          )
+        )) ||
       null;
     return message;
   },
@@ -118,7 +154,15 @@ export const FetchWrapper = {
   async role(guild: Guild | null, roleId: string): Promise<Role | null> {
     const role =
       guild?.roles.cache.get(roleId) ||
-      (await guild?.roles.fetch(roleId).catch(() => null)) ||
+      (await guild?.roles
+        .fetch(roleId)
+        .catch((err) =>
+          debugLogger(
+            "fetch role",
+            err.message,
+            `role id ${roleId} in guild id ${guild.id}`
+          )
+        )) ||
       null;
     return role;
   },

@@ -66,6 +66,13 @@ export const handleWarn: CommandHandler = async (
       reason
     );
 
+    if (!sentNotice) {
+      await interaction.editReply({
+        content: `Cannot warn ${target.tag} as their DMs appear to be closed.`,
+      });
+      return;
+    }
+
     await updateHistory(Becca, "warn", target.id, guild.id);
 
     const warnEmbed = new EmbedBuilder();
