@@ -137,9 +137,11 @@ export const levelListener: Listener = {
             text: t("defaults:footer"),
             iconURL: "https://cdn.nhcarrigan.com/profile.png",
           });
-          await targetChannel.send({ embeds: [levelEmbed] });
+          await targetChannel.send({ embeds: [levelEmbed] }).catch(() => null);
         } else {
-          await targetChannel.send({ content, allowedMentions: {} });
+          await targetChannel
+            .send({ content, allowedMentions: {} })
+            .catch(() => null);
         }
       }
 
