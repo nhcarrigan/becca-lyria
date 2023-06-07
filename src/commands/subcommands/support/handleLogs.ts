@@ -11,6 +11,9 @@ import { FetchWrapper } from "../../../utils/FetchWrapper";
 
 const asyncExec = promisify(exec);
 
+/**
+ * Handles parsing logs for lines related to a specific guild.
+ */
 export const handleLogs: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { user } = interaction;
@@ -25,7 +28,7 @@ export const handleLogs: CommandHandler = async (Becca, interaction, t) => {
       return;
     }
 
-    if (!guildId.match(/^\d{16,19}$/)) {
+    if (!/^\d{16,19}$/.test(guildId)) {
       await interaction.editReply({
         content: t("commands:support.logs.invalidId", {
           id: guildId,
@@ -43,6 +46,8 @@ export const handleLogs: CommandHandler = async (Becca, interaction, t) => {
     const { stdout: logs } = await asyncExec(command);
 
     const attachment = new AttachmentBuilder(
+      /* PM2 appends control characters to the logs, we remove them for readability.
+      skipcq JS-W1035 */
       Buffer.from(logs.replace(/\x1b\[2K\x1b\[1A\x1b\[2K\x1b\[G/g, "")),
       {
         name: `${guildId}.log`,

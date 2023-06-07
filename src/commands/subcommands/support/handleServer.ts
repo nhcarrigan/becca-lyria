@@ -2,6 +2,9 @@ import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 
+/**
+ * Provides a link to the support server.
+ */
 export const handleServer: CommandHandler = async (Becca, interaction, t) => {
   try {
     await interaction.editReply({
