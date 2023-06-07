@@ -16,7 +16,9 @@ export const handleLogs: CommandHandler = async (Becca, interaction, t) => {
     const { user } = interaction;
     const guildId = interaction.options.getString("id", true);
 
-    if (!isSupportStaff(Becca, user.id)) {
+    const isStaff = await isSupportStaff(Becca, user.id);
+
+    if (!isStaff) {
       await interaction.editReply({
         content: t("commands:support.logs.notStaff"),
       });
