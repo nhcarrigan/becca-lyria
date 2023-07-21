@@ -33,8 +33,8 @@
   },
   "dependencies": {
     "@prisma/client": "4.16.2",
-    "@sentry/integrations": "7.59.3",
-    "@sentry/node": "7.59.3",
+    "@sentry/integrations": "7.60.0",
+    "@sentry/node": "7.60.0",
     "@top-gg/sdk": "3.1.5",
     "axios": "1.4.0",
     "bad-words": "3.0.4",
