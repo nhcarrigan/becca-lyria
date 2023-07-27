@@ -52,7 +52,7 @@ export const automodLinks: ListenerHandler = async (
     const blockedLinks = blockedLinkList.length;
     const allowedLinks = allowedLinkList.length;
 
-    if (blockedLinks > 0 && blockedLinks !== allowedLinks) {
+    if (blockedLinks > 0 && blockedLinks > allowedLinks) {
       if (message.deletable) {
         await message.delete();
       }
