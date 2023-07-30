@@ -86,7 +86,7 @@ export const handleBan: CommandHandler = async (
     const success = await targetMember
       .ban({
         reason: customSubstring(
-          `Moderator: ${interaction.user.tag}\n\nReason: ${reason}`,
+          `Moderator: ${interaction.user.username}\n\nReason: ${reason}`,
           512
         ),
         deleteMessageDays: prune,

@@ -14,7 +14,7 @@ export const generateLevelText = (
   level: number
 ): string => {
   return template
-    .replace(/\{user\}/g, user.tag)
+    .replace(/\{user\}/g, user.username)
     .replace(/\{level\}/g, level.toString())
     .replace(/\{@user}/g, `<@${user.id}>`);
 };

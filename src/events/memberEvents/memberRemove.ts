@@ -67,7 +67,7 @@ export const memberRemove = async (
       },
     ]);
     goodbyeEmbed.setAuthor({
-      name: user.tag,
+      name: user.username,
       iconURL: user.displayAvatarURL(),
     });
     goodbyeEmbed.setFooter({ text: `ID: ${user.id}` });

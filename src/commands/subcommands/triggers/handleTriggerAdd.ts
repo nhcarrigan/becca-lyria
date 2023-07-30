@@ -59,7 +59,7 @@ export const handleTriggerAdd: CommandHandler = async (
       },
     ]);
     success.setAuthor({
-      name: interaction.user.tag,
+      name: interaction.user.username,
       iconURL: interaction.user.displayAvatarURL(),
     });
     success.setTimestamp();

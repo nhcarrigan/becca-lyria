@@ -45,7 +45,7 @@ export const handleTriggerRemove: CommandHandler = async (
     );
     success.setColor(Becca.colours.default);
     success.setAuthor({
-      name: interaction.user.tag,
+      name: interaction.user.username,
       iconURL: interaction.user.displayAvatarURL(),
     });
     success.setTimestamp();

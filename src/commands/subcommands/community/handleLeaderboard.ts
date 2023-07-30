@@ -44,7 +44,7 @@ export const handleLeaderboard: CommandHandler = async (
       (level, index) => [index + 1, level.userTag, level.level, level.points]
     );
 
-    const authorLevel = mapped.find((el) => el[1] === interaction.user.tag);
+    const authorLevel = mapped.find((el) => el[1] === interaction.user.username);
 
     const rankString = authorLevel
       ? `You are rank ${authorLevel[0]} at level ${authorLevel[2]} (${authorLevel[3]} XP)`

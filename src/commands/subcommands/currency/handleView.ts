@@ -20,7 +20,7 @@ export const handleView: CurrencyHandler = async (
 
     const viewEmbed = new EmbedBuilder();
     viewEmbed.setTitle("Currency Report");
-    viewEmbed.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() });
+    viewEmbed.setAuthor({ name: user.username, iconURL: user.displayAvatarURL() });
     viewEmbed.setColor(Becca.colours.default);
     viewEmbed.setDescription(
       t("commands:currency.view.total", {

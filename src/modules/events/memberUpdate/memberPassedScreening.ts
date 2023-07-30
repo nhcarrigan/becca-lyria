@@ -37,7 +37,7 @@ export const memberPassedScreening = async (
       welcomeEmbed.setTitle(t("events:member.join.title"));
       welcomeEmbed.setDescription(welcomeText);
       welcomeEmbed.setAuthor({
-        name: user.tag,
+        name: user.username,
         iconURL: user.displayAvatarURL(),
       });
       welcomeEmbed.setFooter({ text: `ID: ${user.id}` });

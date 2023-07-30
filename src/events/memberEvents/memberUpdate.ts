@@ -66,7 +66,7 @@ export const memberUpdate = async (
     embed.setColor(Becca.colours.default);
     embed.setTitle(t("events:member.update.title"));
     embed.setAuthor({
-      name: user.tag,
+      name: user.username,
       iconURL: user.displayAvatarURL(),
     });
     embed.setFooter({ text: `ID: ${user.id}` });

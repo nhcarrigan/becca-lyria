@@ -92,7 +92,7 @@ export const handleMute: CommandHandler = async (
       .timeout(
         durationMilliseconds,
         customSubstring(
-          `Moderator: ${interaction.user.tag}\n\nReason: ${reason}`,
+          `Moderator: ${interaction.user.username}\n\nReason: ${reason}`,
           512
         )
       )

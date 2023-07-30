@@ -58,7 +58,7 @@ export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
       .remove(
         bannedMember.user.id,
         customSubstring(
-          `Moderator: ${interaction.user.tag}\n\nReason: ${reason}`,
+          `Moderator: ${interaction.user.username}\n\nReason: ${reason}`,
           512
         )
       )
@@ -95,7 +95,7 @@ export const handleUnban: CommandHandler = async (Becca, interaction, t) => {
     ]);
     banLogEmbed.setTimestamp();
     banLogEmbed.setAuthor({
-      name: bannedMember.user.tag,
+      name: bannedMember.user.username,
       iconURL: bannedMember.user.displayAvatarURL(),
     });
     banLogEmbed.setFooter({ text: `ID: ${bannedMember.user.id}` });
