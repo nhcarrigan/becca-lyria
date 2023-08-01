@@ -42,8 +42,8 @@ dependencies:
     specifier: 1.3.1
     version: 1.3.1
   node-html-to-image:
-    specifier: 3.3.0
-    version: 3.3.0
+    specifier: 3.4.0
+    version: 3.4.0
   node-schedule:
     specifier: 2.1.1
     version: 2.1.1
@@ -3514,8 +3514,8 @@ packages:
       whatwg-url: 5.0.0
     dev: false
 
-  /node-html-to-image@3.3.0:
-    resolution: {integrity: sha512-DIuQYuNzelE4r6K61F4JwBsK3dt/HwZUDD+f7j2qRBCAR9lBtRG+QwwpVG+ra/hrAH/WEtVmhPjEbIkyLAVSKQ==}
+  /node-html-to-image@3.4.0:
+    resolution: {integrity: sha512-oQlQmOaiUZP2gG7rokVvynJaEEaWCaa0JxN24DQmFdkQY6QQ4tFSiFw2wcP52ddvdQ+WetFL90QdTZXS7V7uiQ==}
     dependencies:
       handlebars: 4.7.7
       puppeteer: 15.5.0
