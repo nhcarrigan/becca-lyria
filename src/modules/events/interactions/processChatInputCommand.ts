@@ -2,7 +2,6 @@ import { ChatInputCommandInteraction } from "discord.js";
 import { TFunction } from "i18next";
 
 import { BeccaLyria } from "../../../interfaces/BeccaLyria";
-import { currencyListener } from "../../../listeners/currencyListener";
 import { usageListener } from "../../../listeners/usageListener";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
@@ -59,7 +58,6 @@ export const processChatInputCommand = async (
     }
     await target.run(Becca, interaction, t, config);
     await usageListener.run(Becca, interaction);
-    await currencyListener.run(Becca, interaction);
   } catch (err) {
     await beccaErrorHandler(
       Becca,

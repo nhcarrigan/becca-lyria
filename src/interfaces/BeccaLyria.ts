@@ -20,8 +20,6 @@ export interface BeccaLyria extends Client {
     token: string;
     dbToken: string;
     whUrl: string;
-    currencyUrl: string;
-    currencyReminderUrl: string;
     feedbackUrl: string;
     nasaKey: string;
     ownerId: string;

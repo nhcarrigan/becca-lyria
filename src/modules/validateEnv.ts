@@ -27,19 +27,6 @@ export const validateEnv = (): BeccaLyria["configs"] => {
     process.exit(1);
   }
 
-  if (!process.env.CURRENCY_WH) {
-    beccaLogHandler.log("error", "Missing Discord Currency webhook URL");
-    process.exit(1);
-  }
-
-  if (!process.env.CURRENCY_REMINDER_WH) {
-    beccaLogHandler.log(
-      "error",
-      "Missing Discord Currency Reminder webhook URL"
-    );
-    process.exit(1);
-  }
-
   if (!process.env.FEEDBACK_WH) {
     beccaLogHandler.log("error", "Missing Discord Feedback webhook URL");
     process.exit(1);
@@ -69,8 +56,6 @@ export const validateEnv = (): BeccaLyria["configs"] => {
     token: process.env.DISCORD_TOKEN,
     dbToken: process.env.MONGODB,
     whUrl: process.env.WH_URL,
-    currencyUrl: process.env.CURRENCY_WH,
-    currencyReminderUrl: process.env.CURRENCY_REMINDER_WH,
     feedbackUrl: process.env.FEEDBACK_WH,
     nasaKey: process.env.NASA_API || "",
     ownerId: process.env.OWNER_ID,

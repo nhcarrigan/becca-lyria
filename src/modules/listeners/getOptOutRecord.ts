@@ -23,7 +23,6 @@ export const getOptOutRecord = async (
       create: {
         userId,
         activity: false,
-        currency: false,
         emote: false,
         level: false,
         star: false,
