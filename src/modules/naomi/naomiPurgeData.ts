@@ -51,16 +51,6 @@ export const naomiPurgeData = async (Becca: BeccaLyria, message: Message) => {
       return;
     }
 
-    if (data === "currency") {
-      await Becca.db.currencies.delete({
-        where: {
-          userId: target,
-        },
-      });
-      await message.reply(`I have cleared the currency data for ${target}.`);
-      return;
-    }
-
     if (data === "votes") {
       await Becca.db.voters.delete({
         where: {

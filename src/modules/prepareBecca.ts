@@ -24,10 +24,6 @@ export const prepareBecca = (Becca: BeccaLyria): void => {
     error: 0x992d22,
   };
   Becca.debugHook = new WebhookClient({ url: Becca.configs.whUrl });
-  Becca.currencyHook = new WebhookClient({ url: Becca.configs.currencyUrl });
-  Becca.currencyReminderHook = new WebhookClient({
-    url: Becca.configs.currencyReminderUrl,
-  });
   Becca.feedbackHook = new WebhookClient({ url: Becca.configs.feedbackUrl });
   Becca.timeOuts = {};
   Becca.analytics = new Analytics(
