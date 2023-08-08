@@ -136,7 +136,6 @@ model optouts {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
   v        Int?    @map("__v") @ignore
   activity Boolean @default(false)
-  currency Boolean @default(false)
   emote    Boolean @default(false)
   level    Boolean @default(false)
   star     Boolean @default(false)

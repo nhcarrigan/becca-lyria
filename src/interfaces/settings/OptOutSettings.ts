@@ -1,7 +1,1 @@
-export type OptOutSettings =
-  | "activity"
-  | "currency"
-  | "emote"
-  | "level"
-  | "star"
-  | "vote";
+export type OptOutSettings = "activity" | "emote" | "level" | "star" | "vote";

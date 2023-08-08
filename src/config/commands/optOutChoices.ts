@@ -5,7 +5,6 @@ import { OptOutSettings } from "../../interfaces/settings/OptOutSettings";
 export const optOutChoices: APIApplicationCommandOptionChoice<OptOutSettings>[] =
   [
     { name: "Activity System", value: "activity" },
-    { name: "Currency System", value: "currency" },
     { name: "Emote System", value: "emote" },
     { name: "Level System", value: "level" },
     { name: "Star System", value: "star" },

@@ -9,14 +9,6 @@ const deleteActivity = async (Becca: BeccaLyria, userId: string) => {
   });
 };
 
-const deleteCurrency = async (Becca: BeccaLyria, userId: string) => {
-  await Becca.db.currencies.deleteMany({
-    where: {
-      userId,
-    },
-  });
-};
-
 const deleteEmote = async (Becca: BeccaLyria, userId: string) => {
   await Becca.db.emotecounts.deleteMany({
     where: {
@@ -61,7 +53,6 @@ export const deletionFunctions: {
   [key in OptOutSettings]: (Becca: BeccaLyria, userId: string) => Promise<void>;
 } = {
   activity: deleteActivity,
-  currency: deleteCurrency,
   emote: deleteEmote,
   level: deleteLevel,
   star: deleteStar,
