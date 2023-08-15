@@ -38,7 +38,7 @@ export const handleEmoteView: CommandHandler = async (
     const emoteEmbed = new EmbedBuilder();
     emoteEmbed.setTitle(t("commands:emote.view.title"));
     emoteEmbed.setAuthor({
-      name: interaction.user.tag,
+      name: interaction.user.username,
       iconURL: interaction.user.displayAvatarURL(),
     });
     emoteEmbed.setColor(Becca.colours.default);

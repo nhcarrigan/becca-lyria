@@ -49,7 +49,7 @@ export const generateLevelHtml = async (
     onError="this.onError=null;this.src='https://dash.beccalyria.com/assets/img/default.png';"
   />
   <div class="details">
-    <div class="username">${user.tag}</div>
+    <div class="username">${user.username}</div>
     <div class="level">Level ${levelData.level} - ${progressString}</div>
   </div>
   <div class="progress">

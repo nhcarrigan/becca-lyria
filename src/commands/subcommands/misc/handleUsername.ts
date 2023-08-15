@@ -19,7 +19,7 @@ export const handleUsername: CommandHandler = async (Becca, interaction, t) => {
     const usernameEmbed = new EmbedBuilder();
     usernameEmbed.setColor(Becca.colours.default);
     usernameEmbed.setAuthor({
-      name: user.tag,
+      name: user.username,
       iconURL: user.displayAvatarURL(),
     });
     usernameEmbed.setDescription(t("commands:misc.username.description"));

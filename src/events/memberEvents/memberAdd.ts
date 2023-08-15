@@ -41,7 +41,7 @@ export const memberAdd = async (
         partialJoinEmbed.setTitle(t("events:member.pending.title"));
         partialJoinEmbed.setDescription(t("events:member.pending.desc"));
         partialJoinEmbed.setAuthor({
-          name: user.tag,
+          name: user.username,
           iconURL: user.displayAvatarURL(),
         });
         await sendLogEmbed(Becca, guild, partialJoinEmbed, "member_events");
@@ -72,7 +72,7 @@ export const memberAdd = async (
       welcomeEmbed.setTitle(t("events:member.join.title"));
       welcomeEmbed.setDescription(welcomeText);
       welcomeEmbed.setAuthor({
-        name: user.tag,
+        name: user.username,
         iconURL: user.displayAvatarURL(),
       });
       welcomeEmbed.setFooter({ text: `ID: ${user.id}` });
@@ -112,7 +112,7 @@ export const memberAdd = async (
           serverID: guild.id,
           serverName: guild.name,
           userID: member.id,
-          userTag: user.tag,
+          userTag: user.username,
           avatar: user.displayAvatarURL(),
           points: parseInt(serverSettings.initial_xp),
           level: 0,

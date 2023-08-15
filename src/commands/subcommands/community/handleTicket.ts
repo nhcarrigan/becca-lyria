@@ -46,7 +46,7 @@ export const handleTicket: CommandHandler = async (
 
     const options = {
       parent: category.id,
-      name: `ticket-${interaction.user.tag}`,
+      name: `ticket-${interaction.user.username}`,
       type: ChannelType.GuildText,
       permissionOverwrites: [
         {

@@ -61,7 +61,7 @@ export const handleUnmute: CommandHandler = async (
       .timeout(
         null,
         customSubstring(
-          `Moderator: ${interaction.user.tag}\n\nReason: ${reason}`,
+          `Moderator: ${interaction.user.username}\n\nReason: ${reason}`,
           512
         )
       )
@@ -75,7 +75,7 @@ export const handleUnmute: CommandHandler = async (
 
     if (!success) {
       await interaction.editReply({
-        content: `Failed to unmute ${targetMember.user.tag}`,
+        content: `Failed to unmute ${targetMember.user.username}`,
       });
       return;
     }

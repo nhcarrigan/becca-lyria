@@ -48,7 +48,7 @@ export const handleUserInfo: CommandHandler = async (Becca, interaction, t) => {
       },
       {
         name: t("commands:community.userinfo.username"),
-        value: target.user.tag,
+        value: target.user.username,
         inline: true,
       },
       {

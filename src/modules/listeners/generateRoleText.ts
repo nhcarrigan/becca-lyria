@@ -14,7 +14,7 @@ export const generateRoleText = (
   role: Role
 ): string => {
   return template
-    .replace(/\{user\}/g, user.tag)
+    .replace(/\{user\}/g, user.username)
     .replace(/\{role\}/g, role.name)
     .replace(/\{@user}/g, `<@${user.id}>`)
     .replace(/\{@role\}/g, `<@&${role.id}>`);

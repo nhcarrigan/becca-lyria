@@ -44,13 +44,13 @@ export const handleStar: CommandHandler = async (Becca, interaction, t) => {
     if (!targetUserStars) {
       starData.users.push({
         userID: targetUser.id,
-        userTag: targetUser.tag,
+        userTag: targetUser.username,
         avatar: targetUser.displayAvatarURL(),
         stars: 1,
       });
     } else {
       targetUserStars.stars++;
-      targetUserStars.userTag = targetUser.tag;
+      targetUserStars.userTag = targetUser.username;
       targetUserStars.avatar = targetUser.displayAvatarURL();
     }
 
