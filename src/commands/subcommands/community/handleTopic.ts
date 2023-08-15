@@ -21,7 +21,10 @@ export const handleTopic: CommandHandler = async (Becca, interaction, t) => {
     topicEmbed.setTitle(t("commands:community.topic.title"));
     topicEmbed.setDescription(randomTopic);
     topicEmbed.setColor(Becca.colours.default);
-    topicEmbed.setAuthor({ name: user.username, iconURL: user.displayAvatarURL() });
+    topicEmbed.setAuthor({
+      name: user.username,
+      iconURL: user.displayAvatarURL(),
+    });
     topicEmbed.setFooter({
       text: t("commands:community.topic.footer"),
     });
