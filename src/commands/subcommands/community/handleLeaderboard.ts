@@ -40,16 +40,23 @@ export const handleLeaderboard: CommandHandler = async (
       return;
     }
 
-    const mapped: [number, string, number, number][] = serverLevels.map(
-      (level, index) => [index + 1, level.userTag, level.level, level.points]
+    const mappedToObject = serverLevels.map((level, index) => ({
+      rank: index + 1,
+      id: level.userID,
+      level: level.level,
+      points: level.points,
+      name: level.userTag,
+    }));
+    const mapped: [number, string, number, number][] = mappedToObject.map(
+      (el) => [el.rank, el.name, el.level, el.points]
     );
 
-    const authorLevel = mapped.find((el) =>
-      new RegExp(`^${name}(?!#\\d{4})?$`).test(el[1])
+    const authorLevel = mappedToObject.find(
+      (el) => el.id === interaction.user.id
     );
 
     const rankString = authorLevel
-      ? `You are rank ${authorLevel[0]} at level ${authorLevel[2]} (${authorLevel[3]} XP)`
+      ? `You are rank ${authorLevel.rank} at level ${authorLevel.level} (${authorLevel.points} XP)`
       : "You have not earned any experience yet!";
 
     let page = 1;
