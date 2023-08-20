@@ -113,7 +113,9 @@ void (async () => {
   await Becca.login(Becca.configs.token);
   beccaLogHandler.log("debug", "Setting activity...");
   Becca.user?.setActivity({
-    name: "over your guild",
-    type: ActivityType.Watching,
+    name: "Custom Status",
+    type: ActivityType.Custom,
+    state:
+      "💜 Keeping your community safe! Get support at https://chat.nhcarrigan.com",
   });
 })();
