@@ -3,7 +3,7 @@
   "author": "Naomi Carrigan",
   "main": "./prod/src/main.js",
   "version": "22.3.0",
-  "license": "MPL-2.0",
+  "license": "SEE LICENSE IN https://docs.nhcarrigan.com/#/license",
   "engines": {
     "node": "18.17.1",
     "pnpm": "8.6.12"
