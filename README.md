@@ -20,15 +20,11 @@ Before interacting with our community, please read our [Code of Conduct](CODE_OF
 
 Credit for Becca's avatar and the server art goes to [MoonlightKCreations](https://www.instagram.com/moonlightkcreations/). If you want to show some support, consider [commissioning her](https://meitanteimoonlight.wixsite.com/moonlightkcreations/commissions)!
 
-## Licensing
+## License
 
-Copyright (C) 2022 Naomi Carrigan
+This software is licensed under our [global software license](https://docs.nhcarrigan.com/#/license).
 
-This Source Code Form is subject to the terms of the Mozilla Public
-License, v. 2.0. If a copy of the MPL was not distributed with this
-file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-The full license terms may be viewed in the [LICENSE.md file](./LICENSE.md)
+Copyright held by Naomi Carrigan.
 
 ## Contact
 
