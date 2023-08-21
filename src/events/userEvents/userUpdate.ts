@@ -94,6 +94,7 @@ export const userUpdate = async (
             key: "avatar",
           })
         );
+
         embed.addFields([
           {
             name: t("events:member.update.old"),
@@ -109,7 +110,10 @@ export const userUpdate = async (
           },
         ]);
 
-        await logChannel.send({ embeds: [embed] });
+        await logChannel.send({
+          embeds: [embed],
+          files: [oldUser.displayAvatarURL(), newUser.displayAvatarURL()],
+        });
       }
     }
   } catch (err) {
