@@ -60,7 +60,7 @@
     "@types/mocha": "10.0.1",
     "@types/node": "18.17.9",
     "@types/node-schedule": "2.1.0",
-    "chai": "4.3.7",
+    "chai": "4.3.8",
     "dotenv": "16.3.1",
     "eslint": "8.47.0",
     "knip": "2.19.11",
