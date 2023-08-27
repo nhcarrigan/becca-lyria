@@ -36,7 +36,7 @@
     "@sentry/integrations": "7.64.0",
     "@sentry/node": "7.64.0",
     "@top-gg/sdk": "3.1.5",
-    "axios": "1.4.0",
+    "axios": "1.5.0",
     "bad-words": "3.0.4",
     "cors": "2.8.5",
     "diff": "5.1.0",
