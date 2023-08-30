@@ -26,9 +26,10 @@
     "lint": "eslint src test --max-warnings 0 && prettier src test --check",
     "lint:fix": "eslint src test --max-warnings 0 --fix && prettier src test --write",
     "start": "node -r dotenv/config ./prod/index.js",
-    "test": "ts-mocha -u tdd test/**/*.spec.ts --recursive --exit --timeout 10000",
-    "test:coverage": "nyc --check-coverage ts-mocha -u tdd test/**/*.spec.ts --recursive --exit --timeout 10000",
-    "test:generate": "nyc ts-mocha -u tdd test/**/*.spec.ts --recursive --exit --timeout 10000",
+    "__pretest": "rimraf ./.nyc_output && ts-node test/validateCoverage.ts",
+    "test": "MOCHA=true nyc --check-coverage ts-mocha -u tdd  'test/**/*.spec.ts' --recursive --exit --timeout 10000",
+    "test:nocov": "MOCHA=true ts-mocha -u tdd  'test/**/*.spec.ts' --recursive --exit --timeout 10000",
+    "__posttest": "ts-node test/validateCoverage.ts --post-coverage",
     "clean": "knip"
   },
   "dependencies": {
@@ -70,6 +71,7 @@
     "prisma": "4.16.2",
     "rimraf": "4.4.1",
     "ts-mocha": "10.0.0",
+    "ts-node": "10.9.1",
     "typescript": "5.2.2"
   }
 }
