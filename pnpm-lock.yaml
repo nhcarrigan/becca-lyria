@@ -15,8 +15,8 @@ dependencies:
     specifier: 7.68.0
     version: 7.68.0
   '@top-gg/sdk':
-    specifier: 3.1.5
-    version: 3.1.5
+    specifier: 3.1.6
+    version: 3.1.6
   axios:
     specifier: 1.5.0
     version: 1.5.0
@@ -787,11 +787,11 @@ packages:
       defer-to-connect: 2.0.1
     dev: false
 
-  /@top-gg/sdk@3.1.5:
-    resolution: {integrity: sha512-eIqyqKDuC/F8nXRDrUWwuvmcBgnJ65EhI8xQQPcBJL9QNpBf0IeggHjyzuNiDE2MnMDEoJHYJKeCI4bf7b811g==}
+  /@top-gg/sdk@3.1.6:
+    resolution: {integrity: sha512-qWWYDKAwJHaKaA/5EyLYMzfR76MwCbmKVMSXTPMd9FZFPHuLWJHO+m7Q8dWpWtcnunHa6evRAwlB3p83cht7Ww==}
     dependencies:
       raw-body: 2.5.2
-      undici: 5.22.1
+      undici: 5.24.0
     dev: false
 
   /@tsconfig/node10@1.0.9:
@@ -4656,6 +4656,13 @@ packages:
 
   /undici@5.22.1:
     resolution: {integrity: sha512-Ji2IJhFXZY0x/0tVBXeQwgPlLWw13GVzpsWPQ3rV50IFMMof2I55PZZxtm4P6iNq+L5znYN9nSTAq0ZyE6lSJw==}
+    engines: {node: '>=14.0'}
+    dependencies:
+      busboy: 1.6.0
+    dev: false
+
+  /undici@5.24.0:
+    resolution: {integrity: sha512-OKlckxBjFl0oXxcj9FU6oB8fDAaiRUq+D8jrFWGmOfI/gIyjk/IeS75LMzgYKUaeHzLUcYvf9bbJGSrUwTfwwQ==}
     engines: {node: '>=14.0'}
     dependencies:
       busboy: 1.6.0
