@@ -6,6 +6,7 @@ import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+import { handleDataRequest } from "./subcommands/support/handleDataRequest";
 import { handleIds } from "./subcommands/support/handleIds";
 import { handleLogs } from "./subcommands/support/handleLogs";
 import { handleServer } from "./subcommands/support/handleServer";
@@ -14,6 +15,7 @@ const handlers: { [key: string]: CommandHandler } = {
   server: handleServer,
   logs: handleLogs,
   ids: handleIds,
+  "data-request": handleDataRequest,
 };
 
 export const support: Command = {
@@ -42,6 +44,11 @@ export const support: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("ids")
         .setDescription("Get your id, the channel id, and the guild id")
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("data-request")
+        .setDescription("Fetch your data from Becca's database.")
     ),
   run: async (Becca, interaction, t, config) => {
     try {
