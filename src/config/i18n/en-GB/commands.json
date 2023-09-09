@@ -57,7 +57,7 @@
       }
     },
     "announcements": {
-      "noAnnouncements": "It appears my announcement channel is misconfigured. Please let us know at https://chat.naomi.lgbt",
+      "noAnnouncements": "It appears my announcement channel is misconfigured. Please let us know at https://chat.nhcarrigan.com",
       "noPerms": "I am missing the `Manage Webhooks` powers to do that.",
       "success": "You will now receive announcements in {{- channel}}!"
     },
