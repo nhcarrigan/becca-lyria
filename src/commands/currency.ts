@@ -15,7 +15,7 @@ export const currency: Command = {
 
       await interaction.editReply({
         content:
-          "Becca's currency system has been retired. Thanks for playing!\n\nIf you're interested, join our chat server: https://chat.naomi.lgbt",
+          "Becca's currency system has been retired. Thanks for playing!",
       });
     } catch (err) {
       const errorId = await beccaErrorHandler(
