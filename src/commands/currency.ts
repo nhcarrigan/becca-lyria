@@ -15,7 +15,7 @@ export const currency: Command = {
 
       await interaction.editReply({
         content:
-          "Becca's currency system has been retired. Thanks for playing!"
+          "Becca's currency system has been retired. Thanks for playing!",
       });
     } catch (err) {
       const errorId = await beccaErrorHandler(
