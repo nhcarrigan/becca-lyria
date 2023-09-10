@@ -16,7 +16,7 @@ const userFields = [
   "voters",
 ];
 
-const ownerFields = ["histories", "polls", "scheduledevents", "servers"];
+const ownerFields = ["histories", "polls", /* "scheduledevents", */ "server"];
 
 /**
  * Returns user-related data from the database, in the form of an attachment.
@@ -94,7 +94,7 @@ export const handleDataRequest: CommandHandler = async (
           Becca.db.polls.findMany({
             where: { serverId: guild.id },
           }),
-          Becca.db.servers.findMany({
+          Becca.db.servers.findUnique({
             where: { serverID: guild.id },
           }),
         ])
@@ -102,6 +102,7 @@ export const handleDataRequest: CommandHandler = async (
         if (cur.status === "fulfilled") {
           if (cur.value) {
             if ("id" in cur.value) {
+              // @ts-expect-error Delete the ID field, since it shouldn't be exposed to the user.
               delete cur.value.id;
             }
             obj[ownerFields[index]] = cur.value;
@@ -117,7 +118,7 @@ export const handleDataRequest: CommandHandler = async (
       name: `${user.id}.json`,
     });
     await interaction.editReply({
-      content: `Here's your data. If you wish to have your data deleted, visit our support server.\n${t(
+      content: `Here's your data. If you wish to have your data deleted, visit our support server.\n\n${t(
         "commands:support.server.response"
       )}`,
       files: [attachment],
