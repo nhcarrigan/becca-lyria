@@ -1,3 +1,5 @@
+import { PermissionFlagsBits } from "discord.js";
+
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
@@ -7,11 +9,18 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
  */
 export const handleEcho: CommandHandler = async (Becca, interaction, t) => {
   try {
-    interaction.ephemeral = true;
-    const input = interaction.options.getString("input") || "";
-    await interaction.reply({
-      content: input,
-    });
+    await interaction.deferReply({ ephemeral: true });
+    const input = interaction.options.getString("input", true);
+    if (
+      interaction.memberPermissions?.has(PermissionFlagsBits.ManageMessages)
+    ) {
+      interaction.channel.send(input);
+    } else {
+      //TODO: Use the translation system to get the text.
+      await interaction.reply({
+        content: "You are not allowed to send messages as Becca",
+      });
+    }
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
