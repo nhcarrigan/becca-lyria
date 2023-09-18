@@ -6,6 +6,7 @@ import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+import { handleEcho } from "./subcommands/misc/handleEcho";
 import { handleLanguage } from "./subcommands/misc/handleLanguage";
 import { handleLevelscale } from "./subcommands/misc/handleLevelscale";
 import { handlePermissions } from "./subcommands/misc/handlePermissions";
@@ -20,6 +21,7 @@ const handlers: { [key: string]: CommandHandler } = {
   permissions: handlePermissions,
   levelscale: handleLevelscale,
   language: handleLanguage,
+  echo: handleEcho,
 };
 
 export const misc: Command = {
@@ -35,6 +37,17 @@ export const misc: Command = {
           option
             .setName("date")
             .setDescription("Date of the photo to fetch, in YYYY-MM-DD format.")
+        )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("echo")
+        .setDescription("Allows members to send messages from Becca's account")
+        .addStringOption((option) =>
+          option
+            .setName("input")
+            .setDescription("The input to echo back")
+            .setRequired(true)
         )
     )
     .addSubcommand(
