@@ -3,6 +3,7 @@ import { PermissionFlagsBits } from "discord.js";
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
+import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
  * Echos what the user type.
@@ -12,14 +13,13 @@ export const handleEcho: CommandHandler = async (Becca, interaction, t) => {
     await interaction.deferReply({ ephemeral: true });
     const input = interaction.options.getString("input", true);
     if (
-      interaction.memberPermissions?.has(PermissionFlagsBits.ManageMessages)
+      !interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)
     ) {
-      interaction.channel.send(input);
-    } else {
-      //TODO: Use the translation system to get the text.
       await interaction.reply({
-        content: "You are not allowed to send messages as Becca",
+        content: tFunctionArrayWrapper(t, "responses:noPermission"),
       });
+    } else {
+      interaction.channel.send(input);
     }
   } catch (err) {
     const errorId = await beccaErrorHandler(
