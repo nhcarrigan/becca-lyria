@@ -15,12 +15,15 @@ export const handleEcho: CommandHandler = async (Becca, interaction, t) => {
     if (
       !interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)
     ) {
-      await interaction.reply({
+      await interaction.editReply({
         content: tFunctionArrayWrapper(t, "responses:noPermission"),
       });
-    } else {
-      interaction.channel.send(input);
+      return;
     }
+    interaction.channel.send(input);
+    await interaction.editReply({
+      content: "Your message has been posted.",
+    });
   } catch (err) {
     const errorId = await beccaErrorHandler(
       Becca,
