@@ -24,6 +24,8 @@ const handlers: { [key: string]: CommandHandler } = {
   echo: handleEcho,
 };
 
+const ephemerals = ["echo"];
+
 export const misc: Command = {
   data: new SlashCommandBuilder()
     .setName("misc")
@@ -42,11 +44,13 @@ export const misc: Command = {
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
         .setName("echo")
-        .setDescription("Allows members to send messages from Becca's account")
+        .setDescription(
+          "Tell Becca to send a specific message in this channel."
+        )
         .addStringOption((option) =>
           option
-            .setName("input")
-            .setDescription("The input to echo back")
+            .setName("message")
+            .setDescription("The message you want Becca to send.")
             .setRequired(true)
         )
     )
@@ -95,7 +99,9 @@ export const misc: Command = {
     ),
   run: async (Becca, interaction, t, config) => {
     try {
-      await interaction.deferReply();
+      await interaction.deferReply({
+        ephemeral: ephemerals.includes(interaction.options.getSubcommand()),
+      });
 
       const subCommand = interaction.options.getSubcommand();
       const handler = handlers[subCommand] || handleInvalidSubcommand;
