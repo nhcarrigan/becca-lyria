@@ -6,12 +6,11 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 import { tFunctionArrayWrapper } from "../../../utils/tFunctionWrapper";
 
 /**
- * Echos what the user type.
+ * Allows members to send messages from Becca's account.
  */
 export const handleEcho: CommandHandler = async (Becca, interaction, t) => {
   try {
-    await interaction.deferReply({ ephemeral: true });
-    const input = interaction.options.getString("input", true);
+    const input = interaction.options.getString("message", true);
     if (
       !interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)
     ) {
