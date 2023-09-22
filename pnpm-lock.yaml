@@ -71,8 +71,8 @@ devDependencies:
     specifier: 2.8.14
     version: 2.8.14
   '@types/diff':
-    specifier: 5.0.4
-    version: 5.0.4
+    specifier: 5.0.5
+    version: 5.0.5
   '@types/express':
     specifier: 4.17.17
     version: 4.17.17
@@ -846,8 +846,8 @@ packages:
       '@types/node': 18.17.18
     dev: true
 
-  /@types/diff@5.0.4:
-    resolution: {integrity: sha512-d7489/WO4B65k0SIqxXtviR9+MrPDipWQF6w+5D7YPrqgu6Qb87JsTdWQaNZo7itcdbViQSev3Jaz7dtKO0+Dg==}
+  /@types/diff@5.0.5:
+    resolution: {integrity: sha512-rt7WqM1bWwKJMRxlB5Rhke56UN21Bqwp1ILER31bafTivcapYdfhtPd5xRWfhf08yjPxoDcfjVkkECdRwFe7EA==}
     dev: true
 
   /@types/express-serve-static-core@4.17.35:
