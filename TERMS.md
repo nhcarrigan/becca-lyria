@@ -1,3 +1,3 @@
 # Terms of Service
 
-Our Terms of Service can be found here: https://docs.beccalyria.com/#/terms-of-service
+Our Terms of Service can be found here: https://becca.nhcarrigan.com/#/terms-of-service

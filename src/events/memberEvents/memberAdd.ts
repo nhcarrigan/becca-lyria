@@ -22,7 +22,6 @@ export const memberAdd = async (
   member: GuildMember | PartialGuildMember
 ): Promise<void> => {
   try {
-    await Becca.analytics.updateEventCount("memberAdd");
     const { user, guild } = member;
 
     if (!user) {

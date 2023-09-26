@@ -65,7 +65,7 @@ export const handleHelp: CommandHandler = async (Becca, interaction, t) => {
       .setEmoji("<:BeccaSalute:872577687590420501>")
       .setStyle(ButtonStyle.Link)
       .setURL(
-        "https://docs.beccalyria.com?utm_source=discord&utm_medium=help-command"
+        "https://becca.nhcarrigan.com?utm_source=discord&utm_medium=help-command"
       );
     const reportButton = new ButtonBuilder()
       .setLabel(t("commands:becca.help.buttons.issue"))

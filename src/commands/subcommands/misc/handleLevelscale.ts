@@ -38,7 +38,7 @@ export const handleLevelscale: CommandHandler = async (
     const embed = new EmbedBuilder();
     embed.setTitle(t("commands:misc.level.title"));
     embed.setURL(
-      "https://docs.beccalyria.com/#/level-scale?utm_source=discord&utm_medium=levelscale-command"
+      "https://becca.nhcarrigan.com/#/level-scale?utm_source=discord&utm_medium=levelscale-command"
     );
     embed.setDescription(
       t("commands:misc.level.description", {

@@ -22,7 +22,6 @@ export const interactionCreate = async (
   interaction: Interaction
 ): Promise<void> => {
   try {
-    await Becca.analytics.updateEventCount("interactionCreate");
     const lang = getInteractionLanguage(interaction);
     const t = getFixedT(lang);
     if (interaction.isChatInputCommand()) {

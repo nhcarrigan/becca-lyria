@@ -58,8 +58,7 @@ void (async () => {
       error,
       undefined,
       undefined,
-      undefined,
-      true
+      undefined
     );
   });
 
@@ -70,8 +69,7 @@ void (async () => {
       error,
       undefined,
       undefined,
-      undefined,
-      true
+      undefined
     );
   });
 

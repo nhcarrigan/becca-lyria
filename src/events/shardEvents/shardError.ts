@@ -13,6 +13,5 @@ export const shardError = async (
   error: Error,
   shard: number
 ): Promise<void> => {
-  await Becca.analytics.updateEventCount("shardError");
   await beccaErrorHandler(Becca, `shard ${shard}`, error);
 };

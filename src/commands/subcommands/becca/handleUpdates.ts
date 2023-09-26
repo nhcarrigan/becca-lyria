@@ -48,7 +48,7 @@ export const handleUpdates: CommandHandler = async (Becca, interaction, t) => {
       .setEmoji("<:BeccaNotes:883854700762505287>")
       .setStyle(ButtonStyle.Link)
       .setURL(
-        "https://docs.beccalyria.com/#/changelog?utm_source=discord&utm_medium=updates-command"
+        "https://becca.nhcarrigan.com/#/changelog?utm_source=discord&utm_medium=updates-command"
       );
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([button]);
