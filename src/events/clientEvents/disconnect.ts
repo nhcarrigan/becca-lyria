@@ -8,7 +8,6 @@ import { BeccaLyria } from "../../interfaces/BeccaLyria";
  * @param {BeccaLyria} Becca Becca's Discord instance.
  */
 export const disconnect = async (Becca: BeccaLyria): Promise<void> => {
-  await Becca.analytics.updateEventCount("clientDisconnect");
   const disconnectEmbed = new EmbedBuilder();
   disconnectEmbed.setTitle("Becca has disconnected");
   disconnectEmbed.setDescription(

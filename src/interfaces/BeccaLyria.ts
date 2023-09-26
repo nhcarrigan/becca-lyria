@@ -1,8 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Client, WebhookClient } from "discord.js";
 
-import { Analytics } from "../modules/Analytics";
-
 import { Command } from "./commands/Command";
 import { Context } from "./contexts/Context";
 
@@ -50,5 +48,4 @@ export interface BeccaLyria extends Client {
     [uuid: string]: NodeJS.Timeout;
   };
   db: PrismaClient;
-  analytics: Analytics;
 }
