@@ -21,7 +21,7 @@ export const emoteListener: Listener = {
       }
 
       const newContent = message.content
-        ?.replace(/<a?:.+?:\d{18}>|\p{Extended_Pictographic}/gu, "")
+        ?.replace(/<a?:.+?:\d{17,19}>|\p{Extended_Pictographic}/gu, "")
         .replace(/\s/g, "");
 
       if (newContent?.length) {
