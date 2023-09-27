@@ -25,6 +25,16 @@ export const processButtonClick = async (
 ) => {
   try {
     await logActivity(Becca, interaction.user.id, "button");
+    if (interaction.customId === "cta") {
+      await interaction.update({
+        content: "Thank you for acknowledging. Please run your command again.",
+        components: [],
+      });
+      if (!Becca.cta[interaction.user.id]) {
+        Becca.cta[interaction.user.id] = true;
+      }
+      return;
+    }
     if (interaction.customId === "delete-bookmark") {
       await (interaction.message as Message).delete();
     }

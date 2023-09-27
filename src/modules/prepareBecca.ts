@@ -25,4 +25,5 @@ export const prepareBecca = (Becca: BeccaLyria): void => {
   Becca.debugHook = new WebhookClient({ url: Becca.configs.whUrl });
   Becca.feedbackHook = new WebhookClient({ url: Becca.configs.feedbackUrl });
   Becca.timeOuts = {};
+  Becca.cta = {};
 };

@@ -3,6 +3,7 @@ import { getFixedT } from "i18next";
 
 import { BeccaLyria } from "../../interfaces/BeccaLyria";
 import { logActivity } from "../../modules/commands/logActivity";
+import { ctaWrapper } from "../../modules/ctaWrapper";
 import { processButtonClick } from "../../modules/events/interactions/processButtonClick";
 import { processChatInputCommand } from "../../modules/events/interactions/processChatInputCommand";
 import { processContextMenuCommand } from "../../modules/events/interactions/processContextMenuCommand";
@@ -25,6 +26,10 @@ export const interactionCreate = async (
     const lang = getInteractionLanguage(interaction);
     const t = getFixedT(lang);
     if (interaction.isChatInputCommand()) {
+      const cta = await ctaWrapper(Becca, interaction);
+      if (!cta) {
+        return;
+      }
       await processChatInputCommand(Becca, interaction, t);
     }
 
