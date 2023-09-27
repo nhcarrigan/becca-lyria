@@ -48,4 +48,7 @@ export interface BeccaLyria extends Client {
     [uuid: string]: NodeJS.Timeout;
   };
   db: PrismaClient;
+  cta: {
+    [userId: string]: true;
+  };
 }
