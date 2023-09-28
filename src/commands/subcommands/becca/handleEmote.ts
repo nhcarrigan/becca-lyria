@@ -30,7 +30,6 @@ export const handleEmote: CommandHandler = async (Becca, interaction, t) => {
 
     const button = new ButtonBuilder()
       .setLabel(t("commands:becca.emote.buttons.more"))
-      .setEmoji("<:BeccaArt:897545793655930910>")
       .setStyle(ButtonStyle.Link)
       .setURL(
         "https://www.beccalyria.com/emotes?utm_source=discord&utm_medium=emote-command"

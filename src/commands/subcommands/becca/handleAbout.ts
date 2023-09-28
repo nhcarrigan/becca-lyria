@@ -105,17 +105,14 @@ export const handleAbout: CommandHandler = async (Becca, interaction, t) => {
 
     const supportServerButton = new ButtonBuilder()
       .setLabel(t("commands:becca.about.buttons.join"))
-      .setEmoji("<:BeccaHuh:877278300739887134>")
       .setStyle(ButtonStyle.Link)
       .setURL("https://chat.nhcarrigan.com");
     const inviteButton = new ButtonBuilder()
       .setLabel(t("commands:becca.about.buttons.invite"))
-      .setEmoji("<:BeccaHello:867102882791424073>")
       .setStyle(ButtonStyle.Link)
       .setURL("https://invite.beccalyria.com");
     const codeButton = new ButtonBuilder()
       .setLabel(t("commands:becca.about.buttons.code"))
-      .setEmoji("<:BeccaNotes:883854700762505287>")
       .setStyle(ButtonStyle.Link)
       .setURL("https://github.com/beccalyria/discord-bot");
 
