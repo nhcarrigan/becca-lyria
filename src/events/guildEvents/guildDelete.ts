@@ -71,13 +71,6 @@ export const guildDelete = async (
       },
     })
     .catch(() => null);
-  await Becca.db.commands
-    .delete({
-      where: {
-        serverId: guild.id,
-      },
-    })
-    .catch(() => null);
   await Becca.db.histories
     .deleteMany({
       where: {

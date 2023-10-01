@@ -8,55 +8,12 @@ import {
 import { CommandHandler } from "../../../interfaces/commands/CommandHandler";
 import { errorEmbedGenerator } from "../../../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
-import { formatTextToTable } from "../../../utils/formatText";
 
 export const handleStats: CommandHandler = async (Becca, interaction, t) => {
   try {
     const { user: author } = interaction;
 
     const view = interaction.options.getString("view");
-
-    if (view === "commands") {
-      const topServers = await Becca.db.commands.findMany({
-        take: 10,
-        orderBy: {
-          commandUses: "desc",
-        },
-      });
-
-      const topServersEmbed = topServers.map((server, index) => [
-        index + 1,
-        server.serverName,
-        server.commandUses,
-      ]);
-
-      const commandEmbed = new EmbedBuilder();
-      commandEmbed.setTitle(t("commands:becca.stats.commands.title"));
-      commandEmbed.setTimestamp();
-      commandEmbed.setColor(Becca.colours.default);
-      commandEmbed.setAuthor({
-        name: author.tag,
-        iconURL: author.displayAvatarURL(),
-      });
-      commandEmbed.setDescription(
-        `\`\`\`\n${formatTextToTable(topServersEmbed, {
-          headers: [
-            t("commands:becca.stats.commands.rank"),
-            t("commands:becca.stats.commands.name"),
-            t("commands:becca.stats.commands.uses"),
-          ],
-        })}\`\`\``
-      );
-      commandEmbed.setFooter({
-        text: t("defaults:footer"),
-        iconURL: "https://cdn.nhcarrigan.com/profile.png",
-      });
-
-      await interaction.editReply({
-        embeds: [commandEmbed],
-      });
-      return;
-    }
 
     if (view === "svotes") {
       const topVotes = await Becca.db.voters.findMany({
