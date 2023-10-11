@@ -14,6 +14,7 @@ const userFields = [
   "starcounts",
   "userconfigs",
   "voters",
+  "scheduledevents",
 ];
 
 const ownerFields = ["histories", "polls", /* "scheduledevents", */ "server"];
@@ -62,6 +63,11 @@ export const handleDataRequest: CommandHandler = async (
         }),
         Becca.db.voters.findUnique({
           where: { userId: user.id },
+        }),
+        Becca.db.scheduledevents.findMany({
+          where: {
+            member: user.id,
+          },
         }),
       ])
     ).reduce((acc, cur, index) => {

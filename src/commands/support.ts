@@ -52,7 +52,9 @@ export const support: Command = {
     ),
   run: async (Becca, interaction, t, config) => {
     try {
-      await interaction.deferReply();
+      await interaction.deferReply({
+        ephemeral: true,
+      });
 
       const subCommand = interaction.options.getSubcommand();
       const handler = handlers[subCommand] || handleInvalidSubcommand;
