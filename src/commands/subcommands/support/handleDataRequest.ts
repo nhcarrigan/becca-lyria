@@ -17,7 +17,7 @@ const userFields = [
   "scheduledevents",
 ];
 
-const ownerFields = ["histories", "polls", /* "scheduledevents", */ "server"];
+const ownerFields = ["histories", "polls", "server"];
 
 /**
  * Returns user-related data from the database, in the form of an attachment.
