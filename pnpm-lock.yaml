@@ -59,8 +59,8 @@ devDependencies:
     specifier: 1.0.1
     version: 1.0.1(typescript@5.2.2)
   '@types/bad-words':
-    specifier: 3.0.1
-    version: 3.0.1
+    specifier: 3.0.2
+    version: 3.0.2
   '@types/chai':
     specifier: 4.3.8
     version: 4.3.8
@@ -810,8 +810,8 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: true
 
-  /@types/bad-words@3.0.1:
-    resolution: {integrity: sha512-7la3ZDJG1tlRqySO+pnXycZpacaMEw/iLEm8kc4l+I+jN8KjBfoQVwO6jm98xzXVLrxV8vDrB5TaMoop8sKclQ==}
+  /@types/bad-words@3.0.2:
+    resolution: {integrity: sha512-u3EXRdg5OKj6EMKPr+OtfuRyNtvMJxmqkJb6+NVEylqgWPsFxPoWQfYUhX9tWYSvSMZYfPxT1OEDr/AZ13VXAQ==}
     dev: true
 
   /@types/body-parser@1.19.2:
