@@ -57,7 +57,7 @@
     "@types/cors": "2.8.15",
     "@types/diff": "5.0.7",
     "@types/express": "4.17.20",
-    "@types/mocha": "10.0.2",
+    "@types/mocha": "10.0.3",
     "@types/node": "18.18.5",
     "chai": "4.3.10",
     "dotenv": "16.3.1",
