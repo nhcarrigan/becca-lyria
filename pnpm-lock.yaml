@@ -62,8 +62,8 @@ devDependencies:
     specifier: 3.0.3
     version: 3.0.3
   '@types/chai':
-    specifier: 4.3.9
-    version: 4.3.9
+    specifier: 4.3.10
+    version: 4.3.10
   '@types/cors':
     specifier: 2.8.16
     version: 2.8.16
@@ -823,8 +823,8 @@ packages:
       '@types/responselike': 1.0.0
     dev: false
 
-  /@types/chai@4.3.9:
-    resolution: {integrity: sha512-69TtiDzu0bcmKQv3yg1Zx409/Kd7r0b5F1PfpYJfSHzLGtB53547V4u+9iqKYsTu/O2ai6KTb0TInNpvuQ3qmg==}
+  /@types/chai@4.3.10:
+    resolution: {integrity: sha512-of+ICnbqjmFCiixUnqRulbylyXQrPqIGf/B3Jax1wIF3DvSheysQxAWvqHhZiW3IQrycvokcLcFQlveGp+vyNg==}
     dev: true
 
   /@types/connect@3.4.35:
