@@ -49,17 +49,6 @@ model activities {
   @@unique([userId], map: "userId_1")
 }
 
-model commands {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
-  v            Int    @map("_-v")
-  serverId     String
-  serverName   String @default("")
-  serverAvatar String @default("")
-  commandUses  Int    @default(0)
-
-  @@unique([serverId], map: "serverId_1")
-}
-
 model currencies {
   id              String @id @default(auto()) @map("_id") @db.ObjectId
   v               Int?   @map("__v") @ignore

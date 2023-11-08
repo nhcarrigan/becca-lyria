@@ -6,6 +6,7 @@ import { errorEmbedGenerator } from "../modules/commands/errorEmbedGenerator";
 import { beccaErrorHandler } from "../utils/beccaErrorHandler";
 
 import { handleInvalidSubcommand } from "./subcommands/handleInvalidSubcommand";
+import { handleEcho } from "./subcommands/misc/handleEcho";
 import { handleLanguage } from "./subcommands/misc/handleLanguage";
 import { handleLevelscale } from "./subcommands/misc/handleLevelscale";
 import { handlePermissions } from "./subcommands/misc/handlePermissions";
@@ -20,7 +21,10 @@ const handlers: { [key: string]: CommandHandler } = {
   permissions: handlePermissions,
   levelscale: handleLevelscale,
   language: handleLanguage,
+  echo: handleEcho,
 };
+
+const ephemerals = ["echo"];
 
 export const misc: Command = {
   data: new SlashCommandBuilder()
@@ -35,6 +39,19 @@ export const misc: Command = {
           option
             .setName("date")
             .setDescription("Date of the photo to fetch, in YYYY-MM-DD format.")
+        )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("echo")
+        .setDescription(
+          "Tell Becca to send a specific message in this channel."
+        )
+        .addStringOption((option) =>
+          option
+            .setName("message")
+            .setDescription("The message you want Becca to send.")
+            .setRequired(true)
         )
     )
     .addSubcommand(
@@ -82,7 +99,9 @@ export const misc: Command = {
     ),
   run: async (Becca, interaction, t, config) => {
     try {
-      await interaction.deferReply();
+      await interaction.deferReply({
+        ephemeral: ephemerals.includes(interaction.options.getSubcommand()),
+      });
 
       const subCommand = interaction.options.getSubcommand();
       const handler = handlers[subCommand] || handleInvalidSubcommand;

@@ -20,7 +20,6 @@ export const memberRemove = async (
   member: GuildMember | PartialGuildMember
 ): Promise<void> => {
   try {
-    await Becca.analytics.updateEventCount("memberRemove");
     const { user, guild, nickname, roles, pending } = member;
 
     if (!user) {

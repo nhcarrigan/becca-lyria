@@ -8,7 +8,7 @@ import { beccaErrorHandler } from "../../../utils/beccaErrorHandler";
 export const handleServer: CommandHandler = async (Becca, interaction, t) => {
   try {
     await interaction.editReply({
-      content: t("commands:support.server"),
+      content: t("commands:support.server.response"),
     });
   } catch (err) {
     const errorId = await beccaErrorHandler(

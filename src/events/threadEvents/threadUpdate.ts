@@ -18,7 +18,6 @@ export const threadUpdate = async (
   newThread: ThreadChannel
 ): Promise<void> => {
   try {
-    await Becca.analytics.updateEventCount("threadUpdate");
     const lang = newThread.guild.preferredLocale;
     const t = getFixedT(lang);
     const threadEmbed = new EmbedBuilder();

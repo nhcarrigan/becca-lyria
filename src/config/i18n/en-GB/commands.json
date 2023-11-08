@@ -57,7 +57,7 @@
       }
     },
     "announcements": {
-      "noAnnouncements": "It appears my announcement channel is misconfigured. Please let us know at https://chat.naomi.lgbt",
+      "noAnnouncements": "It appears my announcement channel is misconfigured. Please let us know at https://chat.nhcarrigan.com",
       "noPerms": "I am missing the `Manage Webhooks` powers to do that.",
       "success": "You will now receive announcements in {{- channel}}!"
     },
@@ -93,7 +93,7 @@
     },
     "feedback": {
       "title": "Give us feedback!",
-      "description": "Have a suggestion for a way I can improve? Want to share your experience with me? You can do so here: https://feedback.beccalyria.com\n\nPlease note that this is not to be used for support queries."
+      "description": "Have a suggestion for a way I can improve? Want to share your experience with me? You can do so in our Discord~! https://chat.nhcarrigan.com"
     },
     "help": {
       "title": "How to Interact with Becca",
@@ -116,7 +116,7 @@
       },
       "privacy": {
         "title": "Privacy Policy",
-        "description": "As part of my services, I collect and use some specific Discord related information. This information includes, but may not be limited to, your user name, nickname, this server's name, and your Discord ID. [View my full policy](https://docs.beccalyria.com/#/privacy-policy?utm_source=discord&utm_medium=privacy-command)"
+        "description": "As part of my services, I collect and use some specific Discord related information. This information includes, but may not be limited to, your user name, nickname, this server's name, and your Discord ID. [View my full policy](https://becca.nhcarrigan.com/#/privacy-policy?utm_source=discord&utm_medium=privacy-command)"
       },
       "buttons": {
         "support": "Join our support server",
@@ -143,7 +143,7 @@
     },
     "privacy": {
       "title": "I'll keep your secrets safe!",
-      "description": "To maintain my functionality, I need to collect quite a bit of data. Mostly, this data is user/server IDs, names, and avatars.\n\nI will never store your message content in my database, but it may be logged in this server if the admins have enabled it.\n\nIf you want a full breakdown of everything I collect, [view my privacy policy](https://docs.beccalyria.com/#/privacy-policy?utm_source=discord&utm_medium=privacy-command)."
+      "description": "To maintain my functionality, I need to collect quite a bit of data. Mostly, this data is user/server IDs, names, and avatars.\n\nI will never store your message content in my database, but it may be logged in this server if the admins have enabled it.\n\nIf you want a full breakdown of everything I collect, [view my privacy policy](https://becca.nhcarrigan.com/#/privacy-policy?utm_source=discord&utm_medium=privacy-command)."
     },
     "profile": {
       "title": "Becca Lyria",
@@ -187,7 +187,7 @@
       "next": "Next Scheduled Update",
       "changelog": {
         "title": "Change Log",
-        "description": "View Becca's entire change log [in her documentation](https://docs.beccalyria.com/#/changelog?utm_source=discord&utm_medium=changelog-command)."
+        "description": "View Becca's entire change log [in her documentation](https://becca.nhcarrigan.com/#/changelog?utm_source=discord&utm_medium=changelog-command)."
       },
       "commit": "Commit Hash",
       "buttons": {

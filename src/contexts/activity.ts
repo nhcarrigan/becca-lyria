@@ -11,7 +11,7 @@ export const activity: Context = {
   },
   run: async (Becca, interaction, t) => {
     try {
-      await interaction.deferReply();
+      await interaction.deferReply({ ephemeral: true });
       const target = interaction.options.getUser("user", true);
 
       const data = await Becca.db.activities.findUnique({

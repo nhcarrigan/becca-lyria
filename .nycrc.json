@@ -10,5 +10,6 @@
         "text",
         "html"
     ],
-    "all": true
+    "all": true,
+    "lines": 27
 }

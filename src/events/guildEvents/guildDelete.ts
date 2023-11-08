@@ -14,7 +14,6 @@ export const guildDelete = async (
   Becca: BeccaLyria,
   guild: Guild
 ): Promise<void> => {
-  await Becca.analytics.updateEventCount("guildDelete");
   const owner = await FetchWrapper.member(guild, guild.ownerId);
   const guildDeleteEmbed = new EmbedBuilder();
   guildDeleteEmbed.setTitle(
@@ -69,13 +68,6 @@ export const guildDelete = async (
     .delete({
       where: {
         serverID: guild.id,
-      },
-    })
-    .catch(() => null);
-  await Becca.db.commands
-    .delete({
-      where: {
-        serverId: guild.id,
       },
     })
     .catch(() => null);

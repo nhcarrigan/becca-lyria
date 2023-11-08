@@ -172,7 +172,7 @@ export const community: Command = {
         .addIntegerOption((option) =>
           option
             .setName("duration")
-            .setDescription("The length of time to mute the user.")
+            .setDescription("The length of time for the poll to remain active.")
             .setRequired(true)
         )
         .addStringOption((option) =>

@@ -1,3 +1,3 @@
 # Contributing
 
-Our contributing guidelines can be found here: https://docs.beccalyria.com/#/contribute
+Our contributing guidelines can be found here: https://becca.nhcarrigan.com/#/contribute

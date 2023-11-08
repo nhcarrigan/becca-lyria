@@ -61,16 +61,6 @@ export const naomiPurgeData = async (Becca: BeccaLyria, message: Message) => {
       return;
     }
 
-    if (data === "commands") {
-      await Becca.db.commands.delete({
-        where: {
-          serverId: target,
-        },
-      });
-      await message.reply(`I have cleared the command data for ${target}.`);
-      return;
-    }
-
     if (data === "emotes") {
       await Becca.db.emotecounts.delete({
         where: {

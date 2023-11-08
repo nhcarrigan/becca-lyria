@@ -15,7 +15,6 @@ import {
   contentFilterMap,
 } from "../../src/config/commands/serverInfo";
 import { slimeList } from "../../src/config/commands/slimeList";
-import { slotsList } from "../../src/config/commands/slotsList";
 import { SusList } from "../../src/config/commands/susList";
 import { topicList } from "../../src/config/commands/topicList";
 import { translatorList } from "../../src/config/commands/translatorList";
@@ -95,13 +94,6 @@ suite("slimeList", () => {
   test("is defined", () => {
     assert.isDefined(slimeList, "slimeList is not defined");
     assert.isArray(slimeList, "slimeList is not an array");
-  });
-});
-
-suite("slotsList", () => {
-  test("is defined", () => {
-    assert.isDefined(slotsList, "slotsList is not defined");
-    assert.isArray(slotsList, "slotsList is not an array");
   });
 });
 

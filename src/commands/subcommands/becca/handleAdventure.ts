@@ -42,7 +42,6 @@ export const handleAdventure: CommandHandler = async (
 
     const artButton = new ButtonBuilder()
       .setLabel(t("commands:becca.adventure.buttons.more"))
-      .setEmoji("<:BeccaWork:883854701416833024>")
       .setStyle(ButtonStyle.Link)
       .setURL(
         "https://beccalyria.com/adventures?utm_source=discord&utm_medium=art-command"

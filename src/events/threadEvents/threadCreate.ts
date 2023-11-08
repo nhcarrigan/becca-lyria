@@ -17,7 +17,6 @@ export const threadCreate = async (
   thread: ThreadChannel
 ): Promise<void> => {
   try {
-    await Becca.analytics.updateEventCount("threadCreate");
     if (thread.joinable) {
       await thread.join();
     }
