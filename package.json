@@ -2,7 +2,7 @@
   "name": "becca_lyria",
   "author": "Naomi Carrigan",
   "main": "./prod/src/main.js",
-  "version": "22.5.1",
+  "version": "23.0.0",
   "license": "SEE LICENSE IN https://docs.nhcarrigan.com/#/license",
   "engines": {
     "node": "20",
