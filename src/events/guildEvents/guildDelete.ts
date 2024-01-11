@@ -48,7 +48,13 @@ export const guildDelete = async (
   guildDeleteEmbed.setColor(Becca.colours.warning);
   guildDeleteEmbed.setTimestamp();
 
-  await Becca.debugHook.send({ embeds: [guildDeleteEmbed] });
+  await Becca.debugHook.send({
+    embeds: [guildDeleteEmbed],
+    username: Becca.user?.username ?? "Becca",
+    avatarURL:
+      Becca.user?.displayAvatarURL() ??
+      "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
+  });
 
   await Becca.db.servers
     .delete({

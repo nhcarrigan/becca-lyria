@@ -17,5 +17,11 @@ export const disconnect = async (Becca: BeccaLyria): Promise<void> => {
   );
   disconnectEmbed.setTimestamp();
   disconnectEmbed.setColor(Becca.colours.error);
-  await Becca.debugHook.send({ embeds: [disconnectEmbed] });
+  await Becca.debugHook.send({
+    embeds: [disconnectEmbed],
+    username: Becca.user?.username ?? "Becca",
+    avatarURL:
+      Becca.user?.displayAvatarURL() ??
+      "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
+  });
 };

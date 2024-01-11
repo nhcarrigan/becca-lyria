@@ -57,9 +57,13 @@ export const naomiUnregisterCommand = async (
     }
 
     await message.reply({ embeds: [confirm] });
-    await Becca.debugHook.send(
-      `Hey <@!${Becca.configs.ownerId}>, the ${command.name} command was unregistered.`
-    );
+    await Becca.debugHook.send({
+      content: `Hey <@!${Becca.configs.ownerId}>, the ${command.name} command was unregistered.`,
+      username: Becca.user?.username ?? "Becca",
+      avatarURL:
+        Becca.user?.displayAvatarURL() ??
+        "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
+    });
   } catch (err) {
     await beccaErrorHandler(
       Becca,

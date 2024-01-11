@@ -73,6 +73,10 @@ export const automodPhish: ListenerHandler = async (
                 ],
               },
             ],
+            username: Becca.user?.username ?? "Becca",
+            avatarURL:
+              Becca.user?.displayAvatarURL() ??
+              "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
           });
           return { data: { badDomain: false } };
         });
@@ -105,6 +109,10 @@ export const automodPhish: ListenerHandler = async (
                 ],
               },
             ],
+            username: Becca.user?.username ?? "Becca",
+            avatarURL:
+              Becca.user?.displayAvatarURL() ??
+              "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
           });
           return { data: false };
         });
