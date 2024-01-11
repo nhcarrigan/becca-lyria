@@ -46,5 +46,11 @@ export const guildCreate = async (
   guildCreateEmbed.setColor(Becca.colours.success);
   guildCreateEmbed.setTimestamp();
 
-  await Becca.debugHook.send({ embeds: [guildCreateEmbed] });
+  await Becca.debugHook.send({
+    embeds: [guildCreateEmbed],
+    username: Becca.user?.username ?? "Becca",
+    avatarURL:
+      Becca.user?.displayAvatarURL() ??
+      "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
+  });
 };

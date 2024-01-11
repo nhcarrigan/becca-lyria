@@ -21,11 +21,23 @@ export const ready = async (Becca: BeccaLyria): Promise<void> => {
   readyEmbed.setColor(Becca.colours.success);
   readyEmbed.setFooter({ text: `Version ${Becca.configs.version}` });
 
-  await Becca.debugHook.send({ embeds: [readyEmbed] });
+  await Becca.debugHook.send({
+    embeds: [readyEmbed],
+    username: Becca.user?.username ?? "Becca",
+    avatarURL:
+      Becca.user?.displayAvatarURL() ??
+      "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
+  });
   beccaLogHandler.log("debug", "Discord ready!");
 
   await loadEvents(Becca);
   beccaLogHandler.log("debug", "Loaded scheduled events!");
 
-  await Becca.debugHook.send("Boot Process Complete~!");
+  await Becca.debugHook.send({
+    content: "Boot Process Complete~!",
+    username: Becca.user?.username ?? "Becca",
+    avatarURL:
+      Becca.user?.displayAvatarURL() ??
+      "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
+  });
 };

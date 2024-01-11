@@ -20,5 +20,11 @@ export const shardReady = async (
   shardEmbed.setTimestamp();
   shardEmbed.setColor(Becca.colours.success);
 
-  await Becca.debugHook.send({ embeds: [shardEmbed] });
+  await Becca.debugHook.send({
+    embeds: [shardEmbed],
+    username: Becca.user?.username ?? "Becca",
+    avatarURL:
+      Becca.user?.displayAvatarURL() ??
+      "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
+  });
 };

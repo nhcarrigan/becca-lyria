@@ -91,7 +91,13 @@ export const beccaErrorHandler = async (
       },
     ]);
   }
-  await Becca.debugHook.send({ embeds: [errorEmbed] });
+  await Becca.debugHook.send({
+    embeds: [errorEmbed],
+    username: Becca.user?.username ?? "Becca",
+    avatarURL:
+      Becca.user?.displayAvatarURL() ??
+      "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
+  });
 
   if (guild) {
     debugLogger(context, error.message, guild);
