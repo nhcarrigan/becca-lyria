@@ -1,0 +1,28 @@
+name: Crowdin Upload
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 16 * * *"
+
+jobs:
+  crowdin-upload:
+    name: Crowdin Upload
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout Source Files
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+
+      - name: Crowdin Upload
+        uses: crowdin/github-action@master
+        with:
+          upload_sources: true
+          upload_translations: false
+          auto_approve_imported: false
+          import_eq_suggestions: false
+          download_translations: false
+          create_pull_request: false
+          config: "./config/crowdin.yml"
+          base_url: "https://api.crowdin.com"
+        env:
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_TOKEN }}

@@ -1,0 +1,12 @@
+/node_modules/
+.env
+config.json
+/prod/
+/logs/*.txt
+
+# Test Coverage
+/.nyc_output/
+/coverage/
+
+# Local eval command for debugging, should NEVER make it to production
+src/commands/bot/exec.ts
