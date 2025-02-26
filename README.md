@@ -4,7 +4,7 @@ Becca is a user-installable bot that allows you to play a text-based role-playin
 
 ## Live Version
 
-[Add her to your account](https://discord.com/oauth2/authorize?client_id=1338596130207957035)!
+[Add her to your account](https://discord.com/oauth2/authorize?client_id=1343341112437248041)!
 
 ## Feedback and Bugs
 
