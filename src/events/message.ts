@@ -14,6 +14,7 @@ import { personality } from "../config/personality.js";
 import { ai } from "../utils/ai.js";
 import { calculateCost } from "../utils/calculateCost.js";
 import { isSubscribedMessage } from "../utils/isSubscribed.js";
+import { logger } from "../utils/logger.js";
 import type { MessageParam } from "@anthropic-ai/sdk/resources/index.js";
 
 /**
@@ -75,6 +76,7 @@ export const onMessage = async(message: Message): Promise<void> => {
 
     await calculateCost(messages.usage, message.author.username);
   } catch (error) {
+    await logger.error("message event", error as Error);
     const button = new ButtonBuilder().
       setLabel("Need help?").
       setStyle(ButtonStyle.Link).
