@@ -11,6 +11,7 @@ import {
 import { personality } from "../config/personality.js";
 import { ai } from "../utils/ai.js";
 import { calculateCost } from "../utils/calculateCost.js";
+import { isSubscribedInteraction } from "../utils/isSubscribed.js";
 import { logger } from "../utils/logger.js";
 import { replyToError } from "../utils/replyToError.js";
 
@@ -24,13 +25,18 @@ export const start = async(
   try {
     await interaction.deferReply({ flags: [ MessageFlags.Ephemeral ] });
 
+    const subbed = await isSubscribedInteraction(interaction);
+    if (!subbed) {
+      return;
+    }
+
     const messages = await ai.messages.create({
       // eslint-disable-next-line @typescript-eslint/naming-convention -- Required key format for SDK.
       max_tokens: 2000,
       messages:   [
         { content: "Please start a new story for me.", role: "user" },
       ],
-      model:  "claude-3-5-sonnet-latest",
+      model:  "claude-sonnet-4-20250514",
       system: `${personality} The user has requested to start a new adventure. You should generate the first message for the game. The user's name is ${interaction.user.displayName}`,
     });
 
