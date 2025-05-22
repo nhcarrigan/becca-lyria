@@ -44,7 +44,7 @@ export const onMessage = async(message: Message): Promise<void> => {
     });
     if (clearMessageIndex !== -1) {
       // Remove the clear message and everything sent before it, which means everything after in the array because the array is backwards
-      history.splice(0, clearMessageIndex + 1);
+      history.splice(clearMessageIndex, history.length - clearMessageIndex);
     }
     const context: Array<MessageParam> = history.
       reverse().
