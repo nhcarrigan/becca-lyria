@@ -34,7 +34,7 @@ export const onMessage = async(message: Message): Promise<void> => {
     if (!subbed) {
       return;
     }
-    const historyRequest = await message.channel.messages.fetch({ limit: 6 });
+    const historyRequest = await message.channel.messages.fetch({ limit: 20 });
     const history = [ ...historyRequest.values() ];
     const clearMessageIndex = history.findIndex((messageInner) => {
       return (
