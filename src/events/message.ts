@@ -20,7 +20,7 @@ import type { MessageParam } from "@anthropic-ai/sdk/resources/index.js";
  * Handles the Discord message event.
  * @param message - The message payload from Discord.
  */
-// eslint-disable-next-line max-lines-per-function -- We're off by one bloody line.
+// eslint-disable-next-line max-lines-per-function, max-statements -- We're off by one bloody line.
 export const onMessage = async(message: Message): Promise<void> => {
   try {
     if (message.channel.type !== ChannelType.DM) {
@@ -33,20 +33,32 @@ export const onMessage = async(message: Message): Promise<void> => {
     if (!subbed) {
       return;
     }
-    const history = await message.channel.messages.fetch({ limit: 6 });
-    const context: Array<MessageParam>
-    = history.reverse().map((messageInner) => {
-      return {
-        content: messageInner.content,
-        role:
-          messageInner.author.id === message.client.user.id
-            ? "assistant"
-            : "user",
-      };
+    const historyRequest = await message.channel.messages.fetch({ limit: 6 });
+    const history = [ ...historyRequest.values() ];
+    const clearMessageIndex = history.findIndex((messageInner) => {
+      return (
+        messageInner.content === "<Clear History>"
+        && messageInner.author.id === message.client.user.id
+      );
     });
+    if (clearMessageIndex !== -1) {
+      // Remove the clear message and everything sent before it, which means everything after in the array because the array is backwards
+      history.splice(0, clearMessageIndex + 1);
+    }
+    const context: Array<MessageParam> = history.
+      reverse().
+      map((messageInner) => {
+        return {
+          content: messageInner.content,
+          role:
+            messageInner.author.id === message.client.user.id
+              ? "assistant"
+              : "user",
+        };
+      });
     const messages = await ai.messages.create({
       // eslint-disable-next-line @typescript-eslint/naming-convention -- Required key format for SDK.
-      max_tokens:  3000,
+      max_tokens:  5000,
       messages:    context,
       model:       "claude-3-5-sonnet-latest",
       system:      `${personality} Provide a response to the user that continues the story. The user's name is ${message.author.displayName}`,

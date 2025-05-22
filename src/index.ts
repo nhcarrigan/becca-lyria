@@ -6,6 +6,7 @@
 import { Client, Events, GatewayIntentBits, Partials } from "discord.js";
 import { onMessage } from "./events/message.js";
 import { about } from "./modules/about.js";
+import { clear } from "./modules/clear.js";
 import { start } from "./modules/start.js";
 import { instantiateServer } from "./server/serve.js";
 import { logger } from "./utils/logger.js";
@@ -40,6 +41,9 @@ client.on(Events.InteractionCreate, (interaction) => {
         break;
       case "start":
         void start(interaction);
+        break;
+      case "clear":
+        void clear(interaction);
         break;
       default:
         void interaction.reply({
