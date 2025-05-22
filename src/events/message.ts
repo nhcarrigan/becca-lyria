@@ -74,6 +74,10 @@ export const onMessage = async(message: Message): Promise<void> => {
       response?.text ?? "There was an error. Please try again later.",
     );
 
+    if (!response) {
+      await logger.log("info", `No response from AI, here's the payload: ${JSON.stringify(messages)}`);
+    }
+
     await calculateCost(messages.usage, message.author.username);
   } catch (error) {
     await logger.error("message event", error as Error);
