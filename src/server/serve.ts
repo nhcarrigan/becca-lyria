@@ -19,6 +19,7 @@ const html = `<!DOCTYPE html>
   <body>
     <main>
     <h1>Becca Lyria</h1>
+    <img src="https://cdn.nhcarrigan.com/new-avatars/becca-full.png" width="250" alt="Becca" />
     <section>
       <p>Bot to play RPGs on Discord!</p>
     </section>
