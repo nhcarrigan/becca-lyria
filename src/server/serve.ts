@@ -22,6 +22,9 @@ const html = `<!DOCTYPE html>
     <img src="https://cdn.nhcarrigan.com/new-avatars/becca-full.png" width="250" alt="Becca" />
     <section>
       <p>Bot to play RPGs on Discord!</p>
+      <a href="https://discord.com/oauth2/authorize?client_id=1343341112437248041" class="social-button discord-button" style="display: inline-block; background-color: #5865F2; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin: 5px;">
+        <i class="fab fa-discord"></i> Add to Discord
+      </a>
     </section>
     <section>
         <h2>Links</h2>
