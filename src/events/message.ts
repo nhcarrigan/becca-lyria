@@ -61,7 +61,7 @@ export const onMessage = async(message: Message): Promise<void> => {
       // eslint-disable-next-line @typescript-eslint/naming-convention -- Required key format for SDK.
       max_tokens:  5000,
       messages:    context,
-      model:       "claude-3-5-sonnet-latest",
+      model:       "claude-sonnet-4-20250514",
       system:      `${personality} Provide a response to the user that continues the story. The user's name is ${message.author.displayName}`,
       temperature: 1,
     });
