@@ -21,7 +21,7 @@ import type { MessageParam } from "@anthropic-ai/sdk/resources/index.js";
  * Handles the Discord message event.
  * @param message - The message payload from Discord.
  */
-// eslint-disable-next-line max-lines-per-function, max-statements -- We're off by one bloody line.
+// eslint-disable-next-line max-lines-per-function, max-statements, complexity -- We're off by one bloody line.
 export const onMessage = async(message: Message): Promise<void> => {
   try {
     if (message.channel.type !== ChannelType.DM) {
@@ -79,8 +79,11 @@ export const onMessage = async(message: Message): Promise<void> => {
     }
 
     await calculateCost(messages.usage, message.author.username);
+    await logger.metric("messages_processed", 1, { user: message.author.id });
   } catch (error) {
-    await logger.error("message event", error as Error);
+    await logger.error("message event", error instanceof Error
+      ? error
+      : new Error(String(error)));
     const button = new ButtonBuilder().
       setLabel("Need help?").
       setStyle(ButtonStyle.Link).
